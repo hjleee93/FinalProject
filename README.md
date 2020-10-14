@@ -42,5 +42,5 @@
 * [이현정](https://github.com/hjleee93)
   * DB설계
 
-* [임동욱]()
-	
+* [임동욱](https://github.com/DK2554)
+	* 포트폴리오(완료된 모임/예정된 모임/포폴 첨삭)
