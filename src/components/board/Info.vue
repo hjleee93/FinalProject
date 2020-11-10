@@ -4,20 +4,11 @@
     <div class="container-fluid">
       <div class="row">
 
-        <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
+
           <!-- 메인 이미지 -->
               <div class="submenuimage ">
                   <p class="subtitle" id="subtitle">Information</p>
               </div>
-     
-          <!-- 탭 -->
-        <!--       <div class="container">
-                  <b-nav tabs fill class="tabs" align="center">
-                      <b-nav-item  to="/noticeList">공지사항</b-nav-item>
-                      <b-nav-item to="/itNewsList">IT소식</b-nav-item>
-                      <b-nav-item to="/communityBoardList" active>자유게시판</b-nav-item>
-                  </b-nav>
-              </div> -->
 
         <div class="container">
           <h2 class="sub-header"></h2>

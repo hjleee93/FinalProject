@@ -12,16 +12,6 @@
         ></b-form-input>
       </b-form-group>
 
-      <!-- <b-form-group id="input-group-2" label="작성자" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.name"
-          required
-          placeholder="Enter name"
-        ></b-form-input>
-      </b-form-group> 
-      -->
-
       <b-form-group id="input-group-3" label="분류" label-for="input-3">
           <b-form-select
             id="input-3"
@@ -52,25 +42,12 @@
       select="address" maxlength="150"></textarea>
     </b-form-group>
 
-    <!-- 
-    <div>  
-      <p class="mt-2">첨부 파일<b>{{' '}}</b></p>
-      첨부 파일  <b-button @click="clearFiles" class="mr-2">파일 취소</b-button>
-      <p class="mt-2">첨부 파일<b>{{ file ? file.name : '' }}</b></p>
-      <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
-      <b-button @click="clearFiles" class="mr-2">파일 취소</b-button>
-      <b-button @click="file = null">Reset via v-model</b-button>
-    </div> 
-     -->  
     <b-form-group label="첨부파일" >
       <vue-editor id="vue-editor" v-model="form.content"/>
     </b-form-group>
 
       <!-- 등록/취소/리셋 버튼 -->
       <div class="btn_sr">
-   <!-- <b-button type="submit" id="submit" variant="primary" class="btn-space">등록</b-button>
-        <b-button v-on:click="cancel"  id="cancel" type="button" variant="primary" class="btn-space" >취소</b-button>
-        <b-button type="reset" id="reset" variant="danger">RESET</b-button> -->
         <v-btn to="/detail" exact id="submit">등록</v-btn>
         <v-btn to="/detail" exact id="cancel">취소</v-btn>
 

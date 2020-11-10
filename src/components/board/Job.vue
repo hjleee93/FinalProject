@@ -2,16 +2,16 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-      <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
+      
       <!-- 메인 이미지 -->
       <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">JOB</p>
+        <p class="subtitle" id="subtitle">구인정보</p>
       </div>
     <div class="container">     
     <!-- 탭 -->   
     <v-tabs
-    centered
     color="grey darken-3"
+    
     >
     <v-tab><b>웹 개발</b></v-tab>
     <v-tab><b>응용프로그램 개발</b></v-tab>
@@ -20,15 +20,12 @@
   </v-tabs>
 
     <!-- 게시판시작 -->
-    <div>
-      <h4 class="sub-header">구인 정보</h4>
-      
-    </div>
+    
 
     <div class="overflow">
     <!-- 테이블 -->
     <v-card>
-      <v-card-title>
+      <v-card-title class="search-bar">
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
@@ -112,11 +109,8 @@
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
-* {
-   font-family: 'Nanum Gothic', sans-serif;
-}
 .overflow .v-card{
+  margin-bottom: 50px;
   box-shadow: 0 0 black !important;
 }
 .submenuimage{
@@ -134,22 +128,19 @@
   color:#4e5157 ;
   font-size: 50px;
 }
-/* 
-#st_write{
-  position: relative;
-  top: 9px;
-  left:1080px;
-  width:70px;
-  margin-bottom: 10px;
-  right: -40px;
-  margin-right: 3.5%;
-  background-color: #424874;
-  border:none;
-  color:white;
-} */
+
 .sub-header{
   position: relative;
-  left:-15px;
-  top:45px;
+  padding-top:45px;
+  text-align: center;
+}
+.v-slide-group__content{
+ justify-content:center;
+}
+
+.search-bar{
+  
+      width: 30%;
+    margin-left: 72%;
 }
 </style>

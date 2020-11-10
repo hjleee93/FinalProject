@@ -5,29 +5,7 @@
         <h2 class="st_title">채용설명회 일정</h2><hr>
       <div class="row">
 
-        <!-- side bar -->
-     <!--    <div class="col-sm-3 col-md-2 sidebar">
-          <b-list-group>
-            <b-list-group-item class="d-flex justify-content-between align-items-center">
-              <a @click="$router.push({name: 'home'}).catch(()=>{});" exact><b>Q&A</b></a>
-              <b-badge variant="primary" pill>14</b-badge>
-            </b-list-group-item>
-
-            <b-list-group-item class="d-flex justify-content-between align-items-center">
-              <a @click="$router.push({name: 'reference'}).catch(()=>{});" exact><b>설명회</b></a>
-              <b-badge variant="primary" pill>2</b-badge>
-            </b-list-group-item>
-            <b-list-group-item class="d-flex justify-content-between align-items-center">
-              <small>Category</small>
-            </b-list-group-item>
-          </b-list-group>
-        </div> -->
-
         <div class="container detail_">
-        <!-- 
-        <h7 class="detail_top">작성자 : 관리자 </h7>
-          <h7 class="detail_top">조회수 : 0</h7> 
-        -->
             <div>
                   기업 : <h5></h5>            
                 <hr>
@@ -49,10 +27,6 @@
                   <v-btn to="/boardform" exact id="modify">수정</v-btn>
                   <v-btn to="/" exact id="delete">삭제</v-btn>
                   <v-btn to="/info" exact id="list">목록</v-btn>
-                <!--  <b-button v-on:click="link1" class="detail_btn" id="modify" variant="primary">수정</b-button> -->
-                <!-- <b-button class="detail_btn" id="delete" variant="primary">삭제</b-button> -->
-                <!--   <b-button class="detail_btn" id="list" variant="primary" onclick="history.back(-1);">목록</b-button> -->
-               <!--  <b-button v-on:click="link" class="detail_btn" id="list" variant="primary" onclick="history.back(-1);">목록</b-button> -->
                 </div>
             </div>
         </div> 
