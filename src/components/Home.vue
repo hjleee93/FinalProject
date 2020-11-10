@@ -4,7 +4,7 @@
       <div
         class="row fullscreen d-flex align-items-center justify-content-center"
       >
-
+      
       <!-- serach 바 -->
         <div class="banner-content col-lg-12">
           <form action="" class="serach-form-area">
@@ -167,7 +167,7 @@
     <div class="container">
       <h3 class="m-3"><strong class="tit_cont">최신 채용 정보</strong></h3>
       <div class="row">
-        <div class="col-xl-3 col-sm-6 col-12"  v-for="(item, i) in items.wantedRoot.wanted" :key="i">
+        <div class="col-xl-3 col-sm-6 col-12"  v-for="(item, i) in jobs.wantedRoot.wanted" :key="i">
            <div class="card h-100">
              <router-link :to="{name:'jobInfo', params:{wantedNo: item.wantedAuthNo._text}}" class="job-card" >
                 <div class="card-body">
@@ -193,10 +193,10 @@
 </template>
 
 <script>
-// import EventBus from './EventBus';
+import {mapState} from 'vuex'
 
 var convert = require('xml-js')
-let all = "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056"
+
 //로그인한 사람에 따라 추천 parmeter 수정하기
 let rcm = "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=024"
 
@@ -204,7 +204,6 @@ export default {
   data() {
     return {
       rcmJson:[],//추천 채용정보 
-      items:[],//최신 채용정보
       selectedLocation: null,
       selectedJob: null,
       options1: [
@@ -230,12 +229,6 @@ export default {
     }
   },
     created () {
-    this.$http.get(all)//최신 채용 정보
-      .then((response) => { 
-        var xml = response.data
-        var json = convert.xml2json(xml, { compact: true })
-        this.items = JSON.parse(json) 
-      });
       
     this.$http.get(rcm)//추천 채용정보
       .then((response) => {
@@ -246,6 +239,16 @@ export default {
         
       })
   
+  },
+  mounted(){
+    //action에 있는 loadXml 호출용 
+    this.$store.dispatch('loadXml')
+  },
+  computed:{
+    ...mapState([
+      //매핑값
+      'jobs'
+    ])
   }
   
 };

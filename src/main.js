@@ -17,6 +17,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueSession from 'vue-session';
 import axios from 'axios';
+import store from './store'
 
 
 Vue.component('Footer', Footer)
@@ -49,7 +50,8 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  locale : 'ko',
+  locale: 'ko',
+  store,
   render: h => h(App),
   vuetify,
   methods: {
