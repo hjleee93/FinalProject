@@ -12,7 +12,7 @@
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.18.1",
     "core-js": "^3.6.5",
-    "element-ui": "^2.13.2",
+    "element-ui": "^2.14.0",
     "hooper": "^0.3.4",
     "vee-validate": "^2.2.15",
     "vue": "^2.6.12",
@@ -26,7 +26,8 @@
     "vuelidate": "^0.7.6",
     "vuetify": "^2.3.16",
     "vuex": "^3.5.1",
-    "xml-js": "^1.6.11"
+    "xml-js": "^1.6.11",
+    "xmljson": "^0.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

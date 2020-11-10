@@ -64,7 +64,7 @@ export default {
         let formData=new FormData();
         formData.append('boardWriter',this.boardWriter);
         formData.append('boardTitle',this.boardTitle);
-        formData.append('boardContent',this.boardContent);
+        formData.append('boardContent',this.boardContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('file',this.files);
         for(let key of formData.entries()){
           console.log(`${key}`);
