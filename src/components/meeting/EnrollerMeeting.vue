@@ -1,7 +1,15 @@
 <template>
-  <div class="container">
-    <form action="#"  enctype="multipart/form-data"> 
+  <div class="container-fluid">
+    <div class="row">
+     <div class="submenuimage">
+        <p class="subtitle">Meeting</p>
+    </div>
+     <div class="container">
+   
+  </div>
     <b-container class="main">
+    <form action="#"  enctype="multipart/form-data"> 
+    
       <b-row>
         <b-col
           cols="12"
@@ -115,8 +123,9 @@
     <b-row><b-col>  <b-input :value="result.address"></b-input></b-col></b-row>
     <div>{{result.address}}</div>
     <b-row><b-col>  <b-button  id="s-btn" type="submit">개설완료</b-button></b-col></b-row>
-    </b-container>
   </form>
+  </b-container>
+  </div>
   </div>
 </template>
 

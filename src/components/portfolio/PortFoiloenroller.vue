@@ -1,5 +1,13 @@
 <template>
+<div class="container-fluid">
+      <div class="row">
+      
+      <!-- 메인 이미지 -->
+      <div class="submenuimage ">
+        <p class="subtitle" id="subtitle">portfolio</p>
+      </div>
   <b-container>
+      
       <form  @submit.prevent="test"  enctype="multipart/form-data">
       <b-form-group
         id="input-group-1"
@@ -40,6 +48,9 @@
       <b-button type="reset" class="r-btn">취소</b-button>
     </form>
  </b-container>
+ </div>
+</div>
+  
 </template>
 
 <script>
@@ -99,5 +110,21 @@ export default {
 .r-btn{
   background-color: #9BA4B4;
 }
+.submenuimage{
+    width: 100%;
+    height:180px;
+    background-color:#F4EEFF;
+    text-align: center;
+    line-height: 180px;
+}
+#subtitle{
+ font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.subtitle{
+  font-family: 'Masque';
+  color:#4e5157 ;
+  font-size: 50px;
+}
+
 </style>
 
