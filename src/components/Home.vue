@@ -11,6 +11,7 @@
             <div class="row justify-content-center form-wrap">
               <div class="col-lg-4 form-cols ">
                 <input
+                v-model="inputSearch"
                   type="text"
                   class="form-control"
                   name="search"
@@ -18,13 +19,22 @@
               </div>
               <div class="col-lg-3 form-cols">
                 <div>
-                  <b-form-select
+                  <b-button
+                  
+                    @click="selectLocation"
+                    v-b-toggle.collapse-1 
                     class="form-control"
                     v-model="selectedLocation"
-                    :options="options1"
-                  ></b-form-select>
+                    
+                  >수정수정</b-button>
+                  <b-collapse id="collapse-1" class="mt-2">
+                  <b-card>
+      <p class="card-text">Collapse contents Here</p>
+                  </b-card>
+                  </b-collapse>
                 </div>
               </div>
+              
               <div class="col-lg-3 form-cols ">
                 <div>
                   <b-form-select
@@ -199,20 +209,16 @@ var convert = require('xml-js')
 
 //로그인한 사람에 따라 추천 parmeter 수정하기
 let rcm = "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=024"
+var inputSearch
 
 export default {
   data() {
     return {
+      inputSearch,//search bar 검색어 
       rcmJson:[],//추천 채용정보 
       selectedLocation: null,
       selectedJob: null,
-      options1: [
-        { value: null, text: "지역을 선택해주세요" },
-        { value: "seoul", text: "서울" },
-        { value: "bb", text: "Selected Option" },
-        { value: { CC: "3PO" }, text: "This is an option with object value" },
-        { value: "dd", text: "This one is disabled", disabled: true },
-      ],
+   
       options2: [
         { value: null, text: "직무를 선택해주세요" },
         { value: "aa", text: "Web developer" },
@@ -226,6 +232,8 @@ export default {
     moveDetailPage: function(e){
       console.log(e);
       return 0;
+    },
+    selectLocation: function(){
     }
   },
     created () {
@@ -254,6 +262,7 @@ export default {
 };
 </script>
 <style scoped>
+
 .job-card{
   text-decoration: none;
   color:black;
