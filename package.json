@@ -65,5 +65,17 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "description": "[live demo]()",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hjleee93/FinalProject_Front.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hjleee93/FinalProject_Front/issues"
+  },
+  "homepage": "https://github.com/hjleee93/FinalProject_Front#readme"
 }
