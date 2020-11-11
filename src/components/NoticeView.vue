@@ -9,16 +9,17 @@
         <p class="subtitle"  id="subtitle">Community</p>
         </div>
 
-        <!-- 탭 -->
+        <!-- 탭 -->   
         <div class="container">
-        <b-nav tabs fill class="tabs" align="center">
-        <b-nav-item to="/noticeList" active>공지사항</b-nav-item>
-        <b-nav-item to="/itNewsList" >IT소식</b-nav-item>
-        <b-nav-item to="/communityBoardList">자유게시판</b-nav-item>
-        </b-nav>
-        </div>
-
-        <div class="container">
+        <v-tabs
+        centered
+        color="grey darken-3"
+        >
+          <v-tab to="/noticeList"><b>공지사항</b></v-tab>
+          <v-tab to="/itNewsList"><b>IT소식</b></v-tab>
+          <v-tab to="/communityBoardList"><b>자유게시판</b></v-tab>
+          <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
+        </v-tabs>
         
           <h2 class="sub-header">글제목</h2>
           <br>

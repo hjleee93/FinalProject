@@ -71,9 +71,9 @@
           <b-form-checkbox value="that">Check that out</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group> -->
-      <b-button type="submit" id="submit-btn">완료</b-button>
-      <b-button type="reset" id="reset-btn">취소</b-button>
-      <b-button type="button" id="list-btn"  to="/noticeList" exact>목록</b-button>
+      <b-button type="submit" id="submit-btn3">완료</b-button>
+      <b-button type="reset" id="reset-btn3">취소</b-button>
+      <b-button type="button" id="list-btn3"  to="/noticeList" exact>목록</b-button>
       
     </b-form>
 
