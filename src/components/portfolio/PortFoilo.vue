@@ -3,6 +3,9 @@
   <body>
     <div class="container-fluid">
       <div class="row">
+         <div class="submenuimage ">
+        <p class="subtitle" id="subtitle">portfolio</p>
+      </div>
         <div class="container">      
         <br>
         <div>
@@ -122,7 +125,7 @@
 
 <style>
 #subtitle{
- font-family: 'Barlow Semi Condensed', sans-serif;
+font-family: 'Barlow Semi Condensed', sans-serif;
 }
 .submenuimage{
   width: 100%;
@@ -148,8 +151,5 @@
   border:none;
   color:white;
 }
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
-* {
-   font-family: 'Nanum Gothic', sans-serif;
-}
+
 </style>

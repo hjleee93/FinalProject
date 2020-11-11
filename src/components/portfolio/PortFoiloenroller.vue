@@ -1,5 +1,13 @@
 <template>
+<div class="container-fluid">
+      <div class="row">
+      
+      <!-- 메인 이미지 -->
+      <div class="submenuimage ">
+        <p class="subtitle" id="subtitle">portfolio</p>
+      </div>
   <b-container>
+      
       <form  @submit.prevent="test"  enctype="multipart/form-data">
       <b-form-group
         id="input-group-1"
@@ -9,21 +17,21 @@
       >
         <b-form-input
           id="input-1"
-          name="boardTitle"
+          name="pboardTitle"
           type="text"
           required
           placeholder="제목"
-          v-model="boardTitle"
+          v-model="pboardTitle"
         ></b-form-input>
       </b-form-group>
 
       <b-form-group id="input-group-2" label="작성자" label-for="input-2">
         <b-form-input
           id="input-2"
-          name="boardWriter"
+          name="pboardWriter"
           required
           placeholder="작성자"
-          v-model="boardWriter"
+          v-model="pboardWriter"
         ></b-form-input>
        
       </b-form-group>
@@ -33,13 +41,16 @@
     ></b-form-file> 
     
   <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
-   <vue-editor id="input-3" name="boardContent" v-model="boardContent" />
+   <vue-editor id="input-3" name="pboardContent" v-model="pboardContent" />
    </b-form-group>
       <!-- <b-button type="submit" class="s-btn">확인</b-button> -->
        <b-button @click="test" class="s-btn">확인</b-button>
       <b-button type="reset" class="r-btn">취소</b-button>
     </form>
  </b-container>
+ </div>
+</div>
+  
 </template>
 
 <script>
@@ -49,9 +60,9 @@ export default {
  
   data() {
       return {
-        boardTitle:'',
-        boardWriter:'',
-        boardContent:'',
+        pboardTitle:'',
+        pboardWriter:'',
+        pboardContent:'',
         files:'',
        
       }
@@ -62,14 +73,14 @@ export default {
     methods: {
       test(){
         let formData=new FormData();
-        formData.append('boardWriter',this.boardWriter);
-        formData.append('boardTitle',this.boardTitle);
-        formData.append('boardContent',this.boardContent.replace(/(<([^>]+)>)/ig,""));
+        formData.append('pboardWriter',this.pboardWriter);
+        formData.append('pboardTitle',this.pboardTitle);
+        formData.append('pboardContent',this.pboardContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('file',this.files);
         for(let key of formData.entries()){
           console.log(`${key}`);
         }
-      axios.post("http://localhost:8082/itjobgo/portfoilo/portfoiloenroll.do",formData
+      axios.post("http://localhost:8082/itjobgo/portfolio/portfolioenroll.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
         }}).then((response)=>{
@@ -99,5 +110,21 @@ export default {
 .r-btn{
   background-color: #9BA4B4;
 }
+.submenuimage{
+    width: 100%;
+    height:180px;
+    background-color:#F4EEFF;
+    text-align: center;
+    line-height: 180px;
+}
+#subtitle{
+ font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.subtitle{
+  font-family: 'Masque';
+  color:#4e5157 ;
+  font-size: 50px;
+}
+
 </style>
 
