@@ -25,7 +25,7 @@
                 <b-dropdown-item to="/meetingList/meeting" >모임목록</b-dropdown-item>
                 <b-dropdown-item to="/enrollmeeting">모임개설</b-dropdown-item>
                 <b-dropdown-item to="/portfolioList">포폴게시판</b-dropdown-item>
-                <b-dropdown-item to="/portfolioenroller">게시글작성</b-dropdown-item>
+              
              </b-nav-item-dropdown>
               
               <b-nav-item-dropdown class="nav-link" text="STUDY">
