@@ -115,7 +115,7 @@
                   </ValidationProvider>
 
                   <ValidationProvider
-                    rules="required|digits:11"
+                    rules="required|digits:11|phoneCheck"
                     name="전화번호"
                   >
                     <b-form-group
@@ -195,6 +195,25 @@ Validator.extend("emailCheck", {
   }
 });
 
+Validator.extend("phoneCheck", {
+  getMessage: (field) => `중복된 ${field} 입니다. 다시 입력해주세요`,
+  validate: (value) => {
+    return axios
+      .post("http://localhost:8082/itjobgo/member/checkPhone", {
+        memberPhone: value,
+      })
+      .then((response) => {
+        if (response.data != "") {
+          //리턴값이 없는 경우
+          return false;
+        } else {
+          //리턴값 존재하는 경우
+          return true;
+        }
+      });
+  }
+});
+
 export default {
   name: "BootstrapForm",
   components: {
@@ -206,8 +225,7 @@ export default {
     password: "",
     confirmation: "",
     userName: "",
-    phoneNumber: "",
-    checkEmail: false,
+    phoneNumber: ""
   }),
 
   methods: {
