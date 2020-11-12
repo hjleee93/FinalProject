@@ -1,5 +1,5 @@
 # Final Project
-
+hello
 
 
 ## About The Project
@@ -37,8 +37,8 @@
 
 * [김현주]()
 	
-* [유혜지]()
-	
+* [유혜지](https://github.com/hyejiYoo)
+  * 이력서(이력서 등록/ 보기/ 수정 / 이력서전문가 등록 및 보기)
 * [이현정](https://github.com/hjleee93)
   * DB설계
 
