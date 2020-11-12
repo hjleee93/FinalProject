@@ -40,7 +40,15 @@
 </template>
 
 <script>
+import axios from 'axios';
   export default {
+    created() {
+      axios.get("http://localhost:8082/itjobgo/portfolio/portfolioList.do").then(response=>{
+        console.log(response);
+      }).catch(error =>{
+        console.log(error);
+      })
+    },
     data() {
       return {
       search: '',
