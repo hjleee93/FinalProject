@@ -13,10 +13,12 @@
         </div>
       </b-container>      
     </div>
+
     <!-- Page content -->
     <b-container class="mt--8 pb-5">
       <b-row class="justify-content-center">
         <b-col lg="5" md="7">
+          
           <b-card no-body class="border-0 mb-0 login-content">
             <b-card-header class="login-content">
               <div class="text-muted text-center mt-2 mb-3">가입시 사용하신 이메일을 입력하세요.</div>
@@ -27,7 +29,6 @@
                 <b-form role="form" @submit.prevent="onSubmit">
                   <b-form-input alternative
                               class="mb-3"
-                              name="email"
                              type="email"
                               placeholder="Email"
                               v-model="email">
@@ -36,12 +37,13 @@
 
 
                   <div class="text-center">
-                    <b-button type="primary" native-type="submit" class="my-4" @click="showModal" ref="btnShow">Continue</b-button>
+                    <b-button type="primary" native-type="submit" class="my-4">Continue</b-button>
                   </div>
                 </b-form>
               
             </b-card-body>
           </b-card>
+
           <b-row class="mt-3">
             <b-col cols="6">
               <router-link to="/findEmail" class="text-dark"><small>Forgot email?</small></router-link>
@@ -53,20 +55,20 @@
         </b-col>
       </b-row>
     </b-container>
-    <!-- 모달 -->
-   <b-modal id="modal-1">
-    <div class="d-block">Hello From My Modal!</div>
-    <b-button @click="hideModal">Close Me</b-button>
-    <b-button @click="toggleModal">Toggle Me</b-button>
-  </b-modal>
+ 
   </div>
+
+  
   
 </template>
 <script>
 import axios from "axios";
+
   export default {
     data() {
+      
       return {
+        
         model: {
           email: ''
         }
@@ -75,25 +77,22 @@ import axios from "axios";
    
    
     methods: {
-        showModal() {
-      this.$root.$emit('bv::show::modal', 'modal-1', '#btnShow')
-      },
+       
       onSubmit() {
         const formData = {
         memberEmail: this.email,
       };
-      
+      const self = this; 
       axios
         .post("http://localhost:8082/itjobgo/member/checkEmail", formData) //form server 연결
         .then((response) => {
           this.test1 = response.data;
-         
           if (this.test1 == "") {
+            console.log("NOT Found!");
             this.checkEmail = false;
-            
           } else {
-            console.log("Found!");
             this.checkEmail = true;
+            self.$router.push({ name: 'foundEmail', params: { memberEmail: this.email } })//이메일 찾음 -> 페이지 이동
           }
         }); //반환값
     }
@@ -121,5 +120,6 @@ import axios from "axios";
   background-color: #5e72e4;
   transform: translateY(-1px);
 }
+
 
 </style>

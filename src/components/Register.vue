@@ -25,21 +25,26 @@
                   @submit.prevent="validate().then(onSubmit)"
                   @reset="resetForm"
                 >
-                  <ValidationProvider rules="required|email|" name="이메일">
-                    <b-form-group label="Email address:">
+                  <ValidationProvider
+                    rules="required|email|emailCheck"
+                    name="이메일"
+                  >
+                    <b-form-group                     
+                      slot-scope="{ valid, errors }"
+                      label="Email address:"                     
+                    >
                       <b-form-input
                         required
-                        @input="checkDuplicateEmail"
                         type="email"
                         v-model="email"
-                        
+                        :state="errors[0] ? false : valid ? true : null"
                         placeholder="Enter email"
                       >
                       </b-form-input>
+                      <b-form-invalid-feedback id="inputLiveFeedback">
+                        {{ errors[0] }}
+                      </b-form-invalid-feedback>
                     </b-form-group>
-                    <b-form-invalid-feedback id="inputLiveFeedback">
-                      {{ errors[0] }}
-                    </b-form-invalid-feedback>
                   </ValidationProvider>
 
                   <ValidationProvider
@@ -110,7 +115,7 @@
                   </ValidationProvider>
 
                   <ValidationProvider
-                    rules="required|digits:11"
+                    rules="required|digits:11|phoneCheck"
                     name="전화번호"
                   >
                     <b-form-group
@@ -170,6 +175,45 @@ Validator.extend("passwordCheck", {
   },
 });
 
+//이메일 중복(Custom rule): axios 연결 validate
+Validator.extend("emailCheck", {
+  getMessage: (field) => `중복된 ${field} 입니다. 다시 입력해주세요`,
+  validate: (value) => {
+    return axios
+      .post("http://localhost:8082/itjobgo/member/checkEmail", {
+        memberEmail: value,
+      })
+      .then((response) => {
+        if (response.data != "") {
+          //리턴값이 없는 경우
+          return false;
+        } else {
+          //리턴값 존재하는 경우
+          return true;
+        }
+      });
+  }
+});
+
+Validator.extend("phoneCheck", {
+  getMessage: (field) => `중복된 ${field} 입니다. 다시 입력해주세요`,
+  validate: (value) => {
+    return axios
+      .post("http://localhost:8082/itjobgo/member/checkPhone", {
+        memberPhone: value,
+      })
+      .then((response) => {
+        if (response.data != "") {
+          //리턴값이 없는 경우
+          return false;
+        } else {
+          //리턴값 존재하는 경우
+          return true;
+        }
+      });
+  }
+});
+
 export default {
   name: "BootstrapForm",
   components: {
@@ -181,28 +225,10 @@ export default {
     password: "",
     confirmation: "",
     userName: "",
-    phoneNumber: "",
-    checkEmail: false,
+    phoneNumber: ""
   }),
 
   methods: {
-    //email 중복체크
-    checkDuplicateEmail() {
-      const formData = {
-        memberEmail: this.email,
-      };
-      axios
-        .post("http://localhost:8082/itjobgo/member/checkEmail", formData) //form server 연결
-        .then((response) => {
-          this.test1 = response.data;
-
-          if (this.test1 == "") {
-            this.checkEmail = false;
-          } else {
-            this.checkEmail = true;
-          }
-        }); //반환값
-    },
     //register
     onSubmit() {
       const formData = {
@@ -221,14 +247,11 @@ export default {
             alert("가입에 성공하셨습니다!");
             self.$router.push("/login"); //회원가입 후 경로 설정
           }
-          
         })
         .catch((error) => {
-        alert("회원가입에 실패하였습니다. 다시 시도해주세요");
-            console.log("실패", error);
-              
-        }
-              );
+          alert("회원가입에 실패하였습니다. 다시 시도해주세요");
+          console.log("실패", error);
+        });
     },
 
     resetForm() {

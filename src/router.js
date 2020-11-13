@@ -106,8 +106,9 @@ const Login = () =>{
 const Register = () =>{
   return import('./components/Register.vue')
 }
-
-const FindPassword = () =>{
+//nested router
+const FindPassword = () => {
+  
   return import('./components/FindPassword.vue')
 }
 
