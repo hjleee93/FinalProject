@@ -80,9 +80,12 @@ import {fetchPboardList} from '../../api/index.js';
       //라이프사이클의 생성주기를 이용해서 axios를 사용한다 
       //url에는 spring의 매핑주소를 적고 
       //받아오는 데이터를 선언한 배열 변수에 넣어준다 
-       
+       //console.log(this)
      fetchPboardList()
       .then(({data})=>this.pboard=data)
+      //리턴값이 하나면 한줄로 {}생략가능하다.
+      //화살표함수 사용시 this는 해당 컴포넌트의this를 가지고 올수 있다.
+      //화살표함수를 사용안하고 콜백함수를 사용하면 undefind가 나온다
     //    .then(({data})=>{
     //   let test='';
     //   for(test in data){
