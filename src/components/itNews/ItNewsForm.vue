@@ -2,7 +2,7 @@
     <b-container>
     
     <div class="container" id="header-container">
-    <h4 id="h4-title">IT소식 수정</h4>
+    <h4 id="h4-title">IT소식 작성</h4>
     </div>
 
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -71,9 +71,9 @@
           <b-form-checkbox value="that">Check that out</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group> -->
-      <b-button type="submit" id="submit-btn3">완료</b-button>
-      <b-button type="reset" id="reset-btn3">취소</b-button>
-      <b-button type="button" id="list-btn3" to="/itNewsList" exact>목록</b-button>
+      <b-button type="submit" id="submit-btn2">완료</b-button>
+      <b-button type="reset" id="reset-btn2">취소</b-button>
+      <b-button type="button" id="list-btn2" to="/itNewsList" exact>목록</b-button>
     </b-form>
 
 
@@ -132,7 +132,7 @@ import { VueEditor } from "vue2-editor";
 </script>
 
 <style>
-@import '../assets/css/BoardUpdate.css';
+@import '../../assets/css/BoardForm.css';
 
 
 </style>
