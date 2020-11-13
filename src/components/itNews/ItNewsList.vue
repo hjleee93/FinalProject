@@ -489,7 +489,7 @@
 </script>
 
 <style>
-@import '../assets/css/BoardList.css';
+@import '../../assets/css/BoardList.css';
 
 
 </style>

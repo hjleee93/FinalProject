@@ -43,40 +43,40 @@ const Job = () =>{
 }
 //주은
 const CommunityBoardList = () =>{
-  return import('./components/CommunityBoardList.vue')
+  return import('./components/communityBoard/CommunityBoardList.vue')
 }
 const CommunityBoardForm = () =>{
-  return import('./components/CommunityBoardForm.vue')
+  return import('./components/communityBoard/CommunityBoardForm.vue')
 }
 const CommunityBoardView = () =>{
-  return import('./components/CommunityBoardView.vue')
+  return import('./components/communityBoard/CommunityBoardView.vue')
 }
 const CommunityBoardUpdate = () =>{
-  return import('./components/CommunityBoardUpdate.vue')
+  return import('./components/communityBoard/CommunityBoardUpdate.vue')
 }
 const ItNewsList = () =>{
-  return import('./components/ItNewsList.vue')
+  return import('./components/itNews/ItNewsList.vue')
 }
 const ItNewsForm = () =>{
-  return import('./components/ItNewsForm.vue')
+  return import('./components/itNews/ItNewsForm.vue')
 }
 const itNewsView = () =>{
-  return import('./components/itNewsView.vue')
+  return import('./components/itNews/itNewsView.vue')
 }
 const ItNewsUpdate = () =>{
-  return import('./components/ItNewsUpdate.vue')
+  return import('./components/itNews/ItNewsUpdate.vue')
 }
 const NoticeList = () =>{
-  return import('./components/NoticeList.vue')
+  return import('./components/notice/NoticeList.vue')
 }
 const NoticeForm = () =>{
-  return import('./components/NoticeForm.vue')
+  return import('./components/notice/NoticeForm.vue')
 }
 const NoticeView = () =>{
-  return import('./components/NoticeView.vue')
+  return import('./components/notice/NoticeView.vue')
 }
 const NoticeUpdate = () =>{
-  return import('./components/NoticeUpdate.vue')
+  return import('./components/notice/NoticeUpdate.vue')
 }
 
 //현주
