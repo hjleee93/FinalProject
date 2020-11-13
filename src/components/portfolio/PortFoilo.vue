@@ -27,14 +27,14 @@
         <!-- vuetify에 data table에 items를 선언한 배열 변수로 지정해준다 -->
           <v-data-table
             :headers="headers"
-            :items="testtable"
+            :items="pboard"
             :search="search"
             item-key="name"
             @click:row="handleClick"
           >
           </v-data-table>
         </v-card>
-        
+        <h1>{{this.$store.state.pboard}}</h1>
         </div>
        </div>
       </div>
@@ -43,7 +43,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+//계속 라이브러리를 로딩해야하는 단점이있다 
+// import axios from 'axios';
+import {fetchPboardList} from '../../api/index.js';
   export default {
     data() {
       return {
@@ -64,7 +66,7 @@ import axios from 'axios';
         ],
         // spring에서 데이터를 받을 변수 배열형태를 선언한다
 
-         testtable:[],
+         pboard:[],
       }
     },
     methods: {
@@ -78,8 +80,9 @@ import axios from 'axios';
       //라이프사이클의 생성주기를 이용해서 axios를 사용한다 
       //url에는 spring의 매핑주소를 적고 
       //받아오는 데이터를 선언한 배열 변수에 넣어준다 
-      axios.get("http://localhost:8082/itjobgo/portfolio/portfolioList.do")
-      .then(({data})=>this.testtable=data)
+       
+     fetchPboardList()
+      .then(({data})=>this.pboard=data)
     //    .then(({data})=>{
     //   let test='';
     //   for(test in data){
