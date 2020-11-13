@@ -83,11 +83,9 @@ export default {
       axios.post("http://localhost:8082/itjobgo/portfolio/portfolioenroll.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
-        }}).then((response)=>{
-        console.log(response);
-      }).catch((error)=>{
-        console.log(error);
-      })
+        }}).then((data)=>console.log(data))
+        .catch((error)=>
+        console.log(error))
 
       
         console.log(formData);
