@@ -54,22 +54,63 @@
             :search="search"
           ></v-data-table>
         </v-card>
-        
-
   </div>
       
         </div>
 
       </div>
+
+<!-- 임시테스트 테이블 -->
+<!-- <div> 여기가 데이터 찍혀야 {{datas.boardContent}}</div> -->
+<div>
+<ul>
+  <li v-for="com in community " :key="com.id" > {{com.boardContent}}</li>
+</ul>
+  
+</div>
+
+<!-- 임시테스트 테이블 -->
     </div>
   </body>
-
 </template>
 
 <script>
+import axios from 'axios';
   export default {
+
+    created: function(){
+    // using JSONPlaceholder
+    const baseURI = 'http://localhost:8082/itjobgo';
+    axios.get(`${baseURI}/community/communityBoardList`)
+    .then(response=>this.community=response.data);
+    },
+
+
+    //    console.log(response.data);
+    //    console.log(response.data[0]);
+    //    console.log(response.data[0].boardContent);
+    //    console.log(response.data[1].boardContent);
+    //   //  console.log(response.data.boardContent);
+
+    //     this.community.boardSq = response.data[0].boardSq;
+    //     this.community.boardContent = response.data[0].boardContent;
+
+    // )};
+        // console.log(this.community.boardContent);
+ 
+        // this.datas.boardContent=data.data.boardContent;
+        // this.datas.boardContent='김주은입니다.';
+        
+        // console.log(this.datas.boardContent);
+
+      // ).catch((error)=>{
+      //   console.log(error);
+      // })
+    // },
+
     data() {
       return {
+      community: [],
       search: '',
         headers: [
           {
@@ -208,6 +249,8 @@
         ],
       }
     },
+
+
   }
 </script>
 
