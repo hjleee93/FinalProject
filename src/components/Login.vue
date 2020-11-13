@@ -108,18 +108,15 @@ import axios from "axios"
         memberEmail: this.model.email,
         memberPwd: this.model.password,
       }
-         const self = this; //this scope문제
+        // const self = this; //this scope문제
     axios
       .post('http://localhost:8082/itjobgo/member/login',formData)
       .then(res=> {
        
           
-          
-          this.$session.start() 
-          this.$session.set('member',res.config.data)
-          console.log("id= " + res.config.data)
+          console.log(res)
          
-          self.$router.push("/home"); //회원가입 후 경로 설정
+         // self.$router.push("/"); //회원가입 후 경로 설정
           
         })
         .catch((error) => console.log(error));

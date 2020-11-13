@@ -134,7 +134,7 @@ import { VueEditor } from "vue2-editor";
 </script>
 
 <style>
-@import '../assets/css/BoardForm.css';
+@import '../../assets/css/BoardForm.css';
 
 
 </style>

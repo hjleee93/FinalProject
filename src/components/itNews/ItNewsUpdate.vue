@@ -1,8 +1,8 @@
 <template>
-  <b-container>
-
+    <b-container>
+    
     <div class="container" id="header-container">
-    <h4 id="h4-title">공지사항 수정</h4>
+    <h4 id="h4-title">IT소식 수정</h4>
     </div>
 
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -73,8 +73,7 @@
       </b-form-group> -->
       <b-button type="submit" id="submit-btn3">완료</b-button>
       <b-button type="reset" id="reset-btn3">취소</b-button>
-      <b-button type="button" id="list-btn3"  to="/noticeList" exact>목록</b-button>
-      
+      <b-button type="button" id="list-btn3" to="/itNewsList" exact>목록</b-button>
     </b-form>
 
 
@@ -100,7 +99,7 @@ import { VueEditor } from "vue2-editor";
 
           // checked: []
         },
-        categories: [{ text: '분류(필수사항)', value: null }, '일반', '긴급', '홍보', '모집'],
+        categories: [{ text: '분류(필수사항)', value: null }, '컨퍼런스', '강의', '모집', '뉴스'],
         show: true
       }
     },
@@ -133,7 +132,7 @@ import { VueEditor } from "vue2-editor";
 </script>
 
 <style>
-@import '../assets/css/BoardUpdate.css';
+@import '../../assets/css/BoardUpdate.css';
 
 
 </style>

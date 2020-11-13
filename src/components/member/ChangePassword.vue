@@ -29,7 +29,7 @@
         <b-form-group 
           slot-scope="{ valid, errors }"
           label="Password:"
-          description="비밀번호는 대소문자 하나 이상, 숫자, 특수문자(!@#$%^&*()?_)의 조합으로 8~20자리를 사용해야합니다."
+
          >      
             <b-form-input
             required
@@ -83,18 +83,18 @@
 </template>
 
 <script>
+import axios from "axios";
 import { ValidationObserver, ValidationProvider,Validator } from 'vee-validate';
 
 //비밀번호 유효성
 Validator.extend("passwordCheck", {
-
-  validate: value => {
-    const strong_password = new RegExp(
-      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})"
+  getMessage: (field) =>
+    `${field} 대소문자 하나 이상, 숫자, 특수문자(!@#$%^&*()?_)의 조합으로 8~20자리를 사용해야합니다.`,
+  validate: (value) => {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})/.test(
+      value
     );
-    return strong_password.test(value);
-  }
-  
+  },
 });
   export default {
     components: {
@@ -103,16 +103,34 @@ Validator.extend("passwordCheck", {
   },
     data: () => ({
       
-        
+          email:'',
           password: '',
           confirmation: ''
         }),
      
     methods: {
       onSubmit() {
-        // this will be called only after form is valid. You can do api call here to login
-      }
+        const formData = {
+        memberEmail: this.$route.params.memberEmail,
+        memberPwd: this.password
+        };
+         const self = this; //this scope문제
+         axios
+        .post("http://localhost:8082/itjobgo/member/updatePwd", formData) //form server 연결
+        .then(function(res) {
+          
+          if (res.status >= 200 && res.status <= 204) {
+             alert("비밀번호가 변경되었습니다.");
+            self.$router.push("/login");
+          }
+        })
+        .catch((error) => {
+          alert("회원가입에 실패하였습니다. 다시 시도해주세요");
+          console.log("실패", error);
+        });
     }
+      }
+    
   };
 </script>
 

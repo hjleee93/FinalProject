@@ -94,7 +94,7 @@
 </script>
 
 <style>
-@import '../assets/css/BoardView.css';
+@import '../../assets/css/BoardView.css';
 
 
 </style>
