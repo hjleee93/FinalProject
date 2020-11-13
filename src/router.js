@@ -43,40 +43,40 @@ const Job = () =>{
 }
 //주은
 const CommunityBoardList = () =>{
-  return import('./components/CommunityBoardList.vue')
+  return import('./components/communityBoard/CommunityBoardList.vue')
 }
 const CommunityBoardForm = () =>{
-  return import('./components/CommunityBoardForm.vue')
+  return import('./components/communityBoard/CommunityBoardForm.vue')
 }
 const CommunityBoardView = () =>{
-  return import('./components/CommunityBoardView.vue')
+  return import('./components/communityBoard/CommunityBoardView.vue')
 }
 const CommunityBoardUpdate = () =>{
-  return import('./components/CommunityBoardUpdate.vue')
+  return import('./components/communityBoard/CommunityBoardUpdate.vue')
 }
 const ItNewsList = () =>{
-  return import('./components/ItNewsList.vue')
+  return import('./components/itNews/ItNewsList.vue')
 }
 const ItNewsForm = () =>{
-  return import('./components/ItNewsForm.vue')
+  return import('./components/itNews/ItNewsForm.vue')
 }
 const itNewsView = () =>{
-  return import('./components/itNewsView.vue')
+  return import('./components/itNews/itNewsView.vue')
 }
 const ItNewsUpdate = () =>{
-  return import('./components/ItNewsUpdate.vue')
+  return import('./components/itNews/ItNewsUpdate.vue')
 }
 const NoticeList = () =>{
-  return import('./components/NoticeList.vue')
+  return import('./components/notice/NoticeList.vue')
 }
 const NoticeForm = () =>{
-  return import('./components/NoticeForm.vue')
+  return import('./components/notice/NoticeForm.vue')
 }
 const NoticeView = () =>{
-  return import('./components/NoticeView.vue')
+  return import('./components/notice/NoticeView.vue')
 }
 const NoticeUpdate = () =>{
-  return import('./components/NoticeUpdate.vue')
+  return import('./components/notice/NoticeUpdate.vue')
 }
 
 //현주
@@ -106,17 +106,18 @@ const Login = () =>{
 const Register = () =>{
   return import('./components/Register.vue')
 }
-
-const FindPassword = () =>{
-  return import('./components/FindPassword.vue')
+//nested router
+const FindPassword = () => {
+  
+  return import('./components/member/FindPassword.vue')
 }
 
 const FindEmail = () =>{
-  return import('./components/FindEmail.vue')
+  return import('./components/member/FindEmail.vue')
 }
 
 const ChangePassword = () =>{
-  return import('./components/ChangePassword.vue')
+  return import('./components/member/ChangePassword.vue')
 }
 const MyPage = () =>{
   return import('./components/MyPage.vue')
@@ -126,10 +127,13 @@ const jobInfo = () =>{
   return import('./components/jobInfo.vue')
 }
 
-const FoundEmail = () =>{
-  return import('./components/foundEmail.vue')
+const FoundPassword = () =>{
+  return import('./components/member/foundPassword.vue')
 }
 
+// const UpdatePassword = () =>{
+//   return import('./components/member/updatePassword.vue')
+// }
 
 export default new Router({ 
   mode: 'history',
@@ -312,9 +316,9 @@ export default new Router({
       component: jobInfo
     },
     {
-      path: '/foundEmail',
-      name: 'foundEmail',
-      component: FoundEmail
+      path: '/foundPassword',
+      name: 'foundPassword',
+      component: FoundPassword
     },
     //현주
     {

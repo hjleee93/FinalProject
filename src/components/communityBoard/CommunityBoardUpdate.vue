@@ -1,8 +1,8 @@
 <template>
-    <b-container>
-    
+  <b-container>
+
     <div class="container" id="header-container">
-    <h4 id="h4-title">IT소식 작성</h4>
+    <h4 id="h4-title">자유게시판 수정</h4>
     </div>
 
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -12,6 +12,7 @@
         label-for="input-1"
         label-align="left"
       >
+      
         <!-- description="분류를" -->
         <b-form-input
           id="input-1"
@@ -71,9 +72,10 @@
           <b-form-checkbox value="that">Check that out</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group> -->
-      <b-button type="submit" id="submit-btn2">완료</b-button>
-      <b-button type="reset" id="reset-btn2">취소</b-button>
-      <b-button type="button" id="list-btn2" to="/itNewsList" exact>목록</b-button>
+      <b-button type="submit" id="submit-btn3">완료</b-button>
+      <b-button type="reset" id="reset-btn3">취소</b-button>
+      <b-button type="button" id="list-btn3" to="/communityBoardList" exact>목록</b-button>
+      
     </b-form>
 
 
@@ -99,7 +101,7 @@ import { VueEditor } from "vue2-editor";
 
           // checked: []
         },
-        categories: [{ text: '분류(필수사항)', value: null }, '컨퍼런스', '강의', '모집', '뉴스'],
+        categories: [{ text: '분류(필수사항)', value: null }, '질문', '추천', '일반'],
         show: true
       }
     },
@@ -132,7 +134,7 @@ import { VueEditor } from "vue2-editor";
 </script>
 
 <style>
-@import '../assets/css/BoardForm.css';
+@import '../../assets/css/BoardUpdate.css';
 
 
 </style>

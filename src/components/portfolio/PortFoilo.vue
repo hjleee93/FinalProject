@@ -12,7 +12,6 @@
           <h4 class="sub-header">포트폴리오</h4>
           <v-btn to="/portfolioenroller" exact  id="st_write1">글쓰기</v-btn>
         </div>
-
         <div class="overflow-auto">
          <!-- 테이블 -->
         <v-card>
@@ -25,13 +24,17 @@
               hide-details
             ></v-text-field>
         </v-card-title>
+        <!-- vuetify에 data table에 items를 선언한 배열 변수로 지정해준다 -->
           <v-data-table
             :headers="headers"
-            :items="tableList"
+            :items="pboard"
             :search="search"
-          ></v-data-table>
+            item-key="name"
+            @click:row="handleClick"
+          >
+          </v-data-table>
         </v-card>
-        
+        <h1>{{this.$store.state.pboard}}</h1>
         </div>
        </div>
       </div>
@@ -40,6 +43,9 @@
 </template>
 
 <script>
+//계속 라이브러리를 로딩해야하는 단점이있다 
+// import axios from 'axios';
+import {fetchPboardList} from '../../api/index.js';
   export default {
     data() {
       return {
@@ -49,77 +55,55 @@
             text: "번호",
             align: 'start',
             filterable: false,
-            value: 'num',
+            value: 'pboardNo',
           },
-          { text: '제목', value: 'title' },
-          { text: '작성자', value: 'writer' },
-          { text: '답변', value: 'status' },
-          { text: '조회수', value: 'count' },
+          // 그리고 spring에서 넘겨주는 json타입의 변수에 매칭시켜서 테이블의 row행의 value값을 동일하게 해준다
+
+          { text: '제목', value: 'pboardTitle'},
+          { text: '작성자', value: 'pboardWriter'  },
+          { text: '답변', value: 'pboardStatus' },
+          { text: '조회수', value: 'pboardCount' },
         ],
-        tableList: [
+        // spring에서 데이터를 받을 변수 배열형태를 선언한다
 
-          {
-            num: 1,
-            title:'포폴첨삭부탁드려요',
-            writer: 'admin',
-            status: '대기',
-            count:1
-          },
-
-         {
-            num: 2,
-            title:'포폴첨삭부탁드려요',
-            writer: 'admin',
-            status: '대기',
-            count:1
-          },
-          {
-            num: 3,
-            title:'포폴첨삭부탁드려요',
-            writer: 'admin',
-            status: '대기',
-            count:1
-          },
-          {
-            num: 4,
-            title:'포폴첨삭부탁드려요',
-            writer: 'admin',
-            status: '대기',
-            count:1
-          },
-          {
-            num:5,
-            title:'포폴첨삭부탁드려요',
-            writer: 'admin',
-            status: '대기',
-            count:1
-          },
-          {
-            num: 6,
-            title:'포폴첨삭부탁드려요',
-            writer:'admin',
-            status: '대기',
-            count:1
-          },
-          {
-            num: 7,
-            title:'포폴첨삭부탁드려요',
-            writer: 'admin',
-            status: '대기',
-            count:1
-          },
-          {
-            num: 8,
-            title:'포폴첨삭부탁드려요',
-            writer: 'admin',
-            status: '대기',
-            count:1
-          },
-
-        
-        ],
+         pboard:[],
       }
     },
+    methods: {
+      handleClick(value){
+        alert('row클릭');
+        console.log(value)
+      }
+    },
+    created() {
+      //https://www.youtube.com/watch?v=PN8un6a1x1s 참조할수 있는 유튜브 주소
+      //라이프사이클의 생성주기를 이용해서 axios를 사용한다 
+      //url에는 spring의 매핑주소를 적고 
+      //받아오는 데이터를 선언한 배열 변수에 넣어준다 
+       //console.log(this)
+     fetchPboardList()
+      .then(({data})=>this.pboard=data)
+      //리턴값이 하나면 한줄로 {}생략가능하다.
+      //화살표함수 사용시 this는 해당 컴포넌트의this를 가지고 올수 있다.
+      //화살표함수를 사용안하고 콜백함수를 사용하면 undefind가 나온다
+    //    .then(({data})=>{
+    //   let test='';
+    //   for(test in data){
+    //  console.log(data[test]);
+    //  this.testtable=data;
+    //  console.log(this.testtable);
+    //   }
+    //     })
+    // .then(res=>{
+    //   this.testtable=res.data;
+    //   console.log(this.testtable);
+    // })
+                // 내일 물어보는게 좋을듯
+      .catch(({error}) =>{
+        console.log(error);
+      })
+    },
+    
   }
 </script>
 

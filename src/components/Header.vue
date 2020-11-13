@@ -31,12 +31,7 @@
                 <b-dropdown-item to="/communityBoardList">자유게시판 </b-dropdown-item>
               </b-nav-item-dropdown>
 
-              <!-- 상세페이지 - 임시 드롭다운 >> 상세페이지 연결하면 삭제할것 -->
-              <b-nav-item-dropdown class="nav-link" text="상세페이지(임시)">
-                <b-dropdown-item to="/noticeView">공지사항</b-dropdown-item>
-                <b-dropdown-item to="/itNewsView">IT소식</b-dropdown-item>
-                <b-dropdown-item to="/communityBoardView">자유게시판 </b-dropdown-item>
-              </b-nav-item-dropdown>
+
 
             </b-navbar-nav>
 

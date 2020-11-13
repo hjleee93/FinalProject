@@ -15,6 +15,7 @@ import LoginPlugin from './plugins/login-plugin';
 import vuetify from './plugins/vuetify';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import VueSweetalert2 from 'vue-sweetalert2';
 import VueSession from 'vue-session';
 import axios from 'axios';
 import store from './store'
@@ -36,6 +37,7 @@ var sessionOptions = {
 }
 Vue.use(VueSession, sessionOptions)
 
+Vue.use(VueSweetalert2);
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 Vue.use(LoginPlugin);

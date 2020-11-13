@@ -9,7 +9,8 @@ var convert = require('xml-js')
 export default new Vuex.Store({
     state: {
         data: [],
-        jobs:[]
+        jobs:[],
+        pboard:'hellow',
         
     },
     actions: {
@@ -24,7 +25,8 @@ export default new Vuex.Store({
                     commit('SET_POST', this.jobs) 
                     
               });
-        }
+        },
+        
     },
     mutations: {
         SET_POST(state, jobs) {
