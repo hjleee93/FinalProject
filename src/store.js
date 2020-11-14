@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-
+import {fetchPboardList} from './api/index.js';
 Vue.use(Vuex,axios)
 
 var convert = require('xml-js')
@@ -10,7 +10,7 @@ export default new Vuex.Store({
     state: {
         data: [],
         jobs:[],
-        pboard:'hellow',
+        pboard:[],
         
     },
     actions: {
@@ -26,11 +26,23 @@ export default new Vuex.Store({
                     
               });
         },
+        FETCH_PBOARD({commit}){
+            //인자로 centext가 제공 centext.commit
+            fetchPboardList()
+            .then(({data})=>commit("SET_PBOARD",data))
+            .catch(({error}) =>{
+                console.log(error);
+              }) 
+
+        }
         
     },
     mutations: {
         SET_POST(state, jobs) {
             state.jobs = jobs
+        },
+        SET_PBOARD(state,pboard){
+            state.pboard=pboard;
         }
     }
    
