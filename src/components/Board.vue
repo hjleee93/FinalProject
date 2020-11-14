@@ -59,8 +59,19 @@
 
 <script>
   export default {
+
+    created : function(){
+      axios
+      .get('http://localhost:8082/itjobgo/qna/qnaboardlist')
+      .then(Response=>{
+        this.qna=Response.data;
+        console.log(Response);
+      })
+    }
+    ,
     data() {
       return {
+      qna:[],
       search: '',
         headers: [
           {
