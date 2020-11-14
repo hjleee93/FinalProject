@@ -27,14 +27,13 @@
         <!-- vuetify에 data table에 items를 선언한 배열 변수로 지정해준다 -->
           <v-data-table
             :headers="headers"
-            :items="pboard"
+            :items=pboard
             :search="search"
             item-key="name"
             @click:row="handleClick"
           >
           </v-data-table>
         </v-card>
-        <h1>{{this.$store.state.pboard}}</h1>
         </div>
        </div>
       </div>
@@ -43,9 +42,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 //계속 라이브러리를 로딩해야하는 단점이있다 
 // import axios from 'axios';
-import {fetchPboardList} from '../../api/index.js';
+
   export default {
     data() {
       return {
@@ -66,8 +66,13 @@ import {fetchPboardList} from '../../api/index.js';
         ],
         // spring에서 데이터를 받을 변수 배열형태를 선언한다
 
-         pboard:[],
+         
       }
+    },
+    computed: {
+      ...mapState({
+        pboard:state=>state.pboard
+      })
     },
     methods: {
       handleClick(value){
@@ -76,13 +81,13 @@ import {fetchPboardList} from '../../api/index.js';
       }
     },
     created() {
+      this.$store.dispatch("FETCH_PBOARD")
       //https://www.youtube.com/watch?v=PN8un6a1x1s 참조할수 있는 유튜브 주소
       //라이프사이클의 생성주기를 이용해서 axios를 사용한다 
       //url에는 spring의 매핑주소를 적고 
       //받아오는 데이터를 선언한 배열 변수에 넣어준다 
        //console.log(this)
-     fetchPboardList()
-      .then(({data})=>this.pboard=data)
+
       //리턴값이 하나면 한줄로 {}생략가능하다.
       //화살표함수 사용시 this는 해당 컴포넌트의this를 가지고 올수 있다.
       //화살표함수를 사용안하고 콜백함수를 사용하면 undefind가 나온다
@@ -98,10 +103,8 @@ import {fetchPboardList} from '../../api/index.js';
     //   this.testtable=res.data;
     //   console.log(this.testtable);
     // })
-                // 내일 물어보는게 좋을듯
-      .catch(({error}) =>{
-        console.log(error);
-      })
+               
+     
     },
     
   }
