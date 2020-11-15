@@ -94,7 +94,7 @@ export default {
           }
         }); //반환값
     },
-  },
+  }
 };
 </script>
 

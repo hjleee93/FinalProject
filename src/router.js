@@ -107,7 +107,6 @@ const Login = () =>{
 const Register = () =>{
   return import('./components/Register.vue')
 }
-//nested router
 const FindPassword = () => {
   
   return import('./components/member/FindPassword.vue')
@@ -130,6 +129,10 @@ const jobInfo = () =>{
 
 const FoundPassword = () =>{
   return import('./components/member/foundPassword.vue')
+}
+
+const FoundEmail = () =>{
+  return import('./components/member/foundEmail.vue')
 }
 
 // const UpdatePassword = () =>{
@@ -325,6 +328,11 @@ export default new Router({
       path: '/foundPassword',
       name: 'foundPassword',
       component: FoundPassword
+    },
+    {
+      path: '/foundEmail',
+      name: 'foundEmail',
+      component: FoundEmail
     },
     //현주
     {

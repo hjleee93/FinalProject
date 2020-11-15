@@ -23,23 +23,21 @@
             </b-card-header>
             <b-card-body class="px-lg-5 py-lg-5">
               
-              <validation-observer v-slot="{handleSubmit}" ref="formValidator">
-                <b-form role="form" @submit.prevent="handleSubmit(onSubmit)">
+            
+                <b-form role="form" @submit.prevent="onSubmit">
                   <base-input alternative
                               class="mb-3"
                               name="phoneNumber"
-                              :rules="{required: true, email: true}"
+                              :rules="{required: true, tel: true}"
                               placeholder="Phone Number"
-                              v-model="model.email">
+                              v-model="phone">
                   </base-input>
-
-
 
                   <div class="text-center">
                     <base-button type="primary" native-type="submit" class="my-4">Continue</base-button>
                   </div>
                 </b-form>
-              </validation-observer>
+              
             </b-card-body>
           </b-card>
           <b-row class="mt-3">
@@ -58,21 +56,39 @@
   
 </template>
 <script>
+import axios from "axios";
   export default {
-    data() {
-      return {
-        model: {
-          email: '',
-          password: '',
-          rememberMe: false
-        }
+     data: () => ({
+      email:'',
+        phone:''
+        }),
+   methods: {
+    onSubmit() {
+      const formData = {
+        memberPhone: this.phone,
       };
-    },
-    methods: {
-      onSubmit() {
-        // this will be called only after form is valid. You can do api call here to login
-      }
+      const self = this;
+      axios
+        .post("http://localhost:8082/itjobgo/member/selectPhone", formData) //form server 연결
+        .then((response) => {
+          this.info = response.data;
+          if (this.info == "") {
+            //전화번호 존재하지 않는 경우 alert
+            this.$swal({
+              text: "존재하지 않는 전화번호입니다. 다른 번호를 입력해주세요",
+              icon: "error", //built in icons: success, warning, error, info
+              timer: 5000, //timeOut for auto-close
+            });
+
+          } else {
+            self.$router.push({
+              name: "foundEmail",
+              params: { email: this.info.memberEmail},
+            }); //전화번호 찾음 -> 페이지 이동
+          }
+        });
     }
+  }
   };
 </script>
 
