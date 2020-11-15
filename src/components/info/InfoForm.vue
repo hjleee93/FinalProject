@@ -48,8 +48,8 @@
 
       <!-- 등록/취소/리셋 버튼 -->
       <div class="btn_sr">
-        <v-btn to="/detail" exact id="submit">등록</v-btn>
-        <v-btn to="/detail" exact id="cancel">취소</v-btn>
+        <v-btn to="/infoDetail" exact id="submit">등록</v-btn>
+        <v-btn to="/infoList" exact id="cancel">취소</v-btn>
 
       </div>
     </b-form>
