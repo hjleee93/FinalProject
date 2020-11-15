@@ -62,6 +62,7 @@ import axios from 'axios';
   export default {
 
     created : function(){
+      
       axios
       .get('http://localhost:8082/itjobgo/qna/qnaboardlist')
       .then(Response=>{
