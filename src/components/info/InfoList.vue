@@ -65,6 +65,7 @@ import axios from 'axios';
       info:[],
       search: '',
         headers: [
+          
           {
             text: '분류',
             align: 'start',
