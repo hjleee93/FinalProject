@@ -34,7 +34,7 @@
         </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="tableList"
+            :items="info"
             :search="search"
           ></v-data-table>
         </v-card>
@@ -47,95 +47,34 @@
 </template>
 
 <script>
-/* import Axios from 'axios' */
+import axios from 'axios';
   export default {
 
-    created: function(){
-
-    /*  axios
-           .get(`http://localhost:8082/itjobgo/info/infoList`)
-            .then(response=>{
-                  this.info=response.data;
-                  console.log(response);
-                  }) */
-    },
+    created : function(){
+      
+      axios
+      .get('http://localhost:8082/itjobgo/info/infoList')
+      .then(Response=>{
+        this.info=Response.data;
+        console.log(Response);
+      })
+    }
+    ,
     data() {
       return {
-        Info:[],
+      info:[],
       search: '',
         headers: [
           {
             text: '분류',
             align: 'start',
             filterable: false,
-            value: 'category',
+            value: 'infoCategory', //spring vo값 적기
           },
-          { text: '기업명', value: 'name' },
-          { text: '날짜', value: 'date' },
-          { text: '시간', value: 'time' },
-          { text: '주소', value: 'address' },
-        ],
-        tableList: [
-
-          {
-            category: '박람회',
-            name:'카카오프렌즈',
-            date: '2020-10-01',
-            time: '15:00',
-            address:'라이브 채용설명회<사전신청 : https://docs.google.cXV-Q/viewform>'
-          },
-
-         {
-            category: '박람회',
-            name:'티몬',
-            date: '2020-10-01',
-            time: '15:00',
-            address:'강릉원주대학교 강릉캠퍼스 교육지원센터(C9) 520호 / 참석방법 : 현장방문 접수'
-          },
-          {
-            category: '상담회',
-            name:'롯데푸드',
-            date: '2020-10-01',
-            time: '11:00',
-            address:'오프라인 채용설명회 캐치카페 한양대'
-          },
-          {
-            category: '설명회',
-            name:'크레프톤',
-            date: '2020-11-11',
-            time: '10:00',
-            address:'오프라인 채용설명회 캐치카페 한양대'
-          },
-          {
-            category: '설명회',
-            name:'카카오프렌즈',
-            date: '2020-10-01',
-            time: '15:00',
-            address:'오프라인 채용설명회 캐치카페 한양대'
-          },
-          {
-            category: '상담회',
-            name:'위메프',
-            date: '2020-10-02',
-            time: '11:30',
-            address:'오프라인 채용설명회 캐치카페 한양대'
-          },
-          {
-            category: '설명회',
-            name:'쿠팡 주식회사',
-            date: '2020-10-21',
-            time: '15:00',
-            address:'유튜브를 통한 온라인 실시간 중계<유튜브 주소 : httpcom/kepconewmedia'
-          },
-          {
-            category: '설명회',
-            name:'(주)우아한형제들',
-            date: '2020-10-31',
-            time: '15:00',
-            address:'오프라인 채용설명회 캐치카페 한양대'
-          },
-
-        
+          { text: '기업명', value: 'infoTitle' },          
+          { text: '날짜', value: 'infoDate' },
+          { text: '시간', value: 'infoTime' },
+          { text: '주소', value: 'infoAddress' },
         ],
       }
     },
