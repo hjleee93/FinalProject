@@ -8,10 +8,12 @@
       </div>
         <div class="container">      
         <br>
-        <div>
-          <h4 class="sub-header">포트폴리오</h4>
-          <v-btn to="/portfolioenroller" exact  id="st_write1">글쓰기</v-btn>
-        </div>
+        <b-row>
+          <b-col>   <h4 class="sub-header">포트폴리오</h4></b-col>
+        </b-row>
+        <b-row id="writecontain" align-h="end">
+           <b-button to="/portfolioenroller" >글쓰기</b-button>
+        </b-row>
         <div class="overflow-auto">
          <!-- 테이블 -->
         <v-card>
@@ -77,7 +79,8 @@ import { mapState } from 'vuex';
     
     methods: {
       handleClick(value){
-        alert('row클릭');
+        alert(value.pboardNo);
+        this.$router.push({name:'Portinfo',params:{id:value.pboardNo}})
         console.log(value)
       }
     },
@@ -127,17 +130,12 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   color:#4e5157 ;
   font-size: 50px;
 }
-#st_write1{
-  position: relative;
-  top: 0px;
-  left:1050px;
-  width:70px;
-  margin-bottom: 10px;
-  right: -40px;
-  margin-right: 3.5%;
-  background-color: #424874;
-  border:none;
-  color:white;
+#writecontain{
+  margin-bottom: 10%;
 }
+#writecontain > .btn{
+  background-color: #424874;
+}
+
 
 </style>

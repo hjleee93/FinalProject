@@ -14,6 +14,7 @@ import MeetingEnd from './components/meeting/MeetingEndView.vue';
 import Meetinginfo from './components/meeting/Meetinginfo.vue';
 import PortFolio from './components/portfolio/PortFoilo.vue'
 import PortFoiloenroller from './components/portfolio/PortFoiloenroller.vue';
+import Portfolioinfo from './components/portfolio/PortFolioinfo.vue';
 
 //혜지
 
@@ -172,6 +173,11 @@ export default new Router({
     {
       path:'/portfolioenroller',
       component:PortFoiloenroller,
+    },
+    {
+      path:'/Portfolioinfo/:id',
+      component:Portfolioinfo,
+      name:'Portinfo',
     },
     //민지
     {
