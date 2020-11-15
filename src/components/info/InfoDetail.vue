@@ -24,9 +24,9 @@
                  첨부 파일 :
                 </div>
                 <div class="detail_btn_div">
-                  <v-btn to="/boardform" exact id="modify">수정</v-btn>
+                  <v-btn to="/infoForm" exact id="modify">수정</v-btn>
                   <v-btn to="/" exact id="delete">삭제</v-btn>
-                  <v-btn to="/info" exact id="list">목록</v-btn>
+                  <v-btn to="/infoList" exact id="list">목록</v-btn>
                 </div>
             </div>
         </div> 
@@ -40,11 +40,11 @@ export default {
  /* 목록버튼 */
   methods: {
     link: function (){
-                   this.$router.push('/info')
+                   this.$router.push('/infoList')
       },
       //삭제버튼
     link1: function (){
-                   this.$router.push('/boardform')
+                   this.$router.push('/infoForm')
       }
     
     }

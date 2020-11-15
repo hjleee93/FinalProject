@@ -17,7 +17,7 @@
         <!-- 버튼 -->
         <div>
           <h4 class="sub-header">취업설명회 일정</h4>
-          <v-btn to="/boardform" exact  id="st_write1">글쓰기</v-btn>
+          <v-btn to="/infoForm" exact  id="st_write1">글쓰기</v-btn>
         </div>
 
         <div class="overflow-auto">
@@ -47,9 +47,21 @@
 </template>
 
 <script>
+/* import Axios from 'axios' */
   export default {
+
+    created: function(){
+
+    /*  axios
+           .get(`http://localhost:8082/itjobgo/info/infoList`)
+            .then(response=>{
+                  this.info=response.data;
+                  console.log(response);
+                  }) */
+    },
     data() {
       return {
+        Info:[],
       search: '',
         headers: [
           {
