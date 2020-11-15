@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import {fetchPboardList} from './api/index.js';
+import {fetchPboardList,fetchPboardOne} from './api/index.js';
 Vue.use(Vuex,axios)
 
 var convert = require('xml-js')
@@ -11,6 +11,7 @@ export default new Vuex.Store({
         data: [],
         jobs:[],
         pboard:[],
+        pboardone:[],
         
     },
     actions: {
@@ -34,8 +35,14 @@ export default new Vuex.Store({
                 console.log(error);
               }) 
 
+        },
+        FETCH_PBOARDONE({commit},pboardNo){
+            fetchPboardOne(pboardNo)
+            .then(({data})=>commit("SET_PBOARDONE",data))
+            .catch(({error})=>console.log(error))
         }
         
+
     },
     mutations: {
         SET_POST(state, jobs) {
@@ -43,6 +50,9 @@ export default new Vuex.Store({
         },
         SET_PBOARD(state,pboard){
             state.pboard=pboard;
+        },
+        SET_PBOARDONE(state,pboardone){
+            state.pboardone=pboardone;
         }
     }
    

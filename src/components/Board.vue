@@ -41,7 +41,7 @@
         </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="tableList"
+            :items="qna"
             :search="search"
           ></v-data-table>
         </v-card>
@@ -58,145 +58,38 @@
 </template>
 
 <script>
+import axios from 'axios';
   export default {
+
+    created : function(){
+
+      axios
+      .get('http://localhost:8082/itjobgo/qna/qnaboardlist')
+      .then(Response=>{
+        this.qna=Response.data;
+        console.log(Response);
+      })
+    }
+    ,
     data() {
-      return {
+      return { 
+      qna:[],
       search: '',
         headers: [
           {
             text: '분류',
             align: 'start',
             filterable: false,
-            value: 'category',
+            value: 'qnaCategory', //spring vo값 적기
           },
-          { text: '내용', value: 'content' },
-          { text: '작성자', value: 'writer' },
-          { text: '작성날짜', value: 'date' },
+          { text: 'NO', value: 'qnaSeq' },          
+          { text: '제목', value: 'qnaTitle' },
+          { text: '작성자', value: 'qnaWriter' },
+          { text: '내용', value: 'qnaContent' },
+          { text: '답변여부', value: 'qnaAnswerYn' },
+          { text: '작성일', value: 'qnaDate' },
         ],
-        tableList: [
-
-          {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-                    {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-                    {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-                    {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-                    {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-                    {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-        
-        ],
+  
       }
     },
   }

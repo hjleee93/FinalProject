@@ -14,6 +14,7 @@ import MeetingEnd from './components/meeting/MeetingEndView.vue';
 import Meetinginfo from './components/meeting/Meetinginfo.vue';
 import PortFolio from './components/portfolio/PortFoilo.vue'
 import PortFoiloenroller from './components/portfolio/PortFoiloenroller.vue';
+import Portfolioinfo from './components/portfolio/PortFolioinfo.vue';
 
 //혜지
 
@@ -29,17 +30,17 @@ import consult from './components/resume/consult'
 
 
 //민지
-const Info = () =>{
-  return import('./components/board/Info.vue')
+const InfoList = () =>{
+  return import('./components/info/InfoList.vue')
 }
-const Detail = () =>{
-  return import('./components/board/Detail.vue')
+const InfoDetail = () =>{
+  return import('./components/info/InfoDetail.vue')
 }
-const Boardform = () =>{
-  return import('./components/board/Boardform.vue')
+const InfoForm = () =>{
+  return import('./components/info/InfoForm.vue')
 }
-const Job = () =>{
-  return import('./components/board/Job.vue')
+const JobList = () =>{
+  return import('./components/info/JobList.vue')
 }
 //주은
 const CommunityBoardList = () =>{
@@ -173,26 +174,31 @@ export default new Router({
       path:'/portfolioenroller',
       component:PortFoiloenroller,
     },
+    {
+      path:'/Portfolioinfo/:id',
+      component:Portfolioinfo,
+      name:'Portinfo',
+    },
     //민지
     {
-      path: '/info',
-      name: 'info',
-      component: Info
+      path: '/infoList',
+      name: 'infoList',
+      component: InfoList
     },
     {
-      path: '/detail',
-      name: 'detail',
-      component: Detail
+      path: '/infoDetail',
+      name: 'infoDetail',
+      component: InfoDetail
     },
     {
-      path: '/boardform',
-      name: 'boardform',
-      component: Boardform
+      path: '/infoForm',
+      name: 'infoForm',
+      component: InfoForm
     },
     {
-      path: '/job',
-      name: 'job',
-      component: Job
+      path: '/jobList',
+      name: 'jobList',
+      component: JobList
     },
     //주은
     {
