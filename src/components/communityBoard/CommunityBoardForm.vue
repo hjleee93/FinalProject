@@ -74,6 +74,7 @@ import axios from 'axios';
       VueEditor,
     },
 
+
     methods: {
       enrollBoard() {
         
