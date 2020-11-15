@@ -55,6 +55,7 @@
                 :headers="headers"
                 :items="community"
                 :search="search"
+                @click:row="handleClick"
               >
               </v-data-table>
         </v-card>
@@ -85,6 +86,13 @@ import axios from 'axios';
                console.log(response);
                
                })
+    },
+
+        methods: {
+      handleClick(value){
+        alert('row클릭');
+        console.log(value)
+      }
     },
 
     data() {

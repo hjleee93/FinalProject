@@ -74,6 +74,7 @@ import { mapState } from 'vuex';
         pboard:state=>state.pboard
       })
     },
+    
     methods: {
       handleClick(value){
         alert('row클릭');
