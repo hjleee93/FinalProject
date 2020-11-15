@@ -11,7 +11,11 @@ function fetchPboardList(){
     //백틱 es6사용
     //return 해주는것이 핵심
 }
+function fetchPboardOne(pboardNo){
+    return axios.get(`${config.Url}poryfolio/pboardinfo${pboardNo}.do`)
+}
 
 export {
-    fetchPboardList
+    fetchPboardList,
+    fetchPboardOne
 }

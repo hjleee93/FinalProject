@@ -8,7 +8,7 @@
       <b-row>
         <b-col>제목</b-col>      
     </b-row>
-
+    <div>{{pboardone}}</div>
     작성자
     내용
     첨부파일
@@ -17,7 +17,31 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
+    data(){
+        return {
+          
+        }
+    },
+    created() {
+        const pboardNo=this.$route.params.id;
+        console.log(pboardNo);
+        this.$store.dispatch("FETCH_PBOARDONE",pboardNo)
+    },
+    computed: {
+        ...mapState({
+            pboardone:state=>state.pboardone
+        })
+    },
+    
+  
+      
+
+
+    
+
+
 
 }
 </script>
