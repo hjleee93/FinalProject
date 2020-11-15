@@ -48,6 +48,7 @@
 </template>
 
 <script>
+let test = 'minji'
   export default {
     data() {
       return {
@@ -61,7 +62,7 @@
         ],
         tableList: [
           {
-            name: '가나',
+            name: test,
             title: '웹개발자 모집',
             ability: '신입/학력 무관',
             Condition:'정규직/서울 강남구/3,600만원~',

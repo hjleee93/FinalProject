@@ -14,8 +14,8 @@
           <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
                <b-nav-item-dropdown class="nav-link" text="JOB">
-                <b-dropdown-item to="/job">구인 정보</b-dropdown-item>
-                <b-dropdown-item to="/info">취업 정보</b-dropdown-item>
+                <b-dropdown-item to="/jobList">구인 정보</b-dropdown-item>
+                <b-dropdown-item to="/infoList">취업 정보</b-dropdown-item>
                </b-nav-item-dropdown>
               <b-nav-item-dropdown class="nav-link" text="RESUME">
                 <b-dropdown-item to="/resume/insertresume">입사지원서 등록</b-dropdown-item>
