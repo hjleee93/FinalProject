@@ -95,5 +95,4 @@
 <style>
 @import '../../assets/css/BoardView.css';
 
-
 </style>
