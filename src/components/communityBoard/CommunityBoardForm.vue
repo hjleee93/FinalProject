@@ -5,7 +5,7 @@
     <h4 id="h4-title">자유게시판 작성</h4>
     </div>
 
-    <b-form @submit.prevent="enrollBorad" @reset="onReset" enctype="multipart/form-data">
+    <form @submit.prevent="enrollBoard" @reset="onReset" enctype="multipart/form-data">
       <b-form-group
         id="input-group-1"
         label="제목"
@@ -21,7 +21,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" 
+      <!-- <b-form-group id="input-group-3" 
       label="분류선택" label-for="input-2" label-align="left">
         <b-form-select
           id="input-2"
@@ -29,24 +29,24 @@
           :options="boardDivision"
           required
         ></b-form-select>
-      </b-form-group>
+      </b-form-group> -->
 
       <!-- 에디터 창 -->
       <vue-editor  id="vue-editor" v-model="boardContent" name="content"/>
 
       <!-- 첨부파일 -->
 
-    <b-form-file id="file1" ref="upfiles" v-on:change="handleFile"
+    <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
     placeholder="첨부파일을 선택해주세요"></b-form-file> 
 
       <!-- <b-form-file id="file2" ref="upfiles" v-on:change="handleFile"
     placeholder="첨부파일을 선택해주세요"></b-form-file>  -->
 
-      <b-button type="submit" id="submit-btn2"  @click="enrollBorad" >완료</b-button>
+      <b-button type="submit" id="submit-btn2"  @click="enrollBoard" >완료</b-button>
       <b-button type="reset" id="reset-btn2">취소</b-button>
       <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
       
-    </b-form>
+    </form>
   </b-container>
 </template>
 
@@ -58,12 +58,15 @@ import axios from 'axios';
 
     data() {
       return {
-  
         boardTitle:"",
         category:"",
-        boardDivision: [{ text: '분류(필수사항)', value: null }, '질문', '추천', '일반'],
+        // boardDivision :[
+        //   { value: '일반', text: '일반' },
+        //   { value: '질문', text: '질문' },
+        //   { value: '홍보', text: '홍보' }
+        // ],
         boardContent:"",
-        file1 :""
+        files :""
       }
     },
 
@@ -72,13 +75,13 @@ import axios from 'axios';
     },
 
     methods: {
-      enrollBorad() {
+      enrollBoard() {
         
         let formData = new FormData();
         formData.append('boardTitle',this.boardTitle);
-        formData.append('boardDivision',this.boardDivision);
-        formData.append('content',this.content.replace(/(<([^>]+)>)/ig,""));
-        formData.append('file1',this.file1);
+        // formData.append('boardDivision',this.boardDivision.text);
+        formData.append('boardContent',this.boardContent.replace(/(<([^>]+)>)/ig,""));
+        formData.append('files',this.files);
         
         for(let key of formData.entries()){
         console.log(`${key}`);
@@ -97,9 +100,9 @@ import axios from 'axios';
       },
 
       handleFile(){
-      console.log(this.$refs.upfiles.$refs.input.file1[0]);
-      this.file1=this.$refs.upfiles.$refs.input.file1[0];
-      console.log(this.file1);
+        console.log(this.$refs.upfiles.$refs.input.files[0]);
+        this.files=this.$refs.upfiles.$refs.input.files[0];
+        console.log(this.files);
       },
 
 
@@ -107,9 +110,9 @@ import axios from 'axios';
         evt.preventDefault()
         // Reset our form values
         // this.form.email = ''
-        this.name = ''
+        this.boardTitle = ''
         this.category = null
-        this.content=''
+        this.boardContent=''
         this.file1.name=''
       }
     }
