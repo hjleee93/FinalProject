@@ -29,7 +29,6 @@ export default new Vuex.Store({
         communityboard:[],
         communityboardView:[],
 
-        pboardone: [],
         loginStatus: false,//로그인 성공 여부
         loginError: false,
         
