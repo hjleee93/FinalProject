@@ -76,7 +76,7 @@
 
 						</div>
 					</div>
-					<div class="mail"><span class="item"><span class="bullet"></span>이메일</span>ttldlguswjd@naver.com</div>
+					<div class="mail"><span class="item"><span class="bullet"></span>이메일</span>{{userData.memberEmail}}</div>
 					<div class="address"><span class="item"><span class="bullet"></span>주소</span>서울 강서구 화곡1동</div>
 					<p class="btn"><a href="https://sign.alba.co.kr/user/change/UserInfoChange.asp?site=WWW" class="infoModify" target="_blank">개인정보수정</a></p>
 				</li>
