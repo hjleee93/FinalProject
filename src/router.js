@@ -135,6 +135,12 @@ const FoundEmail = () =>{
   return import('./components/member/foundEmail.vue')
 }
 
+
+const JobSearchDtl = () =>{
+  return import('./components/jobInfo/jobSearchDtl.vue')
+}
+
+
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
 // }
@@ -333,6 +339,11 @@ export default new Router({
       path: '/foundEmail',
       name: 'foundEmail',
       component: FoundEmail
+    },
+    {
+      path: '/jobSearchDtl',
+      name: 'jobSearchDtl',
+      component: JobSearchDtl
     },
     //현주
     {
