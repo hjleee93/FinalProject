@@ -1,24 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-<<<<<<< HEAD
-
 import {
                 //동욱
                 fetchPboardList,
                 fetchPboardOne,
+                fetchPboardDel,
                 //주은
                 fetchCommunityBoardList,
                 fetchCommunityBoardView
             
             } 
             from './api/index.js';
-
-=======
-import {fetchPboardList,fetchPboardOne,fetchPboardDel} from './api/index.js';
->>>>>>> donguk
 Vue.use(Vuex,axios)
-
 var convert = require('xml-js')
 let allCategory= 'http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056'
 export default new Vuex.Store({
@@ -26,18 +20,14 @@ export default new Vuex.Store({
         data: [],
         jobs:[],
         pboard:[],
-<<<<<<< HEAD
 
         pboardone:[],
 
         //주은
         communityboard:[],
         communityboardView:[],
-
-=======
-        pboardone: [],
         msg:'',
->>>>>>> donguk
+
         loginStatus: false,//로그인 성공 여부
         loginError: false,
         
@@ -98,15 +88,14 @@ export default new Vuex.Store({
             .then(({data})=>commit("SET_PBOARDONE",data))
             .catch(({error})=>console.log(error))
         },
-<<<<<<< HEAD
-=======
+
         FETCH_PBOARDDEL({commit},no){
             fetchPboardDel(no)
             .then(({data})=>commit("SET_PBOARDDEL",data))
             .catch(({error})=>console.log(error))
-        }
+        },
         
->>>>>>> donguk
+
 
 
         //주은

@@ -34,16 +34,10 @@ function fetchCommunityBoardView(){
 export {
     fetchPboardList,
     fetchPboardOne,
-<<<<<<< HEAD
-
     //주은
     //자유게사판CommunityBoard
     fetchCommunityBoardList,
     fetchCommunityBoardView,
-
-
-
-=======
     fetchPboardDel
->>>>>>> donguk
+
 }
