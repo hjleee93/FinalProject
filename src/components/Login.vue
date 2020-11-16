@@ -39,7 +39,7 @@
                 <small>Or sign in with credentials</small>
               </div>
               <validation-observer ref="formValidator">
-                <b-form role="form" @submit.prevent="onSubmit">
+                <b-form role="form" >
                   <b-form-input alternative
                               class="mb-3"
                               required
@@ -55,10 +55,11 @@
                               placeholder="Password"
                               v-model="model.password">
                   </b-form-input>
-
+                  <span class=" mb-0 error">
+                    <b-icon icon="exclamation-circle-fill" variant="danger"></b-icon> 이메일 혹은 비밀번호를 잘못 입력하셨습니다.</span>
                   <b-form-checkbox v-model="model.rememberMe">Remember me</b-form-checkbox>
                   <div class="text-center">
-                    <base-button type="primary" native-type="submit" class="my-4">Sign in</base-button>
+                    <base-button type="primary" @click="login({memberEmail: model.email, memberPwd:model.password})" class="my-4">Sign in</base-button>
                     
                   </div>
                 </b-form>
@@ -81,8 +82,9 @@
   
 </template>
 <script>
+import { mapState, mapActions} from 'vuex'
 
-import axios from "axios"
+// import axios from "axios"
 
   export default {
     data() {
@@ -102,27 +104,37 @@ import axios from "axios"
       };
     },
     methods: {
-      onSubmit() {
+      ...mapActions(['login']),
+      // onSubmit() {
+      //   const formData = {
+      //   memberEmail: this.model.email,
+      //   memberPwd: this.model.password,
+      // }
+      // }
+    // axios
+    //   .post('http://localhost:8082/itjobgo/member/login',formData)
+    //   .then(res=> {
         
-        const formData = {
-        memberEmail: this.model.email,
-        memberPwd: this.model.password,
-      }
-        // const self = this; //this scope문제
-    axios
-      .post('http://localhost:8082/itjobgo/member/login',formData)
-      .then(res=> {
-       
+    //       if(res.data.token === undefined){//로그인 실패 토큰값 없는 경우
+    //         console.log("토큰 없: " + res.data.token)
+    //         $( '.error' ).show();
+            
+    //       }else{//토큰값 있음
+    //         console.log("토큰 있: " + res.data.token)
+    //         $( '.error' ).hide();
+    //       }
           
-          console.log(res)
          
-         // self.$router.push("/"); //회원가입 후 경로 설정
+    //      // self.$router.push("/"); //회원가입 후 경로 설정
           
-        })
-        .catch((error) => console.log(error));
+    //     })
+    //     .catch((error) => console.log(error));
     
-      },
+    //   },
       
+  },
+  computed:{
+    ...mapState(["loginStatus","loginError"])
   },
   created () {
     this.naverLoginURL += '&client_id=' + this.CLIENT_ID;
@@ -142,5 +154,9 @@ import axios from "axios"
   background-color: #f7fafc !important;
   border-radius: 5px;
 }
-
+.error{
+  color: red;
+  font-size: 14px;
+  display: none;
+}
 </style>

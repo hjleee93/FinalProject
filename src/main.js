@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import router from './router'
 import Footer from './components/common/Footer.vue'
 import Header from './components/common/Header.vue'
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import VeeValidate from 'vee-validate' 
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -39,6 +39,7 @@ Vue.use(VueSession, sessionOptions)
 
 Vue.use(VueSweetalert2);
 Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 Vue.use(VueRouter)
 Vue.use(LoginPlugin);
 

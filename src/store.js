@@ -11,7 +11,10 @@ export default new Vuex.Store({
         data: [],
         jobs:[],
         pboard:[],
-        pboardone:[],
+        pboardone: [],
+        loginStatus: false,//로그인 성공 여부
+        loginError: false,
+        
         
     },
     actions: {
@@ -26,6 +29,31 @@ export default new Vuex.Store({
                     commit('SET_POST', this.jobs) 
                     
               });
+        },
+        login({commit }, loginData) {
+            
+            axios
+            .post('http://localhost:8082/itjobgo/member/login',loginData)
+            .then(res=> {
+                if(res.data.token === undefined){//로그인 실패 토큰값 없는 경우
+                    console.log("토큰 없: " + res.data.token)
+                    commit('loginFalse')
+                  
+                }else{//토큰값 있음
+                    console.log("토큰 있: " + res.data.token)
+                    document.cookie = `accessToken=${res.data.token}`;
+                    //cookie를 이렇게 넣는다고..?
+                    axios.defaults.headers.common['x-access-token'] = res.data.token;
+                    console.log(axios.defaults.headers.common['x-access-token']);
+                    commit('loginSuccess')
+                  
+                }
+                
+              })
+              .catch((error) => console.log(error));
+          
+            
+          
         },
         FETCH_PBOARD({commit}){
             //인자로 centext가 제공 centext.commit
@@ -53,6 +81,17 @@ export default new Vuex.Store({
         },
         SET_PBOARDONE(state,pboardone){
             state.pboardone=pboardone;
+        },
+
+        //로그인 성공
+        loginSuccess(state) {
+            state.loginStatus = true;
+            state.loginError = false;
+        },
+        //로그인 실패
+        loginFalse(state) {
+            state.loginStatus = false;
+            state.loginError = true;
         }
     }
    
