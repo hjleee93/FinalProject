@@ -12,7 +12,10 @@ function fetchPboardList(){
     //return 해주는것이 핵심
 }
 function fetchPboardOne(pboardNo){
-    return axios.get(`${config.Url}poryfolio/pboardinfo${pboardNo}.do`)
+    return axios.get(`${config.Url}portfolio/pboardinfo${pboardNo}.do`)
+}
+function fetchPboardDel(no){
+    return axios.post(`${config.Url}portfolio/pboarddel${no}.do`)
 }
 
 //주은
@@ -31,12 +34,10 @@ function fetchCommunityBoardView(){
 export {
     fetchPboardList,
     fetchPboardOne,
-
     //주은
     //자유게사판CommunityBoard
     fetchCommunityBoardList,
     fetchCommunityBoardView,
-
-
+    fetchPboardDel
 
 }
