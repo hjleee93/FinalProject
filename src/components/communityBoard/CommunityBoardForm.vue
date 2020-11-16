@@ -2,16 +2,18 @@
   <b-container>
 
     <div class="container" id="header-container">
-    <h4 id="h4-title">자유게시판 작성</h4>
+      <h4 id="h4-title">자유게시판 작성</h4>
     </div>
 
-    <form @submit.prevent="enrollBoard" @reset="onReset" enctype="multipart/form-data">
+    <form @submit.prevent="enrollBoard" 
+    @reset="onReset" enctype="multipart/form-data">
       <b-form-group
         id="input-group-1"
         label="제목"
         label-for="input-1"
         label-align="left"
       >
+
         <b-form-input
           id="input-1"
           v-model="boardTitle"
@@ -21,7 +23,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <!-- <b-form-group id="input-group-3" 
+      <!-- <b-form-group id="input-group-2" 
       label="분류선택" label-for="input-2" label-align="left">
         <b-form-select
           id="input-2"
@@ -32,13 +34,16 @@
       </b-form-group> -->
 
       <!-- 에디터 창 -->
-      <vue-editor  id="vue-editor" v-model="boardContent" name="content"/>
+      <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
+        <vue-editor  id="input-3" v-model="boardContent" 
+        name="boardContent"/>
+     </b-form-group>
 
       <!-- 첨부파일 -->
-
-    <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
-    placeholder="첨부파일을 선택해주세요"></b-form-file> 
-
+      <b-form-group>
+        <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
+        placeholder="첨부파일을 선택해주세요"></b-form-file> 
+      </b-form-group>
       <!-- <b-form-file id="file2" ref="upfiles" v-on:change="handleFile"
     placeholder="첨부파일을 선택해주세요"></b-form-file>  -->
 
@@ -59,7 +64,7 @@ import axios from 'axios';
     data() {
       return {
         boardTitle:"",
-        category:"",
+        // category:"",
         // boardDivision :[
         //   { value: '일반', text: '일반' },
         //   { value: '질문', text: '질문' },
@@ -82,20 +87,19 @@ import axios from 'axios';
         formData.append('boardTitle',this.boardTitle);
         // formData.append('boardDivision',this.boardDivision.text);
         formData.append('boardContent',this.boardContent.replace(/(<([^>]+)>)/ig,""));
-        formData.append('files',this.files);
+        formData.append('file',this.files);
         
         for(let key of formData.entries()){
         console.log(`${key}`);
         }
 
-      axios.post("http://localhost:8082/itjobgo/community/communityBoardForm",formData
-       ,{ headers:{
+      axios.post("http://localhost:8082/itjobgo/community/communityBoardForm",
+        formData,
+        { headers:{
           'Content-Type':'multipart/form-data'
         }}).then((data)=>console.log(data))
         .catch((error)=>
         console.log(error))
-
-      
         console.log(formData);
 
       },
@@ -112,9 +116,9 @@ import axios from 'axios';
         // Reset our form values
         // this.form.email = ''
         this.boardTitle = ''
-        this.category = null
+        // this.category = null
         this.boardContent=''
-        this.file1.name=''
+        this.files.name=''
       }
     }
   }
