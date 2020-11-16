@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+<<<<<<< HEAD
 
 import {
                 //동욱
@@ -13,6 +14,9 @@ import {
             } 
             from './api/index.js';
 
+=======
+import {fetchPboardList,fetchPboardOne,fetchPboardDel} from './api/index.js';
+>>>>>>> donguk
 Vue.use(Vuex,axios)
 
 var convert = require('xml-js')
@@ -22,6 +26,7 @@ export default new Vuex.Store({
         data: [],
         jobs:[],
         pboard:[],
+<<<<<<< HEAD
 
         pboardone:[],
 
@@ -29,6 +34,10 @@ export default new Vuex.Store({
         communityboard:[],
         communityboardView:[],
 
+=======
+        pboardone: [],
+        msg:'',
+>>>>>>> donguk
         loginStatus: false,//로그인 성공 여부
         loginError: false,
         
@@ -89,6 +98,15 @@ export default new Vuex.Store({
             .then(({data})=>commit("SET_PBOARDONE",data))
             .catch(({error})=>console.log(error))
         },
+<<<<<<< HEAD
+=======
+        FETCH_PBOARDDEL({commit},no){
+            fetchPboardDel(no)
+            .then(({data})=>commit("SET_PBOARDDEL",data))
+            .catch(({error})=>console.log(error))
+        }
+        
+>>>>>>> donguk
 
 
         //주은
@@ -120,6 +138,10 @@ export default new Vuex.Store({
         },
         SET_PBOARDONE(state,pboardone){
             state.pboardone=pboardone;
+        },
+        SET_PBOARDDEL(state,data){
+            state.msg=data
+            
         },
 
         //주은

@@ -9,20 +9,67 @@
         <b-col>제목</b-col>      
     </b-row>
     <div>{{pboardone}}</div>
-    작성자
-    내용
-    첨부파일
-    답글     
+ 
+    <div v-for="item in pboardone" :key="item.id">{{item}}</div>
+<b-row><b-col>
+          <b-button @click="update">수정</b-button>
+          <b-button @click="pdelete">삭제</b-button>
+          
+  </b-col></b-row>
+  <ModalView v-if="showModal" @close="showModal = false">
+    <template>
+      <div slot="header">
+        정말 삭제하시겠습니까?
+      </div>
+      <div slot="body"> 
+        <b-button @click="ydele">
+          YES
+        </b-button>
+      <b-button @click="ndele">NO</b-button>
+      </div>
+      <div slot="footer">
+
+      </div>
+    </template>
+
+
+  </ModalView>
+     
 </b-container> 
 </template>
 
 <script>
+import ModalView from '../common/ModalView.vue'
 import { mapState } from 'vuex';
 export default {
     data(){
         return {
-          
+            showModal:false,
+            pboardno:0,
+      
         }
+    },
+    components:{
+      ModalView,
+    },
+    methods: {
+      update(){
+        alert("수정버튼 눌림")
+      },
+      pdelete(){
+          this.showModal=!this.showModal;
+         
+        
+      },
+      ydele(){
+        let no=this.$route.params.id
+         this.$store.dispatch("FETCH_PBOARDDEL",no)
+        
+        
+      },
+      ndele(){
+        this.showModal=!this.showModal;
+      }
     },
     created() {
         const pboardNo=this.$route.params.id;
@@ -31,7 +78,9 @@ export default {
     },
     computed: {
         ...mapState({
-            pboardone:state=>state.pboardone
+            pboardone:state=>state.pboardone,
+          
+           
         })
     },
     
