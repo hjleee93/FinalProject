@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import {fetchPboardList,fetchPboardOne} from './api/index.js';
+import {fetchPboardList,fetchPboardOne,fetchPboardDel} from './api/index.js';
 Vue.use(Vuex,axios)
 
 var convert = require('xml-js')
@@ -12,6 +12,7 @@ export default new Vuex.Store({
         jobs:[],
         pboard:[],
         pboardone: [],
+        msg:'',
         loginStatus: false,//로그인 성공 여부
         loginError: false,
         
@@ -68,6 +69,11 @@ export default new Vuex.Store({
             fetchPboardOne(pboardNo)
             .then(({data})=>commit("SET_PBOARDONE",data))
             .catch(({error})=>console.log(error))
+        },
+        FETCH_PBOARDDEL({commit},no){
+            fetchPboardDel(no)
+            .then(({data})=>commit("SET_PBOARDDEL",data))
+            .catch(({error})=>console.log(error))
         }
         
 
@@ -81,6 +87,10 @@ export default new Vuex.Store({
         },
         SET_PBOARDONE(state,pboardone){
             state.pboardone=pboardone;
+        },
+        SET_PBOARDDEL(state,data){
+            state.msg=data
+            
         },
 
         //로그인 성공
