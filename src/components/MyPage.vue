@@ -32,11 +32,6 @@
 				<li class="topList first resume">
 					<p class="title">이력서 등록수 </p>
 					<p class="count"><a href="http://www.alba.co.kr/person/resume/MagResume.asp">1</a>개</p>
-					<p class="btn">
-						
-							<a href="http://www.alba.co.kr/person/resume/Regist.asp">새 이력서 작성</a>
-						
-					</p>
 				</li>
 				<li class="topList openState">
 					<p class="title">참여한 프로젝트수</p>
@@ -101,6 +96,7 @@
 
 <script>
 import {mapState} from 'vuex'
+
 export default {
 	computed:{
 		...mapState(['userData'])

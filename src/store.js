@@ -96,7 +96,17 @@ export default new Vuex.Store({
             axios
             .get('http://localhost:8082/itjobgo/member/getMember?memberEmail='+ memberEmail,config)
                 .then(response => {
-                commit('loginSuccess', response.data)
+                    let userData = {
+                        memberAddr: response.data.memberAddr,
+                        memberAddrDtl: response.data.memberAddrDtl,
+                        memberAddrExtra: response.data.memberAddrExtra,
+                        memberEmail: response.data.memberEmail,
+                        memberLevel: response.data.memberLevel,
+                        memberName: response.data.memberName,
+                        memberPhone: response.data.memberName,
+                        memberPostCode: response.data.memberPostCode
+                    }
+                commit('loginSuccess', userData)
              })
             .catch(() => {
                 alert("에러")
@@ -174,10 +184,11 @@ export default new Vuex.Store({
         },
          //로그인 성공
          loginSuccess(state, payload) {
-            console.log("로그인성공");
+            
             state.loginStatus = true;
              state.loginError = false;
-            state.userData = payload;
+             state.userData = payload;
+             console.log("로그인성공" + payload);
         },
         //로그인 실패
         loginFalse(state) {

@@ -136,7 +136,6 @@ li {
   text-align: center;
 }
 
-/* #PersonHead .infoList li p.title {height:13px;margin:0 auto;font:0/0 'Malgun Gothic';} */
 #PersonHead .infoList li .count {
   margin-top: 10px;
   font: bold 18px "Malgun Gothic";
@@ -198,32 +197,39 @@ li {
   background: url("//image.alba.kr/person/personHead.png") no-repeat -231px -47px;
 }
 #PersonHead .infoList li.resume .title {
-  width: 76px;
+  width: 100px;
   background-position: 0 0;
+  margin: 0 auto;
 }
 #PersonHead .infoList li.openState .title {
-  width: 87px;
+  width: 125px;
   background-position: -81px 0;
+  margin: 0 auto;
 }
 #PersonHead .infoList li.onlineCount .title {
-  width: 76px;
+  width: 85px;
   background-position: 0 -19px;
+  margin: 0 auto;
 }
 #PersonHead .infoList li.resumeCompany .title {
-  width: 84px;
+  width: 110px;
   background-position: -81px -19px;
+  margin: 0 auto;
 }
 #PersonHead .infoList li.apply .title {
   width: 75px;
   background-position: 0 -37px;
+  margin: 0 auto;
 }
 #PersonHead .infoList li.scrap .title {
-  width: 88px;
+  width: 110px;
   background-position: -80px -37px;
+  margin: 0 auto;
 }
 #PersonHead .infoList li.customize .title {
   width: 96px;
   background-position: -81px -56px;
+  margin: 0 auto;
 }
 #PersonHead .infoList li.openState .state {
   position: static;
