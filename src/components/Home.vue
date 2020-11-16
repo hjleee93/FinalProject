@@ -21,7 +21,7 @@
                 <div>
                   <b-button
                   
-                    @click="selectLocation"
+                    
                     v-b-toggle.collapse-1 
                     class="form-control"
                     v-model="selectedLocation"
@@ -46,9 +46,9 @@
               </div>
 
               <div class="col-lg-2 form-cols">
-                <button type="button" class="btn btn-info">
+                <b-button type="button" class="btn btn-info" @click="jobSearch(inputSearch)">
                   <span class="lnr lnr-magnifier"></span> Search
-                </button>
+                </b-button>
               </div>
             </div>
           </form>
@@ -209,12 +209,13 @@ var convert = require('xml-js')
 
 //로그인한 사람에 따라 추천 parmeter 수정하기
 let rcm = "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=024"
-var inputSearch
+
+
 
 export default {
   data() {
     return {
-      inputSearch,//search bar 검색어 
+      // inputSearch,//search bar 검색어 
       rcmJson:[],//추천 채용정보 
       selectedLocation: null,
       selectedJob: null,
@@ -229,11 +230,17 @@ export default {
     };
   },
   methods: {
+    
     moveDetailPage: function(e){
       console.log(e);
       return 0;
     },
-    selectLocation: function(){
+    //서치바 
+    jobSearch: function(inputSearch){
+       this.$router.push({ 
+              name: "jobList",
+              params: { keyword: inputSearch },
+            }); //이메일 찾음 -> 페이지 이동
     }
   },
     created () {

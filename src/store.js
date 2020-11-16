@@ -5,7 +5,7 @@ import {fetchPboardList,fetchPboardOne} from './api/index.js';
 Vue.use(Vuex,axios)
 
 var convert = require('xml-js')
-
+let allCategory= 'http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056'
 export default new Vuex.Store({
     state: {
         data: [],
@@ -20,7 +20,7 @@ export default new Vuex.Store({
     actions: {
         loadXml({ commit }) {
             //최신 채용 정보 xml
-            axios.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056")
+            axios.get(allCategory)
                 .then((response) => { 
                     let data = response.data
                     //xml to json
