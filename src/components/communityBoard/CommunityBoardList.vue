@@ -53,7 +53,7 @@
 
               <v-data-table
                 :headers="headers"
-                :items="community"
+                :items=communityboard
                 :search="search"
                 @click:row="handleClick"
               >
@@ -74,31 +74,43 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { mapState } from 'vuex';
+
   export default {
 
     created: function(){
-    axios
-              .get(`http://localhost:8082/itjobgo/community/communityBoardList`)
-             .then(response=>{
-               this.community=response.data;
+      this.$store.dispatch("FETCH_COMMUNITYBOARD")
+    // axios
+    //           .get(`http://localhost:8082/itjobgo/community/communityBoardList`)
+    //          .then(response=>{
+    //            this.community=response.data;
 
-               console.log(response);
+    //            console.log(response);
                
-               })
+    //            })
                
+    // },
+    },
+    computed:{
+        ...mapState({
+            communityboard:state=>state.communityboard
+        })
     },
 
-        methods: {
-      handleClick(value){
-        alert('row클릭');
-        console.log(value)
-      }
-    },
+      methods: {
+    handleClick(value){
+      alert(value.boardSq);
+      this.$router.push({name:'CommunityBoard',params:{id:value.boardSq}});
+      // console.log(value);
+      console.log(value.boardSq);
+    
+    }
+  },
 
     data() {
       return {
-      community: [],
+      // community: [],
       search: '',
         headers: [
           {
@@ -108,7 +120,7 @@ import axios from 'axios';
             value: 'boardDivision',
           },
           { text: '제목', value: 'boardTitle' },
-          { text: '작성날짜', value: 'boardDate' },
+          { text: '작성', value: 'boardDate' },
         ],
         
       }

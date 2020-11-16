@@ -23,7 +23,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <!-- <b-form-group id="input-group-2" 
+      <b-form-group id="input-group-2" 
       label="분류선택" label-for="input-2" label-align="left">
         <b-form-select
           id="input-2"
@@ -31,7 +31,7 @@
           :options="boardDivision"
           required
         ></b-form-select>
-      </b-form-group> -->
+      </b-form-group>
 
       <!-- 에디터 창 -->
       <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
@@ -47,7 +47,7 @@
       <!-- <b-form-file id="file2" ref="upfiles" v-on:change="handleFile"
     placeholder="첨부파일을 선택해주세요"></b-form-file>  -->
 
-      <b-button type="submit" id="submit-btn2"  @click="enrollBoard" >완료</b-button>
+      <b-button id="submit-btn2"  @click="enrollBoard"  to="/communityBoardList" exact>완료</b-button>
       <b-button type="reset" id="reset-btn2">취소</b-button>
       <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
       
@@ -64,12 +64,12 @@ import axios from 'axios';
     data() {
       return {
         boardTitle:"",
-        // category:"",
-        // boardDivision :[
-        //   { value: '일반', text: '일반' },
-        //   { value: '질문', text: '질문' },
-        //   { value: '홍보', text: '홍보' }
-        // ],
+        category:"",
+        boardDivision :[
+          { value: '일반', text: '일반' },
+          { value: '질문', text: '질문' },
+          { value: '홍보', text: '홍보' }
+        ],
         boardContent:"",
         files :""
       }
@@ -85,13 +85,15 @@ import axios from 'axios';
         
         let formData = new FormData();
         formData.append('boardTitle',this.boardTitle);
-        // formData.append('boardDivision',this.boardDivision.text);
+        formData.append('boardDivision',this.category);
         formData.append('boardContent',this.boardContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('file',this.files);
         
         for(let key of formData.entries()){
         console.log(`${key}`);
         }
+
+          console.log(this.category);
 
       axios.post("http://localhost:8082/itjobgo/community/communityBoardForm",
         formData,
@@ -116,7 +118,7 @@ import axios from 'axios';
         // Reset our form values
         // this.form.email = ''
         this.boardTitle = ''
-        // this.category = null
+        this.category = null
         this.boardContent=''
         this.files.name=''
       }

@@ -15,7 +15,28 @@ function fetchPboardOne(pboardNo){
     return axios.get(`${config.Url}poryfolio/pboardinfo${pboardNo}.do`)
 }
 
+//주은
+//communityBoard
+
+//자유게사판 조회
+function fetchCommunityBoardList(){
+    return axios.get(`${config.Url}community/communityBoardList`)
+}
+
+// //자유게시판 상세화면
+function fetchCommunityBoardView(){
+    return axios.get(`${config.Url}community/communityBoardView`)
+}
+
 export {
     fetchPboardList,
-    fetchPboardOne
+    fetchPboardOne,
+
+    //주은
+    //자유게사판CommunityBoard
+    fetchCommunityBoardList,
+    fetchCommunityBoardView,
+
+
+
 }

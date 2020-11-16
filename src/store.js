@@ -1,7 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import {fetchPboardList,fetchPboardOne} from './api/index.js';
+
+import {
+                //동욱
+                fetchPboardList,
+                fetchPboardOne,
+                //주은
+                fetchCommunityBoardList,
+                fetchCommunityBoardView
+            
+            } 
+            from './api/index.js';
+
 Vue.use(Vuex,axios)
 
 var convert = require('xml-js')
@@ -12,6 +23,10 @@ export default new Vuex.Store({
         jobs:[],
         pboard:[],
         pboardone:[],
+
+        //주은
+        communityboard:[],
+        communityboardView:[],
         
     },
     actions: {
@@ -27,6 +42,7 @@ export default new Vuex.Store({
                     
               });
         },
+        //동욱
         FETCH_PBOARD({commit}){
             //인자로 centext가 제공 centext.commit
             fetchPboardList()
@@ -40,10 +56,29 @@ export default new Vuex.Store({
             fetchPboardOne(pboardNo)
             .then(({data})=>commit("SET_PBOARDONE",data))
             .catch(({error})=>console.log(error))
-        }
-        
+        },
 
-    },
+
+        //주은
+        //자유게시판 list 불러오기
+        FETCH_COMMUNITYBOARD({commit}){
+            fetchCommunityBoardList()
+            .then(({data})=>commit("SET_COMMUNITYBOARD",data))
+            .catch(({error}) =>{
+                console.log(error);
+              }) 
+        },
+        //자유게시판 상세화면
+        FETCH_COMMUNITYBOARD_VIEW({commit,communityboardNo}){
+            fetchCommunityBoardView(communityboardNo)
+            .then(({data})=>commit("SET_COMMUNITYBOARD_VIEW",data))
+            .catch(({error}) =>{
+                console.log(error);
+              }) 
+        },
+
+
+    },//action
     mutations: {
         SET_POST(state, jobs) {
             state.jobs = jobs
@@ -53,7 +88,22 @@ export default new Vuex.Store({
         },
         SET_PBOARDONE(state,pboardone){
             state.pboardone=pboardone;
-        }
+        },
+
+        //주은
+        //자유게시판 리스트
+        SET_COMMUNITYBOARD(state,communityboard){
+            state.communityboard=communityboard;
+        },
+        //자유게사판 상세화면
+        SET_COMMUNITYBOARD_VIEW(state,communityboardView){
+            state.communityboardView=communityboardView;
+        },
+
+
+
+
+
     }
    
 })
