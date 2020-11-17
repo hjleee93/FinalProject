@@ -24,7 +24,6 @@
               <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
             </v-tabs>
 
-
           <div>
             <h4 class="sub-header-ref">분야별 웹 사이트</h4>
             <v-btn to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
