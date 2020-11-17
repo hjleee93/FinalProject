@@ -6,6 +6,7 @@ import {
                 fetchPboardList,
                 fetchPboardOne,
                 fetchPboardDel,
+                fetchPboardUp,
                 //주은
                 fetchCommunityBoardList,
                 fetchCommunityBoardView
@@ -25,11 +26,13 @@ export default new Vuex.Store({
         pboard:[],
 
         pboardone:[],
+        msg:'',
+        attachment:[],
 
         //주은
         communityboard:[],
         communityboardView:[],
-        msg:'',
+        
 
         loginStatus: false,//로그인 성공 여부
         loginError: false,
@@ -135,6 +138,11 @@ export default new Vuex.Store({
             .then(({data})=>commit("SET_PBOARDDEL",data))
             .catch(({error})=>console.log(error))
         },
+        FETCH_PBOARDUP({commit},no){
+            fetchPboardUp(no)
+            .then(({data})=>commit("SET_PBOARDUP",data))
+            .catch(({error})=>console.log(error))
+        },
         
 
 
@@ -172,6 +180,9 @@ export default new Vuex.Store({
         SET_PBOARDDEL(state,data){
             state.msg=data
             
+        },
+        SET_PBOARDUP(state,data){
+            state.attachment=data;
         },
 
         //주은

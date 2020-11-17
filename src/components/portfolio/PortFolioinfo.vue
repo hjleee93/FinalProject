@@ -54,7 +54,11 @@ export default {
     },
     methods: {
       update(){
-        alert("수정버튼 눌림")
+        //수정버튼 눌렸을때 처리하는 로직
+        //새로운 수정 컴포넌트로 이동
+        let no=this.$route.params.id
+        this.$router.push({name:'Portup',params:{id:no}})
+
       },
       pdelete(){
           this.showModal=!this.showModal;
