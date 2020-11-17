@@ -8,7 +8,8 @@ import {
                 fetchPboardDel,
                 //주은
                 fetchCommunityBoardList,
-                fetchCommunityBoardView
+                fetchCommunityBoardView,
+                fetchCommunityBoardDelete,
             
             } 
     from './api/index.js';
@@ -135,9 +136,6 @@ export default new Vuex.Store({
             .then(({data})=>commit("SET_PBOARDDEL",data))
             .catch(({error})=>console.log(error))
         },
-        
-
-
 
         //주은
         //자유게시판 list 불러오기
@@ -149,13 +147,21 @@ export default new Vuex.Store({
               }) 
         },
         //자유게시판 상세화면
-        FETCH_COMMUNITYBOARD_VIEW({commit,communityboardNo}){
+        FETCH_COMMUNITYBOARD_VIEW({commit},communityboardNo){
             fetchCommunityBoardView(communityboardNo)
             .then(({data})=>commit("SET_COMMUNITYBOARD_VIEW",data))
             .catch(({error}) =>{
                 console.log(error);
               }) 
         },
+        //자유게시판 삭제하기
+        FETCH_COMMUNITYBOARD_DELETE({commit},communityboardNo){
+            fetchCommunityBoardDelete(communityboardNo)
+            .then(({data})=>commit("SET_COMMUNITYBOARD_DELETE",data))
+            .catch(({error})=>{
+                console.log(error);
+            })
+        }
 
 
     },//action
@@ -183,6 +189,14 @@ export default new Vuex.Store({
         SET_COMMUNITYBOARD_VIEW(state,communityboardView){
             state.communityboardView=communityboardView;
         },
+        //자유게시판 삭제
+        SET_COMMUNITYBOARD_DELETE(state,communityboardDelete){
+            state.communityboardDelete=communityboardDelete
+        },
+
+
+
+
          //로그인 성공
          loginSuccess(state, payload) {
             

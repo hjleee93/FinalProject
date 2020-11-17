@@ -26,18 +26,26 @@ function fetchCommunityBoardList(){
     return axios.get(`${config.Url}community/communityBoardList`)
 }
 
-// //자유게시판 상세화면
+// 자유게시판 상세화면
 function fetchCommunityBoardView(boardSq){
     return axios.get(`${config.Url}community/communityBoardView${boardSq}`)
+}
+
+//자유게시판 삭제하기
+function fetchCommunityBoardDelete(boardSq){
+    return  axios.post(`${config.Url}community/communityBoardDelete${boardSq}`)
 }
 
 export {
     fetchPboardList,
     fetchPboardOne,
+
+
     //주은
     //자유게사판CommunityBoard
     fetchCommunityBoardList,
     fetchCommunityBoardView,
-    fetchPboardDel
+    fetchPboardDel,
+    fetchCommunityBoardDelete,
 
 }
