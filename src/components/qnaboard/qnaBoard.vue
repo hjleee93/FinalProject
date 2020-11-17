@@ -26,7 +26,7 @@
     <!-- 게시판시작 -->
     <div>
       <h4 class="sub-header">질문/답변 게시판</h4>
-      <v-btn to="/write_qna" exact  id="st_write">글쓰기</v-btn></div>
+      <v-btn to="/qnaWrite" exact  id="st_write">글쓰기</v-btn></div>
     <div class="overflow">
          <!-- 테이블 -->
         <v-card >
@@ -46,8 +46,9 @@
           ></v-data-table>
         </v-card>
         
+        
 
-  </div>
+          </div>
       
         </div>
 
@@ -121,7 +122,7 @@ import axios from 'axios';
 #st_write{
   position: relative;
   top: 9px;
-  left:1080px;
+  left:1020px;
   width:70px;
   margin-bottom: 10px;
   right: -40px;

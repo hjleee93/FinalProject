@@ -20,6 +20,7 @@ var convert = require('xml-js')
 let allCategory= 'http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056'
 export default new Vuex.Store({
     state: {
+        userData:[],
         data: [],
         jobs:[],
         pboard:[],
@@ -97,7 +98,7 @@ export default new Vuex.Store({
             axios
             .get('http://localhost:8082/itjobgo/member/getMember?memberEmail='+ memberEmail,config)
                 .then(response => {
-                    let userData = {
+                    var userData = {
                         memberAddr: response.data.memberAddr,
                         memberAddrDtl: response.data.memberAddrDtl,
                         memberAddrExtra: response.data.memberAddrExtra,
@@ -202,7 +203,7 @@ export default new Vuex.Store({
             state.loginStatus = true;
              state.loginError = false;
              state.userData = payload;
-             console.log("로그인성공" + payload);
+             console.log("로그인성공" + payload.memberEmail);
         },
         //로그인 실패
         loginFalse(state) {

@@ -32,8 +32,8 @@
              </b-nav-item-dropdown>
               
               <b-nav-item-dropdown class="nav-link" text="STUDY">
-                <b-dropdown-item to="/board">Q&A</b-dropdown-item>
-                <b-dropdown-item to="/reference">레퍼런스 사이트</b-dropdown-item>
+                <b-dropdown-item to="/qnaBoard">Q&A</b-dropdown-item>
+                <b-dropdown-item to="/refSite">레퍼런스 사이트</b-dropdown-item>
               </b-nav-item-dropdown>
 
               <!-- Commnunity -->
@@ -57,6 +57,7 @@
               
               <b-nav-item-dropdown v-if="loginStatus" right>
                 <!-- Using 'button-content' slot -->
+                
                 <template #button-content>
                   <em>User</em>
                 </template>
@@ -69,6 +70,7 @@
             </b-navbar-nav>
           </b-collapse>
         </b-navbar>
+        
       </div>
 
 
@@ -80,7 +82,9 @@ import{ mapState} from "vuex"
 export default {
 
   computed:{
-    ...mapState(["loginStatus"])
+    
+    ...mapState(["loginStatus"]),
+    ...mapState(['userData'])
   }
 
 }
