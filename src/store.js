@@ -139,8 +139,8 @@ export default new Vuex.Store({
             .then(({data})=>commit("SET_PBOARDDEL",data))
             .catch(({error})=>console.log(error))
         },
-<<<<<<< HEAD
-=======
+
+
         FETCH_PBOARDUP({commit},no){
             fetchPboardUp(no)
             .then(({data})=>commit("SET_PBOARDUP",data))
@@ -149,7 +149,7 @@ export default new Vuex.Store({
         
 
 
->>>>>>> donguk
+
 
         //주은
         //자유게시판 list 불러오기

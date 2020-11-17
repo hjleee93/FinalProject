@@ -42,22 +42,16 @@ function fetchCommunityBoardDelete(boardSq){
 export {
     fetchPboardList,
     fetchPboardOne,
-<<<<<<< HEAD
 
-
-=======
     fetchPboardUp,
     fetchPboardDel,
->>>>>>> donguk
+
     //주은
     //자유게사판CommunityBoard
     fetchCommunityBoardList,
     fetchCommunityBoardView,
-<<<<<<< HEAD
-    fetchPboardDel,
+
+
     fetchCommunityBoardDelete,
-=======
-  
->>>>>>> donguk
 
 }
