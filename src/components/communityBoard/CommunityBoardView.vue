@@ -77,10 +77,10 @@ import ModalView from '../common/ModalView.vue';
 
 export default {
 
-    date(){
+    data(){
 
       return{
-        showModal : false,
+        showModal:false,
         communityBoardNo:0,
         
       
@@ -114,6 +114,7 @@ export default {
         let no=this.$route.params.id;
         console.log(no);
         this.$store.dispatch("FETCH_COMMUNITYBOARD_DELETE",no);
+        this.$router.push({name:'CommunityBoardList'});
       },
       //삭제버튼(아니오)
       noDelete(){
