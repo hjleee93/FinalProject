@@ -32,8 +32,8 @@
              </b-nav-item-dropdown>
               
               <b-nav-item-dropdown class="nav-link" text="STUDY">
-                <b-dropdown-item to="/board">Q&A</b-dropdown-item>
-                <b-dropdown-item to="/reference">레퍼런스 사이트</b-dropdown-item>
+                <b-dropdown-item to="/qnaBoard">Q&A</b-dropdown-item>
+                <b-dropdown-item to="/refSite">레퍼런스 사이트</b-dropdown-item>
               </b-nav-item-dropdown>
 
               <!-- Commnunity -->
