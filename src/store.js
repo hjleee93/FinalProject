@@ -104,7 +104,7 @@ export default new Vuex.Store({
                         memberEmail: response.data.memberEmail,
                         memberLevel: response.data.memberLevel,
                         memberName: response.data.memberName,
-                        memberPhone: response.data.memberName,
+                        memberPhone: response.data.memberPhone,
                         memberPostCode: response.data.memberPostCode
                     }
                 commit('loginSuccess', userData)
