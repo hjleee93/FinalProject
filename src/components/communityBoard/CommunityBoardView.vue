@@ -31,11 +31,11 @@
 
           <div class="overflow-auto">
  
-            게시판 번호 : {{communityboardView}}
 
             <div id="content-div">
+              게시판 정보 : {{communityboardView}}
    
-        </div>
+            </div>
 
         <div id="date">2020-10-20</div>
             <b-button type="button" id="list-btn" to="/communityBoardList" exact>목록으로</b-button>
