@@ -11,7 +11,7 @@
             <div class="row justify-content-center form-wrap">
               <div class="col-lg-4 form-cols ">
                 <input
-                v-model="inputSearch"
+                
                   type="text"
                   class="form-control"
                   name="search"
@@ -236,10 +236,10 @@ export default {
       return 0;
     },
     //서치바 
-    jobSearch: function(inputSearch){
+    jobSearch: function(e){
        this.$router.push({ 
               name: "jobList",
-              params: { keyword: inputSearch },
+              params: { keyword: e },
             }); //이메일 찾음 -> 페이지 이동
     }
   },

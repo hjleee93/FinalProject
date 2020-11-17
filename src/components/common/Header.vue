@@ -57,6 +57,7 @@
               
               <b-nav-item-dropdown v-if="loginStatus" right>
                 <!-- Using 'button-content' slot -->
+                
                 <template #button-content>
                   <em>User</em>
                 </template>
@@ -69,6 +70,7 @@
             </b-navbar-nav>
           </b-collapse>
         </b-navbar>
+        
       </div>
 
 
@@ -80,7 +82,9 @@ import{ mapState} from "vuex"
 export default {
 
   computed:{
-    ...mapState(["loginStatus"])
+    
+    ...mapState(["loginStatus"]),
+    ...mapState(['userData'])
   }
 
 }
