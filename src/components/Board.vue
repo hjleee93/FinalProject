@@ -89,7 +89,6 @@ import axios from 'axios';
           { text: '답변여부', value: 'qnaAnswerYn' },
           { text: '작성일', value: 'qnaDate' },
         ],
-  
       }
     },
   }
