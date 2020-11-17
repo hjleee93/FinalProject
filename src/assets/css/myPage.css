@@ -147,23 +147,7 @@ li {
   color: #ee6a29;
   text-decoration: underline;
 }
-#PersonHead .infoList li .btn {
-  position: absolute;
-  left: 98px;
-}
-#PersonHead .infoList li .btn a {
-  display: inline-block;
-  height: 22px;
-  padding: 0 9px;
-  font: 11px/22px "Malgun Gothic";
-  letter-spacing: -1px;
-  text-decoration: none;
-  border: 1px solid #d3d3d3;
-  border-bottom: 1px solid #acacac;
-  vertical-align: top;
-  color: #757575;
-  background: #fefefe;
-}
+
 #PersonHead .infoList li .dateChk {
   margin-top: 20px;
   font: 11px "Malgun Gothic";
@@ -327,6 +311,7 @@ li {
   right: 15px;
   bottom: 13px;
   left: auto;
+  height: 35px;
 }
 #PersonHead .infoList li .helpText {
   z-index: 5;
@@ -366,11 +351,7 @@ li {
   text-decoration: underline;
   color: #ff4800;
 }
-#PersonHead .state .reg span.btn {
-  position: absolute;
-  top: 7px;
-  right: 7px;
-}
+
 #PersonHead .state .regNo {
   width: 361px;
   height: 106px;
@@ -391,9 +372,4 @@ li {
   font: bold 18px tahoma;
   text-decoration: underline;
   color: #ff4800;
-}
-#PersonHead .state .regNo span.btn {
-  position: absolute;
-  top: 11px;
-  right: 15px;
 }
