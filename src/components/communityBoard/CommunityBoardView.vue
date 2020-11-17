@@ -54,6 +54,7 @@
               
               {{communityboardView.boardContent}}
 
+
             <br>
             (임시)게시판 객체 : {{communityboardView}}
    
