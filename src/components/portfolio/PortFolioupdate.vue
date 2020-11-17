@@ -21,7 +21,8 @@
           type="text"
           required
           placeholder="제목"
-          v-model="pboardone.pboardTitle"
+          :value="pboardone.pboardTitle"
+          v-model="pboardTitle"
         ></b-form-input>
       </b-form-group>
 
@@ -45,8 +46,11 @@
        <b-button @click="test" class="s-btn">확인</b-button>
       <b-button type="reset" class="r-btn">취소</b-button>
     </form>
-    <input type="file" placeholder="attachment">
-    <div >{{attachment.originalFilename}}</div>
+    <div>{{attachment}}</div>
+    <div>{{pboardWriter}}</div>
+     <div>{{pboardContent}}</div>
+      <div>{{pboardTitle}}</div>
+   
  </b-container>
 
  </div>
@@ -65,11 +69,7 @@ export default {
       return {
         pboardTitle:'',
         pboardWriter:'',
-        pboardContent:'',
-        files:'',
-      
-        
-       
+        pboardContent:''
       }
     },
   
@@ -95,6 +95,7 @@ export default {
     },
     methods: {
       test(){
+        console.log(this.pboardone)
         let formData=new FormData();
         formData.append('pboardWriter',this.pboardWriter);
         formData.append('pboardTitle',this.pboardTitle);
