@@ -21,23 +21,44 @@
           <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
         </v-tabs>
 
-          <h2 class="sub-header">글제목</h2>
+          <h2 class="sub-header">{{communityboardView.boardTitle}}</h2>
           <br>
 
           <div align="right">
-              <b-button variant="primary" id="st_write2"
-              to="/communityBoardUpdate" exact>수정하기</b-button>
+              <b-button @click="updateBoard" id="st_write2">수정하기</b-button>
+              <b-button @click="deleteBoard" id="st_write3">삭제하기</b-button>
           </div>  
 
-          <div class="overflow-auto">
- 
+          <!-- 삭제  modal-->
+            <ModalView v-if="showModal" @close="showModal = false">
+            <template>
+              <div slot="header">
+                정말 삭제하시겠습니까?
+              </div>
 
+              <div slot="body">
+                <b-button @click="yesDelete">
+                  삭제하기
+                </b-button>
+                <b-button @click="noDelete">
+                  취소하기
+                </b-button>
+              </div>
+
+              <div slot="footer"></div>
+            </template>
+          </ModalView>
+
+          <div class="overflow-auto">
             <div id="content-div">
-              게시판 정보 : {{communityboardView}}
+              
+              {{communityboardView.boardContent}}
+
+            <br>
+            (임시)게시판 객체 : {{communityboardView}}
    
             </div>
-
-        <div id="date">2020-10-20</div>
+              <div id="date">작성날짜 : {{communityboardView.boardDate}}</div>
             <b-button type="button" id="list-btn" to="/communityBoardList" exact>목록으로</b-button>
         </div>
     </div>
@@ -52,11 +73,17 @@
 
 <script>
 import { mapState } from 'vuex';
+import ModalView from '../common/ModalView.vue';
 
-  export default {
+export default {
+
     date(){
-      return{
 
+      return{
+        showModal : false,
+        communityBoardNo:0,
+        
+      
       }
     },
     created(){
@@ -67,20 +94,44 @@ import { mapState } from 'vuex';
 
     computed:{
       ...mapState({
-        communityboardView:state=>state.communityboardView
-        
+        communityboardView:state=>state.communityboardView       
       })
+    },
+
+    methods:{
+      //수정버튼
+      updateBoard(){
+        alert("수정버튼 눌림")
+      },
+     //삭제버튼
+      deleteBoard(){
+         alert("왜안돼")
+        this.showModal=!this.showModal;
+         
+      }, 
+      //삭제버튼(네)
+      yesDelete(){
+        let no=this.$route.params.id;
+        console.log(no);
+        this.$store.dispatch("FETCH_COMMUNITYBOARD_DELETE",no);
+      },
+      //삭제버튼(아니오)
+      noDelete(){
+        this.showModal=!this.showModal;
+      }
+
+
+    },//methods 끝
+
+    components :{
+      ModalView,
+
     }
 
-
-
-
-
   }//export
+
 </script>
 
 <style>
-@import '../../assets/css/BoardView.css';
-
-
+  @import '../../assets/css/BoardView.css';
 </style>
