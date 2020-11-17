@@ -120,7 +120,7 @@ const ChangePassword = () =>{
   return import('./components/member/ChangePassword.vue')
 }
 const MyPage = () =>{
-  return import('./components/MyPage.vue')
+  return import('./components/member/MyPage.vue')
 }
 
 const jobInfo = () =>{
@@ -134,6 +134,16 @@ const FoundPassword = () =>{
 const FoundEmail = () =>{
   return import('./components/member/foundEmail.vue')
 }
+
+
+const JobSearchDtl = () =>{
+  return import('./components/jobInfo/jobSearchDtl.vue')
+}
+
+const ChgMemberInfo = () =>{
+  return import('./components/member/chgMemberInfo.vue')
+}
+
 
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
@@ -333,6 +343,16 @@ export default new Router({
       path: '/foundEmail',
       name: 'foundEmail',
       component: FoundEmail
+    },
+    {
+      path: '/jobSearchDtl',
+      name: 'jobSearchDtl',
+      component: JobSearchDtl
+    },
+    {
+      path: '/chgMemberInfo',
+      name: 'chgMemberInfo',
+      component: ChgMemberInfo
     },
     //현주
     {

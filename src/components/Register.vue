@@ -126,7 +126,7 @@
                     >
                       <b-form-input
                         required
-                        type="tel"
+                        type="text"
                         v-model="phoneNumber"
                         :state="errors[0] ? false : valid ? true : null"
                         placeholder="Please enter number only"
@@ -242,6 +242,7 @@ export default {
       axios
         .post("http://localhost:8082/itjobgo/member/register", formData) //form server 연결
         .then(function(res) {
+          console.log(formData)
           if (res.status >= 200 && res.status <= 204) {
             //가입성공
             alert("가입에 성공하셨습니다!");

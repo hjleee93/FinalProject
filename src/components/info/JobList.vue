@@ -48,64 +48,33 @@
 </template>
 
 <script>
-let test = 'minji'
+// let test = 'minji'
+var convert = require('xml-js')
+
   export default {
     data() {
       return {
       search: '',
+      
         headers: [
-          { text: '기업명', value: 'name' },
+          { text: '기업명', value: this.rcmJson.wantedRoot.wanted.company._text },
           { text: '제목', value: 'title' },
           { text: '지원자격', value: 'ability' },
           { text: '근무조건', value: 'Condition' },
           { text: '마감일·등록일', value: 'deadline' },
-        ],
-        tableList: [
-          {
-            name: test,
-            title: '웹개발자 모집',
-            ability: '신입/학력 무관',
-            Condition:'정규직/서울 강남구/3,600만원~',
-            deadline:'~11/16(17일전 등록)'
-          },
-          {
-            name: '파하',
-            title: '웹개발자 모집',
-            ability: '신입/학력 무관',
-            Condition:'정규직/서울 강남구/3,600만원~',
-            deadline:'~11/16(17일전 등록)'
-          },
-          {
-            name: '마바',
-            title: '백엔드 모집',
-            ability: '신입/학력 무관',
-            Condition:'정규직/서울 강남구/3,600만원~',
-            deadline:'~11/17(17일전 등록)'
-          },
-               {
-            name: '사아',
-            title: '웹디자인 모집',
-            ability: '신입/학력 무관',
-            Condition:'정규직/서울 강남구/3,600만원~',
-            deadline:'~11/12(17일전 등록)'
-          },
-               {
-            name: '타카',
-            title: '웹개발자 모집',
-            ability: '신입/학력 무관',
-            Condition:'정규직/서울 강남구/3,600만원~',
-            deadline:'~10/11(17일전 등록)'
-          },
-               {
-            name: '자차',
-            title: '웹개발자 모집',
-            ability: '신입/학력 무관',
-            Condition:'정규직/서울 강남구/3,600만원~',
-            deadline:'~11/16(17일전 등록)'
-          },
-        ],
+        ]
       }
     },
+    created () {
+      
+    this.$http.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056' + this.$route.params.keyword)//추천 채용정보
+      .then((response) => {
+        var xml = response.data
+        var json = convert.xml2json(xml, { compact: true })
+        this.rcmJson = JSON.parse(json);            
+      })
+  
+  }
   }
 </script>
 

@@ -12,10 +12,32 @@ function fetchPboardList(){
     //return 해주는것이 핵심
 }
 function fetchPboardOne(pboardNo){
-    return axios.get(`${config.Url}poryfolio/pboardinfo${pboardNo}.do`)
+    return axios.get(`${config.Url}portfolio/pboardinfo${pboardNo}.do`)
+}
+function fetchPboardDel(no){
+    return axios.post(`${config.Url}portfolio/pboarddel${no}.do`)
+}
+
+//주은
+//communityBoard
+
+//자유게사판 조회
+function fetchCommunityBoardList(){
+    return axios.get(`${config.Url}community/communityBoardList`)
+}
+
+// //자유게시판 상세화면
+function fetchCommunityBoardView(boardSq){
+    return axios.get(`${config.Url}community/communityBoardView${boardSq}`)
 }
 
 export {
     fetchPboardList,
-    fetchPboardOne
+    fetchPboardOne,
+    //주은
+    //자유게사판CommunityBoard
+    fetchCommunityBoardList,
+    fetchCommunityBoardView,
+    fetchPboardDel
+
 }
