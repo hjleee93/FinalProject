@@ -27,8 +27,8 @@ function fetchCommunityBoardList(){
 }
 
 // //자유게시판 상세화면
-function fetchCommunityBoardView(){
-    return axios.get(`${config.Url}community/communityBoardView`)
+function fetchCommunityBoardView(boardSq){
+    return axios.get(`${config.Url}community/communityBoardView${boardSq}`)
 }
 
 export {
