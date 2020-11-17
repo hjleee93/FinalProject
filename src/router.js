@@ -81,23 +81,23 @@ const NoticeUpdate = () =>{
 }
 
 //현주
-const Detailpage_modify = () =>{
-  return import('./components/Detailpage_modify.vue')
+const QnaModify = () =>{
+  return import('./components/qnaboard/qnaModify.vue')
 }
-const Board = () =>{
-  return import('./components/Board.vue')
+const QnaBoard = () =>{
+  return import('./components/qnaboard/qnaBoard.vue')
 }
-const Detailpage = () =>{
-  return import('./components/Detailpage.vue')
+const QnaView = () =>{
+  return import('./components/qnaboard/qnaView.vue')
 }
-const Write_ref = () =>{
-  return import('./components/Write_ref.vue')
+const QnaWrite = () =>{
+  return import('./components/qnaboard/qnaWrite.vue')
 }
-const Write_qna = () =>{
-  return import('./components/Write_qna.vue')
+const RefSite = () =>{
+  return import('./components/referenceSite/refSite.vue')
 }
-const Reference = () =>{
-  return import('./components/Reference.vue')
+const RefWrite = () =>{
+  return import('./components/referenceSite/refWrite.vue')
 }
 //현정 라우터
 const Login = () =>{
@@ -356,34 +356,34 @@ export default new Router({
     },
     //현주
     {
-      path: '/write_qna',
-      name: 'write_qna',
-      component: Write_qna
+      path: '/qnaWrite',
+      name: 'qnaWrite',
+      component: QnaWrite
     },
     {
-      path: '/write_ref',
-      name: 'write_ref',
-      component: Write_ref
+      path: '/refWrite',
+      name: 'refWrite',
+      component: RefWrite
     },
     {
-      path: '/reference',
-      name: 'reference',
-      component: Reference
+      path: '/refSite',
+      name: 'refSite',
+      component: RefSite
     },
     {
-      path: '/detailpage',
-      name: 'detailpage',
-      component: Detailpage
+      path: '/qnaView',
+      name: 'qnaView',
+      component: QnaView
     },
     {
-      path: '/board',
-      name: 'board',
-      component: Board
+      path: '/qnaBoard',
+      name: 'qnaBoard',
+      component: QnaBoard
     },
     {
-      path: '/detailpage_modify',
-      name: 'detailpage_modify',
-      component: Detailpage_modify
+      path: '/qnaModify',
+      name: 'qnaModify',
+      component: QnaModify
     },
     //혜지
     {
