@@ -17,6 +17,9 @@ function fetchPboardOne(pboardNo){
 function fetchPboardDel(no){
     return axios.post(`${config.Url}portfolio/pboarddel${no}.do`)
 }
+function fetchPboardUp(no){
+    return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`)
+}
 
 //주은
 //communityBoard
@@ -39,13 +42,22 @@ function fetchCommunityBoardDelete(boardSq){
 export {
     fetchPboardList,
     fetchPboardOne,
+<<<<<<< HEAD
 
 
+=======
+    fetchPboardUp,
+    fetchPboardDel,
+>>>>>>> donguk
     //주은
     //자유게사판CommunityBoard
     fetchCommunityBoardList,
     fetchCommunityBoardView,
+<<<<<<< HEAD
     fetchPboardDel,
     fetchCommunityBoardDelete,
+=======
+  
+>>>>>>> donguk
 
 }
