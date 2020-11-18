@@ -68,6 +68,7 @@ export default {
       ydele(){
         let no=this.$route.params.id
          this.$store.dispatch("FETCH_PBOARDDEL",no)
+         this.$router.push({name:'portlist'})
         
         
       },

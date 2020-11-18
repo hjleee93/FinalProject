@@ -7,6 +7,7 @@ import {
                 fetchPboardOne,
                 fetchPboardDel,
                 fetchPboardUp,
+              
                 //주은
                 fetchCommunityBoardList,
                 fetchCommunityBoardView,
@@ -146,6 +147,7 @@ export default new Vuex.Store({
             .then(({data})=>commit("SET_PBOARDUP",data))
             .catch(({error})=>console.log(error))
         },
+        
         
 
 

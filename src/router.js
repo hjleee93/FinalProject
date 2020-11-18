@@ -189,6 +189,7 @@ export default new Router({
     {
       path: '/portfolioList',
       component: PortFolio,
+      name:'portlist'
     },
     {
       path: '/portfolioenroller',
