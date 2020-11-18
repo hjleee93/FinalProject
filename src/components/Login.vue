@@ -82,7 +82,7 @@
   
 </template>
 <script>
-import { mapState, mapActions} from 'vuex'
+import { mapState} from 'vuex'
 
 // import axios from "axios"
 
@@ -104,7 +104,16 @@ import { mapState, mapActions} from 'vuex'
       };
     },
     methods: {
-      ...mapActions(['login']),
+      // ...mapActions(['login']),
+       login: function () {
+        let memberEmail = this.model.email
+        let memberPwd = this.model.password
+        console.log("email: " + memberEmail)
+        console.log("password: " + memberPwd)
+        this.$store.dispatch('login', { memberEmail, memberPwd })
+       .then(() => this.$router.push('/'))
+       .catch(err => console.log(err))
+      }
       // onSubmit() {
       //   const formData = {
       //   memberEmail: this.model.email,
