@@ -7,7 +7,7 @@
         <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
           <!-- 메인 이미지 -->
               <div class="submenuimage ">
-                  <p class="subtitle" id="subtitle">Community</p>
+                  <p class="subtitle" id="subtitle">Notice</p>
               </div>
               
         <!-- 탭 -->   

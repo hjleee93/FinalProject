@@ -3,32 +3,20 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 import {
-<<<<<<< HEAD
+
                 //동욱
                 fetchPboardList,
                 fetchPboardOne,
                 fetchPboardDel,
                 fetchPboardUp,
-              
                 //주은
                 fetchCommunityBoardList,
                 fetchCommunityBoardView,
                 fetchCommunityBoardDelete,
+                fetchCommunityBoardUpdate,
             
             } 
-=======
-    //동욱
-    fetchPboardList,
-    fetchPboardOne,
-    fetchPboardDel,
-    fetchPboardUp,
-    //주은
-    fetchCommunityBoardList,
-    fetchCommunityBoardView,
-    fetchCommunityBoardDelete,
 
-}
->>>>>>> b18654266dc78e8157a1a66b398de6213a9896fa
     from './api/index.js';
 
 Vue.use(Vuex, axios)
@@ -49,6 +37,8 @@ export default new Vuex.Store({
         //주은
         communityboard: [],
         communityboardView: [],
+        communityboardDelete:[],
+        communityboardAttachment:[],
 
 
         loginStatus: false,//로그인 성공 여부
@@ -173,14 +163,6 @@ export default new Vuex.Store({
                 .then(({ data }) => commit("SET_PBOARDUP", data))
                 .catch(({ error }) => console.log(error))
         },
-<<<<<<< HEAD
-        
-        
-=======
-
->>>>>>> b18654266dc78e8157a1a66b398de6213a9896fa
-
-
 
 
         //주은
@@ -203,14 +185,21 @@ export default new Vuex.Store({
         //자유게시판 삭제하기
         FETCH_COMMUNITYBOARD_DELETE({ commit }, communityboardNo) {
             fetchCommunityBoardDelete(communityboardNo)
-                .then(({ data }) => commit("SET_COMMUNITYBOARD_DELETE", data))
-                .catch(({ error }) => {
-                    console.log(error);
-                })
-        }
+            .then(({data})=>commit("SET_COMMUNITYBOARD_DELETE",data))
+            .catch(({error})=>{
+                console.log(error);
+            })
+        },
+        //자유게시판 수정하기(객체 값 불러오기)
+         FETCH_COMMUNITYBOARD_UPDATE({ commit }, communityboardNo) {
+            fetchCommunityBoardUpdate(communityboardNo)
+            .then(({ data }) => commit("SET_COMMUNITYBOARD_UPDATE", data))
+            .catch(({ error }) => console.log(error))
+        },
 
 
     },//action
+
     mutations: {
         SET_POST(state, jobs) {
             state.jobs = jobs
@@ -240,7 +229,11 @@ export default new Vuex.Store({
         },
         //자유게시판 삭제
         SET_COMMUNITYBOARD_DELETE(state, communityboardDelete) {
-            state.communityboardDelete = communityboardDelete
+            state.communityboardDelete = communityboardDelete;
+        },
+        //자유게시판 수정(값 불러오기)
+        SET_COMMUNITYBOARD_UPDATE(state, communityboardDelete) {
+            state.communityboardAttachment = communityboardDelete;
         },
 
 
@@ -263,6 +256,8 @@ export default new Vuex.Store({
         }
 
 
-    }
+
+    }//mutations 끝
+   
 
 })
