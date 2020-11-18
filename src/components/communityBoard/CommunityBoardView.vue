@@ -94,13 +94,10 @@ export default {
     methods:{
       //수정버튼
       updateBoard(){
-        alert("수정버튼")
+        // alert("수정버튼")
         //수정 역시 router.js에 등록된 name 값을 이용해서 페이지 전환
-        let boardNo = this.$route.params.id;
-        this.$router.push({
-                                        name : 'CommunityBoardUpdate',
-                                        params : {id:boardNo},                             
-                                      })
+        let no=this.$route.params.id
+        this.$router.push({name:'CommunityBoardUpdate',params:{id:no}})
       },
      //삭제버튼
       deleteBoard(){

@@ -37,6 +37,8 @@ export default new Vuex.Store({
         //주은
         communityboard: [],
         communityboardView: [],
+        communityboardDelete:[],
+        communityboardAttachment:[],
 
 
         loginStatus: false,//로그인 성공 여부
@@ -163,9 +165,6 @@ export default new Vuex.Store({
         },
 
 
-
-
-
         //주은
         //자유게시판 list 불러오기
         FETCH_COMMUNITYBOARD({ commit }) {
@@ -192,11 +191,11 @@ export default new Vuex.Store({
             })
         },
         //자유게시판 수정하기(객체 값 불러오기)
-        FETCH_COMMUNITYBOARD_UPDATE({commit},boardSq){
-            fetchCommunityBoardUpdate(boardSq)
-            .then(({data})=>commit("SET_COMMUNITYBOARD_UPDATE",data))
-            .catch(({error})=>console.log(error))
-        }
+         FETCH_COMMUNITYBOARD_UPDATE({ commit }, communityboardNo) {
+            fetchCommunityBoardUpdate(communityboardNo)
+            .then(({ data }) => commit("SET_COMMUNITYBOARD_UPDATE", data))
+            .catch(({ error }) => console.log(error))
+        },
 
 
     },//action
@@ -230,11 +229,11 @@ export default new Vuex.Store({
         },
         //자유게시판 삭제
         SET_COMMUNITYBOARD_DELETE(state, communityboardDelete) {
-            state.communityboardDelete = communityboardDelete
+            state.communityboardDelete = communityboardDelete;
         },
         //자유게시판 수정(값 불러오기)
-        SET_COMMUNITYBOARD_UPDATE(state,communityboardUpdate){
-            state.communityboardUpdate=communityboardUpdate
+        SET_COMMUNITYBOARD_UPDATE(state, communityboardDelete) {
+            state.communityboardAttachment = communityboardDelete;
         },
 
 

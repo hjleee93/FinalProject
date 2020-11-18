@@ -3,6 +3,9 @@
 
     <div class="container" id="header-container">
       <h4 id="h4-title">자유게시판 작성</h4>
+      test : {{communityboardView}} <br>
+      test : {{communityboardView.boardTitle}} <br>
+      첨부파일 : {{communityboardAttachment}}
     </div>
 
     <form @submit.prevent="enrollBoard" 
@@ -13,14 +16,13 @@
         label-for="input-1"
         label-align="left"
       >
-
         <b-form-input
           id="input-1"
-          v-model="boardTitle"
+          name="boardTitle"
           type="text"
           required
-          placeholder="제목을 입력해주세요"
-          :value="communityboardView.boardTitle"
+          placeholder="제목"
+          v-model="communityboardView.boardTitle"
         ></b-form-input>
       </b-form-group>
 
@@ -28,7 +30,7 @@
       label="분류선택" label-for="input-2" label-align="left">
         <b-form-select
           id="input-2"
-          v-model="category"
+          v-model="communityboardView.boardDivision.text"
           :options="boardDivision"
           required
         ></b-form-select>
@@ -36,14 +38,14 @@
 
       <!-- 에디터 창 -->
       <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
-        <vue-editor  id="input-3" v-model="boardContent" 
+        <vue-editor  id="input-3" v-model="communityboardView.boardContent" 
         name="boardContent"/>
      </b-form-group>
 
       <!-- 첨부파일 -->
       <b-form-group>
         <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
-        placeholder="첨부파일을 선택해주세요"></b-form-file> 
+        placeholder="첨부파일을 선택해주세요" ></b-form-file> 
       </b-form-group>
       <!-- <b-form-file id="file2" ref="upfiles" v-on:change="handleFile"
     placeholder="첨부파일을 선택해주세요"></b-form-file>  -->
@@ -57,8 +59,8 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
 import axios from 'axios';
+import { VueEditor } from "vue2-editor";
 import { mapState } from 'vuex';
 
   export default {
@@ -78,16 +80,20 @@ import { mapState } from 'vuex';
     },
 
     created(){
-      const communityBoardNo = this.$roure.params.id;
-      this.$store.dispatch("SET_COMMUNITYBOARD_UPDATE",communityBoardNo);
+      //해당 게시글의 첨부파일을 가져오는 로직 
+      //기존의  게시판 정보는 mapState를 통해서 가져온다
+       const communityBoardNo=this.$route.params.id;
+       this.$store.dispatch("SET_COMMUNITYBOARD_UPDATE",communityBoardNo)
+      
 
-    },
+    },  
 
     computed:{
       ...mapState({
         //mapState를 통해서 store에 저장된 (객체) data를 가져다 쓸수있다
         communityboardView:state=>state.communityboardView,    
-
+        //첨부파일
+       communityboardAttachment:state=>state.communityboardAttachment,    
       })
     },
 
