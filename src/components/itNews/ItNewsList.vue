@@ -8,7 +8,6 @@
           <p class="subtitle" id="subtitle">It News</p>
       </div>
       
-              
         <!-- 탭 -->   
         <div class="container">
         <v-tabs
