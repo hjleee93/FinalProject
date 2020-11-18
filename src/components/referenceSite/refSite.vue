@@ -17,10 +17,10 @@
             centered
             color="grey darken-3"
             >
-              <v-tab><b>category1</b></v-tab>
-              <v-tab><b>category2</b></v-tab>
-              <v-tab><b>category3</b></v-tab>
-              <v-tab><b>category4</b></v-tab>
+              <v-tab><b>ALL</b></v-tab>
+              <v-tab><b>FrontEnd</b></v-tab>
+              <v-tab><b>BackEnd</b></v-tab>
+              <v-tab><b>ETC 기타</b></v-tab>
               <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
             </v-tabs>
 

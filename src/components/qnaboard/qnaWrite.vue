@@ -20,24 +20,16 @@
         ></b-form-input>
       </b-form-group>
 
-      <!-- <b-form-group id="input-group-2" label="작성자" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.name"
-          required
-          placeholder="Enter name"
-        ></b-form-input>
-      </b-form-group> -->
-
       <!-- 카테고리 선택 -->
-      <!-- <b-form-group id="input-group-3" label="분류" label-for="input-3">
+      <b-form-group id="input-group-2" 
+      label="분류" label-for="input-2" label-align="left">
         <b-form-select
-          id="input-3"
-          v-model="qnaCategory"
-          :options="select"
+          id="input-2"
+          v-model="form.category"
+          :options="categories"
           required
         ></b-form-select>
-      </b-form-group> -->
+      </b-form-group>
 
       <!-- 에디터창, 내용 -->
       <b-form-group  label="내용" >
@@ -86,12 +78,10 @@ import axios from 'axios';
       return{
         form: {
         qnaTitle:"",
-        qnaCategory:"",
-        qnaContent:"",
-        qnaFile:""
-      },
-        select: [{ text: '카테고리 선택', value: null }, '백엔드', '프론트엔드'],
-      show: true
+        category:null
+        },
+        categories: [{ text: '항목을 선택해주세요', value: null }, '백엔드', '프론트엔드'],
+        show: true
       }
     },
 
@@ -106,6 +96,7 @@ import axios from 'axios';
         formData.append('qnaTitle',this.qnaTitle);
         formData.append('qnaContent',this.qnaContent.replace(/(<([^>]+)>)/ig,""))
         formData.append('qnaFile',this.qnaFile);
+        formData.append('categoryqna',this.category);
 
         for(let key of formData.entries()){
           console.log(`${key}`);
@@ -131,7 +122,7 @@ import axios from 'axios';
         // Reset our form values
         // this.form.email = ''
         this.boardTitle = ''
-        this.qnaCategory = null
+        this.form.category = null
         this.boardContent=''
         this.file1.name=''
       },
