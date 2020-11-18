@@ -21,7 +21,7 @@
           <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
         </v-tabs>
 
-          <h2 class="sub-header">{{communityboardView.boardTitle}}</h2>
+          <h2 class="sub-header">게시판 제목(임시) : {{communityboardView.boardTitle}}</h2>
           <br>
 
           <div align="right">
@@ -52,23 +52,19 @@
           <div class="overflow-auto">
             <div id="content-div">
               
-              {{communityboardView.boardContent}}
+              게시판 내용(임시) : {{communityboardView.boardContent}}
 
-            <br>
-            (임시)게시판 객체 : {{communityboardView}}
+            <br><br>
+            게시판 객체(임시) : {{communityboardView}}
    
             </div>
-              <div id="date">작성날짜 : {{communityboardView.boardDate}}</div>
+              <div id="date">작성날짜(날짜변환해야함) : {{communityboardView.boardDate}}</div>
             <b-button type="button" id="list-btn" to="/communityBoardList" exact>목록으로</b-button>
         </div>
-    </div>
-         
+    </div>   
 </div>
-
 </div>
-
 </body>
-
 </template>
 
 <script>
@@ -78,12 +74,9 @@ import ModalView from '../common/ModalView.vue';
 export default {
 
     data(){
-
       return{
         showModal:false,
         communityBoardNo:0,
-        
-      
       }
     },
     created(){
@@ -101,34 +94,36 @@ export default {
     methods:{
       //수정버튼
       updateBoard(){
-        alert("수정버튼 눌림")
+        alert("수정버튼")
+        //수정 역시 router.js에 등록된 name 값을 이용해서 페이지 전환
+        let boardNo = this.$route.params.id;
+        this.$router.push({
+                                        name : 'CommunityBoardUpdate',
+                                        params : {id:boardNo},                             
+                                      })
       },
      //삭제버튼
       deleteBoard(){
-         alert("왜안돼")
-        this.showModal=!this.showModal;
-         
+        this.showModal=!this.showModal;  
       }, 
       //삭제버튼(네)
       yesDelete(){
         let no=this.$route.params.id;
         console.log(no);
         this.$store.dispatch("FETCH_COMMUNITYBOARD_DELETE",no);
+      //삭제후 페이지 이동
         this.$router.push({name:'CommunityBoardList'});
       },
       //삭제버튼(아니오)
       noDelete(){
         this.showModal=!this.showModal;
       }
-
-
     },//methods 끝
 
     components :{
       ModalView,
 
     }
-
   }//export
 
 </script>

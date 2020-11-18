@@ -11,6 +11,7 @@ import {
                 fetchCommunityBoardList,
                 fetchCommunityBoardView,
                 fetchCommunityBoardDelete,
+                fetchCommunityBoardUpdate,
             
             } 
     from './api/index.js';
@@ -175,10 +176,17 @@ export default new Vuex.Store({
             .catch(({error})=>{
                 console.log(error);
             })
+        },
+        //자유게시판 수정하기(객체 값 불러오기)
+        FETCH_COMMUNITYBOARD_UPDATE({commit},boardSq){
+            fetchCommunityBoardUpdate(boardSq)
+            .then(({data})=>commit("SET_COMMUNITYBOARD_UPDATE",data))
+            .catch(({error})=>console.log(error))
         }
 
 
     },//action
+
     mutations: {
         SET_POST(state, jobs) {
             state.jobs = jobs
@@ -210,6 +218,10 @@ export default new Vuex.Store({
         SET_COMMUNITYBOARD_DELETE(state,communityboardDelete){
             state.communityboardDelete=communityboardDelete
         },
+        //자유게시판 수정(값 불러오기)
+        SET_COMMUNITYBOARD_UPDATE(state,communityboardUpdate){
+            state.communityboardUpdate=communityboardUpdate
+        },
 
 
 
@@ -230,6 +242,6 @@ export default new Vuex.Store({
         }
 
 
-    }
+    }//mutations 끝
    
 })

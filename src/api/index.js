@@ -22,21 +22,22 @@ function fetchPboardUp(no){
 }
 
 //주은
-//communityBoard
-
+//1.communityBoard(자유게시판)
 //자유게사판 조회
 function fetchCommunityBoardList(){
     return axios.get(`${config.Url}community/communityBoardList`)
 }
-
 // 자유게시판 상세화면
 function fetchCommunityBoardView(boardSq){
     return axios.get(`${config.Url}community/communityBoardView${boardSq}`)
 }
-
 //자유게시판 삭제하기
 function fetchCommunityBoardDelete(boardSq){
     return  axios.post(`${config.Url}community/communityBoardDelete${boardSq}`)
+}
+//자유게시판 수정하기(게시판번호로 객체 값 불러오기 )
+function fetchCommunityBoardUpdate(boardSq){
+    return axios.get(`${config.Url}community/communityBoardUpdate${boardSq}`)
 }
 
 export {
@@ -50,8 +51,7 @@ export {
     //자유게사판CommunityBoard
     fetchCommunityBoardList,
     fetchCommunityBoardView,
-
-
     fetchCommunityBoardDelete,
+    fetchCommunityBoardUpdate,
 
 }
