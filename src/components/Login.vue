@@ -26,7 +26,7 @@
                  <img src="img/naver_logo.png" width="250px">
                 
                 </a>
-                <a href="#">
+                <a @click="kakaoLogin">
                  <img src="img/kakao_logo.png" width="250px">
                 </a>
                  <a href="#">
@@ -81,6 +81,7 @@
   </div>
   
 </template>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
 <script>
 import { mapState} from 'vuex'
 
@@ -91,8 +92,9 @@ import { mapState} from 'vuex'
       
       return {
         CLIENT_ID: 'aYgNgGmIwR3wysmlCfRd',
-        redirectURI:`http://localhost:8081/register`,
+        redirectURI:`http://localhost:8082/itjobgo/member/naverLogin`,
          naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
+         isPopup: true,
          state:123,
         test1: [],
         model: {
@@ -103,6 +105,22 @@ import { mapState} from 'vuex'
         }
       };
     },
+    
+    mounted() {    
+    Kakao.isInitialized() 
+    
+    Kakao.Auth.setAccessToken(this.$route.params.accessToken)
+    console.log("넘어오지? 안오네");
+    Kakao.API.request({
+      url: '/v2/user/me',
+      success(response) {
+        console.log(response)
+      },
+      fail(error) {
+        console.log(error)
+      }
+    })
+  },
     methods: {
       // ...mapActions(['login']),
        login: function () {
@@ -113,7 +131,15 @@ import { mapState} from 'vuex'
         this.$store.dispatch('login', { memberEmail, memberPwd })
        .then(() => this.$router.push('/'))
        .catch(err => console.log(err))
-      }
+      },
+      kakaoLogin() {
+      Kakao.Auth.authorize({
+        redirectUri: `${window.location.origin}/loginCallback`
+      })
+      
+    }
+
+    
       // onSubmit() {
       //   const formData = {
       //   memberEmail: this.model.email,
@@ -149,6 +175,8 @@ import { mapState} from 'vuex'
     this.naverLoginURL += '&client_id=' + this.CLIENT_ID;
     this.naverLoginURL += '&redirect_uri=' + this.redirectURI;
     this.naverLoginURL += '&state=' + this.state;
+
+    
   }
   
   };

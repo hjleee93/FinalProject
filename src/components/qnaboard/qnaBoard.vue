@@ -95,7 +95,7 @@ import axios from 'axios';
   }
 </script>
 
-<style>
+<style scoped >
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 * {
    font-family: 'Nanum Gothic', sans-serif;

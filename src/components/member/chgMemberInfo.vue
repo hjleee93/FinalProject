@@ -118,6 +118,16 @@
                     v-model="userData.memberAddrExtra"
                   ></b-form-input>
                 </b-input-group>
+                <b-input-group prepend="포지션" >
+                  <b-form-select
+                    class="position"
+                    type="text"
+                    id="sample6_extraAddress"
+                    v-model="userData.memberPosition"
+                    :options="position"
+                  ></b-form-select>
+                </b-input-group>
+                
                 </div>
                 
                 <div class="text-center">
@@ -142,6 +152,7 @@ import { mapState } from "vuex";
 export default {
   data: () => ({
     memberPwd: "",
+    position: [{ text: '관심있는 직군을 선택해주세요', value: null },'디자인', '백엔드', '프론트엔드', '퍼블리싱'],
   }),
 
   methods: {
@@ -259,8 +270,11 @@ div > .pwd{
 #addrExtra{
     border-bottom: 1px solid #ced4da;
 }
-input{
+input, select{
     height:45px;
+}
+select{
+  border-bottom: 0px;
 }
 
 </style>
