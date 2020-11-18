@@ -15,6 +15,7 @@ import Meetinginfo from './components/meeting/Meetinginfo.vue';
 import PortFolio from './components/portfolio/PortFoilo.vue'
 import PortFoiloenroller from './components/portfolio/PortFoiloenroller.vue';
 import Portfolioinfo from './components/portfolio/PortFolioinfo.vue';
+import Portfolioupdate from './components/portfolio/PortFolioupdate.vue';
 
 //혜지
 
@@ -30,167 +31,178 @@ import consult from './components/resume/consult'
 
 
 //민지
-const InfoList = () =>{
+const InfoList = () => {
   return import('./components/info/InfoList.vue')
 }
-const InfoDetail = () =>{
+const InfoDetail = () => {
   return import('./components/info/InfoDetail.vue')
 }
-const InfoForm = () =>{
+const InfoForm = () => {
   return import('./components/info/InfoForm.vue')
 }
-const JobList = () =>{
+const JobList = () => {
   return import('./components/info/JobList.vue')
 }
 //주은
-const CommunityBoardList = () =>{
+const CommunityBoardList = () => {
   return import('./components/communityBoard/CommunityBoardList.vue')
 }
-const CommunityBoardForm = () =>{
+const CommunityBoardForm = () => {
   return import('./components/communityBoard/CommunityBoardForm.vue')
 }
-const CommunityBoardView = () =>{
+const CommunityBoardView = () => {
   return import('./components/communityBoard/CommunityBoardView.vue')
 }
-const CommunityBoardUpdate = () =>{
+const CommunityBoardUpdate = () => {
   return import('./components/communityBoard/CommunityBoardUpdate.vue')
 }
-const ItNewsList = () =>{
+const ItNewsList = () => {
   return import('./components/itNews/ItNewsList.vue')
 }
-const ItNewsForm = () =>{
+const ItNewsForm = () => {
   return import('./components/itNews/ItNewsForm.vue')
 }
-const itNewsView = () =>{
+const itNewsView = () => {
   return import('./components/itNews/itNewsView.vue')
 }
-const ItNewsUpdate = () =>{
+const ItNewsUpdate = () => {
   return import('./components/itNews/ItNewsUpdate.vue')
 }
-const NoticeList = () =>{
+const NoticeList = () => {
   return import('./components/notice/NoticeList.vue')
 }
-const NoticeForm = () =>{
+const NoticeForm = () => {
   return import('./components/notice/NoticeForm.vue')
 }
-const NoticeView = () =>{
+const NoticeView = () => {
   return import('./components/notice/NoticeView.vue')
 }
-const NoticeUpdate = () =>{
+const NoticeUpdate = () => {
   return import('./components/notice/NoticeUpdate.vue')
 }
 
 //현주
-const QnaModify = () =>{
+const QnaModify = () => {
   return import('./components/qnaboard/qnaModify.vue')
 }
-const QnaBoard = () =>{
+const QnaBoard = () => {
   return import('./components/qnaboard/qnaBoard.vue')
 }
-const QnaView = () =>{
+const QnaView = () => {
   return import('./components/qnaboard/qnaView.vue')
 }
-const QnaWrite = () =>{
+const QnaWrite = () => {
   return import('./components/qnaboard/qnaWrite.vue')
 }
-const RefSite = () =>{
+const RefSite = () => {
   return import('./components/referenceSite/refSite.vue')
 }
-const RefWrite = () =>{
+const RefWrite = () => {
   return import('./components/referenceSite/refWrite.vue')
 }
 //현정 라우터
-const Login = () =>{
+const Login = () => {
   return import('./components/Login.vue')
 }
 
-const Register = () =>{
+const Register = () => {
   return import('./components/Register.vue')
 }
 const FindPassword = () => {
-  
+
   return import('./components/member/FindPassword.vue')
 }
 
-const FindEmail = () =>{
+const FindEmail = () => {
   return import('./components/member/FindEmail.vue')
 }
 
-const ChangePassword = () =>{
+const ChangePassword = () => {
   return import('./components/member/ChangePassword.vue')
 }
-const MyPage = () =>{
+const MyPage = () => {
   return import('./components/member/MyPage.vue')
 }
 
-const jobInfo = () =>{
+const jobInfo = () => {
   return import('./components/jobInfo.vue')
 }
 
-const FoundPassword = () =>{
+const FoundPassword = () => {
   return import('./components/member/foundPassword.vue')
 }
 
-const FoundEmail = () =>{
+const FoundEmail = () => {
   return import('./components/member/foundEmail.vue')
 }
 
 
-const JobSearchDtl = () =>{
+const JobSearchDtl = () => {
   return import('./components/jobInfo/jobSearchDtl.vue')
 }
 
-const ChgMemberInfo = () =>{
+const ChgMemberInfo = () => {
   return import('./components/member/chgMemberInfo.vue')
 }
 
+const ChgPwdInfo = () => {
+  return import('./components/member/chgPwdInfo.vue')
+}
+const OutMember = () => {
+  return import('./components/member/outMember.vue')
+}
 
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
 // }
 
-export default new Router({ 
+export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
 
     //동욱
     {
-      path:'/meetingList',
-      component:meetingList,
-      children:[
+      path: '/meetingList',
+      component: meetingList,
+      children: [
         {
-          path:'meeting',
-          component:Meeting,
+          path: 'meeting',
+          component: Meeting,
         },
         {
-          path:'meetingend',
-          component:MeetingEnd,
+          path: 'meetingend',
+          component: MeetingEnd,
         }
       ]
 
     },
     {
-      path:'/enrollmeeting',
-      component:EnrollerMeeing,
+      path: '/enrollmeeting',
+      component: EnrollerMeeing,
     },
     {
-      path:'/meetinginfo',
-      component:Meetinginfo,
+      path: '/meetinginfo',
+      component: Meetinginfo,
 
     },
     {
-      path:'/portfolioList',
-      component:PortFolio,
+      path: '/portfolioList',
+      component: PortFolio,
     },
     {
-      path:'/portfolioenroller',
-      component:PortFoiloenroller,
+      path: '/portfolioenroller',
+      component: PortFoiloenroller,
     },
     {
-      path:'/Portfolioinfo/:id',
-      component:Portfolioinfo,
-      name:'Portinfo',
+      path: '/Portfolioinfo/:id',
+      component: Portfolioinfo,
+      name: 'Portinfo',
+    },
+    {
+      path:'/Portfolioupdate/:id',
+      component:Portfolioupdate,
+      name:'Portup',
     },
     //민지
     {
@@ -221,69 +233,69 @@ export default new Router({
     },
 
     {
-      path:'/communityBoardForm',
-      name:'CommunityBoardForm',
-      component:CommunityBoardForm
+      path: '/communityBoardForm',
+      name: 'CommunityBoardForm',
+      component: CommunityBoardForm
     },
 
     {
-      path:'/itNewsList',
-      name:'ItNewsList',
-      component:ItNewsList
+      path: '/itNewsList',
+      name: 'ItNewsList',
+      component: ItNewsList
     },
 
     {
-      path:'/itNewsForm',
-      name:'ItNewsForm',
-      component:ItNewsForm
+      path: '/itNewsForm',
+      name: 'ItNewsForm',
+      component: ItNewsForm
     },
 
     {
-      path:'/noticeList',
-      name:'NoticeList',
-      component:NoticeList
+      path: '/noticeList',
+      name: 'NoticeList',
+      component: NoticeList
     },
 
     {
-      path:'/noticeForm',
-      name:'NoticeForm',
-      component:NoticeForm
+      path: '/noticeForm',
+      name: 'NoticeForm',
+      component: NoticeForm
     },
 
     {
-      path:'/itNewsView',
-      name:'itNewsView',
-      component:itNewsView
+      path: '/itNewsView',
+      name: 'itNewsView',
+      component: itNewsView
     },
 
     {
-      path:'/communityBoardView',
-      name:'CommunityBoardView',
-      component:CommunityBoardView
+      path: '/communityBoardView',
+      name: 'CommunityBoardView',
+      component: CommunityBoardView
     },
 
     {
-      path:'/noticeView',
-      name:'NoticeView',
-      component:NoticeView
+      path: '/noticeView',
+      name: 'NoticeView',
+      component: NoticeView
     },
 
     {
-      path:'/noticeUpdate',
-      name:'NoticeUpdate',
-      component:NoticeUpdate
+      path: '/noticeUpdate',
+      name: 'NoticeUpdate',
+      component: NoticeUpdate
     },
 
     {
-      path:'/itNewsUpdate',
-      name:'ItNewsUpdate',
-      component:ItNewsUpdate
+      path: '/itNewsUpdate',
+      name: 'ItNewsUpdate',
+      component: ItNewsUpdate
     },
 
     {
-      path:'/communityBoardUpdate',
-      name:'CommunityBoardUpdate',
-      component:CommunityBoardUpdate
+      path: '/communityBoardUpdate',
+      name: 'CommunityBoardUpdate',
+      component: CommunityBoardUpdate
     },
 
     //현정
@@ -354,6 +366,16 @@ export default new Router({
       name: 'chgMemberInfo',
       component: ChgMemberInfo
     },
+    {
+      path: '/chgPwdInfo',
+      name: 'chgPwdInfo',
+      component: ChgPwdInfo
+    },
+    {
+      path: '/outMember',
+      name: 'outMember',
+      component: OutMember
+    },
     //현주
     {
       path: '/qnaWrite',
@@ -390,42 +412,42 @@ export default new Router({
       path: '/resume/resume',
       name: 'resume',
       component: resume
-      },
-      {
+    },
+    {
       path: '/resume/BlindResume',
       name: 'BlindResume',
       component: BlindResume
-      },
-      {
+    },
+    {
       path: '/resume/LineResume',
       name: 'LineResume',
       component: LineResume
-      },
-      {
+    },
+    {
       path: '/resume/DesignResume',
       name: 'DesignResume',
       component: DesignResume
-      },
-      {
+    },
+    {
       path: '/resume/insertresume',
       name: 'insertresume',
       component: insertresume
-      },
-      {
+    },
+    {
       path: '/resume/updateresume',
       name: 'updateresume',
       component: updateresume
-      },
-      {
+    },
+    {
       path: '/resume/consultresume',
       name: 'consultresume',
       component: consultresume
-      },
-      {
+    },
+    {
       path: '/resume/consult',
       name: 'consult',
       component: consult
-      }
-    
+    }
+
   ]
 })

@@ -29,11 +29,20 @@
                 >
               </div>
               <div class="text-muted text-center out-info">
-                <router-link class="nav-link" to="/outMember">회원탈퇴</router-link>
+                <router-link class="nav-link" to="/outMember"
+                  >회원탈퇴</router-link
+                >
               </div>
             </b-card-header>
 
             <b-card-body class="px-lg-5 py-lg-5 info-content">
+              <div class="m-4 text-center">
+                <p class="text-center">탈퇴 즉시 회원정보 삭제</p>
+
+                -탈퇴 즉시 이력서 및 구직활동 정보가 모두 삭제되며, 삭제된
+                정보는 복구되지 않습니다. 단, 공공적 성격의 게시물은 삭제되지
+                않으므로 탈퇴 전 미리 삭제해주세요.
+              </div>
               <b-form role="form" @submit.prevent="onSubmit">
                 <div id="account">
                   <div id="email">
@@ -46,83 +55,21 @@
                     </b-input-group>
                   </div>
                   <div class="pwd">
-                  <b-input-group prepend="비밀번호">
-                    <b-form-input
+                    <b-input-group prepend="비밀번호">
+                      <b-form-input
                         class="pwd"
-                      required
-                      type="password"
-                      placeholder="현재 비밀번호 입력"
-                      v-model="memberPwd"
-                    ></b-form-input>
-                  </b-input-group>
+                        required
+                        type="password"
+                        placeholder="현재 비밀번호 입력"
+                        v-model="memberPwd"
+                      ></b-form-input>
+                    </b-input-group>
                   </div>
                 </div>
 
-                <div id="information">
-                  <b-input-group prepend="이름" class="mt-4">
-                    <b-form-input
-                      class="readonly-input name"
-                      v-model="userData.memberName"
-                    ></b-form-input>
-                  </b-input-group>
-                  <b-input-group prepend="휴대폰">
-                    <b-form-input
-                      class="readonly-input phone"
-                      v-model="userData.memberPhone"
-                    ></b-form-input>
-                  </b-input-group>
-                </div>
-                <b-input-group prepend="우편번호">
-                  <b-form-input
-                    readonly
-                    class="readonly-input postcode"
-                    type="text"
-                    id="sample6_postcode"
-                    v-model="userData.memberPostCode"
-                  ></b-form-input>
-                  <b-input-group-append>
-                    <b-button class="findPostcode" @click="daumPostcode()">우편번호 찾기</b-button>
-                  </b-input-group-append>
-                </b-input-group>
-
-                <b-input-group prepend="주소">
-                  <b-form-input
-                    readonly
-                    class="readonly-input addr"
-                    type="text"
-                    id="sample6_address"
-                    v-model="userData.memberAddr"
-                  ></b-form-input>
-                </b-input-group>
-
-                 <b-input-group prepend="상세주소">
-                  <b-form-input
-                    readonly
-                    class="readonly-input addrDtl"
-                    type="text"
-                    id="sample6_detailAddress"
-                    placeholder="상세주소를 입력해주세요"
-                    v-model="userData.memberAddrDtl"
-                  ></b-form-input>
-                </b-input-group>
-
-                <div id="addrExtra">
-            <b-input-group prepend="추가주소" >
-                  <b-form-input
-                  
-                    readonly
-                    class="readonly-input addrExtra"
-                    type="text"
-                    id="sample6_extraAddress"
-                    
-                    v-model="userData.memberAddrExtra"
-                  ></b-form-input>
-                </b-input-group>
-                </div>
-                
                 <div class="text-center">
                   <base-button type="primary" native-type="submit" class="my-4"
-                    >수정완료</base-button
+                    >회원 탈퇴</base-button
                   >
                 </div>
               </b-form>
@@ -206,16 +153,13 @@ export default {
 </script>
 
 <style scoped>
-.chg-info{
+.out-info{
     background-color: #f1f6f9;
     border:2px solid #a6b1e1 !important;
 }
-.chg-pwd{
+.chg-pwd,.chg-info{
     /* background-color: #f4eeff; */
     border-right: 0px !important;
-}
-.chg-pwd{
-    border-left: 0px !important;
 }
 .info-content {
   padding: 0 !important;
@@ -243,24 +187,33 @@ export default {
   display: inline-block;
   border-radius: 0px;
 }
-.form-control, .findPostcode {
+.form-control,
+.findPostcode {
   border-radius: 0px;
 }
-#account .email, .name, .phone, .addr, .postcode, .addrDtl {
+#account .email,
+.name,
+.phone,
+.addr,
+.postcode,
+.addrDtl {
   border-bottom: 0px;
 }
-.input-group > .input-group-prepend > .input-group-text, .pwd, .pwd.form-control, .addrExtra.form-control{
+.input-group > .input-group-prepend > .input-group-text,
+.pwd,
+.pwd.form-control,
+.addrExtra.form-control {
   border-bottom: 0px;
 }
 
-div > .pwd{
-    border-bottom: 1px solid #ced4da;
+div > .pwd {
+  border-bottom: 1px solid #ced4da;
 }
-#addrExtra{
-    border-bottom: 1px solid #ced4da;
+#addrExtra {
+  border-bottom: 1px solid #ced4da;
 }
-input{
-    height:45px;
+input {
+  height: 45px;
 }
 
 </style>
