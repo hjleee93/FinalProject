@@ -10,7 +10,7 @@
     <div class="info-box">
       <div class="job-title m-5">
         {{ items.wantedDtl.wantedInfo.wantedTitle._text }}
-        <b-btn style="background-color:#a6b1e1; border:none">{{ items.wantedDtl.wantedInfo.receiptCloseDt._text }}</b-btn>
+        <span class="deadline m-2 p-2">{{ items.wantedDtl.wantedInfo.receiptCloseDt._text }}</span>
       </div>
 
       <table>
@@ -111,6 +111,12 @@ export default {
 </script>
 
 <style scoped>
+.deadline{
+    color:white;
+    font-size: 15px;
+    border-radius: 5px;
+    background-color:#a6b1e1;
+}
 .job-col{
     padding-bottom: 5px;
     border-bottom: 1px solid;
