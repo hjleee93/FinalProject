@@ -21,6 +21,7 @@ function fetchPboardUp(no){
     return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`)
 }
 
+
 //주은
 //1.communityBoard(자유게시판)
 //자유게사판 조회
@@ -43,7 +44,6 @@ function fetchCommunityBoardUpdate(boardSq){
 export {
     fetchPboardList,
     fetchPboardOne,
-
     fetchPboardUp,
     fetchPboardDel,
 
