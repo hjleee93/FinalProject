@@ -92,7 +92,7 @@ import axios from "axios";
   };
 </script>
 
-<style>
+<style scoped>
 .login-content{
   background-color: #f7fafc !important;
   border-radius: 5px;
