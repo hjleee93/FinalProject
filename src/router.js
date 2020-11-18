@@ -151,6 +151,9 @@ const ChgPwdInfo = () => {
 const OutMember = () => {
   return import('./components/member/outMember.vue')
 }
+const LoginCallback = () => {
+  return import('./components/member/loginCallback.vue')
+}
 
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
@@ -200,9 +203,9 @@ export default new Router({
       name: 'Portinfo',
     },
     {
-      path:'/Portfolioupdate/:id',
-      component:Portfolioupdate,
-      name:'Portup',
+      path: '/Portfolioupdate/:id',
+      component: Portfolioupdate,
+      name: 'Portup',
     },
     //민지
     {
@@ -375,6 +378,11 @@ export default new Router({
       path: '/outMember',
       name: 'outMember',
       component: OutMember
+    },
+    {
+      path: '/loginCallback',
+      name: 'loginCallback',
+      component: LoginCallback
     },
     //현주
     {
