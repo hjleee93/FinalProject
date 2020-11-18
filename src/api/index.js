@@ -21,6 +21,7 @@ function fetchPboardUp(no){
     return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`)
 }
 
+
 //주은
 //communityBoard
 
@@ -42,7 +43,6 @@ function fetchCommunityBoardDelete(boardSq){
 export {
     fetchPboardList,
     fetchPboardOne,
-
     fetchPboardUp,
     fetchPboardDel,
 

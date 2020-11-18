@@ -3,6 +3,20 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 import {
+<<<<<<< HEAD
+                //동욱
+                fetchPboardList,
+                fetchPboardOne,
+                fetchPboardDel,
+                fetchPboardUp,
+              
+                //주은
+                fetchCommunityBoardList,
+                fetchCommunityBoardView,
+                fetchCommunityBoardDelete,
+            
+            } 
+=======
     //동욱
     fetchPboardList,
     fetchPboardOne,
@@ -14,6 +28,7 @@ import {
     fetchCommunityBoardDelete,
 
 }
+>>>>>>> b18654266dc78e8157a1a66b398de6213a9896fa
     from './api/index.js';
 
 Vue.use(Vuex, axios)
@@ -158,7 +173,12 @@ export default new Vuex.Store({
                 .then(({ data }) => commit("SET_PBOARDUP", data))
                 .catch(({ error }) => console.log(error))
         },
+<<<<<<< HEAD
+        
+        
+=======
 
+>>>>>>> b18654266dc78e8157a1a66b398de6213a9896fa
 
 
 
