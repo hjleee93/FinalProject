@@ -71,6 +71,7 @@ import axios from 'axios';
         console.log(Response);
       })
     }
+    
     ,
     data() {
       return { 
