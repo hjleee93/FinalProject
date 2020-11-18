@@ -44,19 +44,16 @@
         <b-button @click="clearFiles" class="mr-2">Clear files</b-button>
         <!-- <b-button @click="file = null">Reset via v-model</b-button> -->
 
-      <!-- <b-form-group id="input-group-4">
-      <br>
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-          <b-form-checkbox value="me">게시글 공개</b-form-checkbox>
-          <b-form-checkbox value="that">게시글 비공개</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group> -->
+      <!-- 등록버튼  -->
+      <div class="btn_sr2">
+      <b-button type="submit" id="btn_write2" @click="refWrite" class="btn-space2">등록하기</b-button>
+      <b-button type="reset" id="btn_write2" class="btn-space2">등록취소</b-button>
+      </div>
+
+
 
       </div>
-      <div class="btn_sr">
-      <b-button id="btn_sr1" type="submit" variant="primary" class="btn-space">등록하기</b-button>
-      <b-button id="btn_sr1" type="reset" variant="primary" class="btn-space" onclick="history.back(-1);">목록으로</b-button>
-      </div>
+      
     </b-form>
 
     <!-- <b-card class="mt-3" header="Form Data Result">
@@ -112,22 +109,23 @@
   margin-top:5%;
   margin-bottom: 1%;
 }
-.btn_sr{
-  margin-top: 3%;
-  position:absolute;
-  left:44%;
-}
-.btn-space{
-  margin-right: 15px;
-}
-#btn_sr1{
-  background-color:  #424874;
-  border: 1px  #424874 solid;
-  color:white;
-}
 #sm_date{
   margin-left: 1%;
   font-size: 17px;
   color: #9BA4B4;
 }
+.btn_sr2{
+  padding-left: 37%;
+  margin: 5%;
+  margin-bottom: 5%;
+}
+.btn-space2{
+  margin-right: 13px;
+}
+#btn_write2{
+  background-color:  #424874;
+  border: 1px  #424874 solid;
+  color:white;
+}
+
 </style>

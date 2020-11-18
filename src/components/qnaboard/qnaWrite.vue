@@ -60,16 +60,6 @@
         <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button>
         <!-- <b-button @click="file = null">Reset via v-model</b-button> -->
 
-    
-
-      <!-- <b-form-group id="input-group-4">
-      <br>
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-          <b-form-checkbox value="me">게시글 공개</b-form-checkbox>
-          <b-form-checkbox value="that">게시글 비공개</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group> -->
-
       </div>
       <div class="btn_sr">
       <b-button type="submit" id="btn_write" @click="writeQna" class="btn-space">등록하기</b-button>
@@ -78,10 +68,9 @@
 
     </form>
 
-    <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
+
   </div>
+  
 </div>
 
 </template>
