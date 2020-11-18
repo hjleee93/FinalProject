@@ -1,15 +1,22 @@
 <template>
 
 <b-container>
+	<div class="header-body text-center mb-7">
+          <b-row class="justify-content-center">
+            <b-col xl="5" lg="6" md="8" class="px-5">
+              <h1 class="text-black">MY PAGE</h1>
+            </b-col>
+          </b-row>
+        </div>
 	
    <div id="PersonHead">
 			<input type="hidden" id="hidmainphotoidx" name="hidmainphotoidx" value="">
 			<!-- 사진영역 -->
 			<div class="photoArea">
 				<p class="photo">
-					<span class="picture"><img src="//image.alba.kr/person/new_registForm_noPicture_girl.gif" id="resumephoto" alt=""></span>
+					<span class="picture"></span>
 					<span id="picReigst" style="">
-						<a href="https://www.alba.co.kr/person/popup/PicRegistResume.asp" onclick="window.open(this.href, 'popupName1','width=570,height=740,top=0,left=0,status=no,scrollbars=yes,resizable=no'); return false"><span class="photoBtn">사진등록</span></a>
+						<a><span class="photoBtn">사진등록</span></a>
 					</span>
 					<span class="reg" id="picModify" style="display: none;">
 						<a href="https://www.alba.co.kr/person/popup/PicRegistResume.asp" onclick="window.open(this.href, 'popupName','width=570,height=740,top=0,left=0,status=no,scrollbars=yes,resizable=no'); return false"><span class="photoBtn modify">사진변경</span></a>
@@ -74,7 +81,7 @@
 						</div>
 					</div>
 					<div class="mail"><span class="item"><span class="bullet"></span>이메일</span>{{userData.memberEmail}}</div>
-					<div class="address"><span class="item"><span class="bullet"></span>주소</span>{{userData.memberP}}</div>
+					<div class="address"><span class="item"><span class="bullet"></span>주소</span></div>
 					<b-btn class="chg-info" href="/chgMemberInfo">개인정보수정</b-btn>
 				</li>
 				<li class="last bottomList customize">

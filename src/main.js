@@ -5,7 +5,7 @@ import router from './router'
 import Footer from './components/common/Footer.vue'
 import Header from './components/common/Header.vue'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
-import VeeValidate from 'vee-validate' 
+import VeeValidate from 'vee-validate'
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -19,6 +19,10 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import VueSession from 'vue-session';
 import axios from 'axios';
 import store from './store'
+import VueDaumPostcode from "vue-daum-postcode"
+import LoadScript from 'vue-plugin-load-script';
+
+
 
 
 Vue.component('Footer', Footer)
@@ -42,9 +46,13 @@ Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 Vue.use(VueRouter)
 Vue.use(LoginPlugin);
-
+Vue.use(VueDaumPostcode)
 Vue.use(ElementUI);
 Vue.use(VeeValidate, { inject: false });
+Vue.use(LoadScript);
+
+//다음 주소 api
+Vue.loadScript("http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false")
 
 //카카오로그인용 key
 window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
@@ -61,8 +69,8 @@ new Vue({
   render: h => h(App),
   vuetify,
   methods: {
-    reload: function() {    
-       this.$router.go(this.$router.currentRoute)
+    reload: function () {
+      this.$router.go(this.$router.currentRoute)
     }
   }
 }).$mount('#app')
