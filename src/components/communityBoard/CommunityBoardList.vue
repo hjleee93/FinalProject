@@ -56,6 +56,7 @@
                 :items=communityboard
                 :search="search"
                 @click:row="handleClick"
+                item-key="name"
               >
               </v-data-table>
         </v-card>
@@ -101,8 +102,8 @@ import { mapState } from 'vuex';
       methods: {
     handleClick(value){
       alert(value.boardSq);
-      this.$router.push({name:'CommunityBoard',params:{id:value.boardSq}});
-      // console.log(value);
+      this.$router.push({name:'CommunityBoardView',params:{id:value.boardSq}});
+      console.log(value);
       console.log(value.boardSq);
     
     }

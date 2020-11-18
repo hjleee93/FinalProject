@@ -6,7 +6,7 @@
       </div>
     </div>
 
-        <b-navbar id="menu" toggleable="sm" type="dark" variant="">
+        <b-navbar id="menu" toggleable="md" type="dark" variant="">
           <b-navbar-brand href="/">IT-JOB-GO</b-navbar-brand>
 
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -48,22 +48,19 @@
 
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
-              <b-nav-form>
-                <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-                <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-              </b-nav-form>
               
               
-              
-              <b-nav-item-dropdown v-if="loginStatus" right>
+              <div v-if="loginStatus" class="user">
                 <!-- Using 'button-content' slot -->
-                
+<!--                 
                 <template #button-content>
                   <em>User</em>
-                </template>
-                <b-dropdown-item href="/myPage">MY PAGE</b-dropdown-item>
-                <b-dropdown-item href="#">LOGOUT</b-dropdown-item>
-              </b-nav-item-dropdown>
+                </template> -->
+                <b-nav-item href="/myPage">MY PAGE</b-nav-item>
+                </div>
+                <div v-if="loginStatus" class="user">
+                <b-nav-item @click="logout()">LOGOUT</b-nav-item>
+                </div>
 
               <b-nav-item v-else><router-link class="nav-link" to="/login">LOGIN</router-link></b-nav-item>
               
@@ -78,29 +75,39 @@
 </template>
 
 <script>
-import{ mapState} from "vuex"
+import{ mapState, mapActions} from "vuex"
 export default {
 
   computed:{
     
-    ...mapState(["loginStatus"]),
-    ...mapState(['userData'])
-  }
+    ...mapState(["loginStatus","userData"]),
+  
+  },
+  methods: {
+    
+      ...mapActions(["logout"])
+    }
 
 }
 </script>
 
 <style>
+
  .header_image{
     background-color: #394867; 
     text-align: center;
     width: 100%;
  }
-
+.user{
+  display: inline-block;
+}
 #menu{
     background-color: #394867;
  }
 .submenuimage{
   width: 100%;
+}
+.navbar-dark .navbar-nav .nav-link, .navbar-dark .navbar-brand {
+  color: white !important;
 }
 </style>

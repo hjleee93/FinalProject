@@ -17,6 +17,9 @@ function fetchPboardOne(pboardNo){
 function fetchPboardDel(no){
     return axios.post(`${config.Url}portfolio/pboarddel${no}.do`)
 }
+function fetchPboardUp(no){
+    return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`)
+}
 
 //주은
 //communityBoard
@@ -26,18 +29,29 @@ function fetchCommunityBoardList(){
     return axios.get(`${config.Url}community/communityBoardList`)
 }
 
-// //자유게시판 상세화면
+// 자유게시판 상세화면
 function fetchCommunityBoardView(boardSq){
     return axios.get(`${config.Url}community/communityBoardView${boardSq}`)
+}
+
+//자유게시판 삭제하기
+function fetchCommunityBoardDelete(boardSq){
+    return  axios.post(`${config.Url}community/communityBoardDelete${boardSq}`)
 }
 
 export {
     fetchPboardList,
     fetchPboardOne,
+
+    fetchPboardUp,
+    fetchPboardDel,
+
     //주은
     //자유게사판CommunityBoard
     fetchCommunityBoardList,
     fetchCommunityBoardView,
-    fetchPboardDel
+
+
+    fetchCommunityBoardDelete,
 
 }
