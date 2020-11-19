@@ -19,19 +19,27 @@
         <b-col lg="5" md="7">
           <b-card no-body class="border-0 mb-0 login-content">
             <b-card-header class="login-content">
-              <div class="text-muted text-center mt-2 mb-3">가입시 사용하신 전화번호를 입력하세요.</div>
+              <div class="text-muted text-center mt-2 mb-3">가입시 사용하신 전화번호와 이름을 입력하세요.</div>
             </b-card-header>
             <b-card-body class="px-lg-5 py-lg-5">
               
             
                 <b-form role="form" @submit.prevent="onSubmit">
-                  <base-input alternative
+                  <b-form-input alternative
+                              class="mb-3"
+                              required
+                              placeholder="Name"
+                              v-model="memberName">
+                  </b-form-input>
+                  <b-form-input alternative
                               class="mb-3"
                               name="phoneNumber"
-                              :rules="{required: true, tel: true}"
+                              required
+                              type="number"
+                              :state="telSize"
                               placeholder="Phone Number"
                               v-model="phone">
-                  </base-input>
+                  </b-form-input>
 
                   <div class="text-center">
                     <base-button type="primary" native-type="submit" class="my-4">Continue</base-button>
@@ -60,12 +68,14 @@ import axios from "axios";
   export default {
      data: () => ({
       email:'',
+      memberName:'',
         phone:''
         }),
    methods: {
     onSubmit() {
       const formData = {
         memberPhone: this.phone,
+        memberName: this.memberName
       };
       const self = this;
       axios
@@ -75,7 +85,7 @@ import axios from "axios";
           if (this.info == "") {
             //전화번호 존재하지 않는 경우 alert
             this.$swal({
-              text: "존재하지 않는 전화번호입니다. 다른 번호를 입력해주세요",
+              text: "입력하신 정보가 일치하지 않습니다. 다시 한 번 확인해주세요.",
               icon: "error", //built in icons: success, warning, error, info
               timer: 5000, //timeOut for auto-close
             });
@@ -88,7 +98,8 @@ import axios from "axios";
           }
         });
     }
-  }
+  },
+  
   };
 </script>
 
@@ -112,4 +123,14 @@ import axios from "axios";
   transform: translateY(-1px);
 }
 
+/* number필드 화살표 지우기 : 파폭제외 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* 파폭용  */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 </style>
