@@ -101,7 +101,7 @@ import { mapState } from 'vuex';
 
       methods: {
     handleClick(value){
-      alert(value.boardSq);
+      // alert(value.boardSq);
       this.$router.push({name:'CommunityBoardView',params:{id:value.boardSq}});
       console.log(value);
       console.log(value.boardSq);

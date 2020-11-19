@@ -232,8 +232,9 @@ export default {
   methods: {
     
     moveDetailPage: function(e){
-      console.log(e);
-      return 0;
+       this.$router.push({
+        name: 'jobInfo',
+        params: {wantedNo:e}});
     },
     //서치바 
     jobSearch: function(e){

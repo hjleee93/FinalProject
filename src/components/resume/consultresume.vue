@@ -136,7 +136,7 @@
   }
 </script>
 
-<style>
+<style scoped >
 #subtitle{
  font-family: 'Barlow Semi Condensed', sans-serif;
 }
