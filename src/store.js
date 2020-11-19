@@ -49,6 +49,8 @@ export default new Vuex.Store({
         qnaBoardView:[],
 
 
+        cbAttachment:[],
+     
 
         loginStatus: false,//로그인 성공 여부
         loginError: false,
@@ -200,10 +202,10 @@ export default new Vuex.Store({
             })
         },
         //자유게시판 수정하기(객체 값 불러오기)
-         FETCH_COMMUNITYBOARD_UPDATE({ commit }, communityboardNo) {
-            fetchCommunityBoardUpdate(communityboardNo)
-            .then(({ data }) => commit("SET_COMMUNITYBOARD_UPDATE", data))
-            .catch(({ error }) => console.log(error))
+        FETCH_COMMUNITYBOARD_UPDATE({ commit }, boardSq) {
+            fetchCommunityBoardUpdate(boardSq)
+                .then(({ data }) => commit("SET_COMMUNITYBOARD_UPDATE", data))
+                .catch(({ error }) => console.log(error))
         },
 
 
@@ -255,12 +257,12 @@ export default new Vuex.Store({
             state.communityboardView = communityboardView;
         },
         //자유게시판 삭제
-        SET_COMMUNITYBOARD_DELETE(state, communityboardDelete) {
-            state.communityboardDelete = communityboardDelete;
+        SET_COMMUNITYBOARD_DELETE(state, data) {
+            state.data = data;
         },
         //자유게시판 수정(값 불러오기)
-        SET_COMMUNITYBOARD_UPDATE(state, communityboardDelete) {
-            state.communityboardAttachment = communityboardDelete;
+        SET_COMMUNITYBOARD_UPDATE(state, data) {
+            state.cbAttachment = data;
         },
 
 

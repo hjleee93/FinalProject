@@ -51,6 +51,7 @@ function fetchQnaBoardList(){
 // function fetchQnaBoardView(QnaSeq){
 //     return axios.get(`${config.Url}qna/qnaboarView${QnaSeq}`)
 // }
+
 export {
     fetchPboardList,
     fetchPboardOne,

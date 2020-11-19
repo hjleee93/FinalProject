@@ -103,6 +103,8 @@ export default {
         // alert("수정버튼")
         //수정 역시 router.js에 등록된 name 값을 이용해서 페이지 전환
         let no=this.$route.params.id
+        console.log("수정버튼(params) :"+ no);
+        // console.log("글번호 :  : " + communityBoardNo)
         this.$router.push({name:'CommunityBoardUpdate',params:{id:no}})
       },
      //삭제버튼
@@ -111,7 +113,7 @@ export default {
       }, 
       //삭제버튼(네)
       yesDelete(){
-        let no=this.$route.params.id;
+        let no=this.$route.params.id
         console.log(no);
         this.$store.dispatch("FETCH_COMMUNITYBOARD_DELETE",no);
       //삭제후 페이지 이동
