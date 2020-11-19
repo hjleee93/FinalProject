@@ -54,14 +54,12 @@
               
               게시판 내용(임시) : {{communityboardView.boardContent}}
 
-<<<<<<< HEAD
-
             <br>
             (임시)게시판 객체 : {{communityboardView}}
-=======
+
             <br><br>
             게시판 객체(임시) : {{communityboardView}}
->>>>>>> 9455c76ddb3c3be649fbf3091113fef10a530a2f
+
    
             </div>
               <div id="date">작성날짜(날짜변환해야함) : {{communityboardView.boardDate}}</div>
