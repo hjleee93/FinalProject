@@ -20,6 +20,11 @@ function fetchPboardDel(no){
 function fetchPboardUp(no){
     return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`)
 }
+//모임
+function fetchMeeting(){
+    return axios.get(`${config.Url}meeting/meetingList.do`);
+}
+
 
 
 //주은
@@ -42,6 +47,8 @@ function fetchCommunityBoardUpdate(boardSq){
 }
 
 
+<<<<<<< HEAD
+=======
 //현주 //qnaBoard(qna게시판)
 //조회
 function fetchQnaBoardList(){
@@ -52,12 +59,15 @@ function fetchQnaBoardList(){
 //     return axios.get(`${config.Url}qna/qnaboarView${QnaSeq}`)
 // }
 
+>>>>>>> a5dfdcd77ef6306c62977d4db44ef0dda98a90cc
 export {
     fetchPboardList,
     fetchPboardOne,
     fetchPboardUp,
     fetchPboardDel,
-
+    //모임
+    fetchMeeting,
+  
     //주은
     //자유게사판CommunityBoard
     fetchCommunityBoardList,
