@@ -8,27 +8,27 @@
    
   </div>
     <b-container class="main">
-    <form action="#"  enctype="multipart/form-data"> 
+    <form @submit.prevent="enroller"  enctype="multipart/form-data"> 
     
       <b-row>
         <b-col
           cols="12"
           md="6"
         >
-           <label for="title">모임명 </label> <b-form-input id="title" placeholder="모임명"></b-form-input>
+           <label for="title">모임명 </label> <b-form-input id="title" v-model="mtitle" placeholder="모임명"></b-form-input>
         </b-col>
       </b-row>
       <b-row>
         <b-col>
           <b-card title="개설자정보" >
     <b-card-text>
-      <label for="name">개설자 이름:</label> <b-form-input id="name" placeholder="이름"></b-form-input>
+      <label for="name">개설자 이름:</label> <b-form-input id="name" v-model="mwriter" placeholder="이름"></b-form-input>
       </b-card-text>
      
       <b-card-text>
-     <label for="email">개설자 이메일:</label> <b-form-input id="email"  type="email" placeholder="이메일"></b-form-input>
+     <label for="email">개설자 이메일:</label> <b-form-input id="email"   v-model="memail" type="email" placeholder="이메일"></b-form-input>
       </b-card-text>
-    <b-card-text><label for="phone">개설자 전화번호:</label> <b-form-input  type="tel" id="phone" placeholder="번호"></b-form-input></b-card-text>
+    <b-card-text><label for="phone">개설자 전화번호:</label> <b-form-input  v-model="mphone" type="tel" id="phone" placeholder="번호"></b-form-input></b-card-text>
   </b-card>
         </b-col>
       </b-row>
@@ -41,7 +41,7 @@
       label="신청 날짜"
       label-for="input-horizontal"
     >
-             <b-form-datepicker id="example-datepicker"  class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker"  v-model="sdate" class="mb-3"></b-form-datepicker>
           </b-form-group>
         </b-col  > 
        <b-col class="d-flex" cols="4" sm="4"><b-form-group
@@ -50,13 +50,13 @@
       label="신청 날짜"
       label-for="input-horizontal"
     >
-             <b-form-datepicker id="example-datepicker2"  class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker2" v-model="fdate" class="mb-3"></b-form-datepicker>
           </b-form-group></b-col>
       </b-row>
        <b-row>
-         <b-col> <b-form-group class="slabel" label="백엔드" label-for="back"><b-form-spinbutton id="back" v-model="value" min="1" max="100"/></b-form-group>  </b-col>
-       <b-col> <b-form-group class="slabel" label="프론트" label-for="front"> <b-form-spinbutton id="front" v-model="value" min="1" max="100"/></b-form-group></b-col>
-       <b-col> <b-form-group class="slabel" label="디자이너" label-for="design"> <b-form-spinbutton id="design" v-model="value" min="1" max="100"/></b-form-group></b-col>
+         <b-col> <b-form-group class="slabel" label="백엔드" label-for="back"><b-form-spinbutton id="back" v-model="back" min="1" max="100"/></b-form-group>  </b-col>
+       <b-col> <b-form-group class="slabel" label="프론트" label-for="front"> <b-form-spinbutton id="front" v-model="front" min="1" max="100"/></b-form-group></b-col>
+       <b-col> <b-form-group class="slabel" label="디자이너" label-for="design"> <b-form-spinbutton id="design" v-model="desgin" min="1" max="100"/></b-form-group></b-col>
        </b-row>
       <b-row>
      <b-col
@@ -67,6 +67,7 @@
       id="textarea-state"
       placeholder="간단한 모집정보"
       rows="3"
+      v-model="simcontent"
     ></b-form-textarea>
         </b-col>
       </b-row>
@@ -78,16 +79,19 @@
          <v-file-input
     label="대표이미지"
     filled
+    accept=".gif,.jpg,.png"
+    ref="upfiles"
     prepend-icon="mdi-camera"
+    v-on:change="handleFile"
   ></v-file-input>
       </b-col>
-      </b-row></b-card>
-     
+      </b-row></b-card>  
     <b-card title="상세모집요강"><b-form-textarea
         id="textarea-auto-height"
         placeholder="상세모집요강"
         rows="3"
         max-rows="8"
+        v-model="mcontent"
       ></b-form-textarea></b-card>
       <b-row>
          <b-col><b-card> <v-combobox
@@ -95,6 +99,7 @@
   multiple
   small-chips
    v-bind:items="lang"
+   v-model="langs"
 ></v-combobox></b-card> </b-col>
        </b-row>
        <b-row><b-col>
@@ -120,9 +125,22 @@
     
       style="width:500px;height:400px;"/> </b-col>
       </b-row> -->
-    <b-row><b-col>  <b-input :value="result.address"></b-input></b-col></b-row>
+    <b-row><b-col>  <b-input readonly v-model="result.address"></b-input></b-col></b-row>
     <div>{{result.address}}</div>
-    <b-row><b-col>  <b-button  id="s-btn" type="submit">개설완료</b-button></b-col></b-row>
+    <div>{{back}}</div>
+    <div>{{front}}</div>
+    <div>{{desgin}}</div>
+    <div>{{mtitle}}</div>
+    <div>{{mwriter}}</div>
+    <div>{{mphone}}</div>
+    <div>{{memail}}</div>
+    <div>{{sdate}}</div>
+    <div>{{fdate}}</div> 
+      <div>{{simcontent}}</div> 
+        <div>{{mcontent}}</div> 
+         <div>{{langs}}</div> 
+    
+    <b-row><b-col>  <b-button  id="s-btn" @click="enroller">개설완료</b-button></b-col></b-row>
   </form>
   </b-container>
   </div>
@@ -131,7 +149,7 @@
 
 <script>
 // import VueDaumMap from 'vue-daum-map'
-
+import axios from 'axios'
 import ModalView from '../common/ModalView.vue'
 export default {
   // mounted() { 
@@ -172,6 +190,37 @@ export default {
           this.result=result;
           
          
+        },
+        enroller(){
+           let formData=new FormData();
+          formData.append('mtitle',this.mtitle);
+          formData.append('mwriter',this.mwriter);
+          formData.append('memail',this.memail);
+          formData.append('mphone',this.mphone);
+          formData.append('sdate',this.sdate);
+          formData.append('fdate',this.fdate);
+          formData.append('back',this.back);
+          formData.append('front',this.front);
+          formData.append('desgin',this.desgin);
+          formData.append('simcontent',this.simcontent);
+          formData.append('upfile',this.files);
+          formData.append('mcontent',this.mcontent);
+          formData.append('langs',this.langs);
+          formData.append('address',this.result.address);
+          for(let key of formData.entries()){
+          console.log(`${key}`);
+            }
+           axios.post("http://localhost:8082/itjobgo/meeting/enrollmeeting.do",formData
+    ,{ headers:{
+       'Content-Type':'multipart/form-data'
+     }})
+     .then((data)=>console.log(data))
+    .catch((error)=>console.log(error))
+        },
+        handleFile(){
+          console.log(this.$refs.upfiles.$refs.input.files[0]);
+        this.files=this.$refs.upfiles.$refs.input.files[0];
+        console.log(this.files);
         }
 
         //  sample5_execDaumPostcode(){
@@ -217,7 +266,19 @@ export default {
       text: '',
       tname: '',
       pname: '',
-      value:1,
+      simcontent:'',
+      mtitle:'',
+      mwriter:'',
+      sdate:'',
+      fdate:'',
+      memail:'',
+      mphone:'',
+      files:'',
+      mcontent:'',
+       langs:[],
+      back:1,
+           front:1,
+                desgin:1,
       showModal:false,
       nameRules: [
         v => !!v || 'Name is required',
@@ -227,17 +288,11 @@ export default {
         v => !!v || 'Name is required',
         v => v.length <= 20 || 'Name must be less than 20 characters',
       ],
- 
-    
        items: ["1","2","3","4","5","6"],
-       
-    
         lang:[
           'JAVA',
           'JAVASCRIPT',
-        
           'VUE',
-   
           'C++',
           'C',
 

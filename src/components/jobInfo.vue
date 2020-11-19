@@ -9,15 +9,16 @@
     </div>
     <div class="info-box">
       <div class="job-title m-5">
-        {{ items.wantedDtl.wantedInfo.wantedTitle._text }}
+          {{ items.wantedDtl.wantedInfo.wantedTitle._text }}<br>
+        <small>{{ items.wantedDtl.corpInfo.corpNm._text }}</small>
         <span class="deadline m-2 p-2">{{ items.wantedDtl.wantedInfo.receiptCloseDt._text }}</span>
       </div>
 
       <table>
-        <tr>
+        <tr style="border-top: 1px solid #ededed">
           <td>
             <div class="qualification m-3 p-0">
-              <span class="job-col">지원자격</span>
+              <span class="job-col font-weight-bold">지원자격</span>
               <table>
                 <tr>
                   <td class="td-100">경력</td>
@@ -32,7 +33,7 @@
           </td>
           <td>
             <div class="condition m-3">
-             <span class="job-col">근무조건</span>
+             <span class="job-col font-weight-bold">근무조건</span>
               <table>
                 <tr>
                   <td class="td-100">지역</td>
@@ -49,7 +50,7 @@
         <tr>
           <td>
             <div class="position m-3">
-              <span class="job-col">고용형태</span>
+              <span class="job-col font-weight-bold">고용형태</span>
               <table>
                 <tr>
                   <td class="td-100">고용형태</td>
@@ -66,7 +67,7 @@
           </td>
           <td>
             <div class="benefit m-3">
-              <span class="job-col">복리후생</span>
+              <span class="job-col font-weight-bold">복리후생</span>
               <table>
                 <tr>
                   <td class="td-100">연금/4대보험</td>
@@ -82,31 +83,53 @@
         </tr>
       </table>
     </div>
+
+    <div>
+        전형방법
+    <b-table :items="apply" :fields="fields" :tbody-tr-class="rowClass"></b-table>
+  </div>
   </b-container>
 </template>
 <script>
-var convert = require("xml-js");
+import {mapState} from 'vuex'
+// var convert = require("xml-js");
 export default {
   data() {
+     
     return {
-      items: [],
+        
+        fields: ['접수마감일', '전형방법', '접수방법', '제출 서류', '제출 서류 양식',],
+        
+         
     };
   },
-
-  created() {
-    this.wantedNo = this.$route.params.wantedNo;
-    //세부 채용 정보
-    this.$http
-      .get(
-        "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=D&returnType=XML&infoSvc=VALIDATION&wantedAuthNo=" +
-          this.wantedNo
-      )
-      .then((response) => {
-        var xml = response.data;
-        var json = convert.xml2json(xml, { compact: true });
-        this.items = JSON.parse(json);
-      });
+  mounted(){   
+      
+    this.$store.dispatch('loadJobDetail',{wantedNo:this.$route.params.wantedNo})
   },
+  computed:{
+    ...mapState([
+      //매핑값
+      'apply', 'items'
+    ])
+  },
+
+//   created() {
+//     this.wantedNo = this.$route.params.wantedNo;
+//     //세부 채용 정보
+//     this.$http
+//       .get(
+//         "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=D&returnType=XML&infoSvc=VALIDATION&wantedAuthNo=" +
+//           this.wantedNo
+//       )
+//       .then((response) => {
+//         var xml = response.data;
+//         var json = convert.xml2json(xml, { compact: true });
+//         this.items = JSON.parse(json);
+        
+//       });
+//   },
+
 };
 </script>
 
@@ -119,10 +142,9 @@ export default {
 }
 .job-col{
     padding-bottom: 5px;
-    border-bottom: 1px solid;
+    border-bottom: 2px solid;
 }
 .info-box {
-  height: 500px;
   border: 1px solid #ededed;
 }
 .td-100{

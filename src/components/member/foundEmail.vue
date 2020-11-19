@@ -51,6 +51,11 @@
     
 
 <style scoped>
+.login-content{
+  background-color: #f7fafc !important;
+  border-radius: 5px;
+}
+
 .email{
     margin:0 auto;
     text-align: center;

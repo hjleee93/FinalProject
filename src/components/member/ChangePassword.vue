@@ -125,7 +125,7 @@ Validator.extend("passwordCheck", {
           }
         })
         .catch((error) => {
-          alert("회원가입에 실패하였습니다. 다시 시도해주세요");
+          alert("비밀번호 변경에 실패하였습니다. 다시 한 번 시도해주시거나 관리자에게 문의해주세요");
           console.log("실패", error);
         });
     }

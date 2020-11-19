@@ -109,5 +109,6 @@ export default {
 }
 .navbar-dark .navbar-nav .nav-link, .navbar-dark .navbar-brand {
   color: white !important;
+  font-weight: 500;
 }
 </style>
