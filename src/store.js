@@ -14,7 +14,11 @@ import {
                 fetchCommunityBoardView,
                 fetchCommunityBoardDelete,
                 fetchCommunityBoardUpdate,
-            
+                //현주
+                fetchQnaBoardList,
+                // fetchQnaBoardView,
+
+
             } 
 
     from './api/index.js';
@@ -40,6 +44,13 @@ export default new Vuex.Store({
         communityboardDelete:[],
         communityboardAttachment:[],
 
+        //현주
+        qnaboard:[],
+        qnaBoardView:[],
+
+
+        cbAttachment:[],
+     
 
         loginStatus: false,//로그인 성공 여부
         loginError: false,
@@ -191,11 +202,29 @@ export default new Vuex.Store({
             })
         },
         //자유게시판 수정하기(객체 값 불러오기)
-         FETCH_COMMUNITYBOARD_UPDATE({ commit }, communityboardNo) {
-            fetchCommunityBoardUpdate(communityboardNo)
-            .then(({ data }) => commit("SET_COMMUNITYBOARD_UPDATE", data))
-            .catch(({ error }) => console.log(error))
+        FETCH_COMMUNITYBOARD_UPDATE({ commit }, boardSq) {
+            fetchCommunityBoardUpdate(boardSq)
+                .then(({ data }) => commit("SET_COMMUNITYBOARD_UPDATE", data))
+                .catch(({ error }) => console.log(error))
         },
+
+
+        //현주
+        //qna 게시판 불러오기
+        FETCH_QNABOARD({ commit }) {
+            fetchQnaBoardList()
+                .then(({ data }) => commit("SET_QNABOARD", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+
+
+
+
+
+
+
 
 
     },//action
@@ -228,14 +257,19 @@ export default new Vuex.Store({
             state.communityboardView = communityboardView;
         },
         //자유게시판 삭제
-        SET_COMMUNITYBOARD_DELETE(state, communityboardDelete) {
-            state.communityboardDelete = communityboardDelete;
+        SET_COMMUNITYBOARD_DELETE(state, data) {
+            state.data = data;
         },
         //자유게시판 수정(값 불러오기)
-        SET_COMMUNITYBOARD_UPDATE(state, communityboardDelete) {
-            state.communityboardAttachment = communityboardDelete;
+        SET_COMMUNITYBOARD_UPDATE(state, data) {
+            state.cbAttachment = data;
         },
 
+
+        //현주 게시판 리스트
+        SET_QNABOARD(state, qnaboard) {
+            state.qnaboard = qnaboard;
+        },
 
 
 
