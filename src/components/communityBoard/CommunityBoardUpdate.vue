@@ -3,9 +3,9 @@
 
     <div class="container" id="header-container">
       <h4 id="h4-title">자유게시판 작성</h4>
-      test : {{communityboardView}} <br>
-      test : {{communityboardView.boardTitle}} <br>
-      첨부파일 : {{communityboardAttachment}}
+      자유게시판 객체(테스트) : {{communityboardView}} <br>
+      자유게시판 제목(테스트) : {{communityboardView.boardTitle}} <br>
+      첨부파일(테스트) : {{cbAttachment}}
     </div>
 
     <form @submit.prevent="enrollBoard" 
@@ -59,9 +59,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { VueEditor } from "vue2-editor";
 import { mapState } from 'vuex';
+import axios from 'axios'
 
   export default {
 
@@ -75,25 +75,22 @@ import { mapState } from 'vuex';
           { value: '홍보', text: '홍보' }
         ],
         boardContent:"",
-        files :""
+        files :"",
+        
       }
     },
 
-    created(){
-      //해당 게시글의 첨부파일을 가져오는 로직 
-      //기존의  게시판 정보는 mapState를 통해서 가져온다
-       const communityBoardNo=this.$route.params.id;
-       this.$store.dispatch("SET_COMMUNITYBOARD_UPDATE",communityBoardNo)
-      
-
-    },  
+    created() {
+    const no=this.$route.params.id;
+      this.$store.dispatch("FETCH_COMMUNITYBOARD_UPDATE",no)
+    },
 
     computed:{
       ...mapState({
         //mapState를 통해서 store에 저장된 (객체) data를 가져다 쓸수있다
         communityboardView:state=>state.communityboardView,    
-        //첨부파일
-       communityboardAttachment:state=>state.communityboardAttachment,    
+
+        cbAttachment:state=>state.cbAttachment,
       })
     },
 
@@ -117,7 +114,7 @@ import { mapState } from 'vuex';
 
           console.log(this.category);
 
-      axios.post("http://localhost:8082/itjobgo/community/communityBoardForm",
+      axios.post("http://localhost:8082/itjobgo/community/communityBoardUpdate",
         formData,
         { headers:{
           'Content-Type':'multipart/form-data'

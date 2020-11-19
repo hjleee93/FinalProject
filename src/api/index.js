@@ -41,6 +41,7 @@ function fetchCommunityBoardUpdate(boardSq){
     return axios.get(`${config.Url}community/communityBoardUpdate${boardSq}`)
 }
 
+
 export {
     fetchPboardList,
     fetchPboardOne,
