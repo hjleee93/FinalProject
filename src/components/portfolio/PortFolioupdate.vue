@@ -7,7 +7,7 @@
         <p class="subtitle" id="subtitle">portfolioupdate</p>
       </div>
   <b-container>
-      
+    
       <form  @submit.prevent="test"  enctype="multipart/form-data">
       <b-form-group
         id="input-group-1"

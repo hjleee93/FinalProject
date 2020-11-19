@@ -5,13 +5,16 @@
 			<h2 class="st_title">QnA 질문등록</h2><hr>
 
     <!-- 데이터 넘기기 form 시작-->
-    <form @submit.prevent="writeQna" @reset="onReset" enctype="multipart/form-data">
+    <form @submit.prevent="writeQna" @reset="onReset" 
+                            enctype="multipart/form-data">
 
       <b-form-group
           id="input-group-2"
           label="제목"
           label-for="input-2"
-      > <b-form-input
+      > 
+      
+      <b-form-input
           id="input-2"
           v-model="qnaTitle"
           type="text"
@@ -20,55 +23,36 @@
         ></b-form-input>
       </b-form-group>
 
-      <!-- <b-form-group id="input-group-2" label="작성자" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.name"
-          required
-          placeholder="Enter name"
-        ></b-form-input>
-      </b-form-group> -->
-
       <!-- 카테고리 선택 -->
-      <!-- <b-form-group id="input-group-3" label="분류" label-for="input-3">
+      <b-form-group id="input-group-2" 
+      label="분류" label-for="input-2" label-align="left">
         <b-form-select
-          id="input-3"
-          v-model="qnaCategory"
-          :options="select"
+          id="input-2"
+          v-model="category"
+          :options="qnaCategory"
           required
         ></b-form-select>
-      </b-form-group> -->
+      </b-form-group>
 
       <!-- 에디터창, 내용 -->
       <b-form-group  label="내용" >
         <vue-editor 
           id="vue-editor"
           v-model="qnaContent" 
-          name="content" />
+          name="qnaContent" />
       </b-form-group>
 
       <div>
         <p class="mt-2">첨부 파일<b>{{ file ? file.name : '' }}</b></p>
         <b-form-file
-            id="qnaFile"
-            v-model="file"
-            ref="fileReset"
+            id="files"
+            ref="upfiles"
             v-on:change="handleFile"
             placeholder="첨부파일을 선택해주세요"
         >
         </b-form-file>
         <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button>
         <!-- <b-button @click="file = null">Reset via v-model</b-button> -->
-
-    
-
-      <!-- <b-form-group id="input-group-4">
-      <br>
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-          <b-form-checkbox value="me">게시글 공개</b-form-checkbox>
-          <b-form-checkbox value="that">게시글 비공개</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group> -->
 
       </div>
       <div class="btn_sr">
@@ -78,10 +62,9 @@
 
     </form>
 
-    <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
+
   </div>
+  
 </div>
 
 </template>
@@ -95,14 +78,13 @@ import axios from 'axios';
     
     data() {
       return{
-        form: {
         qnaTitle:"",
-        qnaCategory:"",
+        category:"",
+        qnaCategory: [{ text: '항목을 선택해주세요', value: null },
+                    '백엔드', '프론트엔드'
+        ],
         qnaContent:"",
-        qnaFile:""
-      },
-        select: [{ text: '카테고리 선택', value: null }, '백엔드', '프론트엔드'],
-      show: true
+        files:""
       }
     },
 
@@ -115,14 +97,19 @@ import axios from 'axios';
         
         let formData = new FormData();
         formData.append('qnaTitle',this.qnaTitle);
+        formData.append('categories',this.qnacategory);
         formData.append('qnaContent',this.qnaContent.replace(/(<([^>]+)>)/ig,""))
-        formData.append('qnaFile',this.qnaFile);
+        formData.append('files',this.files);
 
         for(let key of formData.entries()){
-          console.log(`${key}`);
+        console.log(`${key}`);
         }
 
-        axios.post("http://localhost:8082/itjobgo/qna/컨트롤러수정",formData,
+        console.log(this.qnacategory);
+
+      
+      axios.post("http://localhost:8082/itjobgo/qna/qnaBoardWrite",
+        formData,
         { headers:{
           'Content-Type':'multipart/form-data'
         }}).then((data)=>console.log(data))
@@ -131,24 +118,24 @@ import axios from 'axios';
         console.log(formData);
       },
 
-      // handleFile(){
-      //   console.log(this.$refs.upfiles.$refs.input.files[0]);
-      //   this.files=this.$refs.upfiles.$refs.input.files[0];
-      //   console.log(this.files);
-      // },
+      handleFile(){
+        console.log(this.$refs.upfiles.$refs.input.qnafiles[0]);
+        this.qnafiles=this.$refs.upfiles.$refs.input.qnafiles[0];
+        console.log(this.qnafiles);
+      },
 
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
         // this.form.email = ''
-        this.boardTitle = ''
+        this.qnaTitle = ''
         this.qnaCategory = null
-        this.boardContent=''
-        this.file1.name=''
+        this.qnaContent=''
+        this.qnafiles.name=''
       },
 
       clearFiles() {
-        this.$refs['fileReset'].reset()
+        this.$refs['upfiles'].reset()
       },
 
     }
