@@ -1,5 +1,6 @@
 <template>
 
+
   
     <div class="container-fluid">
       <div class="row">
@@ -11,15 +12,16 @@
               </div>
               
         <div class="container">
+
           
     <!-- 탭 -->   
     <v-tabs
     centered
     color="grey darken-3"
     >
-      <v-tab><b>category1</b></v-tab>
-      <v-tab><b>category2</b></v-tab>
-      <v-tab><b>category3</b></v-tab>
+      <v-tab><b>ALL</b></v-tab>
+      <v-tab><b>FrontEnd</b></v-tab>
+      <v-tab><b>BackEnd</b></v-tab>
       <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
     </v-tabs>
 
@@ -71,6 +73,7 @@ import axios from 'axios';
         console.log(Response);
       })
     }
+
     ,
     data() {
       return { 
@@ -102,6 +105,7 @@ import axios from 'axios';
 }
 .overflow .v-card{
   box-shadow: 0 0 black !important;
+  margin-bottom: 12%;
 }
 .submenuimage{
     width: 100%;

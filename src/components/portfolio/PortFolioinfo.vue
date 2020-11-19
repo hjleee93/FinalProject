@@ -78,7 +78,6 @@ export default {
     },
     created() {
         const pboardNo=this.$route.params.id;
-        console.log(pboardNo);
         this.$store.dispatch("FETCH_PBOARDONE",pboardNo)
     },
     computed: {
