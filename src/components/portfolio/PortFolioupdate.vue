@@ -43,7 +43,7 @@
    </b-form-group>
       <!-- <b-button type="submit" class="s-btn">확인</b-button> -->
        <b-button @click="test" class="s-btn">확인</b-button>
-      <b-button type="reset" class="r-btn">취소</b-button>
+      <b-button @click="back" class="r-btn">취소</b-button>
     </form>
     <div>{{attachment}}</div>
    
@@ -114,14 +114,18 @@ export default {
        ,{ headers:{
           'Content-Type':'multipart/form-data'
         }})
-           .then((data)=>console.log(data))
+          .then((data)=>console.log(data))
           .catch((error)=>console.log(error))
+          this.$router.push({name:'portlist'})
       },
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.files[0]);
         this.files=this.$refs.upfiles.$refs.input.files[0];
         console.log(this.files);
       },
+      back(){
+         this.$router.push({name:'portlist'})
+      }
      
     
      

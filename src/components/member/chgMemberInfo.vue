@@ -61,6 +61,7 @@
                 <div id="information">
                   <b-input-group prepend="이름" class="mt-4">
                     <b-form-input
+                      readonly
                       class="readonly-input name"
                       v-model="userData.memberName"
                     ></b-form-input>
@@ -68,6 +69,8 @@
                   <b-input-group prepend="휴대폰">
                     <b-form-input
                       class="readonly-input phone"
+                      type="number"
+                      :state="telSize"
                       v-model="userData.memberPhone"
                     ></b-form-input>
                   </b-input-group>
@@ -122,7 +125,6 @@
                   <b-form-select
                     class="position"
                     type="text"
-                    id="sample6_extraAddress"
                     v-model="userData.memberPosition"
                     :options="position"
                   ></b-form-select>
@@ -148,6 +150,7 @@
 
 <script>
 import { mapState } from "vuex";
+import axios from "axios";
 
 export default {
   data: () => ({
@@ -156,6 +159,34 @@ export default {
   }),
 
   methods: {
+     onSubmit() {
+      const formData = {
+        memberEmail: this.userData.memberEmail,
+        memberPwd: this.memberPwd,
+        memberPhone: this.userData.memberPhone,
+        memberPostCode: this.userData.memberPostCode,
+        memberAddr: this.userData.memberAddr,
+        memberAddrDtl: this.userData.memberAddrDtl,
+        memberAddrExtra: this.userData.memberAddrExtra,
+        memberPosition: this.userData.memberPosition
+      };
+      const self = this; //this scope문제
+
+      axios
+        .post("http://localhost:8082/itjobgo/member/updateInfo", formData) //form server 연결
+        .then(function(res) {
+          console.log(formData)
+          if (res.status >= 200 && res.status <= 204) {
+            //가입성공
+            alert("가입에 성공하셨습니다!");
+            self.$router.push("/login"); //회원가입 후 경로 설정
+          }
+        })
+        .catch((error) => {
+          alert("회원가입에 실패하였습니다. 다시 시도해주세요");
+          console.log("실패", error);
+        });
+    },
     daumPostcode: function() {
       daum.postcode.load(function() {
         new daum.Postcode({
@@ -212,6 +243,11 @@ export default {
   },
   computed: {
     ...mapState(["userData"]),
+    
+      telSize() {
+        return this.userData.memberPhone.length == 11 ? true : false
+      }
+    
   },
 };
 </script>
@@ -257,7 +293,10 @@ export default {
 .form-control, .findPostcode {
   border-radius: 0px;
 }
-#account .email, .name, .phone, .addr, .postcode, .addrDtl {
+.postcode{
+  border-top: 0px;
+}
+#account .email, .name, .addr, .postcode, .addrDtl {
   border-bottom: 0px;
 }
 .input-group > .input-group-prepend > .input-group-text, .pwd, .pwd.form-control, .addrExtra.form-control{
@@ -276,5 +315,19 @@ input, select{
 select{
   border-bottom: 0px;
 }
+button{
+  background-color: #424874;
+  border: 0px;
+}
 
+/* number필드 화살표 지우기 : 파폭제외 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* 파폭용  */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 </style>

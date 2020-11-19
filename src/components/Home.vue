@@ -208,7 +208,7 @@ import {mapState} from 'vuex'
 var convert = require('xml-js')
 
 //로그인한 사람에 따라 추천 parmeter 수정하기
-let rcm = "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=024"
+let rcm = "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=30&occupation=024"
 
 
 
