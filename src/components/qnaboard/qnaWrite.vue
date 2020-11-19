@@ -5,13 +5,16 @@
 			<h2 class="st_title">QnA 질문등록</h2><hr>
 
     <!-- 데이터 넘기기 form 시작-->
-    <form @submit.prevent="writeQna" @reset="onReset" enctype="multipart/form-data">
+    <form @submit.prevent="writeQna" @reset="onReset" 
+                            enctype="multipart/form-data">
 
       <b-form-group
           id="input-group-2"
           label="제목"
           label-for="input-2"
-      > <b-form-input
+      > 
+      
+      <b-form-input
           id="input-2"
           v-model="qnaTitle"
           type="text"
@@ -25,8 +28,8 @@
       label="분류" label-for="input-2" label-align="left">
         <b-form-select
           id="input-2"
-          v-model="qnacategory"
-          :options="categories"
+          v-model="category"
+          :options="qnaCategory"
           required
         ></b-form-select>
       </b-form-group>
@@ -42,8 +45,7 @@
       <div>
         <p class="mt-2">첨부 파일<b>{{ file ? file.name : '' }}</b></p>
         <b-form-file
-            id="qnafiles"
-            v-model="file"
+            id="files"
             ref="upfiles"
             v-on:change="handleFile"
             placeholder="첨부파일을 선택해주세요"
@@ -77,12 +79,12 @@ import axios from 'axios';
     data() {
       return{
         qnaTitle:"",
-        qnacategory:"",
-        categories: [{ text: '항목을 선택해주세요', value: null },
+        category:"",
+        qnaCategory: [{ text: '항목을 선택해주세요', value: null },
                     '백엔드', '프론트엔드'
         ],
         qnaContent:"",
-        qnafiles:""
+        files:""
       }
     },
 
@@ -97,7 +99,7 @@ import axios from 'axios';
         formData.append('qnaTitle',this.qnaTitle);
         formData.append('categories',this.qnacategory);
         formData.append('qnaContent',this.qnaContent.replace(/(<([^>]+)>)/ig,""))
-        formData.append('file',this.qnafiles);
+        formData.append('files',this.files);
 
         for(let key of formData.entries()){
         console.log(`${key}`);
@@ -116,7 +118,6 @@ import axios from 'axios';
         console.log(formData);
       },
 
-
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.qnafiles[0]);
         this.qnafiles=this.$refs.upfiles.$refs.input.qnafiles[0];
@@ -128,7 +129,7 @@ import axios from 'axios';
         // Reset our form values
         // this.form.email = ''
         this.qnaTitle = ''
-        this.qnacategory = null
+        this.qnaCategory = null
         this.qnaContent=''
         this.qnafiles.name=''
       },

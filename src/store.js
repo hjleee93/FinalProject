@@ -14,7 +14,11 @@ import {
                 fetchCommunityBoardView,
                 fetchCommunityBoardDelete,
                 fetchCommunityBoardUpdate,
-            
+                //현주
+                fetchQnaBoardList,
+                // fetchQnaBoardView,
+
+
             } 
 
     from './api/index.js';
@@ -39,6 +43,11 @@ export default new Vuex.Store({
         communityboardView: [],
         communityboardDelete:[],
         communityboardAttachment:[],
+
+        //현주
+        qnaboard:[],
+        qnaBoardView:[],
+
 
 
         loginStatus: false,//로그인 성공 여부
@@ -198,6 +207,24 @@ export default new Vuex.Store({
         },
 
 
+        //현주
+        //qna 게시판 불러오기
+        FETCH_QNABOARD({ commit }) {
+            fetchQnaBoardList()
+                .then(({ data }) => commit("SET_QNABOARD", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+
+
+
+
+
+
+
+
+
     },//action
 
     mutations: {
@@ -236,6 +263,11 @@ export default new Vuex.Store({
             state.communityboardAttachment = communityboardDelete;
         },
 
+
+        //현주 게시판 리스트
+        SET_QNABOARD(state, qnaboard) {
+            state.qnaboard = qnaboard;
+        },
 
 
 
