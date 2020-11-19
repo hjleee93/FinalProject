@@ -47,22 +47,40 @@
 </template>
 
 <script>
-import axios from 'axios';
+//import axios from 'axios';
   export default {
 
     created : function(){
+       this.$store.dispatch("FETCH_INFO")
       
-      axios
+  /*     axios
       .get('http://localhost:8082/itjobgo/info/infoList')
       .then(Response=>{
         this.info=Response.data;
         console.log(Response);
       })
+    }, 
+  */
+    },
+    computed:{
+        ...mapState({
+            info:state=>state.info
+        })
+    },
+   methods: {
+    handleClick(value){
+      // alert(value.infoSq);
+      this.$router.push({name:'InfoDetail',params:{id:value.infoSq}});
+      console.log(value);
+      console.log(value.infoSq);
+    
     }
-    ,
+  },
+
+
     data() {
       return {
-      info:[],
+    /*   info:[], */
       search: '',
         headers: [
           
@@ -70,7 +88,7 @@ import axios from 'axios';
             text: '분류',
             align: 'start',
             filterable: false,
-            value: 'infoCategory', //spring vo값 적기
+            value: 'infoCategory', 
           },
           { text: '기업명', value: 'infoTitle' },          
           { text: '날짜', value: 'infoDate' },
@@ -109,9 +127,5 @@ import axios from 'axios';
   background-color: #424874;
   border:none;
   color:white;
-}
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
-* {
-   font-family: 'Nanum Gothic', sans-serif;
 }
 </style>
