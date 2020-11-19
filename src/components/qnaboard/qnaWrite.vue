@@ -25,7 +25,7 @@
       label="분류" label-for="input-2" label-align="left">
         <b-form-select
           id="input-2"
-          v-model="form.category"
+          v-model="qnacategory"
           :options="categories"
           required
         ></b-form-select>
@@ -36,15 +36,15 @@
         <vue-editor 
           id="vue-editor"
           v-model="qnaContent" 
-          name="content" />
+          name="qnaContent" />
       </b-form-group>
 
       <div>
         <p class="mt-2">첨부 파일<b>{{ file ? file.name : '' }}</b></p>
         <b-form-file
-            id="qnaFile"
+            id="qnafiles"
             v-model="file"
-            ref="fileReset"
+            ref="upfiles"
             v-on:change="handleFile"
             placeholder="첨부파일을 선택해주세요"
         >
@@ -76,12 +76,13 @@ import axios from 'axios';
     
     data() {
       return{
-        form: {
         qnaTitle:"",
-        category:null
-        },
-        categories: [{ text: '항목을 선택해주세요', value: null }, '백엔드', '프론트엔드'],
-        show: true
+        qnacategory:"",
+        categories: [{ text: '항목을 선택해주세요', value: null },
+                    '백엔드', '프론트엔드'
+        ],
+        qnaContent:"",
+        qnafiles:""
       }
     },
 
@@ -94,15 +95,19 @@ import axios from 'axios';
         
         let formData = new FormData();
         formData.append('qnaTitle',this.qnaTitle);
+        formData.append('categories',this.qnacategory);
         formData.append('qnaContent',this.qnaContent.replace(/(<([^>]+)>)/ig,""))
-        formData.append('qnaFile',this.qnaFile);
-        formData.append('categoryqna',this.category);
+        formData.append('file',this.qnafiles);
 
         for(let key of formData.entries()){
-          console.log(`${key}`);
+        console.log(`${key}`);
         }
 
-        axios.post("http://localhost:8082/itjobgo/qna/컨트롤러수정",formData,
+        console.log(this.qnacategory);
+
+      
+      axios.post("http://localhost:8082/itjobgo/qna/qnaBoardWrite",
+        formData,
         { headers:{
           'Content-Type':'multipart/form-data'
         }}).then((data)=>console.log(data))
@@ -111,24 +116,24 @@ import axios from 'axios';
         console.log(formData);
       },
 
-      // handleFile(){
-      //   console.log(this.$refs.upfiles.$refs.input.files[0]);
-      //   this.files=this.$refs.upfiles.$refs.input.files[0];
-      //   console.log(this.files);
-      // },
+      handleFile(){
+        console.log(this.$refs.upfiles.$refs.input.qnafiles[0]);
+        this.qnafiles=this.$refs.upfiles.$refs.input.qnafiles[0];
+        console.log(this.qnafiles);
+      },
 
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
         // this.form.email = ''
-        this.boardTitle = ''
-        this.form.category = null
-        this.boardContent=''
-        this.file1.name=''
+        this.qnaTitle = ''
+        this.qnacategory = null
+        this.qnaContent=''
+        this.qnafiles.name=''
       },
 
       clearFiles() {
-        this.$refs['fileReset'].reset()
+        this.$refs['upfiles'].reset()
       },
 
     }
