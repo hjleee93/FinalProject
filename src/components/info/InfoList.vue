@@ -4,7 +4,8 @@
     <div class="container-fluid">
       <div class="row">
 
-
+취업정보 객체 : {{info}}
+취업정보 제목 : {{info.infoTitle}}
           <!-- 메인 이미지 -->
               <div class="submenuimage ">
                   <p class="subtitle" id="subtitle">Information</p>
@@ -48,6 +49,8 @@
 
 <script>
 //import axios from 'axios';
+
+import { mapState } from 'vuex';
   export default {
 
     created : function(){

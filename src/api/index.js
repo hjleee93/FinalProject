@@ -52,6 +52,25 @@ function fetchQnaBoardList(){
 //     return axios.get(`${config.Url}qna/qnaboarView${QnaSeq}`)
 // }
 
+// 민지
+// info(취업정보)
+// 조회 리스트
+function fetchInfoList(){
+    return axios.get(`${config.Url}info/infoList`)
+}
+// 상세화면
+/* function fetchInfoDetail(infoSq){
+    return axios.get(`${config.Url}info/infoDetail${infoSq}`)
+}
+// 삭제하기
+function fetchInfoDelete(infoSq){
+    return  axios.post(`${config.Url}info/infoDelete${infoSq}`)
+}
+// 수정하기(게시판번호로 객체 값 불러오기 )
+function fetchInfoUpdate(infoSq){
+    return axios.get(`${config.Url}info/infoUpdate${infoSq}`)
+} */
+
 export {
     fetchPboardList,
     fetchPboardOne,
@@ -69,6 +88,13 @@ export {
     //qna게시판 QnaBoard
     fetchQnaBoardList,
     // fetchQnaBoardView,
+
+     //민지
+    //info 취업정보 
+    fetchInfoList,
+/*     fetchInfoView,
+    fetchInfoDelete,
+    fetchInfoUpdate */
 
 
 }

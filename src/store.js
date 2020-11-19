@@ -18,6 +18,12 @@ import {
                 fetchQnaBoardList,
                 // fetchQnaBoardView,
 
+                //민지
+              
+                fetchInfoList
+           
+  
+                
 
             } 
 
@@ -48,14 +54,17 @@ export default new Vuex.Store({
         qnaboard:[],
         qnaBoardView:[],
 
+        //민지
+        infoList: [],
+   /*      infoDetail: [],
+        infoForm: [],
+ */
+
 
         cbAttachment:[],
      
-
         loginStatus: false,//로그인 성공 여부
         loginError: false,
-
-
 
     },
     actions: {
@@ -220,12 +229,37 @@ export default new Vuex.Store({
         },
 
 
-
-
-
-
-
-
+         //민지
+        //list 불러오기
+        FETCH_INFO({ commit }) {
+            fetchInfoList()
+                .then(({ data }) => commit("SET_INFO_LIST", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+        //상세화면
+/*         FETCH_INFO_DETAIL({ commit }, infoNo) {
+            fetchInfoDetail(infoNo)
+                .then(({ data }) => commit("SET_INFO_DETAIL", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+        //삭제하기
+        FETCH_INFO_DELETE({ commit }, infoNo) {
+            fetchInfoDelete(infoNo)
+            .then(({data})=>commit("SET_INFO_DELETE",data))
+            .catch(({error})=>{
+                console.log(error);
+            })
+        },
+        //수정하기(객체 값 불러오기)
+        FETCH_INFO_UPDATE({ commit }, infoSq) {
+            fetchInfoUpdate(infoSq)
+                .then(({ data }) => commit("SET_INFO_UPDATE", data))
+                .catch(({ error }) => console.log(error))
+        }, */
 
     },//action
 
@@ -271,8 +305,24 @@ export default new Vuex.Store({
             state.qnaboard = qnaboard;
         },
 
-
-
+        //민지
+        //리스트
+        SET_INFO_LIST(state, infolist) {
+            state.infolist = infolist;
+        },
+        //상세화면
+ /*        SET_INFO_VIEW(state, infoview) {
+            state.infoview = infoview;
+        },
+        //삭제
+        SET_INFO_DELETE(state, data) {
+            state.data = data;
+        },
+        //수정(값 불러오기)
+        SET_INFO_UPDATE(state, data) {
+            state.cbAttachment = data;
+        },
+ */
         //로그인 성공
         loginSuccess(state, payload) {
 
