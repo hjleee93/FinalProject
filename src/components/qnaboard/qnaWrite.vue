@@ -116,6 +116,7 @@ import axios from 'axios';
         console.log(formData);
       },
 
+
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.qnafiles[0]);
         this.qnafiles=this.$refs.upfiles.$refs.input.qnafiles[0];
