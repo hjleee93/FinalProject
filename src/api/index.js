@@ -20,6 +20,11 @@ function fetchPboardDel(no){
 function fetchPboardUp(no){
     return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`)
 }
+//모임
+function fetchMeeting(){
+    return axios.get(`${config.Url}meeting/meetingList.do`);
+}
+
 
 
 //주은
@@ -41,12 +46,15 @@ function fetchCommunityBoardUpdate(boardSq){
     return axios.get(`${config.Url}community/communityBoardUpdate${boardSq}`)
 }
 
+
 export {
     fetchPboardList,
     fetchPboardOne,
     fetchPboardUp,
     fetchPboardDel,
-
+    //모임
+    fetchMeeting,
+  
     //주은
     //자유게사판CommunityBoard
     fetchCommunityBoardList,

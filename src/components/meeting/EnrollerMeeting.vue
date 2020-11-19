@@ -54,9 +54,9 @@
           </b-form-group></b-col>
       </b-row>
        <b-row>
-         <b-col> <b-form-group class="slabel" label="백엔드" label-for="back"><b-form-spinbutton id="back" v-model="value1" min="1" max="100"/></b-form-group>  </b-col>
-       <b-col> <b-form-group class="slabel" label="프론트" label-for="front"> <b-form-spinbutton id="front" v-model="value2" min="1" max="100"/></b-form-group></b-col>
-       <b-col> <b-form-group class="slabel" label="디자이너" label-for="design"> <b-form-spinbutton id="design" v-model="value3" min="1" max="100"/></b-form-group></b-col>
+         <b-col> <b-form-group class="slabel" label="백엔드" label-for="back"><b-form-spinbutton id="back" v-model="back" min="1" max="100"/></b-form-group>  </b-col>
+       <b-col> <b-form-group class="slabel" label="프론트" label-for="front"> <b-form-spinbutton id="front" v-model="front" min="1" max="100"/></b-form-group></b-col>
+       <b-col> <b-form-group class="slabel" label="디자이너" label-for="design"> <b-form-spinbutton id="design" v-model="desgin" min="1" max="100"/></b-form-group></b-col>
        </b-row>
       <b-row>
      <b-col
@@ -79,6 +79,7 @@
          <v-file-input
     label="대표이미지"
     filled
+    accept=".gif,.jpg,.png"
     ref="upfiles"
     prepend-icon="mdi-camera"
     v-on:change="handleFile"
@@ -124,11 +125,11 @@
     
       style="width:500px;height:400px;"/> </b-col>
       </b-row> -->
-    <b-row><b-col>  <b-input v-model="result.address"></b-input></b-col></b-row>
-    <div>{{result}}</div>
-    <div>{{value1}}</div>
-    <div>{{value2}}</div>
-    <div>{{value3}}</div>
+    <b-row><b-col>  <b-input readonly v-model="result.address"></b-input></b-col></b-row>
+    <div>{{result.address}}</div>
+    <div>{{back}}</div>
+    <div>{{front}}</div>
+    <div>{{desgin}}</div>
     <div>{{mtitle}}</div>
     <div>{{mwriter}}</div>
     <div>{{mphone}}</div>
@@ -148,7 +149,7 @@
 
 <script>
 // import VueDaumMap from 'vue-daum-map'
-
+import axios from 'axios'
 import ModalView from '../common/ModalView.vue'
 export default {
   // mounted() { 
@@ -192,8 +193,29 @@ export default {
         },
         enroller(){
            let formData=new FormData();
-          formData.append('pboardWriter',this.pboardWriter);
-
+          formData.append('mtitle',this.mtitle);
+          formData.append('mwriter',this.mwriter);
+          formData.append('memail',this.memail);
+          formData.append('mphone',this.mphone);
+          formData.append('sdate',this.sdate);
+          formData.append('fdate',this.fdate);
+          formData.append('back',this.back);
+          formData.append('front',this.front);
+          formData.append('desgin',this.desgin);
+          formData.append('simcontent',this.simcontent);
+          formData.append('upfile',this.files);
+          formData.append('mcontent',this.mcontent);
+          formData.append('langs',this.langs);
+          formData.append('address',this.result.address);
+          for(let key of formData.entries()){
+          console.log(`${key}`);
+            }
+           axios.post("http://localhost:8082/itjobgo/meeting/enrollmeeting.do",formData
+    ,{ headers:{
+       'Content-Type':'multipart/form-data'
+     }})
+     .then((data)=>console.log(data))
+    .catch((error)=>console.log(error))
         },
         handleFile(){
           console.log(this.$refs.upfiles.$refs.input.files[0]);
@@ -251,11 +273,12 @@ export default {
       fdate:'',
       memail:'',
       mphone:'',
+      files:'',
       mcontent:'',
        langs:[],
-      value1:1,
-           value2:1,
-                value3:1,
+      back:1,
+           front:1,
+                desgin:1,
       showModal:false,
       nameRules: [
         v => !!v || 'Name is required',

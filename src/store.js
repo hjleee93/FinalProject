@@ -9,6 +9,9 @@ import {
                 fetchPboardOne,
                 fetchPboardDel,
                 fetchPboardUp,
+                //모임
+                fetchMeeting,
+                
                 //주은
                 fetchCommunityBoardList,
                 fetchCommunityBoardView,
@@ -33,6 +36,8 @@ export default new Vuex.Store({
         pboardone: [],
         msg: '',
         attachment: [],
+        //모임
+        meeting:[],
 
         //주은
         communityboard: [],
@@ -163,7 +168,15 @@ export default new Vuex.Store({
                 .then(({ data }) => commit("SET_PBOARDUP", data))
                 .catch(({ error }) => console.log(error))
         },
-
+        //모임 
+        FECH_MEETINGLIST({commit}){
+            fetchMeeting()
+            .then(({ data }) => commit("SET_MEETING", data))
+            .catch(({ error }) => {
+                console.log(error);
+            })
+        },
+      
 
         //주은
         //자유게시판 list 불러오기
@@ -216,6 +229,10 @@ export default new Vuex.Store({
         },
         SET_PBOARDUP(state, data) {
             state.attachment = data;
+        },
+        //모임
+        SET_MEETING(state,data){
+            state.meeting=data;
         },
 
         //주은
