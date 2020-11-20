@@ -27,6 +27,9 @@ function fetchMeeting() {
 function fetchmsublist(){
     return axios.get(`${config.Url}meeting/meetingsubList.do`);
 }
+function fetchMeetinginfo(no){
+    return axios.get(`${config.Url}meeting/meetinginfo${no}.do`)
+}
 
 
 
@@ -73,7 +76,7 @@ export {
     fetchPboardDel,
     //모임
     fetchMeeting,
-
+    fetchMeetinginfo,
     fetchmsublist,
 
     //주은

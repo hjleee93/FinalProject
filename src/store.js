@@ -12,7 +12,7 @@ import {
                 //모임
                 fetchMeeting,
                 fetchmsublist,
-                
+                fetchMeetinginfo,
                 //주은
                 fetchCommunityBoardList,
                 fetchCommunityBoardView,
@@ -44,7 +44,7 @@ export default new Vuex.Store({
         //모임
         meeting:[],
         msubList:[],
-
+        minfo:[],
         //주은
         communityboard: [],
         communityboardView: [],
@@ -197,6 +197,13 @@ export default new Vuex.Store({
             })
 
         },
+        FECH_MOBOARDINFO({commit},no){
+            fetchMeetinginfo(no)
+            .then(({data})=>commit("SET_MINFO",data))
+            .catch(({ error }) => {
+                console.log(error);
+            })
+        },
       
 
         //주은
@@ -272,6 +279,9 @@ export default new Vuex.Store({
         //모임
         SET_MEETING(state,data){
             state.meeting=data;
+        },
+        SET_MINFO(state,data){
+            state.minfo=data;            
         },
 
         //주은

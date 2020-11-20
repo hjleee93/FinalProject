@@ -185,8 +185,9 @@ export default new Router({
       component: EnrollerMeeing,
     },
     {
-      path: '/meetinginfo',
+      path: '/meetinginfo/:id',
       component: Meetinginfo,
+      name:"meetinginfo"
 
     },
     {
