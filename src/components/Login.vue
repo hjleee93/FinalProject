@@ -110,7 +110,6 @@ import { mapState} from 'vuex'
     Kakao.isInitialized() 
     
     Kakao.Auth.setAccessToken(this.$route.params.accessToken)
-    console.log("넘어오지? 안오네");
     Kakao.API.request({
       url: '/v2/user/me',
       success(response) {
@@ -138,34 +137,6 @@ import { mapState} from 'vuex'
       })
       
     }
-
-    
-      // onSubmit() {
-      //   const formData = {
-      //   memberEmail: this.model.email,
-      //   memberPwd: this.model.password,
-      // }
-      // }
-    // axios
-    //   .post('http://localhost:8082/itjobgo/member/login',formData)
-    //   .then(res=> {
-        
-    //       if(res.data.token === undefined){//로그인 실패 토큰값 없는 경우
-    //         console.log("토큰 없: " + res.data.token)
-    //         $( '.error' ).show();
-            
-    //       }else{//토큰값 있음
-    //         console.log("토큰 있: " + res.data.token)
-    //         $( '.error' ).hide();
-    //       }
-          
-         
-    //      // self.$router.push("/"); //회원가입 후 경로 설정
-          
-    //     })
-    //     .catch((error) => console.log(error));
-    
-    //   },
       
   },
   computed:{

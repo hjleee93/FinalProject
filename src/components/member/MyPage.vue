@@ -29,7 +29,7 @@
 				<div class="album">
 					<p><a href="http://www.alba.co.kr/person/resume/MagAlbum.asp"><img src="//image.alba.kr/person/PersonHead_btn_regMod.gif" alt="등록/수정">등록/수정</a></p>
 				</div>
-				<p class="name">{{userData.memberName }}님 </p>
+				<p class="name font-weight-bold">{{userData.memberName }}님</p>
 			</div>
 			
 			<!-- //사진영역 -->
@@ -80,8 +80,8 @@
 
 						</div>
 					</div>
-					<div class="mail"><span class="item"><span class="bullet"></span>이메일</span>{{userData.memberEmail}}</div>
-					<div class="address"><span class="item"><span class="bullet"></span>주소</span></div>
+					<div class="mail"><span class="item"><span class="bullet"></span>이메일</span><b>{{userData.memberEmail}}</b></div>
+					<div class="address"><span class="item"><span class="bullet"></span>주소</span><b>{{userData.memberAddr}} {{userData.memberAddrDtl}}</b></div>
 					<b-btn class="chg-info" href="/chgMemberInfo">개인정보수정</b-btn>
 				</li>
 				<li class="last bottomList customize">

@@ -1,5 +1,6 @@
 <template>
 
+
   
     <div class="container-fluid">
       <div class="row">
@@ -11,15 +12,16 @@
               </div>
               
         <div class="container">
+
           
     <!-- 탭 -->   
     <v-tabs
     centered
     color="grey darken-3"
     >
-      <v-tab><b>category1</b></v-tab>
-      <v-tab><b>category2</b></v-tab>
-      <v-tab><b>category3</b></v-tab>
+      <v-tab><b>ALL</b></v-tab>
+      <v-tab><b>FrontEnd</b></v-tab>
+      <v-tab><b>BackEnd</b></v-tab>
       <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
     </v-tabs>
 
@@ -41,8 +43,9 @@
         </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="qna"
+            :items="qnaboard"
             :search="search"
+            @click:row="handleClick"
           ></v-data-table>
         </v-card>
         
@@ -59,22 +62,33 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { mapState } from 'vuex';
   export default {
 
     created : function(){
+      this.$store.dispatch("FETCH_QNABOARD")
+     
 
-      axios
-      .get('http://localhost:8082/itjobgo/qna/qnaboardlist')
-      .then(Response=>{
-        this.qna=Response.data;
-        console.log(Response);
-      })
-    }
-    ,
+
+
+      // axios
+      // .get('http://localhost:8082/itjobgo/qna/qnaboardlist')
+      // .then(Response=>{
+      //   this.qna=Response.data;
+      //   console.log(Response);
+      // })
+    },
+
+    computed:{
+        ...mapState({
+            qnaboard:state=>state.qnaboard
+        })
+    },
+    
     data() {
       return { 
-      qna:[],
+      
       search: '',
         headers: [
           {
@@ -90,9 +104,17 @@ import axios from 'axios';
           { text: '답변여부', value: 'qnaAnswerYn' },
           { text: '작성일', value: 'qnaDate' },
         ],
-  
       }
     },
+     methods: {
+    handleClick(value){
+      // alert(value.boardSq);
+      this.$router.push({name:'qnaView',params:{id:value.qnaSeq}});
+      console.log(value);
+      console.log(value.qnaSeq);
+    
+    }
+  },
   }
 </script>
 
@@ -103,6 +125,7 @@ import axios from 'axios';
 }
 .overflow .v-card{
   box-shadow: 0 0 black !important;
+  margin-bottom: 12%;
 }
 .submenuimage{
     width: 100%;

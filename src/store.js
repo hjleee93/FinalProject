@@ -9,12 +9,19 @@ import {
                 fetchPboardOne,
                 fetchPboardDel,
                 fetchPboardUp,
+                //모임
+                fetchMeeting,
+                
                 //주은
                 fetchCommunityBoardList,
                 fetchCommunityBoardView,
                 fetchCommunityBoardDelete,
                 fetchCommunityBoardUpdate,
-            
+                //현주
+                fetchQnaBoardList,
+                // fetchQnaBoardView,
+
+
             } 
 
     from './api/index.js';
@@ -33,11 +40,20 @@ export default new Vuex.Store({
         pboardone: [],
         msg: '',
         attachment: [],
+        //모임
+        meeting:[],
 
         //주은
         communityboard: [],
         communityboardView: [],
         communityboardDelete:[],
+        communityboardAttachment:[],
+
+        //현주
+        qnaboard:[],
+        qnaBoardView:[],
+
+
         cbAttachment:[],
      
 
@@ -163,7 +179,15 @@ export default new Vuex.Store({
                 .then(({ data }) => commit("SET_PBOARDUP", data))
                 .catch(({ error }) => console.log(error))
         },
-
+        //모임 
+        FECH_MEETINGLIST({commit}){
+            fetchMeeting()
+            .then(({ data }) => commit("SET_MEETING", data))
+            .catch(({ error }) => {
+                console.log(error);
+            })
+        },
+      
 
         //주은
         //자유게시판 list 불러오기
@@ -198,6 +222,24 @@ export default new Vuex.Store({
         },
 
 
+        //현주
+        //qna 게시판 불러오기
+        FETCH_QNABOARD({ commit }) {
+            fetchQnaBoardList()
+                .then(({ data }) => commit("SET_QNABOARD", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+
+
+
+
+
+
+
+
+
     },//action
 
     mutations: {
@@ -216,6 +258,10 @@ export default new Vuex.Store({
         },
         SET_PBOARDUP(state, data) {
             state.attachment = data;
+        },
+        //모임
+        SET_MEETING(state,data){
+            state.meeting=data;
         },
 
         //주은
@@ -236,6 +282,11 @@ export default new Vuex.Store({
             state.cbAttachment = data;
         },
 
+
+        //현주 게시판 리스트
+        SET_QNABOARD(state, qnaboard) {
+            state.qnaboard = qnaboard;
+        },
 
 
 
