@@ -58,10 +58,11 @@
         <!-- <b-button @click="file = null">Reset via v-model</b-button> -->
 
     
-    
+      <div id="btn_bottom">
       <b-button  id="btn_write" @click="writeQna" class="btn-space">등록하기</b-button>
       <b-button type="reset" id="btn_write" class="btn-space">등록취소</b-button>
-     
+      <b-button type="button" id="btn_write"  to="/qnaBoard" exact>목록</b-button>
+      </div>
 
     </form>
 
@@ -171,5 +172,9 @@ import axios from 'axios';
 }
 #file_btn{
   margin-top: 1%;
+}
+#btn_bottom{
+  margin: 5%;
+  text-align: center;
 }
 </style>
