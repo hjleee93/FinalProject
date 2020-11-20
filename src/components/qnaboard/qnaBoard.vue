@@ -43,8 +43,9 @@
         </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="qna"
+            :items="qnaboard"
             :search="search"
+            @click:row="handleClick"
           ></v-data-table>
         </v-card>
         
@@ -61,23 +62,33 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { mapState } from 'vuex';
   export default {
 
     created : function(){
+      this.$store.dispatch("FETCH_QNABOARD")
+     
 
-      axios
-      .get('http://localhost:8082/itjobgo/qna/qnaboardlist')
-      .then(Response=>{
-        this.qna=Response.data;
-        console.log(Response);
-      })
-    }
 
-    ,
+
+      // axios
+      // .get('http://localhost:8082/itjobgo/qna/qnaboardlist')
+      // .then(Response=>{
+      //   this.qna=Response.data;
+      //   console.log(Response);
+      // })
+    },
+
+    computed:{
+        ...mapState({
+            qnaboard:state=>state.qnaboard
+        })
+    },
+    
     data() {
       return { 
-      qna:[],
+      
       search: '',
         headers: [
           {
@@ -95,6 +106,15 @@ import axios from 'axios';
         ],
       }
     },
+     methods: {
+    handleClick(value){
+      // alert(value.boardSq);
+      this.$router.push({name:'qnaView',params:{id:value.qnaSeq}});
+      console.log(value);
+      console.log(value.qnaSeq);
+    
+    }
+  },
   }
 </script>
 
