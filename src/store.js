@@ -66,14 +66,7 @@ export default new Vuex.Store({
 
 
         cbAttachment: [],
-
-<<<<<<< HEAD
-
-        cbAttachment:[],
      
-=======
->>>>>>> 18bd81153d38d3b93b5b41fb457cdb777c44ce02
-
         loginStatus: false,//로그인 성공 여부
         loginError: false,
 
