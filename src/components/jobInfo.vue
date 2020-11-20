@@ -85,7 +85,7 @@
     </div>
 
     <div>
-        전형방법
+        <p class="h3 mt-3 font-weight-bold">전형방법</p>
     <b-table :items="apply" :fields="field" :tbody-tr-class="rowClass"></b-table>
   </div>
   </b-container>
@@ -95,11 +95,8 @@ import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
 
 export default {
-   data: () => ({
-     
-         
+   data: () => ({         
       field: ['접수마감일', '전형방법', '접수방법', '제출 서류', '제출 서류 양식']
-    
   }),
   mounted(){   
       
@@ -110,24 +107,7 @@ export default {
       //매핑값
       'apply', 'items'
     ])
-  },
-
-//   created() {
-//     this.wantedNo = this.$route.params.wantedNo;
-//     //세부 채용 정보
-//     this.$http
-//       .get(
-//         "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=D&returnType=XML&infoSvc=VALIDATION&wantedAuthNo=" +
-//           this.wantedNo
-//       )
-//       .then((response) => {
-//         var xml = response.data;
-//         var json = convert.xml2json(xml, { compact: true });
-//         this.items = JSON.parse(json);
-        
-//       });
-//   },
-
+  }
 };
 </script>
 

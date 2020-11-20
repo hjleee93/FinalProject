@@ -234,4 +234,14 @@ input{
 fieldset{
     margin-bottom: 0%;
 }
+
+form[role="form"] div[role="group"]:nth-of-type(1) input:not(".form-control.is-invalid"){
+  border-bottom:none
+}
+
+/* .form-control.is-invalid, .was-validated .form-control:invalid{border:none}
+.form-control.is-invalid:focus, .was-validated .form-control:invalid:focus, .form-control.is-invalid, .was-validated .form-control:invalid{
+  box-shadow: inset 0px 0px 0px 1px rgb(220 53 69) !important;
+
+} */
 </style>
