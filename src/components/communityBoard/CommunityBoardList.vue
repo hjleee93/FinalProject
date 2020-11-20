@@ -128,6 +128,7 @@ Vue.use(vueMoment);
           { text: '제목', value: 'boardTitle' },
           //수정중입니다.
           // { text: '작성날짜', value: '[boardDate | moment("YYYY-MM-DD")]' ,dataType: "Date" },
+          
         ],
         
       }
