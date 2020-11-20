@@ -117,19 +117,21 @@ Validator.extend("passwordCheck", {
          const self = this; //this scope문제
          axios
         .post("http://localhost:8082/itjobgo/member/updatePwd", formData) //form server 연결
-        .then(function(res) {
+        .then((res)=> {
           
-          if (res.status >= 200 && res.status <= 204) {
+          
+          if (res.data > 0) {
              alert("비밀번호가 변경되었습니다.");
             self.$router.push("/login");
+          }else{
+              this.$swal({
+              text: "비밀번호 변경에 실패하였습니다. 다시 한 번 시도해주시거나 관리자에게 문의해주세요.",
+              icon: "error", //built in icons: success, warning, error, info
+             timer: 5000, //timeOut for auto-close
+            });
           }
         })
-        .catch((error) => {
-          alert("비밀번호 변경에 실패하였습니다. 다시 한 번 시도해주시거나 관리자에게 문의해주세요");
-          console.log("실패", error);
-        });
-    }
-      }
+      }}
     
   };
 </script>

@@ -20,12 +20,14 @@
           <b-card no-body class="border-0 mb-0 login-content">
             <b-card-header class="login-content">
               <div class="text-muted text-center mt-2 mb-3">
-                입력하신 전화번호로 등록된 이메일입니다.<br>
+                입력하신 정보로 등록된 이메일입니다.<br>
               </div>
             </b-card-header>
             <b-card-body class="px-lg-5 py-lg-5">
                 
-              <p class="email">{{this.$route.params.email}}</p>
+              <p class="email"><b>{{this.$route.params.email}}</b></p>
+              <router-link to="/login" class="text-dark"
+                ><b-btn class="login-btn">login</b-btn></router-link>
             </b-card-body>
           </b-card>
 
