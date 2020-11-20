@@ -19,7 +19,11 @@ import {
                 fetchCommunityBoardUpdate,
                 //현주
                 fetchQnaBoardList,
-                // fetchQnaBoardView,
+                fetchQnaBoardView,
+                
+
+                
+        
 
 
             } 
@@ -52,6 +56,7 @@ export default new Vuex.Store({
         //현주
         qnaboard:[],
         qnaBoardView:[],
+
 
 
         cbAttachment:[],
@@ -231,11 +236,14 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
-
-
-
-
-
+        //qna 게시판 상세화면
+        FETCH_QNABOARD_VIEW({ commit }, qnaboardNo) {
+            fetchQnaBoardView(qnaboardNo)
+                .then(({ data }) => commit("SET_QNABOARD_VIEW", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
 
 
 
@@ -287,6 +295,11 @@ export default new Vuex.Store({
         SET_QNABOARD(state, qnaboard) {
             state.qnaboard = qnaboard;
         },
+        //qna게시판 상세화면
+        SET_QNABOARD_VIEW(state, qnaBoardView) {
+            state.qnaBoardView = qnaBoardView;
+        },
+
 
 
 

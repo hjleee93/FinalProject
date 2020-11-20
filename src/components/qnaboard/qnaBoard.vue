@@ -46,6 +46,7 @@
             :items="qnaboard"
             :search="search"
             @click:row="handleClick"
+            item-key="name"
           ></v-data-table>
         </v-card>
         
@@ -68,10 +69,7 @@ import { mapState } from 'vuex';
 
     created : function(){
       this.$store.dispatch("FETCH_QNABOARD")
-     
-
-
-
+    
       // axios
       // .get('http://localhost:8082/itjobgo/qna/qnaboardlist')
       // .then(Response=>{
@@ -84,6 +82,14 @@ import { mapState } from 'vuex';
         ...mapState({
             qnaboard:state=>state.qnaboard
         })
+    },
+
+    methods:{
+      handleClick(value){
+        this.$router.push({name: 'qnaView',params:{id:value.qnaSeq}});
+        console.log(value);
+        console.log(value.qnaSeq);
+      }
     },
     
     data() {
@@ -106,15 +112,7 @@ import { mapState } from 'vuex';
         ],
       }
     },
-     methods: {
-    handleClick(value){
-      // alert(value.boardSq);
-      this.$router.push({name:'qnaView',params:{id:value.qnaSeq}});
-      console.log(value);
-      console.log(value.qnaSeq);
-    
-    }
-  },
+
   }
 </script>
 

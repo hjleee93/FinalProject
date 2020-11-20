@@ -47,15 +47,19 @@ function fetchCommunityBoardUpdate(boardSq) {
 }
 
 
-//현주 //qnaBoard(qna게시판)
-//조회
+//현주 
+//qna게시판 조회
 function fetchQnaBoardList() {
     return axios.get(`${config.Url}qna/qnaboardlist`)
 }
-//상세화면
-// function fetchQnaBoardView(QnaSeq){
-//     return axios.get(`${config.Url}qna/qnaboarView${QnaSeq}`)
-// }
+//qna게시판 상세화면
+function fetchQnaBoardView(QnaSeq){
+    return axios.get(`${config.Url}qna/qnaBoardView${QnaSeq}`)
+}
+
+
+
+
 
 export {
     fetchPboardList,
@@ -73,9 +77,9 @@ export {
     fetchCommunityBoardUpdate,
 
     //현주
-    //qna게시판 QnaBoard
+    //qna게시판
     fetchQnaBoardList,
-    // fetchQnaBoardView,
+    fetchQnaBoardView,
 
 
 }
