@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import {
 
-<<<<<<< HEAD
+
                 //동욱
                 fetchPboardList,
                 fetchPboardOne,
@@ -24,29 +24,9 @@ import {
                 // fetchQnaBoardView,
 
 
-            } 
-=======
-    //동욱
-    fetchPboardList,
-    fetchPboardOne,
-    fetchPboardDel,
-    fetchPboardUp,
-    //모임
-    fetchMeeting,
-
-    //주은
-    fetchCommunityBoardList,
-    fetchCommunityBoardView,
-    fetchCommunityBoardDelete,
-    fetchCommunityBoardUpdate,
-    //현주
-    fetchQnaBoardList,
-    // fetchQnaBoardView,
 
 
 }
->>>>>>> f5e612343a17816d95b4ba01584e46f688394604
-
     from './api/index.js';
 
 Vue.use(Vuex, axios)
@@ -64,14 +44,12 @@ export default new Vuex.Store({
         msg: '',
         attachment: [],
         //모임
-<<<<<<< HEAD
+
         meeting:[],
         msubList:[],
         minfo:[],
-=======
-        meeting: [],
 
->>>>>>> f5e612343a17816d95b4ba01584e46f688394604
+
         //주은
         communityboard: [],
         communityboardView: [],
@@ -217,7 +195,7 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
-<<<<<<< HEAD
+
         FECH_MSUBLIST({commit}){
             fetchmsublist()
             .then(({ data }) => commit("SET_MSUBLIST", data))
@@ -234,9 +212,6 @@ export default new Vuex.Store({
             })
         },
       
-=======
-
->>>>>>> f5e612343a17816d95b4ba01584e46f688394604
 
         //주은
         //자유게시판 list 불러오기
