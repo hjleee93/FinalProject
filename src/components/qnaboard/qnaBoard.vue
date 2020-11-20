@@ -156,9 +156,10 @@ import { mapState } from 'vuex';
 }
 .sub-header{
   position: relative;
-  bottom: -50px;
-  left: -10px;
+  bottom: -45px;
+  left:  10px;
   margin-top: 20px;
+  text-align: left;
 }
 
 </style>
