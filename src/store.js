@@ -71,7 +71,6 @@ export default new Vuex.Store({
         loginError: false,
 
 
-
     },
     actions: {
         loadXml({ commit }) {
