@@ -26,10 +26,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState({
+      mlist:state=>state.mlist
+    })
+  },
 methods: {
   
-}
+},
+created() {
+  this.$store.dispatch("FECH_MSUBLIST")
+},
     
   
 }
