@@ -125,6 +125,8 @@ import axios from 'axios';
         .catch((error)=>
         console.log(error))
         console.log(formData);
+        //저장완료, 화면전환 이동!
+        this.$router.push({name:'qnaBoard'})
       },
 
     
