@@ -48,7 +48,7 @@ Vue.use(VueRouter)
 Vue.use(LoginPlugin);
 Vue.use(VueDaumPostcode)
 Vue.use(ElementUI);
-Vue.use(VeeValidate, { inject: false });
+Vue.use(VeeValidate, { inject: false, aria: true, validity: true });
 Vue.use(LoadScript);
 
 //다음 주소 api

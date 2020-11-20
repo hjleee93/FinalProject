@@ -100,7 +100,6 @@ export default {
         if(!this.files){
          this.files=this.attachment.renamedFilename;
        }
-      
         let formData=new FormData();
         formData.append('pboardTitle',this.pboardTitle);
         formData.append('pboardNo',this.$route.params.id);

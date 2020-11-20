@@ -185,8 +185,9 @@ export default new Router({
       component: EnrollerMeeing,
     },
     {
-      path: '/meetinginfo',
+      path: '/meetinginfo/:id',
       component: Meetinginfo,
+      name:"meetinginfo"
 
     },
     {
@@ -385,6 +386,7 @@ export default new Router({
       name: 'loginCallback',
       component: LoginCallback
     },
+    
     //현주
     {
       path: '/qnaWrite',
