@@ -11,6 +11,7 @@ import {
                 fetchPboardUp,
                 //모임
                 fetchMeeting,
+                fetchmsublist,
                 
                 //주은
                 fetchCommunityBoardList,
@@ -42,6 +43,7 @@ export default new Vuex.Store({
         attachment: [],
         //모임
         meeting:[],
+        msubList:[],
 
         //주은
         communityboard: [],
@@ -186,6 +188,14 @@ export default new Vuex.Store({
             .catch(({ error }) => {
                 console.log(error);
             })
+        },
+        FECH_MSUBLIST({commit}){
+            fetchmsublist()
+            .then(({ data }) => commit("SET_MSUBLIST", data))
+            .catch(({ error }) => {
+                console.log(error);
+            })
+
         },
       
 
