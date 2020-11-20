@@ -75,8 +75,12 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import { mapState } from 'vuex';
+import vueMoment from 'vue-moment';
+import Vue from 'vue'
+
+Vue.use(vueMoment);
+
 
   export default {
 
@@ -112,6 +116,7 @@ import { mapState } from 'vuex';
     data() {
       return {
       // community: [],
+      // boardDate: communityboardView.boardDate | moment('YYYY-MM-DD') ,
       search: '',
         headers: [
           {
@@ -121,7 +126,8 @@ import { mapState } from 'vuex';
             value: 'boardDivision',
           },
           { text: '제목', value: 'boardTitle' },
-          { text: '작성', value: 'boardDate' },
+          //수정중입니다.
+          // { text: '작성날짜', value: '[boardDate | moment("YYYY-MM-DD")]' ,dataType: "Date" },
         ],
         
       }
