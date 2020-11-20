@@ -105,6 +105,7 @@
 <script>
 import { mapState } from "vuex";
 import { ValidationObserver, ValidationProvider,Validator } from 'vee-validate';
+import axios from "axios";
 
 Validator.extend("passwordCheck", {
   getMessage: (field) =>
@@ -126,10 +127,61 @@ export default {
     password:"",
     confirmation: ''
   }),
+  methods: {
+    
+     onSubmit() {
+      const formData = {
+        memberEmail: this.userData.memberEmail,
+        memberPwd: this.memberPwd,
+        memberNewPwd : this.password
+      };
+      console.log("form:" + JSON.stringify(formData));
+      
+      axios
+        .post("http://localhost:8082/itjobgo/member/updatePwdInfo", formData) //form server 연결
+        .then((res) =>{
+          console.log(res.data)
+            if (res.data > 0) {
+              //업데이트 ok
+            this.$swal({
+              text: "비밀번호가 변경되었습니다. 로그아웃 됩니다. ",
+              icon: "success"
+            });
+            setTimeout( () => this.$router.push({ path: '/'}), 2000);//메인페이지로 이동
+            
+  
+            //스토리지 삭제
+            localStorage.removeItem("memberEmail");
+            localStorage.removeItem("access_token");
+            sessionStorage.removeItem("memberEmail");
+            sessionStorage.removeItem("access_token");
+            
+            
+          }else if(res.data == -1){//비밀번호 틀린경우 
+              this.$swal({
+              text: "비밀번호가 틀렸습니다. 다시 확인해주세요",
+              icon: "error"
+            });
+          }else{
+              this.$swal({
+              text: "비밀번호 변경에 실패했습니다. 다시 한 번 시도해주시거나 관리자에게 문의해주세요",
+              icon: "error"
+            });
+          }
+        })
+        .catch(() => {
+          this.$swal({
+              text: "비밀번호 변경에 실패했습니다. 관리자에게 문의해주세요",
+              icon: "error"
+            });
+        });
+    }
+  },
 
   computed: {
     ...mapState(["userData"]),
-  },
+  
+  }
 };
 </script>
 
