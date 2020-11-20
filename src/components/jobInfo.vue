@@ -86,26 +86,24 @@
 
     <div>
         전형방법
-    <b-table :items="apply" :fields="fields" :tbody-tr-class="rowClass"></b-table>
+    <b-table :items="apply" :fields="field" :tbody-tr-class="rowClass"></b-table>
   </div>
   </b-container>
 </template>
 <script>
-import {mapState} from 'vuex'
-// var convert = require("xml-js");
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("jobStore");
+
 export default {
-  data() {
+   data: () => ({
      
-    return {
-        
-        fields: ['접수마감일', '전형방법', '접수방법', '제출 서류', '제출 서류 양식',],
-        
          
-    };
-  },
+      field: ['접수마감일', '전형방법', '접수방법', '제출 서류', '제출 서류 양식']
+    
+  }),
   mounted(){   
       
-    this.$store.dispatch('loadJobDetail',{wantedNo:this.$route.params.wantedNo})
+    this.$store.dispatch('jobStore/loadJobDetail',{wantedNo:this.$route.params.wantedNo})
   },
   computed:{
     ...mapState([

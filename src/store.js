@@ -3,55 +3,47 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 import {
-
-
-                //동욱
-                fetchPboardList,
-                fetchPboardOne,
-                fetchPboardDel,
-                fetchPboardUp,
-                //모임
-                fetchMeeting,
-                fetchmsublist,
-                fetchMeetinginfo,
-                //주은
-                fetchCommunityBoardList,
-                fetchCommunityBoardView,
-                fetchCommunityBoardDelete,
-                fetchCommunityBoardUpdate,
-                //현주
-                fetchQnaBoardList,
-                fetchQnaBoardView,
-                
-
-                
-        
-
-
-
+    //동욱
+    fetchPboardList,
+    fetchPboardOne,
+    fetchPboardDel,
+    fetchPboardUp,
+    //모임
+    fetchMeeting,
+    fetchmsublist,
+    fetchMeetinginfo,
+    //주은
+    fetchCommunityBoardList,
+    fetchCommunityBoardView,
+    fetchCommunityBoardDelete,
+    fetchCommunityBoardUpdate,
+    //현주
+    fetchQnaBoardList,
+    fetchQnaBoardView,
 
 }
     from './api/index.js';
 
+import memberStore from './store/modules/memberStore.js';// member 관리 store
+import jobStore from './store/modules/JobStore.js';
+
 Vue.use(Vuex, axios)
 
-var convert = require('xml-js')
-let allCategory = 'http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056'
 export default new Vuex.Store({
+    modules: {
+        memberStore: memberStore,
+        jobStore: jobStore
+    },
     state: {
-        userData: [],
-        data: [],
-        jobs: [],
         pboard: [],
-
         pboardone: [],
         msg: '',
         attachment: [],
         //모임
 
-        meeting:[],
-        msubList:[],
-        minfo:[],
+        meeting: [],
+        msubList: [],
+        minfo: [],
 
 
         //주은
@@ -65,103 +57,11 @@ export default new Vuex.Store({
         qnaBoardView: [],
 
 
-        cbAttachment: [],
-     
-        loginStatus: false,//로그인 성공 여부
-        loginError: false,
+        cbAttachment: []
 
 
     },
     actions: {
-        loadXml({ commit }) {
-            //최신 채용 정보 xml
-            axios.get(allCategory)
-                .then((response) => {
-                    let data = response.data
-                    //xml to json
-                    let json = convert.xml2json(data, { compact: true })
-                    this.jobs = JSON.parse(json)
-                    commit('SET_POST', this.jobs)
-
-                });
-        },
-
-        login({ commit, dispatch }, loginData) {
-
-            axios
-                .post('http://localhost:8082/itjobgo/member/login', loginData)
-                .then(res => {
-                    let token = res.data.token;
-
-
-                    if (token === undefined) {//로그인 실패 토큰값 없는 경우
-                        console.log("토큰 없: " + loginData.email)
-                        commit('loginFalse')
-
-                    } else {//토큰값 있음
-
-                        localStorage.setItem("memberEmail", loginData.memberEmail)
-                        localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
-                        console.log("loginData: " + loginData);
-                        dispatch("getMemberInfo", loginData)
-
-
-                        // console.log("토큰 있: " + res)
-                        // document.cookie = `accessToken=${res.data.token}`;
-                        // //cookie를 이렇게 넣는다고..?
-                        // axios.defaults.headers.common['x-access-token'] = res.data.token;               
-
-                    }
-
-                })
-                .catch((error) => console.log(error));
-
-
-
-        },
-        logout({ commit }) {
-            localStorage.removeItem("memberEmail");
-            localStorage.removeItem("access_token");
-            commit('loginFalse');
-        },
-        //유저 정보 가져오기
-        getMemberInfo({ commit }) {
-            let memberEmail = localStorage.getItem("memberEmail")
-            let token = localStorage.getItem("access_token")
-            console.log("memberEmail: " + memberEmail)
-            console.log("token: " + token);
-            let config = {
-                //헤더에 토큰값 포함해서 보내기
-                headers: {
-                    "access-token": token
-                }
-            }
-            if (token != null || memberEmail != null) {
-                //토큰으로 member return  
-                axios
-                    .get('http://localhost:8082/itjobgo/member/getMember?memberEmail=' + memberEmail, config)
-                    .then(response => {
-                        var userData = {
-                            memberAddr: response.data.memberAddr,
-                            memberAddrDtl: response.data.memberAddrDtl,
-                            memberAddrExtra: response.data.memberAddrExtra,
-                            memberEmail: response.data.memberEmail,
-                            memberLevel: response.data.memberLevel,
-                            memberName: response.data.memberName,
-                            memberPhone: response.data.memberPhone,
-                            memberPostCode: response.data.memberPostCode,
-                            memberPostition: response.data.memberPostition
-                        }
-                        commit('loginSuccess', userData)
-                    })
-                    .catch(() => {
-                        commit('loginFalse');
-                    })
-            } else {
-                commit('loginFalse');
-            }
-        },
-
         FETCH_PBOARD({ commit }) {
             //인자로 centext가 제공 centext.commit
             fetchPboardList()
@@ -198,22 +98,22 @@ export default new Vuex.Store({
                 })
         },
 
-        FECH_MSUBLIST({commit}){
+        FECH_MSUBLIST({ commit }) {
             fetchmsublist()
-            .then(({ data }) => commit("SET_MSUBLIST", data))
-            .catch(({ error }) => {
-                console.log(error);
-            })
+                .then(({ data }) => commit("SET_MSUBLIST", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
 
         },
-        FECH_MOBOARDINFO({commit},no){
+        FECH_MOBOARDINFO({ commit }, no) {
             fetchMeetinginfo(no)
-            .then(({data})=>commit("SET_MINFO",data))
-            .catch(({ error }) => {
-                console.log(error);
-            })
+                .then(({ data }) => commit("SET_MINFO", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
         },
-      
+
 
         //주은
         //자유게시판 list 불러오기
@@ -264,17 +164,10 @@ export default new Vuex.Store({
                 .catch(({ error }) => {
                     console.log(error);
                 })
-        },
-
-
-
-
+        }
     },//action
 
     mutations: {
-        SET_POST(state, jobs) {
-            state.jobs = jobs
-        },
         SET_PBOARD(state, pboard) {
             state.pboard = pboard;
         },
@@ -292,8 +185,8 @@ export default new Vuex.Store({
         SET_MEETING(state, data) {
             state.meeting = data;
         },
-        SET_MINFO(state,data){
-            state.minfo=data;            
+        SET_MINFO(state, data) {
+            state.minfo = data;
         },
 
         //주은
@@ -322,29 +215,7 @@ export default new Vuex.Store({
         //qna게시판 상세화면
         SET_QNABOARD_VIEW(state, qnaBoardView) {
             state.qnaBoardView = qnaBoardView;
-        },
-
-
-
-
-        //로그인 성공
-        loginSuccess(state, payload) {
-
-            state.loginStatus = true;
-            state.loginError = false;
-            state.userData = payload;
-            console.log("로그인성공" + payload.memberEmail);
-
-        },
-        //로그인 실패
-        loginFalse(state) {
-            console.log("로그인실패");
-            state.loginStatus = false;
-            state.loginError = true;
         }
-
-
-
     }//mutations 끝
 
 

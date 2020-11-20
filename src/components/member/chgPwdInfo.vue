@@ -103,7 +103,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
 import { ValidationObserver, ValidationProvider,Validator } from 'vee-validate';
 import axios from "axios";
 
