@@ -24,6 +24,12 @@ function fetchPboardUp(no) {
 function fetchMeeting() {
     return axios.get(`${config.Url}meeting/meetingList.do`);
 }
+function fetchmsublist(){
+    return axios.get(`${config.Url}meeting/meetingsubList.do`);
+}
+function fetchMeetinginfo(no){
+    return axios.get(`${config.Url}meeting/meetinginfo${no}.do`)
+}
 
 
 
@@ -46,9 +52,8 @@ function fetchCommunityBoardUpdate(boardSq) {
     return axios.get(`${config.Url}community/communityBoardUpdate${boardSq}`)
 }
 
-
-//현주 
-//qna게시판 조회
+//현주 //qnaBoard(qna게시판)
+//조회
 function fetchQnaBoardList() {
     return axios.get(`${config.Url}qna/qnaboardlist`)
 }
@@ -61,6 +66,9 @@ function fetchQnaBoardView(QnaSeq){
 
 
 
+
+
+
 export {
     fetchPboardList,
     fetchPboardOne,
@@ -68,6 +76,8 @@ export {
     fetchPboardDel,
     //모임
     fetchMeeting,
+    fetchMeetinginfo,
+    fetchmsublist,
 
     //주은
     //자유게사판CommunityBoard

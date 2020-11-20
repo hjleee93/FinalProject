@@ -36,7 +36,6 @@
                               name="phoneNumber"
                               required
                               type="number"
-                              :state="telSize"
                               placeholder="Phone Number"
                               v-model="phone">
                   </b-form-input>
