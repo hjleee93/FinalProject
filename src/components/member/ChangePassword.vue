@@ -142,6 +142,7 @@ Validator.extend("passwordCheck", {
   border-radius: 5px;
 }
 
+
 .btn-primary  {
   text-decoration: none;
     color: #fff;

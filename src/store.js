@@ -4,25 +4,25 @@ import axios from 'axios'
 
 import {
 
-                //동욱
-                fetchPboardList,
-                fetchPboardOne,
-                fetchPboardDel,
-                fetchPboardUp,
-                //모임
-                fetchMeeting,
-                
-                //주은
-                fetchCommunityBoardList,
-                fetchCommunityBoardView,
-                fetchCommunityBoardDelete,
-                fetchCommunityBoardUpdate,
-                //현주
-                fetchQnaBoardList,
-                // fetchQnaBoardView,
+    //동욱
+    fetchPboardList,
+    fetchPboardOne,
+    fetchPboardDel,
+    fetchPboardUp,
+    //모임
+    fetchMeeting,
+
+    //주은
+    fetchCommunityBoardList,
+    fetchCommunityBoardView,
+    fetchCommunityBoardDelete,
+    fetchCommunityBoardUpdate,
+    //현주
+    fetchQnaBoardList,
+    // fetchQnaBoardView,
 
 
-            } 
+}
 
     from './api/index.js';
 
@@ -41,21 +41,21 @@ export default new Vuex.Store({
         msg: '',
         attachment: [],
         //모임
-        meeting:[],
+        meeting: [],
 
         //주은
         communityboard: [],
         communityboardView: [],
-        communityboardDelete:[],
-        communityboardAttachment:[],
+        communityboardDelete: [],
+        communityboardAttachment: [],
 
         //현주
-        qnaboard:[],
-        qnaBoardView:[],
+        qnaboard: [],
+        qnaBoardView: [],
 
 
-        cbAttachment:[],
-     
+        cbAttachment: [],
+
 
         loginStatus: false,//로그인 성공 여부
         loginError: false,
@@ -140,7 +140,8 @@ export default new Vuex.Store({
                             memberLevel: response.data.memberLevel,
                             memberName: response.data.memberName,
                             memberPhone: response.data.memberPhone,
-                            memberPostCode: response.data.memberPostCode
+                            memberPostCode: response.data.memberPostCode,
+                            memberPostition: response.data.memberPostition
                         }
                         commit('loginSuccess', userData)
                     })
@@ -180,14 +181,14 @@ export default new Vuex.Store({
                 .catch(({ error }) => console.log(error))
         },
         //모임 
-        FECH_MEETINGLIST({commit}){
+        FECH_MEETINGLIST({ commit }) {
             fetchMeeting()
-            .then(({ data }) => commit("SET_MEETING", data))
-            .catch(({ error }) => {
-                console.log(error);
-            })
+                .then(({ data }) => commit("SET_MEETING", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
         },
-      
+
 
         //주은
         //자유게시판 list 불러오기
@@ -209,10 +210,10 @@ export default new Vuex.Store({
         //자유게시판 삭제하기
         FETCH_COMMUNITYBOARD_DELETE({ commit }, communityboardNo) {
             fetchCommunityBoardDelete(communityboardNo)
-            .then(({data})=>commit("SET_COMMUNITYBOARD_DELETE",data))
-            .catch(({error})=>{
-                console.log(error);
-            })
+                .then(({ data }) => commit("SET_COMMUNITYBOARD_DELETE", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
         },
         //자유게시판 수정하기(객체 값 불러오기)
         FETCH_COMMUNITYBOARD_UPDATE({ commit }, boardSq) {
@@ -260,8 +261,8 @@ export default new Vuex.Store({
             state.attachment = data;
         },
         //모임
-        SET_MEETING(state,data){
-            state.meeting=data;
+        SET_MEETING(state, data) {
+            state.meeting = data;
         },
 
         //주은
@@ -309,6 +310,6 @@ export default new Vuex.Store({
 
 
     }//mutations 끝
-   
+
 
 })
