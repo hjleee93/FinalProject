@@ -127,7 +127,7 @@ import { mapState} from 'vuex'
         let memberPwd = this.model.password
         console.log("email: " + memberEmail)
         console.log("password: " + memberPwd)
-        this.$store.dispatch('memberStore/login', { memberEmail, memberPwd })
+        this.$store.dispatch('memberlogin', { memberEmail, memberPwd })
        .then(() => this.$router.push('/'))
        .catch(err => console.log(err))
       },

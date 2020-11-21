@@ -37,8 +37,7 @@
         <v-data-table
           :headers="headers"
           :items="tableList"
-          :search="search"
-          
+          :search="search"          
         ></v-data-table>
     </v-card>
       </div>
@@ -80,7 +79,7 @@ const { mapState } = createNamespacedHelpers("jobStore");
   }
 </script>
 
-<style>
+<style scoped>
 
 td{
   height: 150px !important;
@@ -114,9 +113,8 @@ td{
  justify-content:center;
 }
 
-.search-bar{
-  
-      width: 30%;
+.search-bar{  
+    width: 30%;
     margin-left: 72%;
 }
 </style>
