@@ -38,6 +38,7 @@
           :headers="headers"
           :items="tableList"
           :search="search"
+          
         ></v-data-table>
     </v-card>
       </div>
@@ -48,37 +49,42 @@
 </template>
 
 <script>
-// let test = 'minji'
-var convert = require('xml-js')
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("jobStore");
 
   export default {
-    data() {
-      return {
+    
+    data: () => ({ 
       search: '',
-      
+
         headers: [
-          { text: '기업명', value: this.rcmJson.wantedRoot.wanted.company._text },
+          { text: '기업명', value: 'company' },
           { text: '제목', value: 'title' },
           { text: '지원자격', value: 'ability' },
           { text: '근무조건', value: 'Condition' },
           { text: '마감일·등록일', value: 'deadline' },
         ]
-      }
-    },
-    created () {
+    }),
+    mounted(){   
       
-    this.$http.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056' + this.$route.params.keyword)//추천 채용정보
-      .then((response) => {
-        var xml = response.data
-        var json = convert.xml2json(xml, { compact: true })
-        this.rcmJson = JSON.parse(json);            
-      })
-  
+    this.$store.dispatch('jobStore/loadJobTable')
+    
+  },
+  computed:{
+    ...mapState([
+      //매핑값
+      'tableList', 'jobInfo'
+    ])
   }
+      
   }
 </script>
 
 <style>
+
+td{
+  height: 150px !important;
+}
 .overflow .v-card{
   margin-bottom: 50px;
   box-shadow: 0 0 black !important;
