@@ -64,7 +64,7 @@ function fetchInfoList(){
     return axios.get(`${config.Url}info/infoList`)
 }
 // 상세화면
-/* function fetchInfoDetail(infoSq){
+function fetchInfoDetail(infoSq){
     return axios.get(`${config.Url}info/infoDetail${infoSq}`)
 }
 // 삭제하기
@@ -74,7 +74,7 @@ function fetchInfoDelete(infoSq){
 // 수정하기(게시판번호로 객체 값 불러오기 )
 function fetchInfoUpdate(infoSq){
     return axios.get(`${config.Url}info/infoUpdate${infoSq}`)
-} */
+}
 
 export {
     fetchPboardList,
@@ -99,9 +99,9 @@ export {
      //민지
     //info 취업정보 
     fetchInfoList,
-/*     fetchInfoView,
+    fetchInfoDetail,
     fetchInfoDelete,
-    fetchInfoUpdate */
+    fetchInfoUpdate,
 
 
 }

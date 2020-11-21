@@ -19,8 +19,8 @@
     <b-form-group id="input-group-3" label="분류" label-for="input-3">
         <b-form-select
           id="input-3"
-          v-model="infoCategory"
-          :options="category"
+          v-model="category"
+          :options="infoCategory"
           required
         ></b-form-select>
     </b-form-group>
@@ -54,7 +54,7 @@
 
     <!-- 등록/취소 버튼 -->
     <div class="btn_sr">
-      <v-btn type="submit" id="submit"  @click="enrollInfo">등록</v-btn>
+      <v-btn id="submit"  @click="enrollInfo">등록</v-btn>
       <v-btn to="/infoList" exact id="cancel">취소</v-btn>
       </div>
     </form>
@@ -67,34 +67,40 @@ import axios from 'axios';
 
   /*  Vue2Editor 작성 */
     export default {
-      components: { VueEditor },
       data() {
         return {
-          form: {
             infoTitle: '',
-            infoCategory : null,
+            category : "",
+            infoCategory :[
+          { value: '설명회', text: '설명회' },
+          { value: '박람회', text: '박람회' },
+          { value: '상담회', text: '상담회' },
+        ],
             infoDate : '',
             infoTime : '',
             infoAddress : '',
-            infoContent: "",
-          },
-          category: [{ text: '카테고리 선택', value: null }, '설명회', '상담회', '박람회'],
-      show: true
-        }
+            infoContent: "",           
+            }
       },
+    components:{
+      VueEditor
+    },
+
     methods: {
-        enrollerInfo() {
+        enrollInfo() {
           let formData = new FormData();
           formData.append('infoTitle',this.infoTitle);
-          formData.append('infoCategory',this.infoCategory);
+          formData.append('infoCategory',this.category);
           formData.append('infoDate',this.infoDate);
           formData.append('infoTime',this.infoTime);
           formData.append('infoAddress',this.infoAddress);
           formData.append('infoContent',this.infoContent.replace(/(<([^>]+)>)/ig,""));
-
+        
           for(let key of formData.entries()) {
           console.log(`${key}`);
           }
+
+          console.log(this.category);
 
         axios.post("http://localhost:8082/itjobgo/info/infoForm",
           formData,
@@ -102,9 +108,9 @@ import axios from 'axios';
             'Content-Type':'multipart/form-data'
           }}).then((data)=>console.log(data))
           .catch((error)=>
-          
           console.log(error))
           console.log(formData);
+          this.$router.push({name:'infoList'})
         },
 
         handleFile(){
@@ -113,34 +119,28 @@ import axios from 'axios';
           console.log(this.files);
         },
 
-        onSubmit(evt) {
+      /*   onSubmit(evt) {
           evt.preventDefault()
           alert(JSON.stringify(this.form))
         },
-
+ */
       onReset(evt) {
         evt.preventDefault()
           this.form.infoTitle=''
-          this.form.infoCategory=''
+          this.form.infoCategory=null
           this.form.infoDate=''
           this.form.infoTime=''
           this.form.infoAddress=''
           this.form.infoContent=''
+          },
 
-          this.show = false
-          this.$nextTick(() => {
-          this.show = true
-          })
-        },
       /*  clearFiles() {
           this.$refs['file-input'].reset()  
           },
       */
-       cancel: function (){
-              this.$router.push('/info')
-      }
-    },
-  }
+
+      },
+    }
 </script>
 
 <style>
@@ -173,13 +173,4 @@ import axios from 'axios';
   border:5px;
   color:white; 
 }
-/* #reset{
-  width:5px;
-  margin-bottom: 5px;
-  right: -40px;
-  margin-right: 0%;
-  background-color: #9BA4B4;
-  border:5px;
-  color:white; 
-} */
 </style>

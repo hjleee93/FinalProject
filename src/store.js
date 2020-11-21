@@ -23,8 +23,10 @@ import {
 
                 //민지
               
-                fetchInfoList
-           
+                fetchInfoList,
+                fetchInfoDetail,
+                fetchInfoDelete,
+                fetchInfoUpdate,
   
                 
 
@@ -61,9 +63,9 @@ export default new Vuex.Store({
 
         //민지
         infoList: [],
-   /*      infoDetail: [],
+        infoDetail: [],
         infoForm: [],
- */
+
 
 
         cbAttachment:[],
@@ -252,7 +254,7 @@ export default new Vuex.Store({
                 })
         },
         //상세화면
-/*         FETCH_INFO_DETAIL({ commit }, infoNo) {
+         FETCH_INFO_DETAIL({ commit }, infoNo) {
             fetchInfoDetail(infoNo)
                 .then(({ data }) => commit("SET_INFO_DETAIL", data))
                 .catch(({ error }) => {
@@ -272,8 +274,7 @@ export default new Vuex.Store({
             fetchInfoUpdate(infoSq)
                 .then(({ data }) => commit("SET_INFO_UPDATE", data))
                 .catch(({ error }) => console.log(error))
-        }, */
-
+        }, 
     },//action
 
     mutations: {
@@ -328,7 +329,7 @@ export default new Vuex.Store({
             state.infolist = infolist;
         },
         //상세화면
- /*        SET_INFO_VIEW(state, infoview) {
+         SET_INFO_VIEW(state, infoview) {
             state.infoview = infoview;
         },
         //삭제
@@ -339,7 +340,8 @@ export default new Vuex.Store({
         SET_INFO_UPDATE(state, data) {
             state.cbAttachment = data;
         },
- */
+ 
+        
         //로그인 성공
         loginSuccess(state, payload) {
 

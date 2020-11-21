@@ -4,8 +4,8 @@
     <div class="container-fluid">
       <div class="row">
 
-취업정보 객체 : {{info}}
-취업정보 제목 : {{info.infoTitle}}
+<!-- 취업정보 객체 : {{info}} -->
+<!-- 취업정보 제목 : {{info.infoTitle}} -->
           <!-- 메인 이미지 -->
               <div class="submenuimage ">
                   <p class="subtitle" id="subtitle">Information</p>
@@ -35,8 +35,9 @@
         </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="info"
+            :items="infolist"
             :search="search"
+            @click:row="handleClick"
           ></v-data-table>
         </v-card>
         
@@ -67,15 +68,16 @@ import { mapState } from 'vuex';
     },
     computed:{
         ...mapState({
-            info:state=>state.info
+            infolist:state=>state.infolist
         })
     },
+    
    methods: {
     handleClick(value){
-      // alert(value.infoSq);
+      alert(value.infoSq);
       this.$router.push({name:'InfoDetail',params:{id:value.infoSq}});
       console.log(value);
-      console.log(value.infoSq);
+      // console.log(value.infoSq);
     
     }
   },
