@@ -75,12 +75,14 @@
 </template>
 
 <script>
-import{ mapState, mapActions} from "vuex"
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions } = createNamespacedHelpers("memberStore");
 export default {
 
   computed:{
     
-    ...mapState(["loginStatus","userData"]),
+    ...mapState(      
+      ["loginStatus","userData"])
   
   },
   methods: {

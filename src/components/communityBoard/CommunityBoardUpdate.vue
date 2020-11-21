@@ -8,7 +8,7 @@
       첨부파일(테스트) : {{cbAttachment}}
     </div>
 
-    <form @submit.prevent="enrollBoard" 
+    <form @submit.prevent="updateForm" 
     @reset="onReset" enctype="multipart/form-data">
       <b-form-group
         id="input-group-1"
@@ -30,7 +30,7 @@
       label="분류선택" label-for="input-2" label-align="left">
         <b-form-select
           id="input-2"
-          v-model="communityboardView.boardDivision.text"
+          v-model="category"
           :options="boardDivision"
           required
         ></b-form-select>
@@ -45,13 +45,11 @@
       <!-- 첨부파일 -->
       <b-form-group>
         <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
-        placeholder="첨부파일을 선택해주세요" ></b-form-file> 
+        :placeholder="cbAttachment.originalfilename" ></b-form-file> 
       </b-form-group>
-      <!-- <b-form-file id="file2" ref="upfiles" v-on:change="handleFile"
-    placeholder="첨부파일을 선택해주세요"></b-form-file>  -->
+ 
 
-      <b-button id="submit-btn2"  @click="enrollBoard"  to="/communityBoardList" exact>완료</b-button>
-      <b-button type="reset" id="reset-btn2">취소</b-button>
+      <b-button id="submit-btn2"  @click="updateForm" >완료</b-button>
       <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
       
     </form>
@@ -68,8 +66,9 @@ import axios from 'axios'
     data() {
       return {
         boardTitle:"",
-        category:"",
+        category:null,
         boardDivision :[
+          { value: null, text: '분류를 선택해주세요' },
           { value: '일반', text: '일반' },
           { value: '질문', text: '질문' },
           { value: '홍보', text: '홍보' }
@@ -81,8 +80,9 @@ import axios from 'axios'
     },
 
     created() {
-    const no=this.$route.params.id;
-      this.$store.dispatch("FETCH_COMMUNITYBOARD_UPDATE",no)
+    const boardSq=this.$route.params.id;
+      this.$store.dispatch("FETCH_COMMUNITYBOARD_UPDATE",boardSq)
+      console.log("지금하고있는 로그 " + boardSq);
     },
 
     computed:{
@@ -98,14 +98,26 @@ import axios from 'axios'
       VueEditor,
     },
     
-
-
     methods: {
-      enrollBoard() {
+      updateForm() {
+        //새롭게 수정된 내용이 없다면 원래 객체의 컬럼값을 가져가도록
+        if(!this.boardTitle){
+          this.boardTitle=this.communityboardView.boardTitle;
+        }
+        if(!this.boardContent){
+          this.boardContent=this.communityboardView.boardContent;
+        }
+        // if(!this.boardDivision){
+        //   this.boardDivision=this.communityboardView.boardDivision;
+        // }
+        if(!this.files){
+          this.files=this.cbAttachment.renamedfilename;
+        }
         
         let formData = new FormData();
         formData.append('boardTitle',this.boardTitle);
         formData.append('boardDivision',this.category);
+        formData.append('boardSq',this.$route.params.id);
         formData.append('boardContent',this.boardContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('file',this.files);
         
@@ -113,9 +125,7 @@ import axios from 'axios'
         console.log(`${key}`);
         }
 
-          console.log(this.category);
-
-      axios.post("http://localhost:8082/itjobgo/community/communityBoardUpdate",
+      axios.post("http://localhost:8082/itjobgo/community/communityBoardUpdateEnd",
         formData,
         { headers:{
           'Content-Type':'multipart/form-data'
@@ -123,7 +133,8 @@ import axios from 'axios'
         .catch((error)=>
         console.log(error))
         console.log(formData);
-
+        //등록후 게시판 리스트로 이동
+        this.$router.push({name:'CommunityBoardList'})
       },
 
       handleFile(){
@@ -131,7 +142,6 @@ import axios from 'axios'
         this.files=this.$refs.upfiles.$refs.input.files[0];
         console.log(this.files);
       },
-
 
       onReset(evt) {
         evt.preventDefault()

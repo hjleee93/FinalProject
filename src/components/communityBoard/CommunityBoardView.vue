@@ -53,16 +53,15 @@
             <div id="content-div">
               
               게시판 내용(임시) : {{communityboardView.boardContent}}
-
             <br>
             (임시)게시판 객체 : {{communityboardView}}
-
             <br><br>
-            게시판 객체(임시) : {{communityboardView}}
+          
+            분류  표시(임시) : {{communityboardView.boardDivision}}
 
    
             </div>
-              <div id="date">작성날짜(날짜변환해야함) : {{communityboardView.boardDate}}</div>
+              <div id="date">작성날짜 : {{communityboardView.boardDate | moment('YYYY-MM-DD')}}</div>
             <b-button type="button" id="list-btn" to="/communityBoardList" exact>목록으로</b-button>
         </div>
     </div>   
@@ -72,8 +71,12 @@
 </template>
 
 <script>
+import vueMoment from 'vue-moment';
+import Vue from 'vue'
 import { mapState } from 'vuex';
 import ModalView from '../common/ModalView.vue';
+
+Vue.use(vueMoment);
 
 export default {
 

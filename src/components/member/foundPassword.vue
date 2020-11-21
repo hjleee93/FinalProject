@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div>
     <!-- Header -->
     <div class="header bg-gradient-success py-7 py-lg-8 pt-lg-9">
       <b-container>
@@ -34,13 +34,6 @@
                   v-model="phone"
                 >
                 </b-form-input>
-                 <!-- <b-form-input
-                  hidden
-                  v-model="email"
-                  
-                >
-                </b-form-input> -->
-                  
 
                 <div class="text-center">
                   <b-button type="primary" native-type="submit" class="my-4"
@@ -65,7 +58,6 @@
           </b-row>
         </b-col>
       </b-row>
-    
     </b-container>
   </div>
 </template>
@@ -76,30 +68,31 @@ import axios from "axios";
 export default {
   data: () => ({
     phone: "",
-    
   }),
 
   methods: {
     onSubmit() {
       const formData = {
         memberPhone: this.phone,
-        memberEmail:this.$route.params.memberEmail
+        memberEmail: this.$route.params.memberEmail,
       };
       const self = this;
       axios
-        .post("http://localhost:8082/itjobgo/member/compareEmailPhone", formData) //form server 연결
+        .post(
+          "http://localhost:8082/itjobgo/member/compareEmailPhone",
+          formData
+        ) //form server 연결
         .then((response) => {
           this.test1 = response.data;
           if (this.test1 == "") {
-            //전화번호와 이메일이 매치되지 않는 경우 
+            //전화번호와 이메일이 매치되지 않는 경우
             this.$swal({
               text: "입력한 정보와 일치하는 정보가 없습니다.",
               icon: "error", //built in icons: success, warning, error, info
               timer: 5000, //timeOut for auto-close
             });
-
           } else {
-            self.$router.push({ 
+            self.$router.push({
               name: "changePassword",
               params: { memberEmail: this.$route.params.memberEmail },
             }); //이메일 찾음 -> 페이지 이동
@@ -109,9 +102,13 @@ export default {
   },
 };
 </script>
-    
 
 <style scoped>
+
+.login-content {
+  background-color: #f7fafc !important;
+  border-radius: 5px;
+}
 /* number필드 화살표 지우기 : 파폭제외 */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -119,7 +116,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 /* 파폭용  */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 </style>

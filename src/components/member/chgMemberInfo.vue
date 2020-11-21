@@ -34,6 +34,7 @@
             </b-card-header>
 
             <b-card-body class="px-lg-5 py-lg-5 info-content">
+              
               <b-form role="form" @submit.prevent="onSubmit">
                 <div id="account">
                   <div id="email">
@@ -46,15 +47,18 @@
                     </b-input-group>
                   </div>
                   <div class="pwd">
-                  <b-input-group prepend="비밀번호">
+                  <b-input-group 
+
+                  prepend="비밀번호">
                     <b-form-input
-                        class="pwd"
+                      class="pwd"
                       required
                       type="password"
                       placeholder="현재 비밀번호 입력"
                       v-model="memberPwd"
                     ></b-form-input>
                   </b-input-group>
+
                   </div>
                 </div>
 
@@ -70,14 +74,12 @@
                     <b-form-input
                       class="readonly-input phone"
                       type="number"
-                      :state="telSize"
                       v-model="userData.memberPhone"
                     ></b-form-input>
                   </b-input-group>
                 </div>
                 <b-input-group prepend="우편번호">
                   <b-form-input
-                    readonly
                     class="readonly-input postcode"
                     type="text"
                     id="sample6_postcode"
@@ -89,8 +91,7 @@
                 </b-input-group>
 
                 <b-input-group prepend="주소">
-                  <b-form-input
-                    readonly
+                  <b-form-input                    
                     class="readonly-input addr"
                     type="text"
                     id="sample6_address"
@@ -100,7 +101,6 @@
 
                  <b-input-group prepend="상세주소">
                   <b-form-input
-                    readonly
                     class="readonly-input addrDtl"
                     type="text"
                     id="sample6_detailAddress"
@@ -111,13 +111,10 @@
 
                 <div id="addrExtra">
             <b-input-group prepend="추가주소" >
-                  <b-form-input
-                  
-                    readonly
+                  <b-form-input                  
                     class="readonly-input addrExtra"
                     type="text"
-                    id="sample6_extraAddress"
-                    
+                    id="sample6_extraAddress"                    
                     v-model="userData.memberAddrExtra"
                   ></b-form-input>
                 </b-input-group>
@@ -125,7 +122,7 @@
                   <b-form-select
                     class="position"
                     type="text"
-                    v-model="userData.memberPosition"
+                    v-model="selected"
                     :options="position"
                   ></b-form-select>
                 </b-input-group>
@@ -149,42 +146,63 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 
 <script>
-import { mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
+
 import axios from "axios";
+import $ from 'jquery'
 
 export default {
   data: () => ({
     memberPwd: "",
+    selected: null,
     position: [{ text: '관심있는 직군을 선택해주세요', value: null },'디자인', '백엔드', '프론트엔드', '퍼블리싱'],
   }),
 
   methods: {
      onSubmit() {
+      //  console.log($('#sample6_postcode').val());
       const formData = {
         memberEmail: this.userData.memberEmail,
         memberPwd: this.memberPwd,
         memberPhone: this.userData.memberPhone,
-        memberPostCode: this.userData.memberPostCode,
-        memberAddr: this.userData.memberAddr,
+        memberPostCode: $('#sample6_postcode').val(),
+        memberAddr: $('#sample6_address').val(),
         memberAddrDtl: this.userData.memberAddrDtl,
-        memberAddrExtra: this.userData.memberAddrExtra,
+        memberAddrExtra: $('#sample6_extraAddress').val(),
         memberPosition: this.userData.memberPosition
       };
       const self = this; //this scope문제
-
+      console.log("form:" + JSON.stringify(formData));
       axios
         .post("http://localhost:8082/itjobgo/member/updateInfo", formData) //form server 연결
-        .then(function(res) {
-          console.log(formData)
-          if (res.status >= 200 && res.status <= 204) {
-            //가입성공
-            alert("가입에 성공하셨습니다!");
-            self.$router.push("/login"); //회원가입 후 경로 설정
+        .then((res) =>{
+          console.log(res.data)
+            if (res.data > 0) {
+              //업데이트 ok
+            this.$swal({
+              text: "회원정보가 변경되었습니다.",
+              icon: "success"
+            });
+            setTimeout( () => this.$router.push({ path: '/myPage'}), 2000);
+            //마이페이지로 이동
+          }else if(res.data == -1){//비밀번호 틀린경우 
+              this.$swal({
+              text: "비밀번호가 틀렸습니다. 다시 확인해주세요",
+              icon: "error"
+            });
+          }else{
+              this.$swal({
+              text: "정보 변경에 실패했습니다. 다시 한 번 시도해주시거나 관리자에게 문의해주세요",
+              icon: "error"
+            });
           }
         })
         .catch((error) => {
-          alert("회원가입에 실패하였습니다. 다시 시도해주세요");
-          console.log("실패", error);
+          this.$swal({
+              text: "정보 변경에 실패했습니다. 관리자에게 문의해주세요",
+              icon: "error"
+            });
         });
     },
     daumPostcode: function() {
@@ -227,13 +245,19 @@ export default {
               }
               // 조합된 참고항목을 해당 필드에 넣는다.
               document.getElementById("sample6_extraAddress").value = extraAddr;
+              $('#sample6_extraAddress').attr('value',extraAddr);
             } else {
               document.getElementById("sample6_extraAddress").value = "";
+              $('#sample6_extraAddress').attr('value',"");
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById("sample6_postcode").value = data.zonecode;
+            
+            $('#sample6_postcode').attr('value',data.zonecode);//value 추가해서 업데이트할 때 사용
+
             document.getElementById("sample6_address").value = addr;
+             $('#sample6_address').attr('value',addr);
             // 커서를 상세주소 필드로 이동한다.
             document.getElementById("sample6_detailAddress").focus();
           },
@@ -242,17 +266,21 @@ export default {
     },
   },
   computed: {
-    ...mapState(["userData"]),
     
-      telSize() {
-        return this.userData.memberPhone.length == 11 ? true : false
-      }
-    
-  },
+    ...mapState(["userData"])
+  }
 };
 </script>
 
 <style scoped>
+/* Validation css 수정 */
+.invalid-feedback{
+  margin-left: 100px;
+}
+.form-control.is-invalid{
+  border:1px solid red !important;
+}
+
 .chg-info{
     background-color: #f1f6f9;
     border:2px solid #a6b1e1 !important;

@@ -92,7 +92,6 @@ import axios from 'axios';
         for(let key of formData.entries()){
         console.log(`${key}`);
         }
-
           console.log(this.category);
 
       axios.post("http://localhost:8082/itjobgo/community/communityBoardForm",
