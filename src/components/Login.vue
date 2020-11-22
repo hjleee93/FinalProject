@@ -83,7 +83,9 @@
 </template>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
 <script>
-import { mapState} from 'vuex'
+
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
 
 // import axios from "axios"
 
@@ -127,8 +129,11 @@ import { mapState} from 'vuex'
         let memberPwd = this.model.password
         console.log("email: " + memberEmail)
         console.log("password: " + memberPwd)
-        this.$store.dispatch('memberlogin', { memberEmail, memberPwd })
-       .then(() => this.$router.push('/'))
+        this.$store.dispatch('memberStore/login', { memberEmail, memberPwd })
+       .then(() => 
+       alert("로긴")
+      //  this.$router.push('/')
+       )
        .catch(err => console.log(err))
       },
       kakaoLogin() {
