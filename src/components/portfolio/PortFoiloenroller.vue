@@ -80,7 +80,7 @@ export default {
         let formData=new FormData();
         formData.append('pboardWriter',this.userData.memberName);
         formData.append('pboardTitle',this.pboardTitle);
-        formData.append('memberEmail',this.userData.memberEmail)
+        formData.append('memberSq',this.userData.memberSq)
         formData.append('pboardContent',this.pboardContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('file',this.files);
         for(let key of formData.entries()){

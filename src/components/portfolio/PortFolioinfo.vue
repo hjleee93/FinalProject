@@ -5,31 +5,32 @@
         <p class="subtitle" id="subtitle">portfolioinfo</p>
       </div>
       </b-row>
+      <b-row id=" writecontain" align-h="end"><b-button to="/portfolioList">목록으로 </b-button></b-row>
       <b-row>
         <b-col><b-card class="text-center"><b-form>
         <b-row>
-          <b-col cols="2">  <b-form-group  label="제목"/></b-col>
+          <b-col cols="2"><b-form-group  label="제목"/></b-col>
           <b-col> <b-form-input v-model="pboardone.pboardTitle" readonly/></b-col>
         </b-row>
           <b-row>
-          <b-col cols="2">  <b-form-group  label="작성자"/></b-col>
+          <b-col cols="2"><b-form-group  label="작성자"/></b-col>
           <b-col> <b-form-input v-model="pboardone.pboardWriter" readonly/></b-col>
         </b-row>
           <b-row>
-          <b-col cols="2">  <b-form-group  label="작성내용" readonly/></b-col>
+          <b-col cols="2"><b-form-group  label="작성내용" readonly/></b-col>
           <b-col> <b-form-textarea v-model="pboardone.pboardContent" readonly/></b-col>
         </b-row>
-        
           </b-form>
-          <b-row><b-col>
+          <b-row v-if="userData.memberSq===pboardone.pboardId"><b-col>
           <b-button @click="update">수정</b-button>
           <b-button @click="pdelete">삭제</b-button>
           
   </b-col></b-row></b-card></b-col>
       </b-row>
-      <div>{{pboardone}}</div>
+      <!-- <div>{{pboardone}}</div> -->
+      <!-- <div>{{userData}}</div> -->
   
-  <div v-for="item in pboardone" :key="item.id">{{item}}</div>
+  <!-- <div v-for="item in pboardone" :key="item.id">{{item}}</div> -->
     
 
   <ModalView v-if="showModal" @close="showModal = false">
@@ -57,6 +58,8 @@
 <script>
 import ModalView from '../common/ModalView.vue'
 import { mapState } from 'vuex';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 export default {
     data(){
         return {
@@ -97,12 +100,15 @@ export default {
         this.$store.dispatch("FETCH_PBOARDONE",pboardNo)
     },
     computed: {
+     
         ...mapState({
-            pboardone:state=>state.pboardone,
-          
-           
-        })
-    },
+            pboardone:state=>state.pboardone,         
+        }),
+         ...loadUserState(['userData'])
+      
+       
+        
+    }
     
   
     
@@ -125,4 +131,9 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   color:#4e5157 ;
   font-size: 50px;
 }
+#writecontain{
+  margin-bottom: 10%;
+  
+}
+
 </style>
