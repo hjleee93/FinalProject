@@ -90,7 +90,6 @@ import Vue from 'vue'
 
 Vue.use(vueMoment);
 
-
   export default {
 
     created: function(){
