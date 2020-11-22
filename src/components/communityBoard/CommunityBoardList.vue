@@ -58,6 +58,15 @@
                 @click:row="handleClick"
                 item-key="name"
               >
+              <!-- 수정중 -->
+                <template slot="items" slot-scope="props">
+                  <tr>
+                     <td>{{ props.item.boardDivision }}</td>
+                     <td>{{ props.item.boardTitle }}</td>
+                     <td>{{ formatDate(props.item.boardDate) }}</td>
+                   </tr>
+                </template>
+
               </v-data-table>
         </v-card>
   </div>
@@ -110,9 +119,13 @@ Vue.use(vueMoment);
       console.log(value);
       console.log(value.boardSq);
     
-    }
-  },
+    },
 
+  // 수정중
+        formatDate(value) {
+      return this.$moment(value).format("MMM Do YY");
+  }
+  },
 
     data() {
       return {
@@ -129,6 +142,7 @@ Vue.use(vueMoment);
           { text: '제목', value: 'boardTitle' },
           //수정중입니다.
           // { text: '작성날짜', value: '[boardDate | moment("YYYY-MM-DD")]' ,dataType: "Date" },
+          { text: '작성날짜', value: 'boardDate' },
           
         ],
         

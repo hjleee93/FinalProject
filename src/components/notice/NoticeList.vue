@@ -7,7 +7,7 @@
         <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
           <!-- 메인 이미지 -->
               <div class="submenuimage ">
-                  <p class="subtitle" id="subtitle">Notice</p>
+                  <p class="subtitle" id="subtitle">Community</p>
               </div>
               
         <!-- 탭 -->   
@@ -22,194 +22,129 @@
           <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
         </v-tabs>
         
-          <h2 class="sub-header">공지사항</h2>
+          <h2 class="sub-header">자유게시판(테스트입니다)</h2>
           <br>
 
         <!-- 버튼 -->
-          <v-btn   to="/noticeForm" exact  id="st_write">
+          <v-btn   to="/communityBoardForm" exact  id="st_write">
                글쓰기
            </v-btn>
 
-        <!-- 임시버튼 -->
-          <v-btn to="/noticeView" exact  id="st_write">
+          <!-- 임시버튼 -->
+          <v-btn to="/communityBoardView" exact  id="st_write">
                상세페이지
            </v-btn>
-           
 
           <div class="overflow-auto">
 
          <!-- 테이블 -->
         <v-card>
-        <v-card-title>
-          <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
-        </v-card-title>
-          <v-data-table
-            :headers="headers"
-            :items="tableList"
-            :search="search"
-          ></v-data-table>
-        </v-card>
-        
+          <v-card-title>
+            <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="Search"
+                single-line
+                hide-details
+       
+              >
+              </v-text-field>
+          </v-card-title>
 
+              <v-data-table
+                :headers="headers"
+                :items=noticeList
+                :search="search"
+                @click:row="handleClick"
+                item-key="name"
+              >
+              <!-- 수정중 -->
+                <!-- <template slot="items" slot-scope="props">
+                  <tr>
+                     <td>{{ props.item.boardDivision }}</td>
+                     <td>{{ props.item.boardTitle }}</td>
+                     <td>{{ formatDate(props.item.boardDate) }}</td>
+                   </tr>
+                </template> -->
+
+              </v-data-table>
+        </v-card>
   </div>
       
         </div>
+</div>
+<!-- <ul>
+  <li v-for="com in community " :key="com.id" > {{com.boardContent}}</li>
+</ul> -->
 
-      </div>
+
+<!-- 임시테스트 테이블 -->
     </div>
   </body>
-
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import vueMoment from 'vue-moment';
+import Vue from 'vue'
+
+Vue.use(vueMoment);
+
+
   export default {
+
+    created: function(){
+      this.$store.dispatch("FETCH_NOTICE")
+
+    },
+    computed:{
+        ...mapState({
+             noticeList:state=>state.noticeList
+
+        })
+    },
+
+      methods: {
+    handleClick(value){
+      // alert(value.boardSq);
+      this.$router.push({name:'NoticeView',params:{id:value.noticeSq}});
+      console.log(value);
+      console.log(value.boardSq);
+    
+    },
+
+  // 수정중
+  //       formatDate(value) {
+  //     return this.$moment(value).format("MMM Do YY");
+  // }
+  },
+
     data() {
       return {
+      // community: [],
+      // boardDate: communityboardView.boardDate | moment('YYYY-MM-DD') ,
       search: '',
         headers: [
           {
             text: '분류',
             align: 'start',
             filterable: false,
-            value: 'category',
+            value: 'noticeDivision',
           },
-          { text: '내용', value: 'content' },
-          { text: '작성자', value: 'writer' },
-          { text: '작성날짜', value: 'date' },
+          { text: '제목', value: 'noticeTitle' },
+          //수정중입니다.
+          // { text: '작성날짜', value: '[boardDate | moment("YYYY-MM-DD")]' ,dataType: "Date" },
+          { text: '작성날짜', value: 'noticeDate' },
+          
         ],
-        tableList: [
-
-          {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-                    {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-                    {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-                    {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-                    {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
-                    {
-            category: '질문',
-            content: '아두이노 어떻게 하나요',
-            writer: '김민지',
-            date:'2020-10-18'
-          },
-
-          {
-            category: '홍보',
-            content: '지원자 모집합니다 c언어 개발자',
-            writer: '김주은',
-            date:'2020-12-15'
-          },
-
-          {
-            category: '요청',
-            content: '학습 내용 공유 부탁드려요',
-            writer: '김현주',
-            date:'2020-05-18'
-          },
         
-        ],
       }
     },
-  }
+    
+    }
+
+
+  
 </script>
 
 <style>
