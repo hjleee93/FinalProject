@@ -367,3 +367,15 @@ li {
   text-decoration: underline;
   color: #ff4800;
 }
+
+#PersonHead .last.bottomList.customize:hover {
+  /* border: none;
+  background: none; */
+  border-top: 1px solid #81c6fd;
+}
+#PersonHead .last.bottomList.customize {
+  /* border: none; */
+  width: 352px;
+  height: 156px;
+  border-top: none;
+}

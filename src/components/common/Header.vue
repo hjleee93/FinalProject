@@ -51,11 +51,6 @@
               
               
               <div v-if="loginStatus" class="user">
-                <!-- Using 'button-content' slot -->
-<!--                 
-                <template #button-content>
-                  <em>User</em>
-                </template> -->
                 <b-nav-item href="/myPage">MY PAGE</b-nav-item>
                 </div>
                 <div v-if="loginStatus" class="user">
