@@ -113,6 +113,7 @@ Vue.use(vueMoment);
     }
   },
 
+
     data() {
       return {
       // community: [],
