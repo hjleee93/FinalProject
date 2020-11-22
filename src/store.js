@@ -126,7 +126,7 @@ export default new Vuex.Store({
                 })
         },
 
-
+    
         //주은
         //자유게시판 list 불러오기
         FETCH_COMMUNITYBOARD({ commit }) {
@@ -199,7 +199,7 @@ export default new Vuex.Store({
         //삭제하기
         FETCH_INFO_DELETE({ commit }, infoNo) {
             fetchInfoDelete(infoNo)
-            .then(({data})=>commit("SET_INFO_DELETE",data))
+            .then(({data})=>commit("SET_INFO_DELETE", data))
             .catch(({error})=>{
                 console.log(error);
             })
@@ -207,11 +207,11 @@ export default new Vuex.Store({
         //수정하기(객체 값 불러오기)
         FETCH_INFO_UPDATE({ commit }, infoSq) {
             fetchInfoUpdate(infoSq)
-                .then(({ data }) => commit("SET_INFO_UPDATE", data))
-                .catch(({ error }) => console.log(error))
-        }, 
+                .then(({ data })=>commit("SET_INFO_UPDATE", data))
+                .catch(({ error })=>console.log(error))
+        },
 
-        }
+        
 
     },//action
 
@@ -297,9 +297,9 @@ export default new Vuex.Store({
             console.log("로그인실패");
             state.loginStatus = false;
             state.loginError = true;
-     
+        }
        
     }//mutations 끝
-
+    
 
 })
