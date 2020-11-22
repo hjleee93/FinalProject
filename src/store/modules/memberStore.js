@@ -63,6 +63,7 @@ const memberStore = {
         logout({ commit }) {
             localStorage.removeItem("memberEmail");
             localStorage.removeItem("access_token");
+            alert("로그아웃되었습니다.");
             commit('loginFalse');
         },
         //유저 정보 가져오기
