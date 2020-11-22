@@ -41,7 +41,7 @@ const InfoForm = () => {
   return import('./components/info/InfoForm.vue')
 }
 const JobList = () => {
-  return import('./components/info/JobList.vue')
+  return import('./components/jobInfo/JobList.vue')
 }
 //주은
 const CommunityBoardList = () => {
@@ -106,7 +106,7 @@ const Login = () => {
 }
 
 const Register = () => {
-  return import('./components/Register.vue')
+  return import('./components/member/Register.vue')
 }
 const FindPassword = () => {
 
@@ -124,8 +124,8 @@ const MyPage = () => {
   return import('./components/member/MyPage.vue')
 }
 
-const jobInfo = () => {
-  return import('./components/jobInfo.vue')
+const jobInfoDtl = () => {
+  return import('./components/jobInfo/jobInfoDtl.vue')
 }
 
 const FoundPassword = () => {
@@ -148,8 +148,8 @@ const ChgMemberInfo = () => {
 const ChgPwdInfo = () => {
   return import('./components/member/chgPwdInfo.vue')
 }
-const OutMember = () => {
-  return import('./components/member/outMember.vue')
+const DeleteMember = () => {
+  return import('./components/member/deleteMember.vue')
 }
 const LoginCallback = () => {
   return import('./components/member/loginCallback.vue')
@@ -187,13 +187,13 @@ export default new Router({
     {
       path: '/meetinginfo/:id',
       component: Meetinginfo,
-      name:"meetinginfo"
+      name: "meetinginfo"
 
     },
     {
       path: '/portfolioList',
       component: PortFolio,
-      name:'portlist'
+      name: 'portlist'
     },
     {
       path: '/portfolioenroller',
@@ -347,9 +347,9 @@ export default new Router({
       component: MyPage
     },
     {
-      path: '/jobInfo',
-      name: 'jobInfo',
-      component: jobInfo
+      path: '/jobInfoDtl',
+      name: 'jobInfoDtl',
+      component: jobInfoDtl
     },
     {
       path: '/foundPassword',
@@ -377,16 +377,16 @@ export default new Router({
       component: ChgPwdInfo
     },
     {
-      path: '/outMember',
-      name: 'outMember',
-      component: OutMember
+      path: '/deleteMember',
+      name: 'deleteMember',
+      component: DeleteMember
     },
     {
       path: '/loginCallback',
       name: 'loginCallback',
       component: LoginCallback
     },
-    
+
     //현주
     {
       path: '/qnaWrite',

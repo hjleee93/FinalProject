@@ -5,12 +5,20 @@ var convert = require('xml-js')
 const jobStore = {
     namespaced: true,
     state: {
+        tableList: [
+            {
+                company: '', title: '', ability: '', Condition: '',
+                deadline: ''
+            }
+        ],
         apply: [
             { 접수마감일: '', 전형방법: '', 접수방법: '', '제출 서류': '', '제출 서류 양식': '' }
         ],
         items: [],
         data: [],
-        jobs: []
+        jobs: [],
+        jobInfo: [],
+
     },
     actions: {
         loadXml({ commit }) {
@@ -25,8 +33,7 @@ const jobStore = {
 
                 });
         },
-        loadJobDetail({ commit }, wantedNo) {
-            console.log(wantedNo.wantedNo);
+        loadJobDetail({ commit }, wantedNo) { //상세페이지 
             axios.get(
                 "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=D&returnType=XML&infoSvc=VALIDATION&wantedAuthNo=" +
                 wantedNo.wantedNo
@@ -60,14 +67,62 @@ const jobStore = {
                         { 접수마감일: receiptCloseDt, 전형방법: selMthd, 접수방법: rcptMthd, '제출 서류': submitDoc, '제출 서류 양식': attachFileInfo }
 
                     ]
+
                     commit('SET_GET_JOB', this.items)
                     commit('SET_GET_JOB_BOARD', this.apply)
 
                 });
 
         },
+        loadJobTable({ commit }) {
+            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056')//추천 채용정보
+                .then((response) => {
+                    var xml = response.data
+                    var json = convert.xml2json(xml, { compact: true })
+                    this.jobInfo = JSON.parse(json);
+
+                    const companyName = new Array();
+
+                    this.tableList = [
+                        {
+                            company: this.jobInfo.wantedRoot.wanted[0].company._text,
+                            title: this.jobInfo.wantedRoot.wanted[0].title._text,
+                            ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
+                            Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
+                            deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text
+                        }
+                    ]
+                    for (let i = 1; i < 100; i++) {
+                        companyName[i] = this.jobInfo.wantedRoot.wanted[i];
+
+                        this.tableList.push(
+                            {
+                                company: companyName[i].company._text,
+                                title: companyName[i].title._text,
+                                ability: companyName[i].minEdubg._text,
+                                Condition: companyName[i].sal._text,
+                                deadline: companyName[i].closeDt._text
+                            }
+                        )
+                        //console.log(companyName.company._text);
+
+                    }
+
+                    commit('SET_JOB_INFO_LIST', this.tableList)
+                    commit('SET_JOB_INFO', this.jobInfo)
+
+                });
+
+        }
+
     },
     mutations: {
+        SET_JOB_INFO_LIST(state, tableList) {
+            state.tableList = tableList;
+        },
+        SET_JOB_INFO(state, jobInfo) {
+            state.jobInfo = jobInfo;
+        },
         SET_POST(state, jobs) {
             state.jobs = jobs
         },
