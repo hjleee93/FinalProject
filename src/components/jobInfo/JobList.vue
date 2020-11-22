@@ -35,9 +35,11 @@
           ></v-text-field>
        </v-card-title>
         <v-data-table
+          class="elevation-1"
           :headers="headers"
           :items="tableList"
-          :search="search"          
+          :search="search"
+         
         ></v-data-table>
     </v-card>
       </div>
@@ -80,8 +82,7 @@ const { mapState } = createNamespacedHelpers("jobStore");
 </script>
 
 <style scoped>
-
-td{
+.elevation-1 td{
   height: 150px !important;
 }
 .overflow .v-card{

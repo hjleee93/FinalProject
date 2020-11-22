@@ -7,7 +7,7 @@ const jobStore = {
     state: {
         tableList: [
             {
-                company: '123', title: '', ability: '', Condition: '',
+                company: '', title: '', ability: '', Condition: '',
                 deadline: ''
             }
         ],
