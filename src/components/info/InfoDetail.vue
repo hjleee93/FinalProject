@@ -24,10 +24,46 @@
                  첨부 파일 :
                 </div>
                 <div class="detail_btn_div">
-                  <v-btn to="/infoForm" exact id="modify">수정</v-btn>
-                  <v-btn to="/" exact id="delete">삭제</v-btn>
+                  <v-btn to="/infoForm" exact id="modify"  @click="updateInfo">수정</v-btn>
+                  <v-btn to="/" exact id="delete" @click="deleteinfo">삭제</v-btn>
                   <v-btn to="/infoList" exact id="list">목록</v-btn>
                 </div>
+            </div>
+
+          <!-- 삭제확인 modal-->
+            <ModalView v-if="showModal" @close="showModal = false">
+            <template>
+              <div slot="header">
+                삭제하시겠습니까?
+              </div>
+
+              <div slot="body">
+                <b-button @click="Delete">삭제</b-button>
+                <b-button @click="cancel">취소</b-button>
+              </div>
+
+              <div slot="footer"></div>
+            </template>
+          </ModalView>
+
+          
+          <div class="overflow-auto">
+            <div id="content-div">
+              
+              게시판 내용(임시) : {{infoDetail.InfoContent}}
+
+            <br>
+            (임시)게시판 객체 : {{infoDetail}}
+
+            <br><br>
+            게시판 객체(임시) : {{infoDetail}}
+
+   <!-- 
+            </div>
+              <div id="date">작성날짜(날짜변환해야함) : {{communityboardView.boardDate}}</div>
+            <b-button type="button" id="list-btn" to="/communityBoardList" exact>목록으로</b-button>
+        </div>
+ -->
             </div>
         </div> 
       </div>
@@ -35,21 +71,69 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import ModalView from '../common/ModalView.vue';
+
 export default {
 
- /* 목록버튼 */
+  data(){
+      return{
+        showModal:false,
+        infoNo:0,
+      }
+    },
+   created(){
+      const infoNo=this.$route.params.id;
+      console.log(infoNo);
+      this.$store.dispatch("FETCH_INFO_DETAIL",infoNo)
+    },
+
+    computed:{
+      ...mapState({
+        infoDetail:state=>state.infoDetail       
+      })
+    },
+
   methods: {
+     /* 목록버튼 */
     link: function (){
                    this.$router.push('/infoList')
       },
       //삭제버튼
     link1: function (){
                    this.$router.push('/infoForm')
+       },
+       
+      updateInfo(){
+        let no=this.$route.params.id
+        console.log("수정버튼(params) :"+ no);
+        this.$router.push({name:'InfoUpdate',params:{id:no}})
+      },
+     //삭제버튼
+      deleteInfo(){
+        this.showModal=!this.showModal;  
+      }, 
+      //삭제버튼(네)
+      Delete(){
+        let no=this.$route.params.id
+        console.log(no);
+        this.$store.dispatch("FETCH_INFO_DELETE",no);
+      //삭제후 페이지 이동
+        this.$router.push({name:'infoList'});
+      },
+      //삭제버튼(아니오)
+      cancel(){
+        this.showModal=!this.showModal;
       }
-    
+    },//methods 끝
+
+    components :{
+      ModalView,
+
     }
-}
- 
+  }//export
+
+
 </script>
 
 <style scoped>
