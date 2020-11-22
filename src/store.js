@@ -274,14 +274,14 @@ export default new Vuex.Store({
          SET_INFO_VIEW(state, infoview) {
             state.infoview = infoview;
         },
-        //삭제
+   /*      //삭제
         SET_INFO_DELETE(state, data) {
             state.data = data;
         },
         //수정(값 불러오기)
         SET_INFO_UPDATE(state, data) {
             state.cbAttachment = data;
-        },
+        }, */
  
         
         //로그인 성공
