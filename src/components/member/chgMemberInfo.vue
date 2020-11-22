@@ -146,7 +146,9 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 
 <script>
-import { mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
+
 import axios from "axios";
 import $ from 'jquery'
 

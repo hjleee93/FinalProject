@@ -203,7 +203,10 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("jobStore");
+
 
 var convert = require('xml-js')
 
@@ -242,7 +245,7 @@ export default {
               name: "jobList",
               params: { keyword: e },
             }); //이메일 찾음 -> 페이지 이동
-    }
+    },
   },
     created () {
       
@@ -250,15 +253,14 @@ export default {
       .then((response) => {
         var xml = response.data
         var json = convert.xml2json(xml, { compact: true })
-        this.rcmJson = JSON.parse(json);    
-        
+        this.rcmJson = JSON.parse(json);        
         
       })
   
   },
   mounted(){
     //action에 있는 loadXml 호출용 
-    this.$store.dispatch('loadXml')
+    this.$store.dispatch('jobStore/loadXml')
   },
   computed:{
     ...mapState([

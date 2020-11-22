@@ -37,7 +37,7 @@
 
             <b-card-body class="px-lg-5 py-lg-5 info-content">
               <div class="m-4 text-center">
-                <p class="text-center">탈퇴 즉시 회원정보 삭제</p>
+                <p class="text-center font-weight-bold h5">탈퇴 즉시 회원정보 삭제</p>
 
                 -탈퇴 즉시 이력서 및 구직활동 정보가 모두 삭제되며, 삭제된
                 정보는 복구되지 않습니다. 단, 공공적 성격의 게시물은 삭제되지
@@ -84,7 +84,8 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 
 <script>
-import { mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
 
 export default {
   data: () => ({

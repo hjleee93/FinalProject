@@ -64,7 +64,7 @@ new Vue({
   locale: 'ko',
   store,
   beforeCreate() {
-    this.$store.dispatch('getMemberInfo');
+    this.$store.dispatch('memberStore/getMemberInfo');
   },
   render: h => h(App),
   vuetify,
