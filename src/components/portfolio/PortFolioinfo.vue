@@ -6,16 +6,32 @@
       </div>
       </b-row>
       <b-row>
-        <b-col>제목</b-col>      
-    </b-row>
-    <div>{{pboardone}}</div>
- 
-    <div v-for="item in pboardone" :key="item.id">{{item}}</div>
-<b-row><b-col>
+        <b-col><b-card class="text-center"><b-form>
+        <b-row>
+          <b-col cols="2">  <b-form-group  label="제목"/></b-col>
+          <b-col> <b-form-input v-model="pboardone.pboardTitle" readonly/></b-col>
+        </b-row>
+          <b-row>
+          <b-col cols="2">  <b-form-group  label="작성자"/></b-col>
+          <b-col> <b-form-input v-model="pboardone.pboardWriter" readonly/></b-col>
+        </b-row>
+          <b-row>
+          <b-col cols="2">  <b-form-group  label="작성내용" readonly/></b-col>
+          <b-col> <b-form-textarea v-model="pboardone.pboardContent" readonly/></b-col>
+        </b-row>
+        
+          </b-form>
+          <b-row><b-col>
           <b-button @click="update">수정</b-button>
           <b-button @click="pdelete">삭제</b-button>
           
-  </b-col></b-row>
+  </b-col></b-row></b-card></b-col>
+      </b-row>
+      <div>{{pboardone}}</div>
+  
+  <div v-for="item in pboardone" :key="item.id">{{item}}</div>
+    
+
   <ModalView v-if="showModal" @close="showModal = false">
     <template>
       <div slot="header">
@@ -93,14 +109,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #subtitle{
 font-family: 'Barlow Semi Condensed', sans-serif;
 }
 .submenuimage{
   width: 100%;
   height:180px;
-  background-color:#ffffff;
+  background-color:#F4EEFF;
   text-align: center;
   line-height: 180px; 
 }

@@ -22,13 +22,13 @@
         <b-col>
           <b-card title="개설자정보" >
     <b-card-text>
-      <label for="name">개설자 이름:</label> <b-form-input id="name" v-model="mwriter" placeholder="이름"></b-form-input>
+      <label for="name">개설자 이름:</label> <b-form-input id="name" readonly v-model="userData.memberName" placeholder="이름"></b-form-input>
       </b-card-text>
      
       <b-card-text>
-     <label for="email">개설자 이메일:</label> <b-form-input id="email"   v-model="memail" type="email" placeholder="이메일"></b-form-input>
+     <label for="email">개설자 이메일:</label> <b-form-input id="email" readonly  v-model="userData.memberEmail" type="email" placeholder="이메일"></b-form-input>
       </b-card-text>
-    <b-card-text><label for="phone">개설자 전화번호:</label> <b-form-input  v-model="mphone" type="tel" id="phone" placeholder="번호"></b-form-input></b-card-text>
+    <b-card-text><label for="phone">개설자 전화번호:</label> <b-form-input readonly v-model="userData.memberPhone" type="tel" id="phone" placeholder="번호"></b-form-input></b-card-text>
   </b-card>
         </b-col>
       </b-row>
@@ -47,11 +47,21 @@
        <b-col class="d-flex" cols="4" sm="4"><b-form-group
       label-cols-sm="4"
       label-cols-lg="4"
-      label="신청 날짜"
+      label="마감 날짜"
       label-for="input-horizontal"
     >
              <b-form-datepicker id="example-datepicker2" v-model="fdate" class="mb-3"></b-form-datepicker>
           </b-form-group></b-col>
+          <b-col class="d-flex center" cols="4" sm="4">
+          <b-form-group
+      label-cols-sm="4"
+      label-cols-lg="4"
+      label="시작 날짜"
+      label-for="input-horizontal"
+    >
+             <b-form-datepicker id="example-datepicker"  v-model="rdate" class="mb-3"></b-form-datepicker>
+          </b-form-group>
+        </b-col  > 
       </b-row>
        <b-row>
          <b-col> <b-form-group class="slabel" label="백엔드" label-for="back"><b-form-spinbutton id="back" v-model="back" min="1" max="100"/></b-form-group>  </b-col>
@@ -151,6 +161,8 @@
 // import VueDaumMap from 'vue-daum-map'
 import axios from 'axios'
 import ModalView from '../common/ModalView.vue'
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
 export default {
   // mounted() { 
   //       mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -174,6 +186,9 @@ export default {
    // VueDaumPostcode,
     ModalView,
   } ,
+  computed: {
+      ...mapState(['userData'])
+  },
   methods: {
     
         // 지도가 로드 완료되면 load 이벤트 발생
@@ -194,9 +209,9 @@ export default {
         enroller(){
            let formData=new FormData();
           formData.append('mtitle',this.mtitle);
-          formData.append('mwriter',this.mwriter);
-          formData.append('memail',this.memail);
-          formData.append('mphone',this.mphone);
+          formData.append('mwriter',this.userData.memberName);
+          formData.append('memail',this.userData.memberEmail);
+          formData.append('mphone',this.userData.memberPhone);
           formData.append('sdate',this.sdate);
           formData.append('fdate',this.fdate);
           formData.append('back',this.back);
@@ -207,6 +222,7 @@ export default {
           formData.append('mcontent',this.mcontent);
           formData.append('langs',this.langs);
           formData.append('address',this.result.address);
+          formData.append('rdate',this.rdate);
           for(let key of formData.entries()){
           console.log(`${key}`);
             }
@@ -271,6 +287,7 @@ export default {
       mwriter:'',
       sdate:'',
       fdate:'',
+      radte:'',
       memail:'',
       mphone:'',
       files:'',
@@ -305,7 +322,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .slabel{
   text-align: center;
 }
@@ -317,5 +334,20 @@ export default {
 }
 .main{
   border:1px solid black
+}
+#subtitle{
+font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.submenuimage{
+  width: 100%;
+  height:180px;
+  background-color:#F4EEFF;
+  text-align: center;
+  line-height: 180px; 
+}
+.subtitle{
+  font-family: 'Masque';
+  color:#4e5157 ;
+  font-size: 50px;
 }
 </style>
