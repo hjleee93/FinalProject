@@ -114,6 +114,9 @@ export default {
 }
 </script>
 
+
+
 <style scoped>
 @import '../../assets/css/myPage.css';
+
 </style>

@@ -1,5 +1,6 @@
 //회원 관련 store
 import axios from 'axios'
+import router from '../../router';
 
 const memberStore = {
     namespaced: true,
@@ -12,7 +13,6 @@ const memberStore = {
     mutations: {
         //로그인 성공
         loginSuccess(state, payload) {
-
             state.loginStatus = true;
             state.loginError = false;
             state.userData = payload;
@@ -39,12 +39,14 @@ const memberStore = {
                         console.log("토큰 없: " + loginData.email)
                         commit('loginFalse')
 
+
                     } else {//토큰값 있음
 
                         localStorage.setItem("memberEmail", loginData.memberEmail)
                         localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
                         console.log("loginData: " + loginData);
                         dispatch("getMemberInfo", loginData)
+                        router.push('/');
 
 
                         // console.log("토큰 있: " + res)
@@ -63,10 +65,12 @@ const memberStore = {
         logout({ commit }) {
             localStorage.removeItem("memberEmail");
             localStorage.removeItem("access_token");
+            alert("로그아웃되었습니다.")
             commit('loginFalse');
         },
         //유저 정보 가져오기
         getMemberInfo({ commit }) {
+
             let memberEmail = localStorage.getItem("memberEmail")
             let token = localStorage.getItem("access_token")
             console.log("memberEmail: " + memberEmail)
@@ -83,6 +87,7 @@ const memberStore = {
                     .get('http://localhost:8082/itjobgo/member/getMember?memberEmail=' + memberEmail, config)
                     .then(response => {
                         var userData = {
+                            memberSq: response.data.memberSq,
                             memberAddr: response.data.memberAddr,
                             memberAddrDtl: response.data.memberAddrDtl,
                             memberAddrExtra: response.data.memberAddrExtra,
