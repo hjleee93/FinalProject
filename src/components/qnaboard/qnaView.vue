@@ -4,9 +4,9 @@
 
         <div class="container detail_">
 
-        <h7>작성일 : 20/11/02(x)</h7>
-        <h7 class="detail_top">작성자 : master17(x)</h7>
-        <h7 class="detail_top">조회수 : 1(x)</h7>
+        <h6>작성일 : 20/11/02(x)</h6>
+        <h6 class="detail_top">작성자 : master17(x)</h6>
+        <h6 class="detail_top">조회수 : 1(x)</h6>
             <div>
                 <hr>
                 <h5>제목 </h5>
@@ -18,11 +18,31 @@
                 <hr>
                 
                 <div class="detail_btn_div">
-                <b-button class="detail_btn" variant="primary" id="detailbtn1" @click="$router.push({name: 'detailpage_modify'}).catch(()=>{});">수정</b-button>
-                <b-button class="detail_btn" variant="primary" id="detailbtn1">삭제</b-button>
+                <b-button class="detail_btn" variant="primary" id="detailbtn1" @click="updateqna">수정</b-button>
+                <b-button class="detail_btn" variant="primary" id="detailbtn1" @click="deleteqna">삭제</b-button>
                 <b-button class="detail_btn" variant="primary" id="detailbtn1" to="/qnaBoard">목록</b-button>
                 </div>
             </div>
+
+    <!-- 삭제 모달 -->
+    <modal-view v-if="showModal" @close="showModal=false">
+    <template>
+        <div slot="header">
+            정말 삭제하시겠습니까?
+        </div>
+
+        <div slot="body">
+            <b-button @click="yesDeleteqna">
+                삭제하기
+            </b-button>
+            <b-button @click="noDeleteqna">
+                취소하기
+            </b-button>
+        </div>
+        <div slot="footer"></div>
+    </template>
+    </modal-view>
+
 
         </div>
       </div>
@@ -32,14 +52,19 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
-// import ModalView from '../common/ModalView.vue';
+
+import vueMoment from 'vue-moment';
+import Vue from 'vue'
+import { mapState } from 'vuex';
+import ModalView from '../common/ModalView.vue';
+
+Vue.use(vueMoment);
 
 export default {
 
     data(){
         return{
-            // showModal:false,
+            showModal:false,
             qnaBoardNo:0,
         }
     },
@@ -55,12 +80,44 @@ export default {
         })
     },
 
-    // components :{
-    //     ModalView,
-    
-    // }
-    
+    methods:{
+
+        //삭제버튼~~
+        deleteqna(){
+            this.showModal=!this.showModal;
+        },
+            //삭제버튼(네)
+        yesDeleteqna(){
+            let no=this.$route.params.id   
+            console.log(no);
+            this.$store.dispatch("FETCH_QNABOARD_DELETE",no);
+            //삭제 후 페이지 이동
+            this.$router.push({name:'qnaBoard'});
+        },
+        noDeleteqna(){
+            //삭제버튼(아니오)
+            this.showModal=!this.showModal;
+        },
+
+        //수정버튼~~
+        updateqna(){
+            //alert("수정버튼")
+            //수정도 router.js에 등록됨. name값을 이용해서 페이지 전환
+            let no=this.$route.params.id
+        console.log("수정버튼(params) :"+ no);
+        // console.log("글번호 :  : " + communityBoardNo)
+        this.$router.push({name:'qnaModify',params:{id:no}})
+        }
+
+
+    },
+
+    components :{
+        ModalView,
+    }
+
 }
+
 </script>
 
 <style>

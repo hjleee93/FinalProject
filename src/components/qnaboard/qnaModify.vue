@@ -2,116 +2,180 @@
 
 <div class="container">
   <div>
-			<h2 class="st_title">게시글 수정</h2><hr>
+			<h2 class="st_title">질문등록 및 수정</h2><hr>
+      qna게시판 객체(테스트) : {{qnaBoardView}}
+      qna게시판 제목(테스트) : {{qnaBoardView.qnaTitle}}
+      첨부파일 테스트 : {{qbAttachment}}
+      <!-- 데이터 넘기기 form 시작 -->
+    <form @submit.prevent="updateqna"
+    @reset="onReset" enctype="multipart/form-data">
 
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-
-      <b-form-group id="input-group-2" label="제목" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.title"
+      <b-form-group
+          id="input-group-1"
+          label="제목"
+          label-for="input-0"
+      > 
+      
+      <b-form-input
+          id="input-1"
+          name="qnaTitle"
+          type="text"
           required
-          placeholder="Enter title"
+          placeholder="제목을 입력해주세요"
+          v-model="qnaBoardView.qnaTitle"
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="작성자" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.name"
-          required
-          placeholder="Enter name"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-3" label="category" label-for="input-3">
+      <!-- 카테고리 선택 -->
+      <b-form-group id="input-group-2" 
+      label="분류" label-for="input-2" label-align="left">
         <b-form-select
-          id="input-3"
-          v-model="form.value"
-          :options="name"
+          id="input-2"
+          v-model="category"
+          :options="qnaCategory"
           required
         ></b-form-select>
       </b-form-group>
 
+      <!-- 에디터창, 내용 -->
       <b-form-group  label="내용" >
-        <vue-editor />
+        <vue-editor 
+          id="input-3"
+          v-model="qnaBoardView.qnaContent" 
+          name="qnaContent" />
       </b-form-group>
 
-      <div>
-        <p class="mt-2">첨부 파일<b>{{ file ? file.name : '' }}</b></p>
-        <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
-        <b-button @click="clearFiles" class="mr-2">Clear files</b-button>
-        <!-- <b-button @click="file = null">Reset via v-model</b-button> -->
+      <!-- 첨부 파일 -->
+      <b-form-group>
+        <b-form-file
+            id="files"
+            ref="upfiles"
+            v-on:change="handleFile"
+            :placeholder="qbAttachment.originalfilename"
+        ></b-form-file>
+      </b-form-group>
 
+        <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button>
+      <!-- <b-button @click="file = null">Reset via v-model</b-button> -->
 
-      <!-- <b-form-group id="input-group-4">
-      <br>
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-          <b-form-checkbox value="me">게시글 공개</b-form-checkbox>
-          <b-form-checkbox value="that">게시글 비공개</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group> -->
-
+    
+      <div id="btn_bottom">
+      <b-button  id="btn_write" @click="updateqna" class="btn-space">수정완료</b-button>
+      <b-button type="button" id="btn_write"  to="/qnaBoard" exact>목록으로</b-button>
       </div>
-      <div class="btn_sr">
-      <b-button type="submit" id="btn_write" variant="primary" class="btn-space">수정 저장</b-button>
-      <b-button type="reset" id="btn_write" variant="primary" class="btn-space" onclick="history.back(-1);">수정 취소</b-button>
-      </div>
-    </b-form>
 
-    <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
+    </form>
+
   </div>
+  
 </div>
 
 </template>
 
 <script>
 import { VueEditor } from "vue2-editor";
-// import { component } from 'vue/types/umd';
+import { mapState } from 'vuex';
+import axios from 'axios';
+
+
   export default {
+    
     data() {
-      return {
-        form: {
-          file: null,
-          email: '',
-          name: '',
-          value: null,
-          checked: []
-        },
-        name: [{ text: 'Select One', value: null }, 'Category 1-1', 'Category 1-2'],
-        show: true
+      return{
+        qnaTitle:"",
+        category:"null",
+        qnaWriter:"",
+        qnaAnswerYn:"N",
+        qnaCategory :[
+          { value: null, text: '분류를 선택해주세요' },
+          { value: '백엔드', text: '백엔드' },
+          { value: '프론트엔드', text: '프론트엔드' },
+        ],
+        qnaContent:"",
+        files:""
       }
     },
+
+    created() { 
+    const qnaboardNo=this.$route.params.id;
+      this.$store.dispatch("FETCH_QNABOARD_UPDATE",qnaboardNo)
+      console.log("지금하고있는 로그 " + qnaboardNo);
+    },
+
+    computed:{
+      ...mapState({
+        //mapState를 통해서 store.js에 저장된 (객체) data를 가져다 쓸수있다
+        qnaBoardView:state=>state.qnaBoardView,    
+        qbAttachment:state=>state.qbAttachment,
+
+      })
+    },
+
+    components:{
+      VueEditor,
+    },
+  
     methods: {
-      onSubmit(evt) {
-        evt.preventDefault()
-        alert(JSON.stringify(this.form))
+      updateqna(){
+        //새롭게 수정된 내용이 없다면 원래 객체의 컬럼값을 가져가도록
+        if(!this.qnaTitle){
+          this.qnaTitle=this.qnaView.qnaTitle;
+        }
+        if(!this.qnaContent){
+          this.qnaContent=this.qnaView.qnaContent;
+        }
+        if(!this.files){
+          this.files=this.qbAttachment.renamedfilename;
+        }
+
+        let formData = new FormData();
+        formData.append('qnaTitle',this.qnaTitle);
+        formData.append('qnaCategory',this.category);
+        formData.append('qnaWriter',this.qnaWriter);
+        formData.append('qnaAnswerYn',this.qnaAnswerYn);
+        formData.append('qnaContent',this.qnaContent.replace(/(<([^>]+)>)/ig,""))
+        formData.append('file',this.files);
+        //spring값 file, vue value값 files! zz
+
+        for(let key of formData.entries()){
+        console.log(`${key}`);
+        }
+        //console.log(this.category);
+      
+      axios.post("http://localhost:8082/itjobgo/qna/qnaBoardUpdateEnd",
+        formData,
+        { headers:{
+          'Content-Type':'multipart/form-data'
+        }}).then((data)=>console.log(data))
+        .catch((error)=>
+        console.log(error))
+        console.log(formData);
+        //저장완료, 화면전환 이동!
+        this.$router.push({name:'qnaBoard'})
       },
+    
+      handleFile(){
+        console.log(this.$refs.upfiles.$refs.input.files[0]);
+        this.files=this.$refs.upfiles.$refs.input.files[0];
+        console.log(this.files);
+      },
+
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
-        this.form.title = ''
-        this.form.name = ''
-        this.form.food = null
-        this.form.checked = []
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+        // this.form.email = ''
+        this.qnaTitle = ''
+        this.category = null
+        this.qnaContent=''
+        this.files.name=''
       },
+
       clearFiles() {
-        this.$refs['file-input'].reset()
-      }
-    },
-    components:{
-      VueEditor
+        this.$refs['upfiles'].reset()
+      },
+
     }
-}
-
-
+  }
 </script>
 
 <style>
@@ -120,15 +184,23 @@ import { VueEditor } from "vue2-editor";
   margin-bottom: 1%;
 }
 .btn_sr{
-  margin-top: 3%;
-  position:absolute;
-  left:44%;
+  padding-left: 37%;
+  margin: 5%;
+  margin-bottom: 5%;
 }
 .btn-space{
-  margin-right: 15px;
+  margin-right: 13px;
 }
 #btn_write{
   background-color:  #424874;
   border: 1px  #424874 solid;
+  color:white;
+}
+#file_btn{
+  margin-top: 1%;
+}
+#btn_bottom{
+  margin: 5%;
+  text-align: center;
 }
 </style>
