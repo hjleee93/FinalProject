@@ -30,7 +30,8 @@
           name="pboardWriter"
           required
           placeholder="작성자"
-          v-model="pboardWriter"
+          
+          v-model="userData.memberName"
         ></b-form-input>
        
       </b-form-group>
@@ -46,6 +47,7 @@
        <b-button @click="test" class="s-btn">확인</b-button>
       <b-button type="reset" class="r-btn">취소</b-button>
     </form>
+    <div>{{userData}}</div>
  </b-container>
  </div>
 </div>
@@ -54,26 +56,31 @@
 
 <script>
 import axios from 'axios';
+import { createNamespacedHelpers } from "vuex";
 import { VueEditor } from "vue2-editor";
+const { mapState } = createNamespacedHelpers("memberStore");
 export default {
  
   data() {
       return {
         pboardTitle:'',
-        pboardWriter:'',
         pboardContent:'',
         files:'',
        
       }
     },
+    computed: {
+        ...mapState(['userData'])
+    },
     components:{
-      VueEditor,
+      VueEditor,  
     },
     methods: {
       test(){
         let formData=new FormData();
-        formData.append('pboardWriter',this.pboardWriter);
+        formData.append('pboardWriter',this.userData.memberName);
         formData.append('pboardTitle',this.pboardTitle);
+        formData.append('memberSq',this.userData.memberSq)
         formData.append('pboardContent',this.pboardContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('file',this.files);
         for(let key of formData.entries()){
@@ -82,7 +89,9 @@ export default {
       axios.post("http://localhost:8082/itjobgo/portfolio/portfolioenroll.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
-        }}).then((data)=>console.log(data))
+        }}).then(()=>{
+          this.$route.push({name:'portlist'})
+          })
         .catch((error)=>
         console.log(error))
 
