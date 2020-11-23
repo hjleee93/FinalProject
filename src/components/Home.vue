@@ -179,7 +179,7 @@
       <div class="row">
         <div class="col-xl-3 col-sm-6 col-12"  v-for="(item, i) in jobs.wantedRoot.wanted" :key="i">
            <div class="card h-100">
-             <router-link :to="{name:'jobInfo', params:{wantedNo: item.wantedAuthNo._text}}" class="job-card" >
+             <router-link :to="{name:'jobInfoDtl', params:{wantedNo: item.wantedAuthNo._text}}" class="job-card" >
                 <div class="card-body">
                
                     <div class="card-title">{{ item.company._text }}</div>
@@ -203,7 +203,6 @@
 </template>
 
 <script>
-
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
 

@@ -8,9 +8,7 @@
       </div>
         <div class="container">      
         <br>
-        <b-row>
-          <b-col>   <h4 class="sub-header">포트폴리오</h4></b-col>
-        </b-row>
+      
         <b-row id="writecontain" align-h="end">
            <b-button to="/portfolioenroller" >글쓰기</b-button>
         </b-row>
@@ -114,14 +112,14 @@ import { mapState } from 'vuex';
   }
 </script>
 
-<style>
+<style scoped>
 #subtitle{
 font-family: 'Barlow Semi Condensed', sans-serif;
 }
 .submenuimage{
   width: 100%;
   height:180px;
-  background-color:#ffffff;
+  background-color:#F4EEFF;
   text-align: center;
   line-height: 180px; 
 }

@@ -8,9 +8,9 @@
       <b-col >
         <b-card> 
            <b-row>
-          <div class="f-box">일시:</div>
+          <div class="f-box">일시:{{new Date(minfo.rdate)}}</div>
         </b-row>
-           <b-row><div  class="f-box"> 정원:</div></b-row>
+           <b-row><div  class="f-box"> 정원:{{minfo.collabBack+minfo.collabFront+minfo.collabDesgin}}명</div></b-row>
            <b-row><div  class="f-box"> 장소:{{minfo.address}}</div></b-row>
            <b-row><div  class="f-box"> 개발언어:{{minfo.collabLang}}</div></b-row>
            </b-card>
@@ -55,7 +55,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #m-btn{
   background-color: #424874;
 }

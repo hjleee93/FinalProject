@@ -17,6 +17,8 @@ import {
     fetchCommunityBoardView,
     fetchCommunityBoardDelete,
     fetchCommunityBoardUpdate,
+    fetchNoticeList,
+
     //현주
     fetchQnaBoardList,
     fetchQnaBoardView,
@@ -58,6 +60,7 @@ export default new Vuex.Store({
         communityboard: [],
         communityboardView: [],
         communityboardDelete: [],
+<<<<<<< HEAD
         communityboardAttachment: [],
         cbAttachment:[],
 
@@ -66,15 +69,29 @@ export default new Vuex.Store({
         qnaBoardView:[],
         qnaBoardDelete:[],
         qbAttachment:[],
+=======
+        cbAttachment: [],
+        noticeList:[],
+
+
+
+        //현주(배신자)
+        qnaboard: [],
+        qnaBoardView: [],
+>>>>>>> 839dc24b0f1ca94530ae0c832423c338acc52549
 
         //민지
         infoList: [],
         infoDetail: [],
         infoForm: [],
 
+<<<<<<< HEAD
      
         loginStatus: false,//로그인 성공 여부
         loginError: false,
+=======
+        
+>>>>>>> 839dc24b0f1ca94530ae0c832423c338acc52549
 
     },
     actions: {
@@ -130,7 +147,7 @@ export default new Vuex.Store({
                 })
         },
 
-    
+
         //주은
         //자유게시판 list 불러오기
         FETCH_COMMUNITYBOARD({ commit }) {
@@ -161,6 +178,14 @@ export default new Vuex.Store({
             fetchCommunityBoardUpdate(boardSq)
                 .then(({ data }) => commit("SET_COMMUNITYBOARD_UPDATE", data))
                 .catch(({ error }) => console.log(error))
+        },
+        //공지사항 조회 
+        FETCH_NOTICE({commit}){
+            fetchNoticeList()
+                .then(({ data }) => commit("SET_NOTICE", data))
+                .catch(({ error }) => {
+                console.log(error);
+                })
         },
 
 
@@ -207,7 +232,7 @@ export default new Vuex.Store({
                 })
         },
         //상세화면
-         FETCH_INFO_DETAIL({ commit }, infoNo) {
+        FETCH_INFO_DETAIL({ commit }, infoNo) {
             fetchInfoDetail(infoNo)
                 .then(({ data }) => commit("SET_INFO_DETAIL", data))
                 .catch(({ error }) => {
@@ -217,19 +242,19 @@ export default new Vuex.Store({
         //삭제하기
         FETCH_INFO_DELETE({ commit }, infoNo) {
             fetchInfoDelete(infoNo)
-            .then(({data})=>commit("SET_INFO_DELETE", data))
-            .catch(({error})=>{
-                console.log(error);
-            })
+                .then(({ data }) => commit("SET_INFO_DELETE", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
         },
         //수정하기(객체 값 불러오기)
         FETCH_INFO_UPDATE({ commit }, infoSq) {
             fetchInfoUpdate(infoSq)
-                .then(({ data })=>commit("SET_INFO_UPDATE", data))
-                .catch(({ error })=>console.log(error))
+                .then(({ data }) => commit("SET_INFO_UPDATE", data))
+                .catch(({ error }) => console.log(error))
         },
 
-        
+
 
     },//action
 
@@ -272,7 +297,14 @@ export default new Vuex.Store({
         SET_COMMUNITYBOARD_UPDATE(state, data) {
             state.cbAttachment = data;
         },
+        //공지사항
+        SET_NOTICE(state,noticeList){
+            state.noticeList=noticeList;
+        },
 
+
+
+        
 
         //현주 게시판 리스트
         SET_QNABOARD(state, qnaboard) {
@@ -280,6 +312,7 @@ export default new Vuex.Store({
         },
         //qna게시판 상세화면
         SET_QNABOARD_VIEW(state, qnaBoardView) {
+<<<<<<< HEAD
         state.qnaBoardView = qnaBoardView;
         },   
         //자유게시판 삭제
@@ -291,6 +324,10 @@ export default new Vuex.Store({
             state.qbAttachment = data;
         },
 
+=======
+            state.qnaBoardView = qnaBoardView;
+        },
+>>>>>>> 839dc24b0f1ca94530ae0c832423c338acc52549
 
         //민지
         //리스트
@@ -298,19 +335,21 @@ export default new Vuex.Store({
             state.infolist = infolist;
         },
         //상세화면
-         SET_INFO_VIEW(state, infoview) {
+        SET_INFO_VIEW(state, infoview) {
             state.infoview = infoview;
         },
-   /*      //삭제
-        SET_INFO_DELETE(state, data) {
-            state.data = data;
-        },
-        //수정(값 불러오기)
-        SET_INFO_UPDATE(state, data) {
-            state.cbAttachment = data;
-        }, */
- 
-        
+        /*      //삭제
+             SET_INFO_DELETE(state, data) {
+                 state.data = data;
+             },
+             //수정(값 불러오기)
+             SET_INFO_UPDATE(state, data) {
+                 state.cbAttachment = data;
+     <<<<<<< HEAD
+     =======
+             }, */
+
+
         //로그인 성공
         loginSuccess(state, payload) {
 
@@ -325,8 +364,8 @@ export default new Vuex.Store({
             state.loginStatus = false;
             state.loginError = true;
         }
-       
+
     }//mutations 끝
-    
+
 
 })
