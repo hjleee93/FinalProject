@@ -283,21 +283,6 @@ export default new Vuex.Store({
              }, */
 
 
-        //로그인 성공
-        loginSuccess(state, payload) {
-
-            state.loginStatus = true;
-            state.loginError = false;
-            state.userData = payload;
-            console.log("로그인성공" + payload.memberEmail);
-        },
-        //로그인 실패
-        loginFalse(state) {
-            console.log("로그인실패");
-            state.loginStatus = false;
-            state.loginError = true;
-        }
-
     }//mutations 끝
 
 

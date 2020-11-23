@@ -59,7 +59,7 @@
                     <b-icon icon="exclamation-circle-fill" variant="danger"></b-icon> 이메일 혹은 비밀번호를 잘못 입력하셨습니다.</span>
                   <b-form-checkbox v-model="model.rememberMe">Remember me</b-form-checkbox>
                   <div class="text-center">
-                    <base-button type="primary" @click="login({memberEmail: model.email, memberPwd:model.password})" class="my-4">Sign in</base-button>
+                    <base-button type="primary" @click="login()" class="my-4">Sign in</base-button>
                     
                   </div>
                 </b-form>

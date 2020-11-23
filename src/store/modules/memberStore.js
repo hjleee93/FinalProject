@@ -69,7 +69,42 @@ const memberStore = {
             localStorage.removeItem("access_token");
 
             Vue.swal({ text: "로그아웃되었습니다." })
+            router.push('/');
             commit('loginFalse');
+        },
+        deleteMember({ commit }, loginData) {
+            axios.post("http://localhost:8082/itjobgo/member/deleteMember", loginData) //form server 연결
+                .then((res) => {
+                    if (res.data > 0) {
+                        //업데이트 ok
+                        Vue.swal({
+                            text: "탈퇴가 완료되었습니다. 그동안 ItJobGo를 이용해주셔서 감사합니다.",
+                            icon: "success"
+                        })
+
+                        localStorage.removeItem("memberEmail");
+                        localStorage.removeItem("access_token");
+                        commit('loginFalse');
+                        router.push('/');//탈퇴 후 경로
+                    } else if (res.data == -1) {//비밀번호 틀린경우 
+
+                        Vue.swal({
+                            text: "비밀번호가 틀렸습니다. 다시 확인해주세요",
+                            icon: "error"
+                        });
+                    } else {
+                        Vue.swal({
+                            text: "탈퇴에 실패했습니다. 다시 한 번 시도해주시거나 관리자에게 문의해주세요",
+                            icon: "error"
+                        });
+                    }
+                })
+                .catch(() => {
+                    Vue.swal({
+                        text: "탈퇴에 실패했습니다. 관리자에게 문의해주세요",
+                        icon: "error"
+                    });
+                });
         },
         //유저 정보 가져오기
         getMemberInfo({ commit }) {
