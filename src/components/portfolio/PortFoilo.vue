@@ -77,7 +77,7 @@ import { mapState } from 'vuex';
     
     methods: {
       handleClick(value){
-        alert(value.pboardNo);
+     
         this.$router.push({name:'Portinfo',params:{id:value.pboardNo}})
         console.log(value)
       }

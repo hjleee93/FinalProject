@@ -20,6 +20,11 @@ function fetchPboardDel(no) {
 function fetchPboardUp(no) {
     return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`)
 }
+//첨부파일내용가져오기
+function fetchAttachment(no){
+    return axios.get(`${config.Url}portfolio/attachment${no}.do`)
+}
+
 //모임
 function fetchMeeting() {
     return axios.get(`${config.Url}meeting/meetingList.do`);
@@ -30,6 +35,7 @@ function fetchmsublist(){
 function fetchMeetinginfo(no){
     return axios.get(`${config.Url}meeting/meetinginfo${no}.do`)
 }
+
 
 
 
@@ -97,6 +103,7 @@ export {
     fetchPboardOne,
     fetchPboardUp,
     fetchPboardDel,
+    fetchAttachment,
     //모임
     fetchMeeting,
     fetchMeetinginfo,

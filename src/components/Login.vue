@@ -59,7 +59,7 @@
                     <b-icon icon="exclamation-circle-fill" variant="danger"></b-icon> 이메일 혹은 비밀번호를 잘못 입력하셨습니다.</span>
                   <b-form-checkbox v-model="model.rememberMe">Remember me</b-form-checkbox>
                   <div class="text-center">
-                    <base-button type="primary" @click="login({memberEmail: model.email, memberPwd:model.password})" class="my-4">Sign in</base-button>
+                    <base-button type="primary" @click="login()" class="my-4">Sign in</base-button>
                     
                   </div>
                 </b-form>
@@ -93,11 +93,13 @@ const { mapState } = createNamespacedHelpers("memberStore");
     data() {
       
       return {
+         kakao_client_id: "e1e8126c8b7e3af4fd185b1774cddd2c",
+        redirect_uri: "http://localhost:8081/loginCallback",
         CLIENT_ID: 'aYgNgGmIwR3wysmlCfRd',
         redirectURI:`http://localhost:8082/itjobgo/member/naverLogin`,
          naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
          isPopup: true,
-         state:123,
+         state:123,//TODO : 랜덤값 나올 수 있게 바꾸기
         test1: [],
         model: {
           email: '',
@@ -115,7 +117,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
     Kakao.API.request({
       url: '/v2/user/me',
       success(response) {
-        console.log(response)
+        console.log(response.kakao_account)
       },
       fail(error) {
         console.log(error)
@@ -130,16 +132,14 @@ const { mapState } = createNamespacedHelpers("memberStore");
         console.log("email: " + memberEmail)
         console.log("password: " + memberPwd)
         this.$store.dispatch('memberStore/login', { memberEmail, memberPwd })
-       .then(() => 
-       alert("로긴")
-      //  this.$router.push('/')
-       )
-       .catch(err => console.log(err))
+      
       },
       kakaoLogin() {
       Kakao.Auth.authorize({
         redirectUri: `${window.location.origin}/loginCallback`
       })
+      
+    
       
     }
       
