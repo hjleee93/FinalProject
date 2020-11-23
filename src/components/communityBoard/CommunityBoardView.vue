@@ -24,7 +24,7 @@
           <h2 class="sub-header">게시판 제목(임시) : {{communityboardView.boardTitle}}</h2>
           <br>
 
-          <div align="right">
+          <div align="right" v-if="userData.memberSq===communityboardView.memberNum">
               <b-button @click="updateBoard" id="st_write2">수정하기</b-button>
               <b-button @click="deleteBoard" id="st_write3">삭제하기</b-button>
           </div>  
@@ -58,6 +58,8 @@
             <br><br>
           
             분류  표시(임시) : {{communityboardView.boardDivision}}
+            <br>
+             <div>맴버객체 : {{userData}}</div>
 
    
             </div>
@@ -75,6 +77,8 @@ import vueMoment from 'vue-moment';
 import Vue from 'vue'
 import { mapState } from 'vuex';
 import ModalView from '../common/ModalView.vue';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 
 Vue.use(vueMoment);
 
@@ -95,7 +99,9 @@ export default {
     computed:{
       ...mapState({
         communityboardView:state=>state.communityboardView       
-      })
+      }),
+      ...loadUserState(['userData'])
+      
     },
 
     methods:{

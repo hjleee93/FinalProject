@@ -7,7 +7,7 @@
         <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
           <!-- 메인 이미지 -->
               <div class="submenuimage ">
-                  <p class="subtitle" id="subtitle">Community</p>
+                  <p class="subtitle" id="subtitle">Notice</p>
               </div>
               
         <!-- 탭 -->   
@@ -30,12 +30,7 @@
                글쓰기
            </v-btn>
 
-          <!-- 임시버튼 -->
-          <v-btn to="/communityBoardView" exact  id="st_write">
-               상세페이지
-           </v-btn>
-
-          <div class="overflow-auto">
+          <div class="overflow-hidden">
 
          <!-- 테이블 -->
         <v-card>

@@ -89,7 +89,6 @@ import axios from 'axios'
       ...mapState({
         //mapState를 통해서 store에 저장된 (객체) data를 가져다 쓸수있다
         communityboardView:state=>state.communityboardView,    
-
         cbAttachment:state=>state.cbAttachment,
       })
     },

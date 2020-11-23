@@ -30,12 +30,7 @@
                글쓰기
            </v-btn>
 
-          <!-- 임시버튼 -->
-          <v-btn to="/communityBoardView" exact  id="st_write">
-               상세페이지
-           </v-btn>
-
-          <div class="overflow-auto">
+          <div class="overflow-hidden">
 
          <!-- 테이블 -->
         <v-card>
@@ -57,15 +52,23 @@
                 :search="search"
                 @click:row="handleClick"
                 item-key="name"
+                hide-action
+                
               >
               <!-- 수정중 -->
-                <template slot="items" slot-scope="props">
+                <!-- <template slot="items" slot-scope="props">
                   <tr>
-                     <td>{{ props.item.boardDivision }}</td>
-                     <td>{{ props.item.boardTitle }}</td>
-                     <td>{{ formatDate(props.item.boardDate) }}</td>
+                     <td>{{ props.communityboard.boardDivision }}</td>
+                     <td>{{ props.communityboard.boardTitle }}</td>
+                     <td>{{ props.communityboard.boardWriter }}</td>
+                     <td>{{ formatDate(props.communityboard.boardDate) }}</td>
+                     <td>{{ props.communityboard.boardCount }}</td>
                    </tr>
-                </template>
+                </template> -->
+
+
+
+
 
               </v-data-table>
         </v-card>
@@ -77,8 +80,9 @@
   <li v-for="com in community " :key="com.id" > {{com.boardContent}}</li>
 </ul> -->
 
-
-<!-- 임시테스트 테이블 -->
+<!-- <div> 임시 객체 : {{communityboardView.boardDate}}</div> -->
+<!-- <div> 임시 객체 : {{communityboard.boardDate}}</div> -->
+<!-- <div> 임시 객체 : {{communityboard.boardDate[0]}}</div> -->
     </div>
   </body>
 </template>
@@ -108,11 +112,12 @@ Vue.use(vueMoment);
     },
     computed:{
         ...mapState({
-            communityboard:state=>state.communityboard
+            communityboard:state=>state.communityboard,
+            // communityboardView:state=>state.communityboardView       
         })
     },
 
-      methods: {
+methods: {
     handleClick(value){
       // alert(value.boardSq);
       this.$router.push({name:'CommunityBoardView',params:{id:value.boardSq}});
@@ -122,15 +127,16 @@ Vue.use(vueMoment);
     },
 
   // 수정중
-        formatDate(value) {
+    formatDate(value) {
+      console.log(value);
       return this.$moment(value).format("MMM Do YY");
-  }
-  },
+    }
+  },//method 끝
 
     data() {
       return {
       // community: [],
-      // boardDate: communityboardView.boardDate | moment('YYYY-MM-DD') ,
+      boardDate2:"{this.communityboard.boardDate | this.$moment('YYYY-MM-DD')}" ,
       search: '',
         headers: [
           {
@@ -140,9 +146,12 @@ Vue.use(vueMoment);
             value: 'boardDivision',
           },
           { text: '제목', value: 'boardTitle' },
+          { text: '작성자', value : 'boardWriter'},
           //수정중입니다.
-          // { text: '작성날짜', value: '[boardDate | moment("YYYY-MM-DD")]' ,dataType: "Date" },
-          { text: '작성날짜', value: 'boardDate' },
+          // { text: '작성날짜', value: '[boardDate | this.$moment("YYYY-MM-DD")]' ,dataType: "Date" },
+          { text: '작성날짜', value: '{boardDate2}'},
+          { text: '조회수', value: 'boardCount' }
+          
           
         ],
         
@@ -158,5 +167,7 @@ Vue.use(vueMoment);
 <style>
 @import '../../assets/css/BoardList.css';
 
-
+.example::-webkit-scrollbar {
+  display: none;
+}
 </style>

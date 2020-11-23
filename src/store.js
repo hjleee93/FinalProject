@@ -58,12 +58,12 @@ export default new Vuex.Store({
         communityboard: [],
         communityboardView: [],
         communityboardDelete: [],
-        communityboardAttachment: [],
+        cbAttachment: [],
         noticeList:[],
 
 
 
-        //현주
+        //현주(배신자)
         qnaboard: [],
         qnaBoardView: [],
 
@@ -72,7 +72,7 @@ export default new Vuex.Store({
         infoDetail: [],
         infoForm: [],
 
-        cbAttachment: []
+        
 
     },
     actions: {
