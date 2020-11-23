@@ -156,18 +156,19 @@
       <div class="row">
         <div class="col-xl-3 col-sm-6 col-12" v-for="(item, i) in rcmJson.wantedRoot.wanted" :key="i">
            <div class="card h-100">
-              <a @click="moveDetailPage(item.wantedAuthNo._text)"  class="job-card">
+                <router-link :to="{name:'jobInfoDtl', params:{wantedNo: item.wantedAuthNo._text}}" class="job-card" >
                 <div class="card-body">
                     <div class="card-title">{{ item.company._text }}</div>
                     <div>
                       <b-card-text>{{ item.title._text }}</b-card-text>
                     </div>
 
-                    <div>
-                      <b-card-text>등록 일자: {{ item.regDt._text }}</b-card-text>
+                    </div>
+                    <div class="card-footer">
+                     <small> <b-card-text>등록 일자: {{ item.regDt._text }}</b-card-text></small>
                     </div>                    
-                </div>
-              </a>
+                
+              </router-link>  
             </div>
           
         </div>
@@ -185,12 +186,13 @@
                     <div class="card-title">{{ item.company._text }}</div>
                     <div>
                       <b-card-text>{{ item.title._text }}</b-card-text>
+                </div>
                     </div>
-                    <div>
-                      <b-card-text>등록 일자: {{ item.regDt._text }}</b-card-text>
+                    <div class="card-footer">
+                      <small><b-card-text>등록 일자: {{ item.regDt._text }}</b-card-text></small>
                     </div>
                                       
-                </div>
+                
                 </router-link>  
             </div>
           
@@ -232,12 +234,6 @@ export default {
     };
   },
   methods: {
-    
-    moveDetailPage: function(e){
-       this.$router.push({
-        name: 'jobInfo',
-        params: {wantedNo:e}});
-    },
     //서치바 
     jobSearch: function(e){
        this.$router.push({ 
@@ -287,11 +283,20 @@ export default {
   font-weight: bold;
 }
 .table-content {
-  height: 50px;
+  height: 60px;
 }
 .info-card {
   border: 1px solid #ededed;
   height: 130px;
+}
+.card-title{
+  height:60px;
+}
+.card-footer{
+  height:45px;
+}
+.card-text{
+  height:50px;
 }
 
 .main-top {

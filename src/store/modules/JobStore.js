@@ -34,6 +34,7 @@ const jobStore = {
                 });
         },
         loadJobDetail({ commit }, wantedNo) { //상세페이지 
+            console.log("wantedNo: " + JSON.stringify(wantedNo));
             axios.get(
                 "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=D&returnType=XML&infoSvc=VALIDATION&wantedAuthNo=" +
                 wantedNo.wantedNo
@@ -89,7 +90,8 @@ const jobStore = {
                             title: this.jobInfo.wantedRoot.wanted[0].title._text,
                             ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
                             Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
-                            deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text
+                            deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text,
+                            jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text
                         }
                     ]
                     for (let i = 1; i < 100; i++) {
@@ -101,7 +103,8 @@ const jobStore = {
                                 title: companyName[i].title._text,
                                 ability: companyName[i].minEdubg._text,
                                 Condition: companyName[i].sal._text,
-                                deadline: companyName[i].closeDt._text
+                                deadline: companyName[i].closeDt._text,
+                                jobNo: companyName[i].wantedAuthNo._text
                             }
                         )
                         //console.log(companyName.company._text);
