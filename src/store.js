@@ -17,6 +17,8 @@ import {
     fetchCommunityBoardView,
     fetchCommunityBoardDelete,
     fetchCommunityBoardUpdate,
+    fetchNoticeList,
+
     //현주
     fetchQnaBoardList,
     fetchQnaBoardView,
@@ -56,9 +58,12 @@ export default new Vuex.Store({
         communityboard: [],
         communityboardView: [],
         communityboardDelete: [],
-        communityboardAttachment: [],
+        cbAttachment: [],
+        noticeList:[],
 
-        //현주
+
+
+        //현주(배신자)
         qnaboard: [],
         qnaBoardView: [],
 
@@ -67,7 +72,7 @@ export default new Vuex.Store({
         infoDetail: [],
         infoForm: [],
 
-        cbAttachment: []
+        
 
     },
     actions: {
@@ -154,6 +159,14 @@ export default new Vuex.Store({
             fetchCommunityBoardUpdate(boardSq)
                 .then(({ data }) => commit("SET_COMMUNITYBOARD_UPDATE", data))
                 .catch(({ error }) => console.log(error))
+        },
+        //공지사항 조회 
+        FETCH_NOTICE({commit}){
+            fetchNoticeList()
+                .then(({ data }) => commit("SET_NOTICE", data))
+                .catch(({ error }) => {
+                console.log(error);
+                })
         },
 
 
@@ -251,7 +264,14 @@ export default new Vuex.Store({
         SET_COMMUNITYBOARD_UPDATE(state, data) {
             state.cbAttachment = data;
         },
+        //공지사항
+        SET_NOTICE(state,noticeList){
+            state.noticeList=noticeList;
+        },
 
+
+
+        
 
         //현주 게시판 리스트
         SET_QNABOARD(state, qnaboard) {
