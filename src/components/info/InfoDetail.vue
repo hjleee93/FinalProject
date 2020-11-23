@@ -24,9 +24,9 @@
                  첨부 파일 :
                 </div>
                 <div class="detail_btn_div">
-                  <v-btn to="/infoForm" exact id="modify"  @click="updateInfo">수정</v-btn>
-                  <v-btn to="/" exact id="delete" @click="deleteinfo">삭제</v-btn>
-                  <v-btn to="/infoList" exact id="list">목록</v-btn>
+                  <v-btn id="modify"  @click="updateInfo">수정</v-btn>
+                  <v-btn id="delete" @click="deleteinfo">삭제</v-btn>
+                  <v-btn id="list">목록</v-btn>
                 </div>
             </div>
 
@@ -50,13 +50,13 @@
           <div class="overflow-auto">
             <div id="content-div">
               
-              게시판 내용(임시) : {{infoDetail.InfoContent}}
+            (임시)게시판 내용 : {{infoDetail.infoContent}}
 
             <br>
             (임시)게시판 객체 : {{infoDetail}}
 
             <br><br>
-            게시판 객체(임시) : {{infoDetail}}
+            (임시)분류 표시 : {{infoDetail.infoCategory}}
 
    <!-- 
             </div>
@@ -91,6 +91,7 @@ export default {
 
     computed:{
       ...mapState({
+      
         infoDetail:state=>state.infoDetail       
       })
     },
@@ -108,10 +109,10 @@ export default {
       updateInfo(){
         let no=this.$route.params.id
         console.log("수정버튼(params) :"+ no);
-        this.$router.push({name:'InfoUpdate',params:{id:no}})
+        this.$router.push({name:'infoUpdate',params:{id:no}})
       },
      //삭제버튼
-      deleteInfo(){
+      deleteinfo(){
         this.showModal=!this.showModal;  
       }, 
       //삭제버튼(네)

@@ -75,7 +75,7 @@ import { mapState } from 'vuex';
    methods: {
     handleClick(value){
       alert(value.infoSq);
-      this.$router.push({name:'InfoDetail',params:{id:value.infoSq}});
+      this.$router.push({name:'infoDetail',params:{id:value.infoSq}});
       console.log(value);
       // console.log(value.infoSq);
     

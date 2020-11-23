@@ -61,14 +61,6 @@ function fetchQnaBoardList() {
 function fetchQnaBoardView(QnaSeq){
     return axios.get(`${config.Url}qna/qnaBoardView${QnaSeq}`)
 }
-
-
-
-
-
-
-
-
 // 민지
 // info(취업정보)
 // 조회 리스트
