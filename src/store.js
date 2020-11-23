@@ -60,7 +60,6 @@ export default new Vuex.Store({
         communityboard: [],
         communityboardView: [],
         communityboardDelete: [],
-<<<<<<< HEAD
         communityboardAttachment: [],
         cbAttachment:[],
 
@@ -69,29 +68,15 @@ export default new Vuex.Store({
         qnaBoardView:[],
         qnaBoardDelete:[],
         qbAttachment:[],
-=======
-        cbAttachment: [],
-        noticeList:[],
-
-
-
-        //현주(배신자)
-        qnaboard: [],
-        qnaBoardView: [],
->>>>>>> 839dc24b0f1ca94530ae0c832423c338acc52549
 
         //민지
         infoList: [],
         infoDetail: [],
         infoForm: [],
 
-<<<<<<< HEAD
      
         loginStatus: false,//로그인 성공 여부
         loginError: false,
-=======
-        
->>>>>>> 839dc24b0f1ca94530ae0c832423c338acc52549
 
     },
     actions: {
@@ -312,7 +297,6 @@ export default new Vuex.Store({
         },
         //qna게시판 상세화면
         SET_QNABOARD_VIEW(state, qnaBoardView) {
-<<<<<<< HEAD
         state.qnaBoardView = qnaBoardView;
         },   
         //자유게시판 삭제
@@ -324,10 +308,6 @@ export default new Vuex.Store({
             state.qbAttachment = data;
         },
 
-=======
-            state.qnaBoardView = qnaBoardView;
-        },
->>>>>>> 839dc24b0f1ca94530ae0c832423c338acc52549
 
         //민지
         //리스트

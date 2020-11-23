@@ -119,10 +119,10 @@ import axios from 'axios';
       updateqna(){
         //새롭게 수정된 내용이 없다면 원래 객체의 컬럼값을 가져가도록
         if(!this.qnaTitle){
-          this.qnaTitle=this.qnaView.qnaTitle;
+          this.qnaTitle=this.qnaBoardView.qnaTitle;
         }
         if(!this.qnaContent){
-          this.qnaContent=this.qnaView.qnaContent;
+          this.qnaContent=this.qnaBoardView.qnaContent;
         }
         if(!this.files){
           this.files=this.qbAttachment.renamedfilename;
@@ -133,6 +133,10 @@ import axios from 'axios';
         formData.append('qnaCategory',this.category);
         formData.append('qnaWriter',this.qnaWriter);
         formData.append('qnaAnswerYn',this.qnaAnswerYn);
+
+        //아이디값=글번호 받아오기
+        formData.append('qnaSeq',this.$route.params.id);
+
         formData.append('qnaContent',this.qnaContent.replace(/(<([^>]+)>)/ig,""))
         formData.append('file',this.files);
         //spring값 file, vue value값 files! zz
