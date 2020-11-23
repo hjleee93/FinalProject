@@ -36,6 +36,7 @@
         ></b-form-select>
       </b-form-group>
 
+
       <!-- 에디터 창 -->
       <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
         <vue-editor  id="input-3" v-model="communityboardView.boardContent" 
