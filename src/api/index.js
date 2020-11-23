@@ -57,6 +57,10 @@ function fetchCommunityBoardDelete(boardSq) {
 function fetchCommunityBoardUpdate(boardSq) {
     return axios.get(`${config.Url}community/communityBoardUpdate${boardSq}`)
 }
+//공지사항 조회
+function fetchNoticeList(){
+   return axios.get(`${config.Url}notice/noticeList`)
+}
 
 //현주 //qnaBoard(qna게시판)
 //조회
@@ -106,11 +110,14 @@ export {
     fetchmsublist,
 
     //주은
-    //자유게사판CommunityBoard
+        //자유게사판CommunityBoard
     fetchCommunityBoardList,
     fetchCommunityBoardView,
     fetchCommunityBoardDelete,
     fetchCommunityBoardUpdate,
+        //공지사항 Notice
+    fetchNoticeList,
+
 
     //현주
     //qna게시판
