@@ -8,6 +8,8 @@ import {
     fetchPboardOne,
     fetchPboardDel,
     fetchPboardUp,
+    fetchAttachment,
+  
     //모임
     fetchMeeting,
     fetchmsublist,
@@ -49,6 +51,7 @@ export default new Vuex.Store({
         pboardone: [],
         msg: '',
         attachment: [],
+        attachment2:[],
         //모임
 
         meeting: [],
@@ -107,6 +110,13 @@ export default new Vuex.Store({
                 .then(({ data }) => commit("SET_PBOARDUP", data))
                 .catch(({ error }) => console.log(error))
         },
+        //게시판번호로 첨부파일내용 가져오가
+        FETCH_ATTACHMENT({commit},no){
+            fetchAttachment(no)
+            .then(({data})=>commit("SET_ATTACHMENT",data))
+            .catch(({ error }) => console.log(error))
+        },
+        
         //모임 
         FECH_MEETINGLIST({ commit }) {
             fetchMeeting()
@@ -257,6 +267,9 @@ export default new Vuex.Store({
         SET_PBOARDUP(state, data) {
             state.attachment = data;
         },
+        SET_ATTACHMENT(state,data){
+            state.attachment2=data;
+        },
         //모임
         SET_MEETING(state, data) {
             state.meeting = data;
@@ -329,21 +342,6 @@ export default new Vuex.Store({
      =======
              }, */
 
-
-        //로그인 성공
-        loginSuccess(state, payload) {
-
-            state.loginStatus = true;
-            state.loginError = false;
-            state.userData = payload;
-            console.log("로그인성공" + payload.memberEmail);
-        },
-        //로그인 실패
-        loginFalse(state) {
-            console.log("로그인실패");
-            state.loginStatus = false;
-            state.loginError = true;
-        }
 
     }//mutations 끝
 
