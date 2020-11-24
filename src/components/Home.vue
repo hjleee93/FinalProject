@@ -7,14 +7,14 @@
       
       <!-- serach 바 -->
         <div class="banner-content col-lg-12">
-          <form action="" class="serach-form-area">
+          <b-form action="" class="serach-form-area">
             <div class="row justify-content-center form-wrap">
               <div class="col-lg-4 form-cols ">
-                <input
-                
+                <b-form-input                
                   type="text"
                   class="form-control"
                   name="search"
+                  v-model="keyword"
                   placeholder="검색어를 입력해주세요"/>
               </div>
               <div class="col-lg-3 form-cols">
@@ -46,12 +46,12 @@
               </div>
 
               <div class="col-lg-2 form-cols">
-                <b-button type="button" class="btn btn-info" @click="jobSearch(inputSearch)">
+                <b-button type="button" class="btn btn-info" @click="jobSearch()">
                   <span class="lnr lnr-magnifier"></span> Search
                 </b-button>
               </div>
             </div>
-          </form>
+          </b-form>
         </div>
 
         <!-- 메인 -->
@@ -235,11 +235,12 @@ export default {
   },
   methods: {
     //서치바 
-    jobSearch: function(e){
+    jobSearch: function(){
+      let keyword= this.keyword;
        this.$router.push({ 
-              name: "jobList",
-              params: { keyword: e },
-            }); //이메일 찾음 -> 페이지 이동
+              name: "jobSearchDtl",
+              params: { keyword: keyword }//검색 keyword pass
+            }); 
     },
   },
     created () {
