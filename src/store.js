@@ -64,14 +64,8 @@ export default new Vuex.Store({
         communityboard: [],
         communityboardView: [],
         communityboardDelete: [],
-<<<<<<< HEAD
         communityboardAttachment: [],
         cbAttachment:[],
-=======
-        cbAttachment: [],
-        cbAttachment2:[],
-        noticeList:[],
->>>>>>> cb6b29ee1d1491f99f9f60e69b190acdf9f2ba68
 
         //현주
         qnaboard:[],
