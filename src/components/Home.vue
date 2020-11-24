@@ -77,72 +77,62 @@
 
           </b-carousel>
         </div>
-        <!-- 자유게시판같은 게시판 글 연동  -->
+        <!-- 자유게시판  -->
         <div class="col-4 pl-0">
+          
           <div class="row">
-            <div class="card col-6 m-0 p-0 info-card">
-              <div class="col-8 p-l-0">
-                <h5>자유게시판~~~</h5>
-                <p class="text-muted m-b-0">자유게시판</p>
+            <template v-if="communityboard">
+            <div class="card col-6 m-0 p-0 info-card"  >
+            
+              <div class="m-2">
+                <b-btn class="ntc-btn">공지</b-btn><span></span>
+                
+                <p class="text-muted m-b-0"></p>
               </div>
             </div>
-            <div class="card col-6 m-0 p-0 info-card">
-              <div class="col-8 p-l-0">
-                <h5>회사이름</h5>
-                <p class="text-muted m-b-0">직무</p>
+            </template>
+            <template v-if="communityboard">
+            <div class="card col-6 m-0 p-0 info-card"  >
+            
+              <div class="m-2">
+                <b-btn class="com-btn">자유</b-btn><span>{{communityboard[0].boardTitle}}</span>
+                
+                <p class="text-muted m-b-0">{{communityboard[0].boardContent}}</p>
               </div>
             </div>
-            <div class="card col-6 m-0 p-0 info-card">
-              <div class="col-8 p-l-0">
-                <h5>QNA</h5>
-                <p class="text-muted m-b-0">QNA</p>
+            </template>
+            
+           
+            <!-- qna -->
+            <template v-if="qnaboard">
+            <div class="card col-6 m-0 p-0 info-card"  v-for="i in 2" :key="i">
+              
+              <div class="m-2">
+                <div class="qst"><b-btn class="qna-btn">질문</b-btn><span>{{qnaboard[i].qnaTitle}}</span></div>
+                <p class="text-muted m-b-0">{{qnaboard[i].qnaContent}}</p>
+                <div class="ans"><b-btn class="ans-btn">답변</b-btn><span>{{qnaboard[i].qnaAnswerYn}}</span></div>
               </div>
+              
             </div>
-            <div class="card col-6 m-0 p-0 info-card">
-              <div class="col-8 p-l-0">
-                <h5>10K</h5>
-                <p class="text-muted m-b-0">Visitors</p>
-              </div>
-            </div>
+            </template>
           </div>
         </div>
 
-        <div class="col-4 p-0">
+        <div class="col-4 p-0 collab">
           <div class="card table-card">
             <div class="card-header ">
-              <h5>최근협업</h5>
+              <h5 class="text-center">최근 등록된 모임</h5>
             </div>
             <table>
-              <tr>
+              <tr v-for="i in 4" :key="i">
                 <td>
                   <div class="table-content">
-                    <p>
-                      뉴스제목뉴스제목뉴스제목뉴스제목뉴스제목뉴스제목뉴스제목뉴스제목
-                    </p>
+                    <p><b>{{meeting[i].collabTitle}}</b></p>
+                    <p>{{meeting[i].collabSimcontent}}</p>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <div class="table-content">
-                    <p>뉴스제목</p>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="table-content">
-                    <p>뉴스제목</p>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="table-content">
-                    <p>뉴스제목</p>
-                  </div>
-                </td>
-              </tr>
+              
             </table>
           </div>
         </div>
@@ -206,7 +196,9 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapState } = createNamespacedHelpers("jobStore");
+import { mapState } from "vuex";
+const { mapState:jobState } = createNamespacedHelpers("jobStore");
+const { mapState:memberState } = createNamespacedHelpers("memberStore");
 
 
 var convert = require('xml-js')
@@ -223,6 +215,8 @@ export default {
       rcmJson:[],//추천 채용정보 
       selectedLocation: null,
       selectedJob: null,
+      keyword:'',
+
    
       options2: [
         { value: null, text: "직무를 선택해주세요" },
@@ -256,22 +250,68 @@ export default {
   },
   mounted(){
     //action에 있는 loadXml 호출용 
-    this.$store.dispatch('jobStore/loadXml')
+    this.$store.dispatch('jobStore/loadXml'),
+    this.$store.dispatch("FETCH_QNABOARD"),
+    this.$store.dispatch("FETCH_COMMUNITYBOARD"),
+    this.$store.dispatch("FECH_MEETINGLIST")
   },
   computed:{
-    ...mapState([
+    //구직정보 데이터
+    ...jobState([
       //매핑값
       'jobs'
+    ]),
+    //유저데이터 호출
+    ...memberState([
+      'userData'
+    ]),
+    ...mapState([
+      'qnaboard','communityboard','meeting'
     ])
   }
   
 };
 </script>
 <style scoped>
+/* 상단 박스 css */
 
+.qna-btn, .ans-btn,.com-btn,.ntc-btn{
+    height: 26px !important;
+    width: 45px !important;
+    font-size: 13px;
+    padding: 0px;
+    display: inline-block;
+    cursor: auto !important;
+    pointer-events: none;
+}
+.qna-btn{
+  border-color: #ee6f57;
+  color:#ee6f57;
+  background-color: white;
+}
+.ans-btn{
+  border-color: #16a596;
+  color:#16a596;
+  background-color: white;
+}
+.com-btn{
+   border-color: #424874;
+  color:#424874;
+  background-color: white;
+  
+}
+.ntc-btn{
+   border-color: #a20a0a;
+  color:#a20a0a;
+  background-color: white;
+}
 .job-card{
   text-decoration: none;
   color:black;
+}
+.card.table-card {
+  border-radius: 0px !important;
+  
 }
 
 .job-card:hover{
@@ -280,15 +320,18 @@ export default {
 
 .card-title{
   text-align:center;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
+  margin-bottom: 1.75rem !important;
 }
 .table-content {
-  height: 60px;
+  height: 82px;
+  border-bottom:1px solid #ededed
 }
 .info-card {
   border: 1px solid #ededed;
   height: 130px;
+  border-radius: 0px !important;
 }
 .card-title{
   height:60px;
