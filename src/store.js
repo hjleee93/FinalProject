@@ -73,6 +73,7 @@ export default new Vuex.Store({
         qnaBoardView:[],
         qnaBoardDelete:[],
         qbAttachment:[],
+        
 
         //민지
         infoList: [],

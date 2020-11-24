@@ -1,49 +1,64 @@
 <template>
 
-    <div class="container">
+<b-container fluid>
+      <b-row >
+         <div class="submenuimage ">
+        <p class="subtitle" id="subtitle">qna subtitle</p>
+        </div>
+      </b-row>
+      <b-row id="writecontain" align-h="end"><b-button to="/qnaBoard">목록으로 </b-button></b-row>
+      <b-row>
+        <b-col><b-card class="text-center"><b-form>
+        <b-row>
+          <b-col cols="2"><b-form-group  label="제목"/></b-col>
+          <b-col> <b-form-input v-model="qnaBoardView.qnaTitle" readonly/></b-col>
+        </b-row>
+          <b-row>
+          <b-col cols="2"><b-form-group  label="작성자"/></b-col>
+          <b-col> <b-form-input v-model="qnaBoardView.qnaWriter" readonly/></b-col>
+        </b-row>
+          <b-row>
+          <b-col cols="2"><b-form-group  label="작성내용" readonly/></b-col>
+          <b-col> <b-form-textarea v-model="qnaBoardView.qnaContent" readonly/></b-col>
+        </b-row>
+        <b-row v-if="attachmentq">
+          <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
+          <b-col cols="2"><b-button @click="qbattachmentdown(attachmentq)">{{attachmentq.originalfilename}}</b-button></b-col>
+        </b-row>
+          </b-form>
 
-        <div class="container detail_">
+          </b-card>
+          </b-col>
 
-        <h6 class="detail_top_right">조회수 : (((작업중)))) / 작성일 : {{qnaBoardView.qnaDate}}</h6>
-            <div>
-                <hr>
-                <h4 class="content_font">{{qnaBoardView.qnaTitle}}</h4>
-                <hr>
-                <div class="detail_write">
-                    <h6 class="detail_top_right">작성자 : {{qnaBoardView.qnaWriter}}</h6>
-                    <h5 class="content_font">{{qnaBoardView.qnaContent}} </h5>
+          <!-- <b-row v-if="userData.memberSq===communityboardView.memberNum"><b-col>
+          <b-button @click="updateqna">수정</b-button>
+          <b-button @click="deleteqna">삭제</b-button>
+          
+  </b-col></b-row></b-card></b-col> -->
+      </b-row>
+      
 
-                                <br><br><b>((((출력용 테스트)))){{qnaBoardView}}
-                                (((테스트qnaBoardView.qnaSeq ->))){{qnaBoardView.qnaSeq}}</b>
+      <!-- <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-col><b-form-textarea v-model="pcomment" /></b-col>
+      <b-col cols="1"><b-button @click="comment">전송</b-button></b-col>
+      </b-row></b-card></b-col></b-row></b-form> -->
 
-                </div>
+      <!-- <b-container>
+      <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-col><b-form-textarea readonly /></b-col>
+      <b-col cols="1"><b-button>삭제</b-button></b-col>
+      <b-col cols="1"><b-button>수정</b-button></b-col>
+      </b-row></b-card></b-col>
+      </b-row> -->
 
-                <hr>
-                
-                <b-row v-if="qbattachment">
-                    <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
-                    <b-col cols="2"><b-button @click="qbattachmentdown(qbattachment)">{{qbattachment.originalfilename}}</b-button></b-col>
-                </b-row>
-               
-                <hr>
-
-                <div class="detail_btn_div">
-                <b-button class="detail_btn" variant="primary" id="detailbtn1" @click="updateqna">수정</b-button>
-                <b-button class="detail_btn" variant="primary" id="detailbtn1" @click="deleteqna">삭제</b-button>
-                <b-button class="detail_btn" variant="primary" id="detailbtn1" to="/qnaBoard">목록</b-button>
-                </div>
-
-
-            </div>
 
     <!-- 삭제 모달 -->
-    <modal-view v-if="showModal" @close="showModal=false">
+    <ModalView v-if="showModal" @close="showModal=false">
     <template>
         <div slot="header">
             정말 삭제하시겠습니까?
         </div>
-
-        <div slot="body">
+        <div slot="body" class="modalf">
             <b-button @click="yesDeleteqna">
                 삭제하기
             </b-button>
@@ -53,11 +68,9 @@
         </div>
         <div slot="footer"></div>
     </template>
-    </modal-view>
+    </ModalView>
 
-
-        </div>
-      </div>
+</b-container>
 
 
 
@@ -82,8 +95,8 @@ export default {
     },
 
     //첨부파일 다운로드
-    qbattachmentdown(qbattachment){
-        location.href="http://localhost:8082/itjobgo/qna/qnafiledownload?oriName="+qbattachment.originalfilename+"&reName="+qbattachment.renamedfilename;
+    qbattachmentdown(attachmentq){
+        location.href="http://localhost:8082/itjobgo/qna/qnafiledownload?oriName="+attachmentq.originalfilename+"&reName="+attachmentq.renamedfilename;
     },
 
     created(){
@@ -95,7 +108,7 @@ export default {
     computed:{
         ...mapState({
             qnaBoardView:state=>state.qnaBoardView,
-            qbattachment:state=>state.qbattachment2
+            qbAttachment2:state=>state.qbAttachment2
         })
     },
 
@@ -162,5 +175,9 @@ export default {
 #detailbtn1{
   background-color:  #424874;
   border: 1px  #424874 solid;
+}
+.modalf{
+  display: flex;
+  justify-content: space-around;
 }
 </style>
