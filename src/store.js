@@ -19,6 +19,7 @@ import {
     fetchCommunityBoardView,
     fetchCommunityBoardDelete,
     fetchCommunityBoardUpdate,
+    fetchCoummunityBoardAttachment,
     fetchNoticeList,
 
     //현주
@@ -62,6 +63,7 @@ export default new Vuex.Store({
         communityboardView: [],
         communityboardDelete: [],
         cbAttachment: [],
+        cbAttachment2:[],
         noticeList:[],
 
 
@@ -170,6 +172,14 @@ export default new Vuex.Store({
                 .then(({ data }) => commit("SET_COMMUNITYBOARD_UPDATE", data))
                 .catch(({ error }) => console.log(error))
         },
+        //자유게시판 첨부파일 다운로드
+        FETCH_COMMUNITYBOARD_ATTACHMENT({commit},no){
+            fetchCoummunityBoardAttachment(no)
+            .then(({data})=>commit("SET_COMMUNITYBOARD_ATTACHMENT",data))
+            .catch(({ error }) => console.log(error))
+        },
+
+
         //공지사항 조회 
         FETCH_NOTICE({commit}){
             fetchNoticeList()
@@ -277,6 +287,11 @@ export default new Vuex.Store({
         SET_COMMUNITYBOARD_UPDATE(state, data) {
             state.cbAttachment = data;
         },
+        //자유게시판 첨부파일(다운로드)
+        SET_COMMUNITYBOARD_ATTACHMENT(state,data){
+            state.cbAttachment2=data;
+        },
+
         //공지사항
         SET_NOTICE(state,noticeList){
             state.noticeList=noticeList;
