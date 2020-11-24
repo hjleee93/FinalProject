@@ -86,6 +86,10 @@ function fetchQnaBoardDelete(qnaSeq){
 function fetchQnaBoardUpdate(qnaSeq) {
     return axios.get(`${config.Url}qna/qnaBoardUpdate${qnaSeq}`)
 }
+//qna게시판 첨부파일 가져오기(파일 다운로드)
+function fetchQnaBoardAttachment(qnaSeq){
+    return axios.get(`${config.Url}qna/qnaBoardAttachmnet${qnaSeq}`)
+}
 
 
 // 민지
@@ -136,6 +140,7 @@ export {
     fetchQnaBoardView,
     fetchQnaBoardDelete,
     fetchQnaBoardUpdate,
+    fetchQnaBoardAttachment,
 
      //민지
     //info 취업정보 

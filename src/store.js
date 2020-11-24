@@ -27,6 +27,7 @@ import {
     fetchQnaBoardView,
     fetchQnaBoardDelete,
     fetchQnaBoardUpdate,
+    fetchQnaBoardAttachment,
     //민지   
     fetchInfoList,
     fetchInfoDetail,
@@ -224,6 +225,12 @@ export default new Vuex.Store({
                 .then(({ data }) => commit("SET_QNABOARD_UPDATE", data))
                 .catch(({ error }) => console.log(error))
         },
+        //qna 게시판 첨부파일 다운로드
+        FETCH_QNABOARD_ATTACHMENT({commit},no){
+            fetchQnaBoardAttachment(no)
+                .then(({data})=>commit("SET_QNABOARD_ATTACHMENT",data))
+                .catch(({ error }) => console.log(error))
+        },
 
 
         //민지
@@ -313,9 +320,6 @@ export default new Vuex.Store({
         SET_NOTICE(state,noticeList){
             state.noticeList=noticeList;
         },
-
-
-
         
 
         //현주 게시판 리스트
@@ -325,7 +329,7 @@ export default new Vuex.Store({
         //qna게시판 상세화면
         SET_QNABOARD_VIEW(state, qnaBoardView) {
         state.qnaBoardView = qnaBoardView;
-        },   
+        },
         //qna게시판 삭제
         SET_QNABOARD_DELETE(state, data) {
             state.data = data;

@@ -14,17 +14,17 @@
                     <h5 class="content_font">{{qnaBoardView.qnaContent}} </h5>
 
                                 <br><br><b>((((출력용 테스트)))){{qnaBoardView}}
-                                (테스트){{qnaBoardView.qnaSeq}}</b>
+                                (((테스트qnaBoardView.qnaSeq ->))){{qnaBoardView.qnaSeq}}</b>
 
                 </div>
 
                 <hr>
-                <div>
+                
                 <b-row v-if="qbattachment">
                     <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
                     <b-col cols="2"><b-button @click="qbattachmentdown(qbattachment)">{{qbattachment.originalfilename}}</b-button></b-col>
                 </b-row>
-                </div>
+               
                 <hr>
 
                 <div class="detail_btn_div">
