@@ -16,7 +16,7 @@
 				<p class="photo">
 					<span class="picture"></span>
 					<span id="picReigst" style="">
-						<a><span class="photoBtn">사진등록</span></a>
+						<a @click="addPhoto"><span class="photoBtn">사진등록</span></a>
 					</span>
 					<span class="reg" id="picModify" style="display: none;">
 						<a href="https://www.alba.co.kr/person/popup/PicRegistResume.asp" onclick="window.open(this.href, 'popupName','width=570,height=740,top=0,left=0,status=no,scrollbars=yes,resizable=no'); return false"><span class="photoBtn modify">사진변경</span></a>
@@ -110,6 +110,12 @@ const { mapState } = createNamespacedHelpers("memberStore");
 export default {
 	computed:{
 		...mapState(['userData'])
+	},
+	methods:{
+		addPhoto:function(){
+			//이력서용 사진 업로드 새창
+			window.open("", "", "_blank");
+		}
 	}
 }
 </script>

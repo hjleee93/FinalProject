@@ -82,10 +82,11 @@ import axios from 'axios';
     data() {
       return{
         qnaTitle:"",
-        category:"",
+        category:"null",
         qnaWriter:"김현주",
         qnaAnswerYn:"N",
         qnaCategory :[
+          { value: null, text: '분류를 선택해주세요' },
           { value: '백엔드', text: '백엔드' },
           { value: '프론트엔드', text: '프론트엔드' },
         ],
