@@ -23,10 +23,21 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" 
-      label="분류선택" label-for="input-2" label-align="left">
-        <b-form-select
+    <b-form-group id="input-group-2" label="작성자" label-for="input-2">
+        <b-form-input
           id="input-2"
+          name="boardWriter"
+          required
+          placeholder="작성자"
+          readonly
+          
+          v-model="userData.memberName"
+        ></b-form-input>
+    </b-form-group>
+      <b-form-group id="input-group-3" 
+      label="분류선택" label-for="input-3" label-align="left">
+        <b-form-select
+          id="input-3"
           v-model="category"
           :options="boardDivision"
           required
@@ -47,17 +58,21 @@
       <!-- <b-form-file id="file2" ref="upfiles" v-on:change="handleFile"
     placeholder="첨부파일을 선택해주세요"></b-form-file>  -->
 
-      <b-button id="submit-btn2"  @click="enrollBoard"  to="/communityBoardList" exact>완료</b-button>
+      <b-button id="submit-btn2"  @click="enrollBoard">완료</b-button>
       <b-button type="reset" id="reset-btn2">취소</b-button>
       <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
       
     </form>
+
+      <div>맴버객체 : {{userData}}</div>
   </b-container>
 </template>
 
 <script>
 import { VueEditor } from "vue2-editor";
 import axios from 'axios';
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
 
   export default {
 
@@ -79,11 +94,16 @@ import axios from 'axios';
       VueEditor,
     },
 
+    computed: {
+    ...mapState(['userData'])
+    },
 
     methods: {
       enrollBoard() {
         
         let formData = new FormData();
+        formData.append('boardWriter',this.userData.memberName);
+        formData.append('memberSq',this.userData.memberSq)
         formData.append('boardTitle',this.boardTitle);
         formData.append('boardDivision',this.category);
         formData.append('boardContent',this.boardContent.replace(/(<([^>]+)>)/ig,""));
@@ -102,8 +122,9 @@ import axios from 'axios';
         .catch((error)=>
         console.log(error))
         console.log(formData);
-
+        this.$router.push({name:'CommunityBoardList'});
       },
+      
 
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.files[0]);

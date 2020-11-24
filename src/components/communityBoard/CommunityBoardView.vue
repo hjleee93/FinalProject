@@ -1,139 +1,185 @@
 <template>
+<b-container fluid>
+      <b-row >
+         <div class="submenuimage ">
+        <p class="subtitle" id="subtitle">communityBoardInfo</p>
+      </div>
+      </b-row>
+      <b-row id=" writecontain" align-h="end"><b-button to="/communityBoardList">목록으로 </b-button></b-row>
+      <b-row>
+        <b-col><b-card class="text-center"><b-form>
+        <b-row>
+          <b-col cols="2"><b-form-group  label="제목"/></b-col>
+          <b-col> <b-form-input v-model="communityboardView.boardTitle" readonly/></b-col>
+        </b-row>
+          <b-row>
+          <b-col cols="2"><b-form-group  label="작성자"/></b-col>
+          <b-col> <b-form-input v-model="communityboardView.boardWriter" readonly/></b-col>
+        </b-row>
+          <b-row>
+          <b-col cols="2"><b-form-group  label="작성내용" readonly/></b-col>
+          <b-col> <b-form-textarea v-model="communityboardView.boardContent" readonly/></b-col>
+        </b-row>
+        <b-row v-if="attachment">
+          <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
+          <b-col cols="2"><b-button @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
+        </b-row>
+          </b-form>
+          <b-row v-if="userData.memberSq===communityboardView.memberNum"><b-col>
+          <b-button @click="update">수정</b-button>
+          <b-button @click="pdelete">삭제</b-button>
+  </b-col></b-row></b-card></b-col>
+      </b-row>
+      
 
-  <body>
-    <div class="container-fluid">
-    <div class="row">
-        <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
-          <!-- 메인 이미지 -->
-              <div class="submenuimage ">
-                  <p class="subtitle" id="subtitle">Community</p>
-              </div>
+      <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-col><b-form-textarea v-model="pcomment" /></b-col>
+      <b-col cols="1"><b-button @click="comment">전송</b-button></b-col>
+      </b-row></b-card></b-col></b-row></b-form>
 
-      <!-- 탭 -->   
-        <div class="container">
-        <v-tabs
-        centered
-        color="grey darken-3"
-        >
-          <v-tab to="/noticeList"><b>공지사항</b></v-tab>
-          <v-tab to="/itNewsList"><b>IT소식</b></v-tab>
-          <v-tab to="/communityBoardList"><b>자유게시판</b></v-tab>
-          <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
-        </v-tabs>
+      <b-container>
+      <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-col><b-form-textarea readonly /></b-col>
+      <b-col cols="1"><b-button>삭제</b-button></b-col>
+      <b-col cols="1"><b-button>수정</b-button></b-col>
+      </b-row></b-card></b-col>
+      </b-row>
+    
+      </b-container>
+      <div>게시판 객체 : {{communityboardView}}</div>
+      <div>유저 객체 : {{userData}}</div>
+  
+  <!-- <div v-for="item in pboardone" :key="item.id">{{item}}</div> -->
+    
 
-          <h2 class="sub-header">게시판 제목(임시) : {{communityboardView.boardTitle}}</h2>
-          <br>
+  <ModalView v-if="showModal" @close="showModal = false">
+    <template>
+      <div slot="header">
+        정말 삭제하시겠습니까?
+      </div>
+      <div slot="body" class="modalf"> 
+        <b-button @click="ydele">네</b-button>
+         <b-button @click="ndele">아니오</b-button>
+      </div>
+      <div slot="footer">
 
-          <div align="right">
-              <b-button @click="updateBoard" id="st_write2">수정하기</b-button>
-              <b-button @click="deleteBoard" id="st_write3">삭제하기</b-button>
-          </div>  
+      </div>
+    </template>
 
-          <!-- 삭제  modal-->
-            <ModalView v-if="showModal" @close="showModal = false">
-            <template>
-              <div slot="header">
-                정말 삭제하시겠습니까?
-              </div>
 
-              <div slot="body">
-                <b-button @click="yesDelete">
-                  삭제하기
-                </b-button>
-                <b-button @click="noDelete">
-                  취소하기
-                </b-button>
-              </div>
-
-              <div slot="footer"></div>
-            </template>
-          </ModalView>
-
-          <div class="overflow-auto">
-            <div id="content-div">
-              
-              게시판 내용(임시) : {{communityboardView.boardContent}}
-            <br>
-            (임시)게시판 객체 : {{communityboardView}}
-            <br><br>
-          
-            분류  표시(임시) : {{communityboardView.boardDivision}}
-
-   
-            </div>
-              <div id="date">작성날짜 : {{communityboardView.boardDate | moment('YYYY-MM-DD')}}</div>
-            <b-button type="button" id="list-btn" to="/communityBoardList" exact>목록으로</b-button>
-        </div>
-    </div>   
-</div>
-</div>
-</body>
+  </ModalView>
+     
+</b-container> 
 </template>
 
 <script>
-import vueMoment from 'vue-moment';
-import Vue from 'vue'
+import ModalView from '../common/ModalView.vue'
 import { mapState } from 'vuex';
-import ModalView from '../common/ModalView.vue';
-
-Vue.use(vueMoment);
-
+import axios from 'axios';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 export default {
-
     data(){
-      return{
-        showModal:false,
-        communityBoardNo:0,
-      }
+        return {
+            showModal:false,
+            pboardno:0,
+            pcomment:'',
+      
+        }
     },
-    created(){
-      const communityBoardNo=this.$route.params.id;
-      console.log(communityBoardNo);
-      this.$store.dispatch("FETCH_COMMUNITYBOARD_VIEW",communityBoardNo)
-    },
-
-    computed:{
-      ...mapState({
-        communityboardView:state=>state.communityboardView       
-      })
-    },
-
-    methods:{
-      //수정버튼
-      updateBoard(){
-        // alert("수정버튼")
-        //수정 역시 router.js에 등록된 name 값을 이용해서 페이지 전환
-        let no=this.$route.params.id
-        console.log("수정버튼(params) :"+ no);
-        // console.log("글번호 :  : " + communityBoardNo)
-        this.$router.push({name:'CommunityBoardUpdate',params:{id:no}})
-      },
-     //삭제버튼
-      deleteBoard(){
-        this.showModal=!this.showModal;  
-      }, 
-      //삭제버튼(네)
-      yesDelete(){
-        let no=this.$route.params.id
-        console.log(no);
-        this.$store.dispatch("FETCH_COMMUNITYBOARD_DELETE",no);
-      //삭제후 페이지 이동
-        this.$router.push({name:'CommunityBoardList'});
-      },
-      //삭제버튼(아니오)
-      noDelete(){
-        this.showModal=!this.showModal;
-      }
-    },//methods 끝
-
-    components :{
+    components:{
       ModalView,
+    },
+    methods: {
+      update(){
+        //수정버튼 눌렸을때 처리하는 로직
+        //새로운 수정 컴포넌트로 이동
+        let no=this.$route.params.id
+        this.$router.push({name:'CommunityBoardUpdate',params:{id:no}})
 
+      },
+      pdelete(){
+          this.showModal=!this.showModal;
+         
+        
+      },
+      ydele(){
+        let no=this.$route.params.id
+         this.$store.dispatch("FETCH_COMMUNITYBOARD_DELETE",no)
+         this.$router.push({name:'CommunityBoardList'})
+        
+        
+      },
+      comment(){
+        let formData2=new FormData();
+        formData2.append('pboardNo',this.pboardone.pboardNo);
+        formData2.append('pcommentContent',this.pcomment);
+        formData2.append('memberSq',this.userData.memberSq);
+        formData2.append('memberName',this.userData.memberName)
+        for(let key of formData2.entries()){
+          console.log(`${key}`);
+        }
+      axios.post("http://localhost:8082/itjobgo/portfolio/comment.do",formData2)
+      .then((data)=>{
+          console.log(data)})
+        .catch((error)=>
+        console.log(error))
+     
+      },
+      ndele(){
+        this.showModal=!this.showModal;
+      },
+      //첨부파일 다운로드 
+      attachmentdown(attachment){
+        location.href="http://localhost:8082/itjobgo/community/filedownload?oriName="+attachment.originalfilename+"&reName="+attachment.renamedfilename;
+      }         
+    },
+    created() {
+        const communityBoardNo=this.$route.params.id;
+        this.$store.dispatch("FETCH_COMMUNITYBOARD_VIEW",communityBoardNo)
+        this.$store.dispatch("FETCH_COMMUNITYBOARD_ATTACHMENT",communityBoardNo)
+        
+    },
+    computed: {
+     
+        ...mapState({
+            communityboardView:state=>state.communityboardView,
+            attachment:state=>state.cbAttachment2         
+        }),
+         ...loadUserState(['userData'])
+      
+       
+        
     }
-  }//export
-
+    
+  
+    
+}
 </script>
 
-<style>
-  @import '../../assets/css/BoardView.css';
+<style scoped>
+#subtitle{
+font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.submenuimage{
+  width: 100%;
+  height:180px;
+  background-color:#F4EEFF;
+  text-align: center;
+  line-height: 180px; 
+}
+.subtitle{
+  font-family: 'Masque';
+  color:#4e5157 ;
+  font-size: 50px;
+}
+#writecontain{
+  margin-bottom: 10%;
+  
+}
+.modalf{
+  display: flex;
+  justify-content: space-around;
+}
+
 </style>

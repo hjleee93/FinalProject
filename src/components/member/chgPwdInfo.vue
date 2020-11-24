@@ -29,7 +29,7 @@
                 >
               </div>
               <div class="text-muted text-center out-info">
-                <router-link class="nav-link" to="/outMember">회원탈퇴</router-link>
+                <router-link class="nav-link" to="/deleteMember">회원탈퇴</router-link>
               </div>
             </b-card-header>
 

@@ -20,6 +20,11 @@ function fetchPboardDel(no) {
 function fetchPboardUp(no) {
     return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`)
 }
+//첨부파일내용가져오기
+function fetchAttachment(no){
+    return axios.get(`${config.Url}portfolio/attachment${no}.do`)
+}
+
 //모임
 function fetchMeeting() {
     return axios.get(`${config.Url}meeting/meetingList.do`);
@@ -30,6 +35,7 @@ function fetchmsublist(){
 function fetchMeetinginfo(no){
     return axios.get(`${config.Url}meeting/meetinginfo${no}.do`)
 }
+
 
 
 
@@ -50,6 +56,16 @@ function fetchCommunityBoardDelete(boardSq) {
 //자유게시판 수정하기(게시판번호로 객체 값 불러오기 )
 function fetchCommunityBoardUpdate(boardSq) {
     return axios.get(`${config.Url}community/communityBoardUpdate${boardSq}`)
+}
+//첨부파일 가져오기(파일 다운로드)
+function fetchCoummunityBoardAttachment(boardSq){
+     return axios.get(`${config.Url}community/communityBoardAttachment${boardSq}`)
+}
+
+
+//공지사항 조회
+function fetchNoticeList(){
+   return axios.get(`${config.Url}notice/noticeList`)
 }
 
 //현주 //qnaBoard(qna게시판)
@@ -85,17 +101,22 @@ export {
     fetchPboardOne,
     fetchPboardUp,
     fetchPboardDel,
+    fetchAttachment,
     //모임
     fetchMeeting,
     fetchMeetinginfo,
     fetchmsublist,
 
     //주은
-    //자유게사판CommunityBoard
+        //자유게사판CommunityBoard
     fetchCommunityBoardList,
     fetchCommunityBoardView,
     fetchCommunityBoardDelete,
     fetchCommunityBoardUpdate,
+    fetchCoummunityBoardAttachment,
+        //공지사항 Notice
+    fetchNoticeList,
+
 
     //현주
     //qna게시판

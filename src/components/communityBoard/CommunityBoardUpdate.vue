@@ -9,7 +9,7 @@
     </div>
 
     <form @submit.prevent="updateForm" 
-    @reset="onReset" enctype="multipart/form-data">
+     enctype="multipart/form-data">
       <b-form-group
         id="input-group-1"
         label="제목"
@@ -36,6 +36,7 @@
         ></b-form-select>
       </b-form-group>
 
+
       <!-- 에디터 창 -->
       <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
         <vue-editor  id="input-3" v-model="communityboardView.boardContent" 
@@ -47,9 +48,11 @@
         <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
         :placeholder="cbAttachment.originalfilename" ></b-form-file> 
       </b-form-group>
+      <!-- <b-button @click="clearFiles" class="mr-2">Clear files</b-button> -->
  
 
       <b-button id="submit-btn2"  @click="updateForm" >완료</b-button>
+      <!-- <b-button id="submit-btn2"  @click="onReset" >취소</b-button> -->
       <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
       
     </form>
@@ -89,10 +92,10 @@ import axios from 'axios'
       ...mapState({
         //mapState를 통해서 store에 저장된 (객체) data를 가져다 쓸수있다
         communityboardView:state=>state.communityboardView,    
-
         cbAttachment:state=>state.cbAttachment,
       })
     },
+
 
     components:{
       VueEditor,
@@ -107,9 +110,9 @@ import axios from 'axios'
         if(!this.boardContent){
           this.boardContent=this.communityboardView.boardContent;
         }
-        // if(!this.boardDivision){
-        //   this.boardDivision=this.communityboardView.boardDivision;
-        // }
+        if(!this.boardDivision){
+          this.boardDivision=this.communityboardView.boardDivision;
+        }
         if(!this.files){
           this.files=this.cbAttachment.renamedfilename;
         }
@@ -143,15 +146,18 @@ import axios from 'axios'
         console.log(this.files);
       },
 
-      onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        // this.form.email = ''
-        this.boardTitle = ''
-        this.category = null
-        this.boardContent=''
-        this.files.name=''
-      }
+      // onReset(evt) {
+      //   evt.preventDefault()
+      //   // Reset our form values
+      //   // this.form.email = ''
+      //   this.boardTitle = ''
+      //   this.category = null
+      //   this.boardContent=''
+      //   this.files.name=''
+      // },
+    // clearFiles() {
+    //   this.$refs['file-input'].reset()
+    // }
     }
   }
 </script>

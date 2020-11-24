@@ -154,6 +154,9 @@ const DeleteMember = () => {
 const LoginCallback = () => {
   return import('./components/member/loginCallback.vue')
 }
+const NaverLogin = () => {
+  return import('./components/member/naverLogin.vue')
+}
 
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
@@ -274,7 +277,7 @@ export default new Router({
     },
 
     {
-      path: '/communityBoardView',
+      path: '/communityBoardView/:id',
       name: 'CommunityBoardView',
       component: CommunityBoardView
     },
@@ -298,7 +301,7 @@ export default new Router({
     },
 
     {
-      path: '/communityBoardUpdate',
+      path: '/communityBoardUpdate/:id',
       name: 'CommunityBoardUpdate',
       component: CommunityBoardUpdate
     },
@@ -385,6 +388,11 @@ export default new Router({
       path: '/loginCallback',
       name: 'loginCallback',
       component: LoginCallback
+    },
+    {
+      path: '/naverLogin',
+      name: 'naverLogin',
+      component: NaverLogin
     },
 
     //현주
