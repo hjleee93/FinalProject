@@ -326,13 +326,17 @@ export default new Vuex.Store({
         SET_QNABOARD_VIEW(state, qnaBoardView) {
         state.qnaBoardView = qnaBoardView;
         },   
-        //자유게시판 삭제
+        //qna게시판 삭제
         SET_QNABOARD_DELETE(state, data) {
             state.data = data;
         },
-        //자유게시판 수정(값 불러오기)
+        //qna게시판 수정(값 불러오기)
         SET_QNABOARD_UPDATE(state, data) {
             state.qbAttachment = data;
+        },
+        //qna게시판 첨부파일(다운로드)
+        SET_QNABOARD_ATTACHMENT(state,data){
+            state.qbAttachment2=data;
         },
 
 

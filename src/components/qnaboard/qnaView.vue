@@ -15,14 +15,25 @@
 
                                 <br><br><b>((((출력용 테스트)))){{qnaBoardView}}
                                 (테스트){{qnaBoardView.qnaSeq}}</b>
+
+                </div>
+
+                <hr>
+                <div>
+                <b-row v-if="qbattachment">
+                    <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
+                    <b-col cols="2"><b-button @click="qbattachmentdown(qbattachment)">{{qbattachment.originalfilename}}</b-button></b-col>
+                </b-row>
                 </div>
                 <hr>
-                
+
                 <div class="detail_btn_div">
                 <b-button class="detail_btn" variant="primary" id="detailbtn1" @click="updateqna">수정</b-button>
                 <b-button class="detail_btn" variant="primary" id="detailbtn1" @click="deleteqna">삭제</b-button>
                 <b-button class="detail_btn" variant="primary" id="detailbtn1" to="/qnaBoard">목록</b-button>
                 </div>
+
+
             </div>
 
     <!-- 삭제 모달 -->
@@ -69,6 +80,12 @@ export default {
             qnaBoardNo:0,
         }
     },
+
+    //첨부파일 다운로드
+    qbattachmentdown(qbattachment){
+        location.href="http://localhost:8082/itjobgo/qna/qnafiledownload?oriName="+qbattachment.originalfilename+"&reName="+qbattachment.renamedfilename;
+    },
+
     created(){
         const qnaBoardNo=this.$route.params.id;
         console.log(qnaBoardNo);
@@ -77,7 +94,8 @@ export default {
 
     computed:{
         ...mapState({
-            qnaBoardView:state=>state.qnaBoardView
+            qnaBoardView:state=>state.qnaBoardView,
+            qbattachment:state=>state.qbattachment2
         })
     },
 
