@@ -57,6 +57,12 @@ function fetchCommunityBoardDelete(boardSq) {
 function fetchCommunityBoardUpdate(boardSq) {
     return axios.get(`${config.Url}community/communityBoardUpdate${boardSq}`)
 }
+//첨부파일 가져오기(파일 다운로드)
+function fetchCoummunityBoardAttachment(boardSq){
+     return axios.get(`${config.Url}community/communityBoardAttachment${boardSq}`)
+}
+
+
 //공지사항 조회
 function fetchNoticeList(){
    return axios.get(`${config.Url}notice/noticeList`)
@@ -119,6 +125,7 @@ export {
     fetchCommunityBoardView,
     fetchCommunityBoardDelete,
     fetchCommunityBoardUpdate,
+    fetchCoummunityBoardAttachment,
         //공지사항 Notice
     fetchNoticeList,
 

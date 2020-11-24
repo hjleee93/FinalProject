@@ -58,7 +58,7 @@
       <!-- <b-form-file id="file2" ref="upfiles" v-on:change="handleFile"
     placeholder="첨부파일을 선택해주세요"></b-form-file>  -->
 
-      <b-button id="submit-btn2"  @click="enrollBoard"  to="/communityBoardList" exact>완료</b-button>
+      <b-button id="submit-btn2"  @click="enrollBoard">완료</b-button>
       <b-button type="reset" id="reset-btn2">취소</b-button>
       <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
       
@@ -122,8 +122,9 @@ const { mapState } = createNamespacedHelpers("memberStore");
         .catch((error)=>
         console.log(error))
         console.log(formData);
-
+        this.$router.push({name:'CommunityBoardList'});
       },
+      
 
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.files[0]);
