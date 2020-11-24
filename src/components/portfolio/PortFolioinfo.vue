@@ -33,7 +33,7 @@
       
 
       <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea v-model="pcomment" /></b-col>
+      <b-col><b-form-textarea ref="comment" v-model="pcomment" /></b-col>
       <b-col cols="1"><b-button @click="comment">전송</b-button></b-col>
       </b-row></b-card></b-col></b-row></b-form>
 
@@ -112,19 +112,23 @@ export default {
         
         
       },
+     
       comment(){
         let formData2=new FormData();
         formData2.append('pboardNo',this.pboardone.pboardNo);
         formData2.append('pcommentContent',this.pcomment);
         formData2.append('memberSq',this.userData.memberSq);
         formData2.append('memberName',this.userData.memberName)
-        for(let key of formData2.entries()){
-          console.log(`${key}`);
-        }
+        // for(let key of formData2.entries()){
+        //   console.log(`${key}`);
+        // }
       axios.post("http://localhost:8082/itjobgo/portfolio/comment.do",formData2)
       .then((data)=>{
-          console.log(data)})
-        .catch((error)=>
+        console.log(data)
+        this.pcomment=""
+      
+      })
+      .catch((error)=>
         console.log(error))
      
       },
