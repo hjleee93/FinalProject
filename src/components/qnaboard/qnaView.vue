@@ -4,16 +4,17 @@
 
         <div class="container detail_">
 
-        <h6>작성일 : 20/11/02(x)</h6>
-        <h6 class="detail_top">작성자 : master17(x)</h6>
-        <h6 class="detail_top">조회수 : 1(x)</h6>
+        <h6 class="detail_top_right">조회수 : (((작업중)))) / 작성일 : {{qnaBoardView.qnaDate}}</h6>
             <div>
                 <hr>
-                <h5>제목 </h5>
+                <h4 class="content_font">{{qnaBoardView.qnaTitle}}</h4>
                 <hr>
                 <div class="detail_write">
-                                {{qnaBoardView}}
-                                {{qnaBoardView.qnaSeq}}
+                    <h6 class="detail_top_right">작성자 : {{qnaBoardView.qnaWriter}}</h6>
+                    <h5 class="content_font">{{qnaBoardView.qnaContent}} </h5>
+
+                                <br><br><b>((((출력용 테스트)))){{qnaBoardView}}
+                                (테스트){{qnaBoardView.qnaSeq}}</b>
                 </div>
                 <hr>
                 
@@ -108,8 +109,6 @@ export default {
         // console.log("글번호 :  : " + communityBoardNo)
         this.$router.push({name:'qnaModify',params:{id:no}})
         }
-
-
     },
 
     components :{
@@ -121,6 +120,9 @@ export default {
 </script>
 
 <style>
+.content_font{
+    margin-left: 1%;
+}
 .detail_{
     margin-top:6%;
     margin-right: 2%;
@@ -128,8 +130,8 @@ export default {
 .detail_write{
     height: 400px;
 }
-.detail_top{
-    margin-left: 12px;
+.detail_top_right{
+    text-align: right;
 }
 .detail_btn{
     margin-left: 10px;
