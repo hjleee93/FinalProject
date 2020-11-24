@@ -95,9 +95,11 @@
             <div class="card col-6 m-0 p-0 info-card"  >
             
               <div class="m-2">
-                <b-btn class="com-btn">자유</b-btn><span>{{communityboard[0].boardTitle}}</span>
-                
+                <b-btn class="com-btn">자유</b-btn>
+                <router-link :to="{name:'CommunityBoardView', params:{id:communityboard[0].boardSq}}" class="commu-router">
+                <span>{{communityboard[0].boardTitle}}</span>
                 <p class="text-muted m-b-0">{{communityboard[0].boardContent}}</p>
+                </router-link>
               </div>
             </div>
             </template>
@@ -108,9 +110,13 @@
             <div class="card col-6 m-0 p-0 info-card"  v-for="i in 2" :key="i">
               
               <div class="m-2">
-                <div class="qst"><b-btn class="qna-btn">질문</b-btn><span>{{qnaboard[i].qnaTitle}}</span></div>
+                <router-link :to="{name:'qnaView', params:{id:qnaboard[i].qnaSeq}}" class="qna-router">
+                <div class="qst"><b-btn class="qna-btn">질문</b-btn>
+                <span>{{qnaboard[i].qnaTitle}}</span>
+                </div>
                 <p class="text-muted m-b-0">{{qnaboard[i].qnaContent}}</p>
                 <div class="ans"><b-btn class="ans-btn">답변</b-btn><span>{{qnaboard[i].qnaAnswerYn}}</span></div>
+                </router-link>
               </div>
               
             </div>
@@ -119,16 +125,17 @@
         </div>
 
         <div class="col-4 p-0 collab">
-          <div class="card table-card">
-            <div class="card-header ">
-              <h5 class="text-center">최근 등록된 모임</h5>
+          <div class="card table-card collab">
+            <div class="card-header " >
+              <h5 class="text-center" >최근 등록된 모임</h5>
             </div>
             <table>
               <tr v-for="i in 4" :key="i">
                 <td>
                   <div class="table-content">
-                    <p><b>{{meeting[i].collabTitle}}</b></p>
-                    <p>{{meeting[i].collabSimcontent}}</p>
+                    <router-link :to="{name:'meetinginfo', params:{id:meeting[i].collabSq}}" class="collab-router">
+                    <p class="m-2"><b>{{meeting[i].collabTitle}}</b></p>
+                    <p class="m-2 txt">{{meeting[i].collabSimcontent}}</p></router-link>
                   </div>
                 </td>
               </tr>
@@ -216,7 +223,6 @@ export default {
       selectedLocation: null,
       selectedJob: null,
       keyword:'',
-
    
       options2: [
         { value: null, text: "직무를 선택해주세요" },
@@ -275,6 +281,11 @@ export default {
 <style scoped>
 /* 상단 박스 css */
 
+.collab-router,.qna-router,.commu-router{
+  text-decoration: none;
+  color:black;
+}
+
 .qna-btn, .ans-btn,.com-btn,.ntc-btn{
     height: 26px !important;
     width: 45px !important;
@@ -325,8 +336,11 @@ export default {
   margin-bottom: 1.75rem !important;
 }
 .table-content {
-  height: 82px;
+  height: 75px;
   border-bottom:1px solid #ededed
+}
+.card-header+table tr:last-child .table-content{
+  border-bottom:none;
 }
 .info-card {
   border: 1px solid #ededed;
@@ -377,4 +391,32 @@ div[role="region"] {
 .main-top[data-v-8dc7cce2]{
   height:auto;
 }
+.qst+.text-muted{
+    max-height: 68px;
+    overflow: hidden;
+}
+.ans{
+  width: 100%;
+  min-height: 50px;
+  position: absolute;
+  bottom: 0;
+    
+}
+.txt{
+  width:365px;    
+  height:30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  }
+  .card.table-card[data-v-8dc7cce2]{
+    overflow:hidden;
+  }
+  .card-header+table tr td:hover{
+    background-color: #f4eef4;
+  }
+  .card:not(.collab):hover{
+    background-color: #f4eef4;
+  }
+  
 </style>
