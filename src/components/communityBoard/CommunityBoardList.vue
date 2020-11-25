@@ -2,7 +2,7 @@
 
   <body>
     <div class="container-fluid">
-      <div class="row">
+      <!-- <div class="row"> -->
 
         <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
           <!-- 메인 이미지 -->
@@ -25,11 +25,14 @@
           <h2 class="sub-header">자유게시판</h2>
           <br>
         <!-- 버튼 -->
+        
+       
           <v-btn   to="/communityBoardForm" exact  id="st_write">
                글쓰기
            </v-btn>
-
           <div class="overflow-hidden">
+
+
          <!-- 테이블 -->
         <v-card>
           <v-card-title>
@@ -44,27 +47,41 @@
 
               <v-data-table
                 :headers="headers"
-                :items=communityboard
+                :items="communityboard"
                 :search="search"
-                item-key="name"
+                :server-items-length="communityboard.length"
+                item-key="boardSq"
                 @click:row="handleClick"
               >
               <!-- 수정중 -->
-                <!-- <template slot="items" slot-scope="props">
-                  <tr>
-                     <td>{{ props.communityboard.boardDivision }}</td>
-                     <td>{{ props.communityboard.boardTitle }}</td>
-                     <td>{{ props.communityboard.boardWriter }}</td>
-                     <td>{{ formatDate(props.communityboard.boardDate) }}</td>
-                     <td>{{ props.communityboard.boardCount }}</td>
-                   </tr>
-                </template> -->
+          <!-- <template slot="items" slot-scope="props">
+            <tr>
+              <td>{{props.item.boardSq}}</td>
+              <td class="text-xs-right">{{ formatDate(props.item.boardDate) }}</td>
+              <td class="text-xs-right">{{ props.item.boardDivision }}</td>
+              <td class="text-xs-right">{{ props.item.boardTitle }}</td>
+              <td class="text-xs-right">{{ props.item.boardWriter }}</td>
+              <td class="text-xs-right">{{ props.item.boardCount }}</td>
+            </tr>
+          </template> -->
+
+             <!-- <template slot="items" slot-scope="props">
+                <td>{{ formatDate(props.item.boardDate) }}</td>
+             </template> -->
+
+                 <!-- <template v-slot:item.boardDate="{ item }">
+                      {{ formatDate(item.boardDate) }}
+                  </template> -->
 
               </v-data-table>
             </v-card>
+            <div>객체(임시) : {{communityboard}}</div>
+            <div>날짜 [0] 인덱스 (임시) : {{communityboard[0].boardDate | moment('YYYY-MM-DD')}}</div>
+
+          
            </div>
       </div>
-</div>
+<!-- </div> -->
 
     </div>
   </body>
@@ -72,8 +89,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import vueMoment from 'vue-moment';
 import Vue from 'vue'
+import vueMoment from 'vue-moment';
 
 Vue.use(vueMoment);
 
@@ -86,42 +103,59 @@ Vue.use(vueMoment);
     },
     computed:{
         ...mapState({
+        
             communityboard:state=>state.communityboard,
-        })
+    
+        }),
+
+        
     },
 
 methods: {
     handleClick(value){
-      // alert(value.boardSq);
       this.$router.push({name:'CommunityBoardView',params:{id:value.boardSq}});
-      console.log(value);
-    
-    },
+      console.log(this.$moment(value.boardDate).format('YYYY-MM-DD'));
 
-  // 수정중
+    },
+  // 날짜변환 함수
     formatDate(value) {
       console.log(value);
-      return this.$moment(value).format("MMM Do YY");
+      return this.$moment(value.boardDate).format("YYYY-MM-DD");
+      
+    },
+
+
+  //날짜변환 함수 2
+  format (date) {
+      date = new Date(date)
+      const day = `${date.getUTCDate()}`.padStart(2, '0')
+      const month = `${date.getUTCMonth() + 1}`.padStart(2, '0')
+      const year = date.getFullYear()
+      return `${month}/${day}/${year}`
     }
+
+
+
+
+
   },//method 끝
 
     data() {
       return {
-      // community: [],
-      // boardDate2:"{this.communityboard.boardDate | this.$moment('YYYY-MM-DD')}" ,
       search: '',
         headers: [
           {
-            text: '분류',
+            text: '번호',
             align: 'start',
             filterable: false,
-            value: 'boardDivision',
+            value: 'boardSq',
           },
+          { text: '작성날짜', value: 'boardDate' },
           { text: '제목', value: 'boardTitle' },
-          { text: '작성자', value : 'boardWriter'},
+          { text: '작성자', value : 'boardWriter'}, 
           //수정중입니다.
-          // { text: '작성날짜', value: '[boardDate | this.$moment("YYYY-MM-DD")]' ,dataType: "Date" },
-          // { text: '작성날짜', value: '{boardDate2}'},
+          // { text: '작성날짜', value: '[boardDate | this.$moment("YYYY-MM-DD")]'},
+          { text: '분류', value: 'boardDivision'}, 
           { text: '조회수', value: 'boardCount' }
           
           
