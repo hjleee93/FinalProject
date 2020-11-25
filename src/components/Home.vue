@@ -116,7 +116,11 @@
                 <span>{{qnaboard[i].qnaTitle}}</span>
                 </div>
                 <p class="text-muted m-b-0">{{qnaboard[i].qnaContent}}</p>
-                <div class="ans"><b-btn class="ans-btn">답변</b-btn><span>{{qnaboard[i].qnaAnswerYn}}</span></div>
+                
+                <div class="ans"><b-btn class="ans-btn">답변</b-btn>
+                <span v-if="qnaboard[i].qnaAnswerYn =='N'"><small>등록된 답변이 없습니다.</small></span>
+                <span v-else><small>답변 확인하기</small></span>
+                </div>
                 </router-link>
               </div>
               
@@ -149,8 +153,8 @@
 
     
     <!-- 추천채용정보 : 로그인한 회원 정보와 연동됨-->
-    <div class="container">
-      <h3 class="m-3"><strong class="tit_cont">{{userData.memberName}}님을 위한 추천 채용 정보</strong></h3>
+    <div class="container">      
+      <h3 class="m-3"><strong class="tit_cont">{{userData.memberName}}님을 위한 <span id="userInfo" value="123">{{userData.memberPosition}}</span> 직종 추천 채용 정보</strong></h3>
       <div class="row">
         <div class="col-xl-3 col-sm-6 col-12" v-for="(item, i) in rcmJson.wantedRoot.wanted" :key="i">
            <div class="card h-100">
@@ -207,24 +211,25 @@ import { createNamespacedHelpers } from "vuex";
 import { mapState } from "vuex";
 const { mapState:jobState } = createNamespacedHelpers("jobStore");
 const { mapState:memberState } = createNamespacedHelpers("memberStore");
+// import $ from 'jquery';
 
 
 var convert = require('xml-js')
 
 //로그인한 사람에 따라 추천 parmeter 수정하기
-let rcm = "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=30&occupation=024"
+
 
 
 
 export default {
   data() {
+    
     return {
       // inputSearch,//search bar 검색어 
       rcmJson:[],//추천 채용정보 
       selectedLocation: null,
       selectedJob: null,
-      keyword:'',
-   
+      keyword:'',      
       options2: [
         { value: null, text: "직무를 선택해주세요" },
         { value: "aa", text: "Web developer" },
@@ -238,15 +243,23 @@ export default {
     
     //서치바 
     jobSearch: function(){
+      
       let keyword= this.keyword;
        this.$router.push({ 
               name: "jobSearchDtl",
               params: { keyword: keyword }//검색 keyword pass
             }); 
-    },
+    }
   },
-    created () {
-    this.$http.get(rcm)//추천 채용정보
+    created() {
+      //214201,214200,214202 : 컴퓨터강사 : 백엔드, 프론트엔드, 퍼블리셔
+      //022: 컴퓨터하드웨어, 통신공학 - 백엔드
+      //023: 컴퓨터시스템 - 백엔드
+      //024: 소프트웨어 - 백엔드
+      //025: 데이터 - 백엔드
+      //056, 214302: 디자이너 - 디자인
+      
+    this.$http.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=024")//추천 채용정보
       .then((response) => {
         var xml = response.data
         var json = convert.xml2json(xml, { compact: true })
@@ -256,6 +269,7 @@ export default {
   
   },
   mounted(){
+     
     //action에 있는 loadXml 호출용 
     this.$store.dispatch('jobStore/loadXml')
     this.$store.dispatch("FETCH_QNABOARD");
@@ -270,12 +284,13 @@ export default {
     ]),
     //유저데이터 호출
     ...memberState([
-      'userData',"loginStatus"
+      "loginStatus","userData"
     ]),
     ...mapState([
       'qnaboard','communityboard','meeting'
     ])
   }
+  
   
 };
 </script>

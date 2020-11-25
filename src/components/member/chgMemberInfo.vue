@@ -121,8 +121,9 @@
                 <b-input-group prepend="포지션" >
                   <b-form-select
                     class="position"
+                    id="position"
                     type="text"
-                    v-model="selected"
+                    v-model="this.userData.memberPosition"
                     :options="position"
                   ></b-form-select>
                 </b-input-group>
@@ -156,7 +157,7 @@ export default {
   data: () => ({
     memberPwd: "",
     selected: null,
-    position: [{ text: '관심있는 직군을 선택해주세요', value: null },{text:'디자인', value:'1'}, '백엔드', '프론트엔드', '퍼블리싱'],
+    position: [{ text: '관심있는 직군을 선택해주세요', value: null },'디자인', '백엔드', '프론트엔드', '퍼블리싱'],
   }),
 
   methods: {
@@ -169,9 +170,9 @@ export default {
         memberPostCode: $('#sample6_postcode').val(),
         memberAddr: $('#sample6_address').val(),
         memberAddrDtl: this.userData.memberAddrDtl,
-        memberPosition: this.userData.memberPosition,
-        memberAddrExtra: $('#sample6_extraAddress').val(),
-        memberPosition: this.selected
+        memberPosition:$('#position').val(),
+        // memberPosition: this.userData.memberPosition,
+        memberAddrExtra: $('#sample6_extraAddress').val()
         
       };
       const self = this; //this scope문제

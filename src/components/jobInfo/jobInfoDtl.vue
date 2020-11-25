@@ -12,7 +12,7 @@
         {{ items.wantedDtl.wantedInfo.wantedTitle._text }}<br />
         <small>{{ items.wantedDtl.corpInfo.corpNm._text }}</small>
         <span class="deadline m-2 p-2" v-if="items.wantedDtl.wantedInfo.receiptCloseDt._text != '채용시까지'">D-{{
-          $moment($moment(items.wantedDtl.wantedInfo.receiptCloseDt._text).format('YYYY-MM-DD')).diff(now, 'days')
+          $moment($moment(items.wantedDtl.wantedInfo.receiptCloseDt._text).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1
         }}</span>
         <span class="deadline m-2 p-2" v-else>{{
           items.wantedDtl.wantedInfo.receiptCloseDt._text
@@ -106,11 +106,42 @@
     <!-- 전형방법 -->
     <div>
       <p class="h3 mt-3 font-weight-bold">전형방법</p>
-      <b-table
-        :items="apply"
-        :fields="field"
-        
-      ></b-table>
+      <v-simple-table>
+      <thead>
+        <tr>
+          <th class="text-left">
+            접수마감일
+          </th>
+          <th class="text-left">
+            전형방법
+          </th>
+          <th class="text-left">
+            접수방법
+          </th>
+          <th class="text-left">
+            제출 서류
+          </th>
+          <th class="text-left">
+            제출 서류 양식
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td v-if="apply.receiptCloseDt == '채용시까지'">
+            <b>{{ apply.receiptCloseDt }}</b>
+            </td>
+            <td v-else>
+            <b>{{ $moment(apply.receiptCloseDt).format('YYYY-MM-DD') }}</b>
+            </td>
+          <td>{{ apply.selMthd }}</td>
+          <td>{{ apply.rcptMthd }}</td>
+          <td>{{ apply.submitDoc }}</td>
+          <td>{{ apply.attachFileInfo }}</td>
+        </tr>
+      </tbody>
+
+      </v-simple-table>
     </div>
     <!-- 기업정보 -->
     <p class="h3 mt-3 font-weight-bold">기업정보</p>
@@ -137,13 +168,6 @@ const { mapState } = createNamespacedHelpers("jobStore");
 
 export default {
   data: () => ({
-    field: [
-      "접수마감일",
-      "전형방법",
-      "접수방법",
-      "제출 서류",
-      "제출 서류 양식",
-    ],
   }),
   mounted() {
     this.$store.dispatch("jobStore/loadJobDetail", {
