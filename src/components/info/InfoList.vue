@@ -21,7 +21,7 @@
           <v-btn to="/infoForm" exact  id="st_write1">글쓰기</v-btn>
         </div>
 
-        <div class="overflow-auto">
+        <div class="overflow-hidden">
          <!-- 테이블 -->
         <v-card>
         <v-card-title>
@@ -74,10 +74,10 @@ import { mapState } from 'vuex';
     
    methods: {
     handleClick(value){
-      alert(value.infoSq);
+/*       alert(value.infoSq); */
       this.$router.push({name:'infoDetail',params:{id:value.infoSq}});
       console.log(value);
-      // console.log(value.infoSq);
+      console.log(value.infoSq);
     
     }
   },
