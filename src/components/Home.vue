@@ -77,9 +77,9 @@
 
           </b-carousel>
         </div>
-        <!-- 자유게시판  -->
+        
         <div class="col-4 pl-0">
-          
+          <!-- 공지  -->
           <div class="row">
             <template v-if="communityboard">
             <div class="card col-6 m-0 p-0 info-card"  >
@@ -91,14 +91,15 @@
               </div>
             </div>
             </template>
+            <!-- 자유게시판  -->
             <template v-if="communityboard">
             <div class="card col-6 m-0 p-0 info-card"  >
             
               <div class="m-2">
                 <b-btn class="com-btn">자유</b-btn>
-                <router-link :to="{name:'CommunityBoardView', params:{id:communityboard[0].boardSq}}" class="commu-router">
-                <span>{{communityboard[0].boardTitle}}</span>
-                <p class="text-muted m-b-0">{{communityboard[0].boardContent}}</p>
+                <router-link :to="{name:'CommunityBoardView', params:{id:communityboard[1].boardSq}}" class="commu-router">
+                <span>{{communityboard[1].boardTitle}}</span>
+                <p class="text-muted m-b-0">{{communityboard[1].boardContent}}</p>
                 </router-link>
               </div>
             </div>
@@ -149,7 +150,7 @@
     
     <!-- 추천채용정보 : 로그인한 회원 정보와 연동됨-->
     <div class="container">
-      <h3 class="m-3"><strong class="tit_cont">추천 채용 정보</strong></h3>
+      <h3 class="m-3"><strong class="tit_cont">{{userData.memberName}}님을 위한 추천 채용 정보</strong></h3>
       <div class="row">
         <div class="col-xl-3 col-sm-6 col-12" v-for="(item, i) in rcmJson.wantedRoot.wanted" :key="i">
            <div class="card h-100">
@@ -234,6 +235,7 @@ export default {
     };
   },
   methods: {
+    
     //서치바 
     jobSearch: function(){
       let keyword= this.keyword;
@@ -244,7 +246,6 @@ export default {
     },
   },
     created () {
-      
     this.$http.get(rcm)//추천 채용정보
       .then((response) => {
         var xml = response.data
@@ -256,10 +257,10 @@ export default {
   },
   mounted(){
     //action에 있는 loadXml 호출용 
-    this.$store.dispatch('jobStore/loadXml'),
-    this.$store.dispatch("FETCH_QNABOARD"),
-    this.$store.dispatch("FETCH_COMMUNITYBOARD"),
-    this.$store.dispatch("FECH_MEETINGLIST")
+    this.$store.dispatch('jobStore/loadXml')
+    this.$store.dispatch("FETCH_QNABOARD");
+    this.$store.dispatch("FETCH_COMMUNITYBOARD");
+    this.$store.dispatch("FECH_MEETINGLIST");
   },
   computed:{
     //구직정보 데이터
@@ -269,7 +270,7 @@ export default {
     ]),
     //유저데이터 호출
     ...memberState([
-      'userData'
+      'userData',"loginStatus"
     ]),
     ...mapState([
       'qnaboard','communityboard','meeting'

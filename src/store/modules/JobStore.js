@@ -105,7 +105,7 @@ const jobStore = {
                                 title: companyName[i].title._text,
                                 ability: companyName[i].minEdubg._text,
                                 Condition: companyName[i].sal._text,
-                                deadline: companyName[i].closeDt._text,
+                                deadline: (companyName[i].closeDt._text),
                                 jobNo: companyName[i].wantedAuthNo._text
                             }
                         )

@@ -156,7 +156,7 @@ export default {
   data: () => ({
     memberPwd: "",
     selected: null,
-    position: [{ text: '관심있는 직군을 선택해주세요', value: null },'디자인', '백엔드', '프론트엔드', '퍼블리싱'],
+    position: [{ text: '관심있는 직군을 선택해주세요', value: null },{text:'디자인', value:'1'}, '백엔드', '프론트엔드', '퍼블리싱'],
   }),
 
   methods: {
@@ -169,8 +169,10 @@ export default {
         memberPostCode: $('#sample6_postcode').val(),
         memberAddr: $('#sample6_address').val(),
         memberAddrDtl: this.userData.memberAddrDtl,
+        memberPosition: this.userData.memberPosition,
         memberAddrExtra: $('#sample6_extraAddress').val(),
-        memberPosition: this.userData.memberPosition
+        memberPosition: this.selected
+        
       };
       const self = this; //this scope문제
       console.log("form:" + JSON.stringify(formData));

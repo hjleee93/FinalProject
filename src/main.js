@@ -21,7 +21,7 @@ import axios from 'axios';
 import store from './store'
 import VueDaumPostcode from "vue-daum-postcode"
 import LoadScript from 'vue-plugin-load-script';
-
+import VueMoment from 'vue-moment'
 
 
 
@@ -48,9 +48,9 @@ Vue.use(VueRouter)
 Vue.use(LoginPlugin);
 Vue.use(VueDaumPostcode)
 Vue.use(ElementUI);
-Vue.use(VeeValidate, { inject: false, aria: true, validity: true });
+Vue.use(VeeValidate, { inject: false, aria: true, validity: true, fieldsBagName: 'formFields' });
 Vue.use(LoadScript);
-
+Vue.use(VueMoment);
 //다음 주소 api
 Vue.loadScript("http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false")
 
@@ -65,6 +65,7 @@ new Vue({
   store,
   beforeCreate() {
     this.$store.dispatch('memberStore/getMemberInfo');
+
   },
   render: h => h(App),
   vuetify,

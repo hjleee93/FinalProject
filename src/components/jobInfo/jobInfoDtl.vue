@@ -11,7 +11,10 @@
       <div class="job-title m-5">
         {{ items.wantedDtl.wantedInfo.wantedTitle._text }}<br />
         <small>{{ items.wantedDtl.corpInfo.corpNm._text }}</small>
-        <span class="deadline m-2 p-2">{{
+        <span class="deadline m-2 p-2" v-if="items.wantedDtl.wantedInfo.receiptCloseDt._text != '채용시까지'">D-{{
+          $moment($moment(items.wantedDtl.wantedInfo.receiptCloseDt._text).format('YYYY-MM-DD')).diff(now, 'days')
+        }}</span>
+        <span class="deadline m-2 p-2" v-else>{{
           items.wantedDtl.wantedInfo.receiptCloseDt._text
         }}</span>
       </div>
@@ -106,13 +109,25 @@
       <b-table
         :items="apply"
         :fields="field"
-        :tbody-tr-class="rowClass"
+        
       ></b-table>
     </div>
     <!-- 기업정보 -->
     <p class="h3 mt-3 font-weight-bold">기업정보</p>
     <div class="company-info">
-      기업정보 넣을 부분
+       <div class="company-left">
+         <p class="compnay-name">{{ items.wantedDtl.corpInfo.corpNm._text }}</p>
+       <span>대표 {{ items.wantedDtl.corpInfo.reperNm._text }}</span>
+       <span>근로자수 {{ items.wantedDtl.corpInfo.totPsncnt._text }}</span>
+       </div>
+    <div class="company-right">
+      <!-- {{ items.wantedDtl.corpInfo.yrSalesAmt._text }} -->
+       {{ items.wantedDtl.corpInfo.indTpCdNm._text }}
+       {{ items.wantedDtl.corpInfo.busiCont._text }}
+       {{ items.wantedDtl.corpInfo.corpAddr._text }}
+       {{ items.wantedDtl.corpInfo.homePg._text }}
+       {{ items.wantedDtl.corpInfo.busiSize._text }}
+    </div>
     </div>
   </b-container>
 </template>
@@ -147,6 +162,16 @@ export default {
 
 <style scoped>
 /* 기업정보 */
+.compnay-name{
+  height:70%
+}
+.company-left{
+  width:50%;
+  
+}
+.company-right{
+width:50%;
+}
 .company-info{
   height:150px;
   border: 1px solid #ededed;

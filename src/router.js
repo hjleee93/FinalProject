@@ -350,7 +350,7 @@ export default new Router({
       component: MyPage
     },
     {
-      path: '/jobInfoDtl',
+      path: '/jobInfoDtl/:wantedNo',
       name: 'jobInfoDtl',
       component: jobInfoDtl
     },

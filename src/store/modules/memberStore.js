@@ -124,6 +124,7 @@ const memberStore = {
                 axios
                     .get('http://localhost:8082/itjobgo/member/getMember?memberEmail=' + memberEmail, config)
                     .then(response => {
+
                         var userData = {
                             memberSq: response.data.memberSq,
                             memberAddr: response.data.memberAddr,
