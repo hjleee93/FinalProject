@@ -25,6 +25,9 @@ import {
     //현주
     fetchQnaBoardList,
     fetchQnaBoardView,
+    fetchQnaBoardDelete,
+    fetchQnaBoardUpdate,
+    fetchQnaBoardAttachment,
     //민지   
     fetchInfoList,
     fetchInfoDetail,
@@ -67,18 +70,21 @@ export default new Vuex.Store({
         noticeList:[],
         writeDate:[],
 
-
-
-        //현주(배신자)
-        qnaboard: [],
-        qnaBoardView: [],
+        //현주
+        qnaboard:[],
+        qnaBoardView:[],
+        qnaBoardDelete:[],
+        qbAttachment:[],
+        
 
         //민지
         infoList: [],
         infoDetail: [],
         infoForm: [],
 
-        
+     
+        loginStatus: false,//로그인 성공 여부
+        loginError: false,
 
     },
     actions: {
@@ -208,6 +214,26 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
+        //qna 게시판 삭제하기
+        FETCH_QNABOARD_DELETE({ commit }, qnaboardNo) {
+            fetchQnaBoardDelete(qnaboardNo)
+                .then(({ data }) => commit("SET_QNABOARD_DELETE", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+        //qna 게시판 수정하기(객체 값 불러오기)
+        FETCH_QNABOARD_UPDATE({ commit }, qnaboardNo) {
+            fetchQnaBoardUpdate(qnaboardNo)
+                .then(({ data }) => commit("SET_QNABOARD_UPDATE", data))
+                .catch(({ error }) => console.log(error))
+        },
+        //qna 게시판 첨부파일 다운로드
+        FETCH_QNABOARD_ATTACHMENT({commit},no){
+            fetchQnaBoardAttachment(no)
+                .then(({data})=>commit("SET_QNABOARD_ATTACHMENT",data))
+                .catch(({ error }) => console.log(error))
+        },
 
 
         //민지
@@ -318,19 +344,29 @@ export default new Vuex.Store({
         SET_NOTICE(state,noticeList){
             state.noticeList=noticeList;
         },
-
-
-
         
 
         //현주 게시판 리스트
         SET_QNABOARD(state, qnaboard) {
-            state.qnaboard = qnaboard;
+        state.qnaboard = qnaboard;
         },
         //qna게시판 상세화면
         SET_QNABOARD_VIEW(state, qnaBoardView) {
-            state.qnaBoardView = qnaBoardView;
+        state.qnaBoardView = qnaBoardView;
         },
+        //qna게시판 삭제
+        SET_QNABOARD_DELETE(state, data) {
+            state.data = data;
+        },
+        //qna게시판 수정(값 불러오기)
+        SET_QNABOARD_UPDATE(state, data) {
+            state.qbAttachment = data;
+        },
+        //qna게시판 첨부파일(다운로드)
+        SET_QNABOARD_ATTACHMENT(state,data){
+            state.qbAttachment2=data;
+        },
+
 
         //민지
         //리스트

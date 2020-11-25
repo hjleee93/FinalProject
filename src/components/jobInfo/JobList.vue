@@ -13,9 +13,11 @@
     color="grey darken-3"
     
     >
-    <v-tab><b>웹 개발</b></v-tab>
-    <v-tab><b>응용프로그램 개발</b></v-tab>
-    <v-tab><b>퍼블리싱</b></v-tab>
+    <v-tab href="/jobList"><b>ALL</b></v-tab>
+    <v-tab href="#"><b>FRONTEND</b></v-tab>
+    <v-tab href="#"><b>BACKEND</b></v-tab>
+    <v-tab href="#"><b>DESIGN</b></v-tab>
+    <v-tab href="#"><b>PUBLISHING</b></v-tab>
     <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
   </v-tabs>
 
@@ -35,18 +37,22 @@
           ></v-text-field>
        </v-card-title>
         <v-data-table
-          class="elevation-1"
+          class="row-pointer"
           :headers="headers"
           :items="tableList"
           :search="search"
-         
+         @click:row="moveDtlPage" 
         ></v-data-table>
+        
     </v-card>
       </div>
      </div>
+     
     </div>
    </div>
+   
   </body>
+  
 </template>
 
 <script>
@@ -56,7 +62,7 @@ const { mapState } = createNamespacedHelpers("jobStore");
   export default {
     
     data: () => ({ 
-      search: '',
+      search: '',      
 
         headers: [
           { text: '기업명', value: 'company' },
@@ -64,12 +70,20 @@ const { mapState } = createNamespacedHelpers("jobStore");
           { text: '지원자격', value: 'ability' },
           { text: '근무조건', value: 'Condition' },
           { text: '마감일·등록일', value: 'deadline' },
+          
         ]
     }),
     mounted(){   
       
     this.$store.dispatch('jobStore/loadJobTable')
     
+  },
+  
+  methods:{
+    //상세페이지로 이동
+  moveDtlPage: function(e){
+    this.$router.push({name:"jobInfoDtl",params:{wantedNo: e.jobNo}})
+  }
   },
   computed:{
     ...mapState([
@@ -82,9 +96,11 @@ const { mapState } = createNamespacedHelpers("jobStore");
 </script>
 
 <style scoped>
-.elevation-1 td{
-  height: 150px !important;
+
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
 }
+
 .overflow .v-card{
   margin-bottom: 50px;
   box-shadow: 0 0 black !important;
