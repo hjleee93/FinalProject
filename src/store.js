@@ -227,8 +227,8 @@ export default new Vuex.Store({
                 .catch(({ error }) => console.log(error))
         },
         //qna 게시판 첨부파일 다운로드
-        FETCH_QNABOARD_ATTACHMENT({commit},no){
-            fetchQnaBoardAttachment(no)
+        FETCH_QNABOARD_ATTACHMENT({commit},qnaboardNo){
+            fetchQnaBoardAttachment(qnaboardNo) 
                 .then(({data})=>commit("SET_QNABOARD_ATTACHMENT",data))
                 .catch(({ error }) => console.log(error))
         },
