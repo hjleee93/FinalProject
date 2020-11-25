@@ -68,15 +68,33 @@ function fetchNoticeList(){
    return axios.get(`${config.Url}notice/noticeList`)
 }
 
+
 //현주 //qnaBoard(qna게시판)
-//조회
+//qna 게시판 조회
 function fetchQnaBoardList() {
     return axios.get(`${config.Url}qna/qnaboardlist`)
 }
 //qna게시판 상세화면
-function fetchQnaBoardView(QnaSeq){
-    return axios.get(`${config.Url}qna/qnaBoardView${QnaSeq}`)
+function fetchQnaBoardView(qnaSeq){
+    return axios.get(`${config.Url}qna/qnaBoardView${qnaSeq}`)
 }
+//qna게시판 삭제하기
+function fetchQnaBoardDelete(qnaSeq){
+    return axios.post(`${config.Url}qna/qnaBoardDelete${qnaSeq}`)
+}
+//qna게시판 수정하기(게시판번호로 객체 값 불러오기 )
+function fetchQnaBoardUpdate(qnaSeq) {
+    return axios.get(`${config.Url}qna/qnaBoardUpdate${qnaSeq}`)
+}
+//qna게시판 첨부파일 가져오기(파일 다운로드)
+function fetchQnaBoardAttachment(qnaSeq){
+    return axios.get(`${config.Url}qna/qnaBoardAttachment${qnaSeq}`)
+}
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 8659f29ced753567d67c1f983f926f7234aa1f5d
 // 민지
 // info(취업정보)
 // 조회 리스트
@@ -94,6 +112,7 @@ function fetchInfoDelete(infoSq){
 // 수정하기(게시판번호로 객체 값 불러오기 )
 function fetchInfoUpdate(infoSq){
     return axios.get(`${config.Url}info/infoUpdate${infoSq}`)
+
 }
 
 export {
@@ -122,6 +141,9 @@ export {
     //qna게시판
     fetchQnaBoardList,
     fetchQnaBoardView,
+    fetchQnaBoardDelete,
+    fetchQnaBoardUpdate,
+    fetchQnaBoardAttachment,
 
      //민지
     //info 취업정보 
@@ -130,5 +152,5 @@ export {
     fetchInfoDelete,
     fetchInfoUpdate,
 
-
+    
 }

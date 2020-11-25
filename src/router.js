@@ -412,7 +412,7 @@ export default new Router({
       component: RefSite
     },
     {
-      path: '/qnaView',
+      path: '/qnaView/:id',
       name: 'qnaView',
       component: QnaView
     },
@@ -422,7 +422,7 @@ export default new Router({
       component: QnaBoard
     },
     {
-      path: '/qnaModify',
+      path: '/qnaModify/:id',
       name: 'qnaModify',
       component: QnaModify
     },

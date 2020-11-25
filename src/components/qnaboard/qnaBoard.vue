@@ -51,7 +51,6 @@
         </v-card>
         
         
-
           </div>
       
         </div>
@@ -155,7 +154,7 @@ import { mapState } from 'vuex';
 .sub-header{
   position: relative;
   bottom: -45px;
-  left:  10px;
+  left:  -12px;
   margin-top: 20px;
   text-align: left;
 }
