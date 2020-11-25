@@ -44,6 +44,7 @@
       <b-col cols="1"><b-button>수정</b-button></b-col>
       </b-row></b-card></b-col>
       </b-row>
+      <div>{{commentlist}}</div>
     
       </b-container>
       <!-- <div>{{pboardone}}</div> -->
@@ -92,6 +93,7 @@ export default {
     components:{
       ModalView,
     },
+    
     methods: {
       update(){
         //수정버튼 눌렸을때 처리하는 로직
@@ -144,19 +146,25 @@ export default {
         const pboardNo=this.$route.params.id;
         this.$store.dispatch("FETCH_PBOARDONE",pboardNo)
         this.$store.dispatch("FETCH_ATTACHMENT",pboardNo)
+        this.$store.dispatch("FETCH_COMMNET",this.$route.params.id);
         
     },
-    computed: {
+    mounted() {
      
+        //모든 화면이 렌더링된 후 호출 된다.
+        
+  
+    },
+    computed: {
+      
         ...mapState({
             pboardone:state=>state.pboardone,
-            attachment:state=>state.attachment2         
+            attachment:state=>state.attachment2,
+            commentlist:state=>state.comment    
         }),
-         ...loadUserState(['userData'])
-      
-       
-        
-    }
+         ...loadUserState(['userData'])  
+    },
+    
     
   
     

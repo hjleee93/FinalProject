@@ -24,6 +24,9 @@ function fetchPboardUp(no) {
 function fetchAttachment(no){
     return axios.get(`${config.Url}portfolio/attachment${no}.do`)
 }
+function fetchcomment(no){
+    return axios.get(`${config.Url}portfolio/commentList${no}.do`)
+}
 
 //모임
 function fetchMeeting() {
@@ -35,6 +38,7 @@ function fetchmsublist(){
 function fetchMeetinginfo(no){
     return axios.get(`${config.Url}meeting/meetinginfo${no}.do`)
 }
+
 
 
 
@@ -118,10 +122,12 @@ export {
     fetchPboardUp,
     fetchPboardDel,
     fetchAttachment,
+    fetchcomment,
     //모임
     fetchMeeting,
     fetchMeetinginfo,
     fetchmsublist,
+  
 
     //주은
         //자유게사판CommunityBoard
