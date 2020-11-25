@@ -107,10 +107,31 @@
             
            
             <!-- qna -->
-            <template v-if="qnaboard">
-            <div class="card col-6 m-0 p-0 info-card"  v-for="i in 2" :key="i">
+            <div class="card col-6 m-0 p-0 info-card" >
               
-              <div class="m-2">
+              <div class="m-2" v-if="qnaboard[0] != undefined">
+                <router-link :to="{name:'qnaView', params:{id:qnaboard[0].qnaSeq}}" class="qna-router">
+                <div class="qst"><b-btn class="qna-btn">질문</b-btn>
+                <span>{{qnaboard[0].qnaTitle}}</span>
+                </div>
+                <p class="text-muted m-b-0">{{qnaboard[0].qnaContent}}</p>
+                
+                <div class="ans"><b-btn class="ans-btn">답변</b-btn>
+                <span v-if="qnaboard[0].qnaAnswerYn =='N'"><small>등록된 답변이 없습니다.</small></span>
+                <span v-else><small>답변 확인하기</small></span>
+                </div>
+                </router-link>
+              </div>
+
+            <div v-else>
+              
+              <p class="m-2">등록된 질문이 없습니다.</p>
+            </div>
+
+              
+            </div>
+            <div class="card col-6 m-0 p-0 info-card" v-for="i in 1" :key="i">              
+              <div class="m-2" v-if="qnaboard[i] != undefined">
                 <router-link :to="{name:'qnaView', params:{id:qnaboard[i].qnaSeq}}" class="qna-router">
                 <div class="qst"><b-btn class="qna-btn">질문</b-btn>
                 <span>{{qnaboard[i].qnaTitle}}</span>
@@ -123,9 +144,13 @@
                 </div>
                 </router-link>
               </div>
+
+            <div v-else>              
+              <p class="m-2">등록된 질문이 없습니다.</p>
+            </div>
+
               
             </div>
-            </template>
           </div>
         </div>
 
@@ -226,6 +251,7 @@ export default {
     
     return {
       // inputSearch,//search bar 검색어 
+      
       rcmJson:[],//추천 채용정보 
       selectedLocation: null,
       selectedJob: null,
@@ -277,6 +303,7 @@ export default {
     this.$store.dispatch("FECH_MEETINGLIST");
   },
   computed:{
+   
     //구직정보 데이터
     ...jobState([
       //매핑값

@@ -157,6 +157,9 @@ const LoginCallback = () => {
 const NaverLogin = () => {
   return import('./components/member/naverLogin.vue')
 }
+const PhotoUpload = () => {
+  return import('./components/member/photoUpload.vue')
+}
 
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
@@ -312,6 +315,11 @@ export default new Router({
       name: 'home',
       component: Home//주소와 연결이되는 컴포넌트
 
+    },
+    {
+      path: "/photoUpload",
+      name: 'photoUpload',
+      component: PhotoUpload
     },
     {
       path: '/register',

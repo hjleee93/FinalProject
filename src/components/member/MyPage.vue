@@ -124,7 +124,7 @@ export default {
 	methods:{
 		addPhoto:function(){
 			//이력서용 사진 업로드 새창
-			window.open("", "", "_blank");
+			window.open("photoUpload", "이력서 사진 업로드", "_blank");
 		}
 	}
 }
