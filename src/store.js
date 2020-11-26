@@ -156,6 +156,7 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
+        
 
         //주은
         //자유게시판 list 불러오기
