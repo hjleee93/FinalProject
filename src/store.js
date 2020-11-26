@@ -9,11 +9,13 @@ import {
     fetchPboardDel,
     fetchPboardUp,
     fetchAttachment,
+    fetchcomment,
   
     //모임
     fetchMeeting,
     fetchmsublist,
     fetchMeetinginfo,
+
     //주은
     fetchCommunityBoardList,
     fetchCommunityBoardView,
@@ -55,6 +57,7 @@ export default new Vuex.Store({
         msg: '',
         attachment: [],
         attachment2:[],
+        comment:[],
         //모임
 
         meeting: [],
@@ -121,6 +124,12 @@ export default new Vuex.Store({
             fetchAttachment(no)
             .then(({data})=>commit("SET_ATTACHMENT",data))
             .catch(({ error }) => console.log(error))
+        },
+        //게시판 댓글 불러오기
+        FETCH_COMMNET({commit},no){
+            fetchcomment(no)
+            .then(({data})=>commit("SET_COMMENT",data))
+            .catch(({error})=>console.log(error))
         },
         
         //모임 
@@ -293,6 +302,9 @@ export default new Vuex.Store({
         },
         SET_MINFO(state, data) {
             state.minfo = data;
+        },
+        SET_COMMENT(state,data){
+            state.comment=data;
         },
 
         //주은
