@@ -171,6 +171,7 @@ export default new Router({
     {
       path: '/meetingList',
       component: meetingList,
+      name:"meetingList",
       children: [
         {
           path: 'meeting',

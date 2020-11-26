@@ -33,7 +33,7 @@
       
 
       <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea v-model="pcomment" /></b-col>
+      <b-col><b-form-textarea ref="comment" v-model="pcomment" /></b-col>
       <b-col cols="1"><b-button @click="comment">전송</b-button></b-col>
       </b-row></b-card></b-col></b-row></b-form>
 
@@ -44,6 +44,7 @@
       <b-col cols="1"><b-button>수정</b-button></b-col>
       </b-row></b-card></b-col>
       </b-row>
+      <div>{{commentlist}}</div>
     
       </b-container>
       <!-- <div>{{pboardone}}</div> -->
@@ -92,6 +93,7 @@ export default {
     components:{
       ModalView,
     },
+    
     methods: {
       update(){
         //수정버튼 눌렸을때 처리하는 로직
@@ -112,19 +114,23 @@ export default {
         
         
       },
+     
       comment(){
         let formData2=new FormData();
         formData2.append('pboardNo',this.pboardone.pboardNo);
         formData2.append('pcommentContent',this.pcomment);
         formData2.append('memberSq',this.userData.memberSq);
         formData2.append('memberName',this.userData.memberName)
-        for(let key of formData2.entries()){
-          console.log(`${key}`);
-        }
+        // for(let key of formData2.entries()){
+        //   console.log(`${key}`);
+        // }
       axios.post("http://localhost:8082/itjobgo/portfolio/comment.do",formData2)
       .then((data)=>{
-          console.log(data)})
-        .catch((error)=>
+        console.log(data)
+        this.pcomment=""
+      
+      })
+      .catch((error)=>
         console.log(error))
      
       },
@@ -140,19 +146,25 @@ export default {
         const pboardNo=this.$route.params.id;
         this.$store.dispatch("FETCH_PBOARDONE",pboardNo)
         this.$store.dispatch("FETCH_ATTACHMENT",pboardNo)
+        this.$store.dispatch("FETCH_COMMNET",this.$route.params.id);
         
     },
-    computed: {
+    mounted() {
      
+        //모든 화면이 렌더링된 후 호출 된다.
+        
+  
+    },
+    computed: {
+      
         ...mapState({
             pboardone:state=>state.pboardone,
-            attachment:state=>state.attachment2         
+            attachment:state=>state.attachment2,
+            commentlist:state=>state.comment    
         }),
-         ...loadUserState(['userData'])
-      
-       
-        
-    }
+         ...loadUserState(['userData'])  
+    },
+    
     
   
     

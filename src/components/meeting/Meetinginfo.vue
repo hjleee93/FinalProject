@@ -27,20 +27,77 @@
        <b-card title="모집정보">
          <b-card>{{minfo.collabContent}}</b-card>
        </b-card>
-    <b-row >
-        <b-col align-self="center"><b-button id="m-btn">신청하기</b-button></b-col>
+    <b-row v-if="minfo.collabEmail!=userData.memberEmail">
+        <b-col align-self="center"><b-button id="m-btn" @click="apbtn">신청하기</b-button></b-col>
     </b-row>
     <div>{{minfo}}</div>
+    <ModalView v-if="showModal" @close="showModal = false">
+    <template>
+      <div slot="header">
+       <h3>신청하기</h3>
+      </div>
+      <div slot="body" class="modalf"> 
+        <b-card>
+          <b-row>신청자:{{userData.memberName}}</b-row>
+          <b-row>
+            <b-form>
+            <b-form-radio v-model="selected"  name="postion" value="back">백엔드</b-form-radio>
+            <b-form-radio v-model="selected"  name="postion" value="front">프론트</b-form-radio>
+            <b-form-radio v-model="selected"  name="postion" value="desgin">디자인</b-form-radio>
+            {{selected}}
+            </b-form>
+          </b-row>
+        </b-card>
+      </div>
+      <div slot="footer">
+        <b-button @click="applybtn(selected)">
+          YES
+        </b-button>
+      <b-button @click="ndele">NO</b-button>
+      </div>
+    </template>
+
+
+  </ModalView>
     </b-container>  
+    
 </template>
 
 <script>
+import axios from "axios"
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 import { mapState } from 'vuex'
+import ModalView from '../common/ModalView.vue';
 export default {
+  components: { ModalView },
   data(){
     return{
-
+    showModal:false,
+    selected:'',
     }
+  },
+ 
+  methods: {
+    apbtn(){
+      this.showModal=!this.showModal;
+    },
+    ndele(){
+        this.showModal=!this.showModal;
+      },
+      applybtn(value){
+        let applyform=new FormData
+        applyform.append("memberSq",this.userData.memberSq)
+        applyform.append("postion",value)
+       axios.post("http://localhost:8082/itjobgo/meeting/applymeeting.do",applyform)
+       .then(()=>{
+         alert("신청완료")
+           this.showModal=!this.showModal;
+       })
+          
+        .catch((error)=>
+        console.log(error))
+      }
   },
   created() {
     const no=this.$route.params.id
@@ -49,7 +106,8 @@ export default {
   computed: {
     ...mapState({
       minfo:state=>state.minfo
-    })
+    }),
+     ...loadUserState(['userData'])  
   },
 
 }
