@@ -48,6 +48,8 @@
       </b-container>
       <div>게시판 객체 : {{communityboardView}}</div>
       <div>유저 객체 : {{userData}}</div>
+      <p>날짜표시  : {{ communityboardView.boardDate | moment('YYYY-MM-DD') }}</p>
+
   
   <!-- <div v-for="item in pboardone" :key="item.id">{{item}}</div> -->
     
@@ -78,6 +80,11 @@ import { mapState } from 'vuex';
 import axios from 'axios';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
+
+import Vue from 'vue'
+import vueMoment from 'vue-moment';
+Vue.use(vueMoment);
+
 export default {
     data(){
         return {

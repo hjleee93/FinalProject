@@ -46,6 +46,7 @@ import jobStore from './store/modules/JobStore.js';
 Vue.use(Vuex, axios)
 
 export default new Vuex.Store({
+
     modules: {
         memberStore: memberStore,
         jobStore: jobStore
@@ -68,8 +69,10 @@ export default new Vuex.Store({
         communityboard: [],
         communityboardView: [],
         communityboardDelete: [],
-        communityboardAttachment: [],
-        cbAttachment:[],
+        cbAttachment: [],
+        cbAttachment2:[],
+        noticeList:[],
+        writeDate:[], //날짜변형 데이터
 
         //현주
         qnaboard:[],
@@ -153,7 +156,7 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
-     
+        
 
         //주은
         //자유게시판 list 불러오기
@@ -275,8 +278,6 @@ export default new Vuex.Store({
                 .catch(({ error }) => console.log(error))
         },
 
-
-
     },//action
 
     mutations: {
@@ -308,7 +309,7 @@ export default new Vuex.Store({
         },
 
         //주은
-        //자유게시판 리스트
+        //자유게시판 리스트(날짜 들어가는 부분)
         SET_COMMUNITYBOARD(state, communityboard) {
             state.communityboard = communityboard;
         },
