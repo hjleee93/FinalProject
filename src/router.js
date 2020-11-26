@@ -40,9 +40,13 @@ const InfoDetail = () => {
 const InfoForm = () => {
   return import('./components/info/InfoForm.vue')
 }
+const InfoModify = () => {
+  return import('./components/info/InfoModify.vue')
+}
 const JobList = () => {
   return import('./components/jobInfo/JobList.vue')
 }
+
 //주은
 const CommunityBoardList = () => {
   return import('./components/communityBoard/CommunityBoardList.vue')
@@ -233,6 +237,11 @@ export default new Router({
       path: '/jobList',
       name: 'jobList',
       component: JobList
+    },
+    {
+      path: '/infoModify',
+      name: 'infoModify',
+      component: InfoModify
     },
     //주은
     {

@@ -66,15 +66,17 @@
 
 <script>
 import { VueEditor } from "vue2-editor";
-/* import axios from 'axios'; */
+import axios from 'axios'
+import { mapState } from 'vuex';
 
   /*  Vue2Editor 작성 */
     export default {
       data() {
         return {
             infoTitle: '',
-            category : "",
+            category:null,
             infoCategory :[
+          { value: null, text: '분류를 선택해주세요' },
           { value: '설명회', text: '설명회' },
           { value: '박람회', text: '박람회' },
           { value: '상담회', text: '상담회' },
@@ -85,65 +87,69 @@ import { VueEditor } from "vue2-editor";
             infoContent: "",           
             }
       },
-    components:{
-      VueEditor
-    },
+
+      computed:{
+      ...mapState({
+        //mapState를 통해서 store에 저장된 (객체) data를 가져다 쓸수있다
+        infoDetail:state=>state.infoDetail,
+        cbAttachment:state=>state.cbAttachment,    
+        })
+      },
+      components:{
+          VueEditor,
+        },
 
     methods: {
-        enrollInfo() {
-          let formData = new FormData();
-          formData.append('infoTitle',this.infoTitle);
-          formData.append('infoCategory',this.category);
-          formData.append('infoDate',this.infoDate);
-          formData.append('infoTime',this.infoTime);
-          formData.append('infoAddress',this.infoAddress);
-          formData.append('infoContent',this.infoContent.replace(/(<([^>]+)>)/ig,""));
+         updateForm() {
+       
+        if(!this.infoTitle){
+          this.infoTitle=this.infoDetail.infoTitle;
+        }
+        if(!this.category){
+          this.category=this.infoDetail.category;
+        }
+        if(!this.infoDate){
+          this.infoDate=this.infoDetail.infoDate;
+        }
+         if(!this.infoTime){
+          this.infoTime=this.infoDetail.infoTime;
+        }
+         if(!this.infoAddress){
+          this.infoAddress=this.infoDetail.infoAddress;
+        }
+        if(!this.infoContent){
+          this.infoContent=this.infoDetail.infoContent;
+        }
+         
+
+        let formData = new FormData();
+        formData.append('infoTitle',this.infoTitle);
+        formData.append('infoCategory',this.category);
+        formData.append('infoSq',this.$route.params.id);
+        formData.append('infoDate',this.infoDate);
+        formData.append('infoTime',this.infoTime);
+        formData.append('infoAddress',this.infoAddress);
+        formData.append('infoContent',this.infoContent.replace(/(<([^>]+)>)/ig,""));
+        formData.append('file',this.files);
         
-          for(let key of formData.entries()) {
-          console.log(`${key}`);
-          }
+        for(let key of formData.entries()){
+        console.log(`${key}`);
+        }
 
-          console.log(this.category);
-
-        axios.post("http://localhost:8082/itjobgo/info/infoForm",
-          formData,
-          { headers:{
-            'Content-Type':'multipart/form-data'
-          }}).then((data)=>console.log(data))
-          .catch((error)=>
-          console.log(error))
-          console.log(formData);
-          this.$router.push({name:'infoList'})
-        },
-
-        handleFile(){
-          console.log(this.$refs.upfiles.$refs.input.files[0]);
-          this.files=this.$refs.upfiles.$refs.input.files[0];
-          console.log(this.files);
-        },
-
-      /*   onSubmit(evt) {
-          evt.preventDefault()
-          alert(JSON.stringify(this.form))
-        },
- */
-      onReset(evt) {
-        evt.preventDefault()
-          this.form.infoTitle=''
-          this.form.infoCategory=null
-          this.form.infoDate=''
-          this.form.infoTime=''
-          this.form.infoAddress=''
-          this.form.infoContent=''
-          },
-
-      /*  clearFiles() {
-          this.$refs['file-input'].reset()  
-          },
-      */
-
+      axios.post("http://localhost:8082/itjobgo/info/infoUpdateEnd",
+        formData,
+        { headers:{
+          'Content-Type':'multipart/form-data'
+        }}).then((data)=>console.log(data))
+        .catch((error)=>
+        console.log(error))
+        console.log(formData);
+        //등록하면 게시판 목록으로
+        this.$router.push({name:'infoList'})
       },
+
     }
+  }
 </script>
 
 <style>

@@ -94,11 +94,7 @@ function fetchQnaBoardUpdate(qnaSeq) {
 function fetchQnaBoardAttachment(qnaSeq){
     return axios.get(`${config.Url}qna/qnaBoardAttachment${qnaSeq}`)
 }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 8659f29ced753567d67c1f983f926f7234aa1f5d
 // 민지
 // info(취업정보)
 // 조회 리스트
@@ -157,6 +153,6 @@ export {
     fetchInfoDetail,
     fetchInfoDelete,
     fetchInfoUpdate,
-
+    
     
 }
