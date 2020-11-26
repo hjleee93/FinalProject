@@ -9,11 +9,13 @@ import {
     fetchPboardDel,
     fetchPboardUp,
     fetchAttachment,
+    fetchcomment,
   
     //모임
     fetchMeeting,
     fetchmsublist,
     fetchMeetinginfo,
+
     //주은
     fetchCommunityBoardList,
     fetchCommunityBoardView,
@@ -44,6 +46,7 @@ import jobStore from './store/modules/JobStore.js';
 Vue.use(Vuex, axios)
 
 export default new Vuex.Store({
+
     modules: {
         memberStore: memberStore,
         jobStore: jobStore
@@ -54,6 +57,7 @@ export default new Vuex.Store({
         msg: '',
         attachment: [],
         attachment2:[],
+        comment:[],
         //모임
 
         meeting: [],
@@ -65,8 +69,10 @@ export default new Vuex.Store({
         communityboard: [],
         communityboardView: [],
         communityboardDelete: [],
-        communityboardAttachment: [],
-        cbAttachment:[],
+        cbAttachment: [],
+        cbAttachment2:[],
+        noticeList:[],
+        writeDate:[], //날짜변형 데이터
 
         //현주
         qnaboard:[],
@@ -119,6 +125,12 @@ export default new Vuex.Store({
             .then(({data})=>commit("SET_ATTACHMENT",data))
             .catch(({ error }) => console.log(error))
         },
+        //게시판 댓글 불러오기
+        FETCH_COMMNET({commit},no){
+            fetchcomment(no)
+            .then(({data})=>commit("SET_COMMENT",data))
+            .catch(({error})=>console.log(error))
+        },
         
         //모임 
         FECH_MEETINGLIST({ commit }) {
@@ -144,7 +156,7 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
-
+        
 
         //주은
         //자유게시판 list 불러오기
@@ -266,8 +278,6 @@ export default new Vuex.Store({
                 .catch(({ error }) => console.log(error))
         },
 
-
-
     },//action
 
     mutations: {
@@ -294,9 +304,12 @@ export default new Vuex.Store({
         SET_MINFO(state, data) {
             state.minfo = data;
         },
+        SET_COMMENT(state,data){
+            state.comment=data;
+        },
 
         //주은
-        //자유게시판 리스트
+        //자유게시판 리스트(날짜 들어가는 부분)
         SET_COMMUNITYBOARD(state, communityboard) {
             state.communityboard = communityboard;
         },

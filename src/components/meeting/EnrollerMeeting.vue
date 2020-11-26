@@ -39,7 +39,7 @@
       label-cols-sm="4"
       label-cols-lg="4"
       label="신청 날짜"
-      label-for="input-horizontal"
+      label-for="example-datepicker"
     >
              <b-form-datepicker id="example-datepicker"  v-model="sdate" class="mb-3"></b-form-datepicker>
           </b-form-group>
@@ -48,7 +48,7 @@
       label-cols-sm="4"
       label-cols-lg="4"
       label="마감 날짜"
-      label-for="input-horizontal"
+      label-for="example-datepicker2"
     >
              <b-form-datepicker id="example-datepicker2" v-model="fdate" class="mb-3"></b-form-datepicker>
           </b-form-group></b-col>
@@ -57,9 +57,9 @@
       label-cols-sm="4"
       label-cols-lg="4"
       label="시작 날짜"
-      label-for="input-horizontal"
+      label-for="example-datepicker3"
     >
-             <b-form-datepicker id="example-datepicker"  v-model="rdate" class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker3"  v-model="rdate" class="mb-3"></b-form-datepicker>
           </b-form-group>
         </b-col  > 
       </b-row>
@@ -287,7 +287,7 @@ export default {
       mwriter:'',
       sdate:'',
       fdate:'',
-      radte:'',
+      rdate:'',
       memail:'',
       mphone:'',
       files:'',
