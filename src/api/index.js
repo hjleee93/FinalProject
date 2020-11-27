@@ -104,6 +104,14 @@ function fetchInfoUpdate(infoSq){
     return axios.get(`${config.Url}info/infoUpdate${infoSq}`)
 }
 
+
+
+//혜지
+//이력서 게시판 리스트
+function fetchRboardList() {
+    return axios.get(`${config.Url}resume/rboardList.do`)
+
+}
 export {
     fetchPboardList,
     fetchPboardOne,
@@ -138,5 +146,8 @@ export {
     fetchInfoDelete,
     fetchInfoUpdate,
 
+    //혜지
+    //이력서게시판
+    fetchRboardList,
 
 }

@@ -27,6 +27,7 @@ import insertresume from './components/resume/insertresume'
 import updateresume from './components/resume/updateresume'
 import consultresume from './components/resume/consultresume'
 import consult from './components/resume/consult'
+import consultresumeenroll from './components/resume/consultresumeenroll'
 
 
 
@@ -466,7 +467,12 @@ export default new Router({
       path: '/resume/consult',
       name: 'consult',
       component: consult
-    }
+    },
+     {
+      path: '/resume/consultresumeenroll',
+      name: 'consultresumeenroll',
+      component: consultresumeenroll
+    },
 
   ]
 })

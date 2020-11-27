@@ -31,6 +31,9 @@ import {
     fetchInfoDelete,
     fetchInfoUpdate,
 
+    //혜지
+    fetchRboardList
+
 
 }
     from './api/index.js';
@@ -77,7 +80,8 @@ export default new Vuex.Store({
         infoDetail: [],
         infoForm: [],
 
-        
+        //혜지
+        rboard : []
 
     },
     actions: {
@@ -241,6 +245,18 @@ export default new Vuex.Store({
                 .catch(({ error }) => console.log(error))
         },
 
+        //혜지
+        //이력서 게시판 리스트 보기
+
+        FETCH_RBOARD({ commit }) {
+            //인자로 centext가 제공 centext.commit
+            fetchRboardList()
+                .then(({ data }) => commit("SET_RBOARD", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+
+        },
 
 
     },//action
@@ -329,6 +345,12 @@ export default new Vuex.Store({
      <<<<<<< HEAD
      =======
              }, */
+
+        //혜지
+        //이력서 게시판 리스트
+        SET_RBOARD(state, rboard) {
+            state.rboard = rboard;
+        }
 
 
     }//mutations 끝
