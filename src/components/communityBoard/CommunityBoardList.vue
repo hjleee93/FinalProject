@@ -25,11 +25,14 @@
           <h2 class="sub-header">자유게시판</h2>
           <br>
         <!-- 버튼 -->
+        
+       
           <v-btn   to="/communityBoardForm" exact  id="st_write">
                글쓰기
            </v-btn>
-
           <div class="overflow-hidden">
+
+
          <!-- 테이블 -->
         <v-card>
           <v-card-title>
@@ -44,24 +47,30 @@
 
               <v-data-table
                 :headers="headers"
-                :items=communityboard
+                :items="communityboard"
                 :search="search"
-                item-key="name"
-                @click:row="handleClick"
+                :server-items-length="communityboard.length"
+                item-key="boardSq"
               >
-              <!-- 수정중 -->
-                <!-- <template slot="items" slot-scope="props">
-                  <tr>
-                     <td>{{ props.communityboard.boardDivision }}</td>
-                     <td>{{ props.communityboard.boardTitle }}</td>
-                     <td>{{ props.communityboard.boardWriter }}</td>
-                     <td>{{ formatDate(props.communityboard.boardDate) }}</td>
-                     <td>{{ props.communityboard.boardCount }}</td>
-                   </tr>
-                </template> -->
+  
+            <template v-slot:item="props">
+              <tr @click="handleClick(props.item.boardSq)">
+                <td class="text-xs-right">{{props.item.boardSq }}</td>
+                <td class="text-xs-right">{{props.item.boardDivision }}</td>
+                <td class="text-xs-right">{{props.item.boardTitle }}</td>
+                <td class="text-xs-right">{{props.item.boardWriter }}</td>
+                <td class="text-xs-right">{{formatDate(props.item.boardDate)}}</td>
+                <td class="text-xs-right">{{props.item.boardCount }}</td>
+              </tr>
+           </template>
 
               </v-data-table>
+
             </v-card>
+            <div>객체(임시) : {{communityboard}}</div>
+            <div>날짜 [0] 인덱스 (임시) : {{communityboard[0].boardDate | moment('YYYY-MM-DD')}}</div>
+
+          
            </div>
       </div>
 </div>
@@ -72,8 +81,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import vueMoment from 'vue-moment';
 import Vue from 'vue'
+import vueMoment from 'vue-moment';
 
 Vue.use(vueMoment);
 
@@ -86,42 +95,43 @@ Vue.use(vueMoment);
     },
     computed:{
         ...mapState({
+        
             communityboard:state=>state.communityboard,
-        })
+    
+        }),
+        
     },
 
 methods: {
     handleClick(value){
-      // alert(value.boardSq);
-      this.$router.push({name:'CommunityBoardView',params:{id:value.boardSq}});
-      console.log(value);
-    
-    },
+      this.$router.push({name:'CommunityBoardView',params:{id:value}});
+      // console.log(this.$moment(value.boardDate).format('YYYY-MM-DD'));
 
-  // 수정중
+    },
+  // 날짜변환 함수
     formatDate(value) {
-      console.log(value);
-      return this.$moment(value).format("MMM Do YY");
+      // console.log(value);
+      return this.$moment(value).format("YYYY-MM-DD");
+      
     }
   },//method 끝
 
     data() {
       return {
-      // community: [],
-      // boardDate2:"{this.communityboard.boardDate | this.$moment('YYYY-MM-DD')}" ,
       search: '',
         headers: [
           {
-            text: '분류',
+            text: '번호',
             align: 'start',
             filterable: false,
-            value: 'boardDivision',
+            value: 'boardSq',
           },
+          { text: '분류', value: 'boardDivision'}, 
           { text: '제목', value: 'boardTitle' },
-          { text: '작성자', value : 'boardWriter'},
+          { text: '작성자', value : 'boardWriter'}, 
+          { text: '작성날짜', value: 'boardDate' },
           //수정중입니다.
-          // { text: '작성날짜', value: '[boardDate | this.$moment("YYYY-MM-DD")]' ,dataType: "Date" },
-          // { text: '작성날짜', value: '{boardDate2}'},
+          // { text: '작성날짜', value: '[boardDate | this.$moment("YYYY-MM-DD")]'},
           { text: '조회수', value: 'boardCount' }
           
           

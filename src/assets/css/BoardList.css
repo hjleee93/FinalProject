@@ -60,10 +60,10 @@ font-family: 'Barlow Semi Condensed', sans-serif;
 #st_write{
   position: relative;
   top: 0px;
-  left:1060px;
+  /* left:1060px; */
   width:70px;
   margin-bottom: 10px;
-  /* right: -40px; */
+  right: -1030px;
   margin-right: 3.5%;
   background-color: #424874;
   border:none;
