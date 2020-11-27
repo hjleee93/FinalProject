@@ -62,21 +62,17 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import { mapState } from 'vuex';
+import Vue from 'vue';
+import vueMoment from 'vue-moment';
+Vue.use(vueMoment);
+
   export default {
 
     created : function(){
       this.$store.dispatch("FETCH_QNABOARD")
     
-      // axios
-      // .get('http://localhost:8082/itjobgo/qna/qnaboardlist')
-      // .then(Response=>{
-      //   this.qna=Response.data;
-      //   console.log(Response);
-      // })
     },
-
     computed:{
         ...mapState({
             qnaboard:state=>state.qnaboard

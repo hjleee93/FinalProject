@@ -5,9 +5,8 @@
 			<h2 class="st_title">QnA 질문등록</h2><hr>
 
     <!-- 데이터 넘기기 form 시작-->
-    <form @submit.prevent="writeQna" @reset="onReset" 
-                             enctype="multipart/form-data">
-
+    <form @submit.prevent="writeQna"
+    @reset="onReset" enctype="multipart/form-data">
       <b-form-group
           id="input-group-1"
           label="제목"
@@ -75,7 +74,9 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import axios from 'axios';
-// import { component } from 'vue/types/umd';
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
+
 
   export default {
     
@@ -97,6 +98,10 @@ import axios from 'axios';
 
     components:{
       VueEditor
+    },
+
+    computed: {
+    ...mapState(['userData'])
     },
 
     methods: {

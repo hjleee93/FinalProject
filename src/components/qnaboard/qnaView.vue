@@ -6,7 +6,7 @@
         </div>
       </b-row>
 
-        <br><b>테스트용 ^0^ {{attachment}}</b>     
+        <br><b>테스트용 ^0^ {{qnaBoardView}}</b>     
 
       <b-row>
         <b-col><b-card class="text-center"><b-form>
@@ -63,13 +63,14 @@
 
 import ModalView from '../common/ModalView.vue';
 import { mapState } from 'vuex';
-// import axios from 'axios';
-import vueMoment from 'vue-moment';
-import Vue from 'vue'
-// const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 
+// import axios from 'axios'; 댓글
 
-Vue.use(vueMoment);
+// import Vue from 'vue'
+// import vueMoment from 'vue-moment';
+// Vue.use(vueMoment);
 
 export default {
 
@@ -97,11 +98,19 @@ export default {
             qnaBoardView:state=>state.qnaBoardView,
             attachment:state=>state.qbAttachment2
         }),
-        // ...loadUserState(['userData'])
+        ...loadUserState(['userData'])
 
     },
 
     methods:{
+
+        // axios.post("http://localhost:8082/itjobgo/portfolio/comment.do",formData2)
+        // .then((data)=>{
+        //     console.log(data)})
+        //     .catch((error)=>
+        //     console.log(error))
+        
+        // },
 
         //1.삭제버튼~
         deleteqna(){
