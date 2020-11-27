@@ -3,7 +3,7 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-
+ 
           <!-- 메인 이미지 -->
               <div class="submenuimage ">
                   <p class="subtitle" id="subtitle">Information</p>
