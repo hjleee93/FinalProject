@@ -57,8 +57,8 @@
 
     <!-- 등록/취소 버튼 -->
     <div class="btn_sr">
-      <v-btn type="submit" id="submit"  >수정 등록</v-btn>
-      <v-btn type="reset" to="/infoList" exact id="cancel">수정 취소</v-btn>
+      <v-btn type="submit" id="submit"  >수정 완료</v-btn>
+      <v-btn type="reset" to="/infoList" exact id="cancel">취소</v-btn>
       </div>
     </form>
   </div>
@@ -89,8 +89,8 @@ import { mapState } from 'vuex';
       },
 
       computed:{
-      ...mapState({
-        //mapState를 통해서 store에 저장된 (객체) data를 가져다 쓸수있다
+        //mapState를 통해서 store에 저장된 객체를 가져온다
+       ...mapState({
         infoDetail:state=>state.infoDetail,
         cbAttachment:state=>state.cbAttachment,    
         })
