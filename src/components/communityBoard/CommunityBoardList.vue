@@ -49,10 +49,13 @@
                 :headers="headers"
                 :items="communityboard"
                 :search="search"
-                :server-items-length="communityboard.length"
                 item-key="boardSq"
+                single-line
+                hide-details
               >
+                <!-- :server-items-length="communityboard.length" -->
   
+  single-line
             <template v-slot:item="props">
               <tr @click="handleClick(props.item.boardSq)">
                 <td class="text-xs-right">{{props.item.boardSq }}</td>

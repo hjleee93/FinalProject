@@ -4,6 +4,32 @@
          <div class="submenuimage ">
         <p class="subtitle" id="subtitle">communityBoardInfo</p>
       </div>
+
+        <!-- 탭 -->   
+        <div class="container">
+        <v-tabs
+        centered
+        color="grey darken-3"
+        >
+          <v-tab to="/noticeList"><b>공지사항</b></v-tab>
+          <v-tab to="/itNewsList"><b>IT소식</b></v-tab>
+          <v-tab to="/communityBoardList" ><b>자유게시판</b></v-tab>
+          <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
+        </v-tabs>
+      <div id="title-div">
+        <b-row>
+          <b-col>
+            <b-form-text v-model="communityboardView.boardTitle" readonly></b-form-text>
+          </b-col>
+        </b-row>
+      </div>
+
+
+        </div>
+        
+
+
+
       </b-row>
       <b-row id=" writecontain" align-h="end"><b-button to="/communityBoardList">목록으로 </b-button></b-row>
       <b-row>
