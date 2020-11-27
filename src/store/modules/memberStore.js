@@ -108,9 +108,11 @@ const memberStore = {
         },
         //유저 정보 가져오기
         getMemberInfo({ commit }) {
-
+            console.log("유저정보");
             let memberEmail = localStorage.getItem("memberEmail")
             let token = localStorage.getItem("access_token")
+
+            console.log("member: " + memberEmail);
             let config = {
                 //헤더에 토큰값 포함해서 보내기
                 headers: {

@@ -96,9 +96,8 @@ const { mapState } = createNamespacedHelpers("memberStore");
          kakao_client_id: "e1e8126c8b7e3af4fd185b1774cddd2c",
         redirect_uri: "http://localhost:8081/loginCallback",
         CLIENT_ID: 'aYgNgGmIwR3wysmlCfRd',
-        redirectURI:`http://localhost:8082/itjobgo/member/naverLogin`,
+        redirectURI:`http://localhost:8082/itjobgo/member/naverLogin`,//서버연결
          naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
-         isPopup: true,
          state:123,//TODO : 랜덤값 나올 수 있게 바꾸기
         test1: [],
         model: {
@@ -148,6 +147,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
     ...mapState(["loginStatus","loginError"])
   },
   created () {
+   
     this.naverLoginURL += '&client_id=' + this.CLIENT_ID;
     this.naverLoginURL += '&redirect_uri=' + this.redirectURI;
     this.naverLoginURL += '&state=' + this.state;

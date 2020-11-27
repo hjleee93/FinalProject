@@ -76,6 +76,9 @@
 import { mapState } from 'vuex';
 import ModalView from '../common/ModalView.vue';
 
+import { createNamespacedHelpers } from "vuex";
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+
 
 export default {
 
@@ -85,9 +88,7 @@ export default {
         infoNo:0,
       }
     },
-   computed:{
-        ModalView,   
-    },
+       
     methods: {
       update(){
         //새로운 수정 컴포넌트로 이동
@@ -115,7 +116,8 @@ export default {
         const infoNo=this.$route.params.id;
         this.$store.dispatch("FETCH_INFO_DETAIL",infoNo)
     },
-    computed: {
+    computed: { ModalView,   
+  
      
         ...mapState({
             infoDetail:state=>state.infoDetail,       
