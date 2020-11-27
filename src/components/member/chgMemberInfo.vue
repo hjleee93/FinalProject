@@ -159,7 +159,9 @@ export default {
     selected: null,
     position: [{ text: '관심있는 직군을 선택해주세요', value: null },'디자인', '백엔드', '프론트엔드', '퍼블리싱'],
   }),
-
+  created(){
+    
+  },
   methods: {
      onSubmit() {
       //  console.log($('#sample6_postcode').val());

@@ -118,6 +118,20 @@ import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 
 export default {
+	// created(){
+	// 	this.$store.dispatch('memberStore/getMemberInfo');
+	// 	console.log(this.userData.memberLevel);
+	// 	if(this.userData.memberLevel == 3  ){
+	// 		this.$swal(
+	// 			{text:"소셜로그인",
+	// 		allowOutsideClick: false,
+	// 		confirmButtonText: `정보 등록하기`,}
+	// 		),function(){
+ 	// 			window.location.href = "/chgMemberInfo";
+	// 		};
+	// 	}
+		
+	// },
 	computed:{
 		...mapState(['userData'])
 	},

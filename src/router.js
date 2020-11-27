@@ -165,6 +165,9 @@ const PhotoUpload = () => {
   return import('./components/member/photoUpload.vue')
 }
 
+const KakaoCallbackLogin = () => {
+  return import('./components/member/kakaoCallbackLogin.vue')
+}
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
 // }
@@ -178,7 +181,7 @@ export default new Router({
     {
       path: '/meetingList',
       component: meetingList,
-      name:"meetingList",
+      name: "meetingList",
       children: [
         {
           path: 'meeting',
@@ -411,6 +414,11 @@ export default new Router({
       path: '/naverLogin',
       name: 'naverLogin',
       component: NaverLogin
+    },
+    {
+      path: '/kakaoCallbackLogin',
+      name: 'kakaoCallbackLogin',
+      component: KakaoCallbackLogin
     },
 
     //현주

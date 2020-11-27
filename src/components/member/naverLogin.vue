@@ -1,3 +1,4 @@
+<!-- 네이버로그인api -->
 <template>
     <div>
     </div>
@@ -18,10 +19,8 @@ export default {
     
     this.access_token = this.$route.query.token;
     this.memberEmail = this.$route.query.email;
-    localStorage.setItem("access_token", this.access_token);//세션에 토큰 저장
+    localStorage.setItem("access_token", this.access_token);//로컬에 토큰 저장
     localStorage.setItem("memberEmail", this.memberEmail);
-    console.log("이메일: "  + this.memberEmail);
-    console.log(this.$route.query);
     this.$store.dispatch('memberStore/getMemberInfo',this.memberEmail);
     
     this.$router.push('/');

@@ -1,3 +1,4 @@
+<!-- 카카오로그인 callback -->
 <template>
   <v-layout column> </v-layout>
 </template>
@@ -20,10 +21,11 @@ export default {
         }
       })
       .then((res) => {
-        accessToken = res.data.access_token;//토큰
+        accessToken = res.data.access_token;//카카오 토큰
         console.log("카카오토큰: " + accessToken)
+        
         this.$router.push({
-          name: 'login',
+          name: 'kakaoCallbackLogin',
           params: {
             accessToken
           }

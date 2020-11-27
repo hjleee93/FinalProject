@@ -26,8 +26,8 @@
                  <img src="img/naver_logo.png" width="250px">
                 
                 </a>
-                <a @click="kakaoLogin">
-                 <img src="img/kakao_logo.png" width="250px">
+                <a @click="kakaoLogin" >
+                 <img class="kakao-login" src="img/kakao_logo.png" width="250px">
                 </a>
                  <a href="#">
                  <img src="img/google_logo.png" width="250px">
@@ -112,16 +112,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
     mounted() {    
     Kakao.isInitialized() 
     
-    Kakao.Auth.setAccessToken(this.$route.params.accessToken)
-    Kakao.API.request({
-      url: '/v2/user/me',
-      success(response) {
-        console.log(response.kakao_account)
-      },
-      fail(error) {
-        console.log(error)
-      }
-    })
+   
   },
     methods: {
       // ...mapActions(['login']),
@@ -163,6 +154,11 @@ const { mapState } = createNamespacedHelpers("memberStore");
   	
   
 <style scoped>
+/* 카카오버튼 */
+.kakao-login:hover{
+  cursor: pointer;
+
+}
 .login-content{
   background-color: #f7fafc !important;
   border-radius: 5px;
