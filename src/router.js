@@ -234,7 +234,7 @@ export default new Router({
       component: InfoList
     },
     {
-      path: '/infoDetail',
+      path: '/infoDetail/:id',
       name: 'infoDetail',
       component: InfoDetail
     },
@@ -249,7 +249,7 @@ export default new Router({
       component: JobList
     },
     {
-      path: '/infoModify',
+      path: '/infoModify/:id',
       name: 'infoModify',
       component: InfoModify
     },
