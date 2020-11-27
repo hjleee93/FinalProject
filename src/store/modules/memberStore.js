@@ -111,8 +111,6 @@ const memberStore = {
 
             let memberEmail = localStorage.getItem("memberEmail")
             let token = localStorage.getItem("access_token")
-            console.log("memberEmail: " + memberEmail)
-            console.log("token: " + token);
             let config = {
                 //헤더에 토큰값 포함해서 보내기
                 headers: {
@@ -134,7 +132,7 @@ const memberStore = {
                             memberName: response.data.memberName,
                             memberPhone: response.data.memberPhone,
                             memberPostCode: response.data.memberPostCode,
-                            memberPostition: response.data.memberPostition
+                            memberPosition: response.data.memberPosition
                         }
                         commit('loginSuccess', userData)
                     })
