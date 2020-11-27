@@ -11,9 +11,7 @@ const jobStore = {
                 deadline: ''
             }
         ],
-        apply: [
-            { 접수마감일: '', 전형방법: '', 접수방법: '', '제출 서류': '', '제출 서류 양식': '' }
-        ],
+        apply: '',
         items: [],
         data: [],
         jobs: [],
@@ -42,7 +40,6 @@ const jobStore = {
                 wantedNo.wantedNo
             )
                 .then((response) => {
-                    console.log(response)
                     var xml = response.data;
                     var json = convert.xml2json(xml, { compact: true });
                     this.items = JSON.parse(json);
@@ -66,10 +63,10 @@ const jobStore = {
                         // var htmlObject = temp.firstChild;
                         // console.log(htmlObject)
                     }
-                    this.apply = [
-                        { 접수마감일: receiptCloseDt, 전형방법: selMthd, 접수방법: rcptMthd, '제출 서류': submitDoc, '제출 서류 양식': attachFileInfo }
+                    this.apply =
+                        { receiptCloseDt: receiptCloseDt, selMthd: selMthd, rcptMthd: rcptMthd, submitDoc: submitDoc, attachFileInfo: attachFileInfo }
 
-                    ]
+
 
                     commit('SET_GET_JOB', this.items)
                     commit('SET_GET_JOB_BOARD', this.apply)
@@ -105,7 +102,7 @@ const jobStore = {
                                 title: companyName[i].title._text,
                                 ability: companyName[i].minEdubg._text,
                                 Condition: companyName[i].sal._text,
-                                deadline: companyName[i].closeDt._text,
+                                deadline: (companyName[i].closeDt._text),
                                 jobNo: companyName[i].wantedAuthNo._text
                             }
                         )

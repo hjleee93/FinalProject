@@ -56,7 +56,7 @@
 					
 				</li>
 				<li class="first resumeCompany">
-					<p class="title">참여한 프로젝트 </p>
+					<p class="title">등록된 포트폴리오 </p>
 					<p class="count"><a href="http://www.alba.co.kr/person/resumeread/CompanyList.asp">0</a>건</p>
 					
 				</li>
@@ -66,7 +66,7 @@
 					
 				</li>
 				<li class="last scrap">
-					<p class="title">스크랩 채용정보</p>
+					<p class="title">내가 쓴 글</p>
 					<p class="count"><a href="http://www.alba.co.kr/person/scrap/ScrapList.asp">0</a>건</p>
 				</li>
 
@@ -93,13 +93,23 @@
 		</div>
       
 </div>
-  <div>
+
+  <div class="mt-5 resume-section">
   <b-tabs content-class="mt-3" >
     <b-tab title="온라인 지원 현황" active><p>I'm the first tab</p></b-tab>
     <b-tab title="Second"><p>I'm the second tab</p></b-tab>
-    <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
+    <b-tab title="Disabled"><p>I'm a disabled tab!</p></b-tab>
   </b-tabs>
 </div>
+<!-- 프로젝트 -->
+<div class="mt-5 resume-section">
+  <b-tabs content-class="mt-3" >
+    <b-tab title="최신 열람한 기업" active><p>I'm the first tab</p></b-tab>
+    <b-tab title="Second"><p>I'm the second tab</p></b-tab>
+    <b-tab title="Disabled"><p>I'm a disabled tab!</p></b-tab>
+  </b-tabs>
+</div>
+
 </b-container>
 </template>
 
@@ -114,7 +124,7 @@ export default {
 	methods:{
 		addPhoto:function(){
 			//이력서용 사진 업로드 새창
-			window.open("", "", "_blank");
+			window.open("photoUpload", "이력서 사진 업로드", "_blank");
 		}
 	}
 }

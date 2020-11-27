@@ -161,6 +161,9 @@ const LoginCallback = () => {
 const NaverLogin = () => {
   return import('./components/member/naverLogin.vue')
 }
+const PhotoUpload = () => {
+  return import('./components/member/photoUpload.vue')
+}
 
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
@@ -324,6 +327,11 @@ export default new Router({
 
     },
     {
+      path: "/photoUpload",
+      name: 'photoUpload',
+      component: PhotoUpload
+    },
+    {
       path: '/register',
       name: 'register',
       // route level code-splitting
@@ -360,7 +368,7 @@ export default new Router({
       component: MyPage
     },
     {
-      path: '/jobInfoDtl',
+      path: '/jobInfoDtl/:wantedNo',
       name: 'jobInfoDtl',
       component: jobInfoDtl
     },

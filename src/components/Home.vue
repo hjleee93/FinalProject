@@ -77,9 +77,9 @@
 
           </b-carousel>
         </div>
-        <!-- 자유게시판  -->
+        
         <div class="col-4 pl-0">
-          
+          <!-- 공지  -->
           <div class="row">
             <template v-if="communityboard">
             <div class="card col-6 m-0 p-0 info-card"  >
@@ -91,44 +91,86 @@
               </div>
             </div>
             </template>
+
+            <!-- 자유게시판  -->
             <template v-if="communityboard">
             <div class="card col-6 m-0 p-0 info-card"  >
             
-              <div class="m-2">
-                <b-btn class="com-btn">자유</b-btn><span>{{communityboard[0].boardTitle}}</span>
-                
-                <p class="text-muted m-b-0">{{communityboard[0].boardContent}}</p>
+              <div class="m-2" v-if="communityboard[communityboard.length -1] != undefined">
+                <b-btn class="com-btn">자유</b-btn>
+                <router-link :to="{name:'CommunityBoardView', params:{id:communityboard[communityboard.length-1].boardSq}}" class="commu-router">
+                <span>{{communityboard[communityboard.length-1].boardTitle}}</span>
+                <p class="text-muted m-b-0">{{communityboard[communityboard.length-1].boardContent}}</p>
+                </router-link>
               </div>
+            <div v-else><p class="m-2">등록된 게시물이 없습니다.</p></div>
             </div>
             </template>
             
            
-            <!-- qna -->
-            <template v-if="qnaboard">
-            <div class="card col-6 m-0 p-0 info-card"  v-for="i in 2" :key="i">
+            <!-- qna-->
+            <div class="card col-6 m-0 p-0 info-card" >
               
-              <div class="m-2">
-                <div class="qst"><b-btn class="qna-btn">질문</b-btn><span>{{qnaboard[i].qnaTitle}}</span></div>
-                <p class="text-muted m-b-0">{{qnaboard[i].qnaContent}}</p>
-                <div class="ans"><b-btn class="ans-btn">답변</b-btn><span>{{qnaboard[i].qnaAnswerYn}}</span></div>
+              <div class="m-2" v-if="qnaboard[qnaboard.length-1] != undefined">
+                <router-link :to="{name:'qnaView', params:{id:qnaboard[qnaboard.length-1].qnaSeq}}" class="qna-router">
+                <div class="qst"><b-btn class="qna-btn">질문</b-btn>
+                <span>{{qnaboard[qnaboard.length-1].qnaTitle}}</span>
+                </div>
+                <p class="text-muted m-b-0">{{qnaboard[qnaboard.length-1].qnaContent}}</p>
+                
+                <div class="ans"><b-btn class="ans-btn">답변</b-btn>
+                <span v-if="qnaboard[qnaboard.length-1].qnaAnswerYn =='N'"><small>등록된 답변이 없습니다.</small></span>
+                <span v-else><small>답변 확인하기</small></span>
+                </div>
+                </router-link>
               </div>
+
+            <div v-else>
+              
+              <p class="m-2">등록된 질문이 없습니다.</p>
+            </div>
+
               
             </div>
-            </template>
+            <div class="card col-6 m-0 p-0 info-card" >              
+              <div class="m-2" v-if="qnaboard[qnaboard.length-2] != undefined">
+                <router-link :to="{name:'qnaView', params:{id:qnaboard[qnaboard.length-2].qnaSeq}}" class="qna-router">
+                <div class="qst"><b-btn class="qna-btn">질문</b-btn>
+                <span>{{qnaboard[qnaboard.length-2].qnaTitle}}</span>
+                </div>
+                <p class="text-muted m-b-0">{{qnaboard[qnaboard.length-2].qnaContent}}</p>
+                
+                <div class="ans"><b-btn class="ans-btn">답변</b-btn>
+                <span v-if="qnaboard[qnaboard.length-2].qnaAnswerYn =='N'"><small>등록된 답변이 없습니다.</small></span>
+                <span v-else><small>답변 확인하기</small></span>
+                </div>
+                </router-link>
+              </div>
+
+            <div v-else>              
+              <p class="m-2">등록된 질문이 없습니다.</p>
+            </div>
+
+              <!-- qna fin -->
+            </div>
           </div>
         </div>
 
+        <!-- 모임 TODO:시간순으로 해야댐 : reverse 돌리기-->
         <div class="col-4 p-0 collab">
-          <div class="card table-card">
-            <div class="card-header ">
-              <h5 class="text-center">최근 등록된 모임</h5>
+          <div class="card table-card collab">
+            <div class="card-header " >
+              <h5 class="text-center" >최근 등록된 모임</h5>
             </div>
             <table>
+              
               <tr v-for="i in 4" :key="i">
+                
                 <td>
                   <div class="table-content">
-                    <p><b>{{meeting[i].collabTitle}}</b></p>
-                    <p>{{meeting[i].collabSimcontent}}</p>
+                    <router-link :to="{name:'meetinginfo', params:{id:meeting[i].collabSq}}" class="collab-router">
+                    <p class="m-2"><b>{{meeting[i].collabTitle}}</b></p>
+                    <p class="m-2 txt">{{meeting[i].collabSimcontent}}</p></router-link>
                   </div>
                 </td>
               </tr>
@@ -136,13 +178,15 @@
             </table>
           </div>
         </div>
+        <!-- 모임끝 -->
+
       </div>
     </div>
 
     
     <!-- 추천채용정보 : 로그인한 회원 정보와 연동됨-->
-    <div class="container">
-      <h3 class="m-3"><strong class="tit_cont">추천 채용 정보</strong></h3>
+    <div class="container">      
+      <h3 class="m-3"><strong class="tit_cont">{{userData.memberName}}님을 위한 <span id="userInfo" value="123">{{userData.memberPosition}}</span> 직종 추천 채용 정보</strong></h3>
       <div class="row">
         <div class="col-xl-3 col-sm-6 col-12" v-for="(item, i) in rcmJson.wantedRoot.wanted" :key="i">
            <div class="card h-100">
@@ -195,29 +239,32 @@
 </template>
 
 <script>
+
 import { createNamespacedHelpers } from "vuex";
 import { mapState } from "vuex";
+
 const { mapState:jobState } = createNamespacedHelpers("jobStore");
 const { mapState:memberState } = createNamespacedHelpers("memberStore");
+// import $ from 'jquery';
 
 
 var convert = require('xml-js')
 
 //로그인한 사람에 따라 추천 parmeter 수정하기
-let rcm = "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=30&occupation=024"
+
 
 
 
 export default {
   data() {
+    
     return {
       // inputSearch,//search bar 검색어 
+      
       rcmJson:[],//추천 채용정보 
       selectedLocation: null,
       selectedJob: null,
-      keyword:'',
-
-   
+      keyword:'',      
       options2: [
         { value: null, text: "직무를 선택해주세요" },
         { value: "aa", text: "Web developer" },
@@ -228,18 +275,26 @@ export default {
     };
   },
   methods: {
+    
     //서치바 
     jobSearch: function(){
+      
       let keyword= this.keyword;
        this.$router.push({ 
               name: "jobSearchDtl",
               params: { keyword: keyword }//검색 keyword pass
             }); 
-    },
+    }
   },
-    created () {
+    created() {
+      //214201,214200,214202 : 컴퓨터강사 : 백엔드, 프론트엔드, 퍼블리셔
+      //022: 컴퓨터하드웨어, 통신공학 - 백엔드
+      //023: 컴퓨터시스템 - 백엔드
+      //024: 소프트웨어 - 백엔드
+      //025: 데이터 - 백엔드
+      //056, 214302: 디자이너 - 디자인
       
-    this.$http.get(rcm)//추천 채용정보
+    this.$http.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=024")//추천 채용정보
       .then((response) => {
         var xml = response.data
         var json = convert.xml2json(xml, { compact: true })
@@ -249,13 +304,15 @@ export default {
   
   },
   mounted(){
+    
     //action에 있는 loadXml 호출용 
-    this.$store.dispatch('jobStore/loadXml'),
-    this.$store.dispatch("FETCH_QNABOARD"),
-    this.$store.dispatch("FETCH_COMMUNITYBOARD"),
-    this.$store.dispatch("FECH_MEETINGLIST")
+    this.$store.dispatch('jobStore/loadXml')
+    this.$store.dispatch("FETCH_QNABOARD");
+    this.$store.dispatch("FETCH_COMMUNITYBOARD");
+    this.$store.dispatch("FECH_MEETINGLIST");
   },
   computed:{
+   
     //구직정보 데이터
     ...jobState([
       //매핑값
@@ -263,17 +320,23 @@ export default {
     ]),
     //유저데이터 호출
     ...memberState([
-      'userData'
+      "loginStatus","userData"
     ]),
     ...mapState([
-      'qnaboard','communityboard','meeting'
+      'qnaboard','communityboard','meeting'      
+      
     ])
-  }
+  },
   
 };
 </script>
 <style scoped>
 /* 상단 박스 css */
+
+.collab-router,.qna-router,.commu-router{
+  text-decoration: none;
+  color:black;
+}
 
 .qna-btn, .ans-btn,.com-btn,.ntc-btn{
     height: 26px !important;
@@ -325,8 +388,11 @@ export default {
   margin-bottom: 1.75rem !important;
 }
 .table-content {
-  height: 82px;
+  height: 75px;
   border-bottom:1px solid #ededed
+}
+.card-header+table tr:last-child .table-content{
+  border-bottom:none;
 }
 .info-card {
   border: 1px solid #ededed;
@@ -377,4 +443,32 @@ div[role="region"] {
 .main-top[data-v-8dc7cce2]{
   height:auto;
 }
+.qst+.text-muted{
+    max-height: 68px;
+    overflow: hidden;
+}
+.ans{
+  width: 100%;
+  min-height: 50px;
+  position: absolute;
+  bottom: 0;
+    
+}
+.txt{
+  width:365px;    
+  height:30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  }
+  .card.table-card[data-v-8dc7cce2]{
+    overflow:hidden;
+  }
+  .card-header+table tr td:hover{
+    background-color: #f4eef4;
+  }
+  .card:not(.collab):hover{
+    background-color: #f4eef4;
+  }
+  
 </style>
