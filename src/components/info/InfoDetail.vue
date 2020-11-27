@@ -76,7 +76,8 @@
 <script>
 import { mapState } from 'vuex';
 import ModalView from '../common/ModalView.vue';
-
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 
 export default {
 
@@ -86,7 +87,7 @@ export default {
         infoNo:0,
       }
     },
-   computed:{
+   components:{
         ModalView,   
     },
     methods: {
@@ -117,7 +118,6 @@ export default {
         this.$store.dispatch("FETCH_INFO_DETAIL",infoNo)
     },
     computed: {
-     
         ...mapState({
             infoDetail:state=>state.infoDetail,       
         }),
