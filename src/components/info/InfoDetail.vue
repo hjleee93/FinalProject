@@ -73,58 +73,58 @@
   </b-container> 
 </template>
 
-<script>
-import { mapState } from 'vuex';
-import ModalView from '../common/ModalView.vue';
+// <script>
+// import { mapState } from 'vuex';
+// import ModalView from '../common/ModalView.vue';
 
+// export default {
 
-export default {
+//   data(){
+//       return{
+//         showModal:false,
+//         infoNo:0,
+//       }
+//     },
+//    computed:{
+//         ModalView,
+//     },
+    
+//     methods: {
+//       update(){
+//         //새로운 수정 컴포넌트로 이동
+//         let no=this.$route.params.id
+//         this.$router.push({name:'InfoModify',params:{id:no}})
 
-  data(){
-      return{
-        showModal:false,
-        infoNo:0,
-      }
-    },
-   computed:{
-        ModalView,   
-    },
-    methods: {
-      update(){
-        //새로운 수정 컴포넌트로 이동
-        let no=this.$route.params.id
-        this.$router.push({name:'InfoModify',params:{id:no}})
-
-      },
-      pdelete(){
-          this.showModal=!this.showModal;
+//       },
+//       pdelete(){
+//           this.showModal=!this.showModal;
          
         
-      },
-      ydele(){
-        let no=this.$route.params.id
-         this.$store.dispatch("FETCH_INFO_DELETE",no)
-         this.$router.push({name:'InfoList'})
+//       },
+//       ydele(){
+//         let no=this.$route.params.id
+//          this.$store.dispatch("FETCH_INFO_DELETE",no)
+//          this.$router.push({name:'InfoList'})
         
         
-      },
-      ndele(){
-        this.showModal=!this.showModal;
-      },        
-    },
-    created() {
-        const infoNo=this.$route.params.id;
-        this.$store.dispatch("FETCH_INFO_DETAIL",infoNo)
-    },
-    computed: {
+//       },
+//       ndele(){
+//         this.showModal=!this.showModal;
+//       },        
+//     },
+//     created() {
+//         const infoNo=this.$route.params.id;
+//         this.$store.dispatch("FETCH_INFO_DETAIL",infoNo)
+//     },
+//     computed: {
      
-        ...mapState({
-            infoDetail:state=>state.infoDetail,       
-        }),
-         ...loadUserState(['userData'])    
-    }    
-}
-</script>
+//         ...mapState({
+//             infoDetail:state=>state.infoDetail,       
+//         }),
+//          ...loadUserState(['userData'])    
+//     }    
+// }
+// </script>
 
 <style scoped>
 #subtitle{

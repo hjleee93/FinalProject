@@ -45,11 +45,24 @@
             :headers="headers"
             :items="qnaboard"
             :search="search"
-            @click:row="handleClick"
-            item-key="name"
-          ></v-data-table>
+            :server-items-length="qnaboard.length"
+            item-key="qnaboardNo"
+          >
+
+          <template v-slot:item="props">
+                <tr @click="handleClick(props.item.qnaSeq)">
+                  <td class="text-xs-right">{{props.item.qnaSeq }}</td>
+                  <td class="text-xs-right">{{props.item.qnaWriter }}</td>
+                  <td class="text-xs-right">{{props.item.qnaCategory }}</td>
+                  <td class="text-xs-right">{{props.item.qnaTitle }}</td>
+                  <td class="text-xs-right">{{props.item.qnaAnswerYn}}</td>
+                  <td class="text-xs-right">{{props.item.qnaDate }}</td>
+                  <td class="text-xs-right">{{props.item.boardCount }}</td>
+                </tr>
+          </template>  
+          
+        </v-data-table>
         </v-card>
-        
         
           </div>
       
@@ -65,6 +78,7 @@
 import { mapState } from 'vuex';
 import Vue from 'vue';
 import vueMoment from 'vue-moment';
+
 Vue.use(vueMoment);
 
   export default {
@@ -81,9 +95,7 @@ Vue.use(vueMoment);
 
     methods:{
       handleClick(value){
-        this.$router.push({name: 'qnaView',params:{id:value.qnaSeq}});
-        console.log(value);
-        console.log(value.qnaSeq);
+        this.$router.push({name:'qnaView',params:{id:value}});
       }
     },
     
@@ -93,17 +105,18 @@ Vue.use(vueMoment);
       search: '',
         headers: [
           {
-            text: '분류',
+            text: 'NO',
             align: 'start',
             filterable: false,
-            value: 'qnaCategory', //spring vo값 적기
+            value: 'qnaSeq', //spring vo값 적기 //qnaSeq?
           },
-          { text: 'NO', value: 'qnaSeq' },          
-          { text: '제목', value: 'qnaTitle' },
           { text: '작성자', value: 'qnaWriter' },
-          { text: '내용', value: 'qnaContent' },
+          { text: '분류', value: 'qnaCategory' },          
+          { text: '제목', value: 'qnaTitle' },
           { text: '답변여부', value: 'qnaAnswerYn' },
           { text: '작성일', value: 'qnaDate' },
+          { text: '조회수', value: 'boardCount' },
+
         ],
       }
     },

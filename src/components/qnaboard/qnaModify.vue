@@ -1,21 +1,22 @@
 <template>
+  <b-container>
 
-<div class="container">
-  <div>
-			<h2 class="st_title">질문등록 및 수정</h2><hr>
-      qna게시판 객체(테스트) : {{qnaBoardView}}
-      qna게시판 제목(테스트) : {{qnaBoardView.qnaTitle}}
-      첨부파일 테스트 : {{qbAttachment}}
-      <!-- 데이터 넘기기 form 시작 -->
+    <div class="container">
+        <h2 class="st_title">게시글 수정</h2><hr>
+        qna게시판 객체(테스트) : {{qnaBoardView}}
+        qna게시판 제목(테스트) : {{qnaBoardView.qnaTitle}}
+        첨부파일 테스트 : {{qbAttachment}}
+    </div>
+
+    <!-- 데이터 넘기기 form 시작 -->
     <form @submit.prevent="updateqna"
-    @reset="onReset" enctype="multipart/form-data">
+    enctype="multipart/form-data">
 
       <b-form-group
           id="input-group-1"
           label="제목"
           label-for="input-0"
       > 
-      
       <b-form-input
           id="input-1"
           name="qnaTitle"
@@ -55,21 +56,18 @@
         ></b-form-file>
       </b-form-group>
 
-        <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button>
-      <!-- <b-button @click="file = null">Reset via v-model</b-button> -->
-
-    
-      <div id="btn_bottom">
-      <b-button  id="btn_write" @click="updateqna" class="btn-space">수정완료</b-button>
-      <b-button type="button" id="btn_write"  to="/qnaBoard" exact>목록으로</b-button>
-      </div>
-
-    </form>
-
-  </div>
+        <!-- 파일등록 리셋 버튼 -->
+        <!-- <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button> -->
   
-</div>
+        <!-- 버튼 -->
+        <div id="btn_bottom">
+        <b-button  id="btn_write" @click="updateqna" class="btn-space">수정완료</b-button>
+        <b-button type="button" id="btn_write"  to="/qnaBoard" exact>목록으로</b-button>
+        </div>
 
+      </form>
+
+  </b-container>
 </template>
 
 <script>
