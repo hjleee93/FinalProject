@@ -184,9 +184,17 @@
     </div>
 
     
-    <!-- 추천채용정보 : 로그인한 회원 정보와 연동됨-->
-    <div class="container">      
-      <h3 class="m-3"><strong class="tit_cont">{{userData.memberName}}님을 위한 <span id="userInfo" value="123">{{userData.memberPosition}}</span> 직종 추천 채용 정보</strong></h3>
+    <!-- 추천채용정보 : 로그인한 회원 정보와 연동됨, 
+        소셜 로그인으로 회원가입한 상태인 경우 프로필 업데이트 후 확인 가능
+        -->
+
+    <template v-if="userData.memberName != null">
+      <template v-if="userData.memberLevel != 0">
+    <div>
+      <template v-if=" this.rcmJson != null">
+    <div class="container" >      
+      
+      <h3 class="m-3"><strong class="tit_cont">{{userData.memberName}}님을 위한 <span id="userInfo" value="123">{{userData.memberPosition}}</span>추천 채용 정보</strong></h3>
       <div class="row">
         <div class="col-xl-3 col-sm-6 col-12" v-for="(item, i) in rcmJson.wantedRoot.wanted" :key="i">
            <div class="card h-100">
@@ -207,7 +215,18 @@
           
         </div>
       </div>
+      
     </div>
+    </template>
+    <div class="container" v-else>
+        <p class="m-3 text-center">{{userData.memberName}}님 프로필을 등록해주시면 ITJOBGO에서 추천 채용정보를 추천해드립니다.</p>
+        <p class="text-center mt-4"><router-link to="/myPage"><b-btn class="profile-btn">프로필 등록바로가기</b-btn></router-link></p>
+    </div>
+    </div>
+    </template>
+    </template>
+    
+
 <!-- 최신채용정보 -->
     <div class="container">
       <h3 class="m-3"><strong class="tit_cont">최신 채용 정보</strong></h3>
@@ -294,13 +313,20 @@ export default {
       //025: 데이터 - 백엔드
       //056, 214302: 디자이너 - 디자인
       
-    this.$http.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=024")//추천 채용정보
+      if(this.userData.memberPosition != null){
+
+        
+        this.$http.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&keyword=" + this.userData.memberPosition)//추천 채용정보
       .then((response) => {
         var xml = response.data
         var json = convert.xml2json(xml, { compact: true })
         this.rcmJson = JSON.parse(json);        
         
       })
+      }else{
+        this.rcmJson = null;       
+      
+      }
   
   },
   mounted(){
@@ -379,6 +405,13 @@ export default {
 
 .job-card:hover{
   cursor: pointer;
+}
+
+/* 추천채용정보 */
+.profile-btn{
+  background-color: #424874;
+  border: 0px;
+  height: 45px;
 }
 
 .card-title{

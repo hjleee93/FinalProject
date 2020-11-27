@@ -70,6 +70,7 @@ const memberStore = {
 
             Vue.swal({ text: "로그아웃되었습니다." })
             router.push('/');
+            location.reload();
             commit('loginFalse');
         },
         deleteMember({ commit }, loginData) {

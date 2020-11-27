@@ -168,6 +168,10 @@ const PhotoUpload = () => {
 const KakaoCallbackLogin = () => {
   return import('./components/member/kakaoCallbackLogin.vue')
 }
+const AdminPage = () => {
+  return import('./components/member/adminPage.vue')
+}
+
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
 // }
@@ -419,6 +423,11 @@ export default new Router({
       path: '/kakaoCallbackLogin',
       name: 'kakaoCallbackLogin',
       component: KakaoCallbackLogin
+    },
+    {
+      path: '/adminPage',
+      name: 'adminPage',
+      component: AdminPage
     },
 
     //현주
