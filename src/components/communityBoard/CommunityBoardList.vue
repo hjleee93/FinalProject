@@ -79,6 +79,7 @@
   </body>
 </template>
 
+
 <script>
 import { mapState } from 'vuex';
 import Vue from 'vue'
