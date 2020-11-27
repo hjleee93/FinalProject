@@ -22,6 +22,8 @@ import store from './store'
 import VueDaumPostcode from "vue-daum-postcode"
 import LoadScript from 'vue-plugin-load-script';
 import VueMoment from 'vue-moment'
+import VueLodash from 'vue-lodash'
+import lodash from 'lodash'
 
 
 
@@ -52,6 +54,8 @@ Vue.use(ElementUI);
 Vue.use(VeeValidate, { inject: false, aria: true, validity: true, fieldsBagName: 'formFields' });
 Vue.use(LoadScript);
 Vue.use(VueMoment);
+Vue.use(VueLodash, { name: 'custom', lodash: lodash })
+
 //다음 주소 api
 Vue.loadScript("http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false")
 

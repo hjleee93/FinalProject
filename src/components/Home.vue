@@ -91,33 +91,35 @@
               </div>
             </div>
             </template>
+
             <!-- 자유게시판  -->
             <template v-if="communityboard">
             <div class="card col-6 m-0 p-0 info-card"  >
             
-              <div class="m-2">
+              <div class="m-2" v-if="communityboard[communityboard.length -1] != undefined">
                 <b-btn class="com-btn">자유</b-btn>
-                <router-link :to="{name:'CommunityBoardView', params:{id:communityboard[1].boardSq}}" class="commu-router">
-                <span>{{communityboard[1].boardTitle}}</span>
-                <p class="text-muted m-b-0">{{communityboard[1].boardContent}}</p>
+                <router-link :to="{name:'CommunityBoardView', params:{id:communityboard[communityboard.length-1].boardSq}}" class="commu-router">
+                <span>{{communityboard[communityboard.length-1].boardTitle}}</span>
+                <p class="text-muted m-b-0">{{communityboard[communityboard.length-1].boardContent}}</p>
                 </router-link>
               </div>
+            <div v-else><p class="m-2">등록된 게시물이 없습니다.</p></div>
             </div>
             </template>
             
            
-            <!-- qna -->
+            <!-- qna-->
             <div class="card col-6 m-0 p-0 info-card" >
               
-              <div class="m-2" v-if="qnaboard[0] != undefined">
-                <router-link :to="{name:'qnaView', params:{id:qnaboard[0].qnaSeq}}" class="qna-router">
+              <div class="m-2" v-if="qnaboard[qnaboard.length-1] != undefined">
+                <router-link :to="{name:'qnaView', params:{id:qnaboard[qnaboard.length-1].qnaSeq}}" class="qna-router">
                 <div class="qst"><b-btn class="qna-btn">질문</b-btn>
-                <span>{{qnaboard[0].qnaTitle}}</span>
+                <span>{{qnaboard[qnaboard.length-1].qnaTitle}}</span>
                 </div>
-                <p class="text-muted m-b-0">{{qnaboard[0].qnaContent}}</p>
+                <p class="text-muted m-b-0">{{qnaboard[qnaboard.length-1].qnaContent}}</p>
                 
                 <div class="ans"><b-btn class="ans-btn">답변</b-btn>
-                <span v-if="qnaboard[0].qnaAnswerYn =='N'"><small>등록된 답변이 없습니다.</small></span>
+                <span v-if="qnaboard[qnaboard.length-1].qnaAnswerYn =='N'"><small>등록된 답변이 없습니다.</small></span>
                 <span v-else><small>답변 확인하기</small></span>
                 </div>
                 </router-link>
@@ -130,16 +132,16 @@
 
               
             </div>
-            <div class="card col-6 m-0 p-0 info-card" v-for="i in 1" :key="i">              
-              <div class="m-2" v-if="qnaboard[i] != undefined">
-                <router-link :to="{name:'qnaView', params:{id:qnaboard[i].qnaSeq}}" class="qna-router">
+            <div class="card col-6 m-0 p-0 info-card" >              
+              <div class="m-2" v-if="qnaboard[qnaboard.length-2] != undefined">
+                <router-link :to="{name:'qnaView', params:{id:qnaboard[qnaboard.length-2].qnaSeq}}" class="qna-router">
                 <div class="qst"><b-btn class="qna-btn">질문</b-btn>
-                <span>{{qnaboard[i].qnaTitle}}</span>
+                <span>{{qnaboard[qnaboard.length-2].qnaTitle}}</span>
                 </div>
-                <p class="text-muted m-b-0">{{qnaboard[i].qnaContent}}</p>
+                <p class="text-muted m-b-0">{{qnaboard[qnaboard.length-2].qnaContent}}</p>
                 
                 <div class="ans"><b-btn class="ans-btn">답변</b-btn>
-                <span v-if="qnaboard[i].qnaAnswerYn =='N'"><small>등록된 답변이 없습니다.</small></span>
+                <span v-if="qnaboard[qnaboard.length-2].qnaAnswerYn =='N'"><small>등록된 답변이 없습니다.</small></span>
                 <span v-else><small>답변 확인하기</small></span>
                 </div>
                 </router-link>
@@ -149,18 +151,21 @@
               <p class="m-2">등록된 질문이 없습니다.</p>
             </div>
 
-              
+              <!-- qna fin -->
             </div>
           </div>
         </div>
 
+        <!-- 모임 TODO:시간순으로 해야댐 : reverse 돌리기-->
         <div class="col-4 p-0 collab">
           <div class="card table-card collab">
             <div class="card-header " >
               <h5 class="text-center" >최근 등록된 모임</h5>
             </div>
             <table>
+              
               <tr v-for="i in 4" :key="i">
+                
                 <td>
                   <div class="table-content">
                     <router-link :to="{name:'meetinginfo', params:{id:meeting[i].collabSq}}" class="collab-router">
@@ -173,6 +178,8 @@
             </table>
           </div>
         </div>
+        <!-- 모임끝 -->
+
       </div>
     </div>
 
@@ -232,8 +239,10 @@
 </template>
 
 <script>
+
 import { createNamespacedHelpers } from "vuex";
 import { mapState } from "vuex";
+
 const { mapState:jobState } = createNamespacedHelpers("jobStore");
 const { mapState:memberState } = createNamespacedHelpers("memberStore");
 // import $ from 'jquery';
@@ -295,7 +304,7 @@ export default {
   
   },
   mounted(){
-     
+    
     //action에 있는 loadXml 호출용 
     this.$store.dispatch('jobStore/loadXml')
     this.$store.dispatch("FETCH_QNABOARD");
@@ -314,10 +323,10 @@ export default {
       "loginStatus","userData"
     ]),
     ...mapState([
-      'qnaboard','communityboard','meeting'
+      'qnaboard','communityboard','meeting'      
+      
     ])
-  }
-  
+  },
   
 };
 </script>
