@@ -13,7 +13,7 @@
     color="grey darken-3"
     
     >
-    <v-tab to='/jobList'><b>ALL</b></v-tab>
+   <v-tab to='/jobList'><b>ALL</b></v-tab>
     <v-tab to='/jobListFront'><b>FRONTEND</b></v-tab>
     <v-tab to='/jobListBack'><b>BACKEND</b></v-tab>
     <v-tab to='/jobListDesign'><b>DESIGN</b></v-tab>
@@ -37,17 +37,16 @@
           ></v-text-field>
        </v-card-title>
         <v-data-table
-          class="row-pointer mt-4"
+         class="row-pointer mt-4"
           :headers="headers"
           :items="tableList"
           :search="search"        
         >
-        
+        <!-- TODO:추가정보 정리하기 -->
         <template v-slot:item="props">
-          
-          <tr class="job-info" @click="moveDtlPage(props.item.jobNo)">
-            <td >{{props.item.company}}</td>
-            <td><p id="job-title">{{props.item.title}}</p><p>
+          <tr class="job-info" @click="moveDtlPage(props.item.jobNo)" >
+            <td>{{props.item.company}}</td>
+          <td><p id="job-title">{{props.item.title}}</p><p>
               
               <table>
                 <tr > 
@@ -97,116 +96,119 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
 
-export default {
-  data: () => ({
-    search: "",
+  export default {
+    
+    data: () => ({ 
+      search: '',      
 
-    headers: [
-      { text: "기업명", value: "company", class: "custom-header" },
-      { text: "제목", value: "title", class: "custom-header" },
-      { text: "지원자격", value: "ability", class: "custom-header" },
-      { text: "근무조건", value: "Condition", class: "custom-header" },
-      { text: "마감일", value: "deadline", class: "custom-header" },
-    ],
-  }),
-  mounted() {
-    this.$store.dispatch("jobStore/loadJobTable");
+        headers: [
+          { text: '기업명', value: 'company' },
+          { text: '제목', value: 'title' },
+          { text: '지원자격', value: 'ability' },
+          { text: '근무조건', value: 'Condition' },
+          { text: '마감일', value: 'deadline' },
+          
+        ]
+    }),
+    mounted(){   
+      
+    this.$store.dispatch('jobStore/loadJobFrontTable')
+    
   },
-
-  methods: {
+  
+  methods:{
     //상세페이지로 이동
-    moveDtlPage: function (e) {
-      this.$router.push({ name: "jobInfoDtl", params: { wantedNo: e } });
-    },
+  moveDtlPage: function(e){
+    this.$router.push({name:"jobInfoDtl",params:{wantedNo: e}})
+  }
   },
-  computed: {
+  computed:{
     ...mapState([
       //매핑값
-      "tableList",
-      "jobInfo",
-    ]),
-  },
-};
+      'tableList', 'jobInfo'
+    ])
+  }
+      
+  }
 </script>
 
 <style scoped>
-#job-title {
+
+#job-title{
   font-size: 16px;
   margin-top: 13px;
 }
-.title-dtl {
-  width: 120px;
+.title-dtl{
+  width:120px;
 }
-.job-info {
+.job-info{
   height: 100px !important;
 }
 
-.d-day-btn {
+.d-day-btn{
   height: 26px !important;
-  width: 45px !important;
-  font-size: 13px;
-  padding: 0px;
-  display: inline-block;
-  cursor: auto !important;
-  pointer-events: none;
-  border: 0px;
-  font-weight: bold;
+    width: 45px !important;
+    font-size: 13px;
+    padding: 0px;
+    display: inline-block;
+    cursor: auto !important;
+    pointer-events: none;
+    border:0px;
+    font-weight: bold;
 }
-.argent-btn {
+.argent-btn{
   background-color: #cf1b1b !important;
 }
-.warn-btn {
+.warn-btn{
   background-color: #fddb3a !important;
 }
-.ok-btn {
+.ok-btn{
   background-color: #158467 !important;
 }
-/* header css */
-.row-pointer >>> thead tr {
+.row-pointer >>> thead tr{
   background-color: #ededed;
   border-top: 2px solid #d5d5d5;
 }
-.row-pointer >>> thead tr th span {
-  font-size: 15px;
+.row-pointer >>> thead tr th span{
+  font-size:15px;
   font-weight: bold;
-  color: #4e5157;
+  color:#4e5157
 }
-/* hover */
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
 }
 
-.overflow .v-card {
+.overflow .v-card{
   margin-bottom: 50px;
   box-shadow: 0 0 black !important;
 }
-.submenuimage {
-  width: 100%;
-  height: 180px;
-  background-color: #f4eeff;
-  text-align: center;
-  line-height: 180px;
+.submenuimage{
+    width: 100%;
+    height:180px;
+    background-color:#F4EEFF;
+    text-align: center;
+    line-height: 180px;
 }
-#subtitle {
-  font-family: "Barlow Semi Condensed", sans-serif;
+#subtitle{
+ font-family: 'Barlow Semi Condensed', sans-serif;
 }
-.subtitle {
-  font-family: "Masque";
-  color: #4e5157;
+.subtitle{
+  font-family: 'Masque';
+  color:#4e5157 ;
   font-size: 50px;
 }
 
-.sub-header {
+.sub-header{
   position: relative;
-  padding-top: 45px;
+  padding-top:45px;
   text-align: center;
 }
-.v-slide-group__content {
-  justify-content: center;
+.v-slide-group__content{
+ justify-content:center;
 }
 
-.search-bar {
-  width: 30%;
-  margin-left: 72%;
+.search-bar{  
+    width: 30%;
+    margin-left: 72%;
 }
 </style>

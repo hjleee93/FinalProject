@@ -82,7 +82,6 @@ const jobStore = {
                     this.jobInfo = JSON.parse(json);
 
                     const companyName = new Array();
-
                     this.tableList = [
                         {
                             company: this.jobInfo.wantedRoot.wanted[0].company._text,
@@ -90,10 +89,13 @@ const jobStore = {
                             ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
                             Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
                             deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text,
-                            jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text
+                            jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text,
+                            career: this.jobInfo.wantedRoot.wanted[0].career._text,
+                            region: this.jobInfo.wantedRoot.wanted[0].region._text,
+                            holidayTpNm: this.jobInfo.wantedRoot.wanted[0].holidayTpNm._text
                         }
                     ]
-                    for (let i = 1; i < 100; i++) {
+                    for (let i = 1; i < this.jobInfo.wantedRoot.wanted.length; i++) {
                         companyName[i] = this.jobInfo.wantedRoot.wanted[i];
 
                         this.tableList.push(
@@ -103,7 +105,198 @@ const jobStore = {
                                 ability: companyName[i].minEdubg._text,
                                 Condition: companyName[i].sal._text,
                                 deadline: (companyName[i].closeDt._text),
-                                jobNo: companyName[i].wantedAuthNo._text
+                                jobNo: companyName[i].wantedAuthNo._text,
+                                career: companyName[i].career._text,
+                                region: companyName[i].region._text,
+                                holidayTpNm: companyName[i].holidayTpNm._text,
+                            }
+                        )
+                        //console.log(companyName.company._text);
+
+                    }
+
+                    commit('SET_JOB_INFO_LIST', this.tableList)
+                    commit('SET_JOB_INFO', this.jobInfo)
+
+                });
+
+        },
+        loadJobDesignTable({ commit }) {
+            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056&keyword=디자이너|design|designer')//추천 채용정보
+                .then((response) => {
+                    var xml = response.data
+                    var json = convert.xml2json(xml, { compact: true })
+                    this.jobInfo = JSON.parse(json);
+
+                    const companyName = new Array();
+                    this.tableList = [
+                        {
+                            company: this.jobInfo.wantedRoot.wanted[0].company._text,
+                            title: this.jobInfo.wantedRoot.wanted[0].title._text,
+                            ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
+                            Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
+                            deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text,
+                            jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text,
+                            career: this.jobInfo.wantedRoot.wanted[0].career._text,
+                            region: this.jobInfo.wantedRoot.wanted[0].region._text,
+                            holidayTpNm: this.jobInfo.wantedRoot.wanted[0].holidayTpNm._text
+                        }
+                    ]
+                    for (let i = 1; i < this.jobInfo.wantedRoot.wanted.length; i++) {
+                        companyName[i] = this.jobInfo.wantedRoot.wanted[i];
+
+                        this.tableList.push(
+                            {
+                                company: companyName[i].company._text,
+                                title: companyName[i].title._text,
+                                ability: companyName[i].minEdubg._text,
+                                Condition: companyName[i].sal._text,
+                                deadline: (companyName[i].closeDt._text),
+                                jobNo: companyName[i].wantedAuthNo._text,
+                                career: companyName[i].career._text,
+                                region: companyName[i].region._text,
+                                holidayTpNm: companyName[i].holidayTpNm._text,
+                            }
+                        )
+                        //console.log(companyName.company._text);
+
+                    }
+
+                    commit('SET_JOB_INFO_LIST', this.tableList)
+                    commit('SET_JOB_INFO', this.jobInfo)
+
+                });
+
+        },
+        loadJobFrontTable({ commit }) {
+            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&keyword=프론트엔드|frontend|front-end')//프론트엔드 테이블
+                .then((response) => {
+                    var xml = response.data
+                    var json = convert.xml2json(xml, { compact: true })
+                    this.jobInfo = JSON.parse(json);
+                    const companyName = new Array();
+
+                    this.tableList = [
+                        {
+                            company: this.jobInfo.wantedRoot.wanted[0].company._text,
+                            title: this.jobInfo.wantedRoot.wanted[0].title._text,
+                            ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
+                            Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
+                            deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text,
+                            jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text,
+                            career: this.jobInfo.wantedRoot.wanted[0].career._text,
+                            region: this.jobInfo.wantedRoot.wanted[0].region._text,
+                            holidayTpNm: this.jobInfo.wantedRoot.wanted[0].holidayTpNm._text
+                        }
+                    ]
+                    for (let i = 1; i < this.jobInfo.wantedRoot.wanted.length; i++) {
+                        companyName[i] = this.jobInfo.wantedRoot.wanted[i];
+
+                        this.tableList.push(
+                            {
+                                company: companyName[i].company._text,
+                                title: companyName[i].title._text,
+                                ability: companyName[i].minEdubg._text,
+                                Condition: companyName[i].sal._text,
+                                deadline: (companyName[i].closeDt._text),
+                                jobNo: companyName[i].wantedAuthNo._text,
+                                career: companyName[i].career._text,
+                                region: companyName[i].region._text,
+                                holidayTpNm: companyName[i].holidayTpNm._text,
+                            }
+                        )
+                        //console.log(companyName.company._text);
+
+                    }
+
+                    commit('SET_JOB_INFO_LIST', this.tableList)
+                    commit('SET_JOB_INFO', this.jobInfo)
+
+                });
+
+        },
+        loadJobPublishingTable({ commit }) {
+            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&keyword=퍼블리셔|퍼블리싱|publisher|publishing')//프론트엔드 테이블
+                .then((response) => {
+                    var xml = response.data
+                    var json = convert.xml2json(xml, { compact: true })
+                    this.jobInfo = JSON.parse(json);
+                    const companyName = new Array();
+
+                    this.tableList = [
+                        {
+                            company: this.jobInfo.wantedRoot.wanted[0].company._text,
+                            title: this.jobInfo.wantedRoot.wanted[0].title._text,
+                            ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
+                            Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
+                            deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text,
+                            jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text,
+                            career: this.jobInfo.wantedRoot.wanted[0].career._text,
+                            region: this.jobInfo.wantedRoot.wanted[0].region._text,
+                            holidayTpNm: this.jobInfo.wantedRoot.wanted[0].holidayTpNm._text
+                        }
+                    ]
+                    for (let i = 1; i < this.jobInfo.wantedRoot.wanted.length; i++) {
+                        companyName[i] = this.jobInfo.wantedRoot.wanted[i];
+
+                        this.tableList.push(
+                            {
+                                company: companyName[i].company._text,
+                                title: companyName[i].title._text,
+                                ability: companyName[i].minEdubg._text,
+                                Condition: companyName[i].sal._text,
+                                deadline: (companyName[i].closeDt._text),
+                                jobNo: companyName[i].wantedAuthNo._text,
+                                career: companyName[i].career._text,
+                                region: companyName[i].region._text,
+                                holidayTpNm: companyName[i].holidayTpNm._text,
+                            }
+                        )
+                        //console.log(companyName.company._text);
+
+                    }
+
+                    commit('SET_JOB_INFO_LIST', this.tableList)
+                    commit('SET_JOB_INFO', this.jobInfo)
+
+                });
+
+        },
+        loadJobBackTable({ commit }) {
+            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&keyword=백엔드|backend|back-end')//프론트엔드 테이블
+                .then((response) => {
+                    var xml = response.data
+                    var json = convert.xml2json(xml, { compact: true })
+                    this.jobInfo = JSON.parse(json);
+                    const companyName = new Array();
+
+                    this.tableList = [
+                        {
+                            company: this.jobInfo.wantedRoot.wanted[0].company._text,
+                            title: this.jobInfo.wantedRoot.wanted[0].title._text,
+                            ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
+                            Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
+                            deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text,
+                            jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text,
+                            career: this.jobInfo.wantedRoot.wanted[0].career._text,
+                            region: this.jobInfo.wantedRoot.wanted[0].region._text,
+                            holidayTpNm: this.jobInfo.wantedRoot.wanted[0].holidayTpNm._text
+                        }
+                    ]
+                    for (let i = 1; i < this.jobInfo.wantedRoot.wanted.length; i++) {
+                        companyName[i] = this.jobInfo.wantedRoot.wanted[i];
+
+                        this.tableList.push(
+                            {
+                                company: companyName[i].company._text,
+                                title: companyName[i].title._text,
+                                ability: companyName[i].minEdubg._text,
+                                Condition: companyName[i].sal._text,
+                                deadline: (companyName[i].closeDt._text),
+                                jobNo: companyName[i].wantedAuthNo._text,
+                                career: companyName[i].career._text,
+                                region: companyName[i].region._text,
+                                holidayTpNm: companyName[i].holidayTpNm._text,
                             }
                         )
                         //console.log(companyName.company._text);
@@ -118,7 +311,7 @@ const jobStore = {
         },
         searchLoadTable({ commit }, keyword) {
             console.log("keyword: " + keyword.keyword);
-            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056&keyword=' + keyword.keyword)//추천 채용정보
+            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&keyword=' + keyword.keyword)//추천 채용정보
                 .then((response) => {
                     var xml = response.data
                     var json = convert.xml2json(xml, { compact: true })
@@ -136,7 +329,7 @@ const jobStore = {
                             jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text
                         }
                     ]
-                    for (let i = 1; i < 100; i++) {
+                    for (let i = 1; i < this.jobInfo.wantedRoot.wanted.length; i++) {
                         companyName[i] = this.jobInfo.wantedRoot.wanted[i];
 
                         this.tableList.push(

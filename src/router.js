@@ -46,6 +46,18 @@ const InfoModify = () => {
 const JobList = () => {
   return import('./components/jobInfo/JobList.vue')
 }
+const JobListFront = () => {
+  return import('./components/jobInfo/JobListFront.vue')
+}
+const JobListBack = () => {
+  return import('./components/jobInfo/JobListBack.vue')
+}
+const JobListDesign = () => {
+  return import('./components/jobInfo/JobListDesign.vue')
+}
+const JobListPublishing = () => {
+  return import('./components/jobInfo/JobListPublishing.vue')
+}
 
 //주은
 const CommunityBoardList = () => {
@@ -423,6 +435,26 @@ export default new Router({
       path: '/kakaoCallbackLogin',
       name: 'kakaoCallbackLogin',
       component: KakaoCallbackLogin
+    },
+    {
+      path: '/jobListBack',
+      name: 'jobListBack',
+      component: JobListBack
+    },
+    {
+      path: '/jobListFront',
+      name: 'jobListFront',
+      component: JobListFront
+    },
+    {
+      path: '/jobListDesign',
+      name: 'jobListDesign',
+      component: JobListDesign
+    },
+    {
+      path: '/jobListPublishing',
+      name: 'jobListPublishing',
+      component: JobListPublishing
     },
     {
       path: '/adminPage',
