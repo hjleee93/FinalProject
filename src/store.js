@@ -30,6 +30,8 @@ import {
     fetchQnaBoardDelete,
     fetchQnaBoardUpdate,
     fetchQnaBoardAttachment,
+
+
     //민지   
     fetchInfoList,
     fetchInfoDetail,
@@ -84,7 +86,7 @@ export default new Vuex.Store({
         //민지
         infoList: [],
         infoDetail: [],
-        infoForm: [],
+        infoDelete: [],
 
      
         loginStatus: false,//로그인 성공 여부
@@ -364,19 +366,17 @@ export default new Vuex.Store({
             state.infolist = infolist;
         },
         //상세화면
-        SET_INFO_VIEW(state, infoview) {
-            state.infoview = infoview;
+        SET_INFO_VIEW(state, infoDetail) {
+            state.infoDetail = infoDetail;
         },
-        /*      //삭제
-             SET_INFO_DELETE(state, data) {
-                 state.data = data;
-             },
-             //수정(값 불러오기)
-             SET_INFO_UPDATE(state, data) {
-                 state.cbAttachment = data;
-     <<<<<<< HEAD
-     =======
-             }, */
+        //삭제
+        SET_INFO_DELETE(state, data) {
+            state.data = data;
+        },
+        //수정(값 불러오기)
+        SET_INFO_UPDATE(state, data) {
+            state.cbAttachment = data;
+        }, 
 
 
     }//mutations 끝

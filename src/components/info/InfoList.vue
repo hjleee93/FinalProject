@@ -21,7 +21,7 @@
           <v-btn to="/infoForm" exact  id="st_write1">글쓰기</v-btn>
         </div>
 
-        <div class="overflow-auto">
+        <div class="overflow-hidden">
          <!-- 테이블 -->
         <v-card>
         <v-card-title>
@@ -37,10 +37,24 @@
             :headers="headers"
             :items="infolist"
             :search="search"
-            @click:row="handleClick"
-          ></v-data-table>
+            :server-items-length="info.length"
+             item-key="infoSq"         
+          >
+          <template v-slot:item="props">
+          <tr @click="handleClick(props.item.infoSq)">
+            <td class="text-xs-right">{{props.item.infoSq }}</td>
+            <td class="text-xs-right">{{props.item.infoCategory }}</td>
+            <td class="text-xs-right">{{props.item.infoTitle }}</td>
+            <td class="text-xs-right">{{props.item.infoDate }}</td>
+            <td class="text-xs-right">{{props.item.infoTime }}</td>
+            <td class="text-xs-right">{{props.item.infoAddress}}</td>
+            <td class="text-xs-right">{{props.item.infoCount }}</td>
+          </tr>
+        </template>
+
+          </v-data-table>
         </v-card>
-        
+            <div>(임시) 객체 : {{info}}</div>
         </div>
        </div>
       </div>
@@ -56,16 +70,8 @@ import { mapState } from 'vuex';
 
     created : function(){
        this.$store.dispatch("FETCH_INFO")
-      
-  /*     axios
-      .get('http://localhost:8082/itjobgo/info/infoList')
-      .then(Response=>{
-        this.info=Response.data;
-        console.log(Response);
-      })
-    }, 
-  */
     },
+
     computed:{
         ...mapState({
             infolist:state=>state.infolist
@@ -74,10 +80,10 @@ import { mapState } from 'vuex';
     
    methods: {
     handleClick(value){
-      alert(value.infoSq);
-      this.$router.push({name:'InfoDetail',params:{id:value.infoSq}});
+/*       alert(value.infoSq); */
+      this.$router.push({name:'infoDetail',params:{id:value.infoSq}});
       console.log(value);
-      // console.log(value.infoSq);
+      console.log(value.infoSq);
     
     }
   },
@@ -99,6 +105,7 @@ import { mapState } from 'vuex';
           { text: '날짜', value: 'infoDate' },
           { text: '시간', value: 'infoTime' },
           { text: '주소', value: 'infoAddress' },
+          { text: '조회수', value: 'infoCount' }
         ],
       }
     },

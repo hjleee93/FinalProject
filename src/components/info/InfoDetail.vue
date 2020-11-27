@@ -1,79 +1,82 @@
 <template>
 
-  <div class="container">
-    <div class="container-fluid">
-        <h2 class="st_title">채용설명회 일정</h2><hr>
-      <div class="row">
-
-        <div class="container detail_">
-            <div>
-                  기업 : <h5></h5>            
-                <hr>
-                  구분 : <h5></h5>            
-                <hr>
-                  날짜 :<h5></h5>
-                <hr>
-                  시간 :<h5></h5>
-                  <hr/>
-            </div>
-                <div class="detail_write" >
-                 주소 :
-                </div>
-                <hr>
-                <div class="file" >
-                 첨부 파일 :
-                </div>
-                <div class="detail_btn_div">
-                  <v-btn to="/infoForm" exact id="modify"  @click="updateInfo">수정</v-btn>
-                  <v-btn to="/" exact id="delete" @click="deleteinfo">삭제</v-btn>
-                  <v-btn to="/infoList" exact id="list">목록</v-btn>
-                </div>
-            </div>
-
-          <!-- 삭제확인 modal-->
-            <ModalView v-if="showModal" @close="showModal = false">
-            <template>
-              <div slot="header">
-                삭제하시겠습니까?
-              </div>
-
-              <div slot="body">
-                <b-button @click="Delete">삭제</b-button>
-                <b-button @click="cancel">취소</b-button>
-              </div>
-
-              <div slot="footer"></div>
-            </template>
-          </ModalView>
-
-          
-          <div class="overflow-auto">
-            <div id="content-div">
-              
-              게시판 내용(임시) : {{infoDetail.InfoContent}}
-
-            <br>
-            (임시)게시판 객체 : {{infoDetail}}
-
-            <br><br>
-            게시판 객체(임시) : {{infoDetail}}
-
-   <!-- 
-            </div>
-              <div id="date">작성날짜(날짜변환해야함) : {{communityboardView.boardDate}}</div>
-            <b-button type="button" id="list-btn" to="/communityBoardList" exact>목록으로</b-button>
+ <b-container fluid>
+      <b-row >
+        <div class="submenuimage ">
+          <p class="subtitle" id="subtitle">채용설명회 일정</p>
         </div>
- -->
-            </div>
-        </div> 
+      </b-row>
+      <b-row id="writecontain" align-h="end">
+        <b-button to="/infoList">목록</b-button>
+      </b-row>
+      <b-row>
+        <b-col><b-card class="text-center"><b-form>
+        <b-row>
+          <b-col cols="2"><b-form-group  label="기업명"/></b-col>
+          <b-col> <b-form-input v-model="infoDetail.infoTitle" readonly/></b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="2"><b-form-group  label="분류"/></b-col>
+          <b-col> <b-form-input v-model="infoDetail.infoCategory" readonly/></b-col>
+        </b-row>
+          <b-row>
+          <b-col cols="2"><b-form-group  label="날짜"/></b-col>
+          <b-col> <b-form-input v-model="infoDetail.infoDate" readonly/></b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="2"><b-form-group  label="시간" readonly/></b-col>
+          <b-col> <b-form-textarea v-model="infoDetail.infoTime" readonly/></b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="2"><b-form-group  label="주소" readonly/></b-col>
+          <b-col> <b-form-textarea v-model="infoDetail.infoAddress" readonly/></b-col>
+        </b-row>
+           <b-row>
+          <b-col cols="2"><b-form-group  label="내용" readonly/></b-col>
+          <b-col> <b-form-textarea v-model="infoDetail.infoContent" readonly/></b-col>
+        </b-row>       
+          </b-form>
+       </b-card>
+       </b-col>
+      </b-row>
+
+
+      <b-container>
+      <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"></b-col>
+      <b-col><b-form-textarea readonly /></b-col>
+      <b-col cols="1"><b-button>삭제</b-button></b-col>
+      <b-col cols="1"><b-button>수정</b-button></b-col>
+      </b-row></b-card></b-col>
+      </b-row>
+    
+      </b-container>
+      <div>게시판 객체 : {{infoDetail}}</div>
+      <div>유저 객체 : {{userData}}</div>
+
+
+ <ModalView v-if="showModal" @close="showModal = false">
+    <template>
+      <div slot="header">
+        삭제하시겠습니까?
       </div>
-    </div>
-  </div>
+      <div slot="body" class="modalf"> 
+        <b-button @click="ydele">네</b-button>
+         <b-button @click="ndele">아니요</b-button>
+      </div>
+      <div slot="footer">
+
+      </div>
+    </template>
+
+  </ModalView>
+
+  </b-container> 
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import ModalView from '../common/ModalView.vue';
+
 
 export default {
 
@@ -83,109 +86,69 @@ export default {
         infoNo:0,
       }
     },
-   created(){
-      const infoNo=this.$route.params.id;
-      console.log(infoNo);
-      this.$store.dispatch("FETCH_INFO_DETAIL",infoNo)
+   computed:{
+        ModalView,   
     },
-
-    computed:{
-      ...mapState({
-        infoDetail:state=>state.infoDetail       
-      })
-    },
-
-  methods: {
-     /* 목록버튼 */
-    link: function (){
-                   this.$router.push('/infoList')
-      },
-      //삭제버튼
-    link1: function (){
-                   this.$router.push('/infoForm')
-       },
-       
-      updateInfo(){
+    methods: {
+      update(){
+        //새로운 수정 컴포넌트로 이동
         let no=this.$route.params.id
-        console.log("수정버튼(params) :"+ no);
-        this.$router.push({name:'InfoUpdate',params:{id:no}})
+        this.$router.push({name:'InfoModify',params:{id:no}})
+
       },
-     //삭제버튼
-      deleteInfo(){
-        this.showModal=!this.showModal;  
-      }, 
-      //삭제버튼(네)
-      Delete(){
+      pdelete(){
+          this.showModal=!this.showModal;
+         
+        
+      },
+      ydele(){
         let no=this.$route.params.id
-        console.log(no);
-        this.$store.dispatch("FETCH_INFO_DELETE",no);
-      //삭제후 페이지 이동
-        this.$router.push({name:'infoList'});
+         this.$store.dispatch("FETCH_INFO_DELETE",no)
+         this.$router.push({name:'InfoList'})
+        
+        
       },
-      //삭제버튼(아니오)
-      cancel(){
+      ndele(){
         this.showModal=!this.showModal;
-      }
-    },//methods 끝
-
-    components :{
-      ModalView,
-
-    }
-  }//export
-
-
+      },        
+    },
+    created() {
+        const infoNo=this.$route.params.id;
+        this.$store.dispatch("FETCH_INFO_DETAIL",infoNo)
+    },
+    computed: {
+     
+        ...mapState({
+            infoDetail:state=>state.infoDetail,       
+        }),
+         ...loadUserState(['userData'])    
+    }    
+}
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
-* {
-   font-family: 'Nanum Gothic', sans-serif;
+#subtitle{
+font-family: 'Barlow Semi Condensed', sans-serif;
 }
-.detail_{
-    margin-top:2%;
+.submenuimage{
+  width: 100%;
+  height:180px;
+  background-color:#F4EEFF;
+  text-align: center;
+  line-height: 180px; 
 }
-.detail_write{
-    height: 50px;
+.subtitle{
+  font-family: 'Masque';
+  color:#4e5157 ;
+  font-size: 50px;
 }
-.detail_top{
-    margin-left: 12px;
+#writecontain{
+  margin-bottom: 10%;
+  
 }
-.detail_btn{
-    margin-left: 10px;
+.modalf{
+  display: flex;
+  justify-content: space-around;
 }
-.detail_btn_div{
-    text-align: center;
-    margin-top: 3%;
-}
-.file{
-     height: 450px;
-}
-#modify{
-  width:5px;
-  margin-bottom: 5px;
-  right: -40px;
-  margin-right: 1%;
-  background-color: #424874;
-  border:5px;
-  color:white;
-}
-#delete{
-  width:5px;
-  margin-bottom: 5px;
-  right: -40px;
-  margin-right:1%;
-  background-color:#9BA4B4;
-  border:5px;
-  color:white;
-}
-#list{
-  width:5px;
-  margin-bottom: 5px;
-  right: -40px;
-  margin-right: 0%;
-  background-color: #9BA4B4;
-  border:5px;
-  color:white;
-}
+
 </style>

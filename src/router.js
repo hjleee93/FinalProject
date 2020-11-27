@@ -40,9 +40,13 @@ const InfoDetail = () => {
 const InfoForm = () => {
   return import('./components/info/InfoForm.vue')
 }
+const InfoModify = () => {
+  return import('./components/info/InfoModify.vue')
+}
 const JobList = () => {
   return import('./components/jobInfo/JobList.vue')
 }
+
 //주은
 const CommunityBoardList = () => {
   return import('./components/communityBoard/CommunityBoardList.vue')
@@ -157,6 +161,9 @@ const LoginCallback = () => {
 const NaverLogin = () => {
   return import('./components/member/naverLogin.vue')
 }
+const PhotoUpload = () => {
+  return import('./components/member/photoUpload.vue')
+}
 
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
@@ -233,6 +240,11 @@ export default new Router({
       path: '/jobList',
       name: 'jobList',
       component: JobList
+    },
+    {
+      path: '/infoModify',
+      name: 'infoModify',
+      component: InfoModify
     },
     //주은
     {
@@ -315,6 +327,11 @@ export default new Router({
 
     },
     {
+      path: "/photoUpload",
+      name: 'photoUpload',
+      component: PhotoUpload
+    },
+    {
       path: '/register',
       name: 'register',
       // route level code-splitting
@@ -351,7 +368,7 @@ export default new Router({
       component: MyPage
     },
     {
-      path: '/jobInfoDtl',
+      path: '/jobInfoDtl/:wantedNo',
       name: 'jobInfoDtl',
       component: jobInfoDtl
     },
