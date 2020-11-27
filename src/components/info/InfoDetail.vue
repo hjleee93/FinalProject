@@ -3,7 +3,7 @@
  <b-container fluid>
       <b-row >
         <div class="submenuimage ">
-          <p class="subtitle" id="subtitle">채용설명회 일정</p>
+          <p class="subtitle" id="subtitle">Information</p>
         </div>
       </b-row>
       <b-row id="writecontain" align-h="end">
@@ -41,7 +41,7 @@
       </b-row>
 
 
-      <b-container>
+<!--       <b-container>
       <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"></b-col>
       <b-col><b-form-textarea readonly /></b-col>
       <b-col cols="1"><b-button>삭제</b-button></b-col>
@@ -49,7 +49,7 @@
       </b-row></b-card></b-col>
       </b-row>
     
-      </b-container>
+      </b-container> -->
       <div>게시판 객체 : {{infoDetail}}</div>
       <div>유저 객체 : {{userData}}</div>
 

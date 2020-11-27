@@ -123,14 +123,13 @@ import { mapState } from 'vuex';
          
 
         let formData = new FormData();
+        formData.append('infoSq',this.$route.params.id);
         formData.append('infoTitle',this.infoTitle);
         formData.append('infoCategory',this.category);
-        formData.append('infoSq',this.$route.params.id);
         formData.append('infoDate',this.infoDate);
         formData.append('infoTime',this.infoTime);
         formData.append('infoAddress',this.infoAddress);
         formData.append('infoContent',this.infoContent.replace(/(<([^>]+)>)/ig,""));
-        formData.append('file',this.files);
         
         for(let key of formData.entries()){
         console.log(`${key}`);
