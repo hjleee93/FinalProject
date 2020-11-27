@@ -13,9 +13,11 @@
     color="grey darken-3"
     
     >
-    <v-tab><b>웹 개발</b></v-tab>
-    <v-tab><b>응용프로그램 개발</b></v-tab>
-    <v-tab><b>퍼블리싱</b></v-tab>
+    <v-tab href="/jobList"><b>ALL</b></v-tab>
+    <v-tab href="#"><b>FRONTEND</b></v-tab>
+    <v-tab href="#"><b>BACKEND</b></v-tab>
+    <v-tab href="#"><b>DESIGN</b></v-tab>
+    <v-tab href="#"><b>PUBLISHING</b></v-tab>
     <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
   </v-tabs>
 
@@ -35,18 +37,50 @@
           ></v-text-field>
        </v-card-title>
         <v-data-table
-          class="elevation-1"
+          class="row-pointer"
           :headers="headers"
           :items="tableList"
-          :search="search"
-         
-        ></v-data-table>
+          :search="search"        
+        >
+        <!-- TODO:추가정보 정리하기 -->
+        <template v-slot:item="props">
+          <tr class="job-info" @click="moveDtlPage(props.item.jobNo)" >
+            <td>{{props.item.company}}</td>
+            <td>{{props.item.title}}</td>
+            <td>{{props.item.ability}}</td>
+            <td>{{props.item.Condition}}</td>
+            <td v-if="props.item.deadline.includes('채용시까지')">
+             채용시까지</td>
+            <td v-else>
+              <!-- d-day 7일이하  -->
+              <b-btn class="d-day-btn argent-btn mr-2"
+              v-if="($moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 ) <= 7">D-
+              {{$moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 }}
+              </b-btn>
+              <!-- d-day 20일이하  -->
+              <b-btn class="d-day-btn warn-btn mr-2" 
+              v-else-if="($moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 ) > 7 &&
+              ($moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 ) <=20 ">D-
+              {{$moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 }}
+              </b-btn>
+
+              <b-btn class="d-day-btn ok-btn mr-2" v-else>D-
+              {{$moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 }}
+              </b-btn>
+              {{ props.item.deadline}}
+            </td>
+          </tr>
+        </template>
+        </v-data-table>
     </v-card>
       </div>
      </div>
+     
     </div>
    </div>
+   
   </body>
+  
 </template>
 
 <script>
@@ -56,20 +90,28 @@ const { mapState } = createNamespacedHelpers("jobStore");
   export default {
     
     data: () => ({ 
-      search: '',
+      search: '',      
 
         headers: [
           { text: '기업명', value: 'company' },
           { text: '제목', value: 'title' },
           { text: '지원자격', value: 'ability' },
           { text: '근무조건', value: 'Condition' },
-          { text: '마감일·등록일', value: 'deadline' },
+          { text: '마감일', value: 'deadline' },
+          
         ]
     }),
     mounted(){   
       
     this.$store.dispatch('jobStore/loadJobTable')
     
+  },
+  
+  methods:{
+    //상세페이지로 이동
+  moveDtlPage: function(e){
+    this.$router.push({name:"jobInfoDtl",params:{wantedNo: e}})
+  }
   },
   computed:{
     ...mapState([
@@ -82,9 +124,34 @@ const { mapState } = createNamespacedHelpers("jobStore");
 </script>
 
 <style scoped>
-.elevation-1 td{
-  height: 150px !important;
+.job-info{
+  height: 100px !important;
 }
+
+.d-day-btn{
+  height: 26px !important;
+    width: 45px !important;
+    font-size: 13px;
+    padding: 0px;
+    display: inline-block;
+    cursor: auto !important;
+    pointer-events: none;
+    border:0px;
+    font-weight: bold;
+}
+.argent-btn{
+  background-color: #cf1b1b !important;
+}
+.warn-btn{
+  background-color: #fddb3a !important;
+}
+.ok-btn{
+  background-color: #158467 !important;
+}
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
+
 .overflow .v-card{
   margin-bottom: 50px;
   box-shadow: 0 0 black !important;

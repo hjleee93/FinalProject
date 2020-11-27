@@ -22,11 +22,11 @@
           <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
         </v-tabs>
         
-          <h2 class="sub-header">자유게시판(테스트입니다)</h2>
+          <h2 class="sub-header">공지사항</h2>
           <br>
 
         <!-- 버튼 -->
-          <v-btn   to="/communityBoardForm" exact  id="st_write">
+          <v-btn   to="/noticeForm" exact  id="st_write">
                글쓰기
            </v-btn>
 

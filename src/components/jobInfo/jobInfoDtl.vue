@@ -9,9 +9,22 @@
     </div>
     <div class="info-box">
       <div class="job-title m-5">
-          {{ items.wantedDtl.wantedInfo.wantedTitle._text }}<br>
+        {{ items.wantedDtl.wantedInfo.wantedTitle._text }}<br />
         <small>{{ items.wantedDtl.corpInfo.corpNm._text }}</small>
-        <span class="deadline m-2 p-2">{{ items.wantedDtl.wantedInfo.receiptCloseDt._text }}</span>
+        <span
+          class="deadline m-2 p-2"
+          v-if="items.wantedDtl.wantedInfo.receiptCloseDt._text != '채용시까지'"
+          >D-{{
+            $moment(
+              $moment(items.wantedDtl.wantedInfo.receiptCloseDt._text).format(
+                "YYYY-MM-DD"
+              )
+            ).diff($moment(new Date()), "days") + 1
+          }}</span
+        >
+        <span class="deadline m-2 p-2" v-else>{{
+          items.wantedDtl.wantedInfo.receiptCloseDt._text
+        }}</span>
       </div>
 
       <table>
@@ -22,26 +35,34 @@
               <table>
                 <tr>
                   <td class="td-100">경력</td>
-                  <td class="td-50">{{ items.wantedDtl.wantedInfo.enterTpNm._text }}</td>
+                  <td class="td-50">
+                    {{ items.wantedDtl.wantedInfo.enterTpNm._text }}
+                  </td>
                 </tr>
                 <tr>
                   <td class="td-100">학력</td>
-                  <td class="td-50">{{ items.wantedDtl.wantedInfo.eduNm._text }}</td>
+                  <td class="td-50">
+                    {{ items.wantedDtl.wantedInfo.eduNm._text }}
+                  </td>
                 </tr>
               </table>
             </div>
           </td>
           <td>
             <div class="condition m-3">
-             <span class="job-col font-weight-bold">근무조건</span>
+              <span class="job-col font-weight-bold">근무조건</span>
               <table>
                 <tr>
                   <td class="td-100">지역</td>
-                  <td class="td-50">{{ items.wantedDtl.wantedInfo.workRegion._text }}</td>
+                  <td class="td-50">
+                    {{ items.wantedDtl.wantedInfo.workRegion._text }}
+                  </td>
                 </tr>
                 <tr>
                   <td class="td-100">임금</td>
-                  <td class="td-50">{{ items.wantedDtl.wantedInfo.salTpNm._text }}</td>
+                  <td class="td-50">
+                    {{ items.wantedDtl.wantedInfo.salTpNm._text }}
+                  </td>
                 </tr>
               </table>
             </div>
@@ -54,7 +75,9 @@
               <table>
                 <tr>
                   <td class="td-100">고용형태</td>
-                  <td class="td-50">{{ items.wantedDtl.wantedInfo.empTpNm._text }}</td>
+                  <td class="td-50">
+                    {{ items.wantedDtl.wantedInfo.empTpNm._text }}
+                  </td>
                 </tr>
                 <tr>
                   <td class="td-100">근무형태</td>
@@ -71,11 +94,15 @@
               <table>
                 <tr>
                   <td class="td-100">연금/4대보험</td>
-                  <td class="td-50">{{ items.wantedDtl.wantedInfo.fourIns._text }}</td>
+                  <td class="td-50">
+                    {{ items.wantedDtl.wantedInfo.fourIns._text }}
+                  </td>
                 </tr>
                 <tr>
                   <td class="td-100">복리후생</td>
-                  <td class="td-50">{{ items.wantedDtl.wantedInfo.etcWelfare._text }}</td>
+                  <td class="td-50">
+                    {{ items.wantedDtl.wantedInfo.etcWelfare._text }}
+                  </td>
                 </tr>
               </table>
             </div>
@@ -84,10 +111,97 @@
       </table>
     </div>
 
+    <!-- 전형방법 -->
     <div>
-        <p class="h3 mt-3 font-weight-bold">전형방법</p>
-    <b-table :items="apply" :fields="field" :tbody-tr-class="rowClass"></b-table>
-  </div>
+      <p class="h3 mt-3 font-weight-bold">전형방법</p>
+      <v-simple-table class="apply-table">
+        <thead>
+          <tr>
+            <th class="text-left">
+              접수마감일
+            </th>
+            <th class="text-left">
+              전형방법
+            </th>
+            <th class="text-left">
+              접수방법
+            </th>
+            <th class="text-left">
+              제출 서류
+            </th>
+            <th class="text-left">
+              제출 서류 양식
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td v-if="apply.receiptCloseDt == '채용시까지'">
+              <b>{{ apply.receiptCloseDt }}</b>
+            </td>
+            <td v-else>
+              <b>{{ $moment(apply.receiptCloseDt).format("YYYY-MM-DD") }}</b>
+            </td>
+            <td>{{ apply.selMthd }}</td>
+            <td>{{ apply.rcptMthd }}</td>
+            <td>{{ apply.submitDoc }}</td>
+            <td>{{ apply.attachFileInfo }}</td>
+          </tr>
+        </tbody>
+      </v-simple-table>
+    </div>
+    <!-- 기업정보 -->
+    <p class="h3 mt-3 font-weight-bold">기업정보</p>
+    <table class="company-info">
+      <tr>
+        <td class="company-left">
+          <div>
+            <div class="m-2">
+              <p class="compnay-name text-center mt-5 mb-5">
+                {{ items.wantedDtl.corpInfo.corpNm._text }}
+              </p>
+              <div class="text-center">
+                <span>대표 : {{ items.wantedDtl.corpInfo.reperNm._text }}</span>
+                <span class=" ml-3"
+                  >근로자수 :
+                  {{ items.wantedDtl.corpInfo.totPsncnt._text }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </td>
+        <td class="company-right pl-3">
+          <table>
+            <!-- {{ items.wantedDtl.corpInfo.yrSalesAmt._text }} -->
+            <tr >
+              <td class="info-right pb-2 pt-2">업종</td>
+              <td>{{ items.wantedDtl.corpInfo.indTpCdNm._text }}</td>
+            </tr>
+            <tr>
+              <td class="info-right pb-2">
+                주요사업
+              </td>
+              <td>{{ items.wantedDtl.corpInfo.busiCont._text }}</td>
+            </tr>
+            <tr>
+              <td class="info-right pb-2">주소</td>
+              <td>{{ items.wantedDtl.corpInfo.corpAddr._text }}</td>
+            </tr>
+            <!--TODO: 링크설정 -->
+            <tr>
+              <td v-if="items.wantedDtl.corpInfo.homePg._text != null" class="info-right pb-2">
+                사이트
+              </td>
+              <td>{{ items.wantedDtl.corpInfo.homePg._text }}</td>
+            </tr>
+            <tr>
+              <td class="info-right">기업형태</td>
+              <td>{{ items.wantedDtl.corpInfo.busiSize._text }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   </b-container>
 </template>
 <script>
@@ -95,41 +209,71 @@ import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
 
 export default {
-   data: () => ({         
-      field: ['접수마감일', '전형방법', '접수방법', '제출 서류', '제출 서류 양식']
-  }),
-  mounted(){   
-      
-    this.$store.dispatch('jobStore/loadJobDetail',{wantedNo:this.$route.params.wantedNo})
+  data: () => ({}),
+  mounted() {
+    this.$store.dispatch("jobStore/loadJobDetail", {
+      wantedNo: this.$route.params.wantedNo,
+    });
   },
-  computed:{
+  computed: {
     ...mapState([
       //매핑값
-      'apply', 'items'
-    ])
-  }
+      "apply",
+      "items",
+    ]),
+  },
 };
 </script>
 
 <style scoped>
-.deadline{
-    color:white;
-    font-size: 15px;
-    border-radius: 5px;
-    background-color:#a6b1e1;
+/* 기업정보 */
+.compnay-name {
+  height: 70%;
 }
-.job-col{
-    padding-bottom: 5px;
-    border-bottom: 2px solid;
+.company-left {
+  width: 40%;
+}
+.company-right {
+  width: 60%;
+}
+
+.info-right{
+  width: 30%;
+  
+}
+.info-right+td{
+  width: 70%;
+  
+}
+
+.company-info {
+  width: inherit;
+  height: 200px;
+  border: 1px solid #ededed;
+}
+
+/* 전형방법 */
+.apply-table:hover{
+  background-color: white;
+}
+.deadline {
+  color: white;
+  font-size: 15px;
+  border-radius: 5px;
+  background-color: #a6b1e1;
+}
+.job-col {
+  padding-bottom: 5px;
+  border-bottom: 2px solid;
 }
 .info-box {
   border: 1px solid #ededed;
 }
-.td-100{
-    width: 100px;
+.td-100 {
+  width: 100px;
 }
-.td-50{
-    height:50px;
+.td-50 {
+  height: 50px;
 }
 .qualification,
 .position,

@@ -379,3 +379,7 @@ li {
   height: 156px;
   border-top: none;
 }
+
+.photoBtn:hover {
+  cursor: pointer;
+}
