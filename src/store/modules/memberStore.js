@@ -67,8 +67,6 @@ const memberStore = {
         logout({ commit }) {
             localStorage.removeItem("memberEmail");
             localStorage.removeItem("access_token");
-
-            Vue.swal({ text: "로그아웃되었습니다." })
             router.push('/');
             location.reload();
             commit('loginFalse');
@@ -109,6 +107,7 @@ const memberStore = {
         },
         //유저 정보 가져오기
         getMemberInfo({ commit }) {
+            // alert("22222222");
             console.log("유저정보");
             let memberEmail = localStorage.getItem("memberEmail")
             let token = localStorage.getItem("access_token")
@@ -121,10 +120,11 @@ const memberStore = {
                 }
             }
             if (token != null || memberEmail != null) {
+                // alert("도랏냐 이게 3아님?")
                 //토큰으로 member return  
-                axios
-                    .get('http://localhost:8082/itjobgo/member/getMember?memberEmail=' + memberEmail, config)
+                axios.get('http://localhost:8082/itjobgo/member/getMember?memberEmail=' + memberEmail, config)
                     .then(response => {
+                        // alert("갑자기 어디감...;4")
                         var userData = {
                             memberSq: response.data.memberSq,
                             memberAddr: response.data.memberAddr,
@@ -137,14 +137,18 @@ const memberStore = {
                             memberPostCode: response.data.memberPostCode,
                             memberPosition: response.data.memberPosition
                         }
+
                         commit('loginSuccess', userData)
                     })
                     .catch(() => {
+
                         commit('loginFalse');
                     })
             } else {
+                // alert("어디가지 미친놈이?")
                 commit('loginFalse');
             }
+            // alert("안끝났는데?")
         },
 
     }

@@ -24,6 +24,8 @@ import LoadScript from 'vue-plugin-load-script';
 import VueMoment from 'vue-moment'
 import VueLodash from 'vue-lodash'
 import lodash from 'lodash'
+// import { mapState } from 'vuex'
+// import { fetchCommunityBoardDelete } from './api'
 
 
 
@@ -62,7 +64,6 @@ Vue.loadScript("http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"
 //카카오로그인용 key
 window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
 Vue.config.productionTip = false;
-
 
 new Vue({
   router,
