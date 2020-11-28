@@ -113,7 +113,7 @@
 
     <!-- 전형방법 -->
     <div>
-      <p class="h3 mt-3 font-weight-bold">전형방법</p>
+      <p class="h3 my-5 font-weight-bold">전형방법</p>
       <v-simple-table class="apply-table">
         <thead>
           <tr>
@@ -145,13 +145,18 @@
             <td>{{ apply.selMthd }}</td>
             <td>{{ apply.rcptMthd }}</td>
             <td>{{ apply.submitDoc }}</td>
-            <td>{{ apply.attachFileInfo }}</td>
+            <template v-if="apply.attachFileInfo != '등록된 파일이 없습니다.'">
+              <td @mouseover="href"><a id="download">다운로드</a></td>
+            </template>
+            <template v-else>
+              <td>{{ apply.attachFileInfo }}</td>
+            </template>
           </tr>
         </tbody>
       </v-simple-table>
     </div>
     <!-- 기업정보 -->
-    <p class="h3 mt-3 font-weight-bold">기업정보</p>
+    <p class="h3 my-5 font-weight-bold">기업정보</p>
     <table class="company-info">
       <tr>
         <td class="company-left">
@@ -173,7 +178,7 @@
         <td class="company-right pl-3">
           <table>
             <!-- {{ items.wantedDtl.corpInfo.yrSalesAmt._text }} -->
-            <tr >
+            <tr>
               <td class="info-right pb-2 pt-2">업종</td>
               <td>{{ items.wantedDtl.corpInfo.indTpCdNm._text }}</td>
             </tr>
@@ -187,9 +192,11 @@
               <td class="info-right pb-2">주소</td>
               <td>{{ items.wantedDtl.corpInfo.corpAddr._text }}</td>
             </tr>
-            <!--TODO: 링크설정 -->
             <tr>
-              <td v-if="items.wantedDtl.corpInfo.homePg._text != null" class="info-right pb-2">
+              <td
+                v-if="items.wantedDtl.corpInfo.homePg._text != null"
+                class="info-right pb-2"
+              >
                 사이트
               </td>
               <td>{{ items.wantedDtl.corpInfo.homePg._text }}</td>
@@ -210,6 +217,13 @@ const { mapState } = createNamespacedHelpers("jobStore");
 
 export default {
   data: () => ({}),
+  methods: {
+    href: function() {
+      document
+        .getElementById("download")
+        .setAttribute("href", this.apply.attachFileInfo);
+    },
+  },
   mounted() {
     this.$store.dispatch("jobStore/loadJobDetail", {
       wantedNo: this.$route.params.wantedNo,
@@ -237,13 +251,11 @@ export default {
   width: 60%;
 }
 
-.info-right{
+.info-right {
   width: 30%;
-  
 }
-.info-right+td{
+.info-right + td {
   width: 70%;
-  
 }
 
 .company-info {
@@ -253,7 +265,12 @@ export default {
 }
 
 /* 전형방법 */
-.apply-table:hover{
+#download,
+#download:hover {
+  color: blue;
+}
+
+.apply-table:hover {
   background-color: white;
 }
 .deadline {
