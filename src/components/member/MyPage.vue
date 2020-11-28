@@ -82,7 +82,12 @@
 					</div>
 					<div class="mail"><span class="item"><span class="bullet"></span>이메일</span><b>{{userData.memberEmail}}</b></div>
 					<div class="address"><span class="item"><span class="bullet"></span>주소</span><b>{{userData.memberAddr}} {{userData.memberAddrDtl}}</b></div>
+					<template v-if="userData.memberAddr != null">
 					<b-btn class="chg-info" href="/chgMemberInfo">개인정보수정</b-btn>
+					</template>
+					<template v-else>
+						<b-btn class="chg-info" id="profile" href="/chgMemberInfo">프로필 작성</b-btn>
+					</template>
 				</li>
 				<li class="last bottomList customize">
 					
