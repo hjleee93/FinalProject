@@ -20,14 +20,16 @@
               <div class="col-lg-3 form-cols">
                 <div>
                   <b-button
-                    v-b-toggle.collapse-1
+                    v-b-toggle.collapse-3
                     class="form-control"
                     v-model="selectedLocation"
                     >수정수정</b-button
                   >
-                  <b-collapse id="collapse-1" class="mt-2">
+                  <b-collapse id="collapse-3" class="mt-2 toggle-btn">
                     <b-card>
-                      <p class="card-text">Collapse contents Here</p>
+                      <p class="card-text">
+                        흠
+                      </p>
                     </b-card>
                   </b-collapse>
                 </div>
@@ -314,7 +316,10 @@
             <router-link
               :to="{
                 name: 'jobInfoDtl',
-                params: { wantedNo: item.wantedAuthNo._text },
+                params: {
+                  wantedNo: item.wantedAuthNo._text,
+                  url: item.wantedInfoUrl._text,
+                },
               }"
               class="job-card"
             >
@@ -474,6 +479,7 @@ export default {
 .job-card:hover {
   cursor: pointer;
 }
+/* 서치바 */
 
 /* 추천채용정보 */
 .profile-btn {

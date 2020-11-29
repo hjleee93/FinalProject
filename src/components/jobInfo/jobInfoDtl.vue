@@ -2,30 +2,54 @@
   <b-container>
     <div class="header-body text-center mb-7">
       <b-row class="justify-content-center">
-        <b-col xl="5" lg="6" md="8" class="px-5">
+        <b-col xl="5" lg="6" md="8" class="px-5 my-4">
           <h1 class="text-black">채용정보</h1>
         </b-col>
       </b-row>
     </div>
     <div class="info-box">
-      <div class="job-title m-5">
-        {{ items.wantedDtl.wantedInfo.wantedTitle._text }}<br />
-        <small>{{ items.wantedDtl.corpInfo.corpNm._text }}</small>
-        <span
-          class="deadline m-2 p-2"
-          v-if="items.wantedDtl.wantedInfo.receiptCloseDt._text != '채용시까지'"
-          >D-{{
-            $moment(
-              $moment(items.wantedDtl.wantedInfo.receiptCloseDt._text).format(
-                "YYYY-MM-DD"
-              )
-            ).diff($moment(new Date()), "days") + 1
-          }}</span
-        >
-        <span class="deadline m-2 p-2" v-else>{{
-          items.wantedDtl.wantedInfo.receiptCloseDt._text
-        }}</span>
-      </div>
+      <table>
+        <tr>
+          <td style="width:60%">
+            <div class="job-title m-5">
+              {{ items.wantedDtl.wantedInfo.wantedTitle._text }}<br />
+              <p>
+                <small>{{ items.wantedDtl.corpInfo.corpNm._text }}</small>
+              </p>
+              <span
+                class="deadline m-2 p-2"
+                v-if="
+                  items.wantedDtl.wantedInfo.receiptCloseDt._text !=
+                    '채용시까지'
+                "
+                >D-{{
+                  $moment(
+                    $moment(
+                      items.wantedDtl.wantedInfo.receiptCloseDt._text
+                    ).format("YYYY-MM-DD")
+                  ).diff($moment(new Date()), "days") + 1
+                }}</span
+              >
+              <span class="deadline m-2 p-2" v-else>{{
+                items.wantedDtl.wantedInfo.receiptCloseDt._text
+              }}</span>
+            </div>
+          </td>
+          <td>
+            <a v-bind:href="this.$route.params.url"
+              ><b-btn id="worknetApply"
+                ><p class="p-0 m-0">워크넷</p>
+                지원하기</b-btn
+              ></a
+            >
+            <b-btn id="emailApply"
+              ><p class="p-0 m-0">이메일</p>
+              지원하기</b-btn
+            >
+            <b-btn id="directApply">바로 지원하기</b-btn>
+          </td>
+        </tr>
+      </table>
 
       <table>
         <tr style="border-top: 1px solid #ededed">
@@ -135,7 +159,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr class="apply-tr">
             <td v-if="apply.receiptCloseDt == '채용시까지'">
               <b>{{ apply.receiptCloseDt }}</b>
             </td>
@@ -155,6 +179,7 @@
         </tbody>
       </v-simple-table>
     </div>
+
     <!-- 기업정보 -->
     <p class="h3 my-5 font-weight-bold">기업정보</p>
     <table class="company-info">
@@ -163,7 +188,7 @@
           <div>
             <div class="m-2">
               <p class="compnay-name text-center mt-5 mb-5">
-                {{ items.wantedDtl.corpInfo.corpNm._text }}
+                <b>{{ items.wantedDtl.corpInfo.corpNm._text }}</b>
               </p>
               <div class="text-center">
                 <span>대표 : {{ items.wantedDtl.corpInfo.reperNm._text }}</span>
@@ -216,7 +241,9 @@ import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
 
 export default {
-  data: () => ({}),
+  data: () => ({
+    url: "",
+  }),
   methods: {
     href: function() {
       document
@@ -227,6 +254,7 @@ export default {
   mounted() {
     this.$store.dispatch("jobStore/loadJobDetail", {
       wantedNo: this.$route.params.wantedNo,
+      url: this.$route.params.url,
     });
   },
   computed: {
@@ -240,6 +268,28 @@ export default {
 </script>
 
 <style scoped>
+/* 지원버튼 */
+#worknetApply,
+#emailApply,
+#directApply {
+  border: 0px;
+  height: 85px;
+  margin-right: 10px;
+  width: 130px;
+  margin-bottom: 5px;
+}
+
+#emailApply {
+  background-color: #40a1d2;
+}
+
+#directApply {
+  background-color: #6076d7;
+}
+
+#worknetApply {
+  background-color: #40d29a;
+}
 /* 기업정보 */
 .compnay-name {
   height: 70%;
@@ -265,14 +315,17 @@ export default {
 }
 
 /* 전형방법 */
+.text-left {
+  font-size: 15px !important;
+}
+.apply-tr:hover {
+  background-color: white !important;
+}
 #download,
 #download:hover {
   color: blue;
 }
 
-.apply-table:hover {
-  background-color: white;
-}
 .deadline {
   color: white;
   font-size: 15px;
