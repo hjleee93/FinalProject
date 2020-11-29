@@ -27,6 +27,7 @@ import insertresume from './components/resume/insertresume'
 import updateresume from './components/resume/updateresume'
 import consultresume from './components/resume/consultresume'
 import consult from './components/resume/consult'
+import consultresumeenroll from './components/resume/consultresumeenroll'
 
 
 
@@ -45,6 +46,18 @@ const InfoModify = () => {
 }
 const JobList = () => {
   return import('./components/jobInfo/JobList.vue')
+}
+const JobListFront = () => {
+  return import('./components/jobInfo/JobListFront.vue')
+}
+const JobListBack = () => {
+  return import('./components/jobInfo/JobListBack.vue')
+}
+const JobListDesign = () => {
+  return import('./components/jobInfo/JobListDesign.vue')
+}
+const JobListPublishing = () => {
+  return import('./components/jobInfo/JobListPublishing.vue')
 }
 
 //주은
@@ -165,6 +178,13 @@ const PhotoUpload = () => {
   return import('./components/member/photoUpload.vue')
 }
 
+const KakaoCallbackLogin = () => {
+  return import('./components/member/kakaoCallbackLogin.vue')
+}
+const AdminPage = () => {
+  return import('./components/member/adminPage.vue')
+}
+
 // const UpdatePassword = () =>{
 //   return import('./components/member/updatePassword.vue')
 // }
@@ -178,7 +198,7 @@ export default new Router({
     {
       path: '/meetingList',
       component: meetingList,
-      name:"meetingList",
+      name: "meetingList",
       children: [
         {
           path: 'meeting',
@@ -412,6 +432,36 @@ export default new Router({
       name: 'naverLogin',
       component: NaverLogin
     },
+    {
+      path: '/kakaoCallbackLogin',
+      name: 'kakaoCallbackLogin',
+      component: KakaoCallbackLogin
+    },
+    {
+      path: '/jobListBack',
+      name: 'jobListBack',
+      component: JobListBack
+    },
+    {
+      path: '/jobListFront',
+      name: 'jobListFront',
+      component: JobListFront
+    },
+    {
+      path: '/jobListDesign',
+      name: 'jobListDesign',
+      component: JobListDesign
+    },
+    {
+      path: '/jobListPublishing',
+      name: 'jobListPublishing',
+      component: JobListPublishing
+    },
+    {
+      path: '/adminPage',
+      name: 'adminPage',
+      component: AdminPage
+    },
 
     //현주
     {
@@ -484,7 +534,12 @@ export default new Router({
       path: '/resume/consult',
       name: 'consult',
       component: consult
-    }
+    },
+     {
+      path: '/resume/consultresumeenroll',
+      name: 'consultresumeenroll',
+      component: consultresumeenroll
+    },
 
   ]
 })

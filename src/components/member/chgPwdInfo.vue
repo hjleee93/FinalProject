@@ -19,17 +19,17 @@
           <b-card no-body class="border-0 mb-0 ">
             <b-card-header class="info-content mb-4">
               <div class="text-muted text-center chg-info">
-                <router-link class="nav-link" to="/chgMemberInfo"
+                <router-link class="nav-link px-0" to="/chgMemberInfo"
                   >개인정보수정</router-link
                 >
               </div>
               <div class="text-muted text-center chg-pwd">
-                <router-link class="nav-link" to="/chgPwdInfo"
+                <router-link class="nav-link px-0" to="/chgPwdInfo"
                   >비밀번호변경</router-link
                 >
               </div>
               <div class="text-muted text-center out-info">
-                <router-link class="nav-link" to="/deleteMember">회원탈퇴</router-link>
+                <router-link class="nav-link px-0" to="/deleteMember">회원탈퇴</router-link>
               </div>
             </b-card-header>
 
