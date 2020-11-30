@@ -49,10 +49,16 @@
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
               
-              
+              <template v-if="userData.memberEmail != 'admin@kh.com'">
               <div v-if="loginStatus" class="user">
                 <b-nav-item href="/myPage">MY PAGE</b-nav-item>
                 </div>
+              </template>
+              <template v-else>
+                <div>
+                <b-nav-item href="/adminPage">ADMIN PAGE</b-nav-item>
+                </div>
+              </template>
                 <div v-if="loginStatus" class="user">
                 <b-nav-item @click="logout()">LOGOUT</b-nav-item>
                 </div>

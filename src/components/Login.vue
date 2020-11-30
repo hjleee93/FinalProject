@@ -26,8 +26,8 @@
                  <img src="img/naver_logo.png" width="250px">
                 
                 </a>
-                <a @click="kakaoLogin">
-                 <img src="img/kakao_logo.png" width="250px">
+                <a @click="kakaoLogin" >
+                 <img class="kakao-login" src="img/kakao_logo.png" width="250px">
                 </a>
                  <a href="#">
                  <img src="img/google_logo.png" width="250px">
@@ -96,9 +96,8 @@ const { mapState } = createNamespacedHelpers("memberStore");
          kakao_client_id: "e1e8126c8b7e3af4fd185b1774cddd2c",
         redirect_uri: "http://localhost:8081/loginCallback",
         CLIENT_ID: 'aYgNgGmIwR3wysmlCfRd',
-        redirectURI:`http://localhost:8082/itjobgo/member/naverLogin`,
+        redirectURI:`http://localhost:8082/itjobgo/member/naverLogin`,//서버연결
          naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
-         isPopup: true,
          state:123,//TODO : 랜덤값 나올 수 있게 바꾸기
         test1: [],
         model: {
@@ -113,16 +112,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
     mounted() {    
     Kakao.isInitialized() 
     
-    Kakao.Auth.setAccessToken(this.$route.params.accessToken)
-    Kakao.API.request({
-      url: '/v2/user/me',
-      success(response) {
-        console.log(response.kakao_account)
-      },
-      fail(error) {
-        console.log(error)
-      }
-    })
+   
   },
     methods: {
       // ...mapActions(['login']),
@@ -148,6 +138,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
     ...mapState(["loginStatus","loginError"])
   },
   created () {
+   
     this.naverLoginURL += '&client_id=' + this.CLIENT_ID;
     this.naverLoginURL += '&redirect_uri=' + this.redirectURI;
     this.naverLoginURL += '&state=' + this.state;
@@ -163,6 +154,11 @@ const { mapState } = createNamespacedHelpers("memberStore");
   	
   
 <style scoped>
+/* 카카오버튼 */
+.kakao-login:hover{
+  cursor: pointer;
+
+}
 .login-content{
   background-color: #f7fafc !important;
   border-radius: 5px;

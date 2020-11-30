@@ -3,9 +3,7 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-
-<!-- 취업정보 객체 : {{info}} -->
-<!-- 취업정보 제목 : {{info.infoTitle}} -->
+ 
           <!-- 메인 이미지 -->
               <div class="submenuimage ">
                   <p class="subtitle" id="subtitle">Information</p>
@@ -20,7 +18,6 @@
           <h4 class="sub-header">취업설명회 일정</h4>
           <v-btn to="/infoForm" exact  id="st_write1">글쓰기</v-btn>
         </div>
-
         <div class="overflow-hidden">
          <!-- 테이블 -->
         <v-card>
@@ -37,7 +34,7 @@
             :headers="headers"
             :items="infolist"
             :search="search"
-            :server-items-length="info.length"
+         
              item-key="infoSq"         
           >
           <template v-slot:item="props">
@@ -54,7 +51,7 @@
 
           </v-data-table>
         </v-card>
-            <div>(임시) 객체 : {{info}}</div>
+            <!-- <div>(임시) 객체 : {{infolist}}</div> -->
         </div>
        </div>
       </div>
@@ -105,7 +102,8 @@ import { mapState } from 'vuex';
           { text: '날짜', value: 'infoDate' },
           { text: '시간', value: 'infoTime' },
           { text: '주소', value: 'infoAddress' },
-          { text: '조회수', value: 'infoCount' }
+          { text: '내용', value: 'infoContent' },
+          { text: '조회수', value: 'infoCount' } 
         ],
       }
     },

@@ -8,7 +8,7 @@ li {
   min-width: 1110px;
   height: 356px;
   padding-left: 222px;
-  margin: 0 0 8px;
+  margin: 0 0 60px;
   border: 3px solid #767676;
 }
 #PersonHead .name {
@@ -382,4 +382,13 @@ li {
 
 .photoBtn:hover {
   cursor: pointer;
+}
+
+.header-body {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#profile {
+  background-color: #394867;
 }

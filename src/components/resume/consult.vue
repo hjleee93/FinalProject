@@ -9,13 +9,14 @@
         <p class="subtitle">resume</p>
     </div>
     <div>
-        <b-nav tabs fill>
-            <b-nav-item to="/resume/insertresume">입사지원서 등록</b-nav-item>
-            <b-nav-item to="/resume/resume">입사지원서 보기</b-nav-item>
-            <b-nav-item to="/resume/updateresume">입사지원서 수정</b-nav-item>
-            <b-nav-item to="/resume/consultresume">입사지원서 컨설팅</b-nav-item>
-            <b-nav-item active to="/resume/consult">컨설팅 전문가 등록</b-nav-item>
-        </b-nav>
+        <v-tabs centered color="grey darken-3">
+            <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
+            <v-tab to="/resume/resume">입사지원서 보기</v-tab>
+            <v-tab to="/resume/updateresume">입사지원서 수정</v-tab>
+            <v-tab active to="/resume/consultresume">입사지원서 컨설팅</v-tab>
+            <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
+            <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
+        </v-tabs>
     </div>
         <b-container class="bv-example-row">
             <b-row>
@@ -79,8 +80,8 @@
 
 </script>
 <style scoped>
-.bv-example-row{
 
+.bv-example-row{
     margin-top: 30px;
     margin-bottom: 30px;
 }
