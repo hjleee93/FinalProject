@@ -38,10 +38,16 @@
       </b-row></b-card></b-col></b-row></b-form>
 
       <b-container>
-      <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea readonly /></b-col>
-      <b-col cols="1"><b-button>삭제</b-button></b-col>
-      <b-col cols="1"><b-button>수정</b-button></b-col>
+      <b-row v-for="comment in commentlist" :key="comment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-col ><b-form-textarea readonly :value="comment.pcommentContent" /></b-col>
+      <template v-if="comment.memberSq==userData.memberSq">
+        <b-col cols="1">
+           <div @click="declick(comment.pcommentNo)">삭제</div> 
+           <div @click="upclick(comment)">수정</div> 
+        </b-col>
+        
+      </template>
+      
       </b-row></b-card></b-col>
       </b-row>
       <div>{{commentlist}}</div>
@@ -90,6 +96,7 @@ export default {
       
         }
     },
+   
     components:{
       ModalView,
     },
@@ -114,7 +121,15 @@ export default {
         
         
       },
-     
+      declick(commentno){
+        console.log(commentno)
+        const cno=commentno;
+        this.$store.dispatch("FETCH_COMMENTDEL",cno)
+        return  this.$store.dispatch("FETCH_COMMNET",this.$route.params.id)
+      },
+  
+
+      
       comment(){
         let formData2=new FormData();
         formData2.append('pboardNo',this.pboardone.pboardNo);
@@ -127,13 +142,16 @@ export default {
       axios.post("http://localhost:8082/itjobgo/portfolio/comment.do",formData2)
       .then((data)=>{
         console.log(data)
-        this.pcomment=""
+        this.pcomment="",
+        this.$store.dispatch("FETCH_COMMNET",this.$route.params.id);
       
       })
+     
       .catch((error)=>
         console.log(error))
      
       },
+      
       ndele(){
         this.showModal=!this.showModal;
       },

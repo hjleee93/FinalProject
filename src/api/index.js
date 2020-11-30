@@ -27,6 +27,9 @@ function fetchAttachment(no){
 function fetchcomment(no){
     return axios.get(`${config.Url}portfolio/commentList${no}.do`)
 }
+function fetchcommentdel(no){
+    return axios.post(`${config.Url}portfolio/commentdel${no}.do`)
+}
 
 //모임
 function fetchMeeting() {
@@ -130,6 +133,7 @@ export {
     fetchPboardDel,
     fetchAttachment,
     fetchcomment,
+    fetchcommentdel,
     //모임
     fetchMeeting,
     fetchMeetinginfo,
