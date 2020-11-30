@@ -53,6 +53,7 @@
                 ></a
               >
             </template>
+            <!-- TODO:지도api연결 -->
             <template v-if="apply.rcptMthd.includes('방문')">
               <b-btn id="directApply">방문 지원가능</b-btn>
             </template>
