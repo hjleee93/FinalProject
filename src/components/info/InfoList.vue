@@ -32,9 +32,9 @@
         </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="infolist"
+            :items="info"
             :search="search"
-         
+            :server-items-length="info.length"
              item-key="infoSq"         
           >
           <template v-slot:item="props">
@@ -51,7 +51,8 @@
 
           </v-data-table>
         </v-card>
-            <!-- <div>(임시) 객체 : {{infolist}}</div> -->
+             <div>객체(임시) : {{info}}</div>
+        
         </div>
        </div>
       </div>
@@ -60,9 +61,8 @@
 </template>
 
 <script>
-//import axios from 'axios';
-
 import { mapState } from 'vuex';
+
   export default {
 
     created : function(){
@@ -71,16 +71,13 @@ import { mapState } from 'vuex';
 
     computed:{
         ...mapState({
-            infolist:state=>state.infolist
+            info:state=>state.info
         })
     },
     
    methods: {
     handleClick(value){
-/*       alert(value.infoSq); */
       this.$router.push({name:'infoDetail',params:{id:value.infoSq}});
-      console.log(value);
-      console.log(value.infoSq);
     
     }
   },
@@ -88,16 +85,16 @@ import { mapState } from 'vuex';
 
     data() {
       return {
-    /*   info:[], */
       search: '',
         headers: [
           
           {
-            text: '분류',
+            text: '번호',
             align: 'start',
             filterable: false,
-            value: 'infoCategory', 
+            value: 'infoSq', 
           },
+          { text: '분류', value: 'infoCategory'}, 
           { text: '기업명', value: 'infoTitle' },          
           { text: '날짜', value: 'infoDate' },
           { text: '시간', value: 'infoTime' },
