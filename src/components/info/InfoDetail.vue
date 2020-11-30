@@ -3,7 +3,7 @@
  <b-container fluid>
       <b-row >
         <div class="submenuimage ">
-          <p class="subtitle" id="subtitle">채용설명회 일정</p>
+          <p class="subtitle" id="subtitle">Information</p>
         </div>
       </b-row>
       <b-row id="writecontain" align-h="end">
@@ -27,12 +27,8 @@
           <b-col cols="2"><b-form-group  label="시간" readonly/></b-col>
           <b-col> <b-form-textarea v-model="infoDetail.infoTime" readonly/></b-col>
         </b-row>
-        <b-row>
-          <b-col cols="2"><b-form-group  label="주소" readonly/></b-col>
-          <b-col> <b-form-textarea v-model="infoDetail.infoAddress" readonly/></b-col>
-        </b-row>
            <b-row>
-          <b-col cols="2"><b-form-group  label="내용" readonly/></b-col>
+          <b-col cols="2"><b-form-group  label="주소/내용" readonly/></b-col>
           <b-col> <b-form-textarea v-model="infoDetail.infoContent" readonly/></b-col>
         </b-row>       
           </b-form>
@@ -41,7 +37,7 @@
       </b-row>
 
 
-      <b-container>
+<!--       <b-container>
       <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"></b-col>
       <b-col><b-form-textarea readonly /></b-col>
       <b-col cols="1"><b-button>삭제</b-button></b-col>
@@ -49,7 +45,7 @@
       </b-row></b-card></b-col>
       </b-row>
     
-      </b-container>
+      </b-container> -->
       <div>게시판 객체 : {{infoDetail}}</div>
       <div>유저 객체 : {{userData}}</div>
 
@@ -73,58 +69,60 @@
   </b-container> 
 </template>
 
-// <script>
-// import { mapState } from 'vuex';
-// import ModalView from '../common/ModalView.vue';
+<script>
+import { mapState } from 'vuex';
+import ModalView from '../common/ModalView.vue';
 
-// export default {
+import { createNamespacedHelpers } from "vuex";
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 
-//   data(){
-//       return{
-//         showModal:false,
-//         infoNo:0,
-//       }
-//     },
-//    computed:{
-//         ModalView,
-//     },
-    
-//     methods: {
-//       update(){
-//         //새로운 수정 컴포넌트로 이동
-//         let no=this.$route.params.id
-//         this.$router.push({name:'InfoModify',params:{id:no}})
 
-//       },
-//       pdelete(){
-//           this.showModal=!this.showModal;
+export default {
+
+  data(){
+      return{
+        showModal:false,
+        infoNo:0,
+      }
+    },
+       
+    methods: {
+      update(){
+        //새로운 수정 컴포넌트로 이동
+        let no=this.$route.params.id
+        this.$router.push({name:'InfoModify',params:{id:no}})
+
+      },
+      pdelete(){
+          this.showModal=!this.showModal;
          
         
-//       },
-//       ydele(){
-//         let no=this.$route.params.id
-//          this.$store.dispatch("FETCH_INFO_DELETE",no)
-//          this.$router.push({name:'InfoList'})
+      },
+      ydele(){
+        let no=this.$route.params.id
+         this.$store.dispatch("FETCH_INFO_DELETE",no)
+         this.$router.push({name:'InfoList'})
         
         
-//       },
-//       ndele(){
-//         this.showModal=!this.showModal;
-//       },        
-//     },
-//     created() {
-//         const infoNo=this.$route.params.id;
-//         this.$store.dispatch("FETCH_INFO_DETAIL",infoNo)
-//     },
-//     computed: {
+      },
+      ndele(){
+        this.showModal=!this.showModal;
+      },        
+    },
+    created() {
+        const infoNo=this.$route.params.id;
+        this.$store.dispatch("FETCH_INFO_DETAIL",infoNo)
+    },
+    computed: { ModalView,   
+  
      
-//         ...mapState({
-//             infoDetail:state=>state.infoDetail,       
-//         }),
-//          ...loadUserState(['userData'])    
-//     }    
-// }
-// </script>
+        ...mapState({
+            infoDetail:state=>state.infoDetail,       
+        }),
+         ...loadUserState(['userData'])    
+    }    
+}
+</script>
 
 <style scoped>
 #subtitle{
