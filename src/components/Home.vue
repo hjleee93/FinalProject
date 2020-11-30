@@ -88,7 +88,7 @@
                 <div class="m-2">
                   <b-btn class="ntc-btn">공지</b-btn><span></span>
 
-                  <p class="text-muted m-b-0"></p>
+                  <p class="text-muted m-b-0 notice-content"></p>
                 </div>
               </div>
             </template>
@@ -113,7 +113,7 @@
                     <span>{{
                       communityboard[communityboard.length - 1].boardTitle
                     }}</span>
-                    <p class="text-muted m-b-0">
+                    <p class="text-muted m-b-0 commu-content">
                       {{
                         communityboard[communityboard.length - 1].boardContent
                       }}
@@ -429,6 +429,15 @@ export default {
 <style scoped>
 /* 상단 박스 css */
 
+.commu-content,
+.notice-content {
+  overflow: hidden;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  height: 120px;
+}
 .collab-router,
 .qna-router,
 .commu-router {
@@ -552,6 +561,11 @@ div[role="region"] {
 .qst + .text-muted {
   max-height: 68px;
   overflow: hidden;
+
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .ans {
   width: 100%;
