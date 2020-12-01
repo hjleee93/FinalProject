@@ -1,6 +1,7 @@
 <template>
 
   <body>
+    <b-container>
     <div class="container-fluid">
       <div class="row">
  
@@ -45,6 +46,7 @@
             <td class="text-xs-right">{{props.item.infoDate }}</td>
             <td class="text-xs-right">{{props.item.infoTime }}</td>
             <td class="text-xs-right">{{props.item.infoAddress}}</td>
+            <td class="text-xs-right">{{props.item.infoContent }}</td>
             <td class="text-xs-right">{{props.item.infoCount }}</td>
           </tr>
         </template>
@@ -57,6 +59,7 @@
        </div>
       </div>
     </div>
+    </b-container>
   </body>
 </template>
 
