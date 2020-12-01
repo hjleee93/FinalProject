@@ -38,10 +38,18 @@
 
 
       <!-- 에디터 창 -->
-      <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
+      <!-- <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
         <vue-editor  id="input-3" v-model="communityboardView.boardContent" 
         name="boardContent"/>
-     </b-form-group>
+     </b-form-group> -->
+
+    <b-form-textarea
+      id="textarea-content"
+      v-model="communityboardView.boardContent"
+      :state="communityboardView.boardContent.length >= 10"
+     
+      rows="10"
+    ></b-form-textarea>
 
       <!-- 첨부파일 -->
       <b-form-group>
@@ -60,7 +68,7 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
+// import { VueEditor } from "vue2-editor";
 import { mapState } from 'vuex';
 import axios from 'axios'
 
@@ -98,7 +106,7 @@ import axios from 'axios'
 
 
     components:{
-      VueEditor,
+      // VueEditor,
     },
     
     methods: {
