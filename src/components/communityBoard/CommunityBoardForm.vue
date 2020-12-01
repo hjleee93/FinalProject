@@ -3,6 +3,7 @@
 
     <div class="container" id="header-container">
       <h4 id="h4-title">자유게시판 작성</h4>
+      <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
     </div>
 
     <form @submit.prevent="enrollBoard" 
@@ -19,7 +20,8 @@
           v-model="boardTitle"
           type="text"
           required
-          placeholder="제목을 입력해주세요"
+          placeholder="제목을 입력해주세요(최소5글자 이상)"
+          :state="boardTitle.length >= 10"
         ></b-form-input>
       </b-form-group>
 
@@ -33,7 +35,8 @@
           
           v-model="userData.memberName"
         ></b-form-input>
-    </b-form-group>
+
+        
       <b-form-group id="input-group-3" 
       label="분류선택" label-for="input-3" label-align="left">
         <b-form-select
@@ -44,11 +47,21 @@
         ></b-form-select>
       </b-form-group>
 
+      </b-form-group>
+
       <!-- 에디터 창 -->
-      <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
+      <!-- <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
         <vue-editor  id="input-3" v-model="boardContent" 
         name="boardContent"/>
-     </b-form-group>
+     </b-form-group> -->
+
+    <b-form-textarea
+      id="textarea-content"
+      v-model="boardContent"
+      :state="boardContent.length >= 10"
+      placeholder="내용을 입력해주세요(최소 10글자)"
+      rows="10"
+    ></b-form-textarea>
 
       <!-- 첨부파일 -->
       <b-form-group>
@@ -60,7 +73,6 @@
 
       <b-button id="submit-btn2"  @click="enrollBoard">완료</b-button>
       <b-button type="reset" id="reset-btn2">취소</b-button>
-      <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
       
     </form>
 
@@ -69,7 +81,7 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
+// import { VueEditor } from "vue2-editor";
 import axios from 'axios';
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
@@ -79,8 +91,9 @@ const { mapState } = createNamespacedHelpers("memberStore");
     data() {
       return {
         boardTitle:"",
-        category:"",
+        category:null,
         boardDivision :[
+           { value: null, text: '분류를 선택해주세요' },
           { value: '일반', text: '일반' },
           { value: '질문', text: '질문' },
           { value: '홍보', text: '홍보' }
@@ -91,7 +104,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
     },
 
     components:{
-      VueEditor,
+      // VueEditor,
     },
 
     computed: {
