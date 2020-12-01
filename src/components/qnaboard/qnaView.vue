@@ -1,50 +1,67 @@
 <template>
 <b-container fluid>
-      <b-row >
+      <!-- <b-row >
         <div class="submenuimage ">
             <p>Q&A</p>
         </div>
-      </b-row>
-      
-        <p id="writecontain" align-h="end"><b-button to="/qnaBoard">목록으로 </b-button></p>  
-      <b-row>
-        <b-col><b-card class="text-center">
-            <b-form>
-                <b-row>
-                <b-col cols="2"><b-form-group  label="제목"/></b-col>
-                <b-col> <b-form-input v-model="qnaBoardView.qnaTitle" readonly/></b-col>
-                </b-row>
-                <b-row>
-                <b-col cols="2"><b-form-group  label="작성자"/></b-col>
-                <b-col> <b-form-input v-model="qnaBoardView.qnaWriter" readonly/></b-col>
-                </b-row>
-                <b-row>
-                <b-col cols="2"><b-form-group  label="작성내용" readonly/></b-col>
-                <b-col> <b-form-textarea v-model="qnaBoardView.qnaContent" readonly/></b-col>
-                </b-row>
-                <b-row v-if="attachment">
-                <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
-                <b-col cols="2"><b-button @click="qbattachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
-                </b-row>
-            </b-form>
+      </b-row> --> 
+    
+    <!-- 상세페이지 본문 시작 -->
+    <div class="container">
+        <b-col>
+            <b-card class="viewcontainer">
+                <b-form>
+                    <b-row>
+                        <b-col class="qnawriter">작성자 : {{qnaBoardView.qnaWriter}}<br></b-col>
+                        <p class="qnadate">{{formatDate(qnaBoardView.qnaDate)}} 작성</p>
+                    </b-row>
+                        
+                    <b-row>
+                        <b-col class="qnatitle"><b>{{qnaBoardView.qnaTitle}}</b></b-col>
+                    </b-row>
+                        <hr>
+                    <b-row>
+                        <b-col class="qnacontent">{{qnaBoardView.qnaContent}}</b-col>                
+                    </b-row> 
+                        <hr><br>
+                    <b-row v-if="attachment">
+                        <b-col class="qnaphoto">첨부파일</b-col>
+                        <b-col><b-button class="qnaphotofile" @click="qbattachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
+                    </b-row>
+
+                </b-form>
           </b-card>
         </b-col>
 
             <b-row>
-                <b-col>
+                <b-col class="btndiv">
+                    <b-button to="/qnaBoard">목록으로 </b-button> 
                     <b-button v-if="userData.memberSq===qnaBoardView.memberNum"
                         class="btn_center" @click="updateqna">수정</b-button>
                     <b-button v-if="userData.memberSq===qnaBoardView.memberNum||userData.memberEmail==='admin@kh.com'"
                         class="btn_center" @click="deleteqna">삭제</b-button>
                 </b-col>
             </b-row>
-        
-        </b-row>
+
+      <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-col><b-form-textarea v-model="pcomment" /></b-col>
+      <b-col cols="1"><b-button @click="comment">전송</b-button></b-col>
+      </b-row></b-card></b-col></b-row></b-form>
+
+      <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-col><b-form-textarea readonly /></b-col>
+      <b-col cols="1"><b-button>삭제</b-button></b-col>
+      <b-col cols="1"><b-button>수정</b-button></b-col>
+      </b-row></b-card></b-col>
+      </b-row>
+
+    </div>
    
-   <div>
+
+   <!-- <div>
        게시판 객체 : {{qnaBoardView}}<br>
        멤버 객체 : {{userData}}<br>
-   </div>
+   </div> -->
       
 
     <!-- 삭제 모달창 -->
@@ -75,11 +92,11 @@ import ModalView from '../common/ModalView.vue';
 import { mapState } from 'vuex';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
+import vueMoment from 'vue-moment';
+Vue.use(vueMoment);
+import Vue from 'vue'
 
 // import axios from 'axios'; 댓글
-// import Vue from 'vue'
-// import vueMoment from 'vue-moment';
-// Vue.use(vueMoment);
 
 export default {
 
@@ -134,6 +151,12 @@ export default {
             qbattachmentdown(attachment){
             location.href="http://localhost:8082/itjobgo/qna/qnafiledownload?oriName="+attachment.originalfilename+"&reName="+attachment.renamedfilename;
             },
+
+            //날짜표시
+            formatDate(value){
+            return this.$moment(value).format("YYYY-MM-DD");
+            },
+      
     },
     
     
@@ -168,5 +191,30 @@ export default {
 .btn_center{
     margin-left:1%;
 }
+.contents_view{
+    border:1px red solid;
+}
+.qnatitle{
+    font-size: 18px;
+}
+.qnawriter{
+    font-size: 14px;
+}
+.qnadate{
+    font-size: 14px;
+    margin-left: -120px;
+    color: grey;   
+}
+.qnaphotofile{
+    margin-left: -85%;
+}
+.viewcontainer{
+    margin: 3%;
+}
+.btndiv{
+    margin-left: 38%;
+    margin-bottom: 3%;
+}
+
 
 </style>
