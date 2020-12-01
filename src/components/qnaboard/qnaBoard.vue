@@ -1,18 +1,14 @@
 <template>
-<b-container>
+<b-container fluid>
 
-    <div class="container-fluid">
-      <div class="row">
+      <b-row >
+         <div class="submenuimage ">
+        <p class="subtitle" id="subtitle">Q&A</p>
+        </div>
+      </b-row>
 
-        <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
-          <!-- 메인 이미지 -->
-              <div class="submenuimage ">
-                  <p class="subtitle" id="subtitle">Q&A</p>
-              </div>
-              
-        <div class="container">
-
-          
+    <div class="container">
+    
     <!-- 탭 -->   
     <v-tabs
     centered
@@ -24,13 +20,14 @@
       <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
     </v-tabs>
 
-    <!-- 게시판시작 -->
-    <div>
+    <!-- 서브제목 -->
       <h4 class="sub-header">질문/답변 게시판</h4>
-      <v-btn to="/qnaWrite" exact  id="st_write">글쓰기</v-btn></div>
+      <v-btn to="/qnaWrite" exact  id="st_write">글쓰기</v-btn>
+
     <div class="overflow">
+
          <!-- 테이블 -->
-        <v-card >
+        <v-card>
         <v-card-title>
           <v-text-field
               v-model="search"
@@ -62,14 +59,10 @@
           
         </v-data-table>
         </v-card>
-        
-          </div>
-      
-        </div>
-
-      </div>
+       
     </div>
-  
+
+</div>
 </b-container>
 </template>
 
@@ -166,9 +159,10 @@ Vue.use(vueMoment);
 .sub-header{
   position: relative;
   bottom: -45px;
-  left:  -12px;
+  left:  15px;
   margin-top: 20px;
   text-align: left;
 }
+
 
 </style>

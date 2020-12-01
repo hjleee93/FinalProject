@@ -5,6 +5,7 @@
         <p class="subtitle" id="subtitle">Q&A</p>
         </div>
       </b-row>
+      
         <p id="writecontain" align-h="end"><b-button to="/qnaBoard">목록으로 </b-button></p>  
       <b-row>
         <b-col><b-card class="text-center">
