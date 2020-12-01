@@ -27,10 +27,17 @@
                 </b-row>
             </b-form>
           </b-card>
-            <b-row v-if="userData.memberSq===qnaBoardView.memberNum"></b-row>
-            <b-button class="btn_center" @click="updateqna">수정</b-button>
-            <b-button class="btn_center" @click="deleteqna">삭제</b-button>
-         </b-col>
+        </b-col>
+
+            <b-row>
+                <b-col>
+                    <b-button v-if="userData.memberSq===qnaBoardView.memberNum"
+                        class="btn_center" @click="updateqna">수정</b-button>
+                    <b-button v-if="userData.memberSq===qnaBoardView.memberNum||userData.memberEmail==='admin@kh.com'"
+                        class="btn_center" @click="deleteqna">삭제</b-button>
+                </b-col>
+            </b-row>
+        
         </b-row>
    
    <div>

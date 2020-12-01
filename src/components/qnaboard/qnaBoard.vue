@@ -1,7 +1,6 @@
 <template>
+<b-container>
 
-
-  
     <div class="container-fluid">
       <div class="row">
 
@@ -71,7 +70,7 @@
       </div>
     </div>
   
-
+</b-container>
 </template>
 
 <script>

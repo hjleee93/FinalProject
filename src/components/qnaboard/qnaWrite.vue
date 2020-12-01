@@ -1,5 +1,6 @@
 <template>
 
+<b-container>
 <div class="container">
   <div>
 			<h2 class="st_title">QnA 질문등록</h2><hr>
@@ -81,6 +82,7 @@
   
 </div>
 
+</b-container>
 </template>
 
 <script>
