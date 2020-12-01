@@ -29,9 +29,9 @@
                     rules="required|email|emailCheck"
                     name="이메일"
                   >
-                    <b-form-group                     
+                    <b-form-group
                       slot-scope="{ valid, errors }"
-                      label="Email address:"                     
+                      label="Email address:"
                     >
                       <b-form-input
                         required
@@ -192,7 +192,7 @@ Validator.extend("emailCheck", {
           return true;
         }
       });
-  }
+  },
 });
 
 Validator.extend("phoneCheck", {
@@ -211,7 +211,7 @@ Validator.extend("phoneCheck", {
           return true;
         }
       });
-  }
+  },
 });
 
 export default {
@@ -225,7 +225,7 @@ export default {
     password: "",
     confirmation: "",
     userName: "",
-    phoneNumber: ""
+    phoneNumber: "",
   }),
 
   methods: {
@@ -242,15 +242,18 @@ export default {
       axios
         .post("http://localhost:8082/itjobgo/member/register", formData) //form server 연결
         .then(function(res) {
-          console.log(formData)
-          if (res.status >= 200 && res.status <= 204) {
+          console.log(formData);
+          if (res.data > 0) {
             //가입성공
             alert("가입에 성공하셨습니다!");
             self.$router.push("/login"); //회원가입 후 경로 설정
+          } else {
+            alert("회원가입에 실패하였습니다. 다시 시도해주세요");
           }
         })
         .catch((error) => {
-          alert("회원가입에 실패하였습니다. 다시 시도해주세요");
+          //서버문제인 경우
+          alert("회원가입에 실패하였습니다. 관리자에게 문의해주세요");
           console.log("실패", error);
         });
     },

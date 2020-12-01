@@ -34,7 +34,6 @@ const jobStore = {
 
         //상세페이지 
         loadJobDetail({ commit }, wantedNo) {
-            console.log("wantedNo: " + JSON.stringify(wantedNo));
             axios.get(
                 "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=D&returnType=XML&infoSvc=VALIDATION&wantedAuthNo=" +
                 wantedNo.wantedNo

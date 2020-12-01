@@ -4,31 +4,57 @@
          <div class="submenuimage ">
         <p class="subtitle" id="subtitle">communityBoardInfo</p>
       </div>
+
+        <!-- 탭 -->   
+        <div class="container">
+          <v-tabs
+          centered
+          color="grey darken-3"
+          >
+            <v-tab to="/noticeList"><b>공지사항</b></v-tab>
+            <v-tab to="/itNewsList"><b>IT소식</b></v-tab>
+            <v-tab to="/communityBoardList" ><b>자유게시판</b></v-tab>
+            <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
+          </v-tabs>
+        </div>
       </b-row>
-      <b-row id=" writecontain" align-h="end"><b-button to="/communityBoardList">목록으로 </b-button></b-row>
       <b-row>
-        <b-col><b-card class="text-center"><b-form>
+        <b-col><b-card class="text-center" id="text-card"><b-form>
         <b-row>
-          <b-col cols="2"><b-form-group  label="제목"/></b-col>
-          <b-col> <b-form-input v-model="communityboardView.boardTitle" readonly/></b-col>
+          <b-col id="title"> {{communityboardView.boardTitle}}</b-col>
         </b-row>
+        <b-row>
+          <b-col id="boardDate"> {{formatDate(communityboardView.boardDate)}}</b-col>
+          <b-col id="writer"> 작성자 : {{communityboardView.boardWriter}}</b-col>
+        </b-row>
+        <b-row>
+        </b-row>
+
           <b-row>
-          <b-col cols="2"><b-form-group  label="작성자"/></b-col>
-          <b-col> <b-form-input v-model="communityboardView.boardWriter" readonly/></b-col>
+          <b-col > <pre id="content">{{communityboardView.boardContent}}</pre></b-col>
         </b-row>
-          <b-row>
-          <b-col cols="2"><b-form-group  label="작성내용" readonly/></b-col>
-          <b-col> <b-form-textarea v-model="communityboardView.boardContent" readonly/></b-col>
-        </b-row>
+
         <b-row v-if="attachment">
-          <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
-          <b-col cols="2"><b-button @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
+          <b-col cols="2" id="attachment-title"><b-form-group  label="첨부된 파일" readonly/></b-col>
+          <b-col cols="2" id="attachment"><b-button id="attachment-btn" @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
         </b-row>
           </b-form>
-          <b-row v-if="userData.memberSq===communityboardView.memberNum"><b-col>
-          <b-button @click="update">수정</b-button>
-          <b-button @click="pdelete">삭제</b-button>
-  </b-col></b-row></b-card></b-col>
+          
+          <b-row v-if="userData.memberSq===communityboardView.memberNum">
+            <b-col>
+              <b-button @click="update" id="update-btn">수정</b-button>
+              <b-button @click="pdelete" id="delete-btn">삭제</b-button>
+            </b-col></b-row>
+      <b-row id=" writecontain" align-h="end">
+        <b-col>
+          <!-- <b-button to="/communityBoardList" id="prev">이전 </b-button>
+          <b-button to="/communityBoardList" id="next">다음 </b-button> -->
+          <b-button to="/communityBoardList" id="list">목록 </b-button>
+        </b-col>
+      </b-row>
+            
+            
+            </b-card></b-col>
       </b-row>
       
 
@@ -44,11 +70,12 @@
       <b-col cols="1"><b-button>수정</b-button></b-col>
       </b-row></b-card></b-col>
       </b-row>
+      
     
       </b-container>
-      <div>게시판 객체 : {{communityboardView}}</div>
+      <!-- <div>게시판 객체 : {{communityboardView}}</div>
       <div>유저 객체 : {{userData}}</div>
-      <p>날짜표시  : {{ communityboardView.boardDate | moment('YYYY-MM-DD') }}</p>
+      <p>날짜표시  : {{ communityboardView.boardDate | moment('YYYY-MM-DD') }}</p> -->
 
   
   <!-- <div v-for="item in pboardone" :key="item.id">{{item}}</div> -->
@@ -57,11 +84,11 @@
   <ModalView v-if="showModal" @close="showModal = false">
     <template>
       <div slot="header">
-        정말 삭제하시겠습니까?
+        정말 게시판 글을 삭제하시겠습니까?
       </div>
       <div slot="body" class="modalf"> 
-        <b-button @click="ydele">네</b-button>
-         <b-button @click="ndele">아니오</b-button>
+        <b-button id="modal-yes" @click="ydele">네</b-button>
+         <b-button id="modal-no" @click="ndele">아니오</b-button>
       </div>
       <div slot="footer">
 
@@ -98,6 +125,12 @@ export default {
       ModalView,
     },
     methods: {
+    // 날짜변환 함수
+    formatDate(value) {
+      // console.log(value);
+      return this.$moment(value).format("YYYY-MM-DD");
+      
+    },
       update(){
         //수정버튼 눌렸을때 처리하는 로직
         //새로운 수정 컴포넌트로 이동
@@ -165,6 +198,8 @@ export default {
 </script>
 
 <style scoped>
+@import '../../assets/css/BoardView.css';
+
 #subtitle{
 font-family: 'Barlow Semi Condensed', sans-serif;
 }
