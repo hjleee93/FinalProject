@@ -1,8 +1,8 @@
 <template>
 <b-container fluid>
       <b-row >
-         <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">Q&A</p>
+        <div class="submenuimage ">
+            <p>Q&A</p>
         </div>
       </b-row>
       

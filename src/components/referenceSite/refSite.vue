@@ -1,14 +1,13 @@
 <template>
 
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-
-        <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
-          <!-- 메인 이미지 -->
-              <div class="submenuimage ">
-                  <p class="subtitle" id="subtitle">Reference</p>
-              </div>
+<b-container fluid>
+  
+      <!-- 메인 이미지 -->
+      <b-row>
+          <div class="submenuimage">
+             <p class="ref_title">Reference</p>
+          </div>
+      </b-row>
               
         <div class="container">          
 
@@ -274,9 +273,8 @@
         </div>
 
       </div>
-      </div>
-    </div>
-  </body>
+
+</b-container>
 
 
 </template>
@@ -337,6 +335,11 @@
 }
  .mx-auto{
   margin: 1.5%;
+}
+.ref_title{
+    font-family: 'Masque';
+    color:#4e5157 ;
+    font-size: 50px;
 }
 
 </style>
