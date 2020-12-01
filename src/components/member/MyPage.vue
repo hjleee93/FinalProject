@@ -9,41 +9,37 @@
     </div>
 
     <div id="PersonHead">
-      <input
-        type="hidden"
-        id="hidmainphotoidx"
-        name="hidmainphotoidx"
-        value=""
-      />
       <!-- 사진영역 -->
       <div class="photoArea">
-        <p class="photo">
-          <span class="picture"></span>
-          <span id="picReigst" style="">
-            <a @click="addPhoto"><span class="photoBtn">사진등록</span></a>
-          </span>
-          <span class="reg" id="picModify" style="display: none;">
-            <a
-              href="https://www.alba.co.kr/person/popup/PicRegistResume.asp"
-              onclick="window.open(this.href, 'popupName','width=570,height=740,top=0,left=0,status=no,scrollbars=yes,resizable=no'); return false"
-              ><span class="photoBtn modify">사진변경</span></a
-            >
-            <a href="javascript:;" onclick="delMainPhoto();"
-              ><span class="photoBtn del" complete="complete">사진삭제</span></a
-            >
-          </span>
-        </p>
+        <b-form @submit.prevent="uploadPhoto" enctype="multipart/form-data">
+          <div v-if="userData.memberPic == null">
+            <div
+              class="imagePreviewWrapper"
+              :style="{ 'background-image': `url(${previewImage})` }"
+              @click="selectImage"
+            ></div>
 
-        <div class="album">
-          <p>
-            <a href="http://www.alba.co.kr/person/resume/MagAlbum.asp"
-              ><img
-                src="//image.alba.kr/person/PersonHead_btn_regMod.gif"
-                alt="등록/수정"
-              />등록/수정</a
-            >
-          </p>
-        </div>
+            <div class="filebox text-center">
+              <b-btn class="upload-photo">
+                <label for="uploadPhoto">사진선택</label
+                ><b-form-file
+                  ref="fileInput"
+                  id="uploadPhoto"
+                  v-model="resumePhoto"
+                  style="display:none"
+                  @input="pickFile"
+                ></b-form-file
+              ></b-btn>
+
+              <b-button
+                class="submit-photo"
+                @click="uploadPhoto"
+                id="submitPhoto"
+                >사진업로드</b-button
+              >
+            </div>
+          </div>
+        </b-form>
         <p class="name font-weight-bold">{{ userData.memberName }}님</p>
       </div>
 
@@ -122,7 +118,6 @@
             >
           </template>
         </li>
-        <li class="last bottomList customize"></li>
       </ul>
       <div></div>
     </div>
@@ -146,10 +141,17 @@
 </template>
 
 <script>
+import axios from "axios";
 import { createNamespacedHelpers } from "vuex";
+import $ from "jquery";
 const { mapState } = createNamespacedHelpers("memberStore");
 
 export default {
+  data: () => ({
+    previewImage: null,
+    resumePhoto: null,
+    files: "",
+  }),
   // created(){
   // 	this.$store.dispatch('memberStore/getMemberInfo');
   // 	console.log(this.userData.memberLevel);
@@ -168,9 +170,50 @@ export default {
     ...mapState(["userData"]),
   },
   methods: {
-    addPhoto: function() {
-      //이력서용 사진 업로드 새창
-      window.open("photoUpload", "이력서 사진 업로드", "_blank");
+    uploadPhoto: function() {
+      let formData = new FormData();
+      formData.append("memberSq", this.userData.memberSq);
+      formData.append("memberEmail", this.userData.memberEmail);
+      formData.append("upFile", this.files[0]);
+
+      for (let key of formData.entries()) {
+        console.log(`${key}`);
+      }
+      axios
+        .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }) //form server 연결
+        .then(function(res) {
+          if (res.data > 0) {
+            alert("사진이 등록되었습니다.");
+          } else {
+            alert("사진 등록에 실패했습니다. 다시 시도해주세요.");
+          }
+        });
+    },
+
+    selectImage() {
+      this.$refs.fileInput.click();
+    },
+    pickFile() {
+      let input = this.$refs.fileInput;
+      let file = input.files;
+      this.files = input.files;
+      console.log(input.files);
+      if (file[0].name != null) {
+        $(".submit-photo").show();
+        $(".upload-photo").hide();
+      }
+      if (file && file[0]) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          this.previewImage = e.target.result;
+        };
+        reader.readAsDataURL(file[0]);
+        this.$emit("input", file[0]);
+      }
     },
   },
 };

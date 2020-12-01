@@ -24,23 +24,6 @@ li {
   border-right: 1px solid #bcc3d5;
   background: url("//image.alba.kr/person/photoArea_bg.gif") repeat;
 }
-#PersonHead .photoArea .photo {
-  margin: 20px 0 0;
-  text-align: center;
-}
-#PersonHead .photoArea .photo .picture {
-  display: block;
-  width: 100px;
-  height: 120px;
-  padding: 9px;
-  margin: 0 auto 10px;
-  border: 1px solid #ddd;
-  background: #fff;
-}
-#PersonHead .photoArea .photo .picture img {
-  width: 100px;
-  height: 120px;
-}
 #PersonHead .photoArea .photoBtn {
   display: inline-block;
   height: 22px;
@@ -51,44 +34,6 @@ li {
   vertical-align: top;
   color: #777;
   background: #fcfcfc;
-}
-#PersonHead .photoArea .photoBtn.modify {
-  border: 1px solid #505050;
-  color: #fff;
-  background: #666;
-}
-#PersonHead .photoArea .photoBtn.del {
-  color: #627289;
-}
-#PersonHead .photoArea .album {
-  overflow: hidden;
-  width: 120px;
-  margin: 24px auto 0;
-}
-#PersonHead .photoArea .album ul li {
-  float: left;
-  width: 54px;
-  height: 35px;
-  margin: 0 0 5px 8px;
-  border: 1px solid #dbe1ed;
-  background: #fff;
-}
-
-#PersonHead .photoArea .album ul li.title {
-  height: 35px;
-  padding: 0;
-  font: 11px/35px "Malgun Gothic";
-  text-align: center;
-  letter-spacing: -1px;
-  color: #73889b;
-  background: #f3f6fb;
-}
-#PersonHead .photoArea .album ul li img {
-  width: 54px;
-  height: 35px;
-}
-#PersonHead .photoArea .album p {
-  display: none;
 }
 #PersonHead .infoList {
   position: relative;
@@ -108,13 +53,6 @@ li {
   padding: 20px 0 0;
   margin: -1px 0 0 -1px;
   border: 1px solid #dcdcdc;
-}
-#PersonHead .infoList li.topList {
-  margin-top: 0;
-  border-top: 0 none;
-}
-#PersonHead .infoList li.bottomList {
-  border-bottom: 0 none;
 }
 #PersonHead .infoList li.first {
   margin-left: 0;
@@ -170,22 +108,8 @@ li {
   letter-spacing: -1px;
   color: #757575;
 }
-#PersonHead .infoList li .infoComment .closeBtn {
-  position: absolute;
-  right: 10px;
-  top: 12px;
-  width: 11px;
-  height: 11px;
-  font: 0/0 "Malgun Gothic";
-  color: transparent;
-  background: url("//image.alba.kr/person/personHead.png") no-repeat -231px -47px;
-}
 #PersonHead .infoList li.resume .title {
   background-position: 0 0;
-  margin: 0 auto;
-}
-#PersonHead .infoList li.openState .title {
-  background-position: -81px 0;
   margin: 0 auto;
 }
 #PersonHead .infoList li.onlineCount .title {
@@ -277,17 +201,6 @@ li {
   top: -2px;
   padding: 0;
 }
-#PersonHead .infoList li.userInfomation div.tel .mobileCert .htelYes {
-  position: relative;
-  top: -2px;
-  display: inline-block;
-  width: 59px;
-  height: 20px;
-  font: 0/0 "Malgun Gothic";
-  color: transparent;
-  background: url("//image.alba.kr/person/personHead.png") no-repeat -181px -22px;
-  vertical-align: top;
-}
 #PersonHead .infoList li.userInfomation div.mail {
   position: relative;
 }
@@ -307,77 +220,17 @@ li {
   left: auto;
   height: 35px;
 }
-#PersonHead .infoList li .helpText {
-  z-index: 5;
-  top: 20px;
-  left: -130px;
-  width: 280px;
-  background: none;
-}
-#PersonHead .infoList li .helpText span {
-  border-bottom: 2px solid #676767;
-}
-
 #PersonHead .state {
   position: absolute;
   right: -400px;
   top: 0;
   width: 376px;
 }
-#PersonHead .state .reg {
-  width: 361px;
-  height: 38px;
-  padding: 0 0 0 15px;
-  background: url("//image.alba.kr/person/PersonHead_count_bg.gif") no-repeat
-    left top;
-}
-#PersonHead .state .reg span.count {
-  display: inline-block;
-  padding: 6px 0 0 20px;
-  font-weight: bold;
-  letter-spacing: -1px;
-  background: url("//image.alba.kr/person/PersonHead_bul_resume.gif") no-repeat
-    left 11px;
-}
 #PersonHead .state .reg span.count a {
   padding-right: 2px;
   font: bold 18px tahoma;
   text-decoration: underline;
   color: #ff4800;
-}
-
-#PersonHead .state .regNo {
-  width: 361px;
-  height: 106px;
-  padding: 5px 0 0 15px;
-  background: url("//image.alba.kr/person/PersonHead_countNo_bg.gif") no-repeat
-    left top;
-}
-#PersonHead .state .regNo span.count {
-  display: inline-block;
-  padding: 6px 0 0 20px;
-  font-weight: bold;
-  letter-spacing: -1px;
-  background: url("//image.alba.kr/person/PersonHead_bul_resume.gif") no-repeat
-    left 11px;
-}
-#PersonHead .state .regNo span.count a {
-  padding-right: 2px;
-  font: bold 18px tahoma;
-  text-decoration: underline;
-  color: #ff4800;
-}
-
-#PersonHead .last.bottomList.customize:hover {
-  /* border: none;
-  background: none; */
-  border-top: 1px solid #81c6fd;
-}
-#PersonHead .last.bottomList.customize {
-  /* border: none; */
-  width: 352px;
-  height: 156px;
-  border-top: none;
 }
 
 .photoBtn:hover {
@@ -387,3 +240,24 @@ li {
 #profile {
   background-color: #394867;
 }
+.imagePreviewWrapper {
+  display: block;
+  width: 100px;
+  height: 120px;
+  padding: 9px;
+  margin: 30px auto 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  background-size: cover;
+  background-position: center center;
+}
+input[type="file"] {
+  position: absolute;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+/* .submit-photo {
+  display: none;
+} */
