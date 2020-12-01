@@ -56,7 +56,7 @@
                   <td class="text-xs-right">{{props.item.qnaCategory }}</td>
                   <td class="text-xs-right">{{props.item.qnaTitle }}</td>
                   <td class="text-xs-right">{{props.item.qnaAnswerYn}}</td>
-                  <td class="text-xs-right">{{props.item.qnaDate }}</td>
+                  <td class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
                   <td class="text-xs-right">{{props.item.boardCount }}</td>
                 </tr>
           </template>  
@@ -78,7 +78,6 @@
 import { mapState } from 'vuex';
 import Vue from 'vue';
 import vueMoment from 'vue-moment';
-
 Vue.use(vueMoment);
 
   export default {
@@ -96,7 +95,12 @@ Vue.use(vueMoment);
     methods:{
       handleClick(value){
         this.$router.push({name:'qnaView',params:{id:value}});
-      }
+      },
+
+    formatDate(value){
+      return this.$moment(value).format("YYYY-MM-DD");
+    }
+
     },
     
     data() {
