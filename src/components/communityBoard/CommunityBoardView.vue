@@ -70,6 +70,7 @@
       <b-col cols="1"><b-button>수정</b-button></b-col>
       </b-row></b-card></b-col>
       </b-row>
+      
     
       </b-container>
       <!-- <div>게시판 객체 : {{communityboardView}}</div>

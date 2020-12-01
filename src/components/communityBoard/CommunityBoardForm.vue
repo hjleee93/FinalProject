@@ -35,16 +35,18 @@
           
           v-model="userData.memberName"
         ></b-form-input>
-    </b-form-group>
+
+        
       <b-form-group id="input-group-3" 
       label="분류선택" label-for="input-3" label-align="left">
         <b-form-select
           id="input-3"
           v-model="category"
           :options="boardDivision"
-         
           required
         ></b-form-select>
+      </b-form-group>
+
       </b-form-group>
 
       <!-- 에디터 창 -->
@@ -89,8 +91,9 @@ const { mapState } = createNamespacedHelpers("memberStore");
     data() {
       return {
         boardTitle:"",
-        category:"",
+        category:null,
         boardDivision :[
+           { value: null, text: '분류를 선택해주세요' },
           { value: '일반', text: '일반' },
           { value: '질문', text: '질문' },
           { value: '홍보', text: '홍보' }
