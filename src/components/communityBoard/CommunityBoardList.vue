@@ -70,8 +70,8 @@
               </v-data-table>
 
             </v-card>
-            <div>객체(임시) : {{communityboard}}</div>
-            <div>날짜 [0] 인덱스 (임시) : {{communityboard[0].boardDate | moment('YYYY-MM-DD')}}</div>
+            <!-- <div>객체(임시) : {{communityboard}}</div>
+            <div>날짜 [0] 인덱스 (임시) : {{communityboard[0].boardDate | moment('YYYY-MM-DD')}}</div> -->
 
           
            </div>
