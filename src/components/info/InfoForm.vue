@@ -4,6 +4,7 @@
 <div class="container">
   <h2 class="st_title">Information 작성</h2><hr>
     
+    
     <form @submit.prevent="enrollInfo" 
     @reset="onReset"  enctype="multipart/form-data">
       <b-form-group
