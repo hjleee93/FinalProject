@@ -18,7 +18,8 @@
         </b-row>
           <b-row>
           <b-col cols="2"><b-form-group  label="작성내용" readonly/></b-col>
-          <b-col> <b-form-textarea v-model="pboardone.pboardContent" readonly/></b-col>
+          <b-col> <b-form-textarea   rows="3"
+        max-rows="8" v-model="pboardone.pboardContent" readonly/></b-col>
         </b-row>
         <b-row v-if="attachment">
           <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
@@ -39,7 +40,8 @@
 
       <b-container>
       <b-row v-for="comment in commentlist" :key="comment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col ><b-form-textarea readonly :value="comment.pcommentContent" /></b-col>
+      <b-col><b-form-textarea readonly :value="comment.pcommentContent" /></b-col>
+      <b-col cols="1">{{new Date(comment.pcommentDate).toLocaleDateString()}}</b-col>
       <template v-if="comment.memberSq==userData.memberSq">
         <b-col cols="1">
            <div @click="declick(comment.pcommentNo)">삭제</div> 
@@ -50,7 +52,7 @@
       
       </b-row></b-card></b-col>
       </b-row>
-      <div>{{commentlist}}</div>
+     <div>{{commentlist}}</div>
     
       </b-container>
       <!-- <div>{{pboardone}}</div> -->
@@ -122,10 +124,15 @@ export default {
         
       },
       declick(commentno){
-        console.log(commentno)
-        const cno=commentno;
+        let delfirm=confirm("삭제 하시겠습니까?")
+        if(delfirm){
+          const cno=commentno;
         this.$store.dispatch("FETCH_COMMENTDEL",cno)
         return  this.$store.dispatch("FETCH_COMMNET",this.$route.params.id)
+        }else{
+          return
+        }
+       
       },
   
 
