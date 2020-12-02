@@ -42,9 +42,6 @@
       </b-col></b-row></b-card></b-col>
       </b-row>
 
-      <div>게시판 객체 : {{infoDetail}}</div>
-      <div>유저 객체 : {{userData}}</div>
-
  <ModalView v-if="showModal" @close="showModal = false">
     <template>
       <div slot="header">
@@ -76,10 +73,9 @@ export default {
   data(){
       return{
         showModal:false,
-        infoNo:0,
       }
     },
-       components:{
+    components:{
       ModalView,
     },
     methods: {
@@ -116,7 +112,8 @@ export default {
     },
     computed: {      
         ...mapState({
-            infoDetail:state=>state.infoDetail,       
+            infoDetail:state=>state.infoDetail,  
+            attachment:state=>state.infoAttachment2         
         }),
          ...loadUserState(['userData'])    
     }    

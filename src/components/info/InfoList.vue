@@ -45,7 +45,6 @@
             <td class="text-xs-right">{{props.item.infoTitle }}</td>
             <td class="text-xs-right">{{props.item.infoDate }}</td>
             <td class="text-xs-right">{{props.item.infoTime }}</td>
-            <td class="text-xs-right">{{props.item.infoAddress}}</td>
             <td class="text-xs-right">{{props.item.infoContent }}</td>
             <td class="text-xs-right">{{props.item.infoCount }}</td>
           </tr>
@@ -53,7 +52,6 @@
 
           </v-data-table>
         </v-card>
-             <div>객체(임시) : {{info}}</div>
         
         </div>
        </div>
@@ -79,7 +77,7 @@ import { mapState } from 'vuex';
     
    methods: {
     handleClick(value){
-      this.$router.push({name:'infoDetail',params:{id:value.infoSq}});
+      this.$router.push({name:'InfoDetail',params:{id:value}});
     
     }
   },
@@ -99,8 +97,7 @@ import { mapState } from 'vuex';
           { text: '기업명', value: 'infoTitle' },          
           { text: '날짜', value: 'infoDate' },
           { text: '시간', value: 'infoTime' },
-          { text: '주소', value: 'infoAddress' },
-          { text: '내용', value: 'infoContent' },
+          { text: '주소', value: 'infoContent' },
           { text: '조회수', value: 'infoCount' } 
         ],
       }

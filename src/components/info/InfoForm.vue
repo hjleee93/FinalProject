@@ -129,7 +129,7 @@
             .catch((error)=>
             console.log(error))
             console.log(formData);
-            this.$router.push({name:'infoList'})
+            this.$router.push({name:'InfoList'})
           },
 
           handleFile(){
