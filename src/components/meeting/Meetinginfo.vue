@@ -8,7 +8,7 @@
       <b-col >
         <b-card> 
            <b-row>
-          <div class="f-box">일시:{{new Date(minfo.rdate)}}</div>
+          <div class="f-box">일시:{{new Date(minfo.rdate).toLocaleDateString()}}</div>
         </b-row>
            <b-row><div  class="f-box"> 정원:{{minfo.collabBack+minfo.collabFront+minfo.collabDesgin}}명</div></b-row>
            <b-row><div  class="f-box"> 장소:{{minfo.address}}</div></b-row>

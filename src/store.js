@@ -10,6 +10,7 @@ import {
     fetchPboardUp,
     fetchAttachment,
     fetchcomment,
+    fetchcommentdel,
   
     //모임
     fetchMeeting,
@@ -143,6 +144,14 @@ export default new Vuex.Store({
         FETCH_COMMNET({commit},no){
             fetchcomment(no)
             .then(({data})=>commit("SET_COMMENT",data))
+            .catch(({error})=>console.log(error))
+        },
+        //게시판 댓글 삭제
+        FETCH_COMMENTDEL(data,no){
+            console.log(no)
+            fetchcommentdel(no)
+            .then((data)=>{console.log(data)
+            })
             .catch(({error})=>console.log(error))
         },
         
