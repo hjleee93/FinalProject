@@ -1,8 +1,6 @@
 <template>
 
   <body>
-    
-    <b-container>
     <div class="container-fluid">
       <div class="row">
           <!-- 메인 이미지 -->
@@ -35,9 +33,11 @@
             :headers="headers"
             :items="info"
             :search="search"
-            :server-items-length="info.length"
-             item-key="infoSq"         
+            item-key="infoSq" 
+            single-line
+            hide-details        
           >
+
           <template v-slot:item="props">
           <tr @click="handleClick(props.item.infoSq)">
             <td class="text-xs-right">{{props.item.infoSq }}</td>
@@ -59,7 +59,6 @@
        </div>
       </div>
     </div>
-    </b-container>
   </body>
 </template>
 
@@ -89,8 +88,7 @@ import { mapState } from 'vuex';
     data() {
       return {
       search: '',
-        headers: [
-          
+        headers: [        
           {
             text: '번호',
             align: 'start',
