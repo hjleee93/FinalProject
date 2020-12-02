@@ -19,7 +19,10 @@
         </div>
       </b-row>
       <b-row>
-        <b-col><b-card class="text-center" id="text-card"><b-form>
+        <b-col><b-card class="text-center" id="text-card">
+
+    <b-container>
+      <b-form>
         <b-row>
           <b-col id="title"> {{communityboardView.boardTitle}}</b-col>
         </b-row>
@@ -38,13 +41,18 @@
           <b-col cols="2" id="attachment-title"><b-form-group  label="첨부된 파일" readonly/></b-col>
           <b-col cols="2" id="attachment"><b-button id="attachment-btn" @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
         </b-row>
-          </b-form>
+      </b-form>
+    </b-container>
           
-          <b-row v-if="userData.memberSq===communityboardView.memberNum">
+          <b-row >
             <b-col>
-              <b-button @click="update" id="update-btn">수정</b-button>
-              <b-button @click="pdelete" id="delete-btn">삭제</b-button>
-            </b-col></b-row>
+              <b-button  v-if="userData.memberSq===communityboardView.memberNum"
+                                                                               @click="update" id="update-btn">수정</b-button>
+              <b-button   v-if="userData.memberSq===communityboardView.memberNum || userData.memberEmail === 'admin@kh.com'" 
+                                                                                @click="pdelete" id="delete-btn">삭제</b-button>
+            </b-col>
+          </b-row>
+
       <b-row id=" writecontain" align-h="end">
         <b-col>
           <!-- <b-button to="/communityBoardList" id="prev">이전 </b-button>
@@ -52,16 +60,38 @@
           <b-button to="/communityBoardList" id="list">목록 </b-button>
         </b-col>
       </b-row>
-            
-            
+      
             </b-card></b-col>
       </b-row>
-      
 
-      <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea v-model="pcomment" /></b-col>
-      <b-col cols="1"><b-button @click="comment">전송</b-button></b-col>
-      </b-row></b-card></b-col></b-row></b-form>
+      <!-- 댓글 목록(테스트중) -->
+      <b-container>
+        <ul>
+  
+          <!-- <li>{{this.commentlist.cbCommentContent}}</li> -->
+          <!-- <li>{{commentlist.cbCommentContent[0]}}</li> -->
+          <li v-for="list in commentlist" v-bind:key="list.cboardNo">{{list.cbCommentContent}}</li>
+        </ul>
+      </b-container>
+
+      <!-- 댓글 쓰기 -->
+      <b-container>
+      <b-form v-if="userData.memberSq!=null" >
+        <b-row >
+          <b-col >
+            <b-card class="text-center">
+          <!-- <b-row v-for="list in commentlist" v-bind:key="list.cboardNo"></b-row> -->
+        <b-row>
+          <b-col><b-form-textarea v-model="cbcomment" placeholder="댓글을 남겨보세요." /></b-col>
+           <b-col cols="1"><b-button @click="comment" id="comment_insert_btn">등록</b-button></b-col>
+      </b-row>
+      
+      </b-card>
+      </b-col>
+      </b-row>
+      
+      </b-form>
+      </b-container>
 
       <b-container>
       <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
@@ -93,6 +123,7 @@
       <div slot="footer">
 
       </div>
+      
     </template>
 
 
@@ -151,20 +182,28 @@ export default {
         
       },
       comment(){
+        let no=this.$route.params.id
         let formData2=new FormData();
-        formData2.append('pboardNo',this.pboardone.pboardNo);
-        formData2.append('pcommentContent',this.pcomment);
+        formData2.append('cboardNo',this.communityboardView.boardSq);
+        formData2.append('cbCommentContent',this.cbcomment);
         formData2.append('memberSq',this.userData.memberSq);
         formData2.append('memberName',this.userData.memberName)
         for(let key of formData2.entries()){
           console.log(`${key}`);
         }
-      axios.post("http://localhost:8082/itjobgo/portfolio/comment.do",formData2)
+      axios.post("http://localhost:8082/itjobgo/community/comment",formData2)
       .then((data)=>{
           console.log(data)})
         .catch((error)=>
         console.log(error))
-     
+      // this.$router.push({
+      //                               name:'CommunityBoardView',
+      //                               params : this.$router.params.id
+                                                   
+      //                               })
+        //  this.$router.push({name:'CommunityBoardView',params:{id:no}})
+         this.$router.push({path:'/communityBoardView/',params:{id:no}})
+                                    
       },
       ndele(){
         this.showModal=!this.showModal;
@@ -178,13 +217,15 @@ export default {
         const communityBoardNo=this.$route.params.id;
         this.$store.dispatch("FETCH_COMMUNITYBOARD_VIEW",communityBoardNo)
         this.$store.dispatch("FETCH_COMMUNITYBOARD_ATTACHMENT",communityBoardNo)
+        this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
         
     },
     computed: {
      
         ...mapState({
             communityboardView:state=>state.communityboardView,
-            attachment:state=>state.cbAttachment2         
+            attachment:state=>state.cbAttachment2,        
+            commentlist:state=>state.comment    
         }),
          ...loadUserState(['userData'])
       
