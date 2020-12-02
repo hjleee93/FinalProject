@@ -128,12 +128,11 @@ import { mapState } from 'vuex';
 
     methods: {
          updateForm() {
-       
         if(!this.infoTitle){
           this.infoTitle=this.infoDetail.infoTitle;
         }
-        if(!this.category){
-          this.category=this.infoDetail.category;
+        if(!this.infocategory){
+          this.infocategory=this.infoDetail.infocategory;
         }
         if(!this.infoDate){
           this.infoDate=this.infoDetail.infoDate;
@@ -150,13 +149,13 @@ import { mapState } from 'vuex';
          
 
         let formData = new FormData();
-        formData.append('infoSq',this.$route.params.id);
         formData.append('infoTitle',this.infoTitle);
         formData.append('infoCategory',this.category);
         formData.append('infoDate',this.infoDate);
         formData.append('infoTime',this.infoTime);
         formData.append('infoContent',this.infoContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('file',this.files);
+        formData.append('infoSq',this.$route.params.id);
 
         for(let key of formData.entries()){
         console.log(`${key}`);
@@ -171,9 +170,9 @@ import { mapState } from 'vuex';
         console.log(error))
         console.log(formData);
         //등록하면 게시판 목록으로
-        this.$router.push({name:'infoList'})
+        this.$router.push({name:'InfoList'})
       },
-      
+
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.files[0]);
         this.files=this.$refs.upfiles.$refs.input.files[0];
