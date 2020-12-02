@@ -204,6 +204,7 @@ export default {
         //  this.$router.push({name:'CommunityBoardView',params:{id:no}})
          this.$router.push({path:'/communityBoardView/',params:{id:no}})
                                     
+                                    
       },
       ndele(){
         this.showModal=!this.showModal;
