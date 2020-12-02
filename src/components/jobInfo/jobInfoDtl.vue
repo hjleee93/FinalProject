@@ -2,30 +2,64 @@
   <b-container>
     <div class="header-body text-center mb-7">
       <b-row class="justify-content-center">
-        <b-col xl="5" lg="6" md="8" class="px-5">
+        <b-col xl="5" lg="6" md="8" class="px-5 my-4">
           <h1 class="text-black">채용정보</h1>
         </b-col>
       </b-row>
     </div>
     <div class="info-box">
-      <div class="job-title m-5">
-        {{ items.wantedDtl.wantedInfo.wantedTitle._text }}<br />
-        <small>{{ items.wantedDtl.corpInfo.corpNm._text }}</small>
-        <span
-          class="deadline m-2 p-2"
-          v-if="items.wantedDtl.wantedInfo.receiptCloseDt._text != '채용시까지'"
-          >D-{{
-            $moment(
-              $moment(items.wantedDtl.wantedInfo.receiptCloseDt._text).format(
-                "YYYY-MM-DD"
-              )
-            ).diff($moment(new Date()), "days") + 1
-          }}</span
-        >
-        <span class="deadline m-2 p-2" v-else>{{
-          items.wantedDtl.wantedInfo.receiptCloseDt._text
-        }}</span>
-      </div>
+      <table>
+        <tr>
+          <td style="width:60%">
+            <div class="job-title m-5">
+              {{ items.wantedDtl.wantedInfo.wantedTitle._text }}<br />
+              <p>
+                <small>{{ items.wantedDtl.corpInfo.corpNm._text }}</small>
+              </p>
+              <span
+                class="deadline m-2 p-2"
+                v-if="
+                  items.wantedDtl.wantedInfo.receiptCloseDt._text !=
+                    '채용시까지'
+                "
+                >D-{{
+                  $moment(
+                    $moment(
+                      items.wantedDtl.wantedInfo.receiptCloseDt._text
+                    ).format("YYYY-MM-DD")
+                  ).diff($moment(new Date()), "days") + 1
+                }}</span
+              >
+              <span class="deadline m-2 p-2" v-else>{{
+                items.wantedDtl.wantedInfo.receiptCloseDt._text
+              }}</span>
+            </div>
+          </td>
+          <td class="text-center apply-area">
+            <template v-if="apply.rcptMthd.includes('워크넷')">
+              <a v-bind:href="this.$route.params.url"
+                ><b-btn id="worknetApply"
+                  ><p class="p-0 m-0">워크넷</p>
+                  지원하기</b-btn
+                ></a
+              ></template
+            >
+
+            <template v-if="apply.rcptMthd.includes('이메일')">
+              <a :href="`mailto:${items.wantedDtl.corpInfo.homePg._text}`">
+                <b-btn id="emailApply"
+                  ><p class="p-0 m-0">이메일</p>
+                  지원하기</b-btn
+                ></a
+              >
+            </template>
+            <!-- TODO:지도api연결 -->
+            <template v-if="apply.rcptMthd.includes('방문')">
+              <b-btn id="directApply">방문 지원가능</b-btn>
+            </template>
+          </td>
+        </tr>
+      </table>
 
       <table>
         <tr style="border-top: 1px solid #ededed">
@@ -110,6 +144,11 @@
         </tr>
       </table>
     </div>
+    <!-- 직무내용 -->
+    <div>
+      <p class="h3 my-5 font-weight-bold">직무내용</p>
+      {{ items.wantedDtl.wantedInfo.jobCont._text }}
+    </div>
 
     <!-- 전형방법 -->
     <div>
@@ -135,7 +174,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr class="apply-tr">
             <td v-if="apply.receiptCloseDt == '채용시까지'">
               <b>{{ apply.receiptCloseDt }}</b>
             </td>
@@ -155,6 +194,7 @@
         </tbody>
       </v-simple-table>
     </div>
+
     <!-- 기업정보 -->
     <p class="h3 my-5 font-weight-bold">기업정보</p>
     <table class="company-info">
@@ -163,7 +203,7 @@
           <div>
             <div class="m-2">
               <p class="compnay-name text-center mt-5 mb-5">
-                {{ items.wantedDtl.corpInfo.corpNm._text }}
+                <b>{{ items.wantedDtl.corpInfo.corpNm._text }}</b>
               </p>
               <div class="text-center">
                 <span>대표 : {{ items.wantedDtl.corpInfo.reperNm._text }}</span>
@@ -193,22 +233,52 @@
               <td>{{ items.wantedDtl.corpInfo.corpAddr._text }}</td>
             </tr>
             <tr>
-              <td
-                v-if="items.wantedDtl.corpInfo.homePg._text != null"
-                class="info-right pb-2"
-              >
-                사이트
-              </td>
-              <td>{{ items.wantedDtl.corpInfo.homePg._text }}</td>
+              <template v-if="items.wantedDtl.corpInfo.homePg._text != null">
+                <template
+                  v-if="items.wantedDtl.corpInfo.homePg._text != 'http://'"
+                >
+                  <td class="info-right pb-2">
+                    사이트
+                  </td>
+
+                  <td @mouseover="movePage">
+                    <a id="homePage">{{
+                      items.wantedDtl.corpInfo.homePg._text
+                    }}</a>
+                  </td>
+                </template>
+              </template>
+              <template>
+                <td></td>
+              </template>
             </tr>
             <tr>
-              <td class="info-right">기업형태</td>
+              <td
+                v-if="items.wantedDtl.corpInfo.busiSize._text != null"
+                class="info-right"
+              >
+                기업형태
+              </td>
               <td>{{ items.wantedDtl.corpInfo.busiSize._text }}</td>
             </tr>
           </table>
         </td>
       </tr>
     </table>
+
+    <!-- 워크넷출처표기 -->
+    <p class="my-5 text-center">
+      <a id="worknetLink" href="" @click="moveWorknet"
+        ><img src="https://openapi.work.go.kr/images/btn_goEmpinfo.gif"
+      /></a>
+    </p>
+    <p class="text-center">
+      <a href="https://www.work.go.kr"
+        ><img
+          class="mb-3 text-center"
+          src="https://openapi.work.go.kr/images/info_source.gif"
+      /></a>
+    </p>
   </b-container>
 </template>
 <script>
@@ -216,20 +286,47 @@ import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
 
 export default {
-  data: () => ({}),
+  data: () => ({
+    url: "",
+  }),
   methods: {
     href: function() {
       document
         .getElementById("download")
         .setAttribute("href", this.apply.attachFileInfo);
     },
+    moveWorknet: function() {
+      let worknetUrl =
+        "http://www.work.go.kr/empInfo/empInfoSrch/detail/empDetailAuthView.do?callPage=detail&wantedAuthNo=" +
+        this.$route.params.wantedNo;
+      document.getElementById("worknetLink").setAttribute("href", worknetUrl);
+    },
+    movePage: function() {
+      if (
+        this.items.wantedDtl.corpInfo.homePg._text.includes("http") == false
+      ) {
+        var url = "https://" + this.items.wantedDtl.corpInfo.homePg._text;
+      } else {
+        url = this.items.wantedDtl.corpInfo.homePg._text;
+      }
+      document.getElementById("homePage").setAttribute("href", url);
+    },
   },
   mounted() {
     this.$store.dispatch("jobStore/loadJobDetail", {
       wantedNo: this.$route.params.wantedNo,
+      url: this.$route.params.url,
     });
   },
   computed: {
+    // test: function() {
+    //   var arr = this.items.wantedDtl.wantedInfo.jobCont._text.split("\\n");
+    //   for (let i = 0; i < arr.length; i++) {
+    //     console.log(arr);
+    //   }
+
+    //   return arr;
+    // },
     ...mapState([
       //매핑값
       "apply",
@@ -240,6 +337,31 @@ export default {
 </script>
 
 <style scoped>
+/* 지원버튼 */
+.apply-area {
+  width: 445px;
+}
+#worknetApply,
+#emailApply,
+#directApply {
+  border: 0px;
+  height: 85px;
+  margin-right: 10px;
+  width: 130px;
+  margin-bottom: 5px;
+}
+
+#emailApply {
+  background-color: #40a1d2;
+}
+
+#directApply {
+  background-color: #6076d7;
+}
+
+#worknetApply {
+  background-color: #40d29a;
+}
 /* 기업정보 */
 .compnay-name {
   height: 70%;
@@ -265,14 +387,19 @@ export default {
 }
 
 /* 전형방법 */
+.text-left {
+  font-size: 15px !important;
+}
+.apply-tr:hover {
+  background-color: white !important;
+}
 #download,
-#download:hover {
-  color: blue;
+#download:hover,
+#homePage,
+#homePage:hover {
+  color: #0286ce;
 }
 
-.apply-table:hover {
-  background-color: white;
-}
 .deadline {
   color: white;
   font-size: 15px;

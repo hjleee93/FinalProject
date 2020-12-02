@@ -20,14 +20,16 @@
               <div class="col-lg-3 form-cols">
                 <div>
                   <b-button
-                    v-b-toggle.collapse-1
+                    v-b-toggle.collapse-3
                     class="form-control"
                     v-model="selectedLocation"
                     >수정수정</b-button
                   >
-                  <b-collapse id="collapse-1" class="mt-2">
+                  <b-collapse id="collapse-3" class="mt-2 toggle-btn">
                     <b-card>
-                      <p class="card-text">Collapse contents Here</p>
+                      <p class="card-text">
+                        흠
+                      </p>
                     </b-card>
                   </b-collapse>
                 </div>
@@ -86,7 +88,7 @@
                 <div class="m-2">
                   <b-btn class="ntc-btn">공지</b-btn><span></span>
 
-                  <p class="text-muted m-b-0"></p>
+                  <p class="text-muted m-b-0 notice-content"></p>
                 </div>
               </div>
             </template>
@@ -111,7 +113,7 @@
                     <span>{{
                       communityboard[communityboard.length - 1].boardTitle
                     }}</span>
-                    <p class="text-muted m-b-0">
+                    <p class="text-muted m-b-0 commu-content">
                       {{
                         communityboard[communityboard.length - 1].boardContent
                       }}
@@ -314,7 +316,10 @@
             <router-link
               :to="{
                 name: 'jobInfoDtl',
-                params: { wantedNo: item.wantedAuthNo._text },
+                params: {
+                  wantedNo: item.wantedAuthNo._text,
+                  url: item.wantedInfoUrl._text,
+                },
               }"
               class="job-card"
             >
@@ -424,6 +429,15 @@ export default {
 <style scoped>
 /* 상단 박스 css */
 
+.commu-content,
+.notice-content {
+  overflow: hidden;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  height: 120px;
+}
 .collab-router,
 .qna-router,
 .commu-router {
@@ -474,6 +488,7 @@ export default {
 .job-card:hover {
   cursor: pointer;
 }
+/* 서치바 */
 
 /* 추천채용정보 */
 .profile-btn {
@@ -546,6 +561,11 @@ div[role="region"] {
 .qst + .text-muted {
   max-height: 68px;
   overflow: hidden;
+
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .ans {
   width: 100%;

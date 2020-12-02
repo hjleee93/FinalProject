@@ -141,7 +141,7 @@ const MyPage = () => {
   return import('./components/member/MyPage.vue')
 }
 
-const jobInfoDtl = () => {
+const JobInfoDtl = () => {
   return import('./components/jobInfo/jobInfoDtl.vue')
 }
 
@@ -174,9 +174,9 @@ const LoginCallback = () => {
 const NaverLogin = () => {
   return import('./components/member/naverLogin.vue')
 }
-const PhotoUpload = () => {
-  return import('./components/member/photoUpload.vue')
-}
+// const PhotoUpload = () => {
+//   return import('./components/member/photoUpload.vue')
+// }
 
 const KakaoCallbackLogin = () => {
   return import('./components/member/kakaoCallbackLogin.vue')
@@ -346,11 +346,11 @@ export default new Router({
       component: Home//주소와 연결이되는 컴포넌트
 
     },
-    {
-      path: "/photoUpload",
-      name: 'photoUpload',
-      component: PhotoUpload
-    },
+    // {
+    //   path: "/photoUpload",
+    //   name: 'photoUpload',
+    //   component: PhotoUpload
+    // },
     {
       path: '/register',
       name: 'register',
@@ -390,7 +390,7 @@ export default new Router({
     {
       path: '/jobInfoDtl/:wantedNo',
       name: 'jobInfoDtl',
-      component: jobInfoDtl
+      component: JobInfoDtl
     },
     {
       path: '/foundPassword',
@@ -535,7 +535,7 @@ export default new Router({
       name: 'consult',
       component: consult
     },
-     {
+    {
       path: '/resume/consultresumeenroll',
       name: 'consultresumeenroll',
       component: consultresumeenroll
