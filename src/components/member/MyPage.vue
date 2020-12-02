@@ -20,16 +20,18 @@
             ></div>
 
             <div class="filebox text-center">
-              <b-btn class="upload-photo">
-                <label for="uploadPhoto">사진선택</label
-                ><b-form-file
-                  ref="fileInput"
-                  id="uploadPhoto"
-                  v-model="resumePhoto"
-                  style="display:none"
-                  @input="pickFile"
-                ></b-form-file
-              ></b-btn>
+              <p>
+                <b-btn class="upload-photo">
+                  <label for="uploadPhoto">사진선택</label
+                  ><b-form-file
+                    ref="fileInput"
+                    id="uploadPhoto"
+                    v-model="resumePhoto"
+                    style="display:none"
+                    @input="pickFile"
+                  ></b-form-file
+                ></b-btn>
+              </p>
 
               <b-button
                 class="submit-photo"
@@ -152,6 +154,26 @@ export default {
     resumePhoto: null,
     files: "",
   }),
+  created() {
+    // let memberEmail = localStorage.getItem("memberEmail");
+
+    setTimeout(() => {
+      if (this.userData.memberSq != undefined) {
+        axios
+          .get(
+            "http://localhost:8082/itjobgo/member/loadPhoto?memberSq=" +
+              this.userData.memberSq,
+            { responseType: "arraybuffer" }
+          )
+          .then((res) => {
+            console.log("사진불러오기");
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            console.log(url);
+            this.previewImage = url;
+          });
+      }
+    }, 200);
+  },
   // created(){
   // 	this.$store.dispatch('memberStore/getMemberInfo');
   // 	console.log(this.userData.memberLevel);
@@ -186,8 +208,10 @@ export default {
           },
         }) //form server 연결
         .then(function(res) {
-          if (res.data > 0) {
+          if (res.data.result > 0) {
+            console.log(res.data);
             alert("사진이 등록되었습니다.");
+            $(".submit-photo").hide();
           } else {
             alert("사진 등록에 실패했습니다. 다시 시도해주세요.");
           }
@@ -201,10 +225,9 @@ export default {
       let input = this.$refs.fileInput;
       let file = input.files;
       this.files = input.files;
-      console.log(input.files);
       if (file[0].name != null) {
         $(".submit-photo").show();
-        $(".upload-photo").hide();
+        // $(".upload-photo").hide();
       }
       if (file && file[0]) {
         let reader = new FileReader();
