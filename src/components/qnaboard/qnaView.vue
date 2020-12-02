@@ -4,8 +4,10 @@
         <div class="submenuimage ">
             <p>Q&A</p>
         </div>
-      </b-row> --> 
-    
+      </b-row> -->  
+
+
+
     <!-- 상세페이지 본문 시작 -->
     <div class="container">
         <b-col>
