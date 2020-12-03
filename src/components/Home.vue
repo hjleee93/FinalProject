@@ -200,7 +200,6 @@
           </div>
         </div>
 
-        <!-- 모임 TODO:시간순으로 해야댐 : reverse 돌리기-->
         <div class="col-4 p-0 collab">
           <div class="card table-card collab">
             <div class="card-header ">
@@ -208,27 +207,25 @@
             </div>
 
             <table>
-              <tr v-for="i in 4" :key="i">
-                <template v-if="meeting[i].collabSq != undefined">
-                  <td>
-                    <div class="table-content">
-                      <router-link
-                        :to="{
-                          name: 'meetinginfo',
-                          params: { id: meeting[i].collabSq },
-                        }"
-                        class="collab-router"
-                      >
-                        <p class="m-2">
-                          <b>{{ meeting[i].collabTitle }}</b>
-                        </p>
-                        <p class="m-2 txt">
-                          {{ meeting[i].collabSimcontent }}
-                        </p></router-link
-                      >
-                    </div>
-                  </td>
-                </template>
+              <tr v-for="(item, i) in meeting" :key="i">
+                <td>
+                  <div class="table-content">
+                    <router-link
+                      :to="{
+                        name: 'meetinginfo',
+                        params: { id: meeting[i].collabSq },
+                      }"
+                      class="collab-router"
+                    >
+                      <p class="m-2">
+                        <b>{{ meeting[i].collabTitle }}</b>
+                      </p>
+                      <p class="m-2 txt">
+                        {{ meeting[i].collabSimcontent }}
+                      </p></router-link
+                    >
+                  </div>
+                </td>
               </tr>
             </table>
           </div>
@@ -422,7 +419,12 @@ export default {
     ]),
     //유저데이터 호출
     ...memberState(["loginStatus", "userData"]),
-    ...mapState(["qnaboard", "communityboard", "meeting"]),
+
+    ...mapState(["qnaboard", "communityboard"]),
+
+    meeting() {
+      return this.$store.state.meeting.slice().reverse();
+    },
   },
 };
 </script>
