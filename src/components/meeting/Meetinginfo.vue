@@ -3,7 +3,7 @@
     <b-row  class="justify-content-md-center"><h1>{{minfo.collabTitle}}</h1></b-row>
     <b-row>
       <b-col>
-       <v-img src="https://picsum.photos/id/11/500/300"   min-height="200" max-height="300"  max-width="500" min-width="400" aspect-ratio="1.7"></v-img>
+       <v-img :src="`http://localhost:8082/itjobgo/meeting/imagesrequest${minfo.collabSq}`"   min-height="200" max-height="300"  max-width="500" min-width="400" aspect-ratio="1.7"></v-img>
      </b-col>
       <b-col >
         <b-card> 

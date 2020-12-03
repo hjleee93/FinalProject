@@ -32,8 +32,9 @@
   </b-col></b-row></b-card></b-col>
       </b-row>
       
-
-      <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+   
+      <b-form v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      
       <b-col><b-form-textarea ref="comment" v-model="pcomment" /></b-col>
       <b-col cols="1"><b-button @click="comment">전송</b-button></b-col>
       </b-row></b-card></b-col></b-row></b-form>
@@ -52,6 +53,7 @@
       
       </b-row></b-card></b-col>
       </b-row>
+      <div>{{userData}}</div>
      <div>{{commentlist}}</div>
     
       </b-container>

@@ -8,8 +8,8 @@
      <v-tabs
     color="grey darken-3"
     >
-    <v-tab to="/meetingList/meeting"><b>예정된 모임</b></v-tab>
-    <v-tab to="/meetingList/meetingend"><b>마감된 모임</b></v-tab>
+    <!-- <v-tab to="/meetingList/meeting"><b>예정된 모임</b></v-tab>-->
+   <!-- <v-tab to="/meetingList/meetingend"><b>마감된 모임</b></v-tab>-->
   
     <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
   </v-tabs>
