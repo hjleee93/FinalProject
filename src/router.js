@@ -227,10 +227,12 @@ export default new Router({
       path: '/portfolioList',
       component: PortFolio,
       name: 'portlist',
-       beforeEnter(next){
-            if(memberStore.state.userData.memberLevel>=2){
-             
-              return next();
+       beforeEnter (to,from,next){
+        //로그인한 사용자의 레벨을 가져온다  
+        const level=memberStore.state.userData.memberLevel;
+         if(level==2&&level==0){
+           //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
+             next();
             }else{
               alert("게시판에 권한이 없습니다.")
             }
