@@ -28,6 +28,7 @@ import updateresume from './components/resume/updateresume'
 import consultresume from './components/resume/consultresume'
 import consult from './components/resume/consult'
 import consultresumeenroll from './components/resume/consultresumeenroll'
+import memberStore from './store/modules/memberStore'
 
 
 
@@ -203,6 +204,7 @@ export default new Router({
         {
           path: 'meeting',
           component: Meeting,
+         
         },
         {
           path: 'meetingend',
@@ -224,7 +226,17 @@ export default new Router({
     {
       path: '/portfolioList',
       component: PortFolio,
-      name: 'portlist'
+      name: 'portlist',
+       beforeEnter(next){
+            if(memberStore.state.userData.memberLevel>=2){
+             
+              return next();
+            }else{
+              alert("게시판에 권한이 없습니다.")
+            }
+           
+            
+          }
     },
     {
       path: '/portfolioenroller',
