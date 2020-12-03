@@ -40,16 +40,18 @@ const jobStore = {
                 wantedNo.wantedNo
             )
                 .then((response) => {
+
                     var xml = response.data;
                     var json = convert.xml2json(xml, { compact: true });
                     this.items = JSON.parse(json);
+
                     let receiptCloseDt = this.items.wantedDtl.wantedInfo.receiptCloseDt._text;
                     let selMthd = this.items.wantedDtl.wantedInfo.selMthd._text;
                     let rcptMthd = this.items.wantedDtl.wantedInfo.rcptMthd._text;
                     let submitDoc = this.items.wantedDtl.wantedInfo.submitDoc._text;
-                    let attachFileInfo = this.items.wantedDtl.wantedInfo.attachFileInfo;
-                    console.log(attachFileInfo);
-                    if (attachFileInfo === undefined) {
+                    var attachFileInfo;
+                    if (this.items.wantedDtl.wantedInfo.attachFileInfo == undefined) {
+
                         attachFileInfo = '등록된 파일이 없습니다.'
                     } else {
                         attachFileInfo = this.items.wantedDtl.wantedInfo.attachFileInfo.attachFileUrl._text;
