@@ -57,14 +57,16 @@
       <b-col cols="1">{{new Date(qnacomment.qbcommentDate).toLocaleDateString()}}</b-col>
       <template v-if="qnacomment.memberSq==userData.memberSq">
         <b-col cols="1">
-           <div @click="declick(qnacomment.qbcommentNo)">삭제</div> 
-           <div @click="upclick(qnacomment)">수정</div> 
+           <!-- <div @click="declick(qnacomment.qbcommentNo)">삭제</div> 
+           <div @click="upclick(qnacomment)">수정</div>  -->
         </b-col>
       </template>
       </b-row></b-card></b-col>
       </b-row>
    
-        <div>댓글 테스트 확인용 >>> {{commentlist}}</div>
+        <div>댓글 테스트 확인용 >>> {{commentlist}} 
+           {{qnaBoardView.qnaSeq}}얘는 뜨는데
+        </div>
 
     </div>
 
@@ -107,8 +109,6 @@ import vueMoment from 'vue-moment';
 Vue.use(vueMoment);
 import Vue from 'vue'
 
-// import axios from 'axios'; 댓글
-
 export default {
 
     data(){
@@ -124,14 +124,6 @@ export default {
     },
 
     methods:{
-    
-            // axios.post("http://localhost:8082/itjobgo/portfolio/comment.do",formData2)
-            // .then((data)=>{
-            //     console.log(data)})
-            //     .catch((error)=>
-            //     console.log(error))
-            
-            // },
     
             //1.삭제버튼~
             deleteqna(){
@@ -166,13 +158,13 @@ export default {
 
             //댓글등록
             qnacomment(){
-                let formData2=new FormData();
-                formData2.append('qbcommentNo',this.qnaBoardView.qnaboardNo);
-                formData2.append('qbcommentContent',this.qbcomment);
+                let formData2=new FormData(); 
+                formData2.append('qbBoardNo',this.qnaBoardView.qnaSeq);
+                formData2.append('qbCommentContent',this.qbcomment);
                 formData2.append('memberSq',this.userData.memberSq);
                 formData2.append('memberName',this.userData.memberName)
                 // for(let key of formData2.entries()){
-                //   console.log(`${key}`);
+                //   console.log(`${key}`); 
                 // }
             axios.post("http://localhost:8082/itjobgo/qna/qnacomment",formData2)
             .then((data)=>{
@@ -222,7 +214,7 @@ export default {
         ...mapState({
             qnaBoardView:state=>state.qnaBoardView,
             attachment:state=>state.qbAttachment2,
-            commentlist:state=>state.qnacomment,
+            // commentlist:state=>state.qnacomment,
         }),
         ...loadUserState(['userData'])
 
