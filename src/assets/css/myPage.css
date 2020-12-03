@@ -82,7 +82,7 @@ li {
 }
 #PersonHead .infoList li .count a {
   font: bold 20px tahoma;
-  color: #ee6a29;
+  color: #6076d7;
   text-decoration: underline;
 }
 
@@ -267,6 +267,15 @@ input[type="file"] {
 }
 
 /* qna관련 */
-.v-data-table__wrapper {
-  border: 1px solid #394867;
+.text-left {
+  color: white !important;
+}
+.qna-table {
+  border: 1px solid #74899e;
+}
+thead.qna-table {
+  background-color: #74899e;
+}
+#qnaBody:hover {
+  cursor: pointer;
 }

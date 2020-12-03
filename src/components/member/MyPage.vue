@@ -64,14 +64,16 @@
 
         <li class="topList last onlineCount">
           <p class="title">내가 한 질문</p>
-          <p class="count"><a href="#qnaDiv" class="scroll">0</a>건</p>
+          <p class="count">
+            <a href="#qnaDiv" class="scroll"> {{ qnaCount }} </a>건
+          </p>
         </li>
         <li class="first resumeCompany">
           <p class="title">등록된 포트폴리오</p>
           <p class="count"><a href="#portfDiv" class="scroll">0</a>건</p>
         </li>
         <li class="apply">
-          <p class="title">질문</p>
+          <p class="title">스크랩한 구인광고</p>
           <p class="count">
             <a
               href="http://www.alba.co.kr/person/resumeread/CompanyList.asp?resumepage=3"
@@ -122,8 +124,8 @@
       <p class="h3 my-5 font-weight-bold text-center">
         등록한 질문
       </p>
-      <v-simple-table class="qna-table">
-        <thead>
+      <v-simple-table>
+        <thead class="qna-table">
           <tr>
             <th class="text-left">
               분류
@@ -140,22 +142,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="qna-table" v-for="(qna, i) in qnaboard" :key="i">
+          <tr
+            id="qnaBody"
+            class="qna-table"
+            v-for="(qna, i) in qnaboard"
+            :key="i"
+            @click="moveQna(qnaboard[i].qnaSeq)"
+          >
             <template v-if="qnaboard[i].qnaWriter == userData.memberName">
               <td>
                 {{ qnaboard[i].qnaCategory }}
               </td>
               <td>
-                <router-link
-                  :to="{
-                    name: 'qnaView',
-                    params: { id: qnaboard[i].qnaSeq },
-                  }"
-                  class="qna-router"
-                  >{{ qnaboard[i].qnaTitle }}</router-link
-                >
+                {{ qnaboard[i].qnaTitle }}
               </td>
-              <td>{{ qnaboard[i].qnaAnswerYn }}</td>
+              <template v-if="qnaboard[i].qnaAnswerYn == 'N'">
+                <td>등록된 답변이 없습니다.</td>
+              </template>
+              <template v-else> <td>답변 완료</td></template>
               <td>{{ formatDate(qnaboard[i].qnaDate) }}</td>
             </template>
           </tr>
@@ -168,8 +172,8 @@
       <p class="h3 my-5 font-weight-bold text-center">
         참여하고 계신 프로젝트
       </p>
-      <v-simple-table class="qna-table">
-        <thead>
+      <v-simple-table>
+        <thead class="qna-table">
           <tr>
             <th class="text-left">
               분류
@@ -215,8 +219,8 @@
       <p class="h3 my-5 font-weight-bold text-center">
         포트폴리오
       </p>
-      <v-simple-table class="qna-table">
-        <thead>
+      <v-simple-table>
+        <thead class="qna-table">
           <tr>
             <th class="text-left">
               분류
@@ -326,8 +330,21 @@ export default {
         .reverse()
         .slice(0, 3);
     },
+    //질문 카운트용
+    qnaCount() {
+      let count = 0;
+      for (let i = 0; i < this.$store.state.qnaboard.length; i++) {
+        if (this.$store.state.qnaboard[i].memberNum == this.userData.memberSq) {
+          count++;
+        }
+      }
+      return count;
+    },
   },
   methods: {
+    moveQna(id) {
+      this.$router.push({ name: "qnaView", params: { id: id } });
+    },
     //날짜표시
     formatDate(value) {
       return this.$moment(value).format("YYYY-MM-DD");
