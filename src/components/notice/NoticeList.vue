@@ -26,9 +26,9 @@
           <br>
 
         <!-- 버튼 -->
-          <v-btn   to="/noticeForm" exact  id="st_write">
+          <b-button v-if="userData.memberEmail === 'admin@kh.com'"   to="/noticeForm" exact  id="st_write">
                글쓰기
-           </v-btn>
+           </b-button>
 
           <div class="overflow-hidden">
 
@@ -82,20 +82,22 @@
 import { mapState } from 'vuex';
 import vueMoment from 'vue-moment';
 import Vue from 'vue'
-
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 Vue.use(vueMoment);
 
   export default {
 
     created: function(){
       this.$store.dispatch("FETCH_NOTICE")
-
+  
     },
     computed:{
         ...mapState({
              noticeList:state=>state.noticeList
 
-        })
+        }),
+         ...loadUserState(['userData'])
     },
 
       methods: {

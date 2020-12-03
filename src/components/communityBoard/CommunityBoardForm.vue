@@ -76,7 +76,7 @@
       
     </form>
 
-      <div>맴버객체 : {{userData}}</div>
+  
   </b-container>
 </template>
 

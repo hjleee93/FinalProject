@@ -24,6 +24,7 @@ import {
     fetchCommunityBoardUpdate,
     fetchCoummunityBoardAttachment,
     fetchCboardCommentSelectList,
+    fetchCboardCommentDelete,
 
     fetchNoticeList,
 
@@ -217,6 +218,14 @@ export default new Vuex.Store({
         FETCH_CB_COMMENT_LIST({commit},cboardNo){
             fetchCboardCommentSelectList(cboardNo)
             .then(({data})=>commit("SET_CB_COMMENT_SELECTLIST",data))
+            .catch(({error})=>console.log(error))
+        },
+        //게시판 댓글 삭제
+        FETCH_COMMENT_DELETE(data,no){
+            console.log(no)
+            fetchCboardCommentDelete(no)
+            .then((data)=>{console.log(data)
+            })
             .catch(({error})=>console.log(error))
         },
 
