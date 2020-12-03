@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 
+
+
+#comment_insert_btn{
+  background-color: #424874;
+  border:none;
+  width:70px;
+  height: 50px;
+  position: relative;
+  top:10px;
+  left:-20px;
+}
+
 #modal-yes{
   background-color: #424874;
   width:100px;
@@ -53,7 +65,7 @@ border: none;
 
 #list{
  position: relative;
- left: 450px;
+ left: 500px;
 background-color: #394867;
 }
 
@@ -61,6 +73,8 @@ background-color: #394867;
 #attachment-btn{
   background-color: orange;
   border: none;
+  position: relative;
+  left:-25px;
   /* width:100px; */
 }
 
@@ -100,10 +114,10 @@ background-color: #394867;
 #text-card{
   /* border: 1px solid blue; */
   border:none;
-  width: 1000px;
+  /* width: 1000px; */
   /* height: 1000px; */
-  position: relative;
-  left : 200px;
+  /* position: relative; */
+  /* left : 200px; */
 }
 
 #date{

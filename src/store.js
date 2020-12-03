@@ -23,6 +23,9 @@ import {
     fetchCommunityBoardDelete,
     fetchCommunityBoardUpdate,
     fetchCoummunityBoardAttachment,
+    fetchCboardCommentSelectList,
+    fetchCboardCommentDelete,
+
     fetchNoticeList,
 
     //현주
@@ -80,6 +83,7 @@ export default new Vuex.Store({
         communityboardDelete: [],
         cbAttachment: [],
         cbAttachment2:[],
+        cbcomment:[],
         noticeList:[],
         writeDate:[], //날짜변형 데이터
 
@@ -217,6 +221,20 @@ export default new Vuex.Store({
             fetchCoummunityBoardAttachment(no)
             .then(({data})=>commit("SET_COMMUNITYBOARD_ATTACHMENT",data))
             .catch(({ error }) => console.log(error))
+        },
+        //게시판 댓글 조회
+        FETCH_CB_COMMENT_LIST({commit},cboardNo){
+            fetchCboardCommentSelectList(cboardNo)
+            .then(({data})=>commit("SET_CB_COMMENT_SELECTLIST",data))
+            .catch(({error})=>console.log(error))
+        },
+        //게시판 댓글 삭제
+        FETCH_COMMENT_DELETE(data,no){
+            console.log(no)
+            fetchCboardCommentDelete(no)
+            .then((data)=>{console.log(data)
+            })
+            .catch(({error})=>console.log(error))
         },
 
 
@@ -373,6 +391,10 @@ export default new Vuex.Store({
         //자유게시판 첨부파일(다운로드)
         SET_COMMUNITYBOARD_ATTACHMENT(state,data){
             state.cbAttachment2=data;
+        },
+        //자유게시판 댓글 불러오기
+        SET_CB_COMMENT_SELECTLIST(state,data){
+            state.cbcomment=data;
         },
 
         //공지사항
