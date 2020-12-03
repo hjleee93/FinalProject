@@ -1,6 +1,6 @@
 <template>
   <div class="mainc d-flex justify-space-around flex-wrap">
-  {{msg}}
+ 
     <v-card
     class="mx-auto mcard"
     max-width="250"
