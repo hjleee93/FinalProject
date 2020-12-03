@@ -31,6 +31,7 @@ import {
     fetchQnaBoardDelete,
     fetchQnaBoardUpdate,
     fetchQnaBoardAttachment,
+    fetchqnacomment,
 
 
     //민지   
@@ -85,6 +86,8 @@ export default new Vuex.Store({
         qnaBoardView:[],
         qnaBoardDelete:[],
         qbAttachment:[],
+        qbAttachment2:[],
+        qnacomment:[],
         
 
         //민지
@@ -260,6 +263,12 @@ export default new Vuex.Store({
                 .then(({data})=>commit("SET_QNABOARD_ATTACHMENT",data))
                 .catch(({ error }) => console.log(error))
         },
+        //qna 게시판 댓글 불러오기
+        FETCH_QNABOARD_COMMENT({commit},qnaboardNo){
+            fetchqnacomment(qnaboardNo)
+            .then(({data})=>commit("SET_QNABOARD_COMMENT",data))
+            .catch(({error})=>console.log(error))
+        },
 
 
         //민지
@@ -385,6 +394,10 @@ export default new Vuex.Store({
         //qna게시판 첨부파일(다운로드)
         SET_QNABOARD_ATTACHMENT(state,data){
             state.qbAttachment2=data;
+        },
+        //qna게시판 댓글
+        SET_QNABOARD_COMMENT(state,data){
+            state.qnacomment=data;
         },
 
 

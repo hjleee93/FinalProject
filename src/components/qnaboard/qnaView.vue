@@ -45,20 +45,28 @@
                 </b-col>
             </b-row>
 
-      <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea v-model="pcomment" /></b-col>
-      <b-col cols="1"><b-button @click="comment">전송</b-button></b-col>
+
+      <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="댓글"/></b-col>
+      <b-col><b-form-textarea ref="qnacomment" v-model="qbcomment" /></b-col>
+      <b-col cols="1"><b-button @click="qnacomment">전송</b-button></b-col>
       </b-row></b-card></b-col></b-row></b-form>
 
-      <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea readonly /></b-col>
-      <b-col cols="1"><b-button>삭제</b-button></b-col>
-      <b-col cols="1"><b-button>수정</b-button></b-col>
+    <!-- 댓글창 -->
+      <b-row v-for="qnacomment in commentlist" :key="qnacomment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-col><b-form-textarea readonly :value="qnacomment.qbcommentContent" /></b-col>
+      <b-col cols="1">{{new Date(qnacomment.qbcommentDate).toLocaleDateString()}}</b-col>
+      <template v-if="qnacomment.memberSq==userData.memberSq">
+        <b-col cols="1">
+           <div @click="declick(qnacomment.qbcommentNo)">삭제</div> 
+           <div @click="upclick(qnacomment)">수정</div> 
+        </b-col>
+      </template>
       </b-row></b-card></b-col>
       </b-row>
+   
+        <div>댓글 테스트 확인용 >>> {{commentlist}}</div>
 
     </div>
-   
 
    <!-- <div>
        게시판 객체 : {{qnaBoardView}}<br>
@@ -92,6 +100,7 @@
 
 import ModalView from '../common/ModalView.vue';
 import { mapState } from 'vuex';
+import axios from 'axios';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
 import vueMoment from 'vue-moment';
@@ -106,6 +115,7 @@ export default {
         return{
             showModal:false,
             qnaBoardNo:0,
+            qbcomment:'',
         }
     },
 
@@ -154,11 +164,48 @@ export default {
             location.href="http://localhost:8082/itjobgo/qna/qnafiledownload?oriName="+attachment.originalfilename+"&reName="+attachment.renamedfilename;
             },
 
+            //댓글등록
+            qnacomment(){
+                let formData2=new FormData();
+                formData2.append('qbcommentNo',this.qnaBoardView.qnaboardNo);
+                formData2.append('qbcommentContent',this.qbcomment);
+                formData2.append('memberSq',this.userData.memberSq);
+                formData2.append('memberName',this.userData.memberName)
+                // for(let key of formData2.entries()){
+                //   console.log(`${key}`);
+                // }
+            axios.post("http://localhost:8082/itjobgo/qna/qnacomment",formData2)
+            .then((data)=>{
+                console.log(data)
+                this.qbcomment="",
+                this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
+            
+            })
+            
+            .catch((error)=>
+                console.log(error))
+            
+            },
+
             //날짜표시
             formatDate(value){
             return this.$moment(value).format("YYYY-MM-DD");
             },
-      
+ 
+            //댓글삭제
+            // declick(commentno){
+            //     let delfirm=confirm("삭제 하시겠습니까?")
+            //     if(delfirm){
+            //     const cno=commentno;
+            //     this.$store.dispatch("FETCH_COMMENTDEL",cno)
+            //     return  this.$store.dispatch("FETCH_COMMNET",this.$route.params.id)
+            //     }else{
+            //     return
+            //     }
+
+
+
+
     },
     
     
@@ -166,6 +213,7 @@ export default {
         const qnaBoardNo=this.$route.params.id;
         this.$store.dispatch("FETCH_QNABOARD_VIEW",qnaBoardNo)
         this.$store.dispatch("FETCH_QNABOARD_ATTACHMENT",qnaBoardNo)
+        this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
         console.log(qnaBoardNo);
     },
 
@@ -173,12 +221,12 @@ export default {
 
         ...mapState({
             qnaBoardView:state=>state.qnaBoardView,
-            attachment:state=>state.qbAttachment2
+            attachment:state=>state.qbAttachment2,
+            commentlist:state=>state.qnacomment,
         }),
         ...loadUserState(['userData'])
 
-    }
-
+        },
 
 }
 

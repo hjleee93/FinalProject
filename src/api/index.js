@@ -97,6 +97,11 @@ function fetchQnaBoardUpdate(qnaSeq) {
 function fetchQnaBoardAttachment(qnaSeq){
     return axios.get(`${config.Url}qna/qnaBoardAttachment${qnaSeq}`)
 }
+//qna게시판 댓글 가져오기
+function fetchqnacomment(qnaSeq){
+    return axios.get(`${config.Url}qna/qnacomment${qnaSeq}`)
+}
+
 
 // 민지
 // info(취업정보)
@@ -158,6 +163,7 @@ export {
     fetchQnaBoardDelete,
     fetchQnaBoardUpdate,
     fetchQnaBoardAttachment,
+    fetchqnacomment,
 
      //민지
     //info 취업정보 
