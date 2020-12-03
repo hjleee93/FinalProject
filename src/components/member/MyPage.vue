@@ -208,8 +208,7 @@ export default {
           },
         }) //form server 연결
         .then(function(res) {
-          if (res.data.result > 0) {
-            console.log(res.data);
+          if (res.data > 0) {
             alert("사진이 등록되었습니다.");
             $(".submit-photo").hide();
           } else {
@@ -227,7 +226,6 @@ export default {
       this.files = input.files;
       if (file[0].name != null) {
         $(".submit-photo").show();
-        // $(".upload-photo").hide();
       }
       if (file && file[0]) {
         let reader = new FileReader();
