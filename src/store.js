@@ -90,7 +90,6 @@ export default new Vuex.Store({
         qbAttachment2:[],
         qnacomment:[],
 
-
         //민지
         info:[],
         /* infoList: [], */

@@ -99,7 +99,7 @@ function fetchQnaBoardAttachment(qnaSeq){
 }
 //qna게시판 댓글 가져오기
 function fetchqnacomment(qnaSeq){
-    return axios.get(`${config.Url}qna/qnalist${qnaSeq}`)
+    return axios.get(`${config.Url}qna/qnalist${qnaSeq}`) 
 }
 //qna게시판 댓글 삭제
 function fetchqnacommentdel(qbCommentNo){

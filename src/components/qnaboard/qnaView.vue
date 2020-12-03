@@ -53,10 +53,10 @@
 
     <!-- 댓글창 -->
       <b-row v-for="qnacomment in qnacommentlist" :key="qnacomment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea readonly :value="qnacomment.qbcommentContent" /></b-col>
+      <b-col><b-form-textarea readonly :value="qnacomment.qbCommentContent" /></b-col>
       <b-col cols="1">{{new Date(qnacomment.qbcommentDate).toLocaleDateString()}}</b-col>
       <template v-if="qnacomment.memberSq==userData.memberSq">
-        <b-col cols="1">
+        <b-col cols="1"> 
            <div @click="declick(qnacomment.qbcommentNo)">삭제</div> 
            <div @click="upclick(qnacomment)">수정</div> 
         </b-col>
@@ -126,30 +126,30 @@ export default {
     methods:{
     
             //1.삭제버튼~
-            deleteqna(){
-                this.showModal=!this.showModal;
-            },
-                //(삭제YES)
-            yesDeleteqna(){
-                let no=this.$route.params.id   
-                this.$store.dispatch("FETCH_QNABOARD_DELETE",no);
-                //삭제 후 페이지 이동
-                this.$router.push({name:'qnaBoard'});
-            },
-            noDeleteqna(){
-                //(삭제NO)
-                this.showModal=!this.showModal;
-            },
+            // deleteqna(){
+            //     this.showModal=!this.showModal;
+            // },
+            //     //(삭제YES)
+            // yesDeleteqna(){
+            //     let no=this.$route.params.id   
+            //     this.$store.dispatch("FETCH_QNABOARD_DELETE",no);
+            //     //삭제 후 페이지 이동
+            //     this.$router.push({name:'qnaBoard'});
+            // },
+            // noDeleteqna(){
+            //     //(삭제NO)
+            //     this.showModal=!this.showModal;
+            // },
     
             //2.수정버튼~
-            updateqna(){
-                //alert("수정버튼")
-                //수정도 router.js에 등록됨. name값을 이용해서 페이지 전환
-                let no=this.$route.params.id
-            console.log("수정버튼(params) :"+ no);
-            // console.log("글번호 :  : " + communityBoardNo)
-            this.$router.push({name:'qnaModify',params:{id:no}})
-            },
+            // updateqna(){
+            //     //alert("수정버튼")
+            //     //수정도 router.js에 등록됨. name값을 이용해서 페이지 전환
+            //     let no=this.$route.params.id
+            // console.log("수정버튼(params) :"+ no);
+            // // console.log("글번호 :  : " + communityBoardNo)
+            // this.$router.push({name:'qnaModify',params:{id:no}})
+            // },
 
             //첨부파일 다운로드
             qbattachmentdown(attachment){
@@ -185,19 +185,20 @@ export default {
             },
  
             //댓글삭제
-            declick(qbCommentNo){
-             let delfirm=confirm("삭제 하시겠습니까?")
-             if(delfirm){
-             const cno=qbCommentNo;
-             this.$store.dispatch("FETCH_QNABOARD_COMMENTDEL",cno)
-             return  this.$store.dispatch("FETCH_QNABOARD_COMMNET",this.$route.params.id)
-            }else{
-                return
-            }
+        //     declick(qbCommentNo){
+        //      let delfirm=confirm("삭제 하시겠습니까?")
+        //      if(delfirm){
+        //      const cno=qbCommentNo;
+        //      this.$store.dispatch("FETCH_QNABOARD_COMMENTDEL",cno)
+        //      return  this.$store.dispatch("FETCH_QNABOARD_COMMNET",this.$route.params.id)
+        //     }else{
+        //         return
+        //     }
 
-        },
+        // },
 
-    },
+    }, 
+    // 그럼 뷰에서 설정한 qnaSeq변수는 출처가 어디야?
     
     
     created(){
