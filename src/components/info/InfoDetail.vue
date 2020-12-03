@@ -30,25 +30,17 @@
            <b-row>
           <b-col cols="2"><b-form-group  label="주소/내용" readonly/></b-col>
           <b-col> <b-form-textarea v-model="infoDetail.infoContent" readonly/></b-col>
+        </b-row>  
+        <b-row v-if="attachment">
+          <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
+          <b-col cols="2"><b-button @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
         </b-row>       
           </b-form>
-       </b-card>
-       </b-col>
+            <b-row v-if="userData.memberSq===infoDetail.memberNum"><b-col>
+          <b-button @click="update">수정</b-button>
+          <b-button @click="pdelete">삭제</b-button>
+      </b-col></b-row></b-card></b-col>
       </b-row>
-
-
-<!--       <b-container>
-      <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"></b-col>
-      <b-col><b-form-textarea readonly /></b-col>
-      <b-col cols="1"><b-button>삭제</b-button></b-col>
-      <b-col cols="1"><b-button>수정</b-button></b-col>
-      </b-row></b-card></b-col>
-      </b-row>
-    
-      </b-container> -->
-      <div>게시판 객체 : {{infoDetail}}</div>
-      <div>유저 객체 : {{userData}}</div>
-
 
  <ModalView v-if="showModal" @close="showModal = false">
     <template>
@@ -72,7 +64,6 @@
 <script>
 import { mapState } from 'vuex';
 import ModalView from '../common/ModalView.vue';
-
 import { createNamespacedHelpers } from "vuex";
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 
@@ -82,10 +73,11 @@ export default {
   data(){
       return{
         showModal:false,
-        infoNo:0,
       }
     },
-       
+    components:{
+      ModalView,
+    },
     methods: {
       update(){
         //새로운 수정 컴포넌트로 이동
@@ -107,17 +99,21 @@ export default {
       },
       ndele(){
         this.showModal=!this.showModal;
-      },        
+      }, 
+       //첨부파일 다운로드 
+      attachmentdown(attachment){
+        location.href="http://localhost:8082/itjobgo/info/filedownload?oriName="+attachment.originalfilename+"&reName="+attachment.renamedfilename;
+      }             
     },
     created() {
         const infoNo=this.$route.params.id;
         this.$store.dispatch("FETCH_INFO_DETAIL",infoNo)
+        this.$store.dispatch("FETCH_INFO_ATTACHMENT",infoNo)
     },
-    computed: { ModalView,   
-  
-     
+    computed: {      
         ...mapState({
-            infoDetail:state=>state.infoDetail,       
+            infoDetail:state=>state.infoDetail,  
+            attachment:state=>state.infoAttachment2         
         }),
          ...loadUserState(['userData'])    
     }    

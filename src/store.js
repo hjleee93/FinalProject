@@ -38,6 +38,9 @@ import {
     fetchInfoDetail,
     fetchInfoDelete,
     fetchInfoUpdate,
+    fetchInfoAttachment,
+
+
 
     //혜지
     fetchRboardList
@@ -88,10 +91,14 @@ export default new Vuex.Store({
         
 
         //민지
-        infoList: [],
+        info:[],
+        /* infoList: [], */
         infoDetail: [],
         infoDelete: [],
-     
+        infoAttachment: [],
+        infoAttachment2:[],
+
+
         loginStatus: false,//로그인 성공 여부
         loginError: false,
 
@@ -263,23 +270,23 @@ export default new Vuex.Store({
 
 
         //민지
-        //list 불러오기
+        //info list 불러오기
         FETCH_INFO({ commit }) {
             fetchInfoList()
-                .then(({ data }) => commit("SET_INFO_LIST", data))
+                .then(({ data }) => commit("SET_INFO", data))
                 .catch(({ error }) => {
                     console.log(error);
                 })
         },
-        //상세화면
-        FETCH_INFO_DETAIL({ commit }, infoNo) {
+        //info 상세화면
+          FETCH_INFO_DETAIL({ commit }, infoNo) {
             fetchInfoDetail(infoNo)
                 .then(({ data }) => commit("SET_INFO_DETAIL", data))
                 .catch(({ error }) => {
                     console.log(error);
                 })
         },
-        //삭제하기
+        //info 삭제하기
         FETCH_INFO_DELETE({ commit }, infoNo) {
             fetchInfoDelete(infoNo)
                 .then(({ data }) => commit("SET_INFO_DELETE", data))
@@ -287,12 +294,20 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
-        //수정하기(객체 값 불러오기)
+        //info 수정하기(객체 값 불러오기)
         FETCH_INFO_UPDATE({ commit }, infoSq) {
             fetchInfoUpdate(infoSq)
                 .then(({ data }) => commit("SET_INFO_UPDATE", data))
                 .catch(({ error }) => console.log(error))
         },
+        //info 첨부파일 다운로드
+        FETCH_INFO_ATTACHMENT({commit},no){
+            fetchInfoAttachment(no)
+            .then(({data})=>commit("SET_INFO_ATTACHMENT",data))
+            .catch(({ error }) => console.log(error))
+        },
+
+
 
 
         //혜지
@@ -390,11 +405,11 @@ export default new Vuex.Store({
 
         //민지
         //리스트
-        SET_INFO_LIST(state, infolist) {
-            state.infolist = infolist;
+        SET_INFO(state, info) {
+            state.info = info;
         },
         //상세화면
-        SET_INFO_VIEW(state, infoDetail) {
+        SET_INFO_DETAIL(state, infoDetail) {
             state.infoDetail = infoDetail;
         },
         //삭제
@@ -403,8 +418,12 @@ export default new Vuex.Store({
         },
         //수정(값 불러오기)
         SET_INFO_UPDATE(state, data) {
-            state.cbAttachment = data;
+            state.infoAttachment = data;
         }, 
+        //첨부파일(다운로드)
+          SET_INFO_ATTACHMENT(state,data){
+            state.infoAttachment2=data;
+        },
 
         //혜지
         //이력서 게시판 리스트
