@@ -1,5 +1,6 @@
 <template>
   <div class="mainc d-flex justify-space-around flex-wrap">
+ 
     <v-card
     class="mx-auto mcard"
     max-width="250"
@@ -9,11 +10,12 @@
     <v-img
       class="white--text align-end"
       height="200px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+      max-width="350px"
+      :src="`http://localhost:8082/itjobgo/meeting/imagesrequest${n.collabSq}`"
     >
-      <v-card-title>{{n.collabTitle}}</v-card-title>
+     
     </v-img>
-
+    <v-card-subtitle class="pb-0">제목:{{n.collabTitle}}</v-card-subtitle>
     <v-card-subtitle class="pb-0">인원모집: {{n.collabBack+n.collabFront+n.collabDesgin+"명"}}</v-card-subtitle>
     <v-card-text class="text--primary">
       <div>모집요강</div>
