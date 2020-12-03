@@ -3,7 +3,6 @@
   <body>
     <div class="container-fluid">
       <div class="row">
- 
           <!-- 메인 이미지 -->
               <div class="submenuimage ">
                   <p class="subtitle" id="subtitle">Information</p>
@@ -32,11 +31,13 @@
         </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="infolist"
+            :items="info"
             :search="search"
-         
-             item-key="infoSq"         
+            item-key="infoSq" 
+            single-line
+            hide-details        
           >
+
           <template v-slot:item="props">
           <tr @click="handleClick(props.item.infoSq)">
             <td class="text-xs-right">{{props.item.infoSq }}</td>
@@ -44,14 +45,14 @@
             <td class="text-xs-right">{{props.item.infoTitle }}</td>
             <td class="text-xs-right">{{props.item.infoDate }}</td>
             <td class="text-xs-right">{{props.item.infoTime }}</td>
-            <td class="text-xs-right">{{props.item.infoAddress}}</td>
+            <td class="text-xs-right">{{props.item.infoContent }}</td>
             <td class="text-xs-right">{{props.item.infoCount }}</td>
           </tr>
         </template>
 
           </v-data-table>
         </v-card>
-            <!-- <div>(임시) 객체 : {{infolist}}</div> -->
+        
         </div>
        </div>
       </div>
@@ -60,9 +61,8 @@
 </template>
 
 <script>
-//import axios from 'axios';
-
 import { mapState } from 'vuex';
+
   export default {
 
     created : function(){
@@ -71,16 +71,13 @@ import { mapState } from 'vuex';
 
     computed:{
         ...mapState({
-            infolist:state=>state.infolist
+            info:state=>state.info
         })
     },
     
    methods: {
     handleClick(value){
-/*       alert(value.infoSq); */
-      this.$router.push({name:'infoDetail',params:{id:value.infoSq}});
-      console.log(value);
-      console.log(value.infoSq);
+      this.$router.push({name:'InfoDetail',params:{id:value}});
     
     }
   },
@@ -88,21 +85,19 @@ import { mapState } from 'vuex';
 
     data() {
       return {
-    /*   info:[], */
       search: '',
-        headers: [
-          
+        headers: [        
           {
-            text: '분류',
+            text: '번호',
             align: 'start',
             filterable: false,
-            value: 'infoCategory', 
+            value: 'infoSq', 
           },
+          { text: '분류', value: 'infoCategory'}, 
           { text: '기업명', value: 'infoTitle' },          
           { text: '날짜', value: 'infoDate' },
           { text: '시간', value: 'infoTime' },
-          { text: '주소', value: 'infoAddress' },
-          { text: '내용', value: 'infoContent' },
+          { text: '주소', value: 'infoContent' },
           { text: '조회수', value: 'infoCount' } 
         ],
       }

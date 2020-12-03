@@ -120,9 +120,11 @@ function fetchInfoDelete(infoSq){
 // 수정하기(게시판번호로 객체 값 불러오기 )
 function fetchInfoUpdate(infoSq){
     return axios.get(`${config.Url}info/infoUpdate${infoSq}`)
-
 }
-
+//첨부파일 다운로드
+function fetchInfoAttachment(infoSq){
+    return axios.get(`${config.Url}info/infoAttachment${infoSq}`)
+}
 
 
 //혜지
@@ -171,6 +173,7 @@ export {
     fetchInfoDetail,
     fetchInfoDelete,
     fetchInfoUpdate,
+    fetchInfoAttachment,
 
 
     //혜지
