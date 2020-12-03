@@ -68,6 +68,14 @@ function fetchCommunityBoardUpdate(boardSq) {
 function fetchCoummunityBoardAttachment(boardSq){
      return axios.get(`${config.Url}community/communityBoardAttachment${boardSq}`)
 }
+//댓글 조회하기
+function fetchCboardCommentSelectList(cboardNo){
+    return axios.get(`${config.Url}community/commentSelectOne${cboardNo}`)
+}
+//댓글  삭제하기
+function fetchCboardCommentDelete(cboardNo){
+    return axios.post(`${config.Url}community/commentDelete${cboardNo}`)
+}
 
 
 //공지사항 조회
@@ -158,6 +166,8 @@ export {
     fetchCommunityBoardDelete,
     fetchCommunityBoardUpdate,
     fetchCoummunityBoardAttachment,
+    fetchCboardCommentSelectList,
+    fetchCboardCommentDelete,
         //공지사항 Notice
     fetchNoticeList,
 

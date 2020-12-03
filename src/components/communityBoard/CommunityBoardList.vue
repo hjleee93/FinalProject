@@ -55,7 +55,7 @@
               >
                 <!-- :server-items-length="communityboard.length" -->
   
-  single-line
+ 
             <template v-slot:item="props">
               <tr @click="handleClick(props.item.boardSq)">
                 <td class="text-xs-right">{{props.item.boardSq }}</td>
