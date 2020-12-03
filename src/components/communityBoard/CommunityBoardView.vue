@@ -72,25 +72,25 @@
             <b-row><b-col cols="2">{{comment.memberName}}
             <br>{{comment.cbCommentDate | moment('YYYY.MM.DD HH:mm:ss')}}
             </b-col>
-
-<!-- 댓글 목록 -->
-<!-- <div>{{comment.cbCommentContent}}</div> -->
-            <b-col><b-form-textarea ref="comment" v-model="comment.cbCommentContent" /></b-col>
- 댓글 불러오기 : {{updateComment.cbCommentContent}}
-              
- <!-- :value="comment.cbCommentContent"  -->
-            <!-- <b-col><b-form-textarea  v-bind:value="comment.cbCommentContent"
-                                                             v-on:textarea="comment.cbCommentContent = $event.target.value" /></b-col> -->
+            <!-- 쓴사람과 아닐떄는 일반 댓글로 보여주지않기 -->
+            <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.cbCommentContent}}</b-col>
             
-
-      <template v-if="comment.memberSq==userData.memberSq">
-        <b-col cols="1">
-           <b-button v-if="userData.memberSq===comment.memberSq" 
-                                                                                    @click="upclick()">수정</b-button> 
-           <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
-                                                                                    @click="declick(comment.cbCommentNo)">삭제</b-button> 
-        </b-col>
-      </template>
+            <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
+            <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
+              <b-row>
+              <b-col >
+                  <b-form-textarea ref="comment"  v-bind:value="comment.cbCommentContent" v-on:change="handleInput"/></b-col>
+              </b-row>
+      
+                  <template v-if="comment.memberSq==userData.memberSq">
+                    <b-col cols="1">
+                      <b-button v-if="userData.memberSq===comment.memberSq" 
+                                                                                                @click="upclick(comment.cbCommentNo)">수정</b-button> 
+                      <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
+                                                                                                @click="declick(comment.cbCommentNo)">삭제</b-button> 
+                  </b-col>
+                </template>
+             </b-form>
       
       </b-row></b-card></b-col>
       </b-row>
@@ -148,7 +148,7 @@ export default {
             pboardno:0,
             cbcomment:'',
             commentModal:false,
-            updateComment:this.$store.state.cbcomment,
+            updateComment:'',
 
         }
     },
@@ -156,6 +156,7 @@ export default {
       ModalView,
     },
     methods: {
+
     // 날짜변환 함수
       formatDate(value) {
         // console.log(value);
@@ -184,7 +185,7 @@ export default {
         let formData2=new FormData();
 
         formData2.append('cboardNo',this.communityboardView.boardSq);
-        formData2.append('cbCommentContent',this.cbcomment);
+        formData2.append('cbCommentContent',this.comment.cbCommentContent);
         formData2.append('memberSq',this.userData.memberSq);
         formData2.append('memberName',this.userData.memberName)
 
@@ -225,14 +226,24 @@ export default {
         }
       },
       //댓글수정
-      upclick(){
+      handleInput: function (event) {
+      // 할당 전에 어떤 처리하기
+      this.comment.cbCommentContent = event.target.value;
+      this.updateComment=this.comment.cbCommentContent;
+
+    },
+
+      upclick(commentno){
         let updatefirm=confirm("댓글을 수정하시겠습니까?")
         if(updatefirm){
           // const commentUpdate = comment;
+          const cno=commentno;
           let formData2=new FormData();
-
+                formData2.append('cbCommentNo',cno);
                 formData2.append('cboardNo',this.communityboardView.boardSq);
-                formData2.append('cbCommentContent',this.comment.cbCommentContent);
+                formData2.append('cbCommentContent',this.updateComment);
+                formData2.append('memberSq',this.userData.memberSq);
+                formData2.append('memberName',this.userData.memberName)
 
 
               axios.post("http://localhost:8082/itjobgo/community/updateComment",formData2)
@@ -268,9 +279,10 @@ export default {
         
     }
     
-  
-    
+
 }
+    
+
 </script>
 
 <style scoped>
