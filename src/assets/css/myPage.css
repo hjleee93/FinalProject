@@ -22,7 +22,7 @@ li {
   width: 221px;
   height: 100%;
   border-right: 1px solid #bcc3d5;
-  background: url("//image.alba.kr/person/photoArea_bg.gif") repeat;
+  background-color: #fcfcfc;
 }
 #PersonHead .photoArea .photoBtn {
   display: inline-block;
@@ -258,6 +258,10 @@ input[type="file"] {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-/* .submit-photo {
+.upload-photo {
+  height: 37px;
+  width: 106px;
+}
+.submit-photo {
   display: none;
-} */
+}

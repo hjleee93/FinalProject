@@ -19,6 +19,7 @@ const jobStore = {
 
     },
     actions: {
+
         loadXml({ commit }) {
             //최신 채용 정보 xml
             axios.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056")
