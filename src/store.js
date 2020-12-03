@@ -41,8 +41,6 @@ import {
     fetchInfoUpdate,
     fetchInfoAttachment,
 
-
-
     //혜지
     fetchRboardList
 
@@ -91,7 +89,7 @@ export default new Vuex.Store({
         qbAttachment:[],
         qbAttachment2:[],
         qnacomment:[],
-        
+
 
         //민지
         info:[],
@@ -276,10 +274,11 @@ export default new Vuex.Store({
             .then(({data})=>commit("SET_QNABOARD_COMMENT",data))
             .catch(({error})=>console.log(error))
         },
+
         //qna 게시판 댓글 삭제
-        FETCH_QNABOARD_COMMENTDEL(data,qbCommentNo){
-            console.log(qbCommentNo)
-            fetchqnacommentdel(qbCommentNo)
+        FETCH_QNABOARD_COMMENTDEL(data,qnaboardNo){
+            console.log(qnaboardNo)
+            fetchqnacommentdel(qnaboardNo)
             .then((data)=>{console.log(data)
             })
             .catch(({error})=>console.log(error))

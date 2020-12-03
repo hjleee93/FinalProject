@@ -52,7 +52,7 @@
       </b-row></b-card></b-col></b-row></b-form>
 
     <!-- 댓글창 -->
-      <b-row v-for="qnacomment in commentlist" :key="qnacomment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-row v-for="qnacomment in qnacommentlist" :key="qnacomment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
       <b-col><b-form-textarea readonly :value="qnacomment.qbcommentContent" /></b-col>
       <b-col cols="1">{{new Date(qnacomment.qbcommentDate).toLocaleDateString()}}</b-col>
       <template v-if="qnacomment.memberSq==userData.memberSq">
@@ -63,9 +63,9 @@
       </template>
       </b-row></b-card></b-col>
       </b-row>
+
    
-        <div>댓글 테스트 확인용 >>> {{commentlist}} 
-           {{qnaBoardView.qnaSeq}}얘는 뜨는데
+        <div>댓글 테스트 확인용 qnacommentlist : {{qnacommentlist}} <br>
         </div>
 
     </div>
@@ -201,20 +201,25 @@ export default {
     
     
     created(){
-        const qnaBoardNo=this.$route.params.id;
-        this.$store.dispatch("FETCH_QNABOARD_VIEW",qnaBoardNo)
-        this.$store.dispatch("FETCH_QNABOARD_ATTACHMENT",qnaBoardNo)
+        const qnaboardNo=this.$route.params.id;
+        this.$store.dispatch("FETCH_QNABOARD_VIEW",qnaboardNo)
+        this.$store.dispatch("FETCH_QNABOARD_ATTACHMENT",qnaboardNo)
         this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
-        console.log(qnaBoardNo);
+    },
+
+    mounted() {
+        
+            //모든 화면이 렌더링된 후 호출 된다.
     },
 
     computed:{
 
-        ...mapState({
+        ...mapState({ //store
             qnaBoardView:state=>state.qnaBoardView,
             attachment:state=>state.qbAttachment2,
-            commentlist:state=>state.qnacomment,
+            qnacommentlist:state=>state.qnacomment,
         }),
+
         ...loadUserState(['userData'])
 
         },
