@@ -98,8 +98,12 @@ function fetchQnaBoardAttachment(qnaSeq){
     return axios.get(`${config.Url}qna/qnaBoardAttachment${qnaSeq}`)
 }
 //qna게시판 댓글 가져오기
-function fetchqnacomment(qnaSeq){
-    return axios.get(`${config.Url}qna/qnacomment${qnaSeq}`)
+function fetchqnacomment(qbBoardNo){
+    return axios.get(`${config.Url}qna/qnalist${qbBoardNo}`)
+}
+//qna게시판 댓글 삭제
+function fetchqnacommentdel(qbCommentNo){
+    return axios.post(`${config.Url}qna/commentdel${qbCommentNo}`)
 }
 
 
@@ -166,6 +170,7 @@ export {
     fetchQnaBoardUpdate,
     fetchQnaBoardAttachment,
     fetchqnacomment,
+    fetchqnacommentdel,
 
      //민지
     //info 취업정보 
