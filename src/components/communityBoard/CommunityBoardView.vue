@@ -82,7 +82,6 @@
                   <b-form-textarea ref="comment"  v-bind:value="comment.cbCommentContent" v-on:change="handleInput"/></b-col>
               </b-row>
       
-      
                   <template v-if="comment.memberSq==userData.memberSq">
                     <b-col cols="1">
                       <b-button v-if="userData.memberSq===comment.memberSq" 
