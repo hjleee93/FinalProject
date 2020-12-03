@@ -139,6 +139,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         this.$router.push({name:'CommunityBoardList'});
       },
       
+      
 
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.files[0]);

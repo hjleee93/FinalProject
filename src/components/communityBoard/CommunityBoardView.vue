@@ -72,16 +72,22 @@
             <b-row><b-col cols="2">{{comment.memberName}}
             <br>{{comment.cbCommentDate | moment('YYYY.MM.DD HH:mm:ss')}}
             </b-col>
-            <!-- <b-col><b-form-textarea :value="comment.cbCommentContent"  ref="comment" v-model="cbcomment" /></b-col> -->
-            <b-col><b-form-textarea  v-bind:value="comment.cbCommentContent"
-                                                             v-on:textarea="comment.cbCommentContent = $event.target.value" /></b-col>
+
+<!-- 댓글 목록 -->
+<!-- <div>{{comment.cbCommentContent}}</div> -->
+            <b-col><b-form-textarea ref="comment" v-model="comment.cbCommentContent" /></b-col>
+ 댓글 불러오기 : {{updateComment.cbCommentContent}}
+              
+ <!-- :value="comment.cbCommentContent"  -->
+            <!-- <b-col><b-form-textarea  v-bind:value="comment.cbCommentContent"
+                                                             v-on:textarea="comment.cbCommentContent = $event.target.value" /></b-col> -->
             
 
       <template v-if="comment.memberSq==userData.memberSq">
         <b-col cols="1">
-           <b-button v-if="userData.memberSq===communityboardView.memberNum" 
+           <b-button v-if="userData.memberSq===comment.memberSq" 
                                                                                     @click="upclick()">수정</b-button> 
-           <b-button v-if="userData.memberSq===communityboardView.memberNum || userData.memberEmail === 'admin@kh.com'"
+           <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
                                                                                     @click="declick(comment.cbCommentNo)">삭제</b-button> 
         </b-col>
       </template>
@@ -142,7 +148,7 @@ export default {
             pboardno:0,
             cbcomment:'',
             commentModal:false,
-            updateComment:'',
+            updateComment:this.$store.state.cbcomment,
 
         }
     },
@@ -226,7 +232,7 @@ export default {
           let formData2=new FormData();
 
                 formData2.append('cboardNo',this.communityboardView.boardSq);
-                formData2.append('cbCommentContent',this.textarea);
+                formData2.append('cbCommentContent',this.comment.cbCommentContent);
 
 
               axios.post("http://localhost:8082/itjobgo/community/updateComment",formData2)
@@ -254,7 +260,7 @@ export default {
         ...mapState({
             communityboardView:state=>state.communityboardView,
             attachment:state=>state.cbAttachment2,        
-            commentlist:state=>state.comment    
+            commentlist:state=>state.cbcomment    
         }),
          ...loadUserState(['userData'])
       

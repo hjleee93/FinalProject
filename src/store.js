@@ -83,6 +83,7 @@ export default new Vuex.Store({
         communityboardDelete: [],
         cbAttachment: [],
         cbAttachment2:[],
+        cbcomment:[],
         noticeList:[],
         writeDate:[], //날짜변형 데이터
 
@@ -393,7 +394,7 @@ export default new Vuex.Store({
         },
         //자유게시판 댓글 불러오기
         SET_CB_COMMENT_SELECTLIST(state,data){
-            state.comment=data;
+            state.cbcomment=data;
         },
 
         //공지사항
