@@ -32,7 +32,7 @@ import {
     fetchQnaBoardUpdate,
     fetchQnaBoardAttachment,
     fetchqnacomment,
-
+    fetchqnacommentdel,
 
     //민지   
     fetchInfoList,
@@ -276,6 +276,17 @@ export default new Vuex.Store({
             .then(({data})=>commit("SET_QNABOARD_COMMENT",data))
             .catch(({error})=>console.log(error))
         },
+        //qna 게시판 댓글 삭제
+        FETCH_QNABOARD_COMMENTDEL(data,qbCommentNo){
+            console.log(qbCommentNo)
+            fetchqnacommentdel(qbCommentNo)
+            .then((data)=>{console.log(data)
+            })
+            .catch(({error})=>console.log(error))
+        },
+
+
+
 
 
         //민지

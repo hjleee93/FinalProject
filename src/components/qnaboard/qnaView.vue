@@ -57,8 +57,8 @@
       <b-col cols="1">{{new Date(qnacomment.qbcommentDate).toLocaleDateString()}}</b-col>
       <template v-if="qnacomment.memberSq==userData.memberSq">
         <b-col cols="1">
-           <!-- <div @click="declick(qnacomment.qbcommentNo)">삭제</div> 
-           <div @click="upclick(qnacomment)">수정</div>  -->
+           <div @click="declick(qnacomment.qbcommentNo)">삭제</div> 
+           <div @click="upclick(qnacomment)">수정</div> 
         </b-col>
       </template>
       </b-row></b-card></b-col>
@@ -185,18 +185,17 @@ export default {
             },
  
             //댓글삭제
-            // declick(commentno){
-            //     let delfirm=confirm("삭제 하시겠습니까?")
-            //     if(delfirm){
-            //     const cno=commentno;
-            //     this.$store.dispatch("FETCH_COMMENTDEL",cno)
-            //     return  this.$store.dispatch("FETCH_COMMNET",this.$route.params.id)
-            //     }else{
-            //     return
-            //     }
+            declick(qbCommentNo){
+             let delfirm=confirm("삭제 하시겠습니까?")
+             if(delfirm){
+             const cno=qbCommentNo;
+             this.$store.dispatch("FETCH_QNABOARD_COMMENTDEL",cno)
+             return  this.$store.dispatch("FETCH_QNABOARD_COMMNET",this.$route.params.id)
+            }else{
+                return
+            }
 
-
-
+        },
 
     },
     
@@ -214,11 +213,12 @@ export default {
         ...mapState({
             qnaBoardView:state=>state.qnaBoardView,
             attachment:state=>state.qbAttachment2,
-            // commentlist:state=>state.qnacomment,
+            commentlist:state=>state.qnacomment,
         }),
         ...loadUserState(['userData'])
 
         },
+
 
 }
 
