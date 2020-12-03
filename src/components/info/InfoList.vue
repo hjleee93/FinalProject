@@ -9,8 +9,7 @@
               </div>
 
         <div class="container">
-          <h2 class="sub-header"></h2>
-        <br>
+          <h2 class="sub-header"></h2><br>
 
         <!-- 버튼 -->
         <div>
