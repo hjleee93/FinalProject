@@ -41,12 +41,14 @@
 
       <b-container>
       <b-row v-for="comment in commentlist" :key="comment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea readonly :value="comment.pcommentContent" /></b-col>
+      <!-- 인풋 박스를 조건으로 비활성화 할수 있음-->
+      <b-col><b-form-textarea  :disabled="commentcheck"  v-model="comment.pcommentContent" /></b-col>
       <b-col cols="1">{{new Date(comment.pcommentDate).toLocaleDateString()}}</b-col>
       <template v-if="comment.memberSq==userData.memberSq">
         <b-col cols="1">
            <div @click="declick(comment.pcommentNo)">삭제</div> 
-           <div @click="upclick(comment)">수정</div> 
+           <div @click="upclick()" v-if="commentcheck==true">수정</div> 
+           <div @click="upendclick(comment.pcommentNo)" v-if="commentcheck==false">확인</div> 
         </b-col>
         
       </template>
@@ -97,8 +99,17 @@ export default {
             showModal:false,
             pboardno:0,
             pcomment:'',
+            commentcheck:true,
+            changeval:'',
       
         }
+    },
+    watch:{
+      commentlist:{
+        handler(newValue){
+          this.changeval=newValue[0].pcommentContent;
+        },deep:true,
+      }
     },
    
     components:{
@@ -118,12 +129,25 @@ export default {
          
         
       },
+      upclick(){
+        this.commentcheck=false;
+      },
       ydele(){
         let no=this.$route.params.id
          this.$store.dispatch("FETCH_PBOARDDEL",no)
          this.$router.push({name:'portlist'})
         
         
+      },
+      upendclick(commentno){
+       const ccno=commentno
+       
+       axios.post("http://localhost:8082/itjobgo/portfolio/updatecomment.do",{pcommentcontent:this.changeval,pcommentNo:ccno})
+       .then(()=>{
+            this.commentcheck=true;
+           this.$store.dispatch("FETCH_COMMNET",this.$route.params.id);
+           
+       })
       },
       declick(commentno){
         let delfirm=confirm("삭제 하시겠습니까?")
