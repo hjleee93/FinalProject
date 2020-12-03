@@ -1,19 +1,31 @@
 <template>
 
+<b-container>
 <div class="container">
   <div>
 			<h2 class="st_title">QnA 질문등록</h2><hr>
 
     <!-- 데이터 넘기기 form 시작-->
-    <form @submit.prevent="writeQna" @reset="onReset" 
-                             enctype="multipart/form-data">
+    <form @submit.prevent="writeQna"
+    @reset="onReset" enctype="multipart/form-data">
+
+      <!-- 작성자(멤버)불러옴 -->
+      <b-form-group id="input-group-2" label="작성자" label-for="input-2">
+          <b-form-input
+            id="input-2"
+            name="qnaWriter"
+            required
+            placeholder="작성자"
+            readonly
+            v-model="userData.memberName"
+          ></b-form-input>
+      </b-form-group>
 
       <b-form-group
           id="input-group-1"
           label="제목"
           label-for="input-1"
       > 
-      
       <b-form-input
           id="input-1"
           v-model="qnaTitle"
@@ -43,7 +55,7 @@
       </b-form-group>
 
     
-        <!-- <p class="mt-2">첨부 파일<b>{{ file ? file.name : '' }}</b></p> -->
+        <!-- 첨부 파일 -->
          <b-form-group>
         <b-form-file
             id="files"
@@ -70,12 +82,15 @@
   
 </div>
 
+</b-container>
 </template>
 
 <script>
 import { VueEditor } from "vue2-editor";
 import axios from 'axios';
-// import { component } from 'vue/types/umd';
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
+
 
   export default {
     
@@ -83,7 +98,7 @@ import axios from 'axios';
       return{
         qnaTitle:"",
         category:"null",
-        qnaWriter:"김현주",
+        // qnaWriter:"김현주",
         qnaAnswerYn:"N",
         qnaCategory :[
           { value: null, text: '분류를 선택해주세요' },
@@ -99,17 +114,22 @@ import axios from 'axios';
       VueEditor
     },
 
+    computed: {
+    ...mapState(['userData'])
+    },
+
     methods: {
       writeQna(){
         
         let formData = new FormData();
+        formData.append('qnaWriter',this.userData.memberName);
+        formData.append('memberSq', this.userData.memberSq),
         formData.append('qnaTitle',this.qnaTitle);
         formData.append('qnaCategory',this.category);
-        formData.append('qnaWriter',this.qnaWriter);
         formData.append('qnaAnswerYn',this.qnaAnswerYn);
         formData.append('qnaContent',this.qnaContent.replace(/(<([^>]+)>)/ig,""))
         formData.append('file',this.files);
-        //spring값 file, vue value값 files! zz
+        //spring값 file, vue value값 files! 맞춰주기!
 
         for(let key of formData.entries()){
         console.log(`${key}`);

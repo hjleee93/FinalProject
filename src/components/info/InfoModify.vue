@@ -1,67 +1,89 @@
 <template>
+<b-container>
 
-<div class="container">
+<div class="container"  id="header-container">
   <h2 class="st_title">게시글 수정</h2><hr>
+</div>
 
-    <form @submit.prevent="Submit" @reset="onReset" v-if="show">
-     
+    <form @submit.prevent="updateForm" 
+       enctype="multipart/form-data">
       <b-form-group
-      id="input-group-2" 
+      id="input-group-1" 
       label="기업명" 
-      label-for="input-2">
+      label-for="input-1"
+      label-align="left">
 
       <b-form-input
-        id="input-2"
-        v-model="infoTitle"
+        id="input-1"
+        name="infoTitle"
+        type="text"
         required
         placeholder="기업명을 작성하세요"
+        v-model="infoDetail.infoTitle"
       ></b-form-input>
     </b-form-group>
 
-    <b-form-group id="input-group-3" label="분류" label-for="input-3">
+    <b-form-group id="input-group-2" 
+     label="분류"  label-for="input-2" label-align="left">
         <b-form-select
-          id="input-3"
+          id="input-2"
           v-model="category"
           :options="infoCategory"
           required
         ></b-form-select>
     </b-form-group>
 
- 	  <b-form-group id="input-group-4" label="날짜" label-for="input-4">
-      <input type="date" v-model="infoDate" >
+ 	  <b-form-group 
+     id="input-group-3" 
+     label="날짜" 
+     label-for="input-3">
+      <input type="date" v-model="infoDetail.infoDate" >
      
     <b-form-date
-        id="input-4"
-        v-model="infoDate"
+        id="input-3"
+        name="infoDate"
+        v-model="infoDetail.infoDate"
         :options="date"
         required 
       ></b-form-date>
     </b-form-group> 
 
     <b-form-group  label="시간" >
-        <input type="time"  v-model="infoTime">
+        <input type="time"  
+        v-model="infoDetail.infoTime">
     </b-form-group>
     <!--   <p><input type="submit" value="Submit"></p> -->
 
-    <b-form-group label="주소" >
+  <!--   <b-form-group label="주소" >
       <textarea  style="resize: none" type="text" class="form-control" placeholder="주소를 작성하세요"
-      select="address" maxlength="150" v-model="infoAddress">></textarea>
-    </b-form-group>
+      select="address" maxlength="150" v-model="infoDetail.infoAddress">></textarea>
+    </b-form-group> -->
 
-    <!--Vue2Editor 작성-->
-    <b-form-group label="첨부파일" >
-        <vue-editor /> 
-    <!--   <vue-editor id="vue-editor" v-model="infoContent"
-      name="infoContent"/> -->
-    </b-form-group>
+    <!--Vue2Editor 작성--> 
+     <b-form-group  label="내용" >
+        <vue-editor 
+          id="input-4"
+          v-model="infoDetail.infoContent" 
+          name="infoContent" />
+      </b-form-group>
 
+    <!-- 첨부파일 -->
+    <b-form-group>
+      <b-form-file 
+        id="files" 
+        ref="upfiles" 
+        v-on:change="handleFile"
+        :placeholder="infoAttachment.originalfilename" >
+      </b-form-file> 
+    </b-form-group>
+ 
     <!-- 등록/취소 버튼 -->
-    <div class="btn_sr">
-      <v-btn type="submit" id="submit"  >수정 완료</v-btn>
-      <v-btn type="reset" to="/infoList" exact id="cancel">취소</v-btn>
-      </div>
+        <b-button  id="btn_write" @click="updateForm" class="btn-space">수정완료</b-button>
+        <b-button type="button" id="btn_write"  to="/infoList" exact>목록으로</b-button>
+
     </form>
-  </div>
+
+</b-container>
 </template>
 
 <script>
@@ -74,7 +96,7 @@ import { mapState } from 'vuex';
       data() {
         return {
             infoTitle: '',
-            category:null,
+            category:"null",
             infoCategory :[
           { value: null, text: '분류를 선택해주세요' },
           { value: '설명회', text: '설명회' },
@@ -83,16 +105,21 @@ import { mapState } from 'vuex';
         ],
             infoDate : '',
             infoTime : '',
-            infoAddress : '',
-            infoContent: "",           
+            infoContent: "",    
+            files :"",       
             }
       },
+      created() {
+        const infoSq=this.$route.params.id;
+          this.$store.dispatch("FETCH_INFO_UPDATE",infoSq)
+          console.log("지금하고있는 로그 " + infoSq);
+        },
 
       computed:{
         //mapState를 통해서 store에 저장된 객체를 가져온다
        ...mapState({
         infoDetail:state=>state.infoDetail,
-        cbAttachment:state=>state.cbAttachment,    
+        infoAttachment:state=>state.infoAttachment,    
         })
       },
       components:{
@@ -101,12 +128,11 @@ import { mapState } from 'vuex';
 
     methods: {
          updateForm() {
-       
         if(!this.infoTitle){
           this.infoTitle=this.infoDetail.infoTitle;
         }
-        if(!this.category){
-          this.category=this.infoDetail.category;
+        if(!this.infocategory){
+          this.infocategory=this.infoDetail.infocategory;
         }
         if(!this.infoDate){
           this.infoDate=this.infoDetail.infoDate;
@@ -114,23 +140,23 @@ import { mapState } from 'vuex';
          if(!this.infoTime){
           this.infoTime=this.infoDetail.infoTime;
         }
-         if(!this.infoAddress){
-          this.infoAddress=this.infoDetail.infoAddress;
-        }
         if(!this.infoContent){
           this.infoContent=this.infoDetail.infoContent;
+        }
+        if(!this.files){
+          this.files=this.infoAttachment.renamedfilename;
         }
          
 
         let formData = new FormData();
-        formData.append('infoSq',this.$route.params.id);
         formData.append('infoTitle',this.infoTitle);
         formData.append('infoCategory',this.category);
         formData.append('infoDate',this.infoDate);
         formData.append('infoTime',this.infoTime);
-        formData.append('infoAddress',this.infoAddress);
         formData.append('infoContent',this.infoContent.replace(/(<([^>]+)>)/ig,""));
-        
+        formData.append('file',this.files);
+        formData.append('infoSq',this.$route.params.id);
+
         for(let key of formData.entries()){
         console.log(`${key}`);
         }
@@ -144,9 +170,14 @@ import { mapState } from 'vuex';
         console.log(error))
         console.log(formData);
         //등록하면 게시판 목록으로
-        this.$router.push({name:'infoList'})
+        this.$router.push({name:'InfoList'})
       },
 
+      handleFile(){
+        console.log(this.$refs.upfiles.$refs.input.files[0]);
+        this.files=this.$refs.upfiles.$refs.input.files[0];
+        console.log(this.files);
+      },
     }
   }
 </script>

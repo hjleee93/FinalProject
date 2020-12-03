@@ -1,19 +1,14 @@
 <template>
+<b-container fluid>
 
+      <b-row >
+         <div class="submenuimage ">
+        <p class="subtitle" id="subtitle">Q&A</p>
+        </div>
+      </b-row>
 
-  
-    <div class="container-fluid">
-      <div class="row">
-
-        <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
-          <!-- 메인 이미지 -->
-              <div class="submenuimage ">
-                  <p class="subtitle" id="subtitle">Q&A</p>
-              </div>
-              
-        <div class="container">
-
-          
+    <div class="container">
+    
     <!-- 탭 -->   
     <v-tabs
     centered
@@ -25,13 +20,14 @@
       <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
     </v-tabs>
 
-    <!-- 게시판시작 -->
-    <div>
+    <!-- 서브제목 -->
       <h4 class="sub-header">질문/답변 게시판</h4>
-      <v-btn to="/qnaWrite" exact  id="st_write">글쓰기</v-btn></div>
+      <v-btn to="/qnaWrite" exact  id="st_write">글쓰기</v-btn>
+
     <div class="overflow">
+
          <!-- 테이블 -->
-        <v-card >
+        <v-card>
         <v-card-title>
           <v-text-field
               v-model="search"
@@ -45,38 +41,43 @@
             :headers="headers"
             :items="qnaboard"
             :search="search"
-            @click:row="handleClick"
-            item-key="name"
-          ></v-data-table>
+            :server-items-length="qnaboard.length"
+            item-key="qnaboardNo"
+          >
+
+          <template v-slot:item="props">
+                <tr @click="handleClick(props.item.qnaSeq)">
+                  <td class="text-xs-right">{{props.item.qnaSeq }}</td>
+                  <td class="text-xs-right">{{props.item.qnaWriter }}</td>
+                  <td class="text-xs-right">{{props.item.qnaCategory }}</td>
+                  <td class="text-xs-right">{{props.item.qnaTitle }}</td>
+                  <td class="text-xs-right">{{props.item.qnaAnswerYn}}</td>
+                  <td class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
+                  <td class="text-xs-right">{{props.item.boardCount }}</td>
+                </tr>
+          </template>  
+          
+        </v-data-table>
         </v-card>
-        
-        
-          </div>
-      
-        </div>
-
-      </div>
+       
     </div>
-  
 
+</div>
+</b-container>
 </template>
 
 <script>
-// import axios from 'axios';
 import { mapState } from 'vuex';
+import Vue from 'vue';
+import vueMoment from 'vue-moment';
+Vue.use(vueMoment);
+
   export default {
 
     created : function(){
       this.$store.dispatch("FETCH_QNABOARD")
     
-      // axios
-      // .get('http://localhost:8082/itjobgo/qna/qnaboardlist')
-      // .then(Response=>{
-      //   this.qna=Response.data;
-      //   console.log(Response);
-      // })
     },
-
     computed:{
         ...mapState({
             qnaboard:state=>state.qnaboard
@@ -85,10 +86,13 @@ import { mapState } from 'vuex';
 
     methods:{
       handleClick(value){
-        this.$router.push({name: 'qnaView',params:{id:value.qnaSeq}});
-        console.log(value);
-        console.log(value.qnaSeq);
-      }
+        this.$router.push({name:'qnaView',params:{id:value}});
+      },
+
+    formatDate(value){
+      return this.$moment(value).format("YYYY-MM-DD");
+    }
+
     },
     
     data() {
@@ -97,17 +101,18 @@ import { mapState } from 'vuex';
       search: '',
         headers: [
           {
-            text: '분류',
+            text: 'NO',
             align: 'start',
             filterable: false,
-            value: 'qnaCategory', //spring vo값 적기
+            value: 'qnaSeq', //spring vo값 적기 //qnaSeq?
           },
-          { text: 'NO', value: 'qnaSeq' },          
-          { text: '제목', value: 'qnaTitle' },
           { text: '작성자', value: 'qnaWriter' },
-          { text: '내용', value: 'qnaContent' },
+          { text: '분류', value: 'qnaCategory' },          
+          { text: '제목', value: 'qnaTitle' },
           { text: '답변여부', value: 'qnaAnswerYn' },
           { text: '작성일', value: 'qnaDate' },
+          { text: '조회수', value: 'boardCount' },
+
         ],
       }
     },
@@ -154,9 +159,10 @@ import { mapState } from 'vuex';
 .sub-header{
   position: relative;
   bottom: -45px;
-  left:  -12px;
+  left:  15px;
   margin-top: 20px;
   text-align: left;
 }
+
 
 </style>

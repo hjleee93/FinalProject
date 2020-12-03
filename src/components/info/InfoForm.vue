@@ -1,8 +1,12 @@
 <template>
+   <b-container>
 
 <div class="container">
-  <h2 class="st_title">채용설명회 일정</h2><hr>
-    <form @submit.prevent="enrollInfo" @reset="onReset"  enctype="multipart/form-data">
+  <h2 class="st_title">Information 작성</h2><hr>
+    
+    
+    <form @submit.prevent="enrollInfo" 
+    @reset="onReset"  enctype="multipart/form-data">
       <b-form-group
       id="input-group-2" 
       label="기업명" 
@@ -41,136 +45,140 @@
     </b-form-group>
     <!--   <p><input type="submit" value="Submit"></p> -->
 
-    <b-form-group label="주소" >
-      <textarea  style="resize: none" type="text" class="form-control" placeholder="주소를 작성하세요"
-      select="address" maxlength="150" v-model="infoAddress">></textarea>
-    </b-form-group>
-
-    <!--Vue2Editor 작성-->
-    <b-form-group label="첨부파일" >
+    <!--Vue2Editor 에디터 작성-->
+    <b-form-group label="주소/내용" >
       <vue-editor id="vue-editor" v-model="infoContent"
       name="infoContent"/>
     </b-form-group>
 
+    <!-- 첨부파일 -->
+        <b-form-group>
+          <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
+          placeholder="첨부파일을 선택해주세요"></b-form-file> 
+        </b-form-group>
+      
     <!-- 등록/취소 버튼 -->
-    <div class="btn_sr">
+    <!-- <div class="btn_sr">
       <v-btn id="submit"  @click="enrollInfo">등록</v-btn>
       <v-btn to="/infoList" exact id="cancel">취소</v-btn>
-      </div>
+      </div> -->
+
+  <b-button id="submit" @click="enrollInfo">등록</b-button>
+  <b-button  to="/infoList" exact id="cancel">취소</b-button>
+
+
     </form>
   </div>
+</b-container>
 </template>
 
-<script>
-import { VueEditor } from "vue2-editor";
-import axios from 'axios';
+  <script>
+  import { VueEditor } from "vue2-editor";
+  import axios from 'axios';
+  import { createNamespacedHelpers } from "vuex";
+  const { mapState } = createNamespacedHelpers("memberStore");
 
-  /*  Vue2Editor 작성 */
-    export default {
-      data() {
-        return {
-            infoTitle: '',
-            category : "",
-            infoCategory :[
-          { value: '설명회', text: '설명회' },
-          { value: '박람회', text: '박람회' },
-          { value: '상담회', text: '상담회' },
-        ],
-            infoDate : '',
-            infoTime : '',
-            infoAddress : '',
-            infoContent: "",           
-            }
-      },
-    components:{
-      VueEditor
-    },
+      export default {
 
-    methods: {
-        enrollInfo() {
-          let formData = new FormData();
-          formData.append('infoTitle',this.infoTitle);
-          formData.append('infoCategory',this.category);
-          formData.append('infoDate',this.infoDate);
-          formData.append('infoTime',this.infoTime);
-          formData.append('infoAddress',this.infoAddress);
-          formData.append('infoContent',this.infoContent.replace(/(<([^>]+)>)/ig,""));
-        
-          for(let key of formData.entries()) {
-          console.log(`${key}`);
+        data() {
+          return {
+              infoTitle: '',
+              category : "",
+              infoCategory :[
+            { value: '설명회', text: '설명회' },
+            { value: '박람회', text: '박람회' },
+            { value: '상담회', text: '상담회' },
+          ],
+              infoDate : '',
+              infoTime : '',
+              infoContent: "",   
+              files :""        
           }
-
-          console.log(this.category);
-
-        axios.post("http://localhost:8082/itjobgo/info/infoForm",
-          formData,
-          { headers:{
-            'Content-Type':'multipart/form-data'
-          }}).then((data)=>console.log(data))
-          .catch((error)=>
-          console.log(error))
-          console.log(formData);
-          this.$router.push({name:'infoList'})
         },
 
-        handleFile(){
-          console.log(this.$refs.upfiles.$refs.input.files[0]);
-          this.files=this.$refs.upfiles.$refs.input.files[0];
-          console.log(this.files);
-        },
-
-      /*   onSubmit(evt) {
-          evt.preventDefault()
-          alert(JSON.stringify(this.form))
-        },
- */
-      onReset(evt) {
-        evt.preventDefault()
-          this.form.infoTitle=''
-          this.form.infoCategory=null
-          this.form.infoDate=''
-          this.form.infoTime=''
-          this.form.infoAddress=''
-          this.form.infoContent=''
-          },
-
-      /*  clearFiles() {
-          this.$refs['file-input'].reset()  
-          },
-      */
-
+      components:{
+        VueEditor
       },
-    }
-</script>
 
-<style>
-.st_title{
-  margin-top:5%;
-  margin-bottom: 3%;
-}
-.btn_sr{
-  margin-top: 0%;
-  position:absolute;
-  left:44%;
-}
-.btn-space{
-  margin-right: 15px;
-}
-#submit{
-  width:5px;
-  margin-bottom: 5px;
-  margin-right: 0%;
-  background-color: #424874;
-  border:1px;
-  color:white; 
-}
-#cancel{
-  width:5px;
-  margin-bottom: 5px;
-  right: -10px;
-  margin-right: 0%;
-  background-color: #9BA4B4;
-  border:5px;
-  color:white; 
-}
-</style>
+      computed: {
+      ...mapState(['userData'])
+      },
+
+      methods: {
+          enrollInfo() {
+            let formData = new FormData();
+            formData.append('memberSq',this.userData.memberSq);
+            formData.append('infoTitle',this.infoTitle);
+            formData.append('infoCategory',this.category);
+            formData.append('infoDate',this.infoDate);
+            formData.append('infoTime',this.infoTime);
+            formData.append('infoContent',this.infoContent.replace(/(<([^>]+)>)/ig,""));
+            formData.append('file',this.files);
+
+            for(let key of formData.entries()) {
+            console.log(`${key}`);
+            }
+
+            console.log(this.category);
+
+          axios.post("http://localhost:8082/itjobgo/info/infoForm",
+            formData,
+            { headers:{
+              'Content-Type':'multipart/form-data'
+            }}).then((data)=>console.log(data))
+            .catch((error)=>
+            console.log(error))
+            console.log(formData);
+            this.$router.push({name:'InfoList'})
+          },
+
+          handleFile(){
+            console.log(this.$refs.upfiles.$refs.input.files[0]);
+            this.files=this.$refs.upfiles.$refs.input.files[0];
+            console.log(this.files);
+          },
+
+        onReset(evt) {
+           evt.preventDefault()
+            this.form.infoTitle=''
+            this.form.infoCategory=null
+            this.form.infoDate=''
+            this.form.infoTime=''
+            this.form.infoContent=''
+            this.files.name=''
+          }
+        }
+      }
+  </script>
+
+  <style>
+  .st_title{
+    margin-top:5%;
+    margin-bottom: 3%;
+  }
+  .btn_sr{
+    margin-top: 0%;
+    position:absolute;
+    left:44%;
+  }
+  .btn-space{
+    margin-right: 15px;
+  }
+  #submit{
+    width:5px;
+    margin-bottom: 5px;
+    margin-right: 0%;
+    background-color: #424874;
+    border:1px;
+    color:white; 
+  }
+  #cancel{
+    width:5px;
+    margin-bottom: 5px;
+    right: -10px;
+    margin-right: 0%;
+    background-color: #9BA4B4;
+    border:5px;
+    color:white; 
+  }
+  </style>

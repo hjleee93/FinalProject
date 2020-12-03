@@ -243,17 +243,17 @@ export default new Router({
     //민지
     {
       path: '/infoList',
-      name: 'infoList',
+      name: 'InfoList',
       component: InfoList
     },
     {
       path: '/infoDetail/:id',
-      name: 'infoDetail',
+      name: 'InfoDetail',
       component: InfoDetail
     },
     {
       path: '/infoForm',
-      name: 'infoForm',
+      name: 'InfoForm',
       component: InfoForm
     },
     {
@@ -263,7 +263,7 @@ export default new Router({
     },
     {
       path: '/infoModify/:id',
-      name: 'infoModify',
+      name: 'InfoModify',
       component: InfoModify
     },
     //주은
