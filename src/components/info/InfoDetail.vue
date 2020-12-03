@@ -1,5 +1,4 @@
 <template>
-
  <b-container fluid>
       <b-row >
         <div class="submenuimage ">
@@ -144,5 +143,4 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   display: flex;
   justify-content: space-around;
 }
-
 </style>
