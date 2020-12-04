@@ -75,7 +75,6 @@
       <b-button type="reset" id="reset-btn2">취소</b-button>
       
     </form>
-
   </b-container>
 </template>
 
@@ -137,13 +136,11 @@ const { mapState } = createNamespacedHelpers("memberStore");
         this.$router.push({name:'CommunityBoardList'});
       },
       
-
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.files[0]);
         this.files=this.$refs.upfiles.$refs.input.files[0];
         console.log(this.files);
       },
-
 
       onReset(evt) {
         evt.preventDefault()

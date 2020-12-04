@@ -86,8 +86,7 @@
             
       
                   <template v-if="comment.memberSq==userData.memberSq">
-                   
-                
+                  
                       
                       <b-button v-if="userData.memberSq===comment.memberSq && commentcheck==true" 
                                                                                                 @click="upclick()"  id="update-btn">수정</b-button> 
