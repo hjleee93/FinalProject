@@ -14,8 +14,13 @@
         <!-- 버튼 -->
         <div>
           <h4 class="sub-header">취업설명회 일정</h4>
-          <v-btn to="/infoForm" exact  id="st_write1">글쓰기</v-btn>
-        </div>
+       </div>
+
+            
+       <!--   <v-btn to="/infoForm" exact  id="st_write1">글쓰기</v-btn> -->
+      <v-btn   to="/infoForm" exact  id="st_write1"  v-if="userData.memberEmail === 'admin@kh.com'"   >
+               글쓰기
+           </v-btn>
         <div class="overflow-hidden">
          <!-- 테이블 -->
         <v-card>

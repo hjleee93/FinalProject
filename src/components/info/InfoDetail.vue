@@ -1,6 +1,6 @@
 <template>
  <b-container fluid>
-   
+
       <b-row >
         <div class="submenuimage ">
           <p class="subtitle" id="subtitle">Information</p>
@@ -36,11 +36,21 @@
           <b-col cols="2"><b-button @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
         </b-row>       
           </b-form>
-            <b-row v-if="userData.memberSq===infoDetail.memberNum"><b-col>
-          <b-button @click="update">수정</b-button>
-          <b-button @click="pdelete">삭제</b-button>
-      </b-col></b-row></b-card></b-col>
-      </b-row>
+
+            <b-row>
+            <b-col>
+          <b-button  v-if="userData.memberEmail === 'admin@kh.com'"  
+            @click="update">수정</b-button>
+          
+          <b-button  v-if="userData.memberEmail === 'admin@kh.com'"  
+            @click="pdelete">삭제</b-button>
+              </b-col>
+          </b-row>
+        
+        </b-card>
+      </b-col>
+    </b-row>
+     
 
  <ModalView v-if="showModal" @close="showModal = false">
     <template>
