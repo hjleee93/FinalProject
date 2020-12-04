@@ -61,18 +61,7 @@
                                 </tr>
                                 <tr>
                                     <th class="person_title"><strong>이메일</strong></th>
-                                    <td><input class="email" type="text">
-                                    @
-                                        <b-form-select class="emailselect">
-                                            <b-form-select-option value="naver.com">naver.com</b-form-select-option>
-                                            <b-form-select-option value="gmail.com">gmail.com</b-form-select-option>
-                                            <b-form-select-option value="daum.net">daum.net</b-form-select-option>
-                                            <b-form-select-option value="hanmail.net">hanmail.net</b-form-select-option>
-                                            <b-form-select-option value="korea.kr">korea.kr</b-form-select-option>
-                                            <b-form-select-option value="nate.com">nate.com</b-form-select-option>
-                                            <b-form-select-option value="yahoo.com">yahoo.com</b-form-select-option>
-                                        </b-form-select>
-                                    </td>
+                                    <td colspan="2"><input class="email" type="text"></td>
                                 </tr>
                                 <div class="hr"></div>
                                 </table>

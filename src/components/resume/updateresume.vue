@@ -64,19 +64,7 @@
                     <tr>
                         <td class="resumetitle2"><input type="file" value="사진파일 등록"></td>
                         <td><strong>이메일</strong></td>
-                        <td><input type="text"></td>
-                        <td>@</td>
-                        <td>
-                            <b-form-select>
-                                <b-form-select-option value="naver.com">naver.com</b-form-select-option>
-                                <b-form-select-option value="gmail.com">gmail.com</b-form-select-option>
-                                <b-form-select-option value="daum.net">daum.net</b-form-select-option>
-                                <b-form-select-option value="hanmail.net">hanmail.net</b-form-select-option>
-                                <b-form-select-option value="korea.kr">korea.kr</b-form-select-option>
-                                <b-form-select-option value="nate.com">nate.com</b-form-select-option>
-                                <b-form-select-option value="yahoo.com">yahoo.com</b-form-select-option>
-                            </b-form-select>
-                        </td>
+                        <td colspan="3"><input type="text"></td>
                     </tr>
                 </table>
                 <table>
