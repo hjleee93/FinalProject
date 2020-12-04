@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="mb-5">
     <div class="header-body text-center mb-7 my-4">
       <b-row class="justify-content-center">
         <b-col xl="5" lg="6" md="8" class="px-5">
@@ -59,7 +59,7 @@
         </li>
         <li class="topList openState">
           <p class="title">참여한 프로젝트수</p>
-          <p class="count"><a href="#projDiv" class="scroll">0</a>개</p>
+          <p class="count"><a href="#projDiv" class="scroll">1</a>개</p>
         </li>
 
         <li class="topList last onlineCount">
@@ -70,7 +70,10 @@
         </li>
         <li class="first resumeCompany">
           <p class="title">등록된 포트폴리오</p>
-          <p class="count"><a href="#portfDiv" class="scroll">0</a>건</p>
+          <p class="count">
+            <a href="#portfDiv" class="scroll">{{ portfCount }}</a
+            >건
+          </p>
         </li>
         <li class="apply">
           <p class="title">스크랩한 구인광고</p>
@@ -149,19 +152,17 @@
             :key="i"
             @click="moveQna(qnaboard[i].qnaSeq)"
           >
-            <template v-if="qnaboard[i].qnaWriter == userData.memberName">
-              <td>
-                {{ qnaboard[i].qnaCategory }}
-              </td>
-              <td>
-                {{ qnaboard[i].qnaTitle }}
-              </td>
-              <template v-if="qnaboard[i].qnaAnswerYn == 'N'">
-                <td>등록된 답변이 없습니다.</td>
-              </template>
-              <template v-else> <td>답변 완료</td></template>
-              <td>{{ formatDate(qnaboard[i].qnaDate) }}</td>
+            <td>
+              {{ qnaboard[i].qnaCategory }}
+            </td>
+            <td>
+              {{ qnaboard[i].qnaTitle }}
+            </td>
+            <template v-if="qnaboard[i].qnaAnswerYn == 'N'">
+              <td>등록된 답변이 없습니다.</td>
             </template>
+            <template v-else> <td>답변 완료</td></template>
+            <td>{{ formatDate(qnaboard[i].qnaDate) }}</td>
           </tr>
         </tbody>
       </v-simple-table>
@@ -191,23 +192,21 @@
         </thead>
         <tbody>
           <tr class="qna-table" v-for="(qna, i) in qnaboard" :key="i">
-            <template v-if="qnaboard[i].qnaWriter == userData.memberName">
-              <td>
-                {{ qnaboard[i].qnaCategory }}
-              </td>
-              <td>
-                <router-link
-                  :to="{
-                    name: 'qnaView',
-                    params: { id: qnaboard[i].qnaSeq },
-                  }"
-                  class="qna-router"
-                  >{{ qnaboard[i].qnaTitle }}</router-link
-                >
-              </td>
-              <td>{{ qnaboard[i].qnaAnswerYn }}</td>
-              <td>{{ formatDate(qnaboard[i].qnaDate) }}</td>
-            </template>
+            <td>
+              {{ qnaboard[i].qnaCategory }}
+            </td>
+            <td>
+              <router-link
+                :to="{
+                  name: 'qnaView',
+                  params: { id: qnaboard[i].qnaSeq },
+                }"
+                class="qna-router"
+                >{{ qnaboard[i].qnaTitle }}</router-link
+              >
+            </td>
+            <td>{{ qnaboard[i].qnaAnswerYn }}</td>
+            <td>{{ formatDate(qnaboard[i].qnaDate) }}</td>
           </tr>
         </tbody>
       </v-simple-table>
@@ -220,11 +219,8 @@
         포트폴리오
       </p>
       <v-simple-table>
-        <thead class="qna-table">
+        <thead class="pf-table">
           <tr>
-            <th class="text-left">
-              분류
-            </th>
             <th class="text-left">
               제목
             </th>
@@ -237,24 +233,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="qna-table" v-for="(qna, i) in qnaboard" :key="i">
-            <template v-if="qnaboard[i].qnaWriter == userData.memberName">
-              <td>
-                {{ qnaboard[i].qnaCategory }}
-              </td>
-              <td>
-                <router-link
-                  :to="{
-                    name: 'qnaView',
-                    params: { id: qnaboard[i].qnaSeq },
-                  }"
-                  class="qna-router"
-                  >{{ qnaboard[i].qnaTitle }}</router-link
-                >
-              </td>
-              <td>{{ qnaboard[i].qnaAnswerYn }}</td>
-              <td>{{ formatDate(qnaboard[i].qnaDate) }}</td>
+          <tr
+            class="pf-table"
+            id="pfBody"
+            v-for="(pf, index) in pboard"
+            :key="index"
+            @click="movePortf(pboard[index].pboardNo)"
+          >
+            <td>{{ pboard[index].pboardTitle }}</td>
+            <template v-if="pboard[index].pboardStatus == 'N'">
+              <td>등록된 답변이 없습니다.</td>
             </template>
+            <template v-else> <td>답변 완료</td></template>
+
+            <td>{{ formatDate(pboard[index].pboardDate) }}</td>
           </tr>
         </tbody>
       </v-simple-table>
@@ -265,7 +257,6 @@
 <script>
 import axios from "axios";
 import { createNamespacedHelpers } from "vuex";
-// import { mapState } from "vuex";
 import $ from "jquery";
 
 const { mapState: memberState } = createNamespacedHelpers("memberStore");
@@ -274,7 +265,7 @@ $(document).ready(function($) {
   $(".scroll").click(function(event) {
     event.preventDefault();
 
-    $("html,body").animate({ scrollTop: $(this.hash).offset().top - 200 }, 500);
+    $("html,body").animate({ scrollTop: $(this.hash).offset().top - 200 }, 600);
   });
 });
 
@@ -287,24 +278,24 @@ export default {
   created() {
     // let memberEmail = localStorage.getItem("memberEmail");
 
-    setTimeout(() => {
-      if (this.userData.memberSq != undefined) {
-        axios
-          .get(
-            "http://localhost:8082/itjobgo/member/loadPhoto?memberSq=" +
-              this.userData.memberSq,
-            { responseType: "arraybuffer" }
-          )
-          .then((res) => {
-            console.log("사진불러오기");
-            const url = window.URL.createObjectURL(new Blob([res.data]));
-            console.log(url);
-            this.previewImage = url;
-          });
-      }
-    }, 200);
+    //TODO: async 처리
+    if (this.userData.memberSq != undefined) {
+      axios
+        .get(
+          "http://localhost:8082/itjobgo/member/loadPhoto?memberSq=" +
+            this.userData.memberSq,
+          { responseType: "arraybuffer" }
+        )
+        .then((res) => {
+          console.log("사진불러오기");
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          console.log("??" + url);
+          this.previewImage = url;
+        });
+    }
   },
   mounted() {
+    this.$store.dispatch("FETCH_PBOARD");
     this.$store.dispatch("FETCH_QNABOARD");
   },
   // created(){
@@ -324,11 +315,35 @@ export default {
   computed: {
     ...memberState(["loginStatus", "userData"]),
 
+    pboard() {
+      var objTemp = new Object(); //반환할 객체
+
+      for (let i = 0; i < this.$store.state.pboard.length; i++) {
+        if (this.$store.state.pboard[i].pboardId == this.userData.memberSq) {
+          objTemp[i] = this.$store.state.pboard[i];
+        }
+      }
+      var temp = [];
+      for (let i = 0; i < 3; i++) {
+        temp[i] = Object.values(objTemp)[i];
+      }
+
+      return temp;
+    },
     qnaboard() {
-      return this.$store.state.qnaboard
-        .slice()
-        .reverse()
-        .slice(0, 3);
+      var obj = new Object(); //반환할 객체
+
+      for (let i = 0; i < this.$store.state.qnaboard.length; i++) {
+        if (this.$store.state.qnaboard[i].memberNum == this.userData.memberSq) {
+          obj[i] = this.$store.state.qnaboard[i];
+        }
+      }
+      //3개만 출력
+      var arr = [];
+      for (let i = 0; i < 3; i++) {
+        arr[i] = obj[i];
+      }
+      return arr;
     },
     //질문 카운트용
     qnaCount() {
@@ -340,10 +355,23 @@ export default {
       }
       return count;
     },
+    //포트폴리오 카운트
+    portfCount() {
+      let count = 0;
+      for (let i = 0; i < this.$store.state.pboard.length; i++) {
+        if (this.$store.state.pboard[i].pboardId == this.userData.memberSq) {
+          count++;
+        }
+      }
+      return count;
+    },
   },
   methods: {
     moveQna(id) {
       this.$router.push({ name: "qnaView", params: { id: id } });
+    },
+    movePortf(id) {
+      this.$router.push({ name: "Portinfo", params: { id: id } });
     },
     //날짜표시
     formatDate(value) {

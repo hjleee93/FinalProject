@@ -266,16 +266,19 @@ input[type="file"] {
   display: none;
 }
 
-/* qna관련 */
+/* 마이페이지 연동 링크 */
 .text-left {
   color: white !important;
 }
-.qna-table {
+.qna-table,
+.pf-table {
   border: 1px solid #74899e;
 }
-thead.qna-table {
+thead.qna-table,
+thead.pf-table {
   background-color: #74899e;
 }
-#qnaBody:hover {
+#qnaBody:hover,
+#pfBody:hover {
   cursor: pointer;
 }
