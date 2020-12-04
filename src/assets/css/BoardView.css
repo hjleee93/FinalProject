@@ -1,6 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 
+#commentUptxt{
+  width:730px;
+  height:100px
 
+}
+#update-btn{
+  background-color: #424874;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:30px;
+   border:none
+}
+#updateEnd-btn{
+    background-color: #394867;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:30px;
+  border:none
+}
+
+#deltet-btn{
+  background-color:#9BA4B4;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:30px;
+   border:none
+
+}
 
 #comment_insert_btn{
   background-color: #424874;
