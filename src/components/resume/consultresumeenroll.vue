@@ -99,8 +99,10 @@ export default {
       axios.post("http://localhost:8082/itjobgo/resume/rboardEnroll.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
-        }}).then(()=>{
-          this.$route.push({name:'consultresume'})
+        }}).then((res)=>{
+          console.log(res.data);
+          setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
+          //this.$route.push({name:'consultresume'})
           })
         .catch((error)=>
         console.log(error))
