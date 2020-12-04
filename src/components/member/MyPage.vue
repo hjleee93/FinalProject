@@ -59,29 +59,21 @@
         </li>
         <li class="topList openState">
           <p class="title">참여한 프로젝트수</p>
-          <p class="count">
-            <a href="http://www.alba.co.kr/person/resume/MagResume.asp">0</a>개
-          </p>
+          <p class="count"><a href="#projDiv" class="scroll">0</a>개</p>
         </li>
 
         <li class="topList last onlineCount">
           <p class="title">내가 한 질문</p>
           <p class="count">
-            <a href="http://www.alba.co.kr/person/online/ApplicationList.asp"
-              >0</a
-            >건
+            <a href="#qnaDiv" class="scroll"> {{ qnaCount }} </a>건
           </p>
         </li>
         <li class="first resumeCompany">
           <p class="title">등록된 포트폴리오</p>
-          <p class="count">
-            <a href="http://www.alba.co.kr/person/resumeread/CompanyList.asp"
-              >0</a
-            >건
-          </p>
+          <p class="count"><a href="#portfDiv" class="scroll">0</a>건</p>
         </li>
         <li class="apply">
-          <p class="title">질문</p>
+          <p class="title">스크랩한 구인광고</p>
           <p class="count">
             <a
               href="http://www.alba.co.kr/person/resumeread/CompanyList.asp?resumepage=3"
@@ -124,20 +116,148 @@
       <div></div>
     </div>
 
-    <div class="mt-5 resume-section">
-      <b-tabs content-class="mt-3">
-        <b-tab title="온라인 지원 현황" active><p>I'm the first tab</p></b-tab>
-        <b-tab title="Second"><p>I'm the second tab</p></b-tab>
-        <b-tab title="Disabled"><p>I'm a disabled tab!</p></b-tab>
-      </b-tabs>
+    <!-- 스크랩 구인정보 -->
+
+    <!-- 질문 -->
+    <div id="qnaDiv"></div>
+    <div>
+      <p class="h3 my-5 font-weight-bold text-center">
+        등록한 질문
+      </p>
+      <v-simple-table>
+        <thead class="qna-table">
+          <tr>
+            <th class="text-left">
+              분류
+            </th>
+            <th class="text-left">
+              제목
+            </th>
+            <th class="text-left">
+              답변여부
+            </th>
+            <th class="text-left">
+              작성일
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            id="qnaBody"
+            class="qna-table"
+            v-for="(qna, i) in qnaboard"
+            :key="i"
+            @click="moveQna(qnaboard[i].qnaSeq)"
+          >
+            <template v-if="qnaboard[i].qnaWriter == userData.memberName">
+              <td>
+                {{ qnaboard[i].qnaCategory }}
+              </td>
+              <td>
+                {{ qnaboard[i].qnaTitle }}
+              </td>
+              <template v-if="qnaboard[i].qnaAnswerYn == 'N'">
+                <td>등록된 답변이 없습니다.</td>
+              </template>
+              <template v-else> <td>답변 완료</td></template>
+              <td>{{ formatDate(qnaboard[i].qnaDate) }}</td>
+            </template>
+          </tr>
+        </tbody>
+      </v-simple-table>
     </div>
-    <!-- 프로젝트 -->
-    <div class="mt-5 resume-section">
-      <b-tabs content-class="mt-3">
-        <b-tab title="최신 열람한 기업" active><p>I'm the first tab</p></b-tab>
-        <b-tab title="Second"><p>I'm the second tab</p></b-tab>
-        <b-tab title="Disabled"><p>I'm a disabled tab!</p></b-tab>
-      </b-tabs>
+    <!-- TODO: 프로젝트 -->
+    <div id="projDiv"></div>
+    <div>
+      <p class="h3 my-5 font-weight-bold text-center">
+        참여하고 계신 프로젝트
+      </p>
+      <v-simple-table>
+        <thead class="qna-table">
+          <tr>
+            <th class="text-left">
+              분류
+            </th>
+            <th class="text-left">
+              제목
+            </th>
+            <th class="text-left">
+              답변여부
+            </th>
+            <th class="text-left">
+              작성일
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="qna-table" v-for="(qna, i) in qnaboard" :key="i">
+            <template v-if="qnaboard[i].qnaWriter == userData.memberName">
+              <td>
+                {{ qnaboard[i].qnaCategory }}
+              </td>
+              <td>
+                <router-link
+                  :to="{
+                    name: 'qnaView',
+                    params: { id: qnaboard[i].qnaSeq },
+                  }"
+                  class="qna-router"
+                  >{{ qnaboard[i].qnaTitle }}</router-link
+                >
+              </td>
+              <td>{{ qnaboard[i].qnaAnswerYn }}</td>
+              <td>{{ formatDate(qnaboard[i].qnaDate) }}</td>
+            </template>
+          </tr>
+        </tbody>
+      </v-simple-table>
+    </div>
+
+    <!-- TODO: 포트폴리오 -->
+    <div id="portfDiv"></div>
+    <div>
+      <p class="h3 my-5 font-weight-bold text-center">
+        포트폴리오
+      </p>
+      <v-simple-table>
+        <thead class="qna-table">
+          <tr>
+            <th class="text-left">
+              분류
+            </th>
+            <th class="text-left">
+              제목
+            </th>
+            <th class="text-left">
+              답변여부
+            </th>
+            <th class="text-left">
+              작성일
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="qna-table" v-for="(qna, i) in qnaboard" :key="i">
+            <template v-if="qnaboard[i].qnaWriter == userData.memberName">
+              <td>
+                {{ qnaboard[i].qnaCategory }}
+              </td>
+              <td>
+                <router-link
+                  :to="{
+                    name: 'qnaView',
+                    params: { id: qnaboard[i].qnaSeq },
+                  }"
+                  class="qna-router"
+                  >{{ qnaboard[i].qnaTitle }}</router-link
+                >
+              </td>
+              <td>{{ qnaboard[i].qnaAnswerYn }}</td>
+              <td>{{ formatDate(qnaboard[i].qnaDate) }}</td>
+            </template>
+          </tr>
+        </tbody>
+      </v-simple-table>
     </div>
   </b-container>
 </template>
@@ -145,8 +265,18 @@
 <script>
 import axios from "axios";
 import { createNamespacedHelpers } from "vuex";
+// import { mapState } from "vuex";
 import $ from "jquery";
-const { mapState } = createNamespacedHelpers("memberStore");
+
+const { mapState: memberState } = createNamespacedHelpers("memberStore");
+
+$(document).ready(function($) {
+  $(".scroll").click(function(event) {
+    event.preventDefault();
+
+    $("html,body").animate({ scrollTop: $(this.hash).offset().top - 200 }, 500);
+  });
+});
 
 export default {
   data: () => ({
@@ -174,6 +304,9 @@ export default {
       }
     }, 200);
   },
+  mounted() {
+    this.$store.dispatch("FETCH_QNABOARD");
+  },
   // created(){
   // 	this.$store.dispatch('memberStore/getMemberInfo');
   // 	console.log(this.userData.memberLevel);
@@ -189,9 +322,33 @@ export default {
 
   // },
   computed: {
-    ...mapState(["userData"]),
+    ...memberState(["loginStatus", "userData"]),
+
+    qnaboard() {
+      return this.$store.state.qnaboard
+        .slice()
+        .reverse()
+        .slice(0, 3);
+    },
+    //질문 카운트용
+    qnaCount() {
+      let count = 0;
+      for (let i = 0; i < this.$store.state.qnaboard.length; i++) {
+        if (this.$store.state.qnaboard[i].memberNum == this.userData.memberSq) {
+          count++;
+        }
+      }
+      return count;
+    },
   },
   methods: {
+    moveQna(id) {
+      this.$router.push({ name: "qnaView", params: { id: id } });
+    },
+    //날짜표시
+    formatDate(value) {
+      return this.$moment(value).format("YYYY-MM-DD");
+    },
     uploadPhoto: function() {
       let formData = new FormData();
       formData.append("memberSq", this.userData.memberSq);

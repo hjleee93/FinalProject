@@ -12,7 +12,20 @@
         <tr>
           <td style="width:60%">
             <div class="job-title m-5">
-              {{ items.wantedDtl.wantedInfo.wantedTitle._text }}<br />
+              {{ items.wantedDtl.wantedInfo.wantedTitle._text }}
+              <b-icon
+                class="ml-3 scarp-star"
+                id="whiteStar"
+                icon="star"
+                @click="scrap"
+              ></b-icon>
+              <b-icon
+                class="ml-3 unscrap-star"
+                id="fillStar"
+                icon="star-fill"
+                @click="unscrap"
+              ></b-icon>
+              <br />
               <p>
                 <small>{{ items.wantedDtl.corpInfo.corpNm._text }}</small>
               </p>
@@ -284,6 +297,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
+import $ from "jquery";
 
 export default {
   data: () => ({
@@ -295,12 +309,14 @@ export default {
         .getElementById("download")
         .setAttribute("href", this.apply.attachFileInfo);
     },
+    // 워크넷페이지 이동
     moveWorknet: function() {
       let worknetUrl =
         "http://www.work.go.kr/empInfo/empInfoSrch/detail/empDetailAuthView.do?callPage=detail&wantedAuthNo=" +
         this.$route.params.wantedNo;
       document.getElementById("worknetLink").setAttribute("href", worknetUrl);
     },
+    //해당 홈페이지로 이동
     movePage: function() {
       if (
         this.items.wantedDtl.corpInfo.homePg._text.includes("http") == false
@@ -311,6 +327,15 @@ export default {
       }
       document.getElementById("homePage").setAttribute("href", url);
     },
+
+    scrap: function() {
+      $("#whiteStar").hide();
+      $("#fillStar").show();
+    },
+    unscrap: function() {
+      $("#whiteStar").show();
+      $("#fillStar").hide();
+    },
   },
   mounted() {
     this.$store.dispatch("jobStore/loadJobDetail", {
@@ -319,14 +344,6 @@ export default {
     });
   },
   computed: {
-    // test: function() {
-    //   var arr = this.items.wantedDtl.wantedInfo.jobCont._text.split("\\n");
-    //   for (let i = 0; i < arr.length; i++) {
-    //     console.log(arr);
-    //   }
-
-    //   return arr;
-    // },
     ...mapState([
       //매핑값
       "apply",
@@ -409,6 +426,19 @@ export default {
 .job-col {
   padding-bottom: 5px;
   border-bottom: 2px solid;
+}
+/* 상단박스 */
+
+#fillStar {
+  display: none;
+  color: #b8e072;
+}
+.scarp-star {
+  color: #b8e072;
+}
+.scarp-star:hover,
+#fillStar:hover {
+  cursor: pointer;
 }
 .info-box {
   border: 1px solid #ededed;
