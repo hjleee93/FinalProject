@@ -126,8 +126,8 @@
                         <td><input type="date"></td>
                     </tr>
                     <tr>
-                        <td colspan="2">주요직무 및 업무</td>
-                        <td colspan="3">
+                        <td colspan="1">주요직무 및 업무</td>
+                        <td colspan="2">
                         <b-form-textarea id="textarea" rows="3" max-rows="6"></b-form-textarea>
                         </td>
                     </tr>

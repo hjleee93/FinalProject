@@ -22,64 +22,98 @@
     <b-container class="bv-example-row">
     <b-row>
         <b-col>
-            <form>
+            <form @submit.prevent="insertResume"  enctype="multipart/form-data">
+                <div><input type="text" id="memberNo" readonly v-model="userData.memberSq"></div>
                 <table id="resumetable">
                 <div class="resumetitle"><p>개인정보</p></div>
                     <tr>
-                        <td rowspan="6" class="resumetitle2">이미지파일</td>
+                        <td rowspan="7" class="resumetitle2">이미지파일</td>
                     </tr>
                     <tr>
                         <td><strong>이름</strong></td>
-                        <td><input type="text" placeholder="이름"></td> 
+                        <td><input type="text" placeholder="이름" id="name" readonly v-model="userData.memberName"></td> 
                         <td><strong>영문</strong></td>
-                        <td><input type="text" placeholder="영문 이름"></td> 
+                        <td><input type="text" placeholder="영문 이름" id="engName" v-model="engName"></td> 
                     </tr>
                     <tr>
                         <td><strong>생년월일</strong></td>
-                        <td><input type="date"></td> 
+                        <td><input type="date" id="birth" v-model="birth"></td> 
                         <td><strong>성별</strong></td> 
                         <td>
                             <b-form-group class="gender" inline="true">
-                                <b-form-radio name="gender" value="M">남</b-form-radio>
-                                <b-form-radio name="gender" value="F">여</b-form-radio>
+                                <b-form-radio name="gender" value="M" v-model="gender">남</b-form-radio>
+                                <b-form-radio name="gender" value="F" v-model="gender">여</b-form-radio>
                             </b-form-group>    
                         </td> 
                     </tr>
                     <tr>
-                        <td rowspan="2"><strong>주소</strong></td>
-                        <td><input type="button" value="우편번호"></td>
-                        <td colspan="2"><input type="text" placeholder="도로명 주소"></td> 
+                        <td rowspan="3"><strong>주소</strong></td>
+                        <td colspan="2">
+                        <!--<b-button type="button" @click="address">주소검색</b-button>
+                             <modal-view v-if="showModal" @close="showModal = false" @raddress="printaddress">
+                                <h3 slot="header">주소검색하기 <i class="fas fa-times" @click="showModal=false" ></i></h3>
+                            </modal-view> -->
+                            <b-button class="findPostcode" @click="daumPostcode()">우편번호 찾기</b-button>
+                        </td>
+                        <!-- 주소검색 -->
+                        <td colspan="2"><b-form-input
+                            class="readonly-input postcode"
+                            type="text"
+                            id="sample6_postcode"
+                            v-model="userData.postCode"
+                            placeholder="우편번호"
+                        ></b-form-input>
+                        </td> 
+                        <!-- <td colspan="2"><input class="address" type="text" placeholder="우편번호" v-model="result.address"></td>  -->
                     </tr>
                     <tr>
-                        <td><input type="text" placeholder="상세주소1"></td>
-                        <td colspan="2"><input type="text" placeholder="상세주소2"></td> 
+                        <td colspan="3">
+                        <!-- <td colspan="3"><input class="address" type="text" placeholder="도로명 주소" v-model="addressDetail"></td> -->
+                        <b-form-input                    
+                            class="readonly-input addr"
+                            type="text"
+                            id="sample6_address"
+                            v-model="userData.address"
+                            placeholder="도로명 주소"
+                        ></b-form-input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- <td colspan="3"><input class="address" type="text" placeholder="상세주소" v-model="addressDetail"></td> -->
+                        <td colspan="2">
+                        <b-form-input
+                            class="readonly-input addrDtl"
+                            type="text"
+                            id="sample6_detailAddress"
+                            placeholder="상세주소를 입력해주세요"
+                            v-model="userData.addressDetail"
+                        ></b-form-input>
+                        </td>
+                        <td>
+                        <b-form-input                  
+                            class="readonly-input addrExtra"
+                            type="text"
+                            id="sample6_extraAddress"                    
+                            v-model="userData.addressExtra"
+                            placeholder="시/구/동/가"
+                        ></b-form-input>
+                        </td>
                     </tr>
                     <tr>
                         <td><strong>일반전화</strong></td>
-                        <td><input type="tel"></td> 
+                        <td><input type="tel" id="telephone" v-model="telephone"></td> 
                         <td><strong>휴대전화</strong></td> 
-                        <td><input type="tel"></td> 
+                        <td><input type="tel" readonly v-model="userData.memberPhone" id="phone"></td> 
                     </tr>
                     <tr>
-                        <td class="resumetitle2"><input type="file" value="사진파일 등록"></td>
+                        <td class="resumetitle2"><b-form-file v-on:change="handleFile" id="files" ref="upfiles"></b-form-file></td>
+
                         <td><strong>이메일</strong></td>
-                        <td><input type="text"></td>
-                        <td>@</td>
-                        <td>
-                            <b-form-select>
-                                <b-form-select-option value="naver.com">naver.com</b-form-select-option>
-                                <b-form-select-option value="gmail.com">gmail.com</b-form-select-option>
-                                <b-form-select-option value="daum.net">daum.net</b-form-select-option>
-                                <b-form-select-option value="hanmail.net">hanmail.net</b-form-select-option>
-                                <b-form-select-option value="korea.kr">korea.kr</b-form-select-option>
-                                <b-form-select-option value="nate.com">nate.com</b-form-select-option>
-                                <b-form-select-option value="yahoo.com">yahoo.com</b-form-select-option>
-                            </b-form-select>
-                        </td>
+                        <td colspan="3"><input type="email" id="email" readonly  v-model="userData.memberEmail"></td>
                     </tr>
                 </table>
                 <table>
-                    <div class="resumetitle" id="education"><p>학력사항</p></div>
+                    <div class="resumetitle"><p>학력사항</p></div>
                     <tr>
                         <td class="school"><strong>학력구분</strong></td>
                         <td><strong>학교명</strong></td>
@@ -89,8 +123,8 @@
                     </tr>
                     <tr>
                         <td>
-                            <b-form-select class="school">
-                                <b-form-select-option value="middlescool">중학교</b-form-select-option>
+                            <b-form-select class="school" v-model="school1">
+                                <b-form-select-option value="middleshcool">중학교</b-form-select-option>
                                 <b-form-select-option value="highscool">고등학교</b-form-select-option>
                                 <b-form-select-option value="college">대학교(2/3년)</b-form-select-option>
                                 <b-form-select-option value="university">대학교(4년)</b-form-select-option>
@@ -98,15 +132,15 @@
                                 <b-form-select-option value="doctor">대학원(박사)</b-form-select-option>
                             </b-form-select>
                         </td>
-                        <td><input type="text" placeholder="학교명"></td>
-                        <td><input type="date"></td>
-                        <td><input type="date"></td>
-                        <td><input type="text" placeholder="전공선택"></td>
+                        <td><input type="text" placeholder="학교명" id="schoolName1" v-model="schoolName1"></td>
+                        <td><input type="date" id="schoolStartDate1" v-model="schoolStartDate1"></td>
+                        <td><input type="date" id="schoolFinishDate1" v-model="schoolFinishDate1"></td>
+                        <td><input type="text" placeholder="전공" v-model="major1"></td>
                         <td>
-                            <b-form-select class="school">
+                            <b-form-select class="school" v-model="education1">
                                 <b-form-select-option value="graduation">졸업</b-form-select-option>
                                 <b-form-select-option value="prograduation">졸업예정</b-form-select-option>
-                                <b-form-select-option value="student">재학</b-form-select-option>
+                                <b-form-select-option value="studying">재학</b-form-select-option>
                                 <b-form-select-option value="stopout">휴학</b-form-select-option>
                                 <b-form-select-option value="leaveschool">중퇴</b-form-select-option>
                                 <b-form-select-option value="qualificationExam">검정고시</b-form-select-option>
@@ -115,8 +149,8 @@
                     </tr>
                     <tr>
                         <td>
-                            <b-form-select class="school">
-                                <b-form-select-option value="middlescool">중학교</b-form-select-option>
+                            <b-form-select class="school" v-model="school2">
+                                <b-form-select-option value="middleschool">중학교</b-form-select-option>
                                 <b-form-select-option value="highscool">고등학교</b-form-select-option>
                                 <b-form-select-option value="college">대학교(2/3년)</b-form-select-option>
                                 <b-form-select-option value="university">대학교(4년)</b-form-select-option>
@@ -124,15 +158,15 @@
                                 <b-form-select-option value="doctor">대학원(박사)</b-form-select-option>
                             </b-form-select>
                         </td>
-                        <td><input type="text" placeholder="학교명"></td>
-                        <td><input type="date"></td>
-                        <td><input type="date"></td>
-                        <td><input type="text" placeholder="전공선택"></td>
+                        <td><input type="text" placeholder="학교명" id="schoolName2" v-model="schoolName2"></td>
+                        <td><input type="date" id="schoolStartDate2" v-model="schoolStartDate2"></td>
+                        <td><input type="date" id="schoolFinishDate2" v-model="schoolFinishDate2"></td>
+                        <td><input type="text" placeholder="전공" v-model="major2"></td>
                         <td>
-                            <b-form-select class="school">
+                            <b-form-select class="school" v-model="education2">
                                 <b-form-select-option value="graduation">졸업</b-form-select-option>
                                 <b-form-select-option value="prograduation">졸업예정</b-form-select-option>
-                                <b-form-select-option value="student">재학</b-form-select-option>
+                                <b-form-select-option value="studying">재학</b-form-select-option>
                                 <b-form-select-option value="stopout">휴학</b-form-select-option>
                                 <b-form-select-option value="leaveschool">중퇴</b-form-select-option>
                                 <b-form-select-option value="qualificationExam">검정고시</b-form-select-option>
@@ -149,12 +183,12 @@
                         <td><strong>상태</strong></td>
                     </tr>
                     <tr>
-                        <td><input type="date">~</td>
-                        <td><input type="date"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
+                        <td><input type="date" id="workStartDate" v-model="workStartDate">~</td>
+                        <td><input type="date" id="workFinishDate" v-model="workFinishDate"></td>
+                        <td><input type="text" id="workName" v-model="workName"></td>
+                        <td><input type="text" id="workState" v-model="workLevel"></td>
                         <td>
-                            <b-form-select class="select">
+                            <b-form-select class="select" v-model="workState">
                                 <b-form-select-option value="resignation">퇴사</b-form-select-option>
                                 <b-form-select-option value="work">재직</b-form-select-option>
                             </b-form-select>
@@ -163,7 +197,7 @@
                     <tr>
                         <td colspan="2">주요직무 및 업무</td>
                         <td colspan="3">
-                        <b-form-textarea id="textarea" rows="3" max-rows="6"></b-form-textarea>
+                        <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="workDetail"></b-form-textarea>
                         </td>
                     </tr>
                 </table>
@@ -175,9 +209,9 @@
                         <td><strong>취득일</strong></td>
                     </tr>
                     <tr>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="date"></td>
+                        <td><input type="text" id="licenseName" v-model="licenseName"></td>
+                        <td><input type="text" id="licenseAgency" v-model="licenseAgency"></td>
+                        <td><input type="date" id="licenseDate" v-model="licenseDate"></td>
                     </tr>
                 </table>
                 <table>
@@ -190,11 +224,11 @@
                         <td><strong>응시일</strong></td>
                     </tr>
                     <tr>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="date"></td>
+                        <td><input type="text" id="languageName" v-model="languageName"></td>
+                        <td><input type="text" id="languageLevel" v-model="languageLevel"></td>
+                        <td><input type="text" id="languageTest" v-model="languageTest"></td>
+                        <td><input type="text" id="languageScore" v-model="languageScore"></td>
+                        <td><input type="date" id="languageDate" v-model="languageDate"></td>
                     </tr>
                 </table>
                 <table>
@@ -207,7 +241,7 @@
                     </tr>
                     <tr>
                         <td>
-                        <b-form-select>
+                        <b-form-select v-model="activity">
                                 <b-form-select-option value="award">수상경력</b-form-select-option>
                                 <b-form-select-option value="volunteer">봉사활동</b-form-select-option>
                                 <b-form-select-option value="social">사회활동</b-form-select-option>
@@ -215,15 +249,15 @@
                                 <b-form-select-option value="club">동아리 및 교내활동</b-form-select-option>
                         </b-form-select>
                         </td>
-                        <td><input type="date"></td>
-                        <td><input type="date"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
+                        <td><input type="date" id="activityStartDate" v-model="activityStartDate"></td>
+                        <td><input type="date" id="activityFinishDate" v-model="activityFinishDate"></td>
+                        <td><input type="text" id="activityAgency" v-model="activityAgency"></td>
+                        <td><input type="text" id="activityDetail" v-model="activityWork"></td>
                     </tr>
                     <tr>
                         <td><strong>주요 활동 및 성과</strong></td>
                         <td colspan="4">
-                        <b-form-textarea id="textarea" rows="3" max-rows="6"></b-form-textarea>
+                        <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="activityDetail"></b-form-textarea>
                         </td>
                     </tr>
                 </table>
@@ -237,21 +271,21 @@
                     </tr>
                     <tr>
                         <td>
-                            <b-form-select class="select_project" >
+                            <b-form-select class="select_project" v-model="projectPart">
                                 <b-form-select-option value="person">개인</b-form-select-option>
                                 <b-form-select-option value="team">팀</b-form-select-option>
                                 <b-form-select-option value="order">발주</b-form-select-option>
                             </b-form-select>
                         </td>
-                        <td><input type="date"></td>
-                        <td><input type="date"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
+                        <td><input type="date" id="projectStartDate" v-model="projectStartDate"></td>
+                        <td><input type="date" id="projectFinishDate" v-model="projectFinishDate"></td>
+                        <td><input type="text" id="projectName" v-model="projectName"></td>
+                        <td><input type="text" id="projectWork" v-model="projectWork"></td>
                     </tr>
                     <tr>
                         <td><strong>주요 업무 및 성과</strong></td>
                         <td colspan="4">
-                        <b-form-textarea id="textarea" rows="3" max-rows="6"></b-form-textarea>
+                        <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="projectDetail"></b-form-textarea>
                         </td>
                     </tr>
                 </table>
@@ -265,42 +299,374 @@
                     </tr>
                     <tr>
                         <td>
-                        <b-form-select >
+                        <b-form-select v-model="abroad">
                                 <b-form-select-option value="award">해외연수</b-form-select-option>
                                 <b-form-select-option value="volunteer">해외봉사</b-form-select-option>
                                 <b-form-select-option value="social">해외취업</b-form-select-option>
                         </b-form-select>
                         </td>
-                        <td><input type="date"></td>
-                        <td><input type="date"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
+                        <td><input type="date" id="abroadStartDate" v-model="abroadStartDate"></td>
+                        <td><input type="date" id="abroadFinishDate" v-model="abroadFinishDate"></td>
+                        <td><input type="text" id="abroadCountury" v-model="abroadCountury"></td>
+                        <td><input type="text" id="abroadAgency" v-model="abroadAgency"></td>
                     </tr>
                     <tr>
                         <td><strong>주요활동</strong></td>
                         <td colspan="4">
-                        <b-form-textarea id="textarea" rows="3" max-rows="6"></b-form-textarea>
+                        <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="abroadDetail"></b-form-textarea>
                         </td>
                     </tr>
                 </table>
             </form>
-            <b-button type="submit" id="submit" variant="primary">등록</b-button>
+            <b-button type="submit" id="submit" variant="primary" @click="insertResume">등록</b-button>
             <b-button type="reset" id="reset" variant="danger">취소</b-button>
         </b-col>
     </b-row>
+    <!-- 개인정보 -->
+    <div>{{userData.memberSq}}</div>
+    <div>{{userData.memberName}}</div>
+    <div>{{userData.memberEmail}}</div>
+    <div>{{userData.memberPhone}}</div>
+
+    <div>{{postcode}}</div>
+    <div>{{address}}</div>
+    <div>{{addressDetail}}</div>
+
+    <div>{{engName}}</div>
+    <div>{{birth}}</div>
+    <div>{{gender}}</div>
+    <div>{{addressDetail}}</div>
+    <div>{{telephone}}</div>
+
+    <!-- 학력사항 -->
+    <div>{{school1}}</div>
+    <div>{{schoolName1}}</div>
+    <div>{{schoolStartDate1}}</div>
+    <div>{{schoolFinishDate1}}</div>
+    <div>{{major1}}</div>
+    <div>{{education1}}</div>
+    <div>{{school2}}</div>
+    <div>{{schoolName2}}</div>
+    <div>{{schoolStartDate2}}</div>
+    <div>{{schoolFinishDate2}}</div>
+    <div>{{major2}}</div>
+    <div>{{education2}}</div>
+    
+    <!-- 경력사항 -->
+    <div>{{workStartDate}}</div> 
+    <div>{{workFinishDate}}</div> 
+    <div>{{workName}}</div> 
+    <div>{{workLevel}}</div> 
+    <div>{{workState}}</div> 
+    <div>{{workDetail}}</div> 
+
+    <!-- 자격증 -->
+    <div>{{licenseName}}</div> 
+    <div>{{licenseAgency}}</div> 
+    <div>{{licenseDate}}</div> 
+
+    <!-- 외국어능력 -->
+    <div>{{languageName}}</div> 
+    <div>{{languageLevel}}</div> 
+    <div>{{languageTest}}</div> 
+    <div>{{languageScore}}</div> 
+    <div>{{languageDate}}</div>
+    
+    <!-- 주요활동 및 수상 -->
+    <div>{{activity}}</div>
+    <div>{{activityStartDate}}</div>
+    <div>{{activityFinishDate}}</div>
+    <div>{{activityAgency}}</div>
+    <div>{{activityWork}}</div>
+    <div>{{activityDetail}}</div>
+
+    <!-- 참여 프로젝트 -->
+    <div>{{projectPart}}</div>
+    <div>{{projectStartDate}}</div>
+    <div>{{projectFinishDate}}</div>
+    <div>{{projectName}}</div>
+    <div>{{projectWork}}</div>
+    <div>{{projectDetail}}</div>
+
+    <!-- 해외경험 -->
+    <div>{{abroad}}</div>
+    <div>{{abroadStartDate}}</div>
+    <div>{{abroadFinishDate}}</div>
+    <div>{{abroadCountury}}</div>
+    <div>{{abroadAgency}}</div>
+    <div>{{abroadDetail}}</div>
+
     </b-container>
 
 
 </div>
 </template>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <script>
+import axios from 'axios'
+// import ModalView from '../common/ModalView.vue'
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
+import $ from 'jquery'
 export default {
-    data() {
-      return {
-        
-      }
-    }
-  }
+     components:{
+         //ModalView,
+     },
+
+    computed: {
+      ...mapState(['userData'])
+     },
+
+     methods: {
+         daumPostcode: function() {
+      daum.postcode.load(function() {
+        new daum.Postcode({
+          oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ""; // 주소 변수
+            var extraAddr = ""; // 참고항목 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === "R") {
+              // 사용자가 도로명 주소를 선택했을 경우
+              addr = data.roadAddress;
+            } else {
+              // 사용자가 지번 주소를 선택했을 경우(J)
+              addr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if (data.userSelectedType === "R") {
+              // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+              // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+              if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+                extraAddr += data.bname;
+              }
+              // 건물명이 있고, 공동주택일 경우 추가한다.
+              if (data.buildingName !== "" && data.apartment === "Y") {
+                extraAddr +=
+                  extraAddr !== ""
+                    ? ", " + data.buildingName
+                    : data.buildingName;
+              }
+              // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+              if (extraAddr !== "") {
+                extraAddr = " (" + extraAddr + ")";
+              }
+              // 조합된 참고항목을 해당 필드에 넣는다.
+              document.getElementById("sample6_extraAddress").value = extraAddr;
+              $('#sample6_extraAddress').attr('value',extraAddr);
+            } else {
+              document.getElementById("sample6_extraAddress").value = "";
+              $('#sample6_extraAddress').attr('value',"");
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("sample6_postcode").value = data.zonecode;
+            
+            $('#sample6_postcode').attr('value',data.zonecode);//value 추가해서 업데이트할 때 사용
+
+            document.getElementById("sample6_address").value = addr;
+             $('#sample6_address').attr('value',addr);
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("sample6_detailAddress").focus();
+          },
+        }).open();
+      });
+    },
+        //   // 지도가 로드 완료되면 load 이벤트 발생
+        //  onLoad (map) {
+        //      this.map = map
+        //  },
+        //  printaddress(result){
+        //    this.result=result;
+        //  },
+
+         insertResume(){
+            let formData=new FormData();
+           
+           //개인정보
+          formData.append('memberNo',this.userData.memberSq);
+          formData.append('rname',this.userData.memberName);
+          formData.append('remail',this.userData.memberEmail);
+
+          formData.append('engName',this.engName);
+          formData.append('birth',this.birth);
+          formData.append('gender',this.gender);
+
+        //   formData.append('address',this.result.address);
+        //   formData.append('addressDetail',this.addressDetail);
+        // 다음주소
+          formData.append('postcode',$('#sample6_postcode').val());
+          formData.append('address',$('#sample6_address').val());
+          formData.append('addressDetail',this.userData.addressDetail);
+
+          formData.append('telephone',this.telephone);
+          formData.append('rphone',this.userData.memberPhone);
+          formData.append('upfile',this.files);
+
+            //학력사항
+          formData.append('school1',this.school1);
+          formData.append('school2',this.school2);
+          formData.append('schoolName1',this.schoolName1);
+          formData.append('schoolName2',this.schoolName2);
+          formData.append('schoolStartDate1',this.schoolStartDate1);
+          formData.append('schoolStartDate2',this.schoolStartDate2);
+          formData.append('schoolFinishDate1',this.schoolFinishDate1);
+          formData.append('schoolFinishDate2',this.schoolFinishDate2);
+          formData.append('major1',this.major1);
+          formData.append('major2',this.major2);
+          formData.append('education1',this.education1);
+          formData.append('education2',this.education2);
+
+            // 경력사항
+          formData.append('workStartDate',this.workStartDate);
+          formData.append('workFinishDate',this.workFinishDate);
+          formData.append('workName',this.workName);
+          formData.append('workLevel',this.workLevel);
+          formData.append('workState',this.workState);
+          formData.append('workDetail',this.workDetail);
+
+
+            // 자격증
+          formData.append('licenseName',this.licenseName);
+          formData.append('licenseAgency',this.licenseAgency);
+          formData.append('licenseDate',this.licenseDate);
+
+            //외국어능력
+          formData.append('languageName',this.languageName);
+          formData.append('languageLevel',this.languageLevel);
+          formData.append('languageTest',this.languageTest);
+          formData.append('languageScore',this.languageScore);
+          formData.append('languageDate',this.languageDate);
+
+            //주요활동 및 수상
+          formData.append('activity',this.activity);
+          formData.append('activityStartDate',this.activityStartDate);
+          formData.append('activityFinishDate',this.activityFinishDate);
+          formData.append('activityAgency',this.activityAgency);
+          formData.append('activityWork',this.activityWork);
+          formData.append('activityDetail',this.activityDetail);
+
+            //참여 프로젝트
+          formData.append('projectPart',this.projectPart);
+          formData.append('projectStartDate',this.projectStartDate);
+          formData.append('projectFinishDate',this.projectFinishDate);
+          formData.append('projectName',this.projectName);
+          formData.append('projectWork',this.projectWork);
+          formData.append('projectDetail',this.projectDetail);
+
+            //해외경험
+          formData.append('abroad',this.abroad);
+          formData.append('abroadStartDate',this.abroadStartDate);
+          formData.append('abroadFinishDate',this.abroadFinishDate);
+          formData.append('abroadCountury',this.abroadCountury);
+          formData.append('abroadAgency',this.abroadAgency);
+          formData.append('abroadDetail',this.abroadDetail);
+
+
+          for(let key of formData.entries()){
+          console.log(`${key}`);
+            }
+           axios.post("http://localhost:8082/itjobgo/resume/insertResume.do",formData
+            ,{ headers:{
+            'Content-Type':'multipart/form-data'
+            }})
+            .then((res)=>{
+                console.log(res.data);
+                //setTimeout( () => this.$router.push({ path: '/resume/resume'}), 2000);
+                })
+            .catch((error)=>console.log(error));
+                },
+                handleFile(){
+                    console.log(this.$refs.upfiles.$refs.input.files[0]);
+                    this.files=this.$refs.upfiles.$refs.input.files[0];
+                    console.log(this.files);
+                }
+     },
+
+     data: () => ({
+         
+      //개인정보
+      engName:'',
+      birth:'',
+      gender:'',
+      postcode:'',
+      address:'',
+      addressDetail:'',
+      telephone:'',
+      memail:'',
+      mphone:'',
+      files:'',
+
+        //학력사항1
+      school1:'',
+      schoolName1:'',
+      schoolStartDate1:'',
+      schoolFinishDate1:'',
+      major1:'',
+      education1:'',
+       
+      school2:'',
+      schoolName2:'',
+      schoolStartDate2:'',
+      schoolFinishDate2:'',
+      major2:'',
+      education2:'',
+
+        //경력사항
+      workStartDate:'',
+      workFinishDate:'',
+      workName:'',
+      workLevel:'',
+      workState:'',
+      workDetail:'',
+
+        //자격증
+      licenseName:'',
+      licenseAgency:'',
+      licenseDate:'',
+
+        //외국어
+      languageName:'',
+      languageLevel:'',
+      languageTest:'',
+      languageScore:'',
+      languageDate:'',
+
+        //주요활동 및 수상
+      activity:'',
+      activityStartDate:'',
+      activityFinishDate:'',
+      activityAgency:'',
+      activityWork:'',
+      activityDetail:'',
+
+        //참여 프로젝트
+      projectPart:'',
+      projectStartDate:'',
+      projectFinishDate:'',
+      projectName:'',
+      projectWork:'',
+      projectDetail:'',
+
+        //해외경험
+      abroad:'',
+      abroadStartDate:'',
+      abroadFinishDate:'',
+      abroadCountury:'',
+      abroadAgency:'',
+      abroadDetail:'',
+
+    }),
+
+    
+
+} 
+
 </script>
 <style scoped>
 .insert_resume{
@@ -374,5 +740,10 @@ button{
 
 .school{
     width: 150px;
+}
+
+
+.address{
+    width: 300px;
 }
 </style>
