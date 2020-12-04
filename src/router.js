@@ -234,7 +234,7 @@ export default new Router({
            //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
              next();
             }else{
-              alert("게시판에 권한이 없습니다.")
+              alert("권한정보가 부족합니다.")
             }
            
             
