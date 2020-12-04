@@ -77,20 +77,29 @@
             
             <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
             <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
-              <b-row>
-              <b-col >
-                  <b-form-textarea ref="comment"  v-bind:value="comment.cbCommentContent" v-on:change="handleInput"/></b-col>
-              </b-row>
-      
+       
+              <b-col>
+                <b-row>
+                  <b-col>
+                    <b-form-textarea :disabled="commentcheck"  v-model="comment.cbCommentContent"  id="commentUptxt"/>
+                  </b-col>
+            
       
                   <template v-if="comment.memberSq==userData.memberSq">
-                    <b-col cols="1">
-                      <b-button v-if="userData.memberSq===comment.memberSq" 
-                                                                                                @click="upclick(comment.cbCommentNo)">수정</b-button> 
+                   
+                
+                      
+                      <b-button v-if="userData.memberSq===comment.memberSq && commentcheck==true" 
+                                                                                                @click="upclick()"  id="update-btn">수정</b-button> 
                       <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
-                                                                                                @click="declick(comment.cbCommentNo)">삭제</b-button> 
-                  </b-col>
+                                                                                                @click="declick(comment.cbCommentNo)" id="deltet-btn">삭제</b-button> 
+                      <b-button v-if="commentcheck==false" 
+                                                                                                @click="upendclick(comment.cbCommentNo)" id="updateEnd-btn">확인</b-button> 
+                    
                 </template>
+                    </b-row>
+                </b-col>
+
              </b-form>
       
       </b-row></b-card></b-col>
@@ -149,9 +158,17 @@ export default {
             pboardno:0,
             cbcomment:'',
             commentModal:false,
-            updateComment:'',
+           commentcheck:true,
+           changeval:'',
 
         }
+    },
+    watch:{
+      commentlist:{
+        handler(newValue){
+          this.changeval=newValue[0].cbCommentContent;
+        },deep:true,
+      }
     },
     components:{
       ModalView,
@@ -186,7 +203,7 @@ export default {
         let formData2=new FormData();
 
         formData2.append('cboardNo',this.communityboardView.boardSq);
-        formData2.append('cbCommentContent',this.comment.cbCommentContent);
+        formData2.append('cbCommentContent',this.cbcomment);
         formData2.append('memberSq',this.userData.memberSq);
         formData2.append('memberName',this.userData.memberName)
 
@@ -234,32 +251,25 @@ export default {
 
     },
 
-      upclick(commentno){
-        let updatefirm=confirm("댓글을 수정하시겠습니까?")
-        if(updatefirm){
-          // const commentUpdate = comment;
-          const cno=commentno;
-          let formData2=new FormData();
-                formData2.append('cbCommentNo',cno);
-                formData2.append('cboardNo',this.communityboardView.boardSq);
-                formData2.append('cbCommentContent',this.updateComment);
-                formData2.append('memberSq',this.userData.memberSq);
-                formData2.append('memberName',this.userData.memberName)
+      upclick(){
+         this.commentcheck=false;
+      },
 
 
-              axios.post("http://localhost:8082/itjobgo/community/updateComment",formData2)
-              .then((data)=>{
-                console.log(data)
-                this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
-              
-              })
-            
-              .catch((error)=>
-                console.log(error))
-      }
-      }
+      upendclick(commentno){
+       const ccno=commentno
+       
+       axios.post("http://localhost:8082/itjobgo/community/updateComment",{cbCommentContent:this.changeval,cbCommentNo:ccno})
+       .then((data)=>{
+        console.log(data)
+            this.commentcheck=true;
+           this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
+           
+       })
+      },
+      
 
-    },//method
+    }, //method
     created() {
         const communityBoardNo=this.$route.params.id;
         this.$store.dispatch("FETCH_COMMUNITYBOARD_VIEW",communityBoardNo)
