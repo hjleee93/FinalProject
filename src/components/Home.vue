@@ -423,7 +423,10 @@ export default {
     ...mapState(["qnaboard", "communityboard"]),
 
     meeting() {
-      return this.$store.state.meeting.slice().reverse();
+      return this.$store.state.meeting
+        .slice()
+        .reverse()
+        .slice(0, 4);
     },
   },
 };

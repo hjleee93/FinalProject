@@ -5,7 +5,7 @@ li {
   z-index: 5;
   position: relative;
   width: auto;
-  min-width: 1110px;
+  /* min-width: 1110px; */
   height: 356px;
   padding-left: 222px;
   margin: 0 0 60px;
@@ -48,7 +48,7 @@ li {
 #PersonHead .infoList li {
   position: relative;
   float: left;
-  width: 294.5px;
+  width: 33%;
   height: 98px;
   padding: 20px 0 0;
   margin: -1px 0 0 -1px;
@@ -82,7 +82,7 @@ li {
 }
 #PersonHead .infoList li .count a {
   font: bold 20px tahoma;
-  color: #ee6a29;
+  color: #6076d7;
   text-decoration: underline;
 }
 
@@ -158,7 +158,7 @@ li {
   text-decoration: underline;
 }
 #PersonHead .infoList li.userInfomation {
-  width: 531px;
+  width: 99%;
   height: 156px;
   padding: 28px 0 0 30px;
   background: #fcfcfc;
@@ -264,4 +264,18 @@ input[type="file"] {
 }
 .submit-photo {
   display: none;
+}
+
+/* qna관련 */
+.text-left {
+  color: white !important;
+}
+.qna-table {
+  border: 1px solid #74899e;
+}
+thead.qna-table {
+  background-color: #74899e;
+}
+#qnaBody:hover {
+  cursor: pointer;
 }
