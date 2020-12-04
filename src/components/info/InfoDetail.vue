@@ -1,5 +1,6 @@
 <template>
  <b-container fluid>
+   
       <b-row >
         <div class="submenuimage ">
           <p class="subtitle" id="subtitle">Information</p>
