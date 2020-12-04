@@ -1,6 +1,6 @@
 <template>
   <div class="mainc d-flex justify-space-around flex-wrap">
- 
+  
     <v-card
     class="mx-auto mcard"
     max-width="250"
@@ -9,7 +9,7 @@
   >
     <v-img
       class="white--text align-end"
-      height="200px"
+     
       max-width="350px"
       :src="`http://localhost:8082/itjobgo/meeting/imagesrequest${n.collabSq}`"
     >
