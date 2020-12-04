@@ -113,9 +113,11 @@ export default {
        ,{ headers:{
           'Content-Type':'multipart/form-data'
         }})
-          .then((data)=>console.log(data))
+          .then(()=>{
+                this.$router.push({name:'portlist'})
+          })
           .catch((error)=>console.log(error))
-          this.$router.push({name:'portlist'})
+      
       },
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.files[0]);

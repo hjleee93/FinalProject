@@ -12,7 +12,7 @@
         <b-row id="writecontain" align-h="end">
            <b-button to="/portfolioenroller" >글쓰기</b-button>
         </b-row>
-        <div class="overflow-auto">
+        <div class="overflow-hidden">
          <!-- 테이블 -->
         <v-card>
         <v-card-title>
@@ -31,6 +31,8 @@
             :search="search"
             item-key="name"
             @click:row="handleClick"
+              
+
           >
           </v-data-table>
         </v-card>
@@ -133,6 +135,9 @@ font-family: 'Barlow Semi Condensed', sans-serif;
 }
 #writecontain > .btn{
   background-color: #424874;
+}
+.example::-webkit-scrollbar {
+  display: none;
 }
 
 

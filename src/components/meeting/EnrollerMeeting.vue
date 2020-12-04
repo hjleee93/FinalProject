@@ -150,7 +150,7 @@
         <div>{{mcontent}}</div> 
          <div>{{langs}}</div> 
     
-    <b-row><b-col>  <b-button  id="s-btn" @click="enroller">개설완료</b-button></b-col></b-row>
+    <b-row><b-col>  <b-button  id="s-btn" type="submit">개설완료</b-button></b-col></b-row>
   </form>
   </b-container>
   </div>
