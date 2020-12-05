@@ -29,7 +29,7 @@
           id="input-2"
           v-model="category"
           :options="infoCategory"
-          required
+          readonly
         ></b-form-select>
     </b-form-group>
 
