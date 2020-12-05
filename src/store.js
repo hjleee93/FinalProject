@@ -151,12 +151,10 @@ export default new Vuex.Store({
             .catch(({error})=>console.log(error))
         },
         //게시판 댓글 삭제
-        FETCH_COMMENTDEL(data,no){
-            console.log(no)
-            fetchcommentdel(no)
-            .then((data)=>{console.log(data)
-            })
-            .catch(({error})=>console.log(error))
+        async FETCH_COMMENTDEL(data,no){
+          const response= await fetchcommentdel(no)
+          return response;
+           
         },
         
         //모임 
