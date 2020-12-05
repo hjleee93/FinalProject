@@ -1,12 +1,12 @@
 <template>
-   <b-container>
+<b-container>
 
-<div class="container">
+ <div class="container">
   <h2 class="st_title">Information 작성</h2><hr>
-    
     
     <form @submit.prevent="enrollInfo" 
     @reset="onReset"  enctype="multipart/form-data">
+     
       <b-form-group
       id="input-group-2" 
       label="기업명" 
@@ -43,7 +43,6 @@
     <b-form-group  label="시간" >
         <input type="time"  v-model="infoTime">
     </b-form-group>
-    <!--   <p><input type="submit" value="Submit"></p> -->
 
     <!--Vue2Editor 에디터 작성-->
     <b-form-group label="주소/내용" >
@@ -52,20 +51,18 @@
     </b-form-group>
 
     <!-- 첨부파일 -->
-        <b-form-group>
-          <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
-          placeholder="첨부파일을 선택해주세요"></b-form-file> 
-        </b-form-group>
-      
-    <!-- 등록/취소 버튼 -->
-    <!-- <div class="btn_sr">
-      <v-btn id="submit"  @click="enrollInfo">등록</v-btn>
-      <v-btn to="/infoList" exact id="cancel">취소</v-btn>
-      </div> -->
-
-  <b-button id="submit" @click="enrollInfo">등록</b-button>
-  <b-button  to="/infoList" exact id="cancel">취소</b-button>
-
+    <b-form-group>
+      <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
+        placeholder="첨부파일 선택" >
+      </b-form-file> 
+    </b-form-group>
+    
+    <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button>
+ 
+    <div id="btn_bottom">
+      <b-button id="submit" @click="enrollInfo">등록</b-button>
+      <b-button to="/infoList" exact id="cancel">취소</b-button>
+    </div>
 
     </form>
   </div>
@@ -78,78 +75,82 @@
   import { createNamespacedHelpers } from "vuex";
   const { mapState } = createNamespacedHelpers("memberStore");
 
-      export default {
+    export default {
 
-        data() {
-          return {
-              infoTitle: '',
-              category : "",
-              infoCategory :[
-            { value: '설명회', text: '설명회' },
-            { value: '박람회', text: '박람회' },
-            { value: '상담회', text: '상담회' },
-          ],
-              infoDate : '',
-              infoTime : '',
-              infoContent: "",   
-              files :""        
+      data() {
+        return {
+            infoTitle: '',
+            category : "null",
+            infoCategory :[
+          { value: null, text: '분류를 선택하세요' },
+          { value: '설명회', text: '설명회' },
+          { value: '박람회', text: '박람회' },
+          { value: '상담회', text: '상담회' },
+        ],
+            infoDate : '',
+            infoTime : '',
+            infoContent: "",   
+            files :""        
+        }
+      },
+
+    components:{
+      VueEditor
+    },
+
+    computed: {
+    ...mapState(['userData'])
+    },
+
+    methods: {
+        enrollInfo() {
+          let formData = new FormData();
+          formData.append('memberSq',this.userData.memberSq);
+          formData.append('infoTitle',this.infoTitle);
+          formData.append('infoCategory',this.category);
+          formData.append('infoDate',this.infoDate);
+          formData.append('infoTime',this.infoTime);
+          formData.append('infoContent',this.infoContent.replace(/(<([^>]+)>)/ig,""));
+          formData.append('file',this.files);
+
+          for(let key of formData.entries()) {
+          console.log(`${key}`);
           }
+
+          console.log(this.category);
+
+        axios.post("http://localhost:8082/itjobgo/info/infoForm",
+          formData,
+          { headers:{
+            'Content-Type':'multipart/form-data'
+          }}).then((data)=>console.log(data))
+          .catch((error)=>
+          console.log(error))
+          console.log(formData);
+          this.$router.push({name:'InfoList'})
         },
 
-      components:{
-        VueEditor
-      },
-
-      computed: {
-      ...mapState(['userData'])
-      },
-
-      methods: {
-          enrollInfo() {
-            let formData = new FormData();
-            formData.append('memberSq',this.userData.memberSq);
-            formData.append('infoTitle',this.infoTitle);
-            formData.append('infoCategory',this.category);
-            formData.append('infoDate',this.infoDate);
-            formData.append('infoTime',this.infoTime);
-            formData.append('infoContent',this.infoContent.replace(/(<([^>]+)>)/ig,""));
-            formData.append('file',this.files);
-
-            for(let key of formData.entries()) {
-            console.log(`${key}`);
-            }
-
-            console.log(this.category);
-
-          axios.post("http://localhost:8082/itjobgo/info/infoForm",
-            formData,
-            { headers:{
-              'Content-Type':'multipart/form-data'
-            }}).then((data)=>console.log(data))
-            .catch((error)=>
-            console.log(error))
-            console.log(formData);
-            this.$router.push({name:'InfoList'})
-          },
-
-          handleFile(){
-            console.log(this.$refs.upfiles.$refs.input.files[0]);
-            this.files=this.$refs.upfiles.$refs.input.files[0];
-            console.log(this.files);
-          },
+        handleFile(){
+          console.log(this.$refs.upfiles.$refs.input.files[0]);
+          this.files=this.$refs.upfiles.$refs.input.files[0];
+          console.log(this.files);
+        },
 
         onReset(evt) {
-           evt.preventDefault()
+          evt.preventDefault()
             this.form.infoTitle=''
             this.form.infoCategory=null
             this.form.infoDate=''
             this.form.infoTime=''
             this.form.infoContent=''
             this.files.name=''
-          }
-        }
+        },
+        clearFiles() {
+          this.$refs['upfiles'].reset()
+        },
       }
-  </script>
+    }
+</script>
 
   <style>
   .st_title{
