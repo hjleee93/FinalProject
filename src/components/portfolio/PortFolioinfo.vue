@@ -31,38 +31,40 @@
           <b-button @click="pdelete"  v-if="userData.memberSq===pboardone.pboardId||userData.memberEmail === 'admin@kh.com'" >삭제</b-button>
   </b-col></b-row></b-card></b-col>
       </b-row>
-      
-   
-      <b-form @submit.prevent="comment" v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      
-      <b-col><b-form-textarea required ref="comment" v-model="pcomment" /></b-col>
-      <b-col cols="1"><b-button type="submit">전송</b-button></b-col>
-      </b-row></b-card></b-col></b-row></b-form>
-
+    <b-form @submit.prevent="comment" v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2">{{userData.memberName}}</b-col></b-row>
+      <b-row><b-col><b-form-textarea required ref="comment" v-model="pcomment" /></b-col>
+      <b-col cols="1"><b-button type="submit">전송</b-button></b-col></b-row>
+      </b-card></b-col></b-row></b-form>
       <b-container>
-      <b-row v-for="comment in commentlist" :key="comment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-row v-for="comments in commentlist" :comments="comments"  :key="comments.id"><b-col><b-card class="text-center"><b-row><b-col  style="text-align:start" align-self="start" >{{comments.memberName}}</b-col>
+       <b-col align-self="end"  style="text-align:end" >{{new Date(comments.pcommentDate).toLocaleDateString()}}</b-col>
+      </b-row>
       <!-- 인풋 박스를 조건으로 비활성화 할수 있음-->
-      <b-col><b-form-textarea   :disabled="commentcheck" v-model="comment.pcommentContent" /></b-col>
-      <b-col cols="1">{{new Date(comment.pcommentDate).toLocaleDateString()}}</b-col>
-      <template v-if="comment.memberSq==userData.memberSq">
+      <b-row><b-col>
+     
+      <b-form-textarea  :disabled="commentcheck"  :value="comments.pcommentContent" @input="updateInput" />
+      </b-col>
+     
+      <template v-if="comments.memberSq==userData.memberSq">
         <b-col cols="1">
-           <div @click="declick(comment.pcommentNo)">삭제</div> 
+           <div @click="declick(comments.pcommentNo)">삭제</div> 
            <div @click="upclick($event)" >수정</div> <!--v-if="commentcheck==false"-->
-           <div @click="upendclick(comment.pcommentNo,$event)" >확인</div> 
+           <div @click="upendclick(comments.pcommentNo,$event)" >확인</div> 
         </b-col>
         
       </template>
       
       </b-row></b-card></b-col>
       </b-row>
-      <div>{{userData}}</div>
+      <!--<div>{{userData}}</div>-->
      <div>{{commentlist}}</div>
+     {{updatetext}}
     
       </b-container>
-      <!-- <div>{{pboardone}}</div> -->
-      <!-- <div>{{userData}}</div> -->
+   
+
   
-  <!-- <div v-for="item in pboardone" :key="item.id">{{item}}</div> -->
+
     
 
   <ModalView v-if="showModal" @close="showModal = false">
@@ -102,18 +104,14 @@ export default {
             commentcheck:true,
             changeval:'',
             boolcheck:false,
+            values:'',
+            updatetext:'',
+            comments:'',
+            retext:'',
       
         }
     },
-    watch:{
-      
-      commentlist:{
-        handler(newValue){
-          console.log(newValue)
-          this.changeval=newValue[0].pcommentContent;
-        },deep:true,
-      }
-    },
+    
    
     components:{
       ModalView,
@@ -132,10 +130,16 @@ export default {
          
         
       },
+      updateInput(event){
+        this.updatetext=event;
+        
+
+      },
       upclick(e){
-       if(e.target.parentElement.parentElement.children[1].children[0].disabled==true){
-         e.target.parentElement.parentElement.children[1].children[0].disabled = false
-       }else e.target.parentElement.parentElement.children[1].children[0].disabled = true
+        console.log(e)
+       if(e.target.parentElement.parentElement.children[0].children[0].disabled==true){
+         e.target.parentElement.parentElement.children[0].children[0].disabled = false
+       }else e.target.parentElement.parentElement.children[0].children[0].disabled = true
        
         //console.log()//
        // this.commentcheck=false;
@@ -149,12 +153,12 @@ export default {
       },
       upendclick(commentno,e){
        const ccno=commentno
-        e.target.parentElement.parentElement.children[1].children[0].disabled = true
-       axios.post("http://localhost:8082/itjobgo/portfolio/updatecomment.do",{pcommentcontent:this.changeval,pcommentNo:ccno})
+        e.target.parentElement.parentElement.children[0].children[0].disabled = true;
+        if(this.updatetext=='') this.updatetext = e.target.parentElement.parentElement.children[0].children[0].value
+       axios.post("http://localhost:8082/itjobgo/portfolio/updatecomment.do",{pcommentcontent:this.updatetext,pcommentNo:ccno})
        .then(()=>{
-            this.commentcheck=true;
            this.$store.dispatch("FETCH_COMMNET",this.$route.params.id);
-           
+           this.updatetext='';
        })
       },
       declick(commentno){
