@@ -3,7 +3,7 @@
 
       <b-row >
          <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">Q&A</p>
+        <p class="subtitle">Q&A</p>
         </div>
       </b-row>
 
@@ -46,8 +46,8 @@
           >
 
           <template v-slot:item="props">
-                <tr @click="handleClick(props.item.qnaSeq)">
-                  <td class="text-xs-right">{{props.item.qnaSeq }}</td>
+                <tr @click="handleClick(props.item.qboardNo)">
+                  <td class="text-xs-right">{{props.item.qboardNo }}</td>
                   <td class="text-xs-right">{{props.item.qnaWriter }}</td>
                   <td class="text-xs-right">{{props.item.qnaCategory }}</td>
                   <td class="text-xs-right">{{props.item.qnaTitle }}</td>
@@ -104,7 +104,7 @@ Vue.use(vueMoment);
             text: 'NO',
             align: 'start',
             filterable: false,
-            value: 'qnaSeq', //spring vo값 적기 //qnaSeq?
+            value: 'qboardNo', //spring vo값 !
           },
           { text: '작성자', value: 'qnaWriter' },
           { text: '분류', value: 'qnaCategory' },          
@@ -136,11 +136,8 @@ Vue.use(vueMoment);
     text-align: center;
     line-height: 180px;
 }
-#subtitle{
- font-family: 'Barlow Semi Condensed', sans-serif;
-}
 .subtitle{
-  font-family: 'Masque';
+  font-family: 'Barlow Semi Condensed', sans-serif;
   color:#4e5157 ;
   font-size: 50px;
 }
