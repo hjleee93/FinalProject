@@ -7,24 +7,20 @@
         <p class="subtitle" id="subtitle">portfolio</p>
       </div>
   <b-container>
-      
-      <form  @submit.prevent="test"  enctype="multipart/form-data">
-      <b-form-group
-        id="input-group-1"
-        label="제목"
-        label-for="input-1"
-      >
+     <b-form role="form"  @submit.prevent="test">
+    <b-input-group   prepend="제목" class="mb-2" >
+     
         <b-form-input
+        required
           id="input-1"
           name="pboardTitle"
           type="text"
-          required
           placeholder="제목"
           v-model="pboardTitle"
         ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-2" label="작성자" label-for="input-2">
+</b-input-group>
+     
+       <b-input-group  prepend="작성자" class="mb-2">
         <b-form-input
           id="input-2"
           name="pboardWriter"
@@ -33,21 +29,22 @@
           
           v-model="userData.memberName"
         ></b-form-input>
-       
-      </b-form-group>
+       </b-input-group>
+   
        <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
       placeholder="첨부파일"
      
     ></b-form-file> 
     
   <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
-   <vue-editor id="input-3" name="pboardContent" v-model="pboardContent" />
+   <vue-editor id="input-3" required name="pboardContent" v-model="pboardContent" />
    </b-form-group>
       <!-- <b-button type="submit" class="s-btn">확인</b-button> -->
-       <b-button @click="test" class="s-btn">확인</b-button>
+       <b-button type="submit" class="s-btn">확인</b-button>
       <b-button type="reset" class="r-btn">취소</b-button>
-    </form>
-    <div>{{userData}}</div>
+
+    
+    </b-form> 
  </b-container>
  </div>
 </div>
@@ -66,6 +63,7 @@ export default {
         pboardTitle:'',
         pboardContent:'',
         files:'',
+        tt:true
        
       }
     },
@@ -89,9 +87,8 @@ export default {
       axios.post("http://localhost:8082/itjobgo/portfolio/portfolioenroll.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
-        }}).then(()=>{
-          this.$route.push({name:'portlist'})
-          })
+        }}).then(()=>this.$router.push({name:'portlist'})
+          )
         .catch((error)=>
         console.log(error))
 
@@ -103,7 +100,8 @@ export default {
         console.log(this.$refs.upfiles.$refs.input.files[0]);
         this.files=this.$refs.upfiles.$refs.input.files[0];
         console.log(this.files);
-      }
+      },
+      
      
     }
 }

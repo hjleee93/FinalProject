@@ -34,7 +34,8 @@ import {
     fetchQnaBoardDelete,
     fetchQnaBoardUpdate,
     fetchQnaBoardAttachment,
-
+    fetchqnacomment,
+    fetchqnacommentdel,
 
     //민지   
     fetchInfoList,
@@ -42,8 +43,6 @@ import {
     fetchInfoDelete,
     fetchInfoUpdate,
     fetchInfoAttachment,
-
-
 
     //혜지
     fetchRboardList
@@ -88,11 +87,12 @@ export default new Vuex.Store({
         writeDate:[], //날짜변형 데이터
 
         //현주
-        qnaboard:[],
-        qnaBoardView:[],
+        qnaboard1:[],
+        qnaboard2:[],
         qnaBoardDelete:[],
         qbAttachment:[],
-        
+        qbAttachment2:[],
+        qnacomment:[],
 
         //민지
         info:[],
@@ -151,12 +151,10 @@ export default new Vuex.Store({
             .catch(({error})=>console.log(error))
         },
         //게시판 댓글 삭제
-        FETCH_COMMENTDEL(data,no){
-            console.log(no)
-            fetchcommentdel(no)
-            .then((data)=>{console.log(data)
-            })
-            .catch(({error})=>console.log(error))
+        async FETCH_COMMENTDEL(data,no){
+          const response= await fetchcommentdel(no)
+          return response;
+           
         },
         
         //모임 
@@ -258,33 +256,51 @@ export default new Vuex.Store({
                 })
         },
         //qna 게시판 상세화면
-        FETCH_QNABOARD_VIEW({ commit }, qnaboardNo) {
-            fetchQnaBoardView(qnaboardNo)
+        FETCH_QNABOARD_VIEW({ commit }, qboardNo) {
+            fetchQnaBoardView(qboardNo)
                 .then(({ data }) => commit("SET_QNABOARD_VIEW", data))
                 .catch(({ error }) => {
                     console.log(error);
                 })
         },
         //qna 게시판 삭제하기
-        FETCH_QNABOARD_DELETE({ commit }, qnaboardNo) {
-            fetchQnaBoardDelete(qnaboardNo)
+        FETCH_QNABOARD_DELETE({ commit }, qboardNo) {
+            fetchQnaBoardDelete(qboardNo)
                 .then(({ data }) => commit("SET_QNABOARD_DELETE", data))
                 .catch(({ error }) => {
                     console.log(error);
                 })
         },
         //qna 게시판 수정하기(객체 값 불러오기)
-        FETCH_QNABOARD_UPDATE({ commit }, qnaboardNo) {
-            fetchQnaBoardUpdate(qnaboardNo)
+        FETCH_QNABOARD_UPDATE({ commit }, qboardNo) {
+            fetchQnaBoardUpdate(qboardNo)
                 .then(({ data }) => commit("SET_QNABOARD_UPDATE", data))
                 .catch(({ error }) => console.log(error))
         },
         //qna 게시판 첨부파일 다운로드
-        FETCH_QNABOARD_ATTACHMENT({commit},qnaboardNo){
-            fetchQnaBoardAttachment(qnaboardNo) 
+        FETCH_QNABOARD_ATTACHMENT({commit},qboardNo){
+            fetchQnaBoardAttachment(qboardNo) 
                 .then(({data})=>commit("SET_QNABOARD_ATTACHMENT",data))
                 .catch(({ error }) => console.log(error))
         },
+        //qna 게시판 댓글 불러오기
+        FETCH_QNABOARD_COMMENT({commit},qboardNo){
+            fetchqnacomment(qboardNo)
+            .then(({data})=>commit("SET_QNABOARD_COMMENT",data))
+            .catch(({error})=>console.log(error))
+        },
+
+        //qna 게시판 댓글 삭제
+        FETCH_QNABOARD_COMMENTDEL(data,qboardNo){
+            console.log(qboardNo)
+            fetchqnacommentdel(qboardNo)
+            .then((data)=>{console.log(data)
+            })
+            .catch(({error})=>console.log(error))
+        },
+
+
+
 
 
         //민지
@@ -404,12 +420,12 @@ export default new Vuex.Store({
         
 
         //현주 게시판 리스트
-        SET_QNABOARD(state, qnaboard) {
-        state.qnaboard = qnaboard;
+        SET_QNABOARD(state, qnaboard1) {
+        state.qnaboard1 = qnaboard1;
         },
         //qna게시판 상세화면
-        SET_QNABOARD_VIEW(state, qnaBoardView) {
-        state.qnaBoardView = qnaBoardView;
+        SET_QNABOARD_VIEW(state, qnaboard2) {
+        state.qnaboard2 = qnaboard2;
         },
         //qna게시판 삭제
         SET_QNABOARD_DELETE(state, data) {
@@ -422,6 +438,10 @@ export default new Vuex.Store({
         //qna게시판 첨부파일(다운로드)
         SET_QNABOARD_ATTACHMENT(state,data){
             state.qbAttachment2=data;
+        },
+        //qna게시판 댓글
+        SET_QNABOARD_COMMENT(state,data){
+            state.qnacomment=data;
         },
 
 

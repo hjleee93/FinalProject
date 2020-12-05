@@ -35,7 +35,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <!-- 카테고리 선택 -->
+      <!-- 카테고리 -->
       <b-form-group id="input-group-2" 
       label="분류" label-for="input-2" label-align="left">
         <b-form-select
