@@ -27,28 +27,28 @@
         </b-row>
           </b-form>
           <b-row v-if="userData.memberSq===pboardone.pboardId"><b-col>
-          <b-button @click="update">수정</b-button>
-          <b-button @click="pdelete">삭제</b-button>
+          <b-button @click="update" v-if="userData.memberSq===pboardone.pboardId">수정</b-button>
+          <b-button @click="pdelete"  v-if="userData.memberSq===pboardone.pboardId||userData.memberEmail === 'admin@kh.com'" >삭제</b-button>
   </b-col></b-row></b-card></b-col>
       </b-row>
       
    
-      <b-form v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-form @submit.prevent="comment" v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
       
-      <b-col><b-form-textarea ref="comment" v-model="pcomment" /></b-col>
-      <b-col cols="1"><b-button @click="comment">전송</b-button></b-col>
+      <b-col><b-form-textarea required ref="comment" v-model="pcomment" /></b-col>
+      <b-col cols="1"><b-button type="submit">전송</b-button></b-col>
       </b-row></b-card></b-col></b-row></b-form>
 
       <b-container>
       <b-row v-for="comment in commentlist" :key="comment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
       <!-- 인풋 박스를 조건으로 비활성화 할수 있음-->
-      <b-col><b-form-textarea  :disabled="commentcheck"  v-model="comment.pcommentContent" /></b-col>
+      <b-col><b-form-textarea   :disabled="commentcheck" v-model="comment.pcommentContent" /></b-col>
       <b-col cols="1">{{new Date(comment.pcommentDate).toLocaleDateString()}}</b-col>
       <template v-if="comment.memberSq==userData.memberSq">
         <b-col cols="1">
            <div @click="declick(comment.pcommentNo)">삭제</div> 
-           <div @click="upclick()" v-if="commentcheck==true">수정</div> 
-           <div @click="upendclick(comment.pcommentNo)" v-if="commentcheck==false">확인</div> 
+           <div @click="upclick($event)" >수정</div> <!--v-if="commentcheck==false"-->
+           <div @click="upendclick(comment.pcommentNo,$event)" >확인</div> 
         </b-col>
         
       </template>
@@ -101,12 +101,15 @@ export default {
             pcomment:'',
             commentcheck:true,
             changeval:'',
+            boolcheck:false,
       
         }
     },
     watch:{
+      
       commentlist:{
         handler(newValue){
+          console.log(newValue)
           this.changeval=newValue[0].pcommentContent;
         },deep:true,
       }
@@ -129,8 +132,13 @@ export default {
          
         
       },
-      upclick(){
-        this.commentcheck=false;
+      upclick(e){
+       if(e.target.parentElement.parentElement.children[1].children[0].disabled==true){
+         e.target.parentElement.parentElement.children[1].children[0].disabled = false
+       }else e.target.parentElement.parentElement.children[1].children[0].disabled = true
+       
+        //console.log()//
+       // this.commentcheck=false;
       },
       ydele(){
         let no=this.$route.params.id
@@ -139,9 +147,9 @@ export default {
         
         
       },
-      upendclick(commentno){
+      upendclick(commentno,e){
        const ccno=commentno
-       
+        e.target.parentElement.parentElement.children[1].children[0].disabled = true
        axios.post("http://localhost:8082/itjobgo/portfolio/updatecomment.do",{pcommentcontent:this.changeval,pcommentNo:ccno})
        .then(()=>{
             this.commentcheck=true;
@@ -153,14 +161,11 @@ export default {
         let delfirm=confirm("삭제 하시겠습니까?")
         if(delfirm){
           const cno=commentno;
-        this.$store.dispatch("FETCH_COMMENTDEL",cno)
-        return  this.$store.dispatch("FETCH_COMMNET",this.$route.params.id)
-        }else{
-          return
+        this.$store.dispatch("FETCH_COMMENTDEL",cno).then(()=>{
+           this.$store.dispatch("FETCH_COMMNET",this.$route.params.id);
+        })
         }
-       
-      },
-  
+        },
 
       
       comment(){
