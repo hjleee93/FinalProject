@@ -76,9 +76,14 @@
 background-color: #424874;
 border: none;
 }
-#delete-btn{
+#delete-btn2{
 background-color: #9BA4B4;
-border: none;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:30px;
+   border:none;
+
 }
 
 #prev{

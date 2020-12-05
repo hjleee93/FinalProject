@@ -82,6 +82,30 @@ function fetchCboardCommentDelete(cboardNo){
 function fetchNoticeList(){
    return axios.get(`${config.Url}notice/noticeList`)
 }
+// 공지사항 상세화면
+function fetchNoticeView(noticeSq) {
+    return axios.get(`${config.Url}notice/noticeView${noticeSq}`)
+}
+//공지사항 삭제하기
+function fetchNoticeDelete(noticeSq) {
+    return axios.post(`${config.Url}notice/noticeDelete${noticeSq}`)
+}
+//공지사항 수정하기(게시판번호로 객체 값 불러오기 )
+function fetchNoticeBoardUpdate(noticeSq) {
+    return axios.get(`${config.Url}notice/noticeUpdate${noticeSq}`)
+}
+//첨부파일 가져오기(파일 다운로드)
+function fetchNoticeAttachment(noticeSq){
+     return axios.get(`${config.Url}notice/noticeAttachment${noticeSq}`)
+}
+//댓글 조회하기
+function fetchNTboardCommentSelectList(ntBoardNo){
+    return axios.get(`${config.Url}notice/commentSelectOne${ntBoardNo}`)
+}
+//댓글  삭제하기
+function fetchNTboardCommentDelete(ntCommentNo){
+    return axios.post(`${config.Url}notice/commentDelete${ntCommentNo}`)
+}
 
 
 //현주 //qnaBoard(qna게시판)
@@ -161,6 +185,12 @@ export {
     fetchCboardCommentDelete,
         //공지사항 Notice
     fetchNoticeList,
+    fetchNoticeView,
+    fetchNoticeDelete,
+    fetchNoticeBoardUpdate,
+    fetchNoticeAttachment,
+    fetchNTboardCommentSelectList,
+    fetchNTboardCommentDelete,
 
 
     //현주

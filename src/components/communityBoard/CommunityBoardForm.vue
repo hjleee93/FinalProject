@@ -114,7 +114,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         
         let formData = new FormData();
         formData.append('boardWriter',this.userData.memberName);
-        formData.append('memberSq',this.userData.memberSq)
+        formData.append('memberSq',this.userData.memberSq);
         formData.append('boardTitle',this.boardTitle);
         formData.append('boardDivision',this.category);
         formData.append('boardContent',this.boardContent.replace(/(<([^>]+)>)/ig,""));
