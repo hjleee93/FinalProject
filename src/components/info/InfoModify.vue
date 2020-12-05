@@ -1,19 +1,19 @@
 <template>
 <b-container>
 
-<div class="container"  id="header-container">
-  <h2 class="st_title">게시글 수정</h2><hr>
-</div>
+  <div class="container"  id="header-container">
+    <h2 class="st_title">Information 수정</h2><hr>
+  </div>
 
-    <form @submit.prevent="updateForm" 
-       enctype="multipart/form-data">
-      <b-form-group
+  <form @submit.prevent="updateForm" 
+    enctype="multipart/form-data">
+    <b-form-group
       id="input-group-1" 
       label="기업명" 
       label-for="input-1"
       label-align="left">
 
-      <b-form-input
+    <b-form-input
         id="input-1"
         name="infoTitle"
         type="text"
@@ -24,7 +24,7 @@
     </b-form-group>
 
     <b-form-group id="input-group-2" 
-     label="분류"  label-for="input-2" label-align="left">
+    label="분류"  label-for="input-2" label-align="left">
         <b-form-select
           id="input-2"
           v-model="category"
@@ -33,12 +33,12 @@
         ></b-form-select>
     </b-form-group>
 
- 	  <b-form-group 
-     id="input-group-3" 
-     label="날짜" 
-     label-for="input-3">
-      <input type="date" v-model="infoDetail.infoDate" >
-     
+    <b-form-group 
+      id="input-group-3" 
+      label="날짜" 
+      label-for="input-3">
+        <input type="date" v-model="infoDetail.infoDate" >
+    
     <b-form-date
         id="input-3"
         name="infoDate"
@@ -52,22 +52,15 @@
         <input type="time"  
         v-model="infoDetail.infoTime">
     </b-form-group>
-    <!--   <p><input type="submit" value="Submit"></p> -->
-
-  <!--   <b-form-group label="주소" >
-      <textarea  style="resize: none" type="text" class="form-control" placeholder="주소를 작성하세요"
-      select="address" maxlength="150" v-model="infoDetail.infoAddress">></textarea>
-    </b-form-group> -->
 
     <!--Vue2Editor 작성--> 
-     <b-form-group  label="내용" >
-        <vue-editor 
-          id="input-4"
-          v-model="infoDetail.infoContent" 
-          name="infoContent" />
-      </b-form-group>
+    <b-form-group  label="주소/내용" >
+      <vue-editor 
+        id="input-4"
+        v-model="infoDetail.infoContent" 
+        name="infoContent" />
+    </b-form-group>
 
-    <!-- 첨부파일 -->
     <b-form-group>
       <b-form-file 
         id="files" 
@@ -76,20 +69,24 @@
         :placeholder="infoAttachment.originalfilename" >
       </b-form-file> 
     </b-form-group>
- 
-    <!-- 등록/취소 버튼 -->
-        <b-button  id="btn_write" @click="updateForm" class="btn-space">수정완료</b-button>
-        <b-button type="button" id="btn_write"  to="/infoList" exact>목록으로</b-button>
 
-    </form>
+    <!--첨부파일 리셋 버튼-->
+    <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button>
+    <!-- 수정 버튼 -->
+    <div id="btn_bottom">
+      <b-button  id="submit1" @click="updateForm" class="btn-space">완료</b-button>
+      <b-button type="reset"  id="reset-btn">Reset</b-button>
+      <b-button type="button" id="golist"  to="/infoList" exact>목록</b-button>
+   </div>
+  </form>
 
 </b-container>
 </template>
 
 <script>
 import { VueEditor } from "vue2-editor";
-import axios from 'axios'
 import { mapState } from 'vuex';
+import axios from 'axios'
 
   /*  Vue2Editor 작성 */
     export default {
@@ -98,7 +95,7 @@ import { mapState } from 'vuex';
             infoTitle: '',
             category:"null",
             infoCategory :[
-          { value: null, text: '분류를 선택해주세요' },
+          { value: null, text: '분류를 선택하세요' },
           { value: '설명회', text: '설명회' },
           { value: '박람회', text: '박람회' },
           { value: '상담회', text: '상담회' },
@@ -113,21 +110,20 @@ import { mapState } from 'vuex';
         const infoSq=this.$route.params.id;
           this.$store.dispatch("FETCH_INFO_UPDATE",infoSq)
           console.log("지금하고있는 로그 " + infoSq);
-        },
+      },
 
       computed:{
         //mapState를 통해서 store에 저장된 객체를 가져온다
-       ...mapState({
+        ...mapState({
         infoDetail:state=>state.infoDetail,
         infoAttachment:state=>state.infoAttachment,    
         })
       },
       components:{
           VueEditor,
-        },
-
-    methods: {
-         updateForm() {
+      },
+      methods: {
+       updateForm() {
         if(!this.infoTitle){
           this.infoTitle=this.infoDetail.infoTitle;
         }
@@ -137,7 +133,7 @@ import { mapState } from 'vuex';
         if(!this.infoDate){
           this.infoDate=this.infoDetail.infoDate;
         }
-         if(!this.infoTime){
+        if(!this.infoTime){
           this.infoTime=this.infoDetail.infoTime;
         }
         if(!this.infoContent){
@@ -146,8 +142,7 @@ import { mapState } from 'vuex';
         if(!this.files){
           this.files=this.infoAttachment.renamedfilename;
         }
-         
-
+        
         let formData = new FormData();
         formData.append('infoTitle',this.infoTitle);
         formData.append('infoCategory',this.category);
@@ -172,44 +167,64 @@ import { mapState } from 'vuex';
         //등록하면 게시판 목록으로
         this.$router.push({name:'InfoList'})
       },
-
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.files[0]);
         this.files=this.$refs.upfiles.$refs.input.files[0];
         console.log(this.files);
+      },
+      onReset(evt) {
+        evt.preventDefault()
+        this.infoTitle = ''
+        this.category = null
+        this.infoContent=''
+        this.files.name=''
+      },
+      clearFiles() {
+        this.$refs['upfiles'].reset()
       },
     }
   }
 </script>
 
 <style>
-.st_title{
-  margin-top:5%;
-  margin-bottom: 3%;
-}
-.btn_sr{
-  margin-top: 0%;
-  position:absolute;
-  left:44%;
-}
-.btn-space{
-  margin-right: 15px;
-}
-#submit{
-  width:5px;
-  margin-bottom: 5px;
-  margin-right: 0%;
-  background-color: #424874;
-  border:1px;
-  color:white; 
-}
-#cancel{
-  width:5px;
-  margin-bottom: 5px;
-  right: -10px;
-  margin-right: 0%;
-  background-color: #9BA4B4;
-  border:5px;
-  color:white; 
-}
+  .st_title{
+    margin-top:5%;
+    margin-bottom: 3%;
+  }
+  .btn_sr{
+    margin-top: 0%;
+    position:absolute;
+    left:44%;
+  }
+  .btn-space{
+    margin-right: 15px;
+  }
+  #submit1{
+    width:60px;
+    margin-bottom: 5px; 
+    margin-right: 2%;
+    background-color: #424874;
+    border:1px;
+    color:white; 
+  }
+  #golist{
+    width:60px;
+    margin-bottom: 5px; 
+    margin-right: 2%;
+    background-color: #9BA4B4;
+    border:5px;
+    color:white; 
+  }
+  #reset-btn{
+    width:60px;
+    margin-bottom: 5px; 
+    margin-right: 2%;
+    background-color: #9BA4B4;
+    border:5px;
+    color:white; 
+  }
+  #btn_bottom{
+  margin: 2%;
+  text-align: center;
+  }
 </style>
