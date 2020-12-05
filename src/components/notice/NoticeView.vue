@@ -56,7 +56,7 @@
         <b-col>
           <!-- <b-button to="/communityBoardList" id="prev">이전 </b-button>
           <b-button to="/communityBoardList" id="next">다음 </b-button> -->
-          <b-button to="/communityBoardList" id="list">목록 </b-button>
+          <b-button to="/noticeList" id="list">목록 </b-button>
         </b-col>
       </b-row>
       
@@ -89,7 +89,7 @@
                   
                       
                       <b-button v-if="userData.memberSq===comment.memberSq && commentcheck==true" 
-                                                                                                @click="upclick()"  id="update-btn">수정</b-button> 
+                                                                                                @click="upclick($event)"  id="update-btn">수정</b-button> 
                       <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
                                                                                                 @click="declick(comment.ntCommentNo)" id="deltet-btn">삭제</b-button> 
                       <b-button v-if="commentcheck==false" 
@@ -251,8 +251,11 @@ export default {
 
     },
 
-      upclick(){
-         this.commentcheck=false;
+      upclick(e){
+      if(e.target.parentElement.parentElement.children[1].children[0].disabled==true){
+        e.target.parentElement.parentElement.children[1].children[0].disabled = false
+       }else e.target.parentElement.parentElement.children[1].children[0].disabled = true
+       
       },
 
   //댓글수정

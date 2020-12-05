@@ -6,40 +6,20 @@
       <b-button type="button" id="list-btn2" to="/noticeList" exact>목록</b-button>
     </div>
 
-    <form @submit.prevent="enrollBoard" 
+    <b-form role="form" @submit.prevent="enrollBoard" 
     @reset="onReset" enctype="multipart/form-data">
-<b-input-group 
-
-                  prepend="제목">
-
-        <b-form-input
-        
+    
+   <b-input-group   prepend="제목" class="mb-2" >
+        <b-form-input  
           id="input-1"
           v-model="noticeTitle"
           type="text"
           required
-          placeholder="제목을 입력해주세요(최소5글자 이상)"
-          :state="noticeTitle.length >= 10"
+          placeholder="제목을 입력해주세요"
         ></b-form-input>
-</b-input-group>
+  </b-input-group>
 
-    <!-- <b-form-group id="input-group-2" label="작성자" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          name="boardWriter"
-          required
-          placeholder="작성자"
-          readonly
-          
-          v-model="userData.memberName"
-        ></b-form-input>
-      </b-form-group> -->
-
-        
-      <b-input-group 
-
-                  prepend="분류">
-
+      <b-input-group  prepend="분류" class="mb-2">
         <b-form-select
           id="input-3"
           v-model="category"
@@ -48,21 +28,15 @@
         ></b-form-select>
       </b-input-group>
 
-
-
-      <!-- 에디터 창 -->
-      <!-- <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
-        <vue-editor  id="input-3" v-model="boardContent" 
-        name="boardContent"/>
-     </b-form-group> -->
-
-    <b-form-textarea
-      id="textarea-content"
-      v-model="noticeContent"
-      :state="noticeContent.length >= 10"
-      placeholder="내용을 입력해주세요(최소 10글자)"
-      rows="10"
-    ></b-form-textarea>
+    <b-form-group id="input-group-3"  label-for="input-3">
+        <b-form-textarea
+          id="textarea-content"
+          v-model="noticeContent"
+          required
+          placeholder="내용을 입력해주세요"
+          rows="10"
+        ></b-form-textarea>
+    </b-form-group>
 
       <!-- 첨부파일 -->
      
@@ -72,10 +46,10 @@
       <!-- <b-form-file id="file2" ref="upfiles" v-on:change="handleFile"
     placeholder="첨부파일을 선택해주세요"></b-form-file>  -->
 
-      <b-button id="submit-btn2"  @click="enrollBoard2">완료</b-button>
+      <b-button type="submit" id="submit-btn2">완료</b-button>
       <b-button type="reset" id="reset-btn2">취소</b-button>
       
-    </form>
+    </b-form>
 
 
   </b-container>
@@ -114,7 +88,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
 
     methods: {
       //글쓰기 버튼
-      enrollBoard2() {
+      enrollBoard() {
         
         let formData = new FormData();
         formData.append('memberNum',this.userData.memberSq)

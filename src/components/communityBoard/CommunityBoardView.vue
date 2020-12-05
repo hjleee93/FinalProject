@@ -89,12 +89,11 @@
                   <template v-if="comment.memberSq==userData.memberSq">
                   
                       
-                      <b-button v-if="userData.memberSq===comment.memberSq && commentcheck==true" 
-                                                                                                @click="upclick()"  id="update-btn">수정</b-button> 
-                      <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
-                                                                                                @click="declick(comment.cbCommentNo)" id="deltet-btn">삭제</b-button> 
-                      <b-button v-if="commentcheck==false" 
-                                                                                                @click="upendclick(comment.cbCommentNo)" id="updateEnd-btn">확인</b-button> 
+                      <b-button @click="upclick($event)">수정</b-button> 
+                      <b-button v-if="userData.memberEmail === 'admin@kh.com'"
+                                  @click="declick(comment.cbCommentNo)" id="deltet-btn">삭제</b-button> 
+                      <b-button 
+                                @click="upendclick(comment.cbCommentNo,$event)" id="updateEnd-btn">확인</b-button> 
                     
                 </template>
                     </b-row>
@@ -160,6 +159,7 @@ export default {
             commentModal:false,
            commentcheck:true,
            changeval:'',
+           boolcheck:false,
 
         }
     },
@@ -243,22 +243,26 @@ export default {
           return
         }
       },
-      //댓글수정
-      handleInput: function (event) {
-      // 할당 전에 어떤 처리하기
-      this.comment.cbCommentContent = event.target.value;
-      this.updateComment=this.comment.cbCommentContent;
+    //   //댓글수정
+    //   handleInput: function (event) {
+    //   // 할당 전에 어떤 처리하기
+    //   this.comment.cbCommentContent = event.target.value;
+    //   this.updateComment=this.comment.cbCommentContent;
 
-    },
+    // },
 
-      upclick(){
-         this.commentcheck=false;
+      upclick(e){
+       if(e.target.parentElement.parentElement.children[1].children[0].disabled==true){
+         e.target.parentElement.parentElement.children[1].children[0].disabled = false
+       }else e.target.parentElement.parentElement.children[1].children[0].disabled = true
+       
+        //console.log()//
+       // this.commentcheck=false;
       },
 
-
-      upendclick(commentno){
+      upendclick(commentno,e){
        const ccno=commentno
-       
+       e.target.parentElement.parentElement.children[1].children[0].disabled = true
        axios.post("http://localhost:8082/itjobgo/community/updateComment",{cbCommentContent:this.changeval,cbCommentNo:ccno})
        .then((data)=>{
         console.log(data)
