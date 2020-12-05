@@ -74,7 +74,6 @@
         <b-button  id="btn_write" @click="updateqna" class="btn-space">수정완료</b-button>
         <b-button type="button" id="btn_write"  to="/qnaBoard" exact>목록으로</b-button>
         </div>
-
       </form>
 
   </b-container>
