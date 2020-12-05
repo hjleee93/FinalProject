@@ -39,10 +39,10 @@
         </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="qnaboard"
+            :items="qnaboard1"
             :search="search"
-            :server-items-length="qnaboard.length"
-            item-key="qnaboardNo"
+            :server-items-length="qnaboard1.length"
+            item-key="qboardNo"
           >
 
           <template v-slot:item="props">
@@ -80,7 +80,7 @@ Vue.use(vueMoment);
     },
     computed:{
         ...mapState({
-            qnaboard:state=>state.qnaboard
+            qnaboard1:state=>state.qnaboard1
         })
     },
 

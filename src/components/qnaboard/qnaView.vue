@@ -13,16 +13,16 @@
             <b-card class="viewcontainer">
                 <b-form>
                     <b-row>
-                        <b-col class="qnawriter">작성자 : {{qnaBoardView.qnaWriter}}<br></b-col>
-                        <p class="qnadate">{{formatDate(qnaBoardView.qnaDate)}} 작성</p>
+                        <b-col class="qnawriter">작성자 : {{qnaboard2.qnaWriter}}<br></b-col>
+                        <p class="qnadate">{{formatDate(qnaboard2.qnaDate)}} 작성</p>
                     </b-row>
                         
                     <b-row>
-                        <b-col class="qnatitle"><b>{{qnaBoardView.qnaTitle}}</b></b-col>
+                        <b-col class="qnatitle"><b>{{qnaboard2.qnaTitle}}</b></b-col>
                     </b-row>
                         <hr>
                     <b-row>
-                        <b-col class="qnacontent">{{qnaBoardView.qnaContent}}</b-col>                
+                        <b-col class="qnacontent">{{qnaboard2.qnaContent}}</b-col>                
                     </b-row> 
                         <hr><br>
                     <b-row v-if="attachment">
@@ -37,9 +37,9 @@
             <b-row>
                 <b-col class="btndiv">
                     <b-button to="/qnaBoard">목록으로 </b-button> 
-                    <b-button v-if="userData.memberSq===qnaBoardView.memberNum"
+                    <b-button v-if="userData.memberSq===qnaboard2.memberNum"
                         class="btn_center" @click="updateqna">수정</b-button>
-                    <b-button v-if="userData.memberSq===qnaBoardView.memberNum||userData.memberEmail==='admin@kh.com'"
+                    <b-button v-if="userData.memberSq===qnaboard2.memberNum||userData.memberEmail==='admin@kh.com'"
                         class="btn_center" @click="deleteqna">삭제</b-button>
                 </b-col>
             </b-row>
@@ -158,7 +158,7 @@ export default {
             //댓글등록
             qnacomment(){
                 let formData2=new FormData(); 
-                formData2.append('qbBoardNo',this.qnaBoardView.qnaSeq);
+                formData2.append('qbBoardNo',this.qnaboard2.qnaSeq);
                 formData2.append('qbCommentContent',this.qbcomment);
                 formData2.append('memberSq',this.userData.memberSq);
                 formData2.append('memberName',this.userData.memberName)
@@ -215,7 +215,7 @@ export default {
     computed:{
 
         ...mapState({ //store
-            qnaBoardView:state=>state.qnaBoardView,
+            qnaboard2:state=>state.qnaboard2,
             attachment:state=>state.qbAttachment2,
             qnacommentlist:state=>state.qnacomment,
         }),
@@ -274,6 +274,7 @@ export default {
   color:#4e5157 ;
   font-size: 50px;
 }
+
 
 
 </style>

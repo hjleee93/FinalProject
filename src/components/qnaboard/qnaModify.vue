@@ -3,8 +3,8 @@
 
     <div class="container">
         <h2 class="st_title">게시글 수정</h2><hr>
-        qna게시판 객체(테스트) : {{qnaBoardView}}
-        qna게시판 제목(테스트) : {{qnaBoardView.qnaTitle}}
+        qna게시판 객체(테스트) : {{qnaboard2}}
+        qna게시판 제목(테스트) : {{qnaboard2.qnaTitle}}
         첨부파일 테스트 : {{qbAttachment}}
     </div>
 
@@ -23,12 +23,22 @@
           type="text"
           required
           placeholder="제목을 입력해주세요"
-          v-model="qnaBoardView.qnaTitle"
+          v-model="qnaboard2.qnaTitle"
         ></b-form-input>
       </b-form-group>
 
       <!-- 카테고리 선택 -->
-      <b-form-group id="input-group-2" 
+      <b-form-group id="input-group-2" label="카테고리" label-for="input-2">
+          <b-form-input
+            id="input-2"
+            name="qnaCategory"
+            required
+            placeholder="카테고리"
+            readonly
+            v-model="qnaboard2.qnaCategory"
+          ></b-form-input>
+      </b-form-group>
+      <!-- <b-form-group id="input-group-2" 
       label="분류" label-for="input-2" label-align="left">
         <b-form-select
           id="input-2"
@@ -36,13 +46,13 @@
           :options="qnaCategory"
           required
         ></b-form-select>
-      </b-form-group>
+      </b-form-group> -->
 
       <!-- 에디터창, 내용 -->
       <b-form-group  label="내용" >
         <vue-editor 
           id="input-3"
-          v-model="qnaBoardView.qnaContent" 
+          v-model="qnaboard2.qnaContent" 
           name="qnaContent" />
       </b-form-group>
 
@@ -81,14 +91,14 @@ import axios from 'axios';
     data() {
       return{
         qnaTitle:"",
-        category:"null",
+        // category:"null",
         qnaWriter:"",
         qnaAnswerYn:"N",
-        qnaCategory :[
-          { value: null, text: '분류를 선택해주세요' },
-          { value: '백엔드', text: '백엔드' },
-          { value: '프론트엔드', text: '프론트엔드' },
-        ],
+        // qnaCategory :[
+        //   { value: null, text: '분류를 선택해주세요' },
+        //   { value: '백엔드', text: '백엔드' },
+        //   { value: '프론트엔드', text: '프론트엔드' },
+        // ],
         qnaContent:"",
         files:""
       }
@@ -103,7 +113,7 @@ import axios from 'axios';
     computed:{
       ...mapState({
         //mapState를 통해서 store.js에 저장된 (객체) data를 가져다 쓸수있다
-        qnaBoardView:state=>state.qnaBoardView,    
+        qnaboard2:state=>state.qnaboard2,    
         qbAttachment:state=>state.qbAttachment,
 
       })
@@ -117,13 +127,13 @@ import axios from 'axios';
       updateqna(){
         //새롭게 수정된 내용이 없다면 원래 객체의 컬럼값을 가져가도록
         if(!this.qnaTitle){
-          this.qnaTitle=this.qnaBoardView.qnaTitle;
+          this.qnaTitle=this.qnaboard2.qnaTitle;
         }
         if(!this.qnaContent){
-          this.qnaContent=this.qnaBoardView.qnaContent;
+          this.qnaContent=this.qnaboard2.qnaContent;
         }
         if(!this.qnaCategory){
-          this.qnaCategory=this.communityboardView.qnaCategory;
+          this.qnaCategory=this.qnaboard2.qnaCategory;
         }
         if(!this.files){
           this.files=this.qbAttachment.renamedfilename;
@@ -131,7 +141,7 @@ import axios from 'axios';
 
         let formData = new FormData();
         formData.append('qnaTitle',this.qnaTitle);
-        formData.append('qnaCategory',this.category);
+        formData.append('qnaCategory',this.category2);
         formData.append('qnaWriter',this.qnaWriter);
         formData.append('qnaAnswerYn',this.qnaAnswerYn);
         formData.append('qnaContent',this.qnaContent.replace(/(<([^>]+)>)/ig,""))
@@ -139,7 +149,7 @@ import axios from 'axios';
         //spring값 file, vue value값 files! zz
 
         //아이디값=글번호 받아오기
-        formData.append('qnaSeq',this.$route.params.id);
+        formData.append('qboardNo',this.$route.params.id);
 
 
         for(let key of formData.entries()){
