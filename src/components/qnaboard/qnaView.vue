@@ -1,12 +1,11 @@
 <template>
 <b-container fluid>
-      <!-- <b-row >
-        <div class="submenuimage ">
-            <p>Q&A</p>
+
+      <b-row >
+         <div class="submenuimage ">
+        <p class="subtitle" id="subtitle">Q&A</p>
         </div>
-      </b-row> -->  
-
-
+      </b-row>
 
     <!-- 상세페이지 본문 시작 -->
     <div class="container">
@@ -14,16 +13,16 @@
             <b-card class="viewcontainer">
                 <b-form>
                     <b-row>
-                        <b-col class="qnawriter">작성자 : {{qnaBoardView.qnaWriter}}<br></b-col>
-                        <p class="qnadate">{{formatDate(qnaBoardView.qnaDate)}} 작성</p>
+                        <b-col class="qnawriter">작성자 : {{qnaboard2.qnaWriter}}<br></b-col>
+                        <p class="qnadate">{{formatDate(qnaboard2.qnaDate)}} 작성</p>
                     </b-row>
                         
                     <b-row>
-                        <b-col class="qnatitle"><b>{{qnaBoardView.qnaTitle}}</b></b-col>
+                        <b-col class="qnatitle"><b>{{qnaboard2.qnaTitle}}</b></b-col>
                     </b-row>
                         <hr>
                     <b-row>
-                        <b-col class="qnacontent">{{qnaBoardView.qnaContent}}</b-col>                
+                        <b-col class="qnacontent">{{qnaboard2.qnaContent}}</b-col>                
                     </b-row> 
                         <hr><br>
                     <b-row v-if="attachment">
@@ -38,27 +37,37 @@
             <b-row>
                 <b-col class="btndiv">
                     <b-button to="/qnaBoard">목록으로 </b-button> 
-                    <b-button v-if="userData.memberSq===qnaBoardView.memberNum"
+                    <b-button v-if="userData.memberSq===qnaboard2.memberNum"
                         class="btn_center" @click="updateqna">수정</b-button>
-                    <b-button v-if="userData.memberSq===qnaBoardView.memberNum||userData.memberEmail==='admin@kh.com'"
+                    <b-button v-if="userData.memberSq===qnaboard2.memberNum||userData.memberEmail==='admin@kh.com'"
                         class="btn_center" @click="deleteqna">삭제</b-button>
                 </b-col>
             </b-row>
 
-      <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea v-model="pcomment" /></b-col>
-      <b-col cols="1"><b-button @click="comment">전송</b-button></b-col>
+
+      <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="댓글"/></b-col>
+      <b-col><b-form-textarea ref="qnacomment" v-model="qbcomment" /></b-col>
+      <b-col cols="1"><b-button @click="qnacomment">전송</b-button></b-col>
       </b-row></b-card></b-col></b-row></b-form>
 
-      <b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea readonly /></b-col>
-      <b-col cols="1"><b-button>삭제</b-button></b-col>
-      <b-col cols="1"><b-button>수정</b-button></b-col>
+    <!-- 댓글창 -->
+      <b-row v-for="qnacomment in qnacommentlist" :key="qnacomment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
+      <b-col><b-form-textarea readonly :value="qnacomment.qbCommentContent" /></b-col>
+      <b-col cols="1">{{new Date(qnacomment.qbcommentDate).toLocaleDateString()}}</b-col>
+      <template v-if="qnacomment.memberSq==userData.memberSq">
+        <b-col cols="1"> 
+           <div @click="declick(qnacomment.qbcommentNo)">삭제</div> 
+           <div @click="upclick(qnacomment)">수정</div> 
+        </b-col>
+      </template>
       </b-row></b-card></b-col>
       </b-row>
 
-    </div>
    
+        <div>댓글 테스트 확인용 qnacommentlist : {{qnacommentlist}} <br>
+        </div>
+
+    </div>
 
    <!-- <div>
        게시판 객체 : {{qnaBoardView}}<br>
@@ -92,13 +101,12 @@
 
 import ModalView from '../common/ModalView.vue';
 import { mapState } from 'vuex';
+import axios from 'axios';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
 import vueMoment from 'vue-moment';
 Vue.use(vueMoment);
 import Vue from 'vue'
-
-// import axios from 'axios'; 댓글
 
 export default {
 
@@ -106,6 +114,7 @@ export default {
         return{
             showModal:false,
             qnaBoardNo:0,
+            qbcomment:'',
         }
     },
 
@@ -114,14 +123,6 @@ export default {
     },
 
     methods:{
-    
-            // axios.post("http://localhost:8082/itjobgo/portfolio/comment.do",formData2)
-            // .then((data)=>{
-            //     console.log(data)})
-            //     .catch((error)=>
-            //     console.log(error))
-            
-            // },
     
             //1.삭제버튼~
             deleteqna(){
@@ -154,30 +155,74 @@ export default {
             location.href="http://localhost:8082/itjobgo/qna/qnafiledownload?oriName="+attachment.originalfilename+"&reName="+attachment.renamedfilename;
             },
 
+            //댓글등록
+            qnacomment(){
+                let formData2=new FormData(); 
+                formData2.append('qbBoardNo',this.qnaboard2.qnaSeq);
+                formData2.append('qbCommentContent',this.qbcomment);
+                formData2.append('memberSq',this.userData.memberSq);
+                formData2.append('memberName',this.userData.memberName)
+                // for(let key of formData2.entries()){
+                //   console.log(`${key}`); 
+                // }
+            axios.post("http://localhost:8082/itjobgo/qna/qnacomment",formData2)
+            .then((data)=>{
+                console.log(data)
+                this.qbcomment="",
+                this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
+            
+            })
+            
+            .catch((error)=>
+                console.log(error))
+            
+            },
+
             //날짜표시
             formatDate(value){
             return this.$moment(value).format("YYYY-MM-DD");
             },
-      
+ 
+            //댓글삭제
+            declick(qbCommentNo){
+             let delfirm=confirm("삭제 하시겠습니까?")
+             if(delfirm){
+             const cno=qbCommentNo;
+             this.$store.dispatch("FETCH_QNABOARD_COMMENTDEL",cno)
+             return  this.$store.dispatch("FETCH_QNABOARD_COMMNET",this.$route.params.id)
+            }else{
+                return
+            }
+
+        },
+
     },
+
     
     
     created(){
-        const qnaBoardNo=this.$route.params.id;
-        this.$store.dispatch("FETCH_QNABOARD_VIEW",qnaBoardNo)
-        this.$store.dispatch("FETCH_QNABOARD_ATTACHMENT",qnaBoardNo)
-        console.log(qnaBoardNo);
+        const qnaboardNo=this.$route.params.id;
+        this.$store.dispatch("FETCH_QNABOARD_VIEW",qnaboardNo)
+        this.$store.dispatch("FETCH_QNABOARD_ATTACHMENT",qnaboardNo)
+        this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
+    },
+
+    mounted() {
+        
+            //모든 화면이 렌더링된 후 호출 된다.
     },
 
     computed:{
 
-        ...mapState({
-            qnaBoardView:state=>state.qnaBoardView,
-            attachment:state=>state.qbAttachment2
+        ...mapState({ //store
+            qnaboard2:state=>state.qnaboard2,
+            attachment:state=>state.qbAttachment2,
+            qnacommentlist:state=>state.qnacomment,
         }),
+
         ...loadUserState(['userData'])
 
-    }
+        },
 
 
 }
@@ -217,6 +262,19 @@ export default {
     margin-left: 38%;
     margin-bottom: 3%;
 }
+.submenuimage{
+    width: 100%;
+    height:180px;
+    background-color:#F4EEFF;
+    text-align: center;
+    line-height: 180px;
+}
+.subtitle{
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  color:#4e5157 ;
+  font-size: 50px;
+}
+
 
 
 </style>
