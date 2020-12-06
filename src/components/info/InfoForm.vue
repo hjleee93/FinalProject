@@ -89,16 +89,16 @@
     export default {
       data() {
         return {
-            infoTitle: '',
-            category : "null",
+            infoTitle: "",
+            category : null,
             infoCategory :[
           { value: null, text: '분류를 선택하세요' },
           { value: '설명회', text: '설명회' },
           { value: '박람회', text: '박람회' },
           { value: '상담회', text: '상담회' },
         ],
-            infoDate : '',
-            infoTime : '',
+            infoDate : "",
+            infoTime : "",
             infoContent: "",   
             files :""        
         }

@@ -53,7 +53,7 @@
         v-model="infoDetail.infoTime">
     </b-form-group>
 
-    <!--Vue2Editor 내용작성--> 
+    <!--Vue2Editor 작성--> 
     <b-form-group  label="주소/내용" >
       <vue-editor 
         id="input-4"
@@ -88,20 +88,20 @@ import { VueEditor } from "vue2-editor";
 import { mapState } from 'vuex';
 import axios from 'axios'
 
-  /*  Vue2Editor 내용작성 */
+  /*  Vue2Editor 작성 */
     export default {
       data() {
         return {
-            infoTitle: '',
-            category:"null",
+            infoTitle: "",
+            category:null,
             infoCategory :[
           { value: null, text: '분류를 선택하세요' },
           { value: '설명회', text: '설명회' },
           { value: '박람회', text: '박람회' },
           { value: '상담회', text: '상담회' },
         ],
-            infoDate : '',
-            infoTime : '',
+            infoDate : "",
+            infoTime : "",
             infoContent: "",    
             files :"",       
             }

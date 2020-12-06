@@ -17,7 +17,7 @@
           <b-col> <b-form-input id="form-control" v-model="infoDetail.infoTitle" readonly/></b-col>
         </b-row>
         <b-row>
-          <b-col cols="2" id="cate">분류</b-col>
+          <b-col cols="2"><b-form-group  label="분류"/></b-col>
           <b-col> <b-form-input v-model="infoDetail.infoCategory" readonly/></b-col>
         </b-row>
           <b-row>
