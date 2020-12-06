@@ -19,6 +19,15 @@
           v-model="pboardTitle"
         ></b-form-input>
 </b-input-group>
+<b-input-group  prepend="분류" class="mb-2">
+        <b-form-select
+          id="input-3"
+          v-model="category"
+          :options="pboardDivision"
+          required
+        ></b-form-select>
+         </b-input-group>
+   
      
        <b-input-group  prepend="작성자" class="mb-2">
         <b-form-input
@@ -63,7 +72,15 @@ export default {
         pboardTitle:'',
         pboardContent:'',
         files:'',
-        tt:true
+        tt:true,
+        category:null,
+        pboardDivision:[
+           { value: null, text: '분류를 선택해주세요' },
+          { value: '백엔드', text: '백엔드' },
+          { value: '프론트', text: '프론트' },
+          { value: '퍼블리셔', text: '퍼블리셔' },
+          { value: '디자인', text: '디자인' },
+        ],
        
       }
     },
@@ -80,6 +97,7 @@ export default {
         formData.append('pboardTitle',this.pboardTitle);
         formData.append('memberSq',this.userData.memberSq)
         formData.append('pboardContent',this.pboardContent.replace(/(<([^>]+)>)/ig,""));
+        formData.append('pboardDivision',this.category)
         formData.append('file',this.files);
         for(let key of formData.entries()){
           console.log(`${key}`);
