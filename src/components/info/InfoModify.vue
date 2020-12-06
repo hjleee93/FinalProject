@@ -53,7 +53,7 @@
         v-model="infoDetail.infoTime">
     </b-form-group>
 
-    <!--Vue2Editor 작성--> 
+    <!--Vue2Editor 내용작성--> 
     <b-form-group  label="주소/내용" >
       <vue-editor 
         id="input-4"
