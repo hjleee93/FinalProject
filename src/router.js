@@ -330,13 +330,13 @@ export default new Router({
     },
 
     {
-      path: '/noticeView',
+      path: '/noticeView/:id',
       name: 'NoticeView',
       component: NoticeView
     },
 
     {
-      path: '/noticeUpdate',
+      path: '/noticeUpdate/:id',
       name: 'NoticeUpdate',
       component: NoticeUpdate
     },

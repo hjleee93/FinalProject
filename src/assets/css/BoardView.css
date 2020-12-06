@@ -1,11 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 
 #commentUptxt{
-  width:730px;
-  height:100px
+  width:800px;
+  height:150px;
 
 }
 #update-btn{
+  background-color: #424874;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:100px;
+   border:none
+}
+#update-btn2{
   background-color: #424874;
   height:50px;
   width:70px;
@@ -18,7 +26,7 @@
   height:50px;
   width:70px;
   position: relative;
-  top:30px;
+  top:100px;
   border:none
 }
 
@@ -27,7 +35,7 @@
   height:50px;
   width:70px;
   position: relative;
-  top:30px;
+  top:100px;
    border:none
 
 }
@@ -38,7 +46,7 @@
   width:70px;
   height: 50px;
   position: relative;
-  top:10px;
+  top:155px;
   left:-20px;
 }
 
@@ -76,9 +84,14 @@
 background-color: #424874;
 border: none;
 }
-#delete-btn{
+#delete-btn2{
 background-color: #9BA4B4;
-border: none;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:30px;
+   border:none;
+
 }
 
 #prev{

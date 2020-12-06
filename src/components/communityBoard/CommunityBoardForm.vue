@@ -6,26 +6,23 @@
       <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
     </div>
 
-    <form @submit.prevent="enrollBoard" 
+    <b-form role="form"  @submit.prevent="enrollBoard"
     @reset="onReset" enctype="multipart/form-data">
-      <b-form-group
-        id="input-group-1"
-        label="제목"
-        label-for="input-1"
-        label-align="left"
-      >
+   <b-input-group   prepend="제목" class="mb-2" >
 
         <b-form-input
+          required
           id="input-1"
           v-model="boardTitle"
           type="text"
-          required
-          placeholder="제목을 입력해주세요(최소5글자 이상)"
-          :state="boardTitle.length >= 10"
-        ></b-form-input>
-      </b-form-group>
+          placeholder="제목을 입력해주세요"
 
-    <b-form-group id="input-group-2" label="작성자" label-for="input-2">
+        ></b-form-input>
+    </b-input-group>
+     
+
+       
+       <b-input-group  prepend="작성자" class="mb-2">
         <b-form-input
           id="input-2"
           name="boardWriter"
@@ -35,33 +32,34 @@
           
           v-model="userData.memberName"
         ></b-form-input>
-
+       </b-input-group>
         
-      <b-form-group id="input-group-3" 
-      label="분류선택" label-for="input-3" label-align="left">
+        <b-input-group  prepend="분류" class="mb-2">
         <b-form-select
           id="input-3"
           v-model="category"
           :options="boardDivision"
           required
         ></b-form-select>
-      </b-form-group>
+         </b-input-group>
+   
 
-      </b-form-group>
+     
 
       <!-- 에디터 창 -->
       <!-- <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
         <vue-editor  id="input-3" v-model="boardContent" 
         name="boardContent"/>
      </b-form-group> -->
-
-    <b-form-textarea
-      id="textarea-content"
-      v-model="boardContent"
-      :state="boardContent.length >= 10"
-      placeholder="내용을 입력해주세요(최소 10글자)"
-      rows="10"
-    ></b-form-textarea>
+    <b-form-group id="input-group-3"  label-for="input-3">
+        <b-form-textarea
+          id="textarea-content"
+          v-model="boardContent"
+          required
+          placeholder="내용을 입력해주세요"
+          rows="10"
+        ></b-form-textarea>
+    </b-form-group>
 
       <!-- 첨부파일 -->
       <b-form-group>
@@ -71,11 +69,11 @@
       <!-- <b-form-file id="file2" ref="upfiles" v-on:change="handleFile"
     placeholder="첨부파일을 선택해주세요"></b-form-file>  -->
 
-      <b-button id="submit-btn2"  @click="enrollBoard">완료</b-button>
+      <!-- <b-button id="submit-btn2"  @click="enrollBoard">완료</b-button> -->
+      <b-button type="submit" id="submit-btn2">확인</b-button>
       <b-button type="reset" id="reset-btn2">취소</b-button>
       
-    </form>
-
+    </b-form>
   </b-container>
 </template>
 
@@ -98,7 +96,8 @@ const { mapState } = createNamespacedHelpers("memberStore");
           { value: '홍보', text: '홍보' }
         ],
         boardContent:"",
-        files :""
+        files :"",
+         tt:true
       }
     },
 
@@ -115,7 +114,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         
         let formData = new FormData();
         formData.append('boardWriter',this.userData.memberName);
-        formData.append('memberSq',this.userData.memberSq)
+        formData.append('memberSq',this.userData.memberSq);
         formData.append('boardTitle',this.boardTitle);
         formData.append('boardDivision',this.category);
         formData.append('boardContent',this.boardContent.replace(/(<([^>]+)>)/ig,""));
@@ -137,13 +136,11 @@ const { mapState } = createNamespacedHelpers("memberStore");
         this.$router.push({name:'CommunityBoardList'});
       },
       
-
       handleFile(){
         console.log(this.$refs.upfiles.$refs.input.files[0]);
         this.files=this.$refs.upfiles.$refs.input.files[0];
         console.log(this.files);
       },
-
 
       onReset(evt) {
         evt.preventDefault()

@@ -6,75 +6,50 @@
       <b-button type="button" id="list-btn2" to="/noticeList" exact>목록</b-button>
     </div>
 
-    <form @submit.prevent="enrollBoard" 
+    <b-form role="form" @submit.prevent="enrollBoard" 
     @reset="onReset" enctype="multipart/form-data">
-      <b-form-group
-        id="input-group-1"
-        label="제목"
-        label-for="input-1"
-        label-align="left"
-      >
-
-        <b-form-input
+    
+   <b-input-group   prepend="제목" class="mb-2" >
+        <b-form-input  
           id="input-1"
-          v-model="boardTitle"
+          v-model="noticeTitle"
           type="text"
           required
-          placeholder="제목을 입력해주세요(최소5글자 이상)"
-          :state="boardTitle.length >= 10"
+          placeholder="제목을 입력해주세요"
         ></b-form-input>
-      </b-form-group>
+  </b-input-group>
 
-    <b-form-group id="input-group-2" label="작성자" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          name="boardWriter"
-          required
-          placeholder="작성자"
-          readonly
-          
-          v-model="userData.memberName"
-        ></b-form-input>
-
-        
-      <b-form-group id="input-group-3" 
-      label="분류선택" label-for="input-3" label-align="left">
+      <b-input-group  prepend="분류" class="mb-2">
         <b-form-select
           id="input-3"
           v-model="category"
-          :options="boardDivision"
+          :options="noticeDivision"
           required
         ></b-form-select>
-      </b-form-group>
+      </b-input-group>
 
-      </b-form-group>
-
-      <!-- 에디터 창 -->
-      <!-- <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
-        <vue-editor  id="input-3" v-model="boardContent" 
-        name="boardContent"/>
-     </b-form-group> -->
-
-    <b-form-textarea
-      id="textarea-content"
-      v-model="boardContent"
-      :state="boardContent.length >= 10"
-      placeholder="내용을 입력해주세요(최소 10글자)"
-      rows="10"
-    ></b-form-textarea>
+    <b-form-group id="input-group-3"  label-for="input-3">
+        <b-form-textarea
+          id="textarea-content"
+          v-model="noticeContent"
+          required
+          placeholder="내용을 입력해주세요"
+          rows="10"
+        ></b-form-textarea>
+    </b-form-group>
 
       <!-- 첨부파일 -->
-      <b-form-group>
+     
         <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
         placeholder="첨부파일을 선택해주세요"></b-form-file> 
-      </b-form-group>
+     
       <!-- <b-form-file id="file2" ref="upfiles" v-on:change="handleFile"
     placeholder="첨부파일을 선택해주세요"></b-form-file>  -->
 
-      <b-button id="submit-btn2"  @click="enrollBoard">완료</b-button>
+      <b-button type="submit" id="submit-btn2">완료</b-button>
       <b-button type="reset" id="reset-btn2">취소</b-button>
       
-    </form>
+    </b-form>
 
 
   </b-container>
@@ -90,16 +65,15 @@ const { mapState } = createNamespacedHelpers("memberStore");
 
     data() {
       return {
-        boardTitle:"",
+        noticeTitle:"",
         category:null,
-        boardDivision :[
-           { value: null, text: '분류를 선택해주세요' },
-          { value: '일반', text: '일반' },
-          { value: '긴급', text: '긴급' },
-          { value: '홍보', text: '홍보' },
-          { value: '모집', text: '모집' }
+        noticeDivision :[
+          { value: null, text: '분류를 선택해주세요' },
+          { value: '공지', text: '공지' },
+          { value: '긴급', text: '긴급' }
+      
         ],
-        boardContent:"",
+        noticeContent:"",
         files :""
       }
     },
@@ -113,14 +87,14 @@ const { mapState } = createNamespacedHelpers("memberStore");
     },
 
     methods: {
+      //글쓰기 버튼
       enrollBoard() {
         
         let formData = new FormData();
-        formData.append('boardWriter',this.userData.memberName);
-        formData.append('memberSq',this.userData.memberSq)
-        formData.append('boardTitle',this.boardTitle);
-        formData.append('boardDivision',this.category);
-        formData.append('boardContent',this.boardContent.replace(/(<([^>]+)>)/ig,""));
+        formData.append('memberNum',this.userData.memberSq)
+        formData.append('noticeTitle',this.noticeTitle);
+        formData.append('noticeDivision',this.category);
+        formData.append('noticeContent',this.noticeContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('file',this.files);
         
         for(let key of formData.entries()){
@@ -128,7 +102,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         }
           console.log(this.category);
 
-      axios.post("http://localhost:8082/itjobgo/community/communityBoardForm",
+      axios.post("http://localhost:8082/itjobgo/notice/insertNotice",
         formData,
         { headers:{
           'Content-Type':'multipart/form-data'
@@ -136,7 +110,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         .catch((error)=>
         console.log(error))
         console.log(formData);
-        this.$router.push({name:'CommunityBoardList'});
+        this.$router.push({name:'NoticeList'});
       },
       
       
@@ -152,9 +126,9 @@ const { mapState } = createNamespacedHelpers("memberStore");
         evt.preventDefault()
         // Reset our form values
         // this.form.email = ''
-        this.boardTitle = ''
+        this.noticeTitle = ''
         this.category = null
-        this.boardContent=''
+        this.noticeContent=''
         this.files.name=''
       }
     }
