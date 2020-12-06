@@ -114,21 +114,30 @@ function fetchQnaBoardList() {
     return axios.get(`${config.Url}qna/qnaboardlist`)
 }
 //qna게시판 상세화면
-function fetchQnaBoardView(qnaSeq){
-    return axios.get(`${config.Url}qna/qnaBoardView${qnaSeq}`)
+function fetchQnaBoardView(qboardNo){
+    return axios.get(`${config.Url}qna/qnaBoardView${qboardNo}`)
 }
 //qna게시판 삭제하기
-function fetchQnaBoardDelete(qnaSeq){
-    return axios.post(`${config.Url}qna/qnaBoardDelete${qnaSeq}`)
+function fetchQnaBoardDelete(qboardNo){
+    return axios.post(`${config.Url}qna/qnaBoardDelete${qboardNo}`)
 }
 //qna게시판 수정하기(게시판번호로 객체 값 불러오기 )
-function fetchQnaBoardUpdate(qnaSeq) {
-    return axios.get(`${config.Url}qna/qnaBoardUpdate${qnaSeq}`)
+function fetchQnaBoardUpdate(qboardNo) {
+    return axios.get(`${config.Url}qna/qnaBoardUpdate${qboardNo}`)
 }
 //qna게시판 첨부파일 가져오기(파일 다운로드)
-function fetchQnaBoardAttachment(qnaSeq){
-    return axios.get(`${config.Url}qna/qnaBoardAttachment${qnaSeq}`)
+function fetchQnaBoardAttachment(qboardNo){
+    return axios.get(`${config.Url}qna/qnaBoardAttachment${qboardNo}`)
 }
+//qna게시판 댓글 가져오기
+function fetchqnacomment(qboardNo){
+    return axios.get(`${config.Url}qna/qnalist${qboardNo}`) 
+}
+//qna게시판 댓글 삭제
+function fetchqnacommentdel(qbCommentNo){
+    return axios.post(`${config.Url}qna/commentdel${qbCommentNo}`)
+}
+
 
 // 민지
 // info(취업정보)
@@ -200,6 +209,8 @@ export {
     fetchQnaBoardDelete,
     fetchQnaBoardUpdate,
     fetchQnaBoardAttachment,
+    fetchqnacomment,
+    fetchqnacommentdel,
 
      //민지
     //info 취업정보 
