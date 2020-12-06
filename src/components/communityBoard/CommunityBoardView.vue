@@ -85,7 +85,6 @@
                   </b-col>
             
       
-      
                   <template v-if="comment.memberSq==userData.memberSq">
                   
                       <b-col>
