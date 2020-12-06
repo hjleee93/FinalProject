@@ -27,6 +27,12 @@ import {
     fetchCboardCommentDelete,
 
     fetchNoticeList,
+    fetchNoticeView,
+    fetchNoticeDelete,
+    fetchNoticeBoardUpdate,
+    fetchNoticeAttachment,
+    fetchNTboardCommentSelectList,
+    fetchNTboardCommentDelete,
 
     //현주
     fetchQnaBoardList,
@@ -84,7 +90,10 @@ export default new Vuex.Store({
         cbAttachment2:[],
         cbcomment:[],
         noticeList:[],
-        writeDate:[], //날짜변형 데이터
+        noticeView:[],
+        updateData:[],
+        noticeAttach:[],
+        ntcomment:[],
 
         //현주
         qnaboard1:[],
@@ -236,13 +245,55 @@ export default new Vuex.Store({
         },
 
 
-        //공지사항 조회 
+        //공지사항  list 조회 
         FETCH_NOTICE({commit}){
             fetchNoticeList()
                 .then(({ data }) => commit("SET_NOTICE", data))
                 .catch(({ error }) => {
                 console.log(error);
                 })
+        },
+            //공지사항 상세화면
+        FETCH_NOTICE_VIEW({ commit }, noticeSq) {
+            fetchNoticeView(noticeSq)
+                .then(({ data }) => commit("SET_NOTICE_VIEW", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+        //공지사항 삭제하기
+        FETCH_NOTICE_DELETE({ commit }, noticeSq) {
+            fetchNoticeDelete(noticeSq)
+                .then(({ data }) => commit("SET_NOTICE_DELETE", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+        //공지사항 수정하기(객체 값 불러오기)
+        FETCH_NOTICE_UPDATE({ commit }, noticeSq) {
+            fetchNoticeBoardUpdate(noticeSq)
+                .then(({ data }) => commit("SET_NOTICE_UPDATE", data))
+                .catch(({ error }) => console.log(error))
+        },
+        //공지사항 첨부파일 다운로드
+        FETCH_NOTICE_ATTACHMENT({commit},no){
+            fetchNoticeAttachment(no)
+            .then(({data})=>commit("SET_NOTICE_ATTACHMENT",data))
+            .catch(({ error }) => console.log(error))
+        },
+        //게시판 댓글 조회
+        FETCH_NT_COMMENT_LIST({commit},ntBoardNo){
+            fetchNTboardCommentSelectList(ntBoardNo)
+            .then(({data})=>commit("SET_NT_COMMENT_SELECTLIST",data))
+            .catch(({error})=>console.log(error))
+        },
+        //게시판 댓글 삭제
+        FETCH_NT_COMMENT_DELETE(data,no){
+            console.log(no)
+            fetchNTboardCommentDelete(no)
+            .then((data)=>{console.log(data)
+            })
+            .catch(({error})=>console.log(error))
         },
 
 
@@ -413,9 +464,29 @@ export default new Vuex.Store({
             state.cbcomment=data;
         },
 
-        //공지사항
+        //공지사항 LIST 불러오기
         SET_NOTICE(state,noticeList){
             state.noticeList=noticeList;
+        },
+        //공지사항 상세화면
+        SET_NOTICE_VIEW(state, noticeView) {
+            state.noticeView = noticeView;
+        },
+        //공지사항 삭제
+        SET_NOTICE_DELETE(state, data) {
+            state.data = data;
+        },
+        //공지사항 수정(값 불러오기)
+        SET_NOTICE_UPDATE(state, data) {
+            state.updateData = data;
+        },
+        //공지사항 첨부파일(다운로드)
+        SET_NOTICE_ATTACHMENT(state,data){
+            state.noticeAttach=data;
+        },
+        //공지사항 댓글 불러오기
+        SET_NT_COMMENT_SELECTLIST(state,data){
+            state.ntcomment=data;
         },
         
 

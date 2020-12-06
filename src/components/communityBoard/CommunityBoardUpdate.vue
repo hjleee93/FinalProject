@@ -3,19 +3,11 @@
 
     <div class="container" id="header-container">
       <h4 id="h4-title">자유게시판 작성</h4>
-      자유게시판 객체(테스트) : {{communityboardView}} <br>
-      자유게시판 제목(테스트) : {{communityboardView.boardTitle}} <br>
-      첨부파일(테스트) : {{cbAttachment}}
     </div>
 
-    <form @submit.prevent="updateForm" 
+    <form  role="form" @submit.prevent="updateForm" 
      enctype="multipart/form-data">
-      <b-form-group
-        id="input-group-1"
-        label="제목"
-        label-for="input-1"
-        label-align="left"
-      >
+  <b-input-group   prepend="제목" class="mb-2" >
         <b-form-input
           id="input-1"
           name="boardTitle"
@@ -24,32 +16,25 @@
           placeholder="제목"
           v-model="communityboardView.boardTitle"
         ></b-form-input>
-      </b-form-group>
+      </b-input-group>
 
-      <b-form-group id="input-group-2" 
-      label="분류선택" label-for="input-2" label-align="left">
-        <b-form-select
-          id="input-2"
-          v-model="category"
-          :options="boardDivision"
-          required
-        ></b-form-select>
-      </b-form-group>
+       <b-input-group  prepend="분류" class="mb-2">
+          <b-form-select
+            id="input-2"
+            v-model="category"
+            :options="boardDivision"
+            required
+          ></b-form-select>
+        </b-input-group>
 
-
-      <!-- 에디터 창 -->
-      <!-- <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
-        <vue-editor  id="input-3" v-model="communityboardView.boardContent" 
-        name="boardContent"/>
-     </b-form-group> -->
-
-    <b-form-textarea
-      id="textarea-content"
-      v-model="communityboardView.boardContent"
-      :state="communityboardView.boardContent.length >= 10"
-     
-      rows="10"
-    ></b-form-textarea>
+  <b-form-group id="input-group-3"  label-for="input-3">
+      <b-form-textarea
+        id="textarea-content"
+        v-model="communityboardView.boardContent"
+      required
+        rows="10"
+      ></b-form-textarea>
+  </b-form-group>
 
       <!-- 첨부파일 -->
       <b-form-group>
@@ -59,7 +44,7 @@
       <!-- <b-button @click="clearFiles" class="mr-2">Clear files</b-button> -->
  
 
-      <b-button id="submit-btn2"  @click="updateForm" >완료</b-button>
+      <b-button id="submit-btn2" type="submit" >완료</b-button>
       <!-- <b-button id="submit-btn2"  @click="onReset" >취소</b-button> -->
       <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
       

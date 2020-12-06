@@ -22,15 +22,16 @@
           <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
         </v-tabs>
         
-          <h2 class="sub-header">공지사항</h2>
+          <h2 class="sub-header">자유게시판</h2>
           <br>
-
         <!-- 버튼 -->
-          <b-button v-if="userData.memberEmail === 'admin@kh.com'"   to="/noticeForm" exact  id="st_write">
+        
+       
+          <v-btn   to="/noticeForm" exact  id="st_write">
                글쓰기
-           </b-button>
-
+           </v-btn>
           <div class="overflow-hidden">
+
 
          <!-- 테이블 -->
         <v-card>
@@ -41,96 +42,103 @@
                 label="Search"
                 single-line
                 hide-details
-       
-              >
-              </v-text-field>
+              ></v-text-field>
           </v-card-title>
 
               <v-data-table
                 :headers="headers"
-                :items=noticeList
+                :items="noticeList"
                 :search="search"
-                @click:row="handleClick"
-                item-key="name"
+                item-key="noticeSq"
+                single-line
+                hide-details
               >
-              <!-- 수정중 -->
-                <!-- <template slot="items" slot-scope="props">
-                  <tr>
-                     <td>{{ props.item.boardDivision }}</td>
-                     <td>{{ props.item.boardTitle }}</td>
-                     <td>{{ formatDate(props.item.boardDate) }}</td>
-                   </tr>
-                </template> -->
+                <!-- :server-items-length="communityboard.length" -->
+  
+ 
+            <template v-slot:item="props">
+              <tr @click="handleClick(props.item.noticeSq)">
+                <td class="text-xs-right">{{props.item.noticeSq }}</td>
+                <td class="text-xs-right">{{props.item.noticeDivision }}</td>
+                <td class="text-xs-right">{{props.item.noticeTitle }}</td>
+                <td class="text-xs-right">{{formatDate(props.item.noticeDate)}}</td>
+                <td class="text-xs-right">{{props.item.noticeReadCount }}</td>
+              </tr>
+           </template>
 
               </v-data-table>
-        </v-card>
-  </div>
-      
-        </div>
+
+            </v-card>
+            <!-- <div>객체(임시) : {{communityboard}}</div>
+            <div>날짜 [0] 인덱스 (임시) : {{communityboard[0].boardDate | moment('YYYY-MM-DD')}}</div> -->
+
+          
+           </div>
+      </div>
 </div>
-<!-- <ul>
-  <li v-for="com in community " :key="com.id" > {{com.boardContent}}</li>
-</ul> -->
 
-
-<!-- 임시테스트 테이블 -->
     </div>
   </body>
 </template>
 
+
 <script>
 import { mapState } from 'vuex';
-import vueMoment from 'vue-moment';
 import Vue from 'vue'
+import vueMoment from 'vue-moment';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
+
 Vue.use(vueMoment);
+
 
   export default {
 
     created: function(){
       this.$store.dispatch("FETCH_NOTICE")
-  
+
     },
     computed:{
         ...mapState({
-             noticeList:state=>state.noticeList
-
-        }),
-         ...loadUserState(['userData'])
-    },
-
-      methods: {
-    handleClick(value){
-      // alert(value.boardSq);
-      this.$router.push({name:'NoticeView',params:{id:value.noticeSq}});
-      console.log(value);
-      console.log(value.boardSq);
+        
+            noticeList:state=>state.noticeList,
     
+        }),
+      ...loadUserState(['userData'])
+      
+       
+        
     },
 
-  // 수정중
-  //       formatDate(value) {
-  //     return this.$moment(value).format("MMM Do YY");
-  // }
-  },
+methods: {
+    handleClick(value){
+      this.$router.push({name:'NoticeView',params:{id:value}});
+      // console.log(this.$moment(value.boardDate).format('YYYY-MM-DD'));
+
+    },
+  // 날짜변환 함수
+    formatDate(value) {
+      // console.log(value);
+      return this.$moment(value).format("YYYY-MM-DD");
+      
+    }
+  },//method 끝
 
     data() {
       return {
-      // community: [],
-      // boardDate: communityboardView.boardDate | moment('YYYY-MM-DD') ,
       search: '',
         headers: [
           {
-            text: '분류',
+            text: '번호',
             align: 'start',
             filterable: false,
-            value: 'noticeDivision',
+            value: 'noticeSq',
           },
+          { text: '분류', value: 'noticeDivision'}, 
           { text: '제목', value: 'noticeTitle' },
-          //수정중입니다.
-          // { text: '작성날짜', value: '[boardDate | moment("YYYY-MM-DD")]' ,dataType: "Date" },
           { text: '작성날짜', value: 'noticeDate' },
+          { text: '조회수', value: 'noticeReadCount'}
+          
           
         ],
         
@@ -146,5 +154,7 @@ Vue.use(vueMoment);
 <style>
 @import '../../assets/css/BoardList.css';
 
-
+.example::-webkit-scrollbar {
+  display: none;
+}
 </style>
