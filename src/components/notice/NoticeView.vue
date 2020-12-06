@@ -46,7 +46,7 @@
           <b-row >
             <b-col>
               <b-button  v-if="userData.memberSq===noticeView.memberNum"
-                                                                               @click="update" id="update-btn">수정</b-button>
+                                                                               @click="update" id="update-btn2">수정</b-button>
               <b-button   v-if="userData.memberSq===noticeView.memberNum || userData.memberEmail === 'admin@kh.com'" 
                                                                                 @click="pdelete" id="delete-btn2">삭제</b-button>
             </b-col>
@@ -80,21 +80,22 @@
               <b-col>
                 <b-row>
                   <b-col>
-                    <b-form-textarea :disabled="commentcheck"  v-model="comment.ntCommentContent"  id="commentUptxt"/>
+                    <b-form-textarea :disabled="commentcheck" :value="comment.ntCommentContent" @input="updateInput" id="commentUptxt"/>
                   </b-col>
             
       
       
                   <template v-if="comment.memberSq==userData.memberSq">
-                  
-                      
-                      <b-button v-if="userData.memberSq===comment.memberSq && commentcheck==true" 
+           
+                    <b-col>
+                      <b-button v-if="userData.memberSq===comment.memberSq"
                                                                                                 @click="upclick($event)"  id="update-btn">수정</b-button> 
                       <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
                                                                                                 @click="declick(comment.ntCommentNo)" id="deltet-btn">삭제</b-button> 
-                      <b-button v-if="commentcheck==false" 
-                                                                                                @click="upendclick(comment.ntCommentNo)" id="updateEnd-btn">확인</b-button> 
-                    
+                      <b-button 
+                                                                                                @click="upendclick(comment.ntCommentNo,$event)" id="updateEnd-btn">확인</b-button> 
+                    </b-col>
+                
                 </template>
                     </b-row>
                 </b-col>
@@ -109,7 +110,7 @@
           <b-col>
             <b-card class="text-center">
               <b-row>
-                <b-col><b-form-textarea rows="3" ref="comment" v-model="ntcomment" placeholder="댓글을 남겨보세요" /></b-col>
+                <b-col><b-form-textarea rows="8" ref="comment" v-model="ntcomment" placeholder="댓글을 남겨보세요" /></b-col>
                  <b-col cols="1"><b-button @click="comment" id="comment_insert_btn">등록</b-button></b-col>
               </b-row>
             </b-card></b-col></b-row></b-form>
@@ -157,8 +158,11 @@ export default {
             pboardno:0,
             ntcomment:'',
             commentModal:false,
-           commentcheck:true,
-           changeval:'',
+            commentcheck:true,
+            boolcheck:false,
+            changeval:'',
+            updatetext:'',
+           
            
 
         }
@@ -251,22 +255,31 @@ export default {
 
     },
 
+      updateInput(event){
+      this.updatetext=event;
+      },
+
       upclick(e){
-                if(e.target.parentElement.parentElement.children[1].children[0].disabled==true){
-         e.target.parentElement.parentElement.children[1].children[0].disabled = false
-       }else e.target.parentElement.parentElement.children[1].children[0].disabled = true
+        console.log(e)
+       if(e.target.parentElement.parentElement.children[0].children[0].disabled==true){
+         e.target.parentElement.parentElement.children[0].children[0].disabled = false
+       }else e.target.parentElement.parentElement.children[0].children[0].disabled = true
        
+        //console.log()//
+       // this.commentcheck=false;
       },
 
   //댓글수정
-      upendclick(commentno){
+      upendclick(commentno,e){
        const ccno=commentno
-       
+       e.target.parentElement.parentElement.children[0].children[0].disabled = true;
+        if(this.updatetext=='') this.updatetext = e.target.parentElement.parentElement.children[0].children[0].value
        axios.post("http://localhost:8082/itjobgo/notice/updateComment",{ntCommentContent:this.changeval,ntCommentNo:ccno})
        .then((data)=>{
         console.log(data)
-            this.commentcheck=true;
-           this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
+            // this.commentcheck=true;
+          this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
+          this.updatetext='';
            
        })
       },
