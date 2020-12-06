@@ -88,7 +88,7 @@ import { VueEditor } from "vue2-editor";
 import { mapState } from 'vuex';
 import axios from 'axios'
 
-  /*  Vue2Editor 작성 */
+  /*  Vue2Editor 내용작성 */
     export default {
       data() {
         return {
