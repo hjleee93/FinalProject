@@ -44,37 +44,57 @@
                 </b-col>
             </b-row>
 
-
-      <b-form v-if="userData.memberSq!=null"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="댓글"/></b-col>
-      <b-col><b-form-textarea ref="qnacomment" v-model="qbcomment" /></b-col>
-      <b-col cols="1"><b-button @click="qnacomment">전송</b-button></b-col>
-      </b-row></b-card></b-col></b-row></b-form>
-
-    <!-- 댓글창 -->
-      <b-row v-for="qnacomment in qnacommentlist" :key="qnacomment.id"><b-col><b-card class="text-center"><b-row><b-col cols="2"><b-form-group label="답글"/></b-col>
-      <b-col><b-form-textarea readonly :value="qnacomment.qbCommentContent" /></b-col>
-      <b-col cols="1">{{new Date(qnacomment.qbcommentDate).toLocaleDateString()}}</b-col>
-      <template v-if="qnacomment.memberSq==userData.memberSq">
-        <b-col cols="1"> 
-           <div @click="declick(qnacomment.qbcommentNo)">삭제</div> 
-           <div @click="upclick(qnacomment)">수정</div> 
-        </b-col>
-      </template>
-      </b-row></b-card></b-col>
-      </b-row>
-
-   
-        <div>댓글 테스트 확인용 qnacommentlist : {{qnacommentlist}} <br>
-        </div>
-
     </div>
 
-   <!-- <div>
-       게시판 객체 : {{qnaBoardView}}<br>
-       멤버 객체 : {{userData}}<br>
-   </div> -->
-      
+    <!-- 댓글창 -->
+    <b-container>
+    <b-row v-for="comment in commentlist" :key="comment.id">
+        <b-col>
+          <b-card class="text-center">
+            <b-row><b-col cols="2">{{comment.memberName}}
+            <br>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}
+            </b-col>
+            <!-- 쓴사람과 아닐떄는 일반 댓글로 보여주지않기 -->
+            <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.qbCommentContent}}</b-col>
+            <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
+            <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
 
+              <b-col>
+                <b-row>
+                  <b-col>
+                    <b-form-textarea :disabled="commentcheck" :value="comment.qbCommentContent" 
+                    @input="updateInput" id="commentUptxt"/>
+                  </b-col>
+                        <template v-if="comment.memberSq==userData.memberSq">
+                            <b-col>
+                            <b-button v-if="userData.memberSq===comment.memberSq"
+                                @click="upclick($event)"  id="update-btn">수정</b-button> 
+                            <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
+                                @click="declick(comment.qboardCommentNo)" id="deltet-btn">삭제</b-button> 
+                            <b-button 
+                                @click="upendclick(comment.qboardCommentNo,$event)" id="updateEnd-btn">확인</b-button> 
+                            </b-col>
+                        </template>
+                    </b-row>
+                </b-col>
+             </b-form>
+            </b-row></b-card></b-col>
+        </b-row>
+<!-- 댓글쓰기 -->
+    <b-form v-if="userData.memberSq!=null">
+        <b-row >
+          <b-col>
+            <b-card class="text-center">
+              <b-row>
+                <b-col><b-form-textarea rows="8" ref="comment"
+                        v-model="qbcomment" placeholder="댓글을 남겨보세요" /></b-col>
+                <b-col cols="1"><b-button
+                        @click="comment" id="comment_insert_btn">등록</b-button></b-col>
+              </b-row>
+            </b-card></b-col>
+        </b-row>
+    </b-form>
+    </b-container>
     <!-- 삭제 모달창 -->
     <ModalView v-if="showModal" @close="showModal=false">
     <template>
@@ -104,9 +124,14 @@ import { mapState } from 'vuex';
 import axios from 'axios';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
+
+import Vue from 'vue'
 import vueMoment from 'vue-moment';
 Vue.use(vueMoment);
-import Vue from 'vue'
+
+var moment = require('moment');
+require('moment-timezone'); 
+moment.tz.setDefault("Asia/Seoul"); 
 
 export default {
 
@@ -115,7 +140,21 @@ export default {
             showModal:false,
             qnaBoardNo:0,
             qbcomment:'',
+
+            commentModal:false,
+            commentcheck:true,
+            changeval:'',
+            boolcheck:false,
+            updatetext:'',
         }
+    },
+
+    watch:{
+      commentlist:{
+        handler(newValue){
+          this.changeval=newValue[0].qbCommentContent;
+        },deep:true,
+      }
     },
 
     components :{
@@ -123,8 +162,24 @@ export default {
     },
 
     methods:{
-    
-            //1.삭제버튼~
+
+            // 날짜변환 함수
+            formatDate(value) {
+                // console.log(value);
+                return this.$moment(value).format('YYYY년 MM월 DD일');
+            },     
+            
+            // 게시글 수정버튼
+                updateqna(){
+            //alert("수정버튼")
+            //수정도 router.js에 등록됨. name값을 이용해서 페이지 전환
+                    let no=this.$route.params.id
+                console.log("수정버튼(params) :"+ no);
+            // console.log("글번호 :  : " + communityBoardNo)
+                this.$router.push({name:'qnaModify',params:{id:no}})
+            },
+
+            // 삭제버튼~
             deleteqna(){
                 this.showModal=!this.showModal;
             },
@@ -139,15 +194,34 @@ export default {
                 //(삭제NO)
                 this.showModal=!this.showModal;
             },
-    
-            //2.수정버튼~
-            updateqna(){
-                //alert("수정버튼")
-                //수정도 router.js에 등록됨. name값을 이용해서 페이지 전환
-                let no=this.$route.params.id
-            console.log("수정버튼(params) :"+ no);
-            // console.log("글번호 :  : " + communityBoardNo)
-            this.$router.push({name:'qnaModify',params:{id:no}})
+
+            //댓글등록
+            comment(){
+                let formData2=new FormData(); 
+                  formData2.append('qboardNo',this.qnaboard2.qboardNo);
+                  formData2.append('qbCommentContent',this.qbcomment);
+                  formData2.append('memberSq',this.userData.memberSq);
+                  formData2.append('memberName',this.userData.memberName)
+                    // for(let key of formData2.entries()){
+                    //   console.log(`${key}`); 
+                    // }
+            axios.post("http://localhost:8082/itjobgo/qna/qnacomment",formData2)
+            .then((data)=>{
+                console.log(data)
+                this.qbcomment="",
+                this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
+                
+            })
+                
+            .catch((error)=>
+              console.log(error))
+                
+            },
+
+            //코멘트 모달 취소
+            cancleModal(){
+            this.commentModal=!this.commentModal;
+        
             },
 
             //첨부파일 다운로드
@@ -155,51 +229,58 @@ export default {
             location.href="http://localhost:8082/itjobgo/qna/qnafiledownload?oriName="+attachment.originalfilename+"&reName="+attachment.renamedfilename;
             },
 
-            //댓글등록
-            qnacomment(){
-                let formData2=new FormData(); 
-                formData2.append('qbBoardNo',this.qnaboard2.qnaSeq);
-                formData2.append('qbCommentContent',this.qbcomment);
-                formData2.append('memberSq',this.userData.memberSq);
-                formData2.append('memberName',this.userData.memberName)
-                // for(let key of formData2.entries()){
-                //   console.log(`${key}`); 
-                // }
-            axios.post("http://localhost:8082/itjobgo/qna/qnacomment",formData2)
-            .then((data)=>{
-                console.log(data)
-                this.qbcomment="",
-                this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
-            
-            })
-            
-            .catch((error)=>
-                console.log(error))
-            
-            },
-
-            //날짜표시
-            formatDate(value){
-            return this.$moment(value).format("YYYY-MM-DD");
-            },
  
             //댓글삭제
-            declick(qbCommentNo){
-             let delfirm=confirm("삭제 하시겠습니까?")
-             if(delfirm){
-             const cno=qbCommentNo;
-             this.$store.dispatch("FETCH_QNABOARD_COMMENTDEL",cno)
-             return  this.$store.dispatch("FETCH_QNABOARD_COMMNET",this.$route.params.id)
-            }else{
+            declick(commentno){
+                let delfirm=confirm("댓글을 삭제 하시겠습니까?")
+                if(delfirm){
+                const qno=commentno;
+                this.$store.dispatch("FETCH_QNABOARD_COMMENTDEL",qno)
+                return  this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
+                }else{
                 return
-            }
+                }
+            },
 
-        },
+            //댓글수정
+            handleInput: function (event) {
+            // 할당 전에 어떤 처리하기
+            this.comment.ntCommentContent = event.target.value;
+            this.updateComment=this.comment.ntCommentContent;
+
+            },
+
+            updateInput(event){
+            this.updatetext=event;
+            },
+
+
+            upclick(e){
+                console.log(e)
+            if(e.target.parentElement.parentElement.children[0].children[0].disabled==true){
+                e.target.parentElement.parentElement.children[0].children[0].disabled = false
+            }else e.target.parentElement.parentElement.children[0].children[0].disabled = true
+            
+                //console.log()//
+            // this.commentcheck=false;
+            },
+
+            upendclick(commentno,e){
+            const qqno=commentno
+                e.target.parentElement.parentElement.children[0].children[0].disabled = true;
+                if(this.updatetext=='') this.updatetext = e.target.parentElement.parentElement.children[0].children[0].value
+            axios.post("http://localhost:8082/itjobgo/qna/updateComment",{qbCommentContent:this.updatetext,qboardCommentNo:qqno})
+            .then((data)=>{
+                console.log(data)
+                    // this.commentcheck=true;
+                this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
+                this.updatetext='';
+            })
+            },
+
 
     },
 
-    
-    
     created(){
         const qnaboardNo=this.$route.params.id;
         this.$store.dispatch("FETCH_QNABOARD_VIEW",qnaboardNo)
@@ -217,13 +298,9 @@ export default {
         ...mapState({ //store
             qnaboard2:state=>state.qnaboard2,
             attachment:state=>state.qbAttachment2,
-            qnacommentlist:state=>state.qnacomment,
-        }),
-
+            commentlist:state=>state.qnacomment}),
         ...loadUserState(['userData'])
-
         },
-
 
 }
 

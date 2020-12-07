@@ -342,9 +342,9 @@ export default new Vuex.Store({
         },
 
         //qna 게시판 댓글 삭제
-        FETCH_QNABOARD_COMMENTDEL(data,qboardNo){
-            console.log(qboardNo)
-            fetchqnacommentdel(qboardNo)
+        FETCH_QNABOARD_COMMENTDEL(data,qboardCommentNo){
+            console.log(qboardCommentNo)
+            fetchqnacommentdel(qboardCommentNo)
             .then((data)=>{console.log(data)
             })
             .catch(({error})=>console.log(error))

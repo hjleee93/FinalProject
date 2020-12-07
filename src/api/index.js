@@ -131,11 +131,11 @@ function fetchQnaBoardAttachment(qboardNo){
 }
 //qna게시판 댓글 가져오기
 function fetchqnacomment(qboardNo){
-    return axios.get(`${config.Url}qna/qnalist${qboardNo}`) 
+    return axios.get(`${config.Url}qna/commentSelectOne${qboardNo}`) 
 }
 //qna게시판 댓글 삭제
-function fetchqnacommentdel(qbCommentNo){
-    return axios.post(`${config.Url}qna/commentdel${qbCommentNo}`)
+function fetchqnacommentdel(qboardCommentNo){
+    return axios.post(`${config.Url}qna/commentDelete${qboardCommentNo}`)
 }
 
 
