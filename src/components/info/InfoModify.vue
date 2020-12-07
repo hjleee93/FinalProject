@@ -5,60 +5,56 @@
     <h2 class="st_title">Information 수정</h2><hr>
   </div>
 
-  <form @submit.prevent="updateForm" 
+  <form role="form" @submit.prevent="updateForm" 
     enctype="multipart/form-data">
-    <b-form-group
-      id="input-group-1" 
-      label="기업명" 
-      label-for="input-1"
-      label-align="left">
-
-    <b-form-input
+  
+    <b-input-group prepend="기업" class="mb-2">
+     <b-form-input
         id="input-1"
         name="infoTitle"
-        type="text"
-        required
         placeholder="기업명을 작성하세요"
         v-model="infoDetail.infoTitle"
-      ></b-form-input>
-    </b-form-group>
+        required
+     ></b-form-input>
+    </b-input-group>
 
-    <b-form-group id="input-group-2" 
-    label="분류"  label-for="input-2" label-align="left">
-        <b-form-select
-          id="input-2"
-          v-model="category"
-          :options="infoCategory"
-          readonly
-        ></b-form-select>
-    </b-form-group>
+    <b-input-group  prepend="분류" class="mb-2">
+      <b-form-select
+        id="input-2"
+        v-model="category"
+        :options="infoCategory"
+        required
+      ></b-form-select>
+    </b-input-group>
 
-    <b-form-group 
-      id="input-group-3" 
-      label="날짜" 
-      label-for="input-3">
-        <input type="date" v-model="infoDetail.infoDate" >
-    
-    <b-form-date
+    <b-input-group prepend="날짜" class="mb-2" > 
+      <b-form-input
         id="input-3"
+        type="date"
         name="infoDate"
-        v-model="infoDetail.infoDate"
         :options="date"
+        v-model="infoDetail.infoDate"
         required 
-      ></b-form-date>
-    </b-form-group> 
+      ></b-form-input>
+    </b-input-group> 
 
-    <b-form-group  label="시간" >
-        <input type="time"  
-        v-model="infoDetail.infoTime">
-    </b-form-group>
+    <b-input-group prepend="시간" class="mb-2" >
+      <b-form-input 
+        type="time"  
+        v-model="infoDetail.infoTime"
+        required
+      ></b-form-input>
+    </b-input-group>
 
-    <!--Vue2Editor 작성--> 
-    <b-form-group  label="주소/내용" >
-      <vue-editor 
-        id="input-4"
+    <b-form-group id="input-group-3" label-for="input-3">
+      <b-form-textarea
+        id="textarea-content"
         v-model="infoDetail.infoContent" 
-        name="infoContent" />
+        name="infoContent"
+        placeholder=" 주소 또는 내용을 작성하세요"
+        rows="7"
+        required
+      ></b-form-textarea>
     </b-form-group>
 
     <b-form-group>
@@ -74,7 +70,7 @@
     <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button>
     <!-- 수정 버튼 -->
     <div id="btn_bottom">
-      <b-button  id="submit1" @click="updateForm" class="btn-space">완료</b-button>
+      <b-button  id="submit1" type="submit" >완료</b-button>
       <b-button type="reset"  id="reset-btn">Reset</b-button>
       <b-button type="button" id="golist"  to="/infoList" exact>목록</b-button>
    </div>
@@ -84,11 +80,10 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
+/* import { VueEditor } from "vue2-editor"; */
 import { mapState } from 'vuex';
 import axios from 'axios'
 
-  /*  Vue2Editor 작성 */
     export default {
       data() {
         return {
@@ -103,7 +98,7 @@ import axios from 'axios'
             infoDate : "",
             infoTime : "",
             infoContent: "",    
-            files :"",       
+            files : "",      
             }
       },
       created() {
@@ -119,9 +114,9 @@ import axios from 'axios'
         infoAttachment:state=>state.infoAttachment,    
         })
       },
-      components:{
-          VueEditor,
-      },
+     components:{
+      /*     VueEditor, */
+      }, 
       methods: {
        updateForm() {
         if(!this.infoTitle){
@@ -174,8 +169,8 @@ import axios from 'axios'
       },
       onReset(evt) {
         evt.preventDefault()
-        this.infoTitle = ''
-        this.category = null
+        this.infoTitle=''
+        this.category=null
         this.infoContent=''
         this.files.name=''
       },
