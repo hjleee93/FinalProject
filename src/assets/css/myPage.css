@@ -273,19 +273,22 @@ input[type="file"] {
 .qna,
 .pf,
 .scrap,
-.community {
+.community,
+.notice {
   border: 1px solid #74899e !important;
 }
 thead.qna-table,
 thead.pf-table,
 thead.scrap-table,
-thead.community-table {
+thead.community-table,
+thead.notice-table {
   background-color: #74899e;
 }
 #qnaBody:hover,
 #pfBody:hover,
 #scrapBody:hover,
-#communityBody:hover {
+#communityBody:hover,
+#noticeBody:hover {
   cursor: pointer;
 }
 
@@ -310,4 +313,10 @@ thead.community-table {
 }
 .ok-btn {
   background-color: #158467 !important;
+}
+
+/* 관리자 mypage */
+#noticeAll {
+  display: flex;
+  margin-left: auto;
 }

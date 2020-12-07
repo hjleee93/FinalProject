@@ -309,17 +309,20 @@
       </template>
       <!-- memberPosition이 등록되지 않은 경우 -->
       <template v-else-if="userData.memberPosition == null">
-        <div class="container">
-          <p class="m-3 text-center">
-            {{ userData.memberName }}님 프로필을 등록해주시면 ITJOBGO에서 추천
-            채용정보를 추천해드립니다.
-          </p>
-          <p class="text-center mt-4">
-            <b-btn class="profile-btn" @click="moveMyPage(userData.memberSq)"
-              >프로필 등록바로가기</b-btn
-            >
-          </p>
-        </div>
+        <!-- 관리자인경우 -->
+        <template v-if="userData.memberSq != '999'">
+          <div class="container">
+            <p class="m-3 text-center">
+              {{ userData.memberName }}님 프로필을 등록해주시면 ITJOBGO에서 추천
+              채용정보를 추천해드립니다.
+            </p>
+            <p class="text-center mt-4">
+              <b-btn class="profile-btn" @click="moveMyPage(userData.memberSq)"
+                >프로필 등록바로가기</b-btn
+              >
+            </p>
+          </div>
+        </template>
       </template>
     </template>
 
