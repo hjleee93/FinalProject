@@ -30,7 +30,8 @@ import consult from './components/resume/consult'
 import consultresumeenroll from './components/resume/consultresumeenroll'
 import memberStore from './store/modules/memberStore'
 
-
+//주은(it뉴스)
+import ItNews from './components/itNews/ItNews.vue';
 
 //민지
 const InfoList = () => {
@@ -295,9 +296,16 @@ export default new Router({
 
     {
       path: '/itNewsList',
-      name: 'ItNewsList',
-      component: ItNewsList
+      component: ItNewsList,
+      name: "ItNewsList",
+      children: [
+        {
+          path: 'itNews',
+          component: ItNews,
+        },
+      ]
     },
+    
 
     {
       path: '/itNewsForm',
@@ -310,6 +318,7 @@ export default new Router({
       name: 'NoticeList',
       component: NoticeList
     },
+    
 
     {
       path: '/noticeForm',
