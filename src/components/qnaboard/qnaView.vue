@@ -113,7 +113,7 @@
     </template>
     </ModalView>
 
-
+   댓글 테스트 :  {{commentlist}}
 </b-container>
 </template>
 
