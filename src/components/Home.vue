@@ -91,12 +91,30 @@
         <div class="col-4 pl-0">
           <!-- 공지  -->
           <div class="row">
-            <template v-if="communityboard">
+            <template v-if="noticeList">
               <div class="card col-6 m-0 p-0 info-card">
-                <div class="m-2">
-                  <b-btn class="ntc-btn">공지</b-btn><span></span>
+                <div
+                  class="m-2"
+                  v-if="noticeList[noticeList.length - 1] != undefined"
+                >
+                  <b-btn class="ntc-btn">공지</b-btn>
+                  <router-link
+                    :to="{
+                      name: 'NoticeView',
+                      params: {
+                        id: noticeList[noticeList.length - 1].noticeSq,
+                      },
+                    }"
+                    class="notice-router"
+                  >
+                    <span>
+                      {{ noticeList[noticeList.length - 1].noticeTitle }}
+                    </span>
 
-                  <p class="text-muted m-b-0 notice-content"></p>
+                    <p class="text-muted m-b-0 notice-content">
+                      {{ noticeList[noticeList.length - 1].noticeContent }}
+                    </p></router-link
+                  >
                 </div>
               </div>
             </template>
@@ -297,10 +315,8 @@
             채용정보를 추천해드립니다.
           </p>
           <p class="text-center mt-4">
-            <router-link to="/myPage"
-              ><b-btn class="profile-btn"
-                >프로필 등록바로가기</b-btn
-              ></router-link
+            <b-btn class="profile-btn" @click="moveMyPage(userData.memberSq)"
+              >프로필 등록바로가기</b-btn
             >
           </p>
         </div>
@@ -381,6 +397,13 @@ export default {
     };
   },
   methods: {
+    moveMyPage: function(e) {
+      //중복 라우터 방지
+      if (this.$route.path != "/myPage/" + e) {
+        console.log(this.$route.path);
+        this.$router.push({ name: "myPage", params: { memberSq: e } });
+      }
+    },
     //서치바
     jobSearch: function() {
       let keyword = this.keyword;
@@ -400,21 +423,20 @@ export default {
     //024: 소프트웨어 - 백엔드
     //025: 데이터 - 백엔드
     //056, 214302: 디자이너 - 디자인
-    setTimeout(() => {
-      //유저정보 대기
-      if (this.userData.memberPosition != null) {
-        this.$http
-          .get(
-            "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&keyword=" +
-              this.userData.memberPosition
-          ) //추천 채용정보
-          .then((response) => {
-            var xml = response.data;
-            var json = convert.xml2json(xml, { compact: true });
-            this.rcmJson = JSON.parse(json);
-          });
-      }
-    }, 1000);
+
+    //유저정보 대기
+    if (this.userData.memberPosition != null) {
+      this.$http
+        .get(
+          "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&keyword=" +
+            this.userData.memberPosition
+        ) //추천 채용정보
+        .then((response) => {
+          var xml = response.data;
+          var json = convert.xml2json(xml, { compact: true });
+          this.rcmJson = JSON.parse(json);
+        });
+    }
   },
   mounted() {
     //action에 있는 loadXml 호출용
@@ -422,6 +444,7 @@ export default {
     this.$store.dispatch("FETCH_QNABOARD");
     this.$store.dispatch("FETCH_COMMUNITYBOARD");
     this.$store.dispatch("FECH_MEETINGLIST");
+    this.$store.dispatch("FETCH_NOTICE");
   },
   computed: {
     //구직정보 데이터
@@ -432,7 +455,7 @@ export default {
     //유저데이터 호출
     ...memberState(["loginStatus", "userData"]),
 
-    ...mapState(["qnaboard1", "communityboard"]),
+    ...mapState(["qnaboard1", "communityboard", "noticeList"]),
 
     meeting() {
       return this.$store.state.meeting
@@ -457,7 +480,8 @@ export default {
 }
 .collab-router,
 .qna-router,
-.commu-router {
+.commu-router,
+.notice-router {
   text-decoration: none;
   color: black;
 }

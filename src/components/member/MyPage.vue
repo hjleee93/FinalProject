@@ -142,82 +142,92 @@
             </th>
           </tr>
         </thead>
-
-        <tbody>
-          <tr
-            id="scrapBody"
-            class="scrap-table"
-            v-for="(sc, i) in scrap"
-            :key="i"
-            @click="moveJobDtl(scrap[i].jobNo)"
-          >
-            <td>
-              {{ scrap[i].company }}
-            </td>
-            <td>{{ scrap[i].jobTitle }}</td>
-            <td>{{ scrap[i].applyMethod }}</td>
-            <template v-if="scrap[i].deadline.includes('채용시까지')">
-              <td>채용시까지</td>
-            </template>
-            <template v-else>
+        <template v-if="scrap[0] != undefined">
+          <tbody>
+            <tr
+              id="scrapBody"
+              class="scrap-table"
+              v-for="(sc, i) in scrap"
+              :key="i"
+              @click="moveJobDtl(scrap[i].jobNo)"
+            >
               <td>
-                <b-btn
-                  class="d-day-btn argent-btn mr-2"
-                  v-if="
-                    $moment(formatDate(scrap[i].deadline)).diff(
-                      $moment(new Date()),
-                      'days'
-                    ) +
-                      1 <=
-                      7
-                  "
-                  >D-
-                  {{
-                    $moment(formatDate(scrap[i].deadline)).diff(
-                      $moment(new Date()),
-                      "days"
-                    ) + 1
-                  }}
-                </b-btn>
-                <!-- d-day 20일이하  -->
-                <b-btn
-                  class="d-day-btn warn-btn mr-2"
-                  v-else-if="
-                    $moment(formatDate(scrap[i].deadline)).diff(
-                      $moment(new Date()),
-                      'days'
-                    ) +
-                      1 >
-                      7 &&
+                {{ scrap[i].company }}
+              </td>
+              <td>{{ scrap[i].jobTitle }}</td>
+              <td>{{ scrap[i].applyMethod }}</td>
+              <template v-if="scrap[i].deadline.includes('채용시까지')">
+                <td>채용시까지</td>
+              </template>
+              <template v-else>
+                <td>
+                  <b-btn
+                    class="d-day-btn argent-btn mr-2"
+                    v-if="
                       $moment(formatDate(scrap[i].deadline)).diff(
                         $moment(new Date()),
                         'days'
                       ) +
                         1 <=
-                        20
-                  "
-                  >D-
-                  {{
-                    $moment(formatDate(scrap[i].deadline)).diff(
-                      $moment(new Date()),
-                      "days"
-                    ) + 1
-                  }}
-                </b-btn>
+                        7
+                    "
+                    >D-
+                    {{
+                      $moment(formatDate(scrap[i].deadline)).diff(
+                        $moment(new Date()),
+                        "days"
+                      ) + 1
+                    }}
+                  </b-btn>
+                  <!-- d-day 20일이하  -->
+                  <b-btn
+                    class="d-day-btn warn-btn mr-2"
+                    v-else-if="
+                      $moment(formatDate(scrap[i].deadline)).diff(
+                        $moment(new Date()),
+                        'days'
+                      ) +
+                        1 >
+                        7 &&
+                        $moment(formatDate(scrap[i].deadline)).diff(
+                          $moment(new Date()),
+                          'days'
+                        ) +
+                          1 <=
+                          20
+                    "
+                    >D-
+                    {{
+                      $moment(formatDate(scrap[i].deadline)).diff(
+                        $moment(new Date()),
+                        "days"
+                      ) + 1
+                    }}
+                  </b-btn>
 
-                <b-btn class="d-day-btn ok-btn mr-2" v-else
-                  >D-
-                  {{
-                    $moment(formatDate(scrap[i].deadline)).diff(
-                      $moment(new Date()),
-                      "days"
-                    ) + 1
-                  }}
-                </b-btn>
-              </td></template
-            >
-          </tr>
-        </tbody>
+                  <b-btn class="d-day-btn ok-btn mr-2" v-else
+                    >D-
+                    {{
+                      $moment(formatDate(scrap[i].deadline)).diff(
+                        $moment(new Date()),
+                        "days"
+                      ) + 1
+                    }}
+                  </b-btn>
+                </td></template
+              >
+            </tr>
+          </tbody>
+        </template>
+        <template v-else>
+          <tbody>
+            <tr>
+              <td colspan="4" class="text-center">
+                스크랩한 구직 정보가 없습니다.
+              </td>
+            </tr>
+          </tbody>
+        </template>
       </v-simple-table>
     </div>
 
@@ -325,7 +335,6 @@
       </v-simple-table>
     </div> -->
 
-    <!-- TODO: 포트폴리오 -->
     <div id="portfDiv"></div>
     <div>
       <p class="h3 my-5 font-weight-bold text-center">
@@ -422,6 +431,15 @@
 
                 <td>{{ formatDate(communityboard[i].boardDate) }}</td>
               </template>
+            </tr>
+          </tbody>
+        </template>
+        <template v-else>
+          <tbody>
+            <tr>
+              <td colspan="3" class="text-center">
+                작성한 글이 없습니다.
+              </td>
             </tr>
           </tbody>
         </template>

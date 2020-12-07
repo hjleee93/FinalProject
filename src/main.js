@@ -78,10 +78,7 @@ new Vue({
   },
   computed: {
     ...mapState(["loginStatus"]),
-    userData() {
-      alert("??");
-      return 0
-    }
+
   },
   render: h => h(App),
   vuetify,
