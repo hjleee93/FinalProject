@@ -84,7 +84,7 @@
       data() {
         return {
             infoTitle: "",
-         /*    category : null, */
+            category : null,
             infoCategory :[
           { value: null, text: '분류를 선택하세요' },
           { value: '설명회', text: '설명회' },

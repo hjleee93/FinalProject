@@ -4,7 +4,7 @@
   <!--서브 이미지-->    
   <b-row>
     <div class="submenuimage ">
-      <p class="subtitle" id="subtitle">Information</p>
+      <p class="subtitle" id="subtitle">Job Information</p>
     </div>
   </b-row>
 

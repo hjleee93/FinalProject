@@ -27,12 +27,12 @@
       ></b-form-select>
     </b-input-group>
 
+        <!-- :options="date" -->
     <b-input-group prepend="날짜" class="mb-2" > 
       <b-form-input
         id="input-3"
         type="date"
         name="infoDate"
-        :options="date"
         v-model="infoDetail.infoDate"
         required 
       ></b-form-input>
