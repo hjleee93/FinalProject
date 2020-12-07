@@ -204,7 +204,7 @@ export default new Router({
         {
           path: 'meeting',
           component: Meeting,
-         
+
         },
         {
           path: 'meetingend',
@@ -227,18 +227,18 @@ export default new Router({
       path: '/portfolioList',
       component: PortFolio,
       name: 'portlist',
-       beforeEnter (to,from,next){
+      beforeEnter(to, from, next) {
         //로그인한 사용자의 레벨을 가져온다  
-        const level=memberStore.state.userData.memberLevel;
-         if(level==2||level==0){
-           //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
-             next();
-            }else{
-              alert("권한정보가 부족합니다.")
-            }
-           
-            
-          }
+        const level = memberStore.state.userData.memberLevel;
+        if (level == 2 || level == 0) {
+          //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
+          next();
+        } else {
+          alert("권한정보가 부족합니다.")
+        }
+
+
+      }
     },
     {
       path: '/portfolioenroller',
@@ -397,7 +397,7 @@ export default new Router({
       component: ChangePassword
     },
     {
-      path: '/myPage',
+      path: '/myPage/:memberSq',
       name: 'myPage',
       component: MyPage
     },

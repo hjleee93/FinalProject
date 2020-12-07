@@ -37,11 +37,17 @@
 
               <div class="col-lg-3 form-cols ">
                 <div>
-                  <b-form-select
+                  <b-button
+                    v-b-toggle.collapse-4
+                    class="form-control"
+                    v-model="selectedLocation"
+                    >수정수정1</b-button
+                  >
+                  <!-- <b-form-select
                     class="form-control"
                     v-model="selectedJob"
                     :options="options2"
-                  ></b-form-select>
+                  ></b-form-select> -->
                 </div>
               </div>
 
@@ -57,7 +63,9 @@
             </div>
           </b-form>
         </div>
-
+        <b-collapse id="collapse-4" class="mt-2 toggle-btn">
+          <div id="test"></div>
+        </b-collapse>
         <!-- 메인 -->
         <div class="col-4 pl-0">
           <b-carousel
@@ -128,27 +136,27 @@
             <div class="card col-6 m-0 p-0 info-card">
               <div
                 class="m-2"
-                v-if="qnaboard[qnaboard.length - 1] != undefined"
+                v-if="qnaboard1[qnaboard1.length - 1] != undefined"
               >
                 <router-link
                   :to="{
                     name: 'qnaView',
-                    params: { id: qnaboard[qnaboard.length - 1].qnaSeq },
+                    params: { id: qnaboard1[qnaboard1.length - 1].qboardNo },
                   }"
                   class="qna-router"
                 >
                   <div class="qst">
                     <b-btn class="qna-btn">질문</b-btn>
-                    <span>{{ qnaboard[qnaboard.length - 1].qnaTitle }}</span>
+                    <span>{{ qnaboard1[qnaboard1.length - 1].qnaTitle }}</span>
                   </div>
                   <p class="text-muted m-b-0">
-                    {{ qnaboard[qnaboard.length - 1].qnaContent }}
+                    {{ qnaboard1[qnaboard1.length - 1].qnaContent }}
                   </p>
 
                   <div class="ans">
                     <b-btn class="ans-btn">답변</b-btn>
                     <span
-                      v-if="qnaboard[qnaboard.length - 1].qnaAnswerYn == 'N'"
+                      v-if="qnaboard1[qnaboard1.length - 1].qnaAnswerYn == 'N'"
                       ><small>등록된 답변이 없습니다.</small></span
                     >
                     <span v-else><small>답변 확인하기</small></span>
@@ -163,27 +171,27 @@
             <div class="card col-6 m-0 p-0 info-card">
               <div
                 class="m-2"
-                v-if="qnaboard[qnaboard.length - 2] != undefined"
+                v-if="qnaboard1[qnaboard1.length - 2] != undefined"
               >
                 <router-link
                   :to="{
                     name: 'qnaView',
-                    params: { id: qnaboard[qnaboard.length - 2].qnaSeq },
+                    params: { id: qnaboard1[qnaboard1.length - 2].qboardNo },
                   }"
                   class="qna-router"
                 >
                   <div class="qst">
                     <b-btn class="qna-btn">질문</b-btn>
-                    <span>{{ qnaboard[qnaboard.length - 2].qnaTitle }}</span>
+                    <span>{{ qnaboard1[qnaboard1.length - 2].qnaTitle }}</span>
                   </div>
                   <p class="text-muted m-b-0">
-                    {{ qnaboard[qnaboard.length - 2].qnaContent }}
+                    {{ qnaboard1[qnaboard1.length - 2].qnaContent }}
                   </p>
 
                   <div class="ans">
                     <b-btn class="ans-btn">답변</b-btn>
                     <span
-                      v-if="qnaboard[qnaboard.length - 2].qnaAnswerYn == 'N'"
+                      v-if="qnaboard1[qnaboard1.length - 2].qnaAnswerYn == 'N'"
                       ><small>등록된 답변이 없습니다.</small></span
                     >
                     <span v-else><small>답변 확인하기</small></span>
@@ -344,6 +352,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 import { mapState } from "vuex";
+import $ from "jquery";
 
 const { mapState: jobState } = createNamespacedHelpers("jobStore");
 const { mapState: memberState } = createNamespacedHelpers("memberStore");
@@ -379,6 +388,9 @@ export default {
         name: "jobSearchDtl",
         params: { keyword: keyword }, //검색 keyword pass
       });
+    },
+    jobCategory: function() {
+      $("#test").show();
     },
   },
   created() {
@@ -420,7 +432,7 @@ export default {
     //유저데이터 호출
     ...memberState(["loginStatus", "userData"]),
 
-    ...mapState(["qnaboard", "communityboard"]),
+    ...mapState(["qnaboard1", "communityboard"]),
 
     meeting() {
       return this.$store.state.meeting
@@ -597,5 +609,11 @@ div[role="region"] {
 .carousel-custom >>> div {
   position: unset !important;
   bottom: auto !important;
+}
+#test {
+  border: 1px solid red;
+  height: 200px;
+  width: 500px;
+  display: none;
 }
 </style>
