@@ -37,12 +37,14 @@
               hide-details
             ></v-text-field>
         </v-card-title>
+        
           <v-data-table
             :headers="headers"
             :items="qnaboard1"
             :search="search"
-            :server-items-length="qnaboard1.length"
             item-key="qboardNo"
+            single-line
+            hide-details
           >
 
           <template v-slot:item="props">
@@ -58,11 +60,12 @@
           </template>  
           
         </v-data-table>
+
         </v-card>
        
+      </div>
     </div>
 
-</div>
 </b-container>
 </template>
 
