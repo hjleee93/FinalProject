@@ -4,84 +4,78 @@
  <div class="container">
   <h2 class="st_title">Information 작성</h2><hr>
     
-    <form @submit.prevent="enrollInfo" 
+    <b-form role="form" @submit.prevent="enrollInfo" 
     @reset="onReset"  enctype="multipart/form-data">
      
-    <b-form-group
-      id="input-group-2" 
-      label="기업명" 
-      label-for="input-2">
+    <b-input-group prepend="기업" class="mb-2" >
+      <b-form-input
+        id="input-2"
+        v-model="infoTitle"
+        required
+        placeholder="기업명을 작성하세요"
+      ></b-form-input>
+      </b-input-group>
 
-    <b-form-input
-      id="input-2"
-      v-model="infoTitle"
-      required
-      placeholder="기업명을 작성하세요"
-    ></b-form-input>
-    </b-form-group>
-
-    <b-form-group 
-      id="input-group-3" 
-      label="분류" 
-      label-for="input-3">
+    <b-input-group prepend="분류" class="mb-2" >
       <b-form-select
         id="input-3"
         v-model="category"
         :options="infoCategory"
         required
       ></b-form-select>
-    </b-form-group> 
+    </b-input-group>
 
- 	  <b-form-group 
-      id="input-group-4" 
-      label="날짜" 
-      label-for="input-4">
-    <input type="date" v-model="infoDate" >
-     
-    <b-form-date
-        id="input-4"
-        v-model="infoDate"
-        :options="date"
-        required 
-      ></b-form-date>
-    </b-form-group> 
+    <b-input-group prepend="날짜" class="mb-2" >
+      <b-form-input 
+        type="date" 
+        v-model="infoDate"  
+        required
+      ></b-form-input>
+    </b-input-group> 
 
-    <b-form-group  label="시간" >
-      <input type="time"  
+    <b-input-group prepend="시간" class="mb-2" >
+      <b-form-input 
+        type="time"  
         v-model="infoTime"
-      ></b-form-group>
+        required
+      ></b-form-input>
+    </b-input-group>
 
-    <b-form-group label="주소/내용" >
-      <vue-editor id="vue-editor" 
-      v-model="infoContent"
-      name="infoContent"/>
+    <b-form-group id="input-group-3" label-for="input-3">
+      <b-form-textarea
+        id="textarea-content"
+        v-model="infoContent"
+        required
+        placeholder=" 주소 또는 내용을 작성하세요"
+        rows="7"
+      ></b-form-textarea>
     </b-form-group>
 
-    <b-form-group>
+    <b-input-group>
       <b-form-file 
         id="files" 
         ref="upfiles" 
         v-on:change="handleFile"
         placeholder="첨부파일 선택" >
       </b-form-file> 
-    </b-form-group>
+    </b-input-group>
 
     <!--첨부파일 리셋 버튼-->
     <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button>
     <!--버튼 -->
     <div id="btn_bottom">
-      <b-button id="submit" @click="enrollInfo">등록</b-button>
+      <b-button type="submit" id="submit">등록</b-button>
       <b-button type="reset" id="reset-btn">Reset </b-button>
       <b-button to="/infoList" exact id="cancel">취소</b-button>
     </div>
 
-    </form>
+    </b-form>
   </div>
 </b-container>
 </template>
 
   <script>
-  import { VueEditor } from "vue2-editor";
+  /* import { VueEditor } from "vue2-editor"; */
   import axios from 'axios';
   import { createNamespacedHelpers } from "vuex";
   const { mapState } = createNamespacedHelpers("memberStore");
@@ -89,23 +83,23 @@
     export default {
       data() {
         return {
-            infoTitle: '',
-            category : "null",
+            infoTitle: "",
+            category : null,
             infoCategory :[
           { value: null, text: '분류를 선택하세요' },
           { value: '설명회', text: '설명회' },
           { value: '박람회', text: '박람회' },
           { value: '상담회', text: '상담회' },
         ],
-            infoDate : '',
-            infoTime : '',
+            infoDate : "",
+            infoTime : "",
             infoContent: "",   
-            files :""        
+            files : "",       
         }
       },
-    components:{
+ /*    components:{
       VueEditor
-    },
+    }, */
     computed: {
     ...mapState(['userData'])
     },
@@ -143,8 +137,8 @@
         },
         onReset(evt) {
          evt.preventDefault()
-          this.infoTitle = ''
-          this.category = null
+          this.infoTitle=''
+          this.category=null
           this.infoContent=''
           this.files.name=''
         },
