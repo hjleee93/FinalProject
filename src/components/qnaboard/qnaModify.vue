@@ -37,12 +37,6 @@
           required
         ></b-form-select>
       </b-input-group>
-          <!-- <b-form-input
-            id="input-2"
-            name="qnaCategory"
-            required
-            v-model="qnaboard2.qnaCategory"
-          ></b-form-input> -->
 
       <!-- 에디터창, 내용 -->
       <b-form-group 
