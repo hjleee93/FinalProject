@@ -16,6 +16,7 @@ import PortFolio from './components/portfolio/PortFoilo.vue'
 import PortFoiloenroller from './components/portfolio/PortFoiloenroller.vue';
 import Portfolioinfo from './components/portfolio/PortFolioinfo.vue';
 import Portfolioupdate from './components/portfolio/PortFolioupdate.vue';
+import Meetingapply from './components/meeting/Meetingapply.vue';
 
 //혜지
 
@@ -212,6 +213,10 @@ export default new Router({
         }
       ]
 
+    },
+    {
+      path:'/meetingapply',
+      component:Meetingapply
     },
     {
       path: '/enrollmeeting',

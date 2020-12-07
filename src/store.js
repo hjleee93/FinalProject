@@ -16,6 +16,7 @@ import {
     fetchMeeting,
     fetchmsublist,
     fetchMeetinginfo,
+    fetchMeetingapply,
 
     //주은
     fetchCommunityBoardList,
@@ -189,6 +190,10 @@ export default new Vuex.Store({
                 .catch(({ error }) => {
                     console.log(error);
                 })
+        },
+        async FECH_MEETINGAPPLY(data,email){
+          const response=await fetchMeetingapply(email)
+          return response;
         },
         
 

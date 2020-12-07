@@ -41,6 +41,9 @@ function fetchmsublist(){
 function fetchMeetinginfo(no){
     return axios.get(`${config.Url}meeting/meetinginfo${no}.do`)
 }
+function fetchMeetingapply(email){
+    return axios.get(`${config.Url}meeting/meetingapply${email}.do`)
+}
 
 
 
@@ -181,6 +184,7 @@ export {
     fetchMeeting,
     fetchMeetinginfo,
     fetchmsublist,
+    fetchMeetingapply,
   
 
     //주은
