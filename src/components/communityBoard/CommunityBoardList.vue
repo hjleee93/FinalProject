@@ -27,7 +27,7 @@
         <!-- 버튼 -->
         
        
-          <v-btn   to="/communityBoardForm" exact  id="st_write">
+          <v-btn   to="/communityBoardForm" exact  id="st_write"  v-if="userData.memberSq!=null">
                글쓰기
            </v-btn>
           <div class="overflow-hidden">
@@ -87,6 +87,8 @@
 import { mapState } from 'vuex';
 import Vue from 'vue'
 import vueMoment from 'vue-moment';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 
 Vue.use(vueMoment);
 
@@ -103,6 +105,8 @@ Vue.use(vueMoment);
             communityboard:state=>state.communityboard,
     
         }),
+        ...loadUserState(['userData'])
+      
         
     },
 

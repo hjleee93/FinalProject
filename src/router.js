@@ -69,8 +69,6 @@ import consult from './components/resume/consult'
 import consultresumeenroll from './components/resume/consultresumeenroll'
 
 
-
-
 //민지
 const InfoList = () => {
   return import('./components/info/InfoList.vue')
@@ -334,8 +332,8 @@ export default new Router({
 
     {
       path: '/itNewsList',
-      name: 'ItNewsList',
-      component: ItNewsList
+      component: ItNewsList,
+      name: "ItNewsList",
     },
 
     {
@@ -349,6 +347,7 @@ export default new Router({
       name: 'NoticeList',
       component: NoticeList
     },
+    
 
     {
       path: '/noticeForm',
@@ -357,7 +356,7 @@ export default new Router({
     },
 
     {
-      path: '/itNewsView',
+      path: '/itNewsView/:id',
       name: 'itNewsView',
       component: itNewsView
     },
@@ -381,7 +380,7 @@ export default new Router({
     },
 
     {
-      path: '/itNewsUpdate',
+      path: '/itNewsUpdate/:id',
       name: 'ItNewsUpdate',
       component: ItNewsUpdate
     },
@@ -397,27 +396,15 @@ export default new Router({
       path: '/',//주소
       name: 'home',
       component: Home//주소와 연결이되는 컴포넌트
-
     },
-    // {
-    //   path: "/photoUpload",
-    //   name: 'photoUpload',
-    //   component: PhotoUpload
-    // },
     {
       path: '/register',
       name: 'register',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: Register
     },
     {
       path: '/login',
       name: 'login',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: Login
     },
     {

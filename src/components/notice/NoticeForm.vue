@@ -10,6 +10,7 @@
     @reset="onReset" enctype="multipart/form-data">
     
    <b-input-group   prepend="제목" class="mb-2" >
+
         <b-form-input  
           id="input-1"
           v-model="noticeTitle"
@@ -17,15 +18,18 @@
           required
           placeholder="제목을 입력해주세요"
         ></b-form-input>
+        
   </b-input-group>
 
       <b-input-group  prepend="분류" class="mb-2">
+
         <b-form-select
           id="input-3"
           v-model="category"
           :options="noticeDivision"
           required
         ></b-form-select>
+
       </b-input-group>
 
     <b-form-group id="input-group-3"  label-for="input-3">

@@ -16,22 +16,47 @@ const jobStore = {
         data: [],
         jobs: [],
         jobInfo: [],
+        rcmJobs: [],
         scrap: [],
         scrapcount: null
     },
     actions: {
 
-        loadXml({ commit }) {
-            //최신 채용 정보 xml
-            axios.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056")
+        async rcmJob({ commit }, memberPosition) {
+            await axios.get(
+                "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&keyword=" +
+                memberPosition.memberPosition
+            ) //추천 채용정보
                 .then((response) => {
+                    var xml = response.data;
+                    var json = convert.xml2json(xml, { compact: true });
+                    this.rcmJobs = JSON.parse(json);
+                    console.log("created!");
+                    console.log(this.rcmJson.wantedRoot.wanted);
+                    commit('SET_RCM_JOB', this.rcmJobs);
+                });
+        },
+        async loadXml({ commit }) {
+            //최신 채용 정보 xml
+            console.log("11")
+
+
+            await axios.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056")
+                .then((response) => {
+
                     let data = response.data
+                    console.log("2")
                     //xml to json
                     let json = convert.xml2json(data, { compact: true })
                     this.jobs = JSON.parse(json)
-                    commit('SET_POST', this.jobs)
+                    commit('SET_POST', this.jobs);
 
                 });
+
+            console.log("3")
+
+
+
         },
 
         //상세페이지 
@@ -86,7 +111,7 @@ const jobStore = {
         },
 
         loadJobTable({ commit }) {
-            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056')//추천 채용정보
+            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056')
                 .then((response) => {
                     var xml = response.data
                     var json = convert.xml2json(xml, { compact: true })
@@ -367,6 +392,9 @@ const jobStore = {
 
     },
     mutations: {
+        SET_RCM_JOB(state, rcmJobs) {
+            state.rcmJobs = rcmJobs;
+        },
         SET_SCRAP_COUNT(state, scrapCount) {
             state.scrapCount = scrapCount;
         },
