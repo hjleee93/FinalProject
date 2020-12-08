@@ -76,8 +76,8 @@
         </li>
         <li class="apply">
           <p class="title">스크랩한 구인광고</p>
-          <p class="count">
-            <a href="#scrapDiv" class="scroll">{{ scrapCount }}</a
+          <p class="count" v-if="this.$store.scrap != undefined">
+            <a href="#scrapDiv" class="scroll">{{ this.$store.scrap.length }}</a
             >건
           </p>
         </li>
@@ -486,19 +486,19 @@ export default {
         });
     }
   },
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch("jobStore/loadScrap", {
+      memberSq: this.userData.memberSq,
+    });
     this.$store.dispatch("FETCH_PBOARD");
     this.$store.dispatch("FETCH_QNABOARD");
     this.$store.dispatch("FETCH_COMMUNITYBOARD");
 
-    this.$store.dispatch("jobStore/loadScrap", {
-      memberSq: this.userData.memberSq,
-    });
     this.$store.dispatch("jobStore/loadJobTable");
   },
   computed: {
     ...memberState(["loginStatus", "userData"]),
-    ...jobState(["tableList", "jobInfo", "scrapCount"]),
+    ...jobState(["tableList", "jobInfo", "scrap"]),
 
     communityboard() {
       let objArr = new Object(); //반환할 객체
@@ -518,17 +518,18 @@ export default {
 
       return tem;
     },
-    //스크랩한 글 리턴
-    scrap() {
-      var temp = new Object(); //반환할 객체
-      if (this.$store.scrap != undefined) {
-        for (let i = 0; i < 3; i++) {
-          temp[i] = this.$store.scrap[i];
-        }
-      }
+    // //스크랩한 글 리턴
+    // scrap() {
+    //   var temp = new Object(); //반환할 객체
+    //   console.log("this.$store.scrap: " + JSON.stringify(this.$store.scrap));
+    //   if (this.$store.scrap != undefined) {
+    //     for (let i = 0; i < 3; i++) {
+    //       temp[i] = this.$store.scrap[i];
+    //     }
+    //   }
 
-      return temp;
-    },
+    //   return temp;
+    // },
     pboard() {
       var objTemp = new Object(); //반환할 객체
 
@@ -600,17 +601,6 @@ export default {
       for (let i = 0; i < this.$store.state.pboard.length; i++) {
         if (this.$store.state.pboard[i].pboardId == this.userData.memberSq) {
           count++;
-        }
-      }
-      return count;
-    },
-    scrapCount() {
-      let count = 0;
-      if (this.$store.scrap != undefined) {
-        for (let i = 0; i < this.$store.scrap.length; i++) {
-          if (this.$store.scrap[i].memberSq == this.userData.memberSq) {
-            count++;
-          }
         }
       }
       return count;

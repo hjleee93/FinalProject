@@ -299,7 +299,7 @@
     </p>
   </b-container>
 </template>
-
+<script src="http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=9865d6b20cfcf557f7f17640b4431305&libraries=services"></script>
 <script>
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");

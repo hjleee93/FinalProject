@@ -95,17 +95,18 @@ const jobStore = {
 
         },
         //스크랩한 구직정보 wantedNo호출
-        loadScrap({ commit }, memberSq) {
+        async loadScrap({ commit }, memberSq) {
+            console.log("진짜2")
             console.log(memberSq.memberSq)
-            axios
+            await axios
                 .get(
                     "http://localhost:8082/itjobgo/member/getScrapStatus?memberSq=" + memberSq.memberSq
 
                 )
                 .then((response) => {
-
+                    console.log("333")
                     this.scrap = response.data;
-                    console.log(this.scrap)
+                    console.log(JSON.stringify(this.scrap))
                     commit('SET_SCRAP_DETAIL', this.scrap)
                 })
         },

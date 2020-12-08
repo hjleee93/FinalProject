@@ -103,6 +103,7 @@
 </template>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <script>
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
@@ -129,7 +130,9 @@ export default {
   },
 
   mounted() {
-    window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
+    if (window.Kakao == undefined) {
+      window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
+    }
   },
   methods: {
     login: function() {
