@@ -132,7 +132,7 @@
     </template>
   </ModalView>
 
-     
+     {{commentlist}}
 </b-container> 
 </template>
 
@@ -274,7 +274,7 @@ export default {
        const ccno=commentno
        e.target.parentElement.parentElement.children[0].children[0].disabled = true;
         if(this.updatetext=='') this.updatetext = e.target.parentElement.parentElement.children[0].children[0].value
-       axios.post("http://localhost:8082/itjobgo/notice/updateComment",{ntCommentContent:this.changeval,ntCommentNo:ccno})
+       axios.post("http://localhost:8082/itjobgo/notice/updateComment",{ntCommentContent:this.updatetext,ntCommentNo:ccno})
        .then((data)=>{
         console.log(data)
             // this.commentcheck=true;
