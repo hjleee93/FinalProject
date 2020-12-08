@@ -13,6 +13,7 @@
           <td style="width:60%">
             <div class="job-title m-5">
               {{ items.wantedDtl.wantedInfo.wantedTitle._text }}
+              <!-- 스크랩버튼 -->
               <b-icon
                 class="ml-3 scarp-star"
                 id="whiteStar"
@@ -26,6 +27,7 @@
                 @click="unscrap"
               ></b-icon>
               <br />
+              <!-- 스크랩버튼 fin -->
               <p>
                 <small>{{ items.wantedDtl.corpInfo.corpNm._text }}</small>
               </p>
@@ -297,7 +299,9 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
+const { mapState: memberState } = createNamespacedHelpers("memberStore");
 import $ from "jquery";
+import axios from "axios";
 
 export default {
   data: () => ({
@@ -329,10 +333,67 @@ export default {
     },
 
     scrap: function() {
+      console.log(this.items.wantedDtl.wantedInfo.rcptMthd);
+      console.log(this.userData.memberSq);
+
+      const formData = {
+        memberSq: this.userData.memberSq,
+        jobNo: this.$route.params.wantedNo,
+        jobTitle: this.items.wantedDtl.wantedInfo.wantedTitle._text,
+        company: this.items.wantedDtl.corpInfo.corpNm._text,
+        deadline: this.items.wantedDtl.wantedInfo.receiptCloseDt._text,
+        applyMethod: this.items.wantedDtl.wantedInfo.rcptMthd._text,
+      };
+      axios
+        .post("http://localhost:8082/itjobgo/member/scrapJob", formData) //form server 연결
+        .then((res) => {
+          console.log(res.data);
+          if (res.data > 0) {
+            this.$swal({
+              text: "스크랩된 구직정보는 마이페이지에서 확인 가능합니다.",
+              icon: "success",
+            });
+          } else {
+            this.$swal({
+              text: "스크랩에 실패하였습니다. 관리자에게 문의해주세요",
+              icon: "error",
+            });
+          }
+        })
+        .catch(() => {
+          this.$swal({
+            text: "스크랩에 실패하였습니다. 관리자에게 문의해주세요",
+            icon: "error",
+          });
+        });
+
       $("#whiteStar").hide();
       $("#fillStar").show();
     },
     unscrap: function() {
+      const formData = {
+        memberSq: this.userData.memberSq,
+        jobNo: this.$route.params.wantedNo,
+      };
+      axios
+        .post("http://localhost:8082/itjobgo/member/unscrapJob", formData) //form server 연결
+        .then((res) => {
+          console.log(res.data);
+          if (res.data > 0) {
+            console.log("스크랩 제거");
+          } else {
+            this.$swal({
+              text: "스크랩에 제거에 실패하였습니다. 관리자에게 문의해주세요",
+              icon: "error",
+            });
+          }
+        })
+        .catch(() => {
+          this.$swal({
+            text: "스크랩에 제거에 실패하였습니다. 관리자에게 문의해주세요",
+            icon: "error",
+          });
+        });
       $("#whiteStar").show();
       $("#fillStar").hide();
     },
@@ -344,11 +405,29 @@ export default {
     });
   },
   computed: {
+    ...memberState(["userData"]),
     ...mapState([
       //매핑값
+
       "apply",
       "items",
     ]),
+  },
+  created() {
+    axios
+      .get(
+        "http://localhost:8082/itjobgo/member/getScrapStatus?memberSq=" +
+          this.userData.memberSq
+      )
+      .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          if (this.$route.params.wantedNo == response.data[i].jobNo) {
+            console.log("스크랩됨");
+            $("#whiteStar").hide();
+            $("#fillStar").show();
+          }
+        }
+      });
   },
 };
 </script>

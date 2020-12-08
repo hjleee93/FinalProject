@@ -37,11 +37,17 @@
 
               <div class="col-lg-3 form-cols ">
                 <div>
-                  <b-form-select
+                  <b-button
+                    v-b-toggle.collapse-4
+                    class="form-control"
+                    v-model="selectedLocation"
+                    >수정수정1</b-button
+                  >
+                  <!-- <b-form-select
                     class="form-control"
                     v-model="selectedJob"
                     :options="options2"
-                  ></b-form-select>
+                  ></b-form-select> -->
                 </div>
               </div>
 
@@ -57,7 +63,9 @@
             </div>
           </b-form>
         </div>
-
+        <b-collapse id="collapse-4" class="mt-2 toggle-btn">
+          <div id="test"></div>
+        </b-collapse>
         <!-- 메인 -->
         <div class="col-4 pl-0">
           <b-carousel
@@ -83,12 +91,30 @@
         <div class="col-4 pl-0">
           <!-- 공지  -->
           <div class="row">
-            <template v-if="communityboard">
+            <template v-if="noticeList">
               <div class="card col-6 m-0 p-0 info-card">
-                <div class="m-2">
-                  <b-btn class="ntc-btn">공지</b-btn><span></span>
+                <div
+                  class="m-2"
+                  v-if="noticeList[noticeList.length - 1] != undefined"
+                >
+                  <b-btn class="ntc-btn">공지</b-btn>
+                  <router-link
+                    :to="{
+                      name: 'NoticeView',
+                      params: {
+                        id: noticeList[noticeList.length - 1].noticeSq,
+                      },
+                    }"
+                    class="notice-router"
+                  >
+                    <span>
+                      {{ noticeList[noticeList.length - 1].noticeTitle }}
+                    </span>
 
-                  <p class="text-muted m-b-0 notice-content"></p>
+                    <p class="text-muted m-b-0 notice-content">
+                      {{ noticeList[noticeList.length - 1].noticeContent }}
+                    </p></router-link
+                  >
                 </div>
               </div>
             </template>
@@ -128,27 +154,27 @@
             <div class="card col-6 m-0 p-0 info-card">
               <div
                 class="m-2"
-                v-if="qnaboard[qnaboard.length - 1] != undefined"
+                v-if="qnaboard1[qnaboard1.length - 1] != undefined"
               >
                 <router-link
                   :to="{
                     name: 'qnaView',
-                    params: { id: qnaboard[qnaboard.length - 1].qnaSeq },
+                    params: { id: qnaboard1[qnaboard1.length - 1].qboardNo },
                   }"
                   class="qna-router"
                 >
                   <div class="qst">
                     <b-btn class="qna-btn">질문</b-btn>
-                    <span>{{ qnaboard[qnaboard.length - 1].qnaTitle }}</span>
+                    <span>{{ qnaboard1[qnaboard1.length - 1].qnaTitle }}</span>
                   </div>
                   <p class="text-muted m-b-0">
-                    {{ qnaboard[qnaboard.length - 1].qnaContent }}
+                    {{ qnaboard1[qnaboard1.length - 1].qnaContent }}
                   </p>
 
                   <div class="ans">
                     <b-btn class="ans-btn">답변</b-btn>
                     <span
-                      v-if="qnaboard[qnaboard.length - 1].qnaAnswerYn == 'N'"
+                      v-if="qnaboard1[qnaboard1.length - 1].qnaAnswerYn == 'N'"
                       ><small>등록된 답변이 없습니다.</small></span
                     >
                     <span v-else><small>답변 확인하기</small></span>
@@ -163,27 +189,27 @@
             <div class="card col-6 m-0 p-0 info-card">
               <div
                 class="m-2"
-                v-if="qnaboard[qnaboard.length - 2] != undefined"
+                v-if="qnaboard1[qnaboard1.length - 2] != undefined"
               >
                 <router-link
                   :to="{
                     name: 'qnaView',
-                    params: { id: qnaboard[qnaboard.length - 2].qnaSeq },
+                    params: { id: qnaboard1[qnaboard1.length - 2].qboardNo },
                   }"
                   class="qna-router"
                 >
                   <div class="qst">
                     <b-btn class="qna-btn">질문</b-btn>
-                    <span>{{ qnaboard[qnaboard.length - 2].qnaTitle }}</span>
+                    <span>{{ qnaboard1[qnaboard1.length - 2].qnaTitle }}</span>
                   </div>
                   <p class="text-muted m-b-0">
-                    {{ qnaboard[qnaboard.length - 2].qnaContent }}
+                    {{ qnaboard1[qnaboard1.length - 2].qnaContent }}
                   </p>
 
                   <div class="ans">
                     <b-btn class="ans-btn">답변</b-btn>
                     <span
-                      v-if="qnaboard[qnaboard.length - 2].qnaAnswerYn == 'N'"
+                      v-if="qnaboard1[qnaboard1.length - 2].qnaAnswerYn == 'N'"
                       ><small>등록된 답변이 없습니다.</small></span
                     >
                     <span v-else><small>답변 확인하기</small></span>
@@ -283,19 +309,20 @@
       </template>
       <!-- memberPosition이 등록되지 않은 경우 -->
       <template v-else-if="userData.memberPosition == null">
-        <div class="container">
-          <p class="m-3 text-center">
-            {{ userData.memberName }}님 프로필을 등록해주시면 ITJOBGO에서 추천
-            채용정보를 추천해드립니다.
-          </p>
-          <p class="text-center mt-4">
-            <router-link to="/myPage"
-              ><b-btn class="profile-btn"
+        <!-- 관리자인경우 -->
+        <template v-if="userData.memberSq != '999'">
+          <div class="container">
+            <p class="m-3 text-center">
+              {{ userData.memberName }}님 프로필을 등록해주시면 ITJOBGO에서 추천
+              채용정보를 추천해드립니다.
+            </p>
+            <p class="text-center mt-4">
+              <b-btn class="profile-btn" @click="moveMyPage(userData.memberSq)"
                 >프로필 등록바로가기</b-btn
-              ></router-link
-            >
-          </p>
-        </div>
+              >
+            </p>
+          </div>
+        </template>
       </template>
     </template>
 
@@ -344,6 +371,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 import { mapState } from "vuex";
+import $ from "jquery";
 
 const { mapState: jobState } = createNamespacedHelpers("jobStore");
 const { mapState: memberState } = createNamespacedHelpers("memberStore");
@@ -372,6 +400,13 @@ export default {
     };
   },
   methods: {
+    moveMyPage: function(e) {
+      //중복 라우터 방지
+      if (this.$route.path != "/myPage/" + e) {
+        console.log(this.$route.path);
+        this.$router.push({ name: "myPage", params: { memberSq: e } });
+      }
+    },
     //서치바
     jobSearch: function() {
       let keyword = this.keyword;
@@ -379,6 +414,9 @@ export default {
         name: "jobSearchDtl",
         params: { keyword: keyword }, //검색 keyword pass
       });
+    },
+    jobCategory: function() {
+      $("#test").show();
     },
   },
   created() {
@@ -388,21 +426,20 @@ export default {
     //024: 소프트웨어 - 백엔드
     //025: 데이터 - 백엔드
     //056, 214302: 디자이너 - 디자인
-    setTimeout(() => {
-      //유저정보 대기
-      if (this.userData.memberPosition != null) {
-        this.$http
-          .get(
-            "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&keyword=" +
-              this.userData.memberPosition
-          ) //추천 채용정보
-          .then((response) => {
-            var xml = response.data;
-            var json = convert.xml2json(xml, { compact: true });
-            this.rcmJson = JSON.parse(json);
-          });
-      }
-    }, 1000);
+
+    //유저정보 대기
+    if (this.userData.memberPosition != null) {
+      this.$http
+        .get(
+          "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&keyword=" +
+            this.userData.memberPosition
+        ) //추천 채용정보
+        .then((response) => {
+          var xml = response.data;
+          var json = convert.xml2json(xml, { compact: true });
+          this.rcmJson = JSON.parse(json);
+        });
+    }
   },
   mounted() {
     //action에 있는 loadXml 호출용
@@ -410,6 +447,7 @@ export default {
     this.$store.dispatch("FETCH_QNABOARD");
     this.$store.dispatch("FETCH_COMMUNITYBOARD");
     this.$store.dispatch("FECH_MEETINGLIST");
+    this.$store.dispatch("FETCH_NOTICE");
   },
   computed: {
     //구직정보 데이터
@@ -420,7 +458,7 @@ export default {
     //유저데이터 호출
     ...memberState(["loginStatus", "userData"]),
 
-    ...mapState(["qnaboard", "communityboard"]),
+    ...mapState(["qnaboard1", "communityboard", "noticeList"]),
 
     meeting() {
       return this.$store.state.meeting
@@ -445,7 +483,8 @@ export default {
 }
 .collab-router,
 .qna-router,
-.commu-router {
+.commu-router,
+.notice-router {
   text-decoration: none;
   color: black;
 }
@@ -597,5 +636,11 @@ div[role="region"] {
 .carousel-custom >>> div {
   position: unset !important;
   bottom: auto !important;
+}
+#test {
+  border: 1px solid red;
+  height: 200px;
+  width: 500px;
+  display: none;
 }
 </style>
