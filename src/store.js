@@ -81,6 +81,7 @@ export default new Vuex.Store({
         meeting: [],
         msubList: [],
         minfo: [],
+        apply:[],
 
 
         //주은
@@ -191,8 +192,9 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
-        async FECH_MEETINGAPPLY(data,email){
+        async FECH_MEETINGAPPLY({commit},email){
           const response=await fetchMeetingapply(email)
+          commit("SET_APPLY",response.data)
           return response;
         },
         
@@ -441,6 +443,9 @@ export default new Vuex.Store({
         },
         SET_COMMENT(state,data){
             state.comment=data;
+        },
+        SET_APPLY(state,data){
+            state.apply=data;
         },
 
         //주은

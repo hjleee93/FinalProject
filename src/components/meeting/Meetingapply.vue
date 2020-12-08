@@ -17,7 +17,7 @@
         </v-tabs>
       </div>
   </div>
-  {{userData}}
+  {{apply}}
   <b-row>
 <b-col> 
 <v-data-table :headers="headers">
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
+import { createNamespacedHelpers, mapState } from "vuex";
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 
 export default {
@@ -66,7 +66,10 @@ export default {
         
     },
      computed: {
-         ...loadUserState(['userData'])  
+         ...loadUserState(['userData'])  ,
+         ...mapState({
+           apply:state=>state.apply
+         })
     },
        
 
