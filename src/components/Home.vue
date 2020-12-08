@@ -274,37 +274,39 @@
               >추천 채용 정보</strong
             >
           </h3>
-          <div class="row">
-            <div
-              class="col-xl-3 col-sm-6 col-12"
-              v-for="(item, i) in rcmJson.wantedRoot.wanted"
-              :key="i"
-            >
-              <div class="card h-100">
-                <router-link
-                  :to="{
-                    name: 'jobInfoDtl',
-                    params: { wantedNo: item.wantedAuthNo._text },
-                  }"
-                  class="job-card"
-                >
-                  <div class="card-body">
-                    <div class="card-title">{{ item.company._text }}</div>
-                    <div>
-                      <b-card-text>{{ item.title._text }}</b-card-text>
+          <template v-if="rcmJobs.wantedRoot != undefined">
+            <div class="row">
+              <div
+                class="col-xl-3 col-sm-6 col-12"
+                v-for="(item, i) in rcmJobs.wantedRoot.wanted"
+                :key="i"
+              >
+                <div class="card h-100">
+                  <router-link
+                    :to="{
+                      name: 'jobInfoDtl',
+                      params: { wantedNo: item.wantedAuthNo._text },
+                    }"
+                    class="job-card"
+                  >
+                    <div class="card-body">
+                      <div class="card-title">{{ item.company._text }}</div>
+                      <div>
+                        <b-card-text>{{ item.title._text }}</b-card-text>
+                      </div>
                     </div>
-                  </div>
-                  <div class="card-footer">
-                    <small>
-                      <b-card-text
-                        >등록 일자: {{ item.regDt._text }}</b-card-text
-                      ></small
-                    >
-                  </div>
-                </router-link>
+                    <div class="card-footer">
+                      <small>
+                        <b-card-text
+                          >등록 일자: {{ item.regDt._text }}</b-card-text
+                        ></small
+                      >
+                    </div>
+                  </router-link>
+                </div>
               </div>
             </div>
-          </div>
+          </template>
         </div>
       </template>
       <!-- memberPosition이 등록되지 않은 경우 -->
@@ -330,40 +332,42 @@
 
     <div class="container">
       <h3 class="m-3"><strong class="tit_cont">최신 채용 정보</strong></h3>
-      <div class="row">
-        <div
-          class="col-xl-3 col-sm-6 col-12"
-          v-for="(item, i) in jobs.wantedRoot.wanted"
-          :key="i"
-        >
-          <div class="card h-100">
-            <router-link
-              :to="{
-                name: 'jobInfoDtl',
-                params: {
-                  wantedNo: item.wantedAuthNo._text,
-                  url: item.wantedInfoUrl._text,
-                },
-              }"
-              class="job-card"
-            >
-              <div class="card-body">
-                <div class="card-title">{{ item.company._text }}</div>
-                <div>
-                  <b-card-text>{{ item.title._text }}</b-card-text>
+      <template v-if="jobs.wantedRoot != undefined">
+        <div class="row">
+          <div
+            class="col-xl-3 col-sm-6 col-12"
+            v-for="(item, i) in jobs.wantedRoot.wanted"
+            :key="i"
+          >
+            <div class="card h-100">
+              <router-link
+                :to="{
+                  name: 'jobInfoDtl',
+                  params: {
+                    wantedNo: item.wantedAuthNo._text,
+                    url: item.wantedInfoUrl._text,
+                  },
+                }"
+                class="job-card"
+              >
+                <div class="card-body">
+                  <div class="card-title">{{ item.company._text }}</div>
+                  <div>
+                    <b-card-text>{{ item.title._text }}</b-card-text>
+                  </div>
                 </div>
-              </div>
-              <div class="card-footer">
-                <small
-                  ><b-card-text
-                    >등록 일자: {{ item.regDt._text }}</b-card-text
-                  ></small
-                >
-              </div>
-            </router-link>
+                <div class="card-footer">
+                  <small
+                    ><b-card-text
+                      >등록 일자: {{ item.regDt._text }}</b-card-text
+                    ></small
+                  >
+                </div>
+              </router-link>
+            </div>
           </div>
         </div>
-      </div>
+      </template>
     </div>
   </section>
 </template>
@@ -371,14 +375,14 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 import { mapState } from "vuex";
-import $ from "jquery";
+// import $ from "jquery";
 
 const { mapState: jobState } = createNamespacedHelpers("jobStore");
 const { mapState: memberState } = createNamespacedHelpers("memberStore");
-// import $ from 'jquery';
+import $ from "jquery";
 
-var convert = require("xml-js");
-
+// var convert = require("xml-js");
+// import axios from "axios";
 //로그인한 사람에 따라 추천 parmeter 수정하기
 
 export default {
@@ -426,38 +430,33 @@ export default {
     //024: 소프트웨어 - 백엔드
     //025: 데이터 - 백엔드
     //056, 214302: 디자이너 - 디자인
-
     //유저정보 대기
-    if (this.userData.memberPosition != null) {
-      this.$http
-        .get(
-          "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&keyword=" +
-            this.userData.memberPosition
-        ) //추천 채용정보
-        .then((response) => {
-          var xml = response.data;
-          var json = convert.xml2json(xml, { compact: true });
-          this.rcmJson = JSON.parse(json);
-        });
-    }
   },
-  mounted() {
+  async mounted() {
     //action에 있는 loadXml 호출용
-    this.$store.dispatch("jobStore/loadXml");
+    console.log("mounted!");
+
+    await this.$store.dispatch("memberStore/getMemberInfo");
+    console.log(this.userData.memberPosition);
+    if (this.userData.memberPosition != undefined) {
+      console.log("유저정보 다음");
+      await this.$store.dispatch("jobStore/rcmJob", {
+        memberPosition: this.userData.memberPosition,
+      });
+    }
+    await this.$store.dispatch("jobStore/loadXml");
     this.$store.dispatch("FETCH_QNABOARD");
     this.$store.dispatch("FETCH_COMMUNITYBOARD");
     this.$store.dispatch("FECH_MEETINGLIST");
     this.$store.dispatch("FETCH_NOTICE");
   },
+
   computed: {
     //구직정보 데이터
-    ...jobState([
-      //매핑값
-      "jobs",
-    ]),
+
     //유저데이터 호출
     ...memberState(["loginStatus", "userData"]),
-
+    ...jobState(["jobs", "rcmJobs"]),
     ...mapState(["qnaboard1", "communityboard", "noticeList"]),
 
     meeting() {
