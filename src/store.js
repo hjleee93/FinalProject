@@ -344,27 +344,13 @@ export default new Vuex.Store({
         },
 
         //qna 게시판 댓글 삭제
-<<<<<<< HEAD
         FETCH_QNABOARD_COMMENTDEL(data,qboardCommentNo){
             console.log(qboardCommentNo)
             fetchqnacommentdel(qboardCommentNo)
             .then((data)=>{console.log(data)
             })
             .catch(({error})=>console.log(error))
-=======
-        FETCH_QNABOARD_COMMENTDEL(data, qboardNo) {
-            console.log(qboardNo)
-            fetchqnacommentdel(qboardNo)
-                .then((data) => {
-                    console.log(data)
-                })
-                .catch(({ error }) => console.log(error))
->>>>>>> ae04b90f5b5436a81d06dfd8151558e9bcdd5757
         },
-
-
-
-
 
         //민지
         //info list 불러오기
