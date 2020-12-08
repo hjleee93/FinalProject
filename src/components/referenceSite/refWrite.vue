@@ -2,20 +2,22 @@
 <b-container>
 <div class="container">
   <div>
-			<h2 class="st_title">사이트 등록하기</h2>
-
-    <b-row class="info">
+		<h2 class="st_title">사이트 등록하기</h2>
+    <div class="info">
           * 참고 사이트 등록은 관리자 승인 후 업로드 됩니다. (작성일 기준 1-2일 소요)
-    </b-row><hr>
+    </div><hr>
 
-    <form @submit.prevent="enroller"  enctype="multipart/form-data">
-
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <b-form-group
+            id="input-group-1"
+            label-for="input-1"
+            label-align="left"
             label="사이트명"
             >
           <b-form-input
             id="title"
             v-model="reftitle"
+            type="text"
             required
             placeholder="사이트 명을 입력해주세요"
           ></b-form-input>
@@ -76,7 +78,7 @@
       <b-button type="submit" id="btn_write2" class="btn-space2">등록하기</b-button>
       <b-button type="button" id="btn_write2" class="btn-space2" to="/refSite">등록취소</b-button>
       </div>
-  </form>
+  </b-form>
 
   </div>
 </div>
@@ -84,7 +86,10 @@
 
 </template>
 
+
 <script>
+// import { VueEditor } from "vue2-editor";
+
   export default {
     data() {
       return {
@@ -100,28 +105,66 @@
           
       }
     },
+
+    computed:{
+      ...mapState({
+        
+
+      })
+    },
+
     methods: {
-      onSubmit(evt) {
-        evt.preventDefault()
-        alert(JSON.stringify(this.form))
-      },
-      onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.site = ''
-        this.form.name = ''
-        this.form.food = null
-        this.form.checked = []
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      },
+      
+              enroller(){
+              let formData=new FormData();
+              formData.append('mtitle',this.mtitle);
+              formData.append('mwriter',this.userData.memberName);
+              formData.append('memail',this.userData.memberEmail);
+              formData.append('mphone',this.userData.memberPhone);
+              formData.append('sdate',this.sdate);
+              formData.append('fdate',this.fdate);
+              formData.append('back',this.back);
+              formData.append('front',this.front);
+              formData.append('desgin',this.desgin);
+              formData.append('simcontent',this.simcontent);
+              formData.append('upfile',this.files);
+              formData.append('mcontent',this.mcontent);
+              formData.append('langs',this.langs);
+              formData.append('address',this.result.address);
+              formData.append('rdate',this.rdate);
+              for(let key of formData.entries()){
+              console.log(`${key}`);
+                }
+                
+              axios.post("http://localhost:8082/itjobgo/meeting/enrollmeeting.do"
+              ,formData,
+              { headers:{
+                'Content-Type':'multipart/form-data'
+              }})
+              .then((data)=>console.log(data))
+              .catch((error)=>console.log(error))
+              },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       clearFiles() {
         this.$refs['file-input'].reset()
-      }
+      },
+
     }
+
   }
 </script>
 
