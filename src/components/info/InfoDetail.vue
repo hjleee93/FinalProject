@@ -45,13 +45,12 @@
             <b-button to="/infoList" id="golist">목록</b-button>
           </b-col>
         </b-row>
-
       </b-card>
     </b-col>
   </b-row>
      
+    <ModalView v-if="showModal" @close="showModal = false">
 
- <ModalView v-if="showModal" @close="showModal = false">
     <template>
       <div slot="header">
         삭제하시겠습니까?
@@ -60,13 +59,10 @@
         <b-button id="but_ydele" @click="ydele">네</b-button>
         <b-button id="but_ndele" @click="ndele">아니요</b-button>
       </div>
-      <div slot="footer">
-
-      </div>
+        <div slot="footer">
+        </div>
     </template>
-
   </ModalView>
-
   </b-container> 
 </template>
 
@@ -76,9 +72,7 @@ import ModalView from '../common/ModalView.vue';
 import { createNamespacedHelpers } from "vuex";
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 
-
 export default {
-
   data(){
       return{
         showModal:false,

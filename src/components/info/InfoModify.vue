@@ -27,7 +27,6 @@
       ></b-form-select>
     </b-input-group>
 
-        <!-- :options="date" -->
     <b-input-group prepend="날짜" class="mb-2" > 
       <b-form-input
         id="input-3"
@@ -75,7 +74,6 @@
       <b-button type="button" id="golist"  to="/infoList" exact>목록</b-button>
    </div>
   </form>
-
 </b-container>
 </template>
 
@@ -106,7 +104,6 @@ import axios from 'axios'
           this.$store.dispatch("FETCH_INFO_UPDATE",infoSq)
           console.log("지금하고있는 로그 " + infoSq);
       },
-
       computed:{
         //mapState를 통해서 store에 저장된 객체를 가져온다
         ...mapState({
