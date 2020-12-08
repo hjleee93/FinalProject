@@ -71,13 +71,21 @@ new Vue({
   router,
   locale: 'ko',
   store,
-  beforeCreate() {
-
+  created() {
     this.$store.dispatch('memberStore/getMemberInfo');
+
+
+
+
 
   },
   computed: {
     ...mapState(["loginStatus"]),
+    jobs() {
+      console.log("computed! in main");
+      console.log(this.$store.jobs);
+      return this.$store.jobs;
+    },
 
   },
   render: h => h(App),

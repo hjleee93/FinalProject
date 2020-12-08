@@ -16,7 +16,6 @@
             <div
               class="imagePreviewWrapper"
               :style="{ 'background-image': `url(${previewImage})` }"
-              @click="selectImage"
             ></div>
 
             <div class="filebox text-center">
@@ -641,23 +640,27 @@ export default {
       formData.append("memberEmail", this.userData.memberEmail);
       formData.append("upFile", this.files[0]);
 
-      for (let key of formData.entries()) {
-        console.log(`${key}`);
+      if (this.files[0] != undefined) {
+        for (let key of formData.entries()) {
+          console.log(`${key}`);
+        }
+        axios
+          .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }) //form server 연결
+          .then(function(res) {
+            if (res.data > 0) {
+              alert("사진이 등록되었습니다.");
+              $(".submit-photo").hide();
+            } else {
+              alert("사진 등록에 실패했습니다. 다시 시도해주세요.");
+            }
+          });
+      } else {
+        alert("사진을 넣어주세요");
       }
-      axios
-        .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }) //form server 연결
-        .then(function(res) {
-          if (res.data > 0) {
-            alert("사진이 등록되었습니다.");
-            $(".submit-photo").hide();
-          } else {
-            alert("사진 등록에 실패했습니다. 다시 시도해주세요.");
-          }
-        });
     },
 
     selectImage() {
@@ -667,9 +670,11 @@ export default {
       let input = this.$refs.fileInput;
       let file = input.files;
       this.files = input.files;
+
       if (file[0].name != null) {
         $(".submit-photo").show();
       }
+
       if (file && file[0]) {
         let reader = new FileReader();
         reader.onload = (e) => {
