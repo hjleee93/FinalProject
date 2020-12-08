@@ -4,7 +4,6 @@
          <div class="submenuimage ">
         <p class="subtitle" id="subtitle">ItNewsInfo</p>
       </div>
-
         <!-- 탭 -->   
         <div class="container">
           <v-tabs
