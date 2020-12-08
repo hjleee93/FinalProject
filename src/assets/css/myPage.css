@@ -266,16 +266,57 @@ input[type="file"] {
   display: none;
 }
 
-/* qna관련 */
+/* 마이페이지 연동 링크 */
 .text-left {
   color: white !important;
 }
-.qna-table {
-  border: 1px solid #74899e;
+.qna,
+.pf,
+.scrap,
+.community,
+.notice {
+  border: 1px solid #74899e !important;
 }
-thead.qna-table {
+thead.qna-table,
+thead.pf-table,
+thead.scrap-table,
+thead.community-table,
+thead.notice-table {
   background-color: #74899e;
 }
-#qnaBody:hover {
+#qnaBody:hover,
+#pfBody:hover,
+#scrapBody:hover,
+#communityBody:hover,
+#noticeBody:hover {
   cursor: pointer;
+}
+
+/* 디데이 */
+
+.d-day-btn {
+  height: 26px !important;
+  width: 45px !important;
+  font-size: 13px;
+  padding: 0px;
+  display: inline-block;
+  cursor: auto !important;
+  pointer-events: none;
+  border: 0px;
+  font-weight: bold;
+}
+.argent-btn {
+  background-color: #cf1b1b !important;
+}
+.warn-btn {
+  background-color: #fddb3a !important;
+}
+.ok-btn {
+  background-color: #158467 !important;
+}
+
+/* 관리자 mypage */
+#noticeAll {
+  display: flex;
+  margin-left: auto;
 }

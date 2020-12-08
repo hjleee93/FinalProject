@@ -7,7 +7,7 @@ const memberStore = {
     namespaced: true,
     state: {
         userData: [], //로그인한 회원 정보 배열
-
+        scrapStatus: null,
         loginStatus: false,//로그인 성공 여부
         loginError: false,
     },
@@ -45,6 +45,7 @@ const memberStore = {
                     } else {//토큰값 있음
 
                         localStorage.setItem("memberEmail", loginData.memberEmail)
+                        localStorage.setItem("memberSq", loginData.memberSq)
                         localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
                         console.log("loginData: " + loginData);
                         dispatch("getMemberInfo", loginData)
@@ -112,7 +113,7 @@ const memberStore = {
             let memberEmail = localStorage.getItem("memberEmail")
             let token = localStorage.getItem("access_token")
 
-            console.log("member: " + memberEmail);
+
             let config = {
                 //헤더에 토큰값 포함해서 보내기
                 headers: {
@@ -150,6 +151,7 @@ const memberStore = {
             }
             // alert("안끝났는데?")
         },
+
 
     }
 

@@ -1,8 +1,47 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './components/Home.vue'
+// import store from './store'
+import memberStore from './store/modules/memberStore.js';// member 관리 store
 
+//네비게이션가드
 
+const LoginAuth = () => (to, from, next) => {
+  if (memberStore.state.loginStatus != false) {
+
+    return next();
+  }
+
+  Vue.swal({
+    text: "로그인 후 이용해주세요.",
+    icon: "error",
+  });
+  next('/login')
+}
+const adminDeny = () => (to, from, next) => {
+  if (memberStore.state.loginStatus != false) {
+
+    return next();
+  }
+
+  Vue.swal({
+    text: "관리자용 페이지 입니다. 관리자용 아이디로 로그인 해주세요",
+    icon: "error",
+  });
+  next('/login')
+}
+
+const LoginDeny = () => (to, from, next) => {
+  if (memberStore.state.loginStatus != false) {
+
+    return next();
+  }
+  Vue.swal({
+    text: "잘못된 접근입니다. 로그인 페이지로 이동합니다.",
+    icon: "error",
+  });
+  next('/login')
+}
 
 Vue.use(Router)
 
@@ -28,7 +67,7 @@ import updateresume from './components/resume/updateresume'
 import consultresume from './components/resume/consultresume'
 import consult from './components/resume/consult'
 import consultresumeenroll from './components/resume/consultresumeenroll'
-import memberStore from './store/modules/memberStore'
+
 
 
 
@@ -204,7 +243,7 @@ export default new Router({
         {
           path: 'meeting',
           component: Meeting,
-         
+
         },
         {
           path: 'meetingend',
@@ -227,18 +266,18 @@ export default new Router({
       path: '/portfolioList',
       component: PortFolio,
       name: 'portlist',
-       beforeEnter (to,from,next){
+      beforeEnter(to, from, next) {
         //로그인한 사용자의 레벨을 가져온다  
-        const level=memberStore.state.userData.memberLevel;
-         if(level==2||level==0){
-           //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
-             next();
-            }else{
-              alert("권한정보가 부족합니다.")
-            }
-           
-            
-          }
+        const level = memberStore.state.userData.memberLevel;
+        if (level == 2 || level == 0) {
+          //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
+          next();
+        } else {
+          alert("권한정보가 부족합니다.")
+        }
+
+
+      }
     },
     {
       path: '/portfolioenroller',
@@ -397,9 +436,10 @@ export default new Router({
       component: ChangePassword
     },
     {
-      path: '/myPage',
+      path: '/myPage/:memberSq',
       name: 'myPage',
-      component: MyPage
+      component: MyPage,
+      beforeEnter: LoginAuth()
     },
     {
       path: '/jobInfoDtl/:wantedNo',
@@ -424,22 +464,26 @@ export default new Router({
     {
       path: '/chgMemberInfo',
       name: 'chgMemberInfo',
-      component: ChgMemberInfo
+      component: ChgMemberInfo,
+      beforeEnter: LoginDeny()
     },
     {
       path: '/chgPwdInfo',
       name: 'chgPwdInfo',
-      component: ChgPwdInfo
+      component: ChgPwdInfo,
+      beforeEnter: LoginDeny()
     },
     {
       path: '/deleteMember',
       name: 'deleteMember',
-      component: DeleteMember
+      component: DeleteMember,
+      beforeEnter: LoginDeny()
     },
     {
       path: '/loginCallback',
       name: 'loginCallback',
-      component: LoginCallback
+      component: LoginCallback,
+
     },
     {
       path: '/naverLogin',
@@ -474,7 +518,8 @@ export default new Router({
     {
       path: '/adminPage',
       name: 'adminPage',
-      component: AdminPage
+      component: AdminPage,
+      beforeEnter: adminDeny()
     },
 
     //현주
