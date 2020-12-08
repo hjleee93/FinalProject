@@ -130,9 +130,9 @@ export default {
   },
 
   mounted() {
-    if (window.Kakao == undefined) {
-      window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
-    }
+    // if (window.Kakao == undefined) {
+    window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
+    // }
   },
   methods: {
     login: function() {
