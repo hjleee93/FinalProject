@@ -18,14 +18,19 @@
       </div>
   </div>
   {{apply}}
+ 
   <b-row>
 <b-col> 
-<v-data-table :headers="headers">
-    <!-- <template v-slot:item.status="{item}">
-        <button></button>
-         <button></button>
-    </template> -->
-</v-data-table>
+    <v-data-table
+            :headers="headers"
+            :items=apply
+            item-key="name"
+          >
+          <template v-slot:item.status="{item}">
+            <b-button @click="deleteItem(item)">승인</b-button>
+             <b-button  @click="deleteItem(item)">미승인</b-button>
+          </template>
+          </v-data-table>
 </b-col>
 
       
@@ -35,11 +40,12 @@
 </template>
 
 <script>
+
 import { createNamespacedHelpers, mapState } from "vuex";
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 
 export default {
-   
+  
     data(){
      return{
         headers: [
@@ -47,14 +53,13 @@ export default {
             text: "번호",
             align: 'start',
             filterable: false,
-            value: 'pboardNo',
+            value: 'no',
           },
           // 그리고 spring에서 넘겨주는 json타입의 변수에 매칭시켜서 테이블의 row행의 value값을 동일하게 해준다
-          { text: '포지션', value: 'pboardTitle'},
-          { text: '신청자', value: 'pboardWriter'},
-          { text: '모임제목', value: 'pboardStatus' },
-          { text: '답변', value: 'pboardStatus' },
-        
+          { text: '포지션', value: 'position'},
+          { text: '신청자', value: 'username'},
+          { text: '모임제목', value: 'collname' },
+         { text: '승인/미승인', value: 'status' },
         ]
     }
     },
@@ -63,13 +68,19 @@ export default {
        let email=localStorage.getItem('memberEmail')
        console.log(email)
         this.$store.dispatch('FECH_MEETINGAPPLY',email)
-        
     },
      computed: {
+       ...mapState({
+           apply:state=>state.apply    
+         }),
          ...loadUserState(['userData'])  ,
-         ...mapState({
-           apply:state=>state.apply
-         })
+    },
+    methods: {
+      deleteItem(no){
+        console.log(this.apply.indexOf((x)=>x.no===no))
+        const index=this.apply.indexOf((x)=>x.no===no);
+        this.apply.splice(index,1);
+      }
     },
        
 

@@ -16,7 +16,8 @@ const jobStore = {
         data: [],
         jobs: [],
         jobInfo: [],
-
+        scrap: [],
+        scrapcount: null
     },
     actions: {
 
@@ -35,6 +36,7 @@ const jobStore = {
 
         //상세페이지 
         loadJobDetail({ commit }, wantedNo) {
+            console.log("상세페이지", wantedNo)
             axios.get(
                 "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=D&returnType=XML&infoSvc=VALIDATION&wantedAuthNo=" +
                 wantedNo.wantedNo
@@ -55,15 +57,6 @@ const jobStore = {
                         attachFileInfo = '등록된 파일이 없습니다.'
                     } else {
                         attachFileInfo = this.items.wantedDtl.wantedInfo.attachFileInfo.attachFileUrl._text;
-
-
-
-                        // var temp = document.createElement('div');
-                        // temp.innerHTML = attachFileInfo;
-                        // console.log(temp)
-
-                        // var htmlObject = temp.firstChild;
-                        // console.log(htmlObject)
                     }
                     this.apply =
                         { receiptCloseDt: receiptCloseDt, selMthd: selMthd, rcptMthd: rcptMthd, submitDoc: submitDoc, attachFileInfo: attachFileInfo }
@@ -76,6 +69,22 @@ const jobStore = {
                 });
 
         },
+        //스크랩한 구직정보 wantedNo호출
+        loadScrap({ commit }, memberSq) {
+            console.log(memberSq.memberSq)
+            axios
+                .get(
+                    "http://localhost:8082/itjobgo/member/getScrapStatus?memberSq=" + memberSq.memberSq
+
+                )
+                .then((response) => {
+
+                    this.scrap = response.data;
+                    console.log(this.scrap)
+                    commit('SET_SCRAP_DETAIL', this.scrap)
+                })
+        },
+
         loadJobTable({ commit }) {
             axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056')//추천 채용정보
                 .then((response) => {
@@ -358,6 +367,12 @@ const jobStore = {
 
     },
     mutations: {
+        SET_SCRAP_COUNT(state, scrapCount) {
+            state.scrapCount = scrapCount;
+        },
+        SET_SCRAP_DETAIL(state, scrap) {
+            state.scrap = scrap;
+        },
         SET_JOB_INFO_LIST(state, tableList) {
             state.tableList = tableList;
         },

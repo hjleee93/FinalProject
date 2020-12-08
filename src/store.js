@@ -11,7 +11,7 @@ import {
     fetchAttachment,
     fetchcomment,
     fetchcommentdel,
-  
+
     //모임
     fetchMeeting,
     fetchmsublist,
@@ -74,8 +74,8 @@ export default new Vuex.Store({
         pboardone: [],
         msg: '',
         attachment: [],
-        attachment2:[],
-        comment:[],
+        attachment2: [],
+        comment: [],
         //모임
 
         meeting: [],
@@ -84,42 +84,44 @@ export default new Vuex.Store({
         apply:[],
 
 
+
+
         //주은
         communityboard: [],
         communityboardView: [],
         communityboardDelete: [],
         cbAttachment: [],
-        cbAttachment2:[],
-        cbcomment:[],
-        noticeList:[],
-        noticeView:[],
-        updateData:[],
-        noticeAttach:[],
-        ntcomment:[],
+        cbAttachment2: [],
+        cbcomment: [],
+        noticeList: [],
+        noticeView: [],
+        updateData: [],
+        noticeAttach: [],
+        ntcomment: [],
 
         //현주
-        qnaboard1:[],
-        qnaboard2:[],
-        qnaBoardDelete:[],
-        qbAttachment:[],
-        qbAttachment2:[],
-        qnacomment:[],
+        qnaboard1: [],
+        qnaboard2: [],
+        qnaBoardDelete: [],
+        qbAttachment: [],
+        qbAttachment2: [],
+        qnacomment: [],
 
         //민지
-        info:[],
+        info: [],
         /* infoList: [], */
         infoDetail: [],
         infoDelete: [],
         infoAttachment: [],
-        infoAttachment2:[],
+        infoAttachment2: [],
 
 
         loginStatus: false,//로그인 성공 여부
         loginError: false,
 
-        
+
         //혜지
-        rboard : []
+        rboard: []
     },
     actions: {
         FETCH_PBOARD({ commit }) {
@@ -150,24 +152,24 @@ export default new Vuex.Store({
                 .catch(({ error }) => console.log(error))
         },
         //게시판번호로 첨부파일내용 가져오가
-        FETCH_ATTACHMENT({commit},no){
+        FETCH_ATTACHMENT({ commit }, no) {
             fetchAttachment(no)
-            .then(({data})=>commit("SET_ATTACHMENT",data))
-            .catch(({ error }) => console.log(error))
+                .then(({ data }) => commit("SET_ATTACHMENT", data))
+                .catch(({ error }) => console.log(error))
         },
         //게시판 댓글 불러오기
-        FETCH_COMMNET({commit},no){
+        FETCH_COMMNET({ commit }, no) {
             fetchcomment(no)
-            .then(({data})=>commit("SET_COMMENT",data))
-            .catch(({error})=>console.log(error))
+                .then(({ data }) => commit("SET_COMMENT", data))
+                .catch(({ error }) => console.log(error))
         },
         //게시판 댓글 삭제
-        async FETCH_COMMENTDEL(data,no){
-          const response= await fetchcommentdel(no)
-          return response;
-           
+        async FETCH_COMMENTDEL(data, no) {
+            const response = await fetchcommentdel(no)
+            return response;
+
         },
-        
+
         //모임 
         FECH_MEETINGLIST({ commit }) {
             fetchMeeting()
@@ -192,12 +194,14 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
+
         async FECH_MEETINGAPPLY({commit},email){
           const response=await fetchMeetingapply(email)
           commit("SET_APPLY",response.data)
           return response;
         },
         
+
 
         //주은
         //자유게시판 list 불러오기
@@ -231,36 +235,37 @@ export default new Vuex.Store({
                 .catch(({ error }) => console.log(error))
         },
         //자유게시판 첨부파일 다운로드
-        FETCH_COMMUNITYBOARD_ATTACHMENT({commit},no){
+        FETCH_COMMUNITYBOARD_ATTACHMENT({ commit }, no) {
             fetchCoummunityBoardAttachment(no)
-            .then(({data})=>commit("SET_COMMUNITYBOARD_ATTACHMENT",data))
-            .catch(({ error }) => console.log(error))
+                .then(({ data }) => commit("SET_COMMUNITYBOARD_ATTACHMENT", data))
+                .catch(({ error }) => console.log(error))
         },
         //게시판 댓글 조회
-        FETCH_CB_COMMENT_LIST({commit},cboardNo){
+        FETCH_CB_COMMENT_LIST({ commit }, cboardNo) {
             fetchCboardCommentSelectList(cboardNo)
-            .then(({data})=>commit("SET_CB_COMMENT_SELECTLIST",data))
-            .catch(({error})=>console.log(error))
+                .then(({ data }) => commit("SET_CB_COMMENT_SELECTLIST", data))
+                .catch(({ error }) => console.log(error))
         },
         //게시판 댓글 삭제
-        FETCH_COMMENT_DELETE(data,no){
+        FETCH_COMMENT_DELETE(data, no) {
             console.log(no)
             fetchCboardCommentDelete(no)
-            .then((data)=>{console.log(data)
-            })
-            .catch(({error})=>console.log(error))
+                .then((data) => {
+                    console.log(data)
+                })
+                .catch(({ error }) => console.log(error))
         },
 
 
         //공지사항  list 조회 
-        FETCH_NOTICE({commit}){
+        FETCH_NOTICE({ commit }) {
             fetchNoticeList()
                 .then(({ data }) => commit("SET_NOTICE", data))
                 .catch(({ error }) => {
-                console.log(error);
+                    console.log(error);
                 })
         },
-            //공지사항 상세화면
+        //공지사항 상세화면
         FETCH_NOTICE_VIEW({ commit }, noticeSq) {
             fetchNoticeView(noticeSq)
                 .then(({ data }) => commit("SET_NOTICE_VIEW", data))
@@ -283,24 +288,25 @@ export default new Vuex.Store({
                 .catch(({ error }) => console.log(error))
         },
         //공지사항 첨부파일 다운로드
-        FETCH_NOTICE_ATTACHMENT({commit},no){
+        FETCH_NOTICE_ATTACHMENT({ commit }, no) {
             fetchNoticeAttachment(no)
-            .then(({data})=>commit("SET_NOTICE_ATTACHMENT",data))
-            .catch(({ error }) => console.log(error))
+                .then(({ data }) => commit("SET_NOTICE_ATTACHMENT", data))
+                .catch(({ error }) => console.log(error))
         },
         //게시판 댓글 조회
-        FETCH_NT_COMMENT_LIST({commit},ntBoardNo){
+        FETCH_NT_COMMENT_LIST({ commit }, ntBoardNo) {
             fetchNTboardCommentSelectList(ntBoardNo)
-            .then(({data})=>commit("SET_NT_COMMENT_SELECTLIST",data))
-            .catch(({error})=>console.log(error))
+                .then(({ data }) => commit("SET_NT_COMMENT_SELECTLIST", data))
+                .catch(({ error }) => console.log(error))
         },
         //게시판 댓글 삭제
-        FETCH_NT_COMMENT_DELETE(data,no){
+        FETCH_NT_COMMENT_DELETE(data, no) {
             console.log(no)
             fetchNTboardCommentDelete(no)
-            .then((data)=>{console.log(data)
-            })
-            .catch(({error})=>console.log(error))
+                .then((data) => {
+                    console.log(data)
+                })
+                .catch(({ error }) => console.log(error))
         },
 
 
@@ -336,25 +342,26 @@ export default new Vuex.Store({
                 .catch(({ error }) => console.log(error))
         },
         //qna 게시판 첨부파일 다운로드
-        FETCH_QNABOARD_ATTACHMENT({commit},qboardNo){
-            fetchQnaBoardAttachment(qboardNo) 
-                .then(({data})=>commit("SET_QNABOARD_ATTACHMENT",data))
+        FETCH_QNABOARD_ATTACHMENT({ commit }, qboardNo) {
+            fetchQnaBoardAttachment(qboardNo)
+                .then(({ data }) => commit("SET_QNABOARD_ATTACHMENT", data))
                 .catch(({ error }) => console.log(error))
         },
         //qna 게시판 댓글 불러오기
-        FETCH_QNABOARD_COMMENT({commit},qboardNo){
+        FETCH_QNABOARD_COMMENT({ commit }, qboardNo) {
             fetchqnacomment(qboardNo)
-            .then(({data})=>commit("SET_QNABOARD_COMMENT",data))
-            .catch(({error})=>console.log(error))
+                .then(({ data }) => commit("SET_QNABOARD_COMMENT", data))
+                .catch(({ error }) => console.log(error))
         },
 
         //qna 게시판 댓글 삭제
-        FETCH_QNABOARD_COMMENTDEL(data,qboardNo){
+        FETCH_QNABOARD_COMMENTDEL(data, qboardNo) {
             console.log(qboardNo)
             fetchqnacommentdel(qboardNo)
-            .then((data)=>{console.log(data)
-            })
-            .catch(({error})=>console.log(error))
+                .then((data) => {
+                    console.log(data)
+                })
+                .catch(({ error }) => console.log(error))
         },
 
 
@@ -371,7 +378,7 @@ export default new Vuex.Store({
                 })
         },
         //info 상세화면
-          FETCH_INFO_DETAIL({ commit }, infoNo) {
+        FETCH_INFO_DETAIL({ commit }, infoNo) {
             fetchInfoDetail(infoNo)
                 .then(({ data }) => commit("SET_INFO_DETAIL", data))
                 .catch(({ error }) => {
@@ -393,10 +400,10 @@ export default new Vuex.Store({
                 .catch(({ error }) => console.log(error))
         },
         //info 첨부파일 다운로드
-        FETCH_INFO_ATTACHMENT({commit},no){
+        FETCH_INFO_ATTACHMENT({ commit }, no) {
             fetchInfoAttachment(no)
-            .then(({data})=>commit("SET_INFO_ATTACHMENT",data))
-            .catch(({ error }) => console.log(error))
+                .then(({ data }) => commit("SET_INFO_ATTACHMENT", data))
+                .catch(({ error }) => console.log(error))
         },
 
 
@@ -431,8 +438,8 @@ export default new Vuex.Store({
         SET_PBOARDUP(state, data) {
             state.attachment = data;
         },
-        SET_ATTACHMENT(state,data){
-            state.attachment2=data;
+        SET_ATTACHMENT(state, data) {
+            state.attachment2 = data;
         },
         //모임
         SET_MEETING(state, data) {
@@ -441,11 +448,12 @@ export default new Vuex.Store({
         SET_MINFO(state, data) {
             state.minfo = data;
         },
-        SET_COMMENT(state,data){
-            state.comment=data;
+        SET_COMMENT(state, data) {
+            state.comment = data;
         },
         SET_APPLY(state,data){
-            state.apply=data;
+            state.apply= data;
+         
         },
 
         //주은
@@ -466,17 +474,17 @@ export default new Vuex.Store({
             state.cbAttachment = data;
         },
         //자유게시판 첨부파일(다운로드)
-        SET_COMMUNITYBOARD_ATTACHMENT(state,data){
-            state.cbAttachment2=data;
+        SET_COMMUNITYBOARD_ATTACHMENT(state, data) {
+            state.cbAttachment2 = data;
         },
         //자유게시판 댓글 불러오기
-        SET_CB_COMMENT_SELECTLIST(state,data){
-            state.cbcomment=data;
+        SET_CB_COMMENT_SELECTLIST(state, data) {
+            state.cbcomment = data;
         },
 
         //공지사항 LIST 불러오기
-        SET_NOTICE(state,noticeList){
-            state.noticeList=noticeList;
+        SET_NOTICE(state, noticeList) {
+            state.noticeList = noticeList;
         },
         //공지사항 상세화면
         SET_NOTICE_VIEW(state, noticeView) {
@@ -491,22 +499,22 @@ export default new Vuex.Store({
             state.updateData = data;
         },
         //공지사항 첨부파일(다운로드)
-        SET_NOTICE_ATTACHMENT(state,data){
-            state.noticeAttach=data;
+        SET_NOTICE_ATTACHMENT(state, data) {
+            state.noticeAttach = data;
         },
         //공지사항 댓글 불러오기
-        SET_NT_COMMENT_SELECTLIST(state,data){
-            state.ntcomment=data;
+        SET_NT_COMMENT_SELECTLIST(state, data) {
+            state.ntcomment = data;
         },
-        
+
 
         //현주 게시판 리스트
         SET_QNABOARD(state, qnaboard1) {
-        state.qnaboard1 = qnaboard1;
+            state.qnaboard1 = qnaboard1;
         },
         //qna게시판 상세화면
         SET_QNABOARD_VIEW(state, qnaboard2) {
-        state.qnaboard2 = qnaboard2;
+            state.qnaboard2 = qnaboard2;
         },
         //qna게시판 삭제
         SET_QNABOARD_DELETE(state, data) {
@@ -517,12 +525,12 @@ export default new Vuex.Store({
             state.qbAttachment = data;
         },
         //qna게시판 첨부파일(다운로드)
-        SET_QNABOARD_ATTACHMENT(state,data){
-            state.qbAttachment2=data;
+        SET_QNABOARD_ATTACHMENT(state, data) {
+            state.qbAttachment2 = data;
         },
         //qna게시판 댓글
-        SET_QNABOARD_COMMENT(state,data){
-            state.qnacomment=data;
+        SET_QNABOARD_COMMENT(state, data) {
+            state.qnacomment = data;
         },
 
 
@@ -542,10 +550,10 @@ export default new Vuex.Store({
         //수정(값 불러오기)
         SET_INFO_UPDATE(state, data) {
             state.infoAttachment = data;
-        }, 
+        },
         //첨부파일(다운로드)
-          SET_INFO_ATTACHMENT(state,data){
-            state.infoAttachment2=data;
+        SET_INFO_ATTACHMENT(state, data) {
+            state.infoAttachment2 = data;
         },
 
         //혜지

@@ -39,6 +39,7 @@
         </div>
        </div>
       </div>
+ 
     </div>
   </body>
 </template>
@@ -82,8 +83,8 @@ import { mapState } from 'vuex';
       handleClick(value){
      
         this.$router.push({name:'Portinfo',params:{id:value.pboardNo}})
-        console.log(value)
-      }
+      },
+     
     },
     created() {
       this.$store.dispatch("FETCH_PBOARD")
