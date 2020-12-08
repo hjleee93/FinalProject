@@ -521,10 +521,8 @@ export default {
     //스크랩한 글 리턴
     scrap() {
       var temp = new Object(); //반환할 객체
-
-      for (let i = 0; i < 3; i++) {
-        if (this.$store.scrap[i] != undefined) {
-          console.log(this.$store.scrap[i]);
+      if (this.$store.scrap != undefined) {
+        for (let i = 0; i < 3; i++) {
           temp[i] = this.$store.scrap[i];
         }
       }
@@ -608,10 +606,11 @@ export default {
     },
     scrapCount() {
       let count = 0;
-
-      for (let i = 0; i < this.$store.scrap.length; i++) {
-        if (this.$store.scrap[i].memberSq == this.userData.memberSq) {
-          count++;
+      if (this.$store.scrap != undefined) {
+        for (let i = 0; i < this.$store.scrap.length; i++) {
+          if (this.$store.scrap[i].memberSq == this.userData.memberSq) {
+            count++;
+          }
         }
       }
       return count;
@@ -641,9 +640,6 @@ export default {
       formData.append("upFile", this.files[0]);
 
       if (this.files[0] != undefined) {
-        for (let key of formData.entries()) {
-          console.log(`${key}`);
-        }
         axios
           .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
             headers: {
