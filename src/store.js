@@ -34,6 +34,9 @@ import {
     fetchNTboardCommentSelectList,
     fetchNTboardCommentDelete,
 
+    fetchItNewsList,
+    fetchItNewsView,
+
     //현주
     fetchQnaBoardList,
     fetchQnaBoardView,
@@ -94,6 +97,8 @@ export default new Vuex.Store({
         updateData:[],
         noticeAttach:[],
         ntcomment:[],
+        itnewsList:[],
+        itNewsView:[],
 
         //현주
         qnaboard1:[],
@@ -296,6 +301,24 @@ export default new Vuex.Store({
             .catch(({error})=>console.log(error))
         },
 
+        //ItNews
+        // ItNews 불러오기
+        FECH_ITNEWS_LIST({ commit }) {
+            fetchItNewsList()
+                .then(({ data }) => commit("SET_ITNEWS_LIST", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+        // ItNews 상세화면
+        FETCH_ITNEWS_VIEW({ commit }, newsSq) {
+            fetchItNewsView(newsSq)
+                .then(({ data }) => commit("SET_ITNEWS_VIEW", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+
 
         //현주
         //qna 게시판 불러오기
@@ -487,6 +510,15 @@ export default new Vuex.Store({
         //공지사항 댓글 불러오기
         SET_NT_COMMENT_SELECTLIST(state,data){
             state.ntcomment=data;
+        },
+
+        // IT소식 리스트 불러오기
+        SET_ITNEWS_LIST(state, data) {
+            state.itnewsList = data;
+        }, 
+        // IT소식 상세화면
+        SET_ITNEWS_VIEW(state, itNewsView) {
+            state.itNewsView = itNewsView;
         },
         
 
