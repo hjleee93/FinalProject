@@ -5,7 +5,7 @@
       <!-- 메인 이미지 -->
       <b-row>
           <div class="submenuimage">
-             <p class="ref_title">Reference</p>
+             <p class="subtitle">Reference</p>
           </div>
       </b-row>
               
@@ -171,6 +171,18 @@
     font-family: 'Masque';
     color:#4e5157 ;
     font-size: 50px;
+}
+.submenuimage{
+    width: 100%;
+    height:180px;
+    background-color:#F4EEFF;
+    text-align: center;
+    line-height: 180px;
+}
+.subtitle{
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  color:#4e5157 ;
+  font-size: 50px;
 }
 
 </style>
