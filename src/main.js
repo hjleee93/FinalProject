@@ -58,11 +58,7 @@ Vue.use(LoadScript);
 Vue.use(VueMoment);
 Vue.use(VueLodash, { name: 'custom', lodash: lodash })
 
-//다음 주소 api
-Vue.loadScript("http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false")
 
-//카카오로그인용 key
-window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
 Vue.config.productionTip = false;
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");

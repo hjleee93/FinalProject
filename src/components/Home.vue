@@ -68,22 +68,33 @@
         </b-collapse>
         <!-- 메인 -->
         <div class="col-4 pl-0">
+          <!-- it소식 -->
           <b-carousel
             id="carousel-1"
             :interval="4000"
             controls
             indicators
             background="#ababab"
-            img-width="1024"
-            img-height="480"
             style="text-shadow: 1px 1px 2px #333;"
           >
             <!-- Text slides with image -->
             <b-carousel-slide
+              v-for="it in itnewsList"
+              :key="it.id"
+              id="itCrousel"
               class="carousel-custom"
-              caption="First slide"
-              text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-              ><p>IT소식</p>
+              :style="{
+                'background-size': '365px 385px',
+                'background-image': `url(${`http://localhost:8082/itjobgo/itnews/imagesrequest${it.newsSq}`})`,
+              }"
+            >
+              <div class="it-list py-2" @click="cardclick(it)">
+                <p id="itCaption">{{ it.newsTitle }}</p>
+
+                <p id="itContent">{{ it.newsContent }}</p>
+              </div>
+
+              <!-- <p>IT소식</p> -->
             </b-carousel-slide>
           </b-carousel>
         </div>
@@ -404,6 +415,9 @@ export default {
     };
   },
   methods: {
+    cardclick(value) {
+      this.$router.push({ name: "itNewsView", params: { id: value.newsSq } });
+    },
     moveMyPage: function(e) {
       //중복 라우터 방지
       if (this.$route.path != "/myPage/" + e) {
@@ -423,23 +437,20 @@ export default {
       $("#test").show();
     },
   },
-  created() {
-    //214201,214200,214202 : 컴퓨터강사 : 백엔드, 프론트엔드, 퍼블리셔
-    //022: 컴퓨터하드웨어, 통신공학 - 백엔드
-    //023: 컴퓨터시스템 - 백엔드
-    //024: 소프트웨어 - 백엔드
-    //025: 데이터 - 백엔드
-    //056, 214302: 디자이너 - 디자인
-    //유저정보 대기
-  },
+
+  //214201,214200,214202 : 컴퓨터강사 : 백엔드, 프론트엔드, 퍼블리셔
+  //022: 컴퓨터하드웨어, 통신공학 - 백엔드
+  //023: 컴퓨터시스템 - 백엔드
+  //024: 소프트웨어 - 백엔드
+  //025: 데이터 - 백엔드
+  //056, 214302: 디자이너 - 디자인
+
   async mounted() {
     //action에 있는 loadXml 호출용
-    console.log("mounted!");
 
     await this.$store.dispatch("memberStore/getMemberInfo");
-    console.log(this.userData.memberPosition);
+
     if (this.userData.memberPosition != undefined) {
-      console.log("유저정보 다음");
       await this.$store.dispatch("jobStore/rcmJob", {
         memberPosition: this.userData.memberPosition,
       });
@@ -449,6 +460,7 @@ export default {
     this.$store.dispatch("FETCH_COMMUNITYBOARD");
     this.$store.dispatch("FECH_MEETINGLIST");
     this.$store.dispatch("FETCH_NOTICE");
+    this.$store.dispatch("FECH_ITNEWS_LIST");
   },
 
   computed: {
@@ -458,6 +470,10 @@ export default {
     ...memberState(["loginStatus", "userData"]),
     ...jobState(["jobs", "rcmJobs"]),
     ...mapState(["qnaboard1", "communityboard", "noticeList"]),
+
+    itnewsList() {
+      return this.$store.state.itnewsList.slice(0, 3);
+    },
 
     meeting() {
       return this.$store.state.meeting
@@ -641,5 +657,27 @@ div[role="region"] {
   height: 200px;
   width: 500px;
   display: none;
+}
+
+#itCrousel,
+#carousel-1 {
+  min-width: 365px !important;
+  min-height: 385px !important;
+}
+#itCaption {
+  font-size: 20px;
+}
+.it-list {
+  background: #ededed4c;
+}
+.it-list:hover {
+  cursor: pointer;
+}
+#itContent {
+  padding-right: 20px;
+  padding-left: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
