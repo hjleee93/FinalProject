@@ -2,7 +2,7 @@
   <b-container>
 
     <div class="container" id="header-container">
-      <h4 id="h4-title">자유게시판 작성</h4>
+      <h4 id="h4-title">자유게시판 수정</h4>
     </div>
 
     <form  role="form" @submit.prevent="updateForm" 
