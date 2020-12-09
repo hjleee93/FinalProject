@@ -19,6 +19,9 @@ import {
     fetchMeetingapply,
     fetchApprove,
     fetchUnapprove,
+    fetchApproveList,
+    fetchmklist,
+    
 
     //주은
     fetchCommunityBoardList,
@@ -87,6 +90,8 @@ export default new Vuex.Store({
         msubList: [],
         minfo: [],
         apply:[],
+        approvelist:[],
+        mklist:[],
 
 
 
@@ -217,6 +222,17 @@ export default new Vuex.Store({
             const response=await fetchUnapprove(no)
             return response;
         },
+        async FECH_APPROVELIST({commit},no){
+            const response=await fetchApproveList(no)
+            commit("SET_APPROVE",response.data)
+            return response;
+        },
+        async FECH_MKLIST({commit},no){
+            const response=await fetchmklist(no)
+            commit("SET_MKLIST",response.data)
+            return response
+        },
+
         
 
 
@@ -489,6 +505,12 @@ export default new Vuex.Store({
         SET_APPLY(state,data){
             state.apply= data;
          
+        },
+        SET_APPROVE(state,data){
+            state.approvelist=data;
+        },
+        SET_MKLIST(state,data){
+            state.mklist=data;
         },
 
         //주은

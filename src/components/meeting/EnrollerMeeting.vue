@@ -135,20 +135,7 @@
     
       style="width:500px;height:400px;"/> </b-col>
       </b-row> -->
-    <b-row><b-col>  <b-input readonly v-model="result.address"></b-input></b-col></b-row>
-    <div>{{result.address}}</div>
-    <div>{{back}}</div>
-    <div>{{front}}</div>
-    <div>{{desgin}}</div>
-    <div>{{mtitle}}</div>
-    <div>{{mwriter}}</div>
-    <div>{{mphone}}</div>
-    <div>{{memail}}</div>
-    <div>{{sdate}}</div>
-    <div>{{fdate}}</div> 
-      <div>{{simcontent}}</div> 
-        <div>{{mcontent}}</div> 
-         <div>{{langs}}</div> 
+    <b-row><b-col>  <b-input required readonly v-model="result.address"></b-input></b-col></b-row>
     <b-row><b-col>  <b-button  id="s-btn" type="submit">개설완료</b-button></b-col></b-row>
   </form>
   </b-container>
@@ -206,7 +193,11 @@ export default {
          
         },
         enroller(){
-           let formData=new FormData();
+          if(this.result.address==undefined){
+            alert("값이 비여있습니다.")
+            return 
+          }
+          let formData=new FormData();
           formData.append('mtitle',this.mtitle);
           formData.append('mwriter',this.userData.memberName);
           formData.append('memail',this.userData.memberEmail);

@@ -56,6 +56,8 @@ import PortFoiloenroller from './components/portfolio/PortFoiloenroller.vue';
 import Portfolioinfo from './components/portfolio/PortFolioinfo.vue';
 import Portfolioupdate from './components/portfolio/PortFolioupdate.vue';
 import Meetingapply from './components/meeting/Meetingapply.vue';
+import Approve from './components/meeting/Approve.vue';
+import Mkmeeting from './components/meeting/Mkmeeting.vue';
 
 //혜지
 
@@ -255,7 +257,18 @@ export default new Router({
     {
       path:'/meetingapply',
       component:Meetingapply,
-     // beforeEnter: LoginDeny()
+      beforeEnter: LoginDeny()
+    },
+    {
+      path:'/approve/:memberSq',
+      component:Approve,
+      name:'approve',
+    
+    },
+    {
+      path:'/mkmeeting/:memberSq',
+      component:Mkmeeting,
+      name:'mkmeeting',
     },
     {
       path: '/enrollmeeting',
