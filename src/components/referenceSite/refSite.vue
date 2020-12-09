@@ -171,7 +171,7 @@
     font-family: 'Masque';
     color:#4e5157 ;
     font-size: 50px;
-}
+} 
 .submenuimage{
     width: 100%;
     height:180px;
