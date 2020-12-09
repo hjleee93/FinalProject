@@ -23,13 +23,17 @@
 <b-col> 
     <v-data-table
             :headers="headers"
-            :items=approvelist
+            :items=mklist
             item-key="name"
           >
-            <template v-slot:item.status="{item}">
-            <b-button @click="approve(item)">수정</b-button>
-             <b-button  @click="unapproved(item)">삭제</b-button>
-          </template>
+          <template v-slot:item="props">
+              <tr>
+                <td class="text-xs-right">{{props.item.collabSq }}</td>
+                <td class="text-xs-right">{{props.item.title }}</td>
+                <td class="text-xs-right">{{   new Date(props.item.mdate).toLocaleDateString() }}</td>
+               <td class="text-xs-right"><b-button >수정</b-button><b-button @click="deltemet(props.item.collabSq)">삭제</b-button></td>
+              </tr>
+           </template>
           </v-data-table>
 </b-col>
 
@@ -55,11 +59,11 @@ export default {
             text: "번호",
             align: 'start',
             filterable: false,
-            value: 'no',
+            value: 'collabSq',
           },
           // 그리고 spring에서 넘겨주는 json타입의 변수에 매칭시켜서 테이블의 row행의 value값을 동일하게 해준다
-          { text: '포지션', value: 'position'},
-          { text: '모임제목', value: 'collname' },
+          { text: '모임제목', value: 'title' },
+           { text: '생성일', value: 'mdate'},
          { text: '수정/삭제', value: 'status' },
         ]
     }
@@ -79,6 +83,10 @@ export default {
          
     }, 
     methods: {
+      deltemet(no){
+        alert("no"+no);
+
+      }
     }
 
 }
