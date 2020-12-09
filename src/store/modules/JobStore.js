@@ -28,19 +28,18 @@ const jobStore = {
                 memberPosition.memberPosition
             ) //추천 채용정보
                 .then((response) => {
+
                     var xml = response.data;
                     var json = convert.xml2json(xml, { compact: true });
                     this.rcmJobs = JSON.parse(json);
                     console.log("created!");
-                    console.log(this.rcmJson.wantedRoot.wanted);
+                    console.log(this.rcmJobs);
                     commit('SET_RCM_JOB', this.rcmJobs);
                 });
         },
         async loadXml({ commit }) {
             //최신 채용 정보 xml
             console.log("11")
-
-
             await axios.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056")
                 .then((response) => {
 
@@ -60,15 +59,16 @@ const jobStore = {
         },
 
         //상세페이지 
-        loadJobDetail({ commit }, wantedNo) {
-            console.log("상세페이지", wantedNo)
-            axios.get(
+        async loadJobDetail({ commit }, wantedNo) {
+            console.log("상세페이지 22", wantedNo)
+            await axios.get(
                 "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=D&returnType=XML&infoSvc=VALIDATION&wantedAuthNo=" +
                 wantedNo.wantedNo
             )
                 .then((response) => {
-
+                    console.log("333")
                     var xml = response.data;
+
                     var json = convert.xml2json(xml, { compact: true });
                     this.items = JSON.parse(json);
 
@@ -95,17 +95,18 @@ const jobStore = {
 
         },
         //스크랩한 구직정보 wantedNo호출
-        loadScrap({ commit }, memberSq) {
+        async loadScrap({ commit }, memberSq) {
+            console.log("진짜2")
             console.log(memberSq.memberSq)
-            axios
+            await axios
                 .get(
                     "http://localhost:8082/itjobgo/member/getScrapStatus?memberSq=" + memberSq.memberSq
 
                 )
                 .then((response) => {
-
+                    console.log("333")
                     this.scrap = response.data;
-                    console.log(this.scrap)
+                    console.log(JSON.stringify(this.scrap))
                     commit('SET_SCRAP_DETAIL', this.scrap)
                 })
         },

@@ -89,7 +89,7 @@ import { mapState } from 'vuex';
     methods: {
       handleClick(value){
      
-        this.$router.push({name:'Resume',params:{id:value.rboardNo}})
+        this.$router.push({name:'resume',params:{id:value.rboardNo}})
         console.log(value)
       }
     },
