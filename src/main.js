@@ -64,13 +64,28 @@ Vue.loadScript("http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"
 //카카오로그인용 key
 window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
 Vue.config.productionTip = false;
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
 
 new Vue({
   router,
   locale: 'ko',
   store,
-  beforeCreate() {
+  created() {
     this.$store.dispatch('memberStore/getMemberInfo');
+
+
+
+
+
+  },
+  computed: {
+    ...mapState(["loginStatus"]),
+    jobs() {
+      console.log("computed! in main");
+      console.log(this.$store.jobs);
+      return this.$store.jobs;
+    },
 
   },
   render: h => h(App),

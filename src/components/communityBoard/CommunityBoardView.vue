@@ -189,6 +189,12 @@ export default {
         this.$router.push({name:'CommunityBoardUpdate',params:{id:no}})
 
       },
+
+      updateInput(event){
+      this.updatetext=event;
+      },
+
+
       pdelete(){
           this.showModal=!this.showModal;
       },

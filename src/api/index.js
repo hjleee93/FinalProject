@@ -107,6 +107,17 @@ function fetchNTboardCommentDelete(ntCommentNo){
     return axios.post(`${config.Url}notice/commentDelete${ntCommentNo}`)
 }
 
+// ItNews
+// ItNews 리스트 불러오기
+//모임
+function fetchItNewsList() {
+    return axios.get(`${config.Url}itnews/selectList`);
+}
+// 공지사항 상세화면
+function fetchItNewsView(newsSq) {
+    return axios.get(`${config.Url}itnews/itnewsView${newsSq}`)
+}
+
 
 //현주 //qnaBoard(qna게시판)
 //qna 게시판 조회
@@ -203,6 +214,9 @@ export {
     fetchNoticeAttachment,
     fetchNTboardCommentSelectList,
     fetchNTboardCommentDelete,
+        // IT소식 ItNews
+    fetchItNewsList,
+    fetchItNewsView,
 
 
     //현주

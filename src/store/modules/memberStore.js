@@ -7,7 +7,7 @@ const memberStore = {
     namespaced: true,
     state: {
         userData: [], //로그인한 회원 정보 배열
-
+        scrapStatus: null,
         loginStatus: false,//로그인 성공 여부
         loginError: false,
     },
@@ -45,8 +45,9 @@ const memberStore = {
                     } else {//토큰값 있음
 
                         localStorage.setItem("memberEmail", loginData.memberEmail)
+                        localStorage.setItem("memberSq", res.data.memberSq)
                         localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
-                        console.log("loginData: " + loginData);
+
                         dispatch("getMemberInfo", loginData)
                         router.push('/');//메인페이지로 이동
 
@@ -67,6 +68,7 @@ const memberStore = {
         logout({ commit }) {
             localStorage.removeItem("memberEmail");
             localStorage.removeItem("access_token");
+            localStorage.removeItem("memberSq");
             router.push('/');
             location.reload();
             commit('loginFalse');
@@ -109,10 +111,11 @@ const memberStore = {
         getMemberInfo({ commit }) {
             // alert("22222222");
             console.log("유저정보");
+
             let memberEmail = localStorage.getItem("memberEmail")
             let token = localStorage.getItem("access_token")
 
-            console.log("member: " + memberEmail);
+
             let config = {
                 //헤더에 토큰값 포함해서 보내기
                 headers: {
@@ -124,7 +127,7 @@ const memberStore = {
                 //토큰으로 member return  
                 axios.get('http://localhost:8082/itjobgo/member/getMember?memberEmail=' + memberEmail, config)
                     .then(response => {
-                        // alert("갑자기 어디감...;4")
+
                         var userData = {
                             memberSq: response.data.memberSq,
                             memberAddr: response.data.memberAddr,
@@ -150,6 +153,7 @@ const memberStore = {
             }
             // alert("안끝났는데?")
         },
+
 
     }
 
