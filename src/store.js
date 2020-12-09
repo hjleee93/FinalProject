@@ -25,6 +25,7 @@ import {
     fetchCoummunityBoardAttachment,
     fetchCboardCommentSelectList,
     fetchCboardCommentDelete,
+    fetchItNewsUpdate,
 
     fetchNoticeList,
     fetchNoticeView,
@@ -36,6 +37,9 @@ import {
 
     fetchItNewsList,
     fetchItNewsView,
+    fetchItNewsDelete,
+    fetchITCommentSelectList,
+    fetchItNewsCommentDelete,
 
     //현주
     fetchQnaBoardList,
@@ -100,6 +104,8 @@ export default new Vuex.Store({
         ntcomment:[],
         itnewsList:[],
         itNewsView:[],
+        ITAttachment:[],
+        ITcomment:[],
 
         //현주
         qnaboard1: [],
@@ -324,6 +330,35 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
+        // ItNews 삭제하기
+        FETCH_ITNEWS_DELETE({ commit }, newsSq) {
+            fetchItNewsDelete(newsSq)
+                .then(({ data }) => commit("SET_ITNEWS_DELETE", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+        // ItNews 수정하기(객체 값 불러오기)
+        FETCH_ITNEWS_UPDATE({ commit }, newsSq) {
+            fetchItNewsUpdate(newsSq)
+                .then(({ data }) => commit("SET_ITNEWS_UPDATE", data))
+                .catch(({ error }) => console.log(error))
+        },
+        // ItNews 댓글 조회
+        FETCH_ITNEWS_COMMENT_LIST({ commit }, itnewsNo) {
+            fetchITCommentSelectList(itnewsNo)
+                .then(({ data }) => commit("SET_ITNEWS_COMMENT_SELECTLIST", data))
+                .catch(({ error }) => console.log(error))
+        },
+        //ItNews 댓글 삭제
+        FETCH_ITNEWS_COMMENT_DELETE(data, no) {
+            console.log(no)
+            fetchItNewsCommentDelete(no)
+                .then((data) => {
+                    console.log(data)
+                })
+                .catch(({ error }) => console.log(error))
+        },
 
 
         //현주
@@ -530,6 +565,18 @@ export default new Vuex.Store({
         // IT소식 상세화면
         SET_ITNEWS_VIEW(state, itNewsView) {
             state.itNewsView = itNewsView;
+        },
+        // IT소식 삭제
+        SET_ITNEWS_DELETE(state, data) {
+            state.data = data;
+        },
+        // IT소식 수정(첨부파일 불러오기)
+        SET_ITNEWS_UPDATE(state, data) {
+            state.ITAttachment = data;
+        },
+        // IT소식 댓글 불러오기
+        SET_ITNEWS_COMMENT_SELECTLIST(state, data) {
+            state.ITcomment = data;
         },
         
 
