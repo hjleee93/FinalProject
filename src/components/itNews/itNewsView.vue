@@ -312,7 +312,7 @@ export default {
         const newsSq=this.$route.params.id;
         this.$store.dispatch("FETCH_ITNEWS_VIEW",newsSq)
         // this.$store.dispatch("FETCH_COMMUNITYBOARD_ATTACHMENT",newsSq)
-        this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
+        this.$store.dispatch("FETCH_ITNEWS_COMMENT_LIST",this.$route.params.id);
         
     },
     computed: {
