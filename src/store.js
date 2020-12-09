@@ -17,6 +17,8 @@ import {
     fetchmsublist,
     fetchMeetinginfo,
     fetchMeetingapply,
+    fetchApprove,
+    fetchUnapprove,
 
     //주은
     fetchCommunityBoardList,
@@ -204,6 +206,16 @@ export default new Vuex.Store({
           const response=await fetchMeetingapply(email)
           commit("SET_APPLY",response.data)
           return response;
+        },
+        //신청한 모음 승인처리하는 부분
+        async FECH_APPROVE(data,no){
+            const response=await fetchApprove(no)
+            return response;
+        },
+        //신청한 모임 미승인 처리하는부분
+        async FECH_UNAPPROVE(data,no){
+            const response=await fetchUnapprove(no)
+            return response;
         },
         
 

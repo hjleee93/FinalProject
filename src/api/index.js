@@ -44,6 +44,12 @@ function fetchMeetinginfo(no){
 function fetchMeetingapply(email){
     return axios.get(`${config.Url}meeting/meetingapply${email}.do`)
 }
+function fetchApprove(no){
+    return axios.get(`${config.Url}meeting/approve${no}.do`)
+}
+function fetchUnapprove(no){
+    return axios.get(`${config.Url}meeting/unapprove${no}.do`)
+}
 
 
 
@@ -196,6 +202,8 @@ export {
     fetchMeetinginfo,
     fetchmsublist,
     fetchMeetingapply,
+    fetchApprove,
+    fetchUnapprove,
   
 
     //주은

@@ -27,8 +27,8 @@
             item-key="name"
           >
           <template v-slot:item.status="{item}">
-            <b-button @click="deleteItem(item)">승인</b-button>
-             <b-button  @click="deleteItem(item)">미승인</b-button>
+            <b-button @click="approve(item)">승인</b-button>
+             <b-button  @click="unapproved(item)">미승인</b-button>
           </template>
           </v-data-table>
 </b-col>
@@ -74,14 +74,37 @@ export default {
            apply:state=>state.apply    
          }),
          ...loadUserState(['userData'])  ,
-    },
+         
+    }, 
     methods: {
-      deleteItem(no){
-        console.log(this.apply.indexOf((x)=>x.no===no))
-        const index=this.apply.indexOf((x)=>x.no===no);
-        this.apply.splice(index,1);
+      approve(no){
+        let check=confirm("승인하시겠습니까?")
+        if(check==true){
+          this.$store.dispatch("FECH_APPROVE",no.no)
+          .then(()=>{
+          const index=this.apply.indexOf((x)=>x.no===no);
+          this.apply.splice(index,1);
+          })
+           
+        }else return
+       
+       
+      },
+      unapproved(no){
+        let check=confirm("미승인하시겠습니까?")
+        if(check==true){
+          this.$store.dispatch("FECH_UNAPPROVE",no.no)
+          console.log(this.apply.indexOf((x)=>x.no===no))
+          const index=this.apply.indexOf((x)=>x.no===no);
+          this.apply.splice(index,1);
+        }else return
+       
+       
       }
     },
+    unValue(){
+      alert("신청목록이 없습니다")
+    }
        
 
 }
