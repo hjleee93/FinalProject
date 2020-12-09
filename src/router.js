@@ -544,7 +544,8 @@ export default new Router({
     {
       path: '/resume/resume/',
       name: 'resume',
-      component: resume
+      component: resume,
+      beforeEnter: LoginAuth(),
     },
     {
       path: '/resume/BlindResume',

@@ -181,7 +181,7 @@ function fetchRboardList() {
 }
 //이력서 불러오기
 function fetchResume(memberSq){
-    return axios.get(`${config.Url}resume/selectResume${memberSq}.do`)
+    return axios.get(`${config.Url}resume/selectResume/${memberSq}.do`)
 }
 export {
     fetchPboardList,

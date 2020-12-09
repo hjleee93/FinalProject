@@ -28,39 +28,64 @@
         </b-nav>
     </div>
 
-<div>{{userData.memberSq}}</div>
+
+<div>
+    {{resume}}
+</div>
+
+<div>
+    {{this.$store.state.resume}}
+</div>
 
 
 </div>
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+//import { mapState } from 'vuex';
+const { mapState: memberState } = createNamespacedHelpers("memberStore");
 
- import { mapState } from 'vuex';
 export default {
 
+    created() {
+        const memberSq=this.userData.memberSq;
+        this.$store.dispatch("FETCH_RESUME", memberSq);
+    },
+
+    // async mounted() {
+    //     this.$store.dispatch("FETCH_RESUME", {
+    //     memberSq: this.userData.memberSq,
+    //     });
+ 
+    // },
     computed: {
-    //   ...mapState({
+        ...memberState(["userData"]),
+    //     ...mapState({
     //     resume:state=>state.resume
     //   }),
+    resume() {
+      let objArr = new Object(); //반환할 객체
 
-        ...mapState(['userData']),
+        for (let i = 0; i < this.$store.state.resume.length; i++) {
+            if (
+            this.$store.state.resume[i].memberNo ==
+            this.userData.memberSq
+            ) {
+            objArr[i] = this.$store.state.resume[i];
+            }
+        }
+        let tem = [];
+        for (let i = 0; i < 3; i++) {
+            tem[i] = Object.values(objArr)[i];
+        }
+
+        return tem;
+        },
     },
-    
-//      methods: {
-
-//     },
-//     created() {
-
-//     const memberSq = this.$route.params.id;
-//     console.log(memberSq);
-//     this.$store.dispatch("FETCH_RESUME",memberSq);
-
-//     },
-
-
-    
-    
+    data: () => ({
+    //   resume:this.$store.state.resume,
+    }),
 }
 
 </script>
