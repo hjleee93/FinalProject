@@ -121,6 +121,18 @@ function fetchItNewsView(newsSq) {
 function fetchItNewsDelete(newsSq) {
     return axios.post(`${config.Url}itnews/itnewsDelete${newsSq}`)
 }
+//ItNews 수정하기(게시판번호로 객체 값 불러오기 )
+function fetchItNewsUpdate(newsSq) {
+    return axios.get(`${config.Url}itnews/itnewsUpdate${newsSq}`)
+}
+// ItNews 댓글 조회하기
+function fetchITCommentSelectList(itnewsNo){
+    return axios.get(`${config.Url}itnews/selectCommentList${itnewsNo}`)
+}
+//댓글  삭제하기
+function fetchItNewsCommentDelete(itCommentNo){
+    return axios.post(`${config.Url}itnews/deleteComment${itCommentNo}`)
+}
 
 
 //현주 //qnaBoard(qna게시판)
@@ -219,6 +231,9 @@ export {
     fetchItNewsList,
     fetchItNewsView,
     fetchItNewsDelete,
+    fetchItNewsUpdate,
+    fetchITCommentSelectList,
+    fetchItNewsCommentDelete,
 
 
     //현주

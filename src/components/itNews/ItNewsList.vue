@@ -79,15 +79,15 @@
 
       </div>
 
-          <!-- search bar -->
-          <div class="search-align">
+      <!-- search bar -->
+          <!-- <div class="search-align">
           <b-navbar-nav class="ml-auto st_search">
             <b-nav-form>
               <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
               <b-button size="sm" class="my-2 my-sm-0" type="submit" id=searchbtn>Search</b-button>
             </b-nav-form>
           </b-navbar-nav>
-          </div>
+          </div> -->
 
     </div>
 
@@ -136,7 +136,8 @@
       openWindow: function (link) {
        window.open(link);
       },
-      //https:// 아닐때도 링크 연결
+
+      //https:// 아닐때도 링크 연결====테스트중====
       movePage: function() {
       if (
         this.it.newsRefSite.includes("http") == false
