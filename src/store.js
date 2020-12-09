@@ -16,6 +16,12 @@ import {
      fetchMeeting,
      fetchmsublist,
      fetchMeetinginfo,
+     fetchMeetingapply,
+     fetchApprove,
+     fetchUnapprove,
+     fetchApproveList,
+     fetchmklist,
+
 
      //주은
      fetchCommunityBoardList,
@@ -72,6 +78,7 @@ Vue.use(Vuex, axios)
 import createPersistedState from 'vuex-persistedstate';
 
 export default new Vuex.Store({
+
      modules: {
           memberStore: memberStore,
           jobStore: jobStore
@@ -81,8 +88,6 @@ export default new Vuex.Store({
                paths: ['memberStore']
           })
      ],
-
-
      state: {
           pboard: [],
           pboardone: [],
@@ -95,6 +100,11 @@ export default new Vuex.Store({
           meeting: [],
           msubList: [],
           minfo: [],
+          apply: [],
+          approvelist: [],
+          mklist: [],
+
+
 
 
           //주은
@@ -188,7 +198,7 @@ export default new Vuex.Store({
 
           },
 
-          //모임 
+          //모임
           FECH_MEETINGLIST({ commit }) {
                fetchMeeting()
                     .then(({ data }) => commit("SET_MEETING", data))
@@ -212,6 +222,34 @@ export default new Vuex.Store({
                          console.log(error);
                     })
           },
+
+          async FECH_MEETINGAPPLY({ commit }, email) {
+               const response = await fetchMeetingapply(email)
+               commit("SET_APPLY", response.data)
+               return response;
+          },
+          //신청한 모음 승인처리하는 부분
+          async FECH_APPROVE(data, no) {
+               const response = await fetchApprove(no)
+               return response;
+          },
+          //신청한 모임 미승인 처리하는부분
+          async FECH_UNAPPROVE(data, no) {
+               const response = await fetchUnapprove(no)
+               return response;
+          },
+          async FECH_APPROVELIST({ commit }, no) {
+               const response = await fetchApproveList(no)
+               commit("SET_APPROVE", response.data)
+               return response;
+          },
+          async FECH_MKLIST({ commit }, no) {
+               const response = await fetchmklist(no)
+               commit("SET_MKLIST", response.data)
+               return response
+          },
+
+
 
 
           //주은
@@ -268,7 +306,7 @@ export default new Vuex.Store({
           },
 
 
-          //공지사항  list 조회 
+          //공지사항  list 조회
           FETCH_NOTICE({ commit }) {
                fetchNoticeList()
                     .then(({ data }) => commit("SET_NOTICE", data))
@@ -513,6 +551,16 @@ export default new Vuex.Store({
           },
           SET_COMMENT(state, data) {
                state.comment = data;
+          },
+          SET_APPLY(state, data) {
+               state.apply = data;
+
+          },
+          SET_APPROVE(state, data) {
+               state.approvelist = data;
+          },
+          SET_MKLIST(state, data) {
+               state.mklist = data;
           },
 
           //주은

@@ -41,6 +41,25 @@ function fetchmsublist(){
 function fetchMeetinginfo(no){
     return axios.get(`${config.Url}meeting/meetinginfo${no}.do`)
 }
+//모임 신청하기 버튼 처리
+function fetchMeetingapply(email){
+    return axios.get(`${config.Url}meeting/meetingapply${email}.do`)
+}
+//승인 버튼 눌렀을 경우 실행 로직
+function fetchApprove(no){
+    return axios.get(`${config.Url}meeting/approve${no}.do`)
+}
+//미승인 버튼 이벤트
+function fetchUnapprove(no){
+    return axios.get(`${config.Url}meeting/unapprove${no}.do`)
+}
+//신청한 모임 목록을 확인
+function fetchApproveList(no){
+    return axios.get(`${config.Url}meeting/approvelist${no}.do`)
+}
+function fetchmklist(no){
+    return axios.get(`${config.Url}meeting/mklist${no}.do`)
+}
 
 
 
@@ -211,6 +230,11 @@ export {
     fetchMeeting,
     fetchMeetinginfo,
     fetchmsublist,
+    fetchMeetingapply,
+    fetchApprove,
+    fetchUnapprove,
+    fetchApproveList,
+    fetchmklist,
   
 
     //주은

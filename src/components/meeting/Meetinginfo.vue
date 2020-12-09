@@ -89,6 +89,8 @@ export default {
         let applyform=new FormData
         applyform.append("memberSq",this.userData.memberSq)
         applyform.append("postion",value)
+        applyform.append("collabSq",this.minfo.collabSq)
+        applyform.append("writerNo",this.minfo.memberSq)
        axios.post("http://localhost:8082/itjobgo/meeting/applymeeting.do",applyform)
        .then(()=>{
          alert("신청완료")

@@ -15,7 +15,7 @@
           cols="12"
           md="6"
         >
-           <label for="title">모임명 </label> <b-form-input id="title" v-model="mtitle" placeholder="모임명"></b-form-input>
+           <label for="title">모임명 </label> <b-form-input id="title" required v-model="mtitle" placeholder="모임명"></b-form-input>
         </b-col>
       </b-row>
       <b-row>
@@ -41,7 +41,7 @@
       label="신청 날짜"
       label-for="example-datepicker"
     >
-             <b-form-datepicker id="example-datepicker"  v-model="sdate" class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker"   :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model="sdate" class="mb-3"></b-form-datepicker>
           </b-form-group>
         </b-col  > 
        <b-col class="d-flex" cols="4" sm="4"><b-form-group
@@ -50,7 +50,7 @@
       label="마감 날짜"
       label-for="example-datepicker2"
     >
-             <b-form-datepicker id="example-datepicker2" v-model="fdate" class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker2"  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model="fdate" class="mb-3"></b-form-datepicker>
           </b-form-group></b-col>
           <b-col class="d-flex center" cols="4" sm="4">
           <b-form-group
@@ -59,7 +59,7 @@
       label="시작 날짜"
       label-for="example-datepicker3"
     >
-             <b-form-datepicker id="example-datepicker3"  v-model="rdate" class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker3"   :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model="rdate" class="mb-3"></b-form-datepicker>
           </b-form-group>
         </b-col  > 
       </b-row>
@@ -77,6 +77,7 @@
       id="textarea-state"
       placeholder="간단한 모집정보"
       rows="3"
+       required
       v-model="simcontent"
     ></b-form-textarea>
         </b-col>
@@ -89,6 +90,7 @@
          <v-file-input
     label="대표이미지"
     filled
+    required
     accept=".gif,.jpg,.png"
     ref="upfiles"
     prepend-icon="mdi-camera"
@@ -100,6 +102,7 @@
         id="textarea-auto-height"
         placeholder="상세모집요강"
         rows="3"
+         required
         max-rows="8"
         v-model="mcontent"
       ></b-form-textarea></b-card>
@@ -114,11 +117,8 @@
        </b-row>
        <b-row><b-col>
     <b-button type="button" @click="address">주소검색</b-button>
-  <modal-view v-if="showModal" @close="showModal = false" @raddress="printaddress">
-            
+  <modal-view v-if="showModal" @close="showModal = false" @raddress="printaddress">      
    <h3 slot="header">주소검색하기 <i class="fas fa-times" @click="showModal=false" ></i></h3>
-  
-    <!-- <div slot="footer"></div> -->
   </modal-view>
   
          <!-- <VueDaumPostcode @complete="result = $event"/> -->
@@ -135,21 +135,7 @@
     
       style="width:500px;height:400px;"/> </b-col>
       </b-row> -->
-    <b-row><b-col>  <b-input readonly v-model="result.address"></b-input></b-col></b-row>
-    <div>{{result.address}}</div>
-    <div>{{back}}</div>
-    <div>{{front}}</div>
-    <div>{{desgin}}</div>
-    <div>{{mtitle}}</div>
-    <div>{{mwriter}}</div>
-    <div>{{mphone}}</div>
-    <div>{{memail}}</div>
-    <div>{{sdate}}</div>
-    <div>{{fdate}}</div> 
-      <div>{{simcontent}}</div> 
-        <div>{{mcontent}}</div> 
-         <div>{{langs}}</div> 
-    
+    <b-row><b-col>  <b-input required readonly v-model="result.address"></b-input></b-col></b-row>
     <b-row><b-col>  <b-button  id="s-btn" type="submit">개설완료</b-button></b-col></b-row>
   </form>
   </b-container>
@@ -207,7 +193,11 @@ export default {
          
         },
         enroller(){
-           let formData=new FormData();
+          if(this.result.address==undefined){
+            alert("값이 비여있습니다.")
+            return 
+          }
+          let formData=new FormData();
           formData.append('mtitle',this.mtitle);
           formData.append('mwriter',this.userData.memberName);
           formData.append('memail',this.userData.memberEmail);
@@ -223,6 +213,7 @@ export default {
           formData.append('langs',this.langs);
           formData.append('address',this.result.address);
           formData.append('rdate',this.rdate);
+          formData.append('memberSq',this.userData.memberSq)
           for(let key of formData.entries()){
           console.log(`${key}`);
             }
@@ -270,14 +261,12 @@ export default {
     // }
     },
   
- data: () => ({
-    // appKey: 'b87477b7ea45a3fb35e3fe159f0d8976', // 테스트용 appkey
-    // center: {lat:33.4555555, lng:126.570667}, // 지도의 중심 좌표
-    // level: 3, // 지도의 레벨(확대, 축소 정도),
-    // mapTypeId: VueDaumMap.MapTypeId.NORMAL, // 맵 타입
-    // libraries: [], // 추가로 불러올 라이브러리
-    // map: null, // 지도 객체. 지도가 로드되면 할당됨.,
-    valid: false,
+ data(){
+    const now = new Date()
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    const minDate = new Date(today)
+   return{
+      valid: false,
       result:'',
       text: '',
       tname: '',
@@ -293,6 +282,8 @@ export default {
       files:'',
       mcontent:'',
        langs:[],
+       min:minDate,
+       
       back:1,
            front:1,
                 desgin:1,
@@ -314,11 +305,20 @@ export default {
           'C',
 
         ],
+    }
+   }
+ }
+    // appKey: 'b87477b7ea45a3fb35e3fe159f0d8976', // 테스트용 appkey
+    // center: {lat:33.4555555, lng:126.570667}, // 지도의 중심 좌표
+    // level: 3, // 지도의 레벨(확대, 축소 정도),
+    // mapTypeId: VueDaumMap.MapTypeId.NORMAL, // 맵 타입
+    // libraries: [], // 추가로 불러올 라이브러리
+    // map: null, // 지도 객체. 지도가 로드되면 할당됨.,
+     
        
        
        
-    }),
-    } 
+   
 
 </script>
 

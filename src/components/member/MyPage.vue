@@ -59,7 +59,7 @@
         </li>
         <li class="topList openState">
           <p class="title">참여한 프로젝트수</p>
-          <p class="count"><a href="#projDiv" class="scroll">1</a>개</p>
+          <p class="count"><router-link to="/meetingapply" class="scroll">1</router-link>개</p>
         </li>
 
         <li class="topList last onlineCount">

@@ -58,6 +58,9 @@ import PortFolio from './components/portfolio/PortFoilo.vue'
 import PortFoiloenroller from './components/portfolio/PortFoiloenroller.vue';
 import Portfolioinfo from './components/portfolio/PortFolioinfo.vue';
 import Portfolioupdate from './components/portfolio/PortFolioupdate.vue';
+import Meetingapply from './components/meeting/Meetingapply.vue';
+import Approve from './components/meeting/Approve.vue';
+import Mkmeeting from './components/meeting/Mkmeeting.vue';
 
 //혜지
 
@@ -239,6 +242,7 @@ export default new Router({
       path: '/meetingList',
       component: meetingList,
       name: "meetingList",
+      beforeEnter: LoginDeny(),
       children: [
         {
           path: 'meeting',
@@ -253,13 +257,31 @@ export default new Router({
 
     },
     {
+      path:'/meetingapply',
+      component:Meetingapply,
+      beforeEnter: LoginDeny()
+    },
+    {
+      path:'/approve/:memberSq',
+      component:Approve,
+      name:'approve',
+    
+    },
+    {
+      path:'/mkmeeting/:memberSq',
+      component:Mkmeeting,
+      name:'mkmeeting',
+    },
+    {
       path: '/enrollmeeting',
       component: EnrollerMeeing,
+      beforeEnter: LoginDeny()
     },
     {
       path: '/meetinginfo/:id',
       component: Meetinginfo,
-      name: "meetinginfo"
+      name: "meetinginfo",
+      beforeEnter: LoginDeny()
 
     },
     {
@@ -282,16 +304,19 @@ export default new Router({
     {
       path: '/portfolioenroller',
       component: PortFoiloenroller,
+      beforeEnter: LoginDeny()
     },
     {
       path: '/Portfolioinfo/:id',
       component: Portfolioinfo,
       name: 'Portinfo',
+      beforeEnter: LoginDeny()
     },
     {
       path: '/Portfolioupdate/:id',
       component: Portfolioupdate,
       name: 'Portup',
+      beforeEnter: LoginDeny()
     },
     //민지
     {
