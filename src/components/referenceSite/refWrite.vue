@@ -7,11 +7,9 @@
           * 참고 사이트 등록은 관리자 승인 후 업로드 됩니다. (작성일 기준 1-2일 소요)
     </div><hr>
 
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form role="form"  @submit.prevent="enrollref"
+                          @reset="onReset" enctype="multipart/form-data">
         <b-form-group
-            id="input-group-1"
-            label-for="input-1"
-            label-align="left"
             label="사이트명"
             >
           <b-form-input
@@ -52,7 +50,7 @@
             placeholder="사이트 소개 및 정보를 입력해주세요"
             rows="5"
             max-rows="10"
-            v-model="mcontent"
+            v-model="refcontent"
             required
           ></b-form-textarea>
         </b-form-group>
@@ -88,82 +86,78 @@
 
 
 <script>
-// import { VueEditor } from "vue2-editor";
+import axios from 'axios';
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
 
   export default {
     data() {
       return {
-          ctg: '',
-          value: null,
+          reftitle:"",
           category:null,
+          value: null,
+          refaddress:"",
           refcategory :[
             { value: null, text: '분류를 선택해주세요' },
             { value: '백엔드', text: '백엔드' },
             { value: '프론트엔드', text: '프론트엔드' },
             { value: '기타', text: '기타' },
           ],
-          
+          refcontent:"",
+          files : "",
       }
     },
 
-    computed:{
-      ...mapState({
-        
-
-      })
-    },
-
-    methods: {
-      
-              enroller(){
-              let formData=new FormData();
-              formData.append('mtitle',this.mtitle);
-              formData.append('mwriter',this.userData.memberName);
-              formData.append('memail',this.userData.memberEmail);
-              formData.append('mphone',this.userData.memberPhone);
-              formData.append('sdate',this.sdate);
-              formData.append('fdate',this.fdate);
-              formData.append('back',this.back);
-              formData.append('front',this.front);
-              formData.append('desgin',this.desgin);
-              formData.append('simcontent',this.simcontent);
-              formData.append('upfile',this.files);
-              formData.append('mcontent',this.mcontent);
-              formData.append('langs',this.langs);
-              formData.append('address',this.result.address);
-              formData.append('rdate',this.rdate);
-              for(let key of formData.entries()){
-              console.log(`${key}`);
-                }
-                
-              axios.post("http://localhost:8082/itjobgo/meeting/enrollmeeting.do"
-              ,formData,
-              { headers:{
-                'Content-Type':'multipart/form-data'
-              }})
-              .then((data)=>console.log(data))
-              .catch((error)=>console.log(error))
-              },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      clearFiles() {
-        this.$refs['file-input'].reset()
+      components:{
       },
 
+    computed: {
+    ...mapState(['userData'])
+      },
+
+    methods: {
+      enrollref() {
+        
+        let formData = new FormData();
+        formData.append('boardWriter',this.userData.memberName);
+        formData.append('memberSq',this.userData.memberSq);
+        formData.append('refTitle',this.reftitle);
+        formData.append('refCategory',this.category);
+        formData.append('refContent',this.refcontent.replace(/(<([^>]+)>)/ig,""));
+        formData.append('refSiteAddr',this.refaddress);
+        formData.append('upfile',this.files);
+        
+        for(let key of formData.entries()){
+        console.log(`${key}`);
+        }
+          console.log(this.category);
+
+      axios.post("http://localhost:8082/itjobgo/ref/insertsite.do",
+        formData,
+        { headers:{
+          'Content-Type':'multipart/form-data'
+        }}).then((data)=>console.log(data))
+        .catch((error)=>
+        console.log(error))
+        console.log(formData);
+        this.$router.push({name:'refSite'});
+      },
+      
+        handleFile(){
+        console.log(this.$refs.upfiles.$refs.input.files[0]);
+        this.files=this.$refs.upfiles.$refs.input.files[0];
+        console.log(this.files);
+        },
+
+      onReset(evt) {
+        evt.preventDefault()
+        this.boardTitle = ''
+        this.category = null
+        this.boardContent=''
+        this.files.name=''
+      }
     }
+    
 
   }
 </script>
