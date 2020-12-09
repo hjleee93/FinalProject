@@ -7,7 +7,9 @@ import memberStore from './store/modules/memberStore.js';// member 관리 store
 //네비게이션가드
 
 const LoginAuth = () => (to, from, next) => {
-  if (memberStore.state.loginStatus != false) {
+  let loginCheck = localStorage.memberKey.includes('"loginStatus":true');
+
+  if (loginCheck != false) {
 
     return next();
   }
@@ -347,7 +349,7 @@ export default new Router({
       name: 'NoticeList',
       component: NoticeList
     },
-    
+
 
     {
       path: '/noticeForm',

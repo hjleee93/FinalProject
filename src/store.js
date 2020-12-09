@@ -64,13 +64,21 @@ import memberStore from './store/modules/memberStore.js';// member 관리 store
 import jobStore from './store/modules/JobStore.js';
 
 Vue.use(Vuex, axios)
+import createPersistedState from 'vuex-persistedstate';
 
 export default new Vuex.Store({
-
     modules: {
         memberStore: memberStore,
         jobStore: jobStore
     },
+    plugins: [
+        createPersistedState({
+            key: 'memberKey',
+            paths: ['memberStore']
+        })
+    ],
+
+
     state: {
         pboard: [],
         pboardone: [],
@@ -90,15 +98,15 @@ export default new Vuex.Store({
         communityboardView: [],
         communityboardDelete: [],
         cbAttachment: [],
-        cbAttachment2:[],
-        cbcomment:[],
-        noticeList:[],
-        noticeView:[],
-        updateData:[],
-        noticeAttach:[],
-        ntcomment:[],
-        itnewsList:[],
-        itNewsView:[],
+        cbAttachment2: [],
+        cbcomment: [],
+        noticeList: [],
+        noticeView: [],
+        updateData: [],
+        noticeAttach: [],
+        ntcomment: [],
+        itnewsList: [],
+        itNewsView: [],
 
         //현주
         qnaboard1: [],
@@ -518,12 +526,12 @@ export default new Vuex.Store({
         // IT소식 리스트 불러오기
         SET_ITNEWS_LIST(state, data) {
             state.itnewsList = data;
-        }, 
+        },
         // IT소식 상세화면
         SET_ITNEWS_VIEW(state, itNewsView) {
             state.itNewsView = itNewsView;
         },
-        
+
 
         //현주 게시판 리스트
         SET_QNABOARD(state, qnaboard1) {
