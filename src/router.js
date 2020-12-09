@@ -215,10 +215,9 @@ const LoginCallback = () => {
 const NaverLogin = () => {
   return import('./components/member/naverLogin.vue')
 }
-// const PhotoUpload = () => {
-//   return import('./components/member/photoUpload.vue')
-// }
-
+const ResumeBoard = () => {
+  return import('./components/member/ResumeBoard.vue')
+}
 const KakaoCallbackLogin = () => {
   return import('./components/member/kakaoCallbackLogin.vue')
 }
@@ -449,6 +448,7 @@ export default new Router({
     {
       path: '/jobSearchDtl',
       name: 'jobSearchDtl',
+      query: { keyword: '', region: '' },
       component: JobSearchDtl
     },
     {
@@ -510,6 +510,12 @@ export default new Router({
       name: 'adminPage',
       component: AdminPage,
       beforeEnter: adminDeny()
+    },
+    {
+      path: '/resumeBoard',
+      name: 'resumeBoard',
+      component: ResumeBoard,
+      beforeEnter: LoginAuth()
     },
 
     //현주

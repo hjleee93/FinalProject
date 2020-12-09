@@ -19,35 +19,27 @@
               </div>
               <div class="col-lg-3 form-cols">
                 <div>
-                  <b-button
-                    v-b-toggle.collapse-3
+                  <button
+                    type="button"
                     class="form-control"
-                    v-model="selectedLocation"
-                    >수정수정</b-button
+                    name="search"
+                    @click="locationSearch"
                   >
-                  <b-collapse id="collapse-3" class="mt-2 toggle-btn">
-                    <b-card>
-                      <p class="card-text">
-                        흠
-                      </p>
-                    </b-card>
-                  </b-collapse>
+                    지역을 선택해주세요
+                  </button>
                 </div>
               </div>
 
               <div class="col-lg-3 form-cols ">
                 <div>
-                  <b-button
-                    v-b-toggle.collapse-4
+                  <button
+                    type="button"
                     class="form-control"
-                    v-model="selectedLocation"
-                    >수정수정1</b-button
+                    name="search"
+                    @click="fieldSearch"
                   >
-                  <!-- <b-form-select
-                    class="form-control"
-                    v-model="selectedJob"
-                    :options="options2"
-                  ></b-form-select> -->
+                    직종을 선택해주세요
+                  </button>
                 </div>
               </div>
 
@@ -61,11 +53,69 @@
                 </b-button>
               </div>
             </div>
+            <!-- 지역선택 dept 1 -->
+            <div class="location-div">
+              <p>지역을 선택해주세요</p>
+              <div class="prov-layer">
+                <table>
+                  <tr>
+                    <td>
+                      <b-btn @click="allSelected = ''">전체</b-btn>
+                    </td>
+                    <td @click="allSelected = '11000'"><b-btn>서울</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>세종</b-btn></td>
+                    <td><b-btn>경기</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>부산</b-btn></td>
+                    <td><b-btn>인천</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>대구</b-btn></td>
+                    <td><b-btn>대전</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>울산</b-btn></td>
+                    <td><b-btn>광주</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>전북</b-btn></td>
+                    <td><b-btn>전남</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>경북</b-btn></td>
+                    <td><b-btn>경남</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>충북</b-btn></td>
+                    <td><b-btn>충남</b-btn></td>
+                  </tr>
+
+                  <tr>
+                    <td><b-btn>강원</b-btn></td>
+                    <td><b-btn>제주</b-btn></td>
+                  </tr>
+                  <tr></tr>
+                </table>
+              </div>
+              <!-- 상세지역 dept 2 -->
+              <div class="city-layer">
+                <b-form-group>
+                  <b-form-checkbox-group
+                    id="checkbox-group-1"
+                    v-model="selected1"
+                    :options="options"
+                  ></b-form-checkbox-group>
+                </b-form-group>
+              </div>
+              <div class="mt-3">
+                Selected: <strong>{{ allSelected }}</strong>
+              </div>
+            </div>
           </b-form>
         </div>
-        <b-collapse id="collapse-4" class="mt-2 toggle-btn">
-          <div id="test"></div>
-        </b-collapse>
         <!-- 메인 -->
         <div class="col-4 pl-0">
           <!-- it소식 -->
@@ -400,21 +450,34 @@ export default {
   data() {
     return {
       // inputSearch,//search bar 검색어
-
+      selected1: [],
+      allSelected: null,
       rcmJson: [], //추천 채용정보
       selectedLocation: null,
       selectedJob: null,
       keyword: "",
-      options2: [
-        { value: null, text: "직무를 선택해주세요" },
-        { value: "aa", text: "Web developer" },
-        { value: "bb", text: "Selected Option" },
-        { value: { CC: "3PO" }, text: "This is an option with object value" },
-        { value: "dd", text: "This one is disabled", disabled: true },
+      options: [
+        { text: "Orange", value: "orange" },
+        { text: "Apple", value: "apple" },
+        { text: "Pineapple", value: "pineapple" },
+        { text: "Grape", value: "grape" },
       ],
     };
   },
   methods: {
+    locationSearch() {
+      if ($(".location-div").hasClass("on")) {
+        $(".location-div").removeClass("on");
+      } else {
+        $(".location-div").addClass("on");
+      }
+    },
+    //상세 지역 선택
+    seoulSelected() {
+      $(".city-layer").addClass("on");
+    },
+    fieldSearch() {},
+    //it소식 이동
     cardclick(value) {
       this.$router.push({ name: "itNewsView", params: { id: value.newsSq } });
     },
@@ -427,10 +490,14 @@ export default {
     },
     //서치바
     jobSearch: function() {
-      let keyword = this.keyword;
+      const formData = {
+        keyword: this.keyword,
+        region: this.allSelected,
+      };
+      console.log("formData: " + JSON.stringify(formData));
       this.$router.push({
         name: "jobSearchDtl",
-        params: { keyword: keyword }, //검색 keyword pass
+        query: formData,
       });
     },
     jobCategory: function() {
@@ -548,7 +615,28 @@ export default {
   cursor: pointer;
 }
 /* 서치바 */
-
+.location-div {
+  width: 100%;
+  border: 1px solid #424874;
+  margin-top: 0px;
+  padding-top: 0px;
+  display: none;
+}
+div.location-div.on {
+  display: block;
+}
+.prov-layer {
+  width: 30%;
+  border-right: 1px solid #424874;
+  display: inline-block;
+}
+.city-layer {
+  width: 70%;
+  display: none;
+}
+.city-layer.on {
+  display: inline-block;
+}
 /* 추천채용정보 */
 .profile-btn {
   background-color: #424874;
