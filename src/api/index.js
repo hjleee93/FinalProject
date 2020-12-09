@@ -178,7 +178,10 @@ function fetchInfoAttachment(infoSq){
 //이력서 게시판 리스트
 function fetchRboardList() {
     return axios.get(`${config.Url}resume/rboardList.do`)
-
+}
+//이력서 불러오기
+function fetchResume(memberSq){
+    return axios.get(`${config.Url}resume/selectResume/${memberSq}.do`)
 }
 export {
     fetchPboardList,
@@ -238,6 +241,7 @@ export {
     //혜지
     //이력서게시판
     fetchRboardList,
+    fetchResume,
 
 }
 

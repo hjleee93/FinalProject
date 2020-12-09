@@ -551,9 +551,10 @@ export default new Router({
     },
     //혜지
     {
-      path: '/resume/resume',
+      path: '/resume/resume/',
       name: 'resume',
-      component: resume
+      component: resume,
+      beforeEnter: LoginAuth(),
     },
     {
       path: '/resume/BlindResume',

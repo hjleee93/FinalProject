@@ -54,7 +54,8 @@ import {
     fetchInfoAttachment,
 
     //혜지
-    fetchRboardList
+    fetchRboardList,
+    fetchResume,
 
 
 }
@@ -129,7 +130,10 @@ export default new Vuex.Store({
 
 
         //혜지
-        rboard: []
+
+        rboard : [],
+        resume : [],
+
     },
     actions: {
         FETCH_PBOARD({ commit }) {
@@ -441,6 +445,15 @@ export default new Vuex.Store({
 
         },
 
+        //이력서 불러오기
+        FETCH_RESUME({ commit }, memberSq){
+            fetchResume(memberSq)
+            .then(({ data }) => commit("SET_RESUME", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
+
     },//action
 
     mutations: {
@@ -584,6 +597,10 @@ export default new Vuex.Store({
         //이력서 게시판 리스트
         SET_RBOARD(state, rboard) {
             state.rboard = rboard;
+        },
+        //이력서 불러오기
+        SET_RESUME(state, resume){
+            state.resume = resume;
         }
 
 
