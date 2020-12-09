@@ -56,7 +56,7 @@
           id="input-1"
           v-model="newsRefSite"
           type="text"
-          placeholder="연결하실 사이트를 정확히 입력해주세요"
+          placeholder="연결하실 사이트를 입력해주세요"
         ></b-form-input>
     </b-input-group>
 
@@ -120,7 +120,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         
         let formData = new FormData();
         formData.append('boardWriter',this.userData.memberName);
-        formData.append('memberSq',this.userData.memberSq);
+        formData.append('memberNum',this.userData.memberSq);
         formData.append('newsTitle',this.newsTitle);
         formData.append('newsDivision',this.category);
         formData.append('newsContent',this.newsContent.replace(/(<([^>]+)>)/ig,""));

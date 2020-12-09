@@ -278,12 +278,11 @@ export default {
        .then((data)=>{
         console.log(data)
             // this.commentcheck=true;
-          this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
+          this.$store.dispatch("FETCH_NT_COMMENT_LIST",this.$route.params.id);
           this.updatetext='';
            
        })
       },
-      
 
     }, //method
     created() {

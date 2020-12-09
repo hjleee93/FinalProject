@@ -113,9 +113,25 @@ function fetchNTboardCommentDelete(ntCommentNo){
 function fetchItNewsList() {
     return axios.get(`${config.Url}itnews/selectList`);
 }
-// 공지사항 상세화면
+// ItNews 상세화면
 function fetchItNewsView(newsSq) {
     return axios.get(`${config.Url}itnews/itnewsView${newsSq}`)
+}
+//ItNews 삭제하기
+function fetchItNewsDelete(newsSq) {
+    return axios.post(`${config.Url}itnews/itnewsDelete${newsSq}`)
+}
+//ItNews 수정하기(게시판번호로 객체 값 불러오기 )
+function fetchItNewsUpdate(newsSq) {
+    return axios.get(`${config.Url}itnews/itnewsUpdate${newsSq}`)
+}
+// ItNews 댓글 조회하기
+function fetchITCommentSelectList(itnewsNo){
+    return axios.get(`${config.Url}itnews/selectCommentList${itnewsNo}`)
+}
+//댓글  삭제하기
+function fetchItNewsCommentDelete(itCommentNo){
+    return axios.post(`${config.Url}itnews/deleteComment${itCommentNo}`)
 }
 
 
@@ -142,11 +158,11 @@ function fetchQnaBoardAttachment(qboardNo){
 }
 //qna게시판 댓글 가져오기
 function fetchqnacomment(qboardNo){
-    return axios.get(`${config.Url}qna/qnalist${qboardNo}`) 
+    return axios.get(`${config.Url}qna/commentSelectOne${qboardNo}`) 
 }
 //qna게시판 댓글 삭제
-function fetchqnacommentdel(qbCommentNo){
-    return axios.post(`${config.Url}qna/commentdel${qbCommentNo}`)
+function fetchqnacommentdel(qboardCommentNo){
+    return axios.post(`${config.Url}qna/commentDelete${qboardCommentNo}`)
 }
 
 
@@ -217,6 +233,10 @@ export {
         // IT소식 ItNews
     fetchItNewsList,
     fetchItNewsView,
+    fetchItNewsDelete,
+    fetchItNewsUpdate,
+    fetchITCommentSelectList,
+    fetchItNewsCommentDelete,
 
 
     //현주

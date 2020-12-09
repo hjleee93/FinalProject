@@ -22,7 +22,7 @@
 
     <!-- 서브제목 -->
       <h4 class="sub-header">질문/답변 게시판</h4>
-      <v-btn to="/qnaWrite" exact  id="st_write">글쓰기</v-btn>
+      <v-btn to="/qnaWrite" exact  id="st_write" v-if="userData.memberSq!=null">글쓰기</v-btn>
 
     <div class="overflow">
 
@@ -37,12 +37,14 @@
               hide-details
             ></v-text-field>
         </v-card-title>
+        
           <v-data-table
             :headers="headers"
             :items="qnaboard1"
             :search="search"
-            :server-items-length="qnaboard1.length"
             item-key="qboardNo"
+            single-line
+            hide-details
           >
 
           <template v-slot:item="props">
@@ -58,11 +60,12 @@
           </template>  
           
         </v-data-table>
+
         </v-card>
        
+      </div>
     </div>
 
-</div>
 </b-container>
 </template>
 
@@ -71,6 +74,8 @@ import { mapState } from 'vuex';
 import Vue from 'vue';
 import vueMoment from 'vue-moment';
 Vue.use(vueMoment);
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 
   export default {
 
@@ -81,7 +86,8 @@ Vue.use(vueMoment);
     computed:{
         ...mapState({
             qnaboard1:state=>state.qnaboard1
-        })
+        }),
+        ...loadUserState(['userData'])
     },
 
     methods:{

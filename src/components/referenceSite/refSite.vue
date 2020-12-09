@@ -5,7 +5,7 @@
       <!-- 메인 이미지 -->
       <b-row>
           <div class="submenuimage">
-             <p class="ref_title">Reference</p>
+             <p class="subtitle">Reference</p>
           </div>
       </b-row>
               
@@ -59,7 +59,8 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-      <v-card
+      
+      <!-- <v-card
         class="mx-auto"
         max-width="330"
         >
@@ -82,177 +83,7 @@
             사이트 바로가기
           </v-btn>
         </v-card-actions>
-      </v-card>
-      <v-card
-        class="mx-auto"
-        max-width="330"
-        >
-        <v-img
-          class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        >
-        <v-card-title>Title</v-card-title>
-        </v-img>
-        <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
-          <div>Whitsunday Island, Whitsunday Islands</div><h6 id="ref_date">등록일 : 20/10/31</h6>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            color="blue"
-            text
-            >
-            사이트 바로가기
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-      <v-card
-        class="mx-auto"
-        max-width="330"
-        >
-        <v-img
-          class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        >
-        <v-card-title>Title</v-card-title>
-        </v-img>
-        <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
-          <div>Whitsunday Island, Whitsunday Islands</div><h7 id="ref_date">등록일 : 20/10/31</h7>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            color="blue"
-            text
-            >
-            사이트 바로가기
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-
-      <v-card
-        class="mx-auto"
-        max-width="330"
-        >
-        <v-img
-          class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        >
-        <v-card-title>Title</v-card-title>
-        </v-img>
-        <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
-          <div>Whitsunday Island, Whitsunday Islands</div><h7 id="ref_date">등록일 : 20/10/31</h7>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            color="blue"
-            text
-            >
-            사이트 바로가기
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-      <v-card
-        class="mx-auto"
-        max-width="330"
-        >
-        <v-img
-          class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        >
-        <v-card-title>Title</v-card-title>
-        </v-img>
-        <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
-          <div>Whitsunday Island, Whitsunday Islands</div><h7 id="ref_date">등록일 : 20/10/31</h7>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            color="blue"
-            text
-            >
-            사이트 바로가기
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-      <v-card
-        class="mx-auto"
-        max-width="330"
-        >
-        <v-img
-          class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        >
-        <v-card-title>Title</v-card-title>
-        </v-img>
-        <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
-          <div>Whitsunday Island, Whitsunday Islands</div><h7 id="ref_date">등록일 : 20/10/31</h7>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            color="blue"
-            text
-            >
-            사이트 바로가기
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-      <v-card
-        class="mx-auto"
-        max-width="330"
-        >
-        <v-img
-          class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        >
-        <v-card-title>Title</v-card-title>
-        </v-img>
-        <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
-          <div>Whitsunday Island, Whitsunday Islands</div><h7 id="ref_date">등록일 : 20/10/31</h7>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            color="blue"
-            text
-            >
-            사이트 바로가기
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-
-      <v-card
-        class="mx-auto"
-        max-width="330"
-        >
-        <v-img
-          class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        >
-        <v-card-title>Title</v-card-title>
-        </v-img>
-        <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
-          <div>Whitsunday Island, Whitsunday Islands</div><h7 id="ref_date">등록일 : 20/10/31</h7>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            color="blue"
-            text
-            >
-            사이트 바로가기
-          </v-btn>
-        </v-card-actions>
-        </v-card>
+      </v-card> -->
 
       </div>
 
@@ -340,6 +171,18 @@
     font-family: 'Masque';
     color:#4e5157 ;
     font-size: 50px;
+} 
+.submenuimage{
+    width: 100%;
+    height:180px;
+    background-color:#F4EEFF;
+    text-align: center;
+    line-height: 180px;
+}
+.subtitle{
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  color:#4e5157 ;
+  font-size: 50px;
 }
 
 </style>
