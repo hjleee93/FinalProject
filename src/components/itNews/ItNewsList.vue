@@ -58,10 +58,22 @@
             color="blue"
             text
             >
+             <!-- @mouseover="movePage" -->
+
           <a href="" v-on:click.stop.prevent="openWindow(it.newsRefSite)" id="link_a">링크 바로가기</a>
+          
+
+                 
+              <!-- <a id="homePage"  @mouseover="movePage">{{
+                it.newsRefSite._text
+              }}테스트 링크</a> -->
+      
+          
           </v-btn>
         </v-card-actions>
           <h4 id="ref_date">등록일 : {{formatDate(it.newsDate)}}</h4>
+
+
       </v-card>
 
 
@@ -120,9 +132,28 @@
       cardclick(value){
           this.$router.push({name:'itNewsView',params:{id:value.newsSq}})
       },
+      //링크 새로 열기
       openWindow: function (link) {
        window.open(link);
       },
+      //https:// 아닐때도 링크 연결
+      movePage: function() {
+      if (
+        this.it.newsRefSite.includes("http") == false
+      ) {
+      var url = "https://" + this.it.newsRefSite._text;
+      } else {
+        url = this.it.newsRefSite._text;
+      }
+      document.getElementById("homePage").setAttribute("href", url);
+    },
+
+
+
+
+
+
+
         // 날짜변환 함수
     formatDate(value) {
       // console.log(value);

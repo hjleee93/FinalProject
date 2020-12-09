@@ -23,6 +23,7 @@
     <b-container>
       <b-form>
         <b-row>
+          {{userData}}
           <b-col id="title"> 제목: {{itNewsView.newsTitle}}</b-col>
         </b-row>
         <b-row>
@@ -56,14 +57,14 @@
       </b-form>
     </b-container>
           
-          <!-- <b-row >
+          <b-row >
             <b-col>
               <b-button  v-if="userData.memberSq===itNewsView.memberNum"
                                                                                @click="update" id="update-btn2">수정</b-button>
               <b-button   v-if="userData.memberSq===itNewsView.memberNum || userData.memberEmail === 'admin@kh.com'" 
                                                                                 @click="pdelete" id="delete-btn2">삭제</b-button>
             </b-col>
-          </b-row> -->
+          </b-row>
 
       <b-row id=" writecontain" align-h="end">
         <b-col>
@@ -129,7 +130,7 @@
       </b-container>
 
 <!-- 게시판 삭제 모달 -->
-  <!-- <ModalView v-if="showModal" @close="showModal = false">
+  <ModalView v-if="showModal" @close="showModal = false">
     <template>
       <div slot="header">
         정말 게시판 글을 삭제하시겠습니까?
@@ -141,14 +142,14 @@
       <div slot="footer">
       </div>  
     </template>
-  </ModalView> -->
+  </ModalView>
 
      
 </b-container> 
 </template>
 
 <script>
-// import ModalView from '../common/ModalView.vue'
+import ModalView from '../common/ModalView.vue'
 import { mapState } from 'vuex';
 // import axios from 'axios';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
@@ -184,7 +185,7 @@ export default {
     //   }
     // },
     components:{
-      // ModalView,
+      ModalView,
     },
     methods: {
 
@@ -210,17 +211,17 @@ export default {
       // },
 
 
-      // pdelete(){
-      //     this.showModal=!this.showModal;
-      // },
+      pdelete(){
+          this.showModal=!this.showModal;
+      },
 
-      // ydele(){
-      //   let no=this.$route.params.id
-      //    this.$store.dispatch("FETCH_COMMUNITYBOARD_DELETE",no)
-      //    this.$router.push({name:'CommunityBoardList'})
+      ydele(){
+        let no=this.$route.params.id
+         this.$store.dispatch("FETCH_ITNEWS_DELETE",no)
+         this.$router.push({name:'ItNewsList'})
         
         
-      // },
+      },
       // comment(){
       //   let formData2=new FormData();
 
@@ -241,10 +242,11 @@ export default {
       //   console.log(error))
      
       // },
+
       //게시판 삭제 모달 취소
-      // ndele(){
-      //   this.showModal=!this.showModal;
-      // },
+      ndele(){
+        this.showModal=!this.showModal;
+      },
       //코멘트 모달 취소
       // cancleModal(){
       //   this.commentModal=!this.commentModal;

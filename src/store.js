@@ -36,6 +36,7 @@ import {
 
     fetchItNewsList,
     fetchItNewsView,
+    fetchItNewsDelete,
 
     //현주
     fetchQnaBoardList,
@@ -320,6 +321,14 @@ export default new Vuex.Store({
                     console.log(error);
                 })
         },
+        // ItNews 삭제하기
+        FETCH_ITNEWS_DELETE({ commit }, newsSq) {
+            fetchItNewsDelete(newsSq)
+                .then(({ data }) => commit("SET_ITNEWS_DELETE", data))
+                .catch(({ error }) => {
+                    console.log(error);
+                })
+        },
 
 
         //현주
@@ -522,6 +531,10 @@ export default new Vuex.Store({
         // IT소식 상세화면
         SET_ITNEWS_VIEW(state, itNewsView) {
             state.itNewsView = itNewsView;
+        },
+        // IT소식 삭제
+        SET_ITNEWS_DELETE(state, data) {
+            state.data = data;
         },
         
 

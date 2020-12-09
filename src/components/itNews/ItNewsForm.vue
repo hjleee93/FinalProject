@@ -56,7 +56,7 @@
           id="input-1"
           v-model="newsRefSite"
           type="text"
-          placeholder="연결하실 사이트를 정확히 입력해주세요"
+          placeholder="연결하실 사이트를 입력해주세요"
         ></b-form-input>
     </b-input-group>
 

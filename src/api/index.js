@@ -113,9 +113,13 @@ function fetchNTboardCommentDelete(ntCommentNo){
 function fetchItNewsList() {
     return axios.get(`${config.Url}itnews/selectList`);
 }
-// 공지사항 상세화면
+// ItNews 상세화면
 function fetchItNewsView(newsSq) {
     return axios.get(`${config.Url}itnews/itnewsView${newsSq}`)
+}
+//ItNews 삭제하기
+function fetchItNewsDelete(newsSq) {
+    return axios.post(`${config.Url}itnews/itnewsDelete${newsSq}`)
 }
 
 
@@ -214,6 +218,7 @@ export {
         // IT소식 ItNews
     fetchItNewsList,
     fetchItNewsView,
+    fetchItNewsDelete,
 
 
     //현주
