@@ -7,7 +7,8 @@ import memberStore from './store/modules/memberStore.js';// member 관리 store
 //네비게이션가드
 
 const LoginAuth = () => (to, from, next) => {
-  let loginCheck = localStorage.memberKey.includes('"loginStatus":true');
+  //vuex 체크용
+  let loginCheck = localStorage.vuex.includes('"loginStatus":true');
 
   if (loginCheck != false) {
 

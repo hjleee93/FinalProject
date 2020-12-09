@@ -73,7 +73,6 @@ export default new Vuex.Store({
     },
     plugins: [
         createPersistedState({
-            key: 'memberKey',
             paths: ['memberStore']
         })
     ],
