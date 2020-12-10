@@ -60,6 +60,10 @@ function fetchApproveList(no){
 function fetchmklist(no){
     return axios.get(`${config.Url}meeting/mklist${no}.do`)
 }
+//해당모임을 삭제하는 로직
+function fetchmeetingdel(no){
+    return axios.get(`${config.Url}meeting/meetingdel${no}.do`)
+}
 
 
 
@@ -235,6 +239,7 @@ export {
     fetchUnapprove,
     fetchApproveList,
     fetchmklist,
+    fetchmeetingdel,
   
 
     //주은

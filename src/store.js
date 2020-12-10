@@ -21,6 +21,7 @@ import {
      fetchUnapprove,
      fetchApproveList,
      fetchmklist,
+     fetchmeetingdel,
 
 
      //주은
@@ -103,6 +104,7 @@ export default new Vuex.Store({
           apply: [],
           approvelist: [],
           mklist: [],
+          
 
 
 
@@ -247,6 +249,10 @@ export default new Vuex.Store({
                const response = await fetchmklist(no)
                commit("SET_MKLIST", response.data)
                return response
+          },
+          async FECH_MEETINGDEL(data,no){
+                const response=await fetchmeetingdel(no)
+                return response
           },
 
 
