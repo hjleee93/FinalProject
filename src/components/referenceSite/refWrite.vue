@@ -1,118 +1,176 @@
 <template>
-
+<b-container>
 <div class="container">
   <div>
-			<h2 class="st_title">사이트 등록하기<small id="sm_date">20/01/05</small></h2><hr>
+		<h2 class="st_title">사이트 등록하기</h2>
+    <div class="info">
+          * 참고 사이트 등록은 관리자 승인 후 업로드 됩니다. (작성일 기준 1-2일 소요)
+    </div><hr>
 
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form role="form"  @submit.prevent="enrollref"
+                          @reset="onReset" enctype="multipart/form-data">
+        <b-form-group
+            label="사이트명"
+            >
+          <b-form-input
+            id="title"
+            v-model="reftitle"
+            type="text"
+            required
+            placeholder="사이트 명을 입력해주세요"
+          ></b-form-input>
+        </b-form-group>
 
-      <!-- <b-form-group id="input-group-2" label="작성자" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.name"
+        <b-form-group
+            label="분류"
+            label-for="input-3">
+          <b-form-select
+            id="category"
+            v-model="category"
+            :options="refcategory" 
+            required
+          ></b-form-select>
+        </b-form-group>
+        
+        <b-form-group
+            label="사이트 주소"
+            >
+          <b-form-input
+            id="address"
+            v-model="refaddress"
+            required
+            placeholder="사이트 주소를 정확히 입력해주세요"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+            label="내용" >
+          <b-form-textarea
+            id="content"
+            placeholder="사이트 소개 및 정보를 입력해주세요"
+            rows="5"
+            max-rows="10"
+            v-model="refcontent"
+            required
+          ></b-form-textarea>
+        </b-form-group>
+
+        <b-col
+          cols="12"
+          md="12"
+        >
+        <v-file-input
+          label="대표 이미지 등록"
+          filled
+          accept=".gif,.jpg,.png"
+          ref="upfiles"
+          prepend-icon="mdi-camera"
+          v-on:change="handleFile"
           required
-          placeholder="Enter name"
-        ></b-form-input>
-      </b-form-group> -->
-
-      <b-form-group id="input-group-2" label="사이트 주소" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.site"
-          required
-          placeholder="Enter site"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-3" label="category" label-for="input-3">
-        <b-form-select
-          id="input-3"
-          v-model="form.value"
-          :options="name"
-          required
-        ></b-form-select>
-      </b-form-group>
-
-      <b-form-group  label="사이트 정보 및 소개" >
-        <textarea type="text" class="form-control" placeholder="내용을 작성하세요"
-        name="contentDetail" maxlength="1024" style="height: 200px;"></textarea>
-      </b-form-group>
-
-      <div>
-        <p class="mt-2">사이트 참고 이미지<b>{{ file ? file.name : '' }}</b></p>
-        <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
-        <b-button @click="clearFiles" class="mr-2">Clear files</b-button>
-        <!-- <b-button @click="file = null">Reset via v-model</b-button> -->
+        >
+        </v-file-input>
+        </b-col>
 
       <!-- 등록버튼  -->
       <div class="btn_sr2">
-      <b-button type="submit" id="btn_write2" @click="refWrite" class="btn-space2">등록하기</b-button>
-      <b-button type="reset" id="btn_write2" class="btn-space2">등록취소</b-button>
+      <b-button type="submit" id="btn_write2" class="btn-space2">등록하기</b-button>
+      <b-button type="button" id="btn_write2" class="btn-space2" to="/refSite">등록취소</b-button>
       </div>
+  </b-form>
 
-
-
-      </div>
-      
-    </b-form>
-
-    <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
   </div>
 </div>
+</b-container>
 
 </template>
 
+
 <script>
+import axios from 'axios';
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
+
   export default {
     data() {
       return {
-        form: {
-          file: null,
-          email: '',
-          name: '',
+          reftitle:"",
+          category:null,
           value: null,
-          checked: []
-        },
-        name: [{ text: 'Select One', value: null }, 'Category 2-1', 'Category 2-2', 'Category 2-3'],
-        show: true
+          refaddress:"",
+          refcategory :[
+            { value: null, text: '분류를 선택해주세요' },
+            { value: '백엔드', text: '백엔드' },
+            { value: '프론트엔드', text: '프론트엔드' },
+            { value: '기타', text: '기타' },
+          ],
+          refcontent:"",
+          files : "",
       }
     },
-    methods: {
-      onSubmit(evt) {
-        evt.preventDefault()
-        alert(JSON.stringify(this.form))
+
+      components:{
       },
+
+    computed: {
+    ...mapState(['userData'])
+      },
+
+    methods: {
+      enrollref() {
+        
+        let formData = new FormData();
+        formData.append('boardWriter',this.userData.memberName);
+        formData.append('MemberNum',this.userData.memberSq);
+        formData.append('refTitle',this.reftitle);
+        formData.append('refCategory',this.category);
+        formData.append('refContent',this.refcontent.replace(/(<([^>]+)>)/ig,""));
+        formData.append('refSiteAddr',this.refaddress);
+        formData.append('upfile',this.files);
+        
+        for(let key of formData.entries()){
+        console.log(`${key}`);
+        }
+          console.log(this.category);
+
+      axios.post("http://localhost:8082/itjobgo/ref/insertsite.do",
+        formData,
+        { headers:{
+          'Content-Type':'multipart/form-data'
+        }}).then((data)=>console.log(data))
+        .catch((error)=>
+        console.log(error))
+        console.log(formData);
+        this.$router.push({name:'refSite'});
+      },
+      
+        handleFile(){
+        console.log(this.$refs.upfiles.$refs.input.files[0]);
+        this.files=this.$refs.upfiles.$refs.input.files[0];
+        console.log(this.files);
+        },
+
       onReset(evt) {
         evt.preventDefault()
-        // Reset our form values
-        this.form.site = ''
-        this.form.name = ''
-        this.form.food = null
-        this.form.checked = []
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      },
-      clearFiles() {
-        this.$refs['file-input'].reset()
+        this.boardTitle = ''
+        this.category = null
+        this.boardContent=''
+        this.files.name=''
       }
     }
+    
+
   }
 </script>
 
 <style>
+.info{
+  margin-left: 0%;
+  margin-top: 2%;
+  color: red;
+}
 .st_title{
   margin-top:5%;
   margin-bottom: 1%;
-}
-#sm_date{
-  margin-left: 1%;
-  font-size: 17px;
-  color: #9BA4B4;
 }
 .btn_sr2{
   padding-left: 37%;

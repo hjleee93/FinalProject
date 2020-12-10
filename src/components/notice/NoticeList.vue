@@ -27,7 +27,7 @@
         <!-- 버튼 -->
         
        
-          <v-btn   to="/noticeForm" exact  id="st_write">
+          <v-btn   to="/noticeForm" exact  id="st_write" v-if="userData.memberSq!=null">
                글쓰기
            </v-btn>
           <div class="overflow-hidden">

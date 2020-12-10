@@ -41,6 +41,25 @@ function fetchmsublist(){
 function fetchMeetinginfo(no){
     return axios.get(`${config.Url}meeting/meetinginfo${no}.do`)
 }
+//모임 신청하기 버튼 처리
+function fetchMeetingapply(email){
+    return axios.get(`${config.Url}meeting/meetingapply${email}.do`)
+}
+//승인 버튼 눌렀을 경우 실행 로직
+function fetchApprove(no){
+    return axios.get(`${config.Url}meeting/approve${no}.do`)
+}
+//미승인 버튼 이벤트
+function fetchUnapprove(no){
+    return axios.get(`${config.Url}meeting/unapprove${no}.do`)
+}
+//신청한 모임 목록을 확인
+function fetchApproveList(no){
+    return axios.get(`${config.Url}meeting/approvelist${no}.do`)
+}
+function fetchmklist(no){
+    return axios.get(`${config.Url}meeting/mklist${no}.do`)
+}
 
 
 
@@ -107,6 +126,33 @@ function fetchNTboardCommentDelete(ntCommentNo){
     return axios.post(`${config.Url}notice/commentDelete${ntCommentNo}`)
 }
 
+// ItNews
+// ItNews 리스트 불러오기
+//모임
+function fetchItNewsList() {
+    return axios.get(`${config.Url}itnews/selectList`);
+}
+// ItNews 상세화면
+function fetchItNewsView(newsSq) {
+    return axios.get(`${config.Url}itnews/itnewsView${newsSq}`)
+}
+//ItNews 삭제하기
+function fetchItNewsDelete(newsSq) {
+    return axios.post(`${config.Url}itnews/itnewsDelete${newsSq}`)
+}
+//ItNews 수정하기(게시판번호로 객체 값 불러오기 )
+function fetchItNewsUpdate(newsSq) {
+    return axios.get(`${config.Url}itnews/itnewsUpdate${newsSq}`)
+}
+// ItNews 댓글 조회하기
+function fetchITCommentSelectList(itnewsNo){
+    return axios.get(`${config.Url}itnews/selectCommentList${itnewsNo}`)
+}
+//댓글  삭제하기
+function fetchItNewsCommentDelete(itCommentNo){
+    return axios.post(`${config.Url}itnews/deleteComment${itCommentNo}`)
+}
+
 
 //현주 //qnaBoard(qna게시판)
 //qna 게시판 조회
@@ -131,11 +177,11 @@ function fetchQnaBoardAttachment(qboardNo){
 }
 //qna게시판 댓글 가져오기
 function fetchqnacomment(qboardNo){
-    return axios.get(`${config.Url}qna/qnalist${qboardNo}`) 
+    return axios.get(`${config.Url}qna/commentSelectOne${qboardNo}`) 
 }
 //qna게시판 댓글 삭제
-function fetchqnacommentdel(qbCommentNo){
-    return axios.post(`${config.Url}qna/commentdel${qbCommentNo}`)
+function fetchqnacommentdel(qboardCommentNo){
+    return axios.post(`${config.Url}qna/commentDelete${qboardCommentNo}`)
 }
 
 
@@ -167,7 +213,10 @@ function fetchInfoAttachment(infoSq){
 //이력서 게시판 리스트
 function fetchRboardList() {
     return axios.get(`${config.Url}resume/rboardList.do`)
-
+}
+//이력서 불러오기
+function fetchResume(memberSq){
+    return axios.get(`${config.Url}resume/selectResume/${memberSq}.do`)
 }
 export {
     fetchPboardList,
@@ -181,6 +230,11 @@ export {
     fetchMeeting,
     fetchMeetinginfo,
     fetchmsublist,
+    fetchMeetingapply,
+    fetchApprove,
+    fetchUnapprove,
+    fetchApproveList,
+    fetchmklist,
   
 
     //주은
@@ -200,6 +254,13 @@ export {
     fetchNoticeAttachment,
     fetchNTboardCommentSelectList,
     fetchNTboardCommentDelete,
+        // IT소식 ItNews
+    fetchItNewsList,
+    fetchItNewsView,
+    fetchItNewsDelete,
+    fetchItNewsUpdate,
+    fetchITCommentSelectList,
+    fetchItNewsCommentDelete,
 
 
     //현주
@@ -224,6 +285,7 @@ export {
     //혜지
     //이력서게시판
     fetchRboardList,
+    fetchResume,
 
 }
 

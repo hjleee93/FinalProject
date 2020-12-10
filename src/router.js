@@ -7,7 +7,10 @@ import memberStore from './store/modules/memberStore.js';// member 관리 store
 //네비게이션가드
 
 const LoginAuth = () => (to, from, next) => {
-  if (memberStore.state.loginStatus != false) {
+  //vuex 체크용
+  let loginCheck = localStorage.vuex.includes('"loginStatus":true');
+
+  if (loginCheck != false) {
 
     return next();
   }
@@ -55,6 +58,9 @@ import PortFolio from './components/portfolio/PortFoilo.vue'
 import PortFoiloenroller from './components/portfolio/PortFoiloenroller.vue';
 import Portfolioinfo from './components/portfolio/PortFolioinfo.vue';
 import Portfolioupdate from './components/portfolio/PortFolioupdate.vue';
+import Meetingapply from './components/meeting/Meetingapply.vue';
+import Approve from './components/meeting/Approve.vue';
+import Mkmeeting from './components/meeting/Mkmeeting.vue';
 
 //혜지
 
@@ -67,8 +73,6 @@ import updateresume from './components/resume/updateresume'
 import consultresume from './components/resume/consultresume'
 import consult from './components/resume/consult'
 import consultresumeenroll from './components/resume/consultresumeenroll'
-
-
 
 
 //민지
@@ -214,10 +218,9 @@ const LoginCallback = () => {
 const NaverLogin = () => {
   return import('./components/member/naverLogin.vue')
 }
-// const PhotoUpload = () => {
-//   return import('./components/member/photoUpload.vue')
-// }
-
+const ResumeBoard = () => {
+  return import('./components/member/ResumeBoard.vue')
+}
 const KakaoCallbackLogin = () => {
   return import('./components/member/kakaoCallbackLogin.vue')
 }
@@ -239,6 +242,7 @@ export default new Router({
       path: '/meetingList',
       component: meetingList,
       name: "meetingList",
+      beforeEnter: LoginDeny(),
       children: [
         {
           path: 'meeting',
@@ -253,13 +257,31 @@ export default new Router({
 
     },
     {
+      path:'/meetingapply',
+      component:Meetingapply,
+      beforeEnter: LoginDeny()
+    },
+    {
+      path:'/approve/:memberSq',
+      component:Approve,
+      name:'approve',
+    
+    },
+    {
+      path:'/mkmeeting/:memberSq',
+      component:Mkmeeting,
+      name:'mkmeeting',
+    },
+    {
       path: '/enrollmeeting',
       component: EnrollerMeeing,
+      beforeEnter: LoginDeny()
     },
     {
       path: '/meetinginfo/:id',
       component: Meetinginfo,
-      name: "meetinginfo"
+      name: "meetinginfo",
+      beforeEnter: LoginDeny()
 
     },
     {
@@ -282,16 +304,19 @@ export default new Router({
     {
       path: '/portfolioenroller',
       component: PortFoiloenroller,
+      beforeEnter: LoginDeny()
     },
     {
       path: '/Portfolioinfo/:id',
       component: Portfolioinfo,
       name: 'Portinfo',
+      beforeEnter: LoginDeny()
     },
     {
       path: '/Portfolioupdate/:id',
       component: Portfolioupdate,
       name: 'Portup',
+      beforeEnter: LoginDeny()
     },
     //민지
     {
@@ -334,8 +359,8 @@ export default new Router({
 
     {
       path: '/itNewsList',
-      name: 'ItNewsList',
-      component: ItNewsList
+      component: ItNewsList,
+      name: "ItNewsList",
     },
 
     {
@@ -350,6 +375,7 @@ export default new Router({
       component: NoticeList
     },
 
+
     {
       path: '/noticeForm',
       name: 'NoticeForm',
@@ -357,7 +383,7 @@ export default new Router({
     },
 
     {
-      path: '/itNewsView',
+      path: '/itNewsView/:id',
       name: 'itNewsView',
       component: itNewsView
     },
@@ -381,7 +407,7 @@ export default new Router({
     },
 
     {
-      path: '/itNewsUpdate',
+      path: '/itNewsUpdate/:id',
       name: 'ItNewsUpdate',
       component: ItNewsUpdate
     },
@@ -447,6 +473,7 @@ export default new Router({
     {
       path: '/jobSearchDtl',
       name: 'jobSearchDtl',
+      query: { keyword: '', region: '' },
       component: JobSearchDtl
     },
     {
@@ -509,6 +536,12 @@ export default new Router({
       component: AdminPage,
       beforeEnter: adminDeny()
     },
+    {
+      path: '/resumeBoard',
+      name: 'resumeBoard',
+      component: ResumeBoard,
+      beforeEnter: LoginAuth()
+    },
 
     //현주
     {
@@ -543,9 +576,10 @@ export default new Router({
     },
     //혜지
     {
-      path: '/resume/resume',
+      path: '/resume/resume/',
       name: 'resume',
-      component: resume
+      component: resume,
+      beforeEnter: LoginAuth(),
     },
     {
       path: '/resume/BlindResume',

@@ -57,9 +57,7 @@ export default {
     ],
   }),
   mounted() {
-    this.$store.dispatch("jobStore/searchLoadTable", {
-      keyword: this.$route.params.keyword,
-    });
+    this.$store.dispatch("jobStore/searchLoadTable", this.$route.query);
   },
 
   methods: {

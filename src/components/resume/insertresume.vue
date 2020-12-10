@@ -571,6 +571,7 @@ export default {
           for(let key of formData.entries()){
           console.log(`${key}`);
             }
+
            axios.post("http://localhost:8082/itjobgo/resume/insertResume.do",formData
             ,{ headers:{
             'Content-Type':'multipart/form-data'
@@ -581,7 +582,9 @@ export default {
                 })
             .catch((error)=>console.log(error));
                 },
-                handleFile(){
+            
+
+            handleFile(){
                     console.log(this.$refs.upfiles.$refs.input.files[0]);
                     this.files=this.$refs.upfiles.$refs.input.files[0];
                     console.log(this.files);
@@ -589,7 +592,6 @@ export default {
      },
 
      data: () => ({
-         
       //개인정보
       engName:'',
       birth:'',

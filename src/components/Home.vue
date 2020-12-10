@@ -19,35 +19,27 @@
               </div>
               <div class="col-lg-3 form-cols">
                 <div>
-                  <b-button
-                    v-b-toggle.collapse-3
+                  <button
+                    type="button"
                     class="form-control"
-                    v-model="selectedLocation"
-                    >수정수정</b-button
+                    name="search"
+                    @click="locationSearch"
                   >
-                  <b-collapse id="collapse-3" class="mt-2 toggle-btn">
-                    <b-card>
-                      <p class="card-text">
-                        흠
-                      </p>
-                    </b-card>
-                  </b-collapse>
+                    지역을 선택해주세요
+                  </button>
                 </div>
               </div>
 
               <div class="col-lg-3 form-cols ">
                 <div>
-                  <b-button
-                    v-b-toggle.collapse-4
+                  <button
+                    type="button"
                     class="form-control"
-                    v-model="selectedLocation"
-                    >수정수정1</b-button
+                    name="search"
+                    @click="fieldSearch"
                   >
-                  <!-- <b-form-select
-                    class="form-control"
-                    v-model="selectedJob"
-                    :options="options2"
-                  ></b-form-select> -->
+                    직종을 선택해주세요
+                  </button>
                 </div>
               </div>
 
@@ -61,29 +53,98 @@
                 </b-button>
               </div>
             </div>
+            <!-- 지역선택 dept 1 -->
+            <div class="location-div">
+              <p>지역을 선택해주세요</p>
+              <div class="prov-layer">
+                <table>
+                  <tr>
+                    <td>
+                      <b-btn @click="allSelected = ''">전체</b-btn>
+                    </td>
+                    <td @click="allSelected = '11000'"><b-btn>서울</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>세종</b-btn></td>
+                    <td><b-btn>경기</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>부산</b-btn></td>
+                    <td><b-btn>인천</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>대구</b-btn></td>
+                    <td><b-btn>대전</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>울산</b-btn></td>
+                    <td><b-btn>광주</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>전북</b-btn></td>
+                    <td><b-btn>전남</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>경북</b-btn></td>
+                    <td><b-btn>경남</b-btn></td>
+                  </tr>
+                  <tr>
+                    <td><b-btn>충북</b-btn></td>
+                    <td><b-btn>충남</b-btn></td>
+                  </tr>
+
+                  <tr>
+                    <td><b-btn>강원</b-btn></td>
+                    <td><b-btn>제주</b-btn></td>
+                  </tr>
+                  <tr></tr>
+                </table>
+              </div>
+              <!-- 상세지역 dept 2 -->
+              <div class="city-layer">
+                <b-form-group>
+                  <b-form-checkbox-group
+                    id="checkbox-group-1"
+                    v-model="selected1"
+                    :options="options"
+                  ></b-form-checkbox-group>
+                </b-form-group>
+              </div>
+              <div class="mt-3">
+                Selected: <strong>{{ allSelected }}</strong>
+              </div>
+            </div>
           </b-form>
         </div>
-        <b-collapse id="collapse-4" class="mt-2 toggle-btn">
-          <div id="test"></div>
-        </b-collapse>
         <!-- 메인 -->
         <div class="col-4 pl-0">
+          <!-- it소식 -->
           <b-carousel
             id="carousel-1"
             :interval="4000"
             controls
             indicators
             background="#ababab"
-            img-width="1024"
-            img-height="480"
             style="text-shadow: 1px 1px 2px #333;"
           >
             <!-- Text slides with image -->
             <b-carousel-slide
+              v-for="it in itnewsList"
+              :key="it.id"
+              id="itCrousel"
               class="carousel-custom"
-              caption="First slide"
-              text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-              ><p>IT소식</p>
+              :style="{
+                'background-size': '365px 385px',
+                'background-image': `url(${`http://localhost:8082/itjobgo/itnews/imagesrequest${it.newsSq}`})`,
+              }"
+            >
+              <div class="it-list py-2" @click="cardclick(it)">
+                <p id="itCaption">{{ it.newsTitle }}</p>
+
+                <p id="itContent">{{ it.newsContent }}</p>
+              </div>
+
+              <!-- <p>IT소식</p> -->
             </b-carousel-slide>
           </b-carousel>
         </div>
@@ -389,21 +450,37 @@ export default {
   data() {
     return {
       // inputSearch,//search bar 검색어
-
+      selected1: [],
+      allSelected: null,
       rcmJson: [], //추천 채용정보
       selectedLocation: null,
       selectedJob: null,
       keyword: "",
-      options2: [
-        { value: null, text: "직무를 선택해주세요" },
-        { value: "aa", text: "Web developer" },
-        { value: "bb", text: "Selected Option" },
-        { value: { CC: "3PO" }, text: "This is an option with object value" },
-        { value: "dd", text: "This one is disabled", disabled: true },
+      options: [
+        { text: "Orange", value: "orange" },
+        { text: "Apple", value: "apple" },
+        { text: "Pineapple", value: "pineapple" },
+        { text: "Grape", value: "grape" },
       ],
     };
   },
   methods: {
+    locationSearch() {
+      if ($(".location-div").hasClass("on")) {
+        $(".location-div").removeClass("on");
+      } else {
+        $(".location-div").addClass("on");
+      }
+    },
+    //상세 지역 선택
+    seoulSelected() {
+      $(".city-layer").addClass("on");
+    },
+    fieldSearch() {},
+    //it소식 이동
+    cardclick(value) {
+      this.$router.push({ name: "itNewsView", params: { id: value.newsSq } });
+    },
     moveMyPage: function(e) {
       //중복 라우터 방지
       if (this.$route.path != "/myPage/" + e) {
@@ -413,33 +490,34 @@ export default {
     },
     //서치바
     jobSearch: function() {
-      let keyword = this.keyword;
+      const formData = {
+        keyword: this.keyword,
+        region: this.allSelected,
+      };
+      console.log("formData: " + JSON.stringify(formData));
       this.$router.push({
         name: "jobSearchDtl",
-        params: { keyword: keyword }, //검색 keyword pass
+        query: formData,
       });
     },
     jobCategory: function() {
       $("#test").show();
     },
   },
-  created() {
-    //214201,214200,214202 : 컴퓨터강사 : 백엔드, 프론트엔드, 퍼블리셔
-    //022: 컴퓨터하드웨어, 통신공학 - 백엔드
-    //023: 컴퓨터시스템 - 백엔드
-    //024: 소프트웨어 - 백엔드
-    //025: 데이터 - 백엔드
-    //056, 214302: 디자이너 - 디자인
-    //유저정보 대기
-  },
+
+  //214201,214200,214202 : 컴퓨터강사 : 백엔드, 프론트엔드, 퍼블리셔
+  //022: 컴퓨터하드웨어, 통신공학 - 백엔드
+  //023: 컴퓨터시스템 - 백엔드
+  //024: 소프트웨어 - 백엔드
+  //025: 데이터 - 백엔드
+  //056, 214302: 디자이너 - 디자인
+
   async mounted() {
     //action에 있는 loadXml 호출용
-    console.log("mounted!");
 
     await this.$store.dispatch("memberStore/getMemberInfo");
-    console.log(this.userData.memberPosition);
+
     if (this.userData.memberPosition != undefined) {
-      console.log("유저정보 다음");
       await this.$store.dispatch("jobStore/rcmJob", {
         memberPosition: this.userData.memberPosition,
       });
@@ -449,6 +527,7 @@ export default {
     this.$store.dispatch("FETCH_COMMUNITYBOARD");
     this.$store.dispatch("FECH_MEETINGLIST");
     this.$store.dispatch("FETCH_NOTICE");
+    this.$store.dispatch("FECH_ITNEWS_LIST");
   },
 
   computed: {
@@ -458,6 +537,10 @@ export default {
     ...memberState(["loginStatus", "userData"]),
     ...jobState(["jobs", "rcmJobs"]),
     ...mapState(["qnaboard1", "communityboard", "noticeList"]),
+
+    itnewsList() {
+      return this.$store.state.itnewsList.slice(0, 3);
+    },
 
     meeting() {
       return this.$store.state.meeting
@@ -532,7 +615,28 @@ export default {
   cursor: pointer;
 }
 /* 서치바 */
-
+.location-div {
+  width: 100%;
+  border: 1px solid #424874;
+  margin-top: 0px;
+  padding-top: 0px;
+  display: none;
+}
+div.location-div.on {
+  display: block;
+}
+.prov-layer {
+  width: 30%;
+  border-right: 1px solid #424874;
+  display: inline-block;
+}
+.city-layer {
+  width: 70%;
+  display: none;
+}
+.city-layer.on {
+  display: inline-block;
+}
 /* 추천채용정보 */
 .profile-btn {
   background-color: #424874;
@@ -641,5 +745,27 @@ div[role="region"] {
   height: 200px;
   width: 500px;
   display: none;
+}
+
+#itCrousel,
+#carousel-1 {
+  min-width: 365px !important;
+  min-height: 385px !important;
+}
+#itCaption {
+  font-size: 20px;
+}
+.it-list {
+  background: #ededed4c;
+}
+.it-list:hover {
+  cursor: pointer;
+}
+#itContent {
+  padding-right: 20px;
+  padding-left: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

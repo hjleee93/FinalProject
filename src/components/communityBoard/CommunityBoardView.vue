@@ -189,6 +189,12 @@ export default {
         this.$router.push({name:'CommunityBoardUpdate',params:{id:no}})
 
       },
+
+      updateInput(event){
+      this.updatetext=event;
+      },
+
+
       pdelete(){
           this.showModal=!this.showModal;
       },
@@ -274,7 +280,7 @@ export default {
        const ccno=commentno
          e.target.parentElement.parentElement.children[0].children[0].disabled = true;
         if(this.updatetext=='') this.updatetext = e.target.parentElement.parentElement.children[0].children[0].value
-       axios.post("http://localhost:8082/itjobgo/community/updateComment",{cbCommentContent:this.changeval,cbCommentNo:ccno})
+       axios.post("http://localhost:8082/itjobgo/community/updateComment",{cbCommentContent:this.updatetext,cbCommentNo:ccno})
        .then((data)=>{
         console.log(data)
             // this.commentcheck=true;

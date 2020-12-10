@@ -50,15 +50,16 @@
       <ul class="infoList">
         <!-- 이력서 공개중 -->
 
-        <li class="topList first resume">
+        <li class="topList first">
           <p class="title">이력서 등록수</p>
           <p class="count">
-            <a href="http://www.alba.co.kr/person/resume/MagResume.asp">1</a>개
+            <a href="#resumeDive" class="scroll">{{ qnaCount }}</a
+            >개
           </p>
         </li>
         <li class="topList openState">
           <p class="title">참여한 프로젝트수</p>
-          <p class="count"><a href="#projDiv" class="scroll">1</a>개</p>
+          <p class="count"><router-link to="/meetingapply" class="scroll">1</router-link>개</p>
         </li>
 
         <li class="topList last onlineCount">
@@ -76,8 +77,8 @@
         </li>
         <li class="apply">
           <p class="title">스크랩한 구인광고</p>
-          <p class="count">
-            <a href="#scrapDiv" class="scroll">{{ scrapCount }}</a
+          <p class="count" v-if="this.$store.scrap != undefined">
+            <a href="#scrapDiv" class="scroll">{{ this.$store.scrap.length }}</a
             >건
           </p>
         </li>
@@ -116,7 +117,66 @@
       </ul>
       <div></div>
     </div>
+    <!-- 이력서 -->
+    <!-- TODO: 이력서 보기 -->
+    <div id="resumeDive"></div>
+    <div>
+      <p class="h3 mt-5 font-weight-bold text-center">
+        이력서
+      </p>
+      <p id="resumeAll" class="mb-2">
+        <b-btn @click="moveResumeAll">전체보기</b-btn>
+      </p>
+      <v-simple-table class="resume">
+        <thead class="resume-table">
+          <tr>
+            <th class="text-left">
+              분류
+            </th>
+            <th class="text-left">
+              제목
+            </th>
+            <th class="text-left">
+              답변여부
+            </th>
+            <th class="text-left">
+              작성일
+            </th>
+          </tr>
+        </thead>
+        <template v-if="pboard[0] != undefined">
+          <tbody>
+            <tr
+              class="resume-table"
+              id="resumeBody"
+              v-for="(pf, index) in pboard"
+              :key="index"
+              @click="movePortf(pboard[index].pboardNo)"
+            >
+              <template v-if="pboard[index] != undefined">
+                <td>수정중~~~~~~~~~~</td>
+                <td>{{ pboard[index].pboardTitle }}</td>
+                <template v-if="pboard[index].pboardStatus == 'N'">
+                  <td>등록된 답변이 없습니다.</td>
+                </template>
+                <template v-else> <td>답변 완료</td></template>
 
+                <td>{{ formatDate(pboard[index].pboardDate) }}</td>
+              </template>
+            </tr>
+          </tbody>
+        </template>
+        <template v-else>
+          <tbody>
+            <tr>
+              <td colspan="4" class="text-center">
+                등록된 포트폴리오가 없습니다.
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </div>
     <!-- 스크랩 구인정보 -->
     <div id="scrapDiv"></div>
     <div>
@@ -486,19 +546,19 @@ export default {
         });
     }
   },
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch("jobStore/loadScrap", {
+      memberSq: this.userData.memberSq,
+    });
     this.$store.dispatch("FETCH_PBOARD");
     this.$store.dispatch("FETCH_QNABOARD");
     this.$store.dispatch("FETCH_COMMUNITYBOARD");
 
-    this.$store.dispatch("jobStore/loadScrap", {
-      memberSq: this.userData.memberSq,
-    });
     this.$store.dispatch("jobStore/loadJobTable");
   },
   computed: {
     ...memberState(["loginStatus", "userData"]),
-    ...jobState(["tableList", "jobInfo", "scrapCount"]),
+    ...jobState(["tableList", "jobInfo", "scrap"]),
 
     communityboard() {
       let objArr = new Object(); //반환할 객체
@@ -518,19 +578,18 @@ export default {
 
       return tem;
     },
-    //스크랩한 글 리턴
-    scrap() {
-      var temp = new Object(); //반환할 객체
+    // //스크랩한 글 리턴
+    // scrap() {
+    //   var temp = new Object(); //반환할 객체
+    //   console.log("this.$store.scrap: " + JSON.stringify(this.$store.scrap));
+    //   if (this.$store.scrap != undefined) {
+    //     for (let i = 0; i < 3; i++) {
+    //       temp[i] = this.$store.scrap[i];
+    //     }
+    //   }
 
-      for (let i = 0; i < 3; i++) {
-        if (this.$store.scrap[i] != undefined) {
-          console.log(this.$store.scrap[i]);
-          temp[i] = this.$store.scrap[i];
-        }
-      }
-
-      return temp;
-    },
+    //   return temp;
+    // },
     pboard() {
       var objTemp = new Object(); //반환할 객체
 
@@ -606,18 +665,11 @@ export default {
       }
       return count;
     },
-    scrapCount() {
-      let count = 0;
-
-      for (let i = 0; i < this.$store.scrap.length; i++) {
-        if (this.$store.scrap[i].memberSq == this.userData.memberSq) {
-          count++;
-        }
-      }
-      return count;
-    },
   },
   methods: {
+    moveResumeAll() {
+      this.$router.push({ name: "resumeBoard" });
+    },
     moveCommu(id) {
       this.$router.push({ name: "CommunityBoardView", params: { id: id } });
     },
@@ -641,9 +693,6 @@ export default {
       formData.append("upFile", this.files[0]);
 
       if (this.files[0] != undefined) {
-        for (let key of formData.entries()) {
-          console.log(`${key}`);
-        }
         axios
           .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
             headers: {

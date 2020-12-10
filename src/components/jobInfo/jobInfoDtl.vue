@@ -7,7 +7,7 @@
         </b-col>
       </b-row>
     </div>
-    <div class="info-box">
+    <div class="info-box" v-if="items.wantedDtl != undefined">
       <table>
         <tr>
           <td style="width:60%">
@@ -68,9 +68,9 @@
                 ></a
               >
             </template>
-            <!-- TODO:지도api연결 -->
+
             <template v-if="apply.rcptMthd.includes('방문')">
-              <b-btn id="directApply">방문 지원가능</b-btn>
+              <b-btn id="directApply" href="#map">방문 지원가능</b-btn>
             </template>
           </td>
         </tr>
@@ -160,7 +160,7 @@
       </table>
     </div>
     <!-- 직무내용 -->
-    <div>
+    <div v-if="items.wantedDtl != undefined">
       <p class="h3 my-5 font-weight-bold">직무내용</p>
       {{ items.wantedDtl.wantedInfo.jobCont._text }}
     </div>
@@ -212,7 +212,7 @@
 
     <!-- 기업정보 -->
     <p class="h3 my-5 font-weight-bold">기업정보</p>
-    <table class="company-info">
+    <table class="company-info" v-if="items.wantedDtl != undefined">
       <tr>
         <td class="company-left">
           <div>
@@ -281,6 +281,9 @@
       </tr>
     </table>
 
+    <!-- 지도 -->
+    <p class="h3 my-5 font-weight-bold">찾아오는 길</p>
+    <div id="map" class="mt-5" style="width:100%;height:350px;"></div>
     <!-- 워크넷출처표기 -->
     <p class="my-5 text-center">
       <a id="worknetLink" href="" @click="moveWorknet"
@@ -296,6 +299,7 @@
     </p>
   </b-container>
 </template>
+<script src="http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=9865d6b20cfcf557f7f17640b4431305&libraries=services"></script>
 <script>
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
@@ -307,6 +311,20 @@ export default {
   data: () => ({
     url: "",
   }),
+  async mounted() {
+    console.log("스크립트 추가");
+    //카카오맵 라이브러리 호출
+    if (window.kakao && window.kakao.maps) {
+      this.kakaoMap();
+    } else {
+      const script = document.createElement("script");
+
+      script.onload = () => kakao.maps.load(this.kakaoMap);
+      script.src =
+        "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=9865d6b20cfcf557f7f17640b4431305&libraries=services";
+      document.head.appendChild(script);
+    }
+  },
   methods: {
     href: function() {
       document
@@ -397,12 +415,54 @@ export default {
       $("#whiteStar").show();
       $("#fillStar").hide();
     },
-  },
-  mounted() {
-    this.$store.dispatch("jobStore/loadJobDetail", {
-      wantedNo: this.$route.params.wantedNo,
-      url: this.$route.params.url,
-    });
+    // 카카오지도
+    async kakaoMap() {
+      setTimeout(() => {
+        if (this.items.wantedDtl != undefined) {
+          console.log("지도실행");
+          var temp = this.items.wantedDtl.corpInfo.corpAddr._text;
+          var add = temp.substr(6, temp.length);
+
+          var cn = this.items.wantedDtl.corpInfo.corpNm._text;
+          console.log(add);
+          var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+            mapOption = {
+              center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+              level: 3, // 지도의 확대 레벨
+            };
+          var map = new kakao.maps.Map(mapContainer, mapOption);
+          var geocoder = new kakao.maps.services.Geocoder();
+
+          // 주소로 좌표를 검색합니다
+          geocoder.addressSearch(add, function(result, status) {
+            // 정상적으로 검색이 완료됐으면
+            if (status === kakao.maps.services.Status.OK) {
+              var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+              // 결과값으로 받은 위치를 마커로 표시합니다
+              var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords,
+              });
+
+              // 인포윈도우로 장소에 대한 설명을 표시합니다
+              var infowindow = new kakao.maps.InfoWindow({
+                content:
+                  '<div style="width:150px;text-align:center;padding:6px 0;"><a href="https://map.kakao.com/link/search/' +
+                  cn +
+                  '">' +
+                  cn +
+                  "</div>",
+              });
+              infowindow.open(map, marker);
+
+              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+              map.setCenter(coords);
+            }
+          });
+        }
+      }, 500);
+    },
   },
   computed: {
     ...memberState(["userData"]),
@@ -413,8 +473,14 @@ export default {
       "items",
     ]),
   },
-  created() {
-    axios
+  async created() {
+    console.log("created! 11");
+    await this.$store.dispatch("memberStore/getMemberInfo");
+    await this.$store.dispatch("jobStore/loadJobDetail", {
+      wantedNo: this.$route.params.wantedNo,
+      url: this.$route.params.url,
+    });
+    await axios
       .get(
         "http://localhost:8082/itjobgo/member/getScrapStatus?memberSq=" +
           this.userData.memberSq
@@ -436,6 +502,9 @@ export default {
 /* 지원버튼 */
 .apply-area {
   width: 445px;
+}
+#directApply {
+  padding-top: 30px;
 }
 #worknetApply,
 #emailApply,
