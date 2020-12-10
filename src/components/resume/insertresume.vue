@@ -23,7 +23,6 @@
     <b-row>
         <b-col>
             <form @submit.prevent="insertResume"  enctype="multipart/form-data">
-                <div><input type="text" id="memberNo" readonly v-model="userData.memberSq"></div>
                 <table id="resumetable">
                 <div class="resumetitle"><p>개인정보</p></div>
                     <tr>
@@ -60,7 +59,7 @@
                             class="readonly-input postcode"
                             type="text"
                             id="sample6_postcode"
-                            v-model="userData.postCode"
+                            v-model="userData.memberPostCode"
                             placeholder="우편번호"
                         ></b-form-input>
                         </td> 
@@ -73,7 +72,7 @@
                             class="readonly-input addr"
                             type="text"
                             id="sample6_address"
-                            v-model="userData.address"
+                            v-model="userData.memberAddr"
                             placeholder="도로명 주소"
                         ></b-form-input>
                         </td>
@@ -86,7 +85,7 @@
                             type="text"
                             id="sample6_detailAddress"
                             placeholder="상세주소를 입력해주세요"
-                            v-model="userData.addressDetail"
+                            v-model="userData.memberAddrDtl"
                         ></b-form-input>
                         </td>
                         <td>
@@ -94,7 +93,7 @@
                             class="readonly-input addrExtra"
                             type="text"
                             id="sample6_extraAddress"                    
-                            v-model="userData.addressExtra"
+                            v-model="userData.memberAddrExtra"
                             placeholder="시/구/동/가"
                         ></b-form-input>
                         </td>
@@ -322,80 +321,6 @@
             <b-button type="reset" id="reset" variant="danger">취소</b-button>
         </b-col>
     </b-row>
-    <!-- 개인정보 -->
-    <div>{{userData.memberSq}}</div>
-    <div>{{userData.memberName}}</div>
-    <div>{{userData.memberEmail}}</div>
-    <div>{{userData.memberPhone}}</div>
-
-    <div>{{postcode}}</div>
-    <div>{{address}}</div>
-    <div>{{addressDetail}}</div>
-
-    <div>{{engName}}</div>
-    <div>{{birth}}</div>
-    <div>{{gender}}</div>
-    <div>{{addressDetail}}</div>
-    <div>{{telephone}}</div>
-
-    <!-- 학력사항 -->
-    <div>{{school1}}</div>
-    <div>{{schoolName1}}</div>
-    <div>{{schoolStartDate1}}</div>
-    <div>{{schoolFinishDate1}}</div>
-    <div>{{major1}}</div>
-    <div>{{education1}}</div>
-    <div>{{school2}}</div>
-    <div>{{schoolName2}}</div>
-    <div>{{schoolStartDate2}}</div>
-    <div>{{schoolFinishDate2}}</div>
-    <div>{{major2}}</div>
-    <div>{{education2}}</div>
-    
-    <!-- 경력사항 -->
-    <div>{{workStartDate}}</div> 
-    <div>{{workFinishDate}}</div> 
-    <div>{{workName}}</div> 
-    <div>{{workLevel}}</div> 
-    <div>{{workState}}</div> 
-    <div>{{workDetail}}</div> 
-
-    <!-- 자격증 -->
-    <div>{{licenseName}}</div> 
-    <div>{{licenseAgency}}</div> 
-    <div>{{licenseDate}}</div> 
-
-    <!-- 외국어능력 -->
-    <div>{{languageName}}</div> 
-    <div>{{languageLevel}}</div> 
-    <div>{{languageTest}}</div> 
-    <div>{{languageScore}}</div> 
-    <div>{{languageDate}}</div>
-    
-    <!-- 주요활동 및 수상 -->
-    <div>{{activity}}</div>
-    <div>{{activityStartDate}}</div>
-    <div>{{activityFinishDate}}</div>
-    <div>{{activityAgency}}</div>
-    <div>{{activityWork}}</div>
-    <div>{{activityDetail}}</div>
-
-    <!-- 참여 프로젝트 -->
-    <div>{{projectPart}}</div>
-    <div>{{projectStartDate}}</div>
-    <div>{{projectFinishDate}}</div>
-    <div>{{projectName}}</div>
-    <div>{{projectWork}}</div>
-    <div>{{projectDetail}}</div>
-
-    <!-- 해외경험 -->
-    <div>{{abroad}}</div>
-    <div>{{abroadStartDate}}</div>
-    <div>{{abroadFinishDate}}</div>
-    <div>{{abroadCountury}}</div>
-    <div>{{abroadAgency}}</div>
-    <div>{{abroadDetail}}</div>
-
     </b-container>
 
 
@@ -502,7 +427,7 @@ export default {
         // 다음주소
           formData.append('postcode',$('#sample6_postcode').val());
           formData.append('address',$('#sample6_address').val());
-          formData.append('addressDetail',this.userData.addressDetail);
+          formData.append('addressDetail',$('#sample6_detailAddress').val());
 
           formData.append('telephone',this.telephone);
           formData.append('rphone',this.userData.memberPhone);
@@ -578,7 +503,7 @@ export default {
             }})
             .then((res)=>{
                 console.log(res.data);
-                setTimeout( () => this.$router.push({ path: '/resume/resume'}), 2000);
+                //setTimeout( () => this.$router.push({ path: '/resume/resume'}), 2000);
                 })
             .catch((error)=>console.log(error));
                 },
