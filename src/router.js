@@ -242,11 +242,12 @@ export default new Router({
       path: '/meetingList',
       component: meetingList,
       name: "meetingList",
-      beforeEnter: LoginDeny(),
+      
       children: [
         {
           path: 'meeting',
           component: Meeting,
+          name:'meeting'
 
         },
         {
@@ -259,7 +260,7 @@ export default new Router({
     {
       path:'/meetingapply',
       component:Meetingapply,
-      beforeEnter: LoginDeny()
+     
     },
     {
       path:'/approve/:memberSq',
@@ -275,23 +276,39 @@ export default new Router({
     {
       path: '/enrollmeeting',
       component: EnrollerMeeing,
-      beforeEnter: LoginDeny()
+      beforeEnter: LoginAuth()
+      
+     
     },
     {
       path: '/meetinginfo/:id',
       component: Meetinginfo,
       name: "meetinginfo",
-      beforeEnter: LoginDeny()
+      
 
     },
     {
       path: '/portfolioList',
       component: PortFolio,
       name: 'portlist',
+      beforeEnter: LoginAuth()
+      
+    },
+    {
+      path: '/portfolioenroller',
+      component: PortFoiloenroller,
+      beforeEnter: LoginAuth()
+      
+    },
+    {
+      path: '/Portfolioinfo/:id',
+      component: Portfolioinfo,
+      name: 'Portinfo',
       beforeEnter(to, from, next) {
         //로그인한 사용자의 레벨을 가져온다  
-        const level = memberStore.state.userData.memberLevel;
-        if (level == 2 || level == 0) {
+        const level =localStorage.vuex.includes('"memberLevel":"2"')
+        console.log(level)
+        if (level==true) {
           //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
           next();
         } else {
@@ -300,23 +317,14 @@ export default new Router({
 
 
       }
-    },
-    {
-      path: '/portfolioenroller',
-      component: PortFoiloenroller,
-      beforeEnter: LoginDeny()
-    },
-    {
-      path: '/Portfolioinfo/:id',
-      component: Portfolioinfo,
-      name: 'Portinfo',
-      beforeEnter: LoginDeny()
+      
     },
     {
       path: '/Portfolioupdate/:id',
       component: Portfolioupdate,
       name: 'Portup',
-      beforeEnter: LoginDeny()
+      beforeEnter: LoginAuth()
+     
     },
     //민지
     {

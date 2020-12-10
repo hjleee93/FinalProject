@@ -37,31 +37,31 @@
                 <b-col>
                     <form>
                         <table class="person_table">
-                            <div class="name">유혜지</div>
+                            <div class="name">{{resume.rname}}</div>
                             <div class="resumetitle">개인정보</div>
                             <div class="hr"></div>
                                 <tr>
                                     <th class="person_title"><strong>생년월일</strong></th>
-                                    <td><input class="personinfo" type="date"></td> 
+                                    <td>{{formatDate(resume.birth)}}</td> 
                                 </tr>
                                 <tr>
                                     <th class="person_title" rowspan="2"><strong>주소</strong></th>
-                                    <td><input class="personinfo" type="text" placeholder="도로명 주소"></td> 
+                                    <td><input class="personinfo" type="text" placeholder="도로명 주소" v-model="resume.address"></td> 
                                 </tr>
                                 <tr>
-                                    <td><input class="personinfo" type="text" placeholder="상세주소1"></td>
+                                    <td><input class="personinfo" type="text" placeholder="상세주소1" v-model="resume.addressDetail"></td>
                                 </tr>
                                 <tr>
                                     <th class="person_title"><strong>일반전화</strong></th>
-                                    <td><input class="personinfo" type="tel"></td> 
+                                    <td><input class="personinfo" type="tel" v-model="resume.telephone"></td> 
                                 </tr>
                                 <tr>
                                     <th class="person_title"><strong>휴대전화</strong></th> 
-                                    <td><input class="personinfo" type="tel"></td> 
+                                    <td><input class="personinfo" type="tel" v-model="resume.rphone"></td> 
                                 </tr>
                                 <tr>
                                     <th class="person_title"><strong>이메일</strong></th>
-                                    <td colspan="2"><input class="email" type="text"></td>
+                                    <td colspan="2"><input class="email" type="text" v-model="resume.remail"></td>
                                 </tr>
                                 <div class="hr"></div>
                                 </table>
@@ -71,12 +71,12 @@
                                 <div class="resumetitle">학력사항</div>
                                 <div class="hr"></div>
                                 <tr>
-                                    <td class="education_div"><input type="date">~<input type="date"></td>
+                                    <td class="education_div">{{formatDate(resume.schoolStartDate1)}}~{{formatDate(resume.schoolFinishDate1)}}</td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="text" placeholder="학교명"><input type="text" placeholder="전공선택">
-                                        <b-form-select class="select_school">
+                                        <input type="text" placeholder="학교명" v-model="resume.schoolName1"><input type="text" placeholder="전공선택" v-model="resume.major1">
+                                        <b-form-select class="select_school" v-model="resume.education1">
                                             <b-form-select-option value="graduation">졸업</b-form-select-option>
                                             <b-form-select-option value="prograduation">졸업예정</b-form-select-option>
                                             <b-form-select-option value="student">재학</b-form-select-option>
@@ -95,23 +95,23 @@
                                 <div class="hr"></div>
                                 <tr> 
                                     <td><strong>기간</strong></td>
-                                    <td><input type="date">~
-                                    <input type="date"></td>
+                                    <td>{{formatDate(resume.workStartDate)}}~
+                                    {{formatDate(resume.workFinishDate)}}</td>
                                     
                                 </tr>
                                 <tr>
                                     <td><strong>회사명</strong></td>
-                                    <td><input type="text" class="work_input"></td>
+                                    <td><input type="text" class="work_input" v-model="resume.workName"></td>
                                 </tr>
 
                                 <tr>
                                     <td><strong>직급/직책</strong></td>
-                                    <td><input type="text" class="work_input"></td>
+                                    <td><input type="text" class="work_input" v-model="resume.workLevel"></td>
                                 </tr>
                                 <tr>
                                     <td><strong>상태</strong></td>
                                     <td>
-                                        <b-form-select>
+                                        <b-form-select v-model="resume.workState">
                                             <b-form-select-option value="resignation">퇴사</b-form-select-option>
                                             <b-form-select-option value="work">재직</b-form-select-option>
                                         </b-form-select>
@@ -120,7 +120,7 @@
                                 <tr>
                                     <td>주요직무 및 업무</td>
                                     <td>
-                                    <b-form-textarea id="textarea" rows="3" max-rows="6"></b-form-textarea>
+                                    <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="resume.workDetail"></b-form-textarea>
                                     </td>
                                 </tr>
                                 <div class="hr"></div>
@@ -136,9 +136,9 @@
                                     <td><strong>취득일</strong></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text"></td>
-                                    <td><input type="text"></td>
-                                    <td><input type="date"></td>
+                                    <td><input type="text" v-model="resume.licenseName"></td>
+                                    <td><input type="text" v-model="resume.licenseAgency"></td>
+                                    <td>{{formatDate(resume.licenseDate)}}</td>
                                 </tr>
                                 <div class="hr"></div>
                                 </table>
@@ -154,21 +154,21 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <b-form-select class="select_project" >
+                                        <b-form-select class="select_project" v-model="resume.projectPart">
                                             <b-form-select-option value="person">개인</b-form-select-option>
                                             <b-form-select-option value="team">팀</b-form-select-option>
                                             <b-form-select-option value="order">발주</b-form-select-option>
                                         </b-form-select>
                                     </td>
-                                    <td><input type="date"></td>
-                                    <td><input type="date"></td>
-                                    <td><input type="text"></td>
-                                    <td><input type="text"></td>
+                                    <td>{{formatDate(resume.projectStartDate)}}</td>
+                                    <td>{{formatDate(resume.projectFinishDate)}}</td>
+                                    <td><input type="text" v-model="resume.projectName"></td>
+                                    <td><input type="text" v-model="resume.projectWork"></td>
                                 </tr>
                                 <tr>
                                     <td><strong>주요 업무 및 성과</strong></td>
                                     <td colspan="4">
-                                    <b-form-textarea id="textarea" rows="3" max-rows="6"></b-form-textarea>
+                                    <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="resume.projectDetail"></b-form-textarea>
                                     </td>
                                 </tr>
                                 <div class="hr"></div>
@@ -180,6 +180,32 @@
  </div>
 </template>
 <script>
+import { mapState } from 'vuex';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
+
+export default {
+    data(){
+        return {
+            
+        }
+    },
+    created() {
+        const memberSq=this.userData.memberSq;
+        this.$store.dispatch("FETCH_RESUME", memberSq);
+    },
+    computed: {
+        ...mapState({
+            resume:state=>state.resume,
+        }),
+         ...loadUserState(['userData'])  
+    },
+    methods:{
+    formatDate(value){
+      return this.$moment(value).format("YYYY-MM-DD");
+    }
+    }
+}
 
 </script>
 <style scoped>

@@ -41,7 +41,7 @@
       label="신청 날짜"
       label-for="example-datepicker"
     >
-             <b-form-datepicker id="example-datepicker"   :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model="sdate" class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker" required  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model="sdate" class="mb-3"></b-form-datepicker>
           </b-form-group>
         </b-col  > 
        <b-col class="d-flex" cols="4" sm="4"><b-form-group
@@ -50,7 +50,7 @@
       label="마감 날짜"
       label-for="example-datepicker2"
     >
-             <b-form-datepicker id="example-datepicker2"  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model="fdate" class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker2" required :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="fday" :disabled="disabled" v-model="fdate" class="mb-3"></b-form-datepicker>
           </b-form-group></b-col>
           <b-col class="d-flex center" cols="4" sm="4">
           <b-form-group
@@ -59,7 +59,7 @@
       label="시작 날짜"
       label-for="example-datepicker3"
     >
-             <b-form-datepicker id="example-datepicker3"   :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model="rdate" class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker3" required  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="startday" :disabled="disabled" v-model="rdate" class="mb-3"></b-form-datepicker>
           </b-form-group>
         </b-col  > 
       </b-row>
@@ -173,7 +173,27 @@ export default {
     ModalView,
   } ,
   computed: {
-      ...mapState(['userData'])
+      ...mapState(['userData']),
+      startday(){
+       let startday=new Date(this.fdate)
+        startday.setDate(startday.getDate()+1)
+        return startday;
+      },
+       fday(){
+       let deadline=new Date(this.sdate)
+        deadline.setDate(deadline.getDate()+1)
+        return deadline;
+      },
+        disabled() {
+          if(this.sdate===""){
+             return this.state
+          }else{
+            return !this.state;
+          }
+       
+      },
+    
+      
   },
   methods: {
     
@@ -221,7 +241,7 @@ export default {
     ,{ headers:{
        'Content-Type':'multipart/form-data'
      }})
-     .then((data)=>console.log(data))
+     .then(()=>this.$router.push({name:'meeting'}))
     .catch((error)=>console.log(error))
         },
         handleFile(){
@@ -264,7 +284,9 @@ export default {
  data(){
     const now = new Date()
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    
     const minDate = new Date(today)
+    
    return{
       valid: false,
       result:'',
@@ -283,10 +305,13 @@ export default {
       mcontent:'',
        langs:[],
        min:minDate,
+       state:"disabled",
+      
+       
        
       back:1,
-           front:1,
-                desgin:1,
+      front:1,
+      desgin:1,
       showModal:false,
       nameRules: [
         v => !!v || 'Name is required',
@@ -296,7 +321,7 @@ export default {
         v => !!v || 'Name is required',
         v => v.length <= 20 || 'Name must be less than 20 characters',
       ],
-       items: ["1","2","3","4","5","6"],
+      // items: ["1","2","3","4","5","6"],
         lang:[
           'JAVA',
           'JAVASCRIPT',

@@ -58,7 +58,7 @@ Vue.use(LoadScript);
 Vue.use(VueMoment);
 Vue.use(VueLodash, { name: 'custom', lodash: lodash })
 
-
+Vue.loadScript("http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false");
 Vue.config.productionTip = false;
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
