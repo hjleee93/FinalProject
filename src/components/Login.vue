@@ -29,9 +29,15 @@
                 <a @click="kakaoLogin" >
                  <img class="kakao-login" src="img/kakao_logo.png" width="250px">
                 </a>
-                 <a href="#">
-                 <img src="img/google_logo.png" width="250px">
-                </a>
+               <!--  <a href="">
+                 <img src="img/google_logo.png"  width="250px">
+                </a> -->
+                         
+                <div>
+                  <img src="img/google_logo.png"  width="250px" id="google-signin-btn">
+                    <!-- <div id="google-signin-btn" ></div> -->
+                </div> 
+
               </div>
             </b-card-header>
             <b-card-body class="px-lg-5 py-lg-5">
@@ -82,6 +88,8 @@
   
 </template>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
+<script src="https://apis.google.com/js/platform.js"></script>
+  
 <script>
 
 import { createNamespacedHelpers } from "vuex";
@@ -99,7 +107,8 @@ const { mapState } = createNamespacedHelpers("memberStore");
         redirectURI:`http://localhost:8082/itjobgo/member/naverLogin`,//서버연결
          naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
          state:123,//TODO : 랜덤값 나올 수 있게 바꾸기
-        test1: [],
+         
+
         model: {
           email: '',
           password: '',
@@ -110,8 +119,11 @@ const { mapState } = createNamespacedHelpers("memberStore");
     },
     
     mounted() {    
-    Kakao.isInitialized() 
+    Kakao.isInitialized()
     
+    gapi.signin2.render("google-signin-btn", {
+      		onsuccess: this.onSignIn,
+    	});
    
   },
     methods: {
@@ -122,8 +134,13 @@ const { mapState } = createNamespacedHelpers("memberStore");
         console.log("email: " + memberEmail)
         console.log("password: " + memberPwd)
         this.$store.dispatch('memberStore/login', { memberEmail, memberPwd })
-      
-      },
+        },
+
+        onSignIn(googleUser){
+            // 로그인 유저 정보 출력
+            console.log(googleUser)
+        },
+
       kakaoLogin() {
       Kakao.Auth.authorize({
         redirectUri: `${window.location.origin}/loginCallback`
