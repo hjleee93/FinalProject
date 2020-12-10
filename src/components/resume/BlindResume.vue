@@ -58,19 +58,19 @@
                     </tr>
                     <tr>
                         <td><strong>성명</strong></td>
-                        <td colspan="5"><input type="text" placeholder="이름"></td>  
+                        <td colspan="5"><input type="text" placeholder="이름" v-model="resume.rname"></td>  
                     </tr>
                     <tr>
                         <td><strong>현주소</strong></td>
-                        <td colspan="5"><input type="text" placeholder="도로명 주소"></td> 
+                        <td colspan="5"><input type="text" placeholder="도로명 주소" v-model="resume.address"></td> 
                     </tr>
                     <tr>
                         <td rowspan="2"><strong>연락처</strong></td>
-                        <td colspan="2"><input type="tel" placeholder="본인휴대폰"></td> 
+                        <td colspan="2"><input type="tel" placeholder="본인휴대폰" v-model="resume.rphone"></td> 
                         <td rowspan="2"><strong>전자우편</strong></td>
-                        <td rowspan="2" colspan="2"><input type="email"></td> 
+                        <td rowspan="2" colspan="2"><input type="email" v-model="resume.remail"></td> 
                     </tr>
-                        <td colspan="2"><input type="tel" placeholder="비상연락처"></td> 
+                        <td colspan="2"><input type="tel" placeholder="비상연락처" v-model="resume.telephone"></td> 
                     <tr>
 
                     </tr>
@@ -121,9 +121,9 @@
                         <td><strong>취득일</strong></td>
                     </tr>
                     <tr>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="date"></td>
+                        <td><input type="text" v-model="resume.licenseName"></td>
+                        <td><input type="text" v-model="resume.licenseAgency"></td>
+                        <td>{{formatDate(resume.licenseDate)}}</td>
                     </tr>
                     <tr>
                         <td colspan="1">주요직무 및 업무</td>
@@ -150,17 +150,17 @@
                                 <b-form-radio value="academy">경력</b-form-radio>
                             </b-form-radio-group>
                         </td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="date"></td>
-                        <td><input type="date"></td>
+                        <td><input type="text" v-model="resume.workName"></td>
+                        <td><input type="text" v-model="resume.workLevel"></td>
+                        <td>{{formatDate(resume.workStartDate)}}</td>
+                        <td>{{formatDate(resume.workFinishDate)}}</td>
                         <td><input type="text"></td>
                     </tr>
                     <tr>
                         <td colspan="6"><strong>직무관련 주요내용</strong></td>
                     </tr>
                     <tr>
-                        <td colspan="6"><b-form-textarea id="textarea" rows="3" max-rows="6"></b-form-textarea></td>
+                        <td colspan="6"><b-form-textarea id="textarea" rows="3" max-rows="6" v-model="resume.workDetail"></b-form-textarea></td>
                     </tr>
                 </table>
             </form>
@@ -172,6 +172,32 @@
 </div>
 </template>
 <script>
+import { mapState } from 'vuex';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
+
+export default {
+    data(){
+        return {
+            
+        }
+    },
+    created() {
+        const memberSq=this.userData.memberSq;
+        this.$store.dispatch("FETCH_RESUME", memberSq);
+    },
+    computed: {
+        ...mapState({
+            resume:state=>state.resume,
+        }),
+         ...loadUserState(['userData'])  
+    },
+    methods:{
+    formatDate(value){
+      return this.$moment(value).format("YYYY-MM-DD");
+    }
+    }
+}
 
 </script>
 <style scoped>
