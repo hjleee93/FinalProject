@@ -964,7 +964,11 @@ export default {
 </script>
 
 <style scoped>
-/* 서치바 */
+.banner-content {
+  font-family: "KOTRA_BOLD-Bold";
+  font-weight: normal;
+  font-style: normal;
+}
 
 .city-layer,
 .job-detail-layer {

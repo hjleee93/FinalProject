@@ -114,7 +114,28 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
+@font-face {
+  font-family: "KOTRA_BOLD-Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "KOTRA_GOTHIC";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#menu {
+  font-family: "KOTRA_BOLD-Bold";
+  font-weight: normal;
+  font-style: normal;
+}
 .header_image {
   background-color: #394867;
   text-align: center;

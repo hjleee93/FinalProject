@@ -48,7 +48,7 @@
                   class="m-2"
                   v-if="noticeList[noticeList.length - 1] != undefined"
                 >
-                  <b-btn class="ntc-btn">공지</b-btn>
+                  <b-btn class="ntc-btn mr-1">공지</b-btn>
                   <router-link
                     :to="{
                       name: 'NoticeView',
@@ -77,7 +77,7 @@
                   class="m-2"
                   v-if="communityboard[communityboard.length - 1] != undefined"
                 >
-                  <b-btn class="com-btn">자유</b-btn>
+                  <b-btn class="com-btn mr-1">자유</b-btn>
                   <router-link
                     :to="{
                       name: 'CommunityBoardView',
@@ -115,7 +115,7 @@
                   class="qna-router"
                 >
                   <div class="qst">
-                    <b-btn class="qna-btn">질문</b-btn>
+                    <b-btn class="qna-btn mr-1">질문</b-btn>
                     <span>{{ qnaboard1[qnaboard1.length - 1].qnaTitle }}</span>
                   </div>
                   <p class="text-muted m-b-0">
@@ -123,7 +123,7 @@
                   </p>
 
                   <div class="ans">
-                    <b-btn class="ans-btn">답변</b-btn>
+                    <b-btn class="ans-btn mr-1">답변</b-btn>
                     <span
                       v-if="qnaboard1[qnaboard1.length - 1].qnaAnswerYn == 'N'"
                       ><small>등록된 답변이 없습니다.</small></span
@@ -150,7 +150,7 @@
                   class="qna-router"
                 >
                   <div class="qst">
-                    <b-btn class="qna-btn">질문</b-btn>
+                    <b-btn class="qna-btn mr-1">질문</b-btn>
                     <span>{{ qnaboard1[qnaboard1.length - 2].qnaTitle }}</span>
                   </div>
                   <p class="text-muted m-b-0">
@@ -158,7 +158,7 @@
                   </p>
 
                   <div class="ans">
-                    <b-btn class="ans-btn">답변</b-btn>
+                    <b-btn class="ans-btn mr-1">답변</b-btn>
                     <span
                       v-if="qnaboard1[qnaboard1.length - 2].qnaAnswerYn == 'N'"
                       ><small>등록된 답변이 없습니다.</small></span
@@ -180,7 +180,7 @@
         <div class="col-4 p-0 collab">
           <div class="card table-card collab">
             <div class="card-header ">
-              <h5 class="text-center">최근 등록된 모임</h5>
+              <h5 class="meeting-title text-center mb-0">최근 등록된 모임</h5>
             </div>
 
             <table>
@@ -396,6 +396,12 @@ export default {
 };
 </script>
 <style scoped>
+.meeting-title {
+  font-family: "KOTRA_BOLD-Bold";
+}
+.banner-area {
+  font-family: "KOTRA_GOTHIC";
+}
 /* 상단 박스 css */
 
 .commu-content,

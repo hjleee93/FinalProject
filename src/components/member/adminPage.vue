@@ -66,9 +66,7 @@
 
         <li class="topList last onlineCount">
           <p class="title">등록된 컨설턴트</p>
-          <p class="count">
-            <a href="#qnaDiv" class="scroll"> {{ qnaCount }} </a>명
-          </p>
+          <p class="count"><a href="#qnaDiv" class="scroll"></a>명</p>
         </li>
         <!--  <li class="first resumeCompany">
           <p class="title">등록된 포트폴리오</p>
@@ -97,7 +95,7 @@
             <span class="item"
               ><span class="urgent-call"></span>비상 연락처</span
             >
-            <span class="mobile">{{ userData.memberPhone }}</span>
+            <span class="mobile ml-3">{{ userData.memberPhone }}</span>
           </div>
           <!-- <div class="mail">
             <span class="item"><span class="bullet"></span>이메일</span
@@ -202,7 +200,7 @@ export default {
     this.$store.dispatch("FETCH_NOTICE");
   },
   methods: {
-    uploadPhoto: function() {
+    async uploadPhoto() {
       let formData = new FormData();
       formData.append("memberSq", this.userData.memberSq);
       formData.append("memberEmail", this.userData.memberEmail);
@@ -211,7 +209,7 @@ export default {
       for (let key of formData.entries()) {
         console.log(`${key}`);
       }
-      axios
+      await axios
         .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
