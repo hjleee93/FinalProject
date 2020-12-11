@@ -38,22 +38,21 @@
       <v-card
           class="mx-auto"
           max-width="330"
-          v-for="ref in refList" :key="ref.id"
-          @click="cardclick(ref)"
         >
-        <!-- 이미지 -->
+          <!-- v-for="it in refList" : key="ref.id"
+          @click="cardclick(ref)" -->
+        <!-- 이미지 작업전! -->
         <v-img
           class="white--text align-end"
           height="200px"
-          :src="`http://localhost:8082/itjobgo/ref/selectsiteImg${ref.refNo}`"
+          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
         >
-        <!-- 수정필요(조회수) -->
-        <v-card-title>{{ref.refReadCount}}</v-card-title>
+        <v-card-title>이건모다</v-card-title>
         </v-img>
 
         <v-card-text class="text--primary">
-          <div id="title"><b>{{ref.refTitle}}</b></div>
-          <div id="content">{{ref.refContent}}</div>
+          <div id="title">Whitehaven Beach</div>
+          <div id="content">Whitsunday Island, Whitsunday Islands</div><h6 id="ref_date">등록일 : 20/10/31</h6>
         </v-card-text>
 
         <v-card-actions>
@@ -63,22 +62,20 @@
             >
             사이트 바로가기??
           </v-btn>
-          <!-- 등록일 -->
-          <h6 id="date">{{formatDate(ref.refDate)}}</h6>
         </v-card-actions>
       </v-card>
       
       </div>
 
           <!-- search bar -->
-          <!-- <div class="search-align">
+          <div class="search-align">
           <b-navbar-nav class="ml-auto st_search">
             <b-nav-form>
               <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
               <b-button size="sm" class="my-2 my-sm-0" type="submit" id=searchbtn>Search</b-button>
             </b-nav-form>
           </b-navbar-nav>
-          </div> -->
+          </div>
 
     </div>
 
@@ -98,7 +95,6 @@
   const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
   import { createNamespacedHelpers } from "vuex";
 
-  Vue.use(vueMoment);
 
   export default {
     
@@ -119,7 +115,7 @@
     },
     methods: {
       cardclick(value){
-          this.$router.push({name:'refSiteView',params:{id:value.refNo}})
+          this.$router.push({name:'itNewsView',params:{id:value.newsSq}})
       },
       //링크 새로 열기
       openWindow: function (link) {
@@ -188,24 +184,19 @@
     margin-top: 2%;
     margin-bottom: 12%;
 }
-#title{
-  margin-top: 2%;
-  margin-bottom: 5%;
-  font-size: 22px;
-  color :#424874
-}
-#content{
-  font-size: 18px;
-}
-#date{ 
+#ref_date{
   color: #9BA4B4;
-  margin-top: 2%;
-  font-size: 15px;
-  margin-left: 25%;
+  margin-top: 1%;
+  font-size: 12px;
 }
  .mx-auto{
   margin: 1.5%;
 }
+.ref_title{
+    font-family: 'Masque';
+    color:#4e5157 ;
+    font-size: 50px;
+} 
 .submenuimage{
     width: 100%;
     height:180px;
