@@ -2,15 +2,16 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './components/Home.vue'
 // import store from './store'
-import memberStore from './store/modules/memberStore.js';// member 관리 store
+// import memberStore from './store/modules/memberStore.js';// member 관리 store
 
 //네비게이션가드
-var loginCheck = localStorage.vuex.includes('"loginStatus":true');
+var loginCheck = localStorage.loginStatus;
 const LoginAuth = () => (to, from, next) => {
   //vuex 체크용
+  console.log(localStorage.vuex.includes('"loginStatus":true'))
+  console.log(loginCheck)
 
-
-  if (loginCheck != false) {
+  if (localStorage.vuex.includes('"loginStatus":true')) {
 
     return next();
   }
@@ -22,7 +23,7 @@ const LoginAuth = () => (to, from, next) => {
   next('/login')
 }
 const adminDeny = () => (to, from, next) => {
-  if (memberStore.state.loginStatus != false) {
+  if (localStorage.vuex.includes('"loginStatus":true')) {
 
     return next();
   }
@@ -35,7 +36,7 @@ const adminDeny = () => (to, from, next) => {
 }
 
 const LoginDeny = () => (to, from, next) => {
-  if (loginCheck != false) {
+  if (localStorage.vuex.includes('"loginStatus":true')) {
 
     return next();
   }
