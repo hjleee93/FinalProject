@@ -35,15 +35,9 @@
                     width="250px"
                   />
                 </a>
-               <!--  <a href="">
-                 <img src="img/google_logo.png"  width="250px">
-                </a> -->
-                         
-                <div>
-                  <img src="img/google_logo.png"  width="250px" id="google-signin-btn">
-                    <!-- <div id="google-signin-btn" ></div> -->
-                </div> 
-
+                <a href="#">
+                  <img src="img/google_logo.png" width="250px" />
+                </a>
               </div>
             </b-card-header>
             <b-card-body class="px-lg-5 py-lg-5">
@@ -108,66 +102,36 @@
   </div>
 </template>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
-<script src="https://apis.google.com/js/platform.js"></script>
-  
-<script>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
+<script>
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 
 // import axios from "axios"
 
-  export default {
-    data() {
-      
-      return {
-         kakao_client_id: "e1e8126c8b7e3af4fd185b1774cddd2c",
-        redirect_uri: "http://localhost:8081/loginCallback",
-        CLIENT_ID: 'aYgNgGmIwR3wysmlCfRd',
-        redirectURI:`http://localhost:8082/itjobgo/member/naverLogin`,//서버연결
-         naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
-         state:123,//TODO : 랜덤값 나올 수 있게 바꾸기
-         
-
-        model: {
-          email: '',
-          password: '',
-          rememberMe: false,
-          
-        }
-      };
-    },
-    
-    mounted() {    
-    Kakao.isInitialized()
-    
-    gapi.signin2.render("google-signin-btn", {
-      		onsuccess: this.onSignIn,
-    	});
-   
+export default {
+  data() {
+    return {
+      kakao_client_id: "e1e8126c8b7e3af4fd185b1774cddd2c",
+      redirect_uri: "http://localhost:8081/loginCallback",
+      CLIENT_ID: "aYgNgGmIwR3wysmlCfRd",
+      redirectURI: `http://localhost:8082/itjobgo/member/naverLogin`, //서버연결
+      naverLoginURL:
+        "https://nid.naver.com/oauth2.0/authorize?response_type=code",
+      state: Math.floor(Math.random() * 9999) + 1, //TODO : 랜덤값 나올 수 있게 바꾸기
+      test1: [],
+      model: {
+        email: "",
+        password: "",
+        rememberMe: false,
+      },
+    };
   },
-    methods: {
-      // ...mapActions(['login']),
-       login: function () {
-        let memberEmail = this.model.email
-        let memberPwd = this.model.password
-        console.log("email: " + memberEmail)
-        console.log("password: " + memberPwd)
-        this.$store.dispatch('memberStore/login', { memberEmail, memberPwd })
-        },
 
-        onSignIn(googleUser){
-            // 로그인 유저 정보 출력
-            console.log(googleUser)
-        },
-
-      kakaoLogin() {
-      Kakao.Auth.authorize({
-        redirectUri: `${window.location.origin}/loginCallback`
-      })
-      
-    
-      
+  mounted() {
+    if (window.Kakao == undefined) {
+      window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
     }
   },
   methods: {

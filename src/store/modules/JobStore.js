@@ -354,7 +354,7 @@ const jobStore = {
             console.log("query" + JSON.stringify(query))
             // console.log("formData IN SROTE: " + JSON.stringify(formData));
 
-            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056&keyword=' + query.keyword + '&region=' + query.region)
+            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=' + query.occupation + '&keyword=' + query.keyword + '&region=' + query.region)
                 .then((response) => {
                     var xml = response.data
                     var json = convert.xml2json(xml, { compact: true })

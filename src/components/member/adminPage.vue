@@ -94,26 +94,22 @@
 
         <li class="first bottomList userInfomation">
           <div class="tel">
-            <span class="item"><span class="bullet"></span>연락처</span>
+            <span class="item"
+              ><span class="urgent-call"></span>비상 연락처</span
+            >
             <span class="mobile">{{ userData.memberPhone }}</span>
-            <span class="tel" style="display:none;">-</span>
-            <div class="mobileCert"></div>
           </div>
-          <div class="mail">
+          <!-- <div class="mail">
             <span class="item"><span class="bullet"></span>이메일</span
             ><b>{{ userData.memberEmail }}</b>
-          </div>
-          <div class="address">
-            <span class="item"><span class="bullet"></span>주소</span
-            ><b>{{ userData.memberAddr }} {{ userData.memberAddrDtl }}</b>
-          </div>
+          </div> -->
         </li>
       </ul>
     </div>
     <!-- 공지사항 -->
     <div id="noticeDiv"></div>
     <div>
-      <p class="h3 mt-5 font-weight-bold text-center">
+      <p class="h3 mt-3 font-weight-bold text-center">
         공지사항
       </p>
       <p id="noticeAll" class="mb-2">

@@ -30,6 +30,7 @@
         type="date" 
         v-model="infoDate"  
         required
+       
       ></b-form-input>
     </b-input-group> 
 

@@ -43,12 +43,11 @@ const memberStore = {
 
 
                     } else {//토큰값 있음
-
+                        localStorage.setItem("loginStatus", true)
                         localStorage.setItem("memberEmail", loginData.memberEmail)
-                        localStorage.setItem("memberSq", res.data.memberSq)
                         localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
 
-                        dispatch("getMemberInfo", loginData)
+                        dispatch("getMemberInfo", loginData)//여기로 넘어가서 commit('loginSuccess')실행함
                         router.push('/');//메인페이지로 이동
 
 
@@ -66,11 +65,11 @@ const memberStore = {
 
         },
         logout({ commit }) {
-            localStorage.removeItem("memberEmail");
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("memberSq");
+            //localStroage 저장 로그아웃
+            localStorage.clear();
+            //Todo:session로그아웃
             router.push('/');
-            location.reload();
+            // location.reload();
             commit('loginFalse');
         },
         deleteMember({ commit }, loginData) {
@@ -138,7 +137,8 @@ const memberStore = {
                             memberName: response.data.memberName,
                             memberPhone: response.data.memberPhone,
                             memberPostCode: response.data.memberPostCode,
-                            memberPosition: response.data.memberPosition
+                            memberPosition: response.data.memberPosition,
+                            memberToken: response.data.memberToken
                         }
 
                         commit('loginSuccess', userData)
