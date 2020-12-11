@@ -274,24 +274,30 @@ input[type="file"] {
 .pf,
 .scrap,
 .community,
-.notice {
+.notice,
+.resume {
   border: 1px solid #74899e !important;
+  clear: both;
 }
 thead.qna-table,
 thead.pf-table,
 thead.scrap-table,
 thead.community-table,
-thead.notice-table {
+thead.notice-table,
+thead.resume-table {
   background-color: #74899e;
 }
 #qnaBody:hover,
 #pfBody:hover,
 #scrapBody:hover,
 #communityBody:hover,
-#noticeBody:hover {
+#noticeBody:hover,
+#resumeBody:hover {
   cursor: pointer;
 }
-
+#resumeAll {
+  float: right;
+}
 /* 디데이 */
 
 .d-day-btn {

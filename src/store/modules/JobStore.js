@@ -81,7 +81,9 @@ const jobStore = {
 
                         attachFileInfo = '등록된 파일이 없습니다.'
                     } else {
+                        console.log(this.items.wantedDtl.wantedInfo.attachFileInfo.attachFileUrl)
                         attachFileInfo = this.items.wantedDtl.wantedInfo.attachFileInfo.attachFileUrl._text;
+
                     }
                     this.apply =
                         { receiptCloseDt: receiptCloseDt, selMthd: selMthd, rcptMthd: rcptMthd, submitDoc: submitDoc, attachFileInfo: attachFileInfo }
@@ -346,9 +348,13 @@ const jobStore = {
                 });
 
         },
-        searchLoadTable({ commit }, keyword) {
-            console.log("keyword: " + keyword.keyword);
-            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056&keyword=' + keyword.keyword)//추천 채용정보
+        searchLoadTable({ commit }, query) {
+
+            // console.log("query : " + query)
+            console.log("query" + JSON.stringify(query))
+            // console.log("formData IN SROTE: " + JSON.stringify(formData));
+
+            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056&keyword=' + query.keyword + '&region=' + query.region)
                 .then((response) => {
                     var xml = response.data
                     var json = convert.xml2json(xml, { compact: true })
