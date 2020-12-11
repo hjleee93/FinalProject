@@ -6,7 +6,7 @@
         <div class="header-body text-center mb-7">
           <b-row class="justify-content-center">
             <b-col xl="5" lg="6" md="8" class="px-5">
-              <h1 class="text-black">회원정보 수정</h1>
+              <h1 class="text-black mt-3">회원정보 수정</h1>
             </b-col>
           </b-row>
         </div>
@@ -17,24 +17,32 @@
       <b-row class="justify-content-center">
         <b-col lg="5" md="7">
           <b-card no-body class="border-0 mb-0 ">
-            <b-card-header class="info-content mb-4">
+            <b-card-header class="info-content mb-4  text-center">
               <div class="text-muted text-center chg-info ">
                 <router-link class="nav-link px-0" to="/chgMemberInfo"
                   >개인정보수정</router-link
                 >
               </div>
-              <div class="text-muted text-center chg-pwd">
-                <router-link class="nav-link px-0" to="/chgPwdInfo"
-                  >비밀번호변경</router-link
-                >
-              </div>
+              <template
+                v-if="
+                  this.userData.memberLevel == 1 ||
+                    this.userData.memberLevel == 2
+                "
+              >
+                <div class="text-muted text-center chg-pwd">
+                  <router-link class="nav-link px-0" to="/chgPwdInfo"
+                    >비밀번호변경</router-link
+                  >
+                </div>
+              </template>
               <div class="text-muted text-center out-info">
-                <router-link class="nav-link px-0" to="/deleteMember">회원탈퇴</router-link>
+                <router-link class="nav-link px-0" to="/deleteMember"
+                  >회원탈퇴</router-link
+                >
               </div>
             </b-card-header>
 
             <b-card-body class="px-lg-5 py-lg-5 info-content">
-              
               <b-form role="form" @submit.prevent="onSubmit">
                 <div id="account">
                   <div id="email">
@@ -47,18 +55,15 @@
                     </b-input-group>
                   </div>
                   <div class="pwd">
-                  <b-input-group 
-
-                  prepend="비밀번호">
-                    <b-form-input
-                      class="pwd"
-                      required
-                      type="password"
-                      placeholder="현재 비밀번호 입력"
-                      v-model="memberPwd"
-                    ></b-form-input>
-                  </b-input-group>
-
+                    <b-input-group prepend="비밀번호">
+                      <b-form-input
+                        class="pwd"
+                        required
+                        type="password"
+                        placeholder="현재 비밀번호 입력"
+                        v-model="memberPwd"
+                      ></b-form-input>
+                    </b-input-group>
                   </div>
                 </div>
 
@@ -86,12 +91,14 @@
                     v-model="userData.memberPostCode"
                   ></b-form-input>
                   <b-input-group-append>
-                    <b-button class="findPostcode" @click="daumPostcode()">우편번호 찾기</b-button>
+                    <b-button class="findPostcode" @click="daumPostcode()"
+                      >우편번호 찾기</b-button
+                    >
                   </b-input-group-append>
                 </b-input-group>
 
                 <b-input-group prepend="주소">
-                  <b-form-input                    
+                  <b-form-input
                     class="readonly-input addr"
                     type="text"
                     id="sample6_address"
@@ -99,7 +106,7 @@
                   ></b-form-input>
                 </b-input-group>
 
-                 <b-input-group prepend="상세주소">
+                <b-input-group prepend="상세주소">
                   <b-form-input
                     class="readonly-input addrDtl"
                     type="text"
@@ -110,26 +117,25 @@
                 </b-input-group>
 
                 <div id="addrExtra">
-            <b-input-group prepend="추가주소" >
-                  <b-form-input                  
-                    class="readonly-input addrExtra"
-                    type="text"
-                    id="sample6_extraAddress"                    
-                    v-model="userData.memberAddrExtra"
-                  ></b-form-input>
-                </b-input-group>
-                <b-input-group prepend="포지션" >
-                  <b-form-select
-                    class="position"
-                    id="position"
-                    type="text"
-                    v-model="this.userData.memberPosition"
-                    :options="position"
-                  ></b-form-select>
-                </b-input-group>
-                
+                  <b-input-group prepend="추가주소">
+                    <b-form-input
+                      class="readonly-input addrExtra"
+                      type="text"
+                      id="sample6_extraAddress"
+                      v-model="userData.memberAddrExtra"
+                    ></b-form-input>
+                  </b-input-group>
+                  <b-input-group prepend="포지션">
+                    <b-form-select
+                      class="position"
+                      id="position"
+                      type="text"
+                      v-model="this.userData.memberPosition"
+                      :options="position"
+                    ></b-form-select>
+                  </b-input-group>
                 </div>
-                
+
                 <div class="text-center">
                   <base-button type="primary" native-type="submit" class="my-4"
                     >수정완료</base-button
@@ -151,63 +157,68 @@ import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 
 import axios from "axios";
-import $ from 'jquery'
+import $ from "jquery";
 
 export default {
   data: () => ({
     memberPwd: "",
     selected: null,
-    position: [{ text: '관심있는 직군을 선택해주세요', value: null },'디자인', '백엔드', '프론트엔드', '퍼블리싱'],
+    position: [
+      { text: "관심있는 직군을 선택해주세요", value: null },
+      "디자인",
+      "백엔드",
+      "프론트엔드",
+      "퍼블리싱",
+    ],
   }),
-  created(){
-    
-  },
+  created() {},
   methods: {
-     onSubmit() {
+    onSubmit() {
       //  console.log($('#sample6_postcode').val());
       const formData = {
         memberEmail: this.userData.memberEmail,
         memberPwd: this.memberPwd,
         memberPhone: this.userData.memberPhone,
-        memberPostCode: $('#sample6_postcode').val(),
-        memberAddr: $('#sample6_address').val(),
+        memberPostCode: $("#sample6_postcode").val(),
+        memberAddr: $("#sample6_address").val(),
         memberAddrDtl: this.userData.memberAddrDtl,
-        memberPosition:$('#position').val(),
+        memberPosition: $("#position").val(),
         // memberPosition: this.userData.memberPosition,
-        memberAddrExtra: $('#sample6_extraAddress').val()
-        
+        memberAddrExtra: $("#sample6_extraAddress").val(),
       };
       const self = this; //this scope문제
       console.log("form:" + JSON.stringify(formData));
       axios
         .post("http://localhost:8082/itjobgo/member/updateInfo", formData) //form server 연결
-        .then((res) =>{
-          console.log(res.data)
-            if (res.data > 0) {
-              //업데이트 ok
+        .then((res) => {
+          console.log(res.data);
+          if (res.data > 0) {
+            //업데이트 ok
             this.$swal({
               text: "회원정보가 변경되었습니다.",
-              icon: "success"
+              icon: "success",
             });
-            setTimeout( () => this.$router.push({ path: '/myPage'}), 2000);
+            setTimeout(() => this.$router.push({ path: "/myPage" }), 2000);
             //마이페이지로 이동
-          }else if(res.data == -1){//비밀번호 틀린경우 
-              this.$swal({
+          } else if (res.data == -1) {
+            //비밀번호 틀린경우
+            this.$swal({
               text: "비밀번호가 틀렸습니다. 다시 확인해주세요",
-              icon: "error"
+              icon: "error",
             });
-          }else{
-              this.$swal({
-              text: "정보 변경에 실패했습니다. 다시 한 번 시도해주시거나 관리자에게 문의해주세요",
-              icon: "error"
+          } else {
+            this.$swal({
+              text:
+                "정보 변경에 실패했습니다. 다시 한 번 시도해주시거나 관리자에게 문의해주세요",
+              icon: "error",
             });
           }
         })
         .catch((error) => {
           this.$swal({
-              text: "정보 변경에 실패했습니다. 관리자에게 문의해주세요",
-              icon: "error"
-            });
+            text: "정보 변경에 실패했습니다. 관리자에게 문의해주세요",
+            icon: "error",
+          });
         });
     },
     daumPostcode: function() {
@@ -250,19 +261,19 @@ export default {
               }
               // 조합된 참고항목을 해당 필드에 넣는다.
               document.getElementById("sample6_extraAddress").value = extraAddr;
-              $('#sample6_extraAddress').attr('value',extraAddr);
+              $("#sample6_extraAddress").attr("value", extraAddr);
             } else {
               document.getElementById("sample6_extraAddress").value = "";
-              $('#sample6_extraAddress').attr('value',"");
+              $("#sample6_extraAddress").attr("value", "");
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById("sample6_postcode").value = data.zonecode;
-            
-            $('#sample6_postcode').attr('value',data.zonecode);//value 추가해서 업데이트할 때 사용
+
+            $("#sample6_postcode").attr("value", data.zonecode); //value 추가해서 업데이트할 때 사용
 
             document.getElementById("sample6_address").value = addr;
-             $('#sample6_address').attr('value',addr);
+            $("#sample6_address").attr("value", addr);
             // 커서를 상세주소 필드로 이동한다.
             document.getElementById("sample6_detailAddress").focus();
           },
@@ -271,39 +282,37 @@ export default {
     },
   },
   computed: {
-    
-    ...mapState(["userData"])
-  }
+    ...mapState(["userData"]),
+  },
 };
 </script>
 
 <style scoped>
 /* Validation css 수정 */
-.invalid-feedback{
+.invalid-feedback {
   margin-left: 100px;
 }
-.form-control.is-invalid{
-  border:1px solid red !important;
+.form-control.is-invalid {
+  border: 1px solid red !important;
 }
 
-.chg-info{
-    background-color: #f1f6f9;
-    border:2px solid #a6b1e1 !important;
+.chg-info {
+  background-color: #f1f6f9;
+  border: 2px solid #a6b1e1 !important;
 }
-.chg-pwd{
-    /* background-color: #f4eeff; */
-    border-right: 0px !important;
+.chg-pwd {
+  /* background-color: #f4eeff; */
+  border-right: 0px !important;
 }
-.chg-pwd{
-    border-left: 0px !important;
+.chg-pwd {
+  border-left: 0px !important;
 }
 .info-content {
   padding: 0 !important;
-  
 }
-.card-header{
-    border-bottom:0px;
-    background-color: white;
+.card-header {
+  border-bottom: 0px;
+  background-color: white;
 }
 .chg-info,
 .chg-pwd,
@@ -323,32 +332,41 @@ export default {
   display: inline-block;
   border-radius: 0px;
 }
-.form-control, .findPostcode {
+.form-control,
+.findPostcode {
   border-radius: 0px;
 }
-.postcode{
+.postcode {
   border-top: 0px;
 }
-#account .email, .name, .addr, .postcode, .addrDtl {
+#account .email,
+.name,
+.addr,
+.postcode,
+.addrDtl {
   border-bottom: 0px;
 }
-.input-group > .input-group-prepend > .input-group-text, .pwd, .pwd.form-control, .addrExtra.form-control{
+.input-group > .input-group-prepend > .input-group-text,
+.pwd,
+.pwd.form-control,
+.addrExtra.form-control {
   border-bottom: 0px;
 }
 
-div > .pwd{
-    border-bottom: 1px solid #ced4da;
+div > .pwd {
+  border-bottom: 1px solid #ced4da;
 }
-#addrExtra{
-    border-bottom: 1px solid #ced4da;
+#addrExtra {
+  border-bottom: 1px solid #ced4da;
 }
-input, select{
-    height:45px;
+input,
+select {
+  height: 45px;
 }
-select{
+select {
   border-bottom: 0px;
 }
-button{
+button {
   background-color: #424874;
   border: 0px;
 }
@@ -360,11 +378,12 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 /* 파폭용  */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
-form[role="form"] input, form[role="form"] select{
-  margin-left:-1px;
+form[role="form"] input,
+form[role="form"] select {
+  margin-left: -1px;
 }
 </style>

@@ -323,6 +323,11 @@ thead.resume-table {
 
 /* 관리자 mypage */
 #noticeAll {
-  display: flex;
-  margin-left: auto;
+  float: right;
+}
+#noticeDiv {
+  clear: both;
+}
+.urgent-call .mobile {
+  margin-left: 35px;
 }

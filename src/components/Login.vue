@@ -108,8 +108,6 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 
-// import axios from "axios"
-
 export default {
   data() {
     return {
@@ -119,7 +117,7 @@ export default {
       redirectURI: `http://localhost:8082/itjobgo/member/naverLogin`, //서버연결
       naverLoginURL:
         "https://nid.naver.com/oauth2.0/authorize?response_type=code",
-      state: Math.floor(Math.random() * 9999) + 1, //TODO : 랜덤값 나올 수 있게 바꾸기
+      state: Math.floor(Math.random() * 9999) + 1,
       test1: [],
       model: {
         email: "",
@@ -129,11 +127,11 @@ export default {
     };
   },
 
-  mounted() {
-    if (window.Kakao == undefined) {
-      window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
-    }
-  },
+  // async mounted() {
+  //   if (window.Kakao == undefined) {
+  //     await window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
+  //   }
+  // },
   methods: {
     login: function() {
       let memberEmail = this.model.email;
@@ -143,6 +141,11 @@ export default {
       this.$store.dispatch("memberStore/login", { memberEmail, memberPwd });
     },
     kakaoLogin() {
+      // window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
+      console.log(Kakao);
+      if (Kakao.Auth == undefined) {
+        window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
+      }
       Kakao.Auth.authorize({
         redirectUri: `${window.location.origin}/loginCallback`,
       });
