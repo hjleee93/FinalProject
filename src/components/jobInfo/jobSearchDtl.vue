@@ -12,7 +12,7 @@
 
           <!-- 게시판시작 -->
           <!-- <p>{{this.keyword}}</p> -->
-
+          <SearchBar />
           <div class="overflow">
             <!-- 테이블 -->
             <v-card>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import SearchBar from "../SearchBar";
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
 
@@ -56,6 +57,9 @@ export default {
       { text: "마감일·등록일", value: "deadline" },
     ],
   }),
+  components: {
+    SearchBar,
+  },
   mounted() {
     this.$store.dispatch("jobStore/searchLoadTable", this.$route.query);
   },
