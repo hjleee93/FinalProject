@@ -43,7 +43,6 @@ const memberStore = {
 
 
                     } else {//토큰값 있음
-                        localStorage.setItem("loginStatus", true)
                         localStorage.setItem("memberEmail", loginData.memberEmail)
                         localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
 
@@ -66,11 +65,14 @@ const memberStore = {
         },
         logout({ commit }) {
             //localStroage 저장 로그아웃
-            localStorage.clear();
+            window.localStorage.clear();
+            window.sessionStorage.clear();
+            window.sessionStorage.removeItem('vuex');
             //Todo:session로그아웃
-            router.push('/');
+
             // location.reload();
             commit('loginFalse');
+            router.go('/');
         },
         deleteMember({ commit }, loginData) {
             axios.post("http://localhost:8082/itjobgo/member/deleteMember", loginData) //form server 연결
