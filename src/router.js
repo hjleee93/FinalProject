@@ -483,7 +483,8 @@ export default new Router({
       path: '/jobSearchDtl',
       name: 'jobSearchDtl',
       query: { occupation: '', keyword: '', region: '' },
-      component: JobSearchDtl
+      component: JobSearchDtl,
+
     },
     {
       path: '/chgMemberInfo',

@@ -327,78 +327,10 @@
 import SearchBar from "./SearchBar";
 import { createNamespacedHelpers } from "vuex";
 import { mapState } from "vuex";
-// import $ from "jquery";
 
 const { mapState: jobState } = createNamespacedHelpers("jobStore");
 const { mapState: memberState } = createNamespacedHelpers("memberStore");
-import $ from "jquery";
 
-//지역 상세선택
-$(document).on("click", ".areaBtn", function() {
-  let tem = $(this) //해당 클릭 지역 value값 return
-    .parents(".area-btn")
-    .attr("value");
-  if (
-    //클릭햇을때
-    $(this)
-      .parents(".area-btn") //해당 클릭 버튼의 상위 클래스 값에 on이 있으면
-      .hasClass("on")
-  ) {
-    $(this)
-      .parents(".area-btn") //on 지우고
-      .removeClass("on");
-    $(".city-layer ." + tem).removeClass("on"); //상세지역 dept2 on추가
-    //지역 dept2
-  } else {
-    $(this)
-      .parents(".area-btn") //없으면 on 추가
-      .addClass("on");
-    $("." + tem).addClass("on"); //상세지역 dept2 on추가
-
-    $(".city-layer")
-      .not(document.getElementsByClassName(tem))
-      .removeClass("on"); //해당 layer 제외 on remove
-    $(".areaBtn")
-      .not(this)
-      .parents(".area-btn") //나머지 버튼 on제거
-      .removeClass("on");
-  }
-});
-
-// 직종 상세선택
-$(document).on("click", ".jobBtn", function() {
-  let tem = $(this) //해당 클릭 지역 value값 return
-    .parents(".job-btn")
-    .attr("value");
-  if (
-    //클릭햇을때
-    $(this)
-      .parents(".job-btn") //해당 클릭 버튼의 상위 클래스 값에 on이 있으면
-      .hasClass("on")
-  ) {
-    $(this)
-      .parents(".job-btn") //on 지우고
-      .removeClass("on");
-    $(".job-detail-layer ." + tem).removeClass("on"); //상세지역 dept2 on추가
-    //지역 dept2
-  } else {
-    $(this)
-      .parents(".job-btn") //없으면 on 추가
-      .addClass("on");
-    $("." + tem).addClass("on"); //상세지역 dept2 on추가
-
-    $(".job-detail-layer")
-      .not(document.getElementsByClassName(tem))
-      .removeClass("on"); //해당 layer 제외 on remove
-    $(".jobBtn")
-      .not(this)
-      .parents(".job-btn") //나머지 버튼 on제거
-      .removeClass("on");
-  }
-});
-
-// var convert = require("xml-js");
-// import axios from "axios";
 //로그인한 사람에 따라 추천 parmeter 수정하기
 
 export default {

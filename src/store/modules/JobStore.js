@@ -106,56 +106,77 @@ const jobStore = {
 
                 )
                 .then((response) => {
-                    console.log("333")
+
                     this.scrap = response.data;
-                    console.log(JSON.stringify(this.scrap))
+
                     commit('SET_SCRAP_DETAIL', this.scrap)
                 })
         },
-
+        //TODO: 파라미터값에 따라 수정할 수 동적으로 수정할 수 있을 듯 
         loadJobTable({ commit }) {
             axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056')
                 .then((response) => {
+
                     var xml = response.data
                     var json = convert.xml2json(xml, { compact: true })
                     this.jobInfo = JSON.parse(json);
-
-                    const companyName = new Array();
-                    this.tableList = [
-                        {
-                            company: this.jobInfo.wantedRoot.wanted[0].company._text,
-                            title: this.jobInfo.wantedRoot.wanted[0].title._text,
-                            ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
-                            Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
-                            deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text,
-                            jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text,
-                            career: this.jobInfo.wantedRoot.wanted[0].career._text,
-                            region: this.jobInfo.wantedRoot.wanted[0].region._text,
-                            holidayTpNm: this.jobInfo.wantedRoot.wanted[0].holidayTpNm._text
-                        }
-                    ]
-                    for (let i = 1; i < this.jobInfo.wantedRoot.wanted.length; i++) {
-                        companyName[i] = this.jobInfo.wantedRoot.wanted[i];
-
-                        this.tableList.push(
+                    if (this.jobInfo.wantedRoot.wanted[0] == undefined) { //결과값이 1개인 경우 
+                        this.tableList = [
                             {
-                                company: companyName[i].company._text,
-                                title: companyName[i].title._text,
-                                ability: companyName[i].minEdubg._text,
-                                Condition: companyName[i].sal._text,
-                                deadline: (companyName[i].closeDt._text),
-                                jobNo: companyName[i].wantedAuthNo._text,
-                                career: companyName[i].career._text,
-                                region: companyName[i].region._text,
-                                holidayTpNm: companyName[i].holidayTpNm._text,
-                            }
-                        )
-                        //console.log(companyName.company._text);
-
+                                company: this.jobInfo.wantedRoot.wanted.company._text,
+                                title: this.jobInfo.wantedRoot.wanted.title._text,
+                                ability: this.jobInfo.wantedRoot.wanted.minEdubg._text,
+                                Condition: this.jobInfo.wantedRoot.wanted.sal._text,
+                                deadline: this.jobInfo.wantedRoot.wanted.closeDt._text,
+                                jobNo: this.jobInfo.wantedRoot.wanted.wantedAuthNo._text,
+                                career: this.jobInfo.wantedRoot.wanted.career._text,
+                                region: this.jobInfo.wantedRoot.wanted.region._text,
+                                holidayTpNm: this.jobInfo.wantedRoot.wanted.holidayTpNm._text
+                            }]
+                        commit('SET_JOB_INFO_LIST', this.tableList)
+                        commit('SET_JOB_INFO', this.jobInfo)
                     }
 
-                    commit('SET_JOB_INFO_LIST', this.tableList)
-                    commit('SET_JOB_INFO', this.jobInfo)
+
+                    const companyName = new Array();
+                    if (this.jobInfo.wantedRoot.wanted != undefined && this.jobInfo.wantedRoot.wanted[0] != undefined) { //결과값이 2개 이상인 경우 
+
+                        this.tableList = [
+                            {
+                                company: this.jobInfo.wantedRoot.wanted[0].company._text,
+                                title: this.jobInfo.wantedRoot.wanted[0].title._text,
+                                ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
+                                Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
+                                deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text,
+                                jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text,
+                                career: this.jobInfo.wantedRoot.wanted[0].career._text,
+                                region: this.jobInfo.wantedRoot.wanted[0].region._text,
+                                holidayTpNm: this.jobInfo.wantedRoot.wanted[0].holidayTpNm._text
+                            }
+                        ]
+                        for (let i = 1; i < this.jobInfo.wantedRoot.wanted.length; i++) {
+                            companyName[i] = this.jobInfo.wantedRoot.wanted[i];
+
+                            this.tableList.push(
+                                {
+                                    company: companyName[i].company._text,
+                                    title: companyName[i].title._text,
+                                    ability: companyName[i].minEdubg._text,
+                                    Condition: companyName[i].sal._text,
+                                    deadline: (companyName[i].closeDt._text),
+                                    jobNo: companyName[i].wantedAuthNo._text,
+                                    career: companyName[i].career._text,
+                                    region: companyName[i].region._text,
+                                    holidayTpNm: companyName[i].holidayTpNm._text,
+                                }
+                            )
+                            //console.log(companyName.company._text);
+
+                        }
+
+                        commit('SET_JOB_INFO_LIST', this.tableList)
+                        commit('SET_JOB_INFO', this.jobInfo)
+                    }
 
                 });
 
@@ -348,51 +369,72 @@ const jobStore = {
                 });
 
         },
-        searchLoadTable({ commit }, query) {
+        //서치바 결과 리턴
+        async searchLoadTable({ commit }, query) {
+            if (query.occupation.length === 0) { //직업 전체 선택인 경우
 
-            // console.log("query : " + query)
-            console.log("query" + JSON.stringify(query))
-            // console.log("formData IN SROTE: " + JSON.stringify(formData));
-            console.log("직업: " + query.occupation)
-            console.log("직업: " + (query.occupation.length === 0))
-            if (query.occupation.length === 0) {
-                console.log("직업: " + query.occupation)
                 query.occupation = '214200|214201|214202|214302|022|023|024|025|056'
                 console.log(query.occupation)
             }
-            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=' + query.occupation + '&keyword=' + query.keyword + '&region=' + query.region)
+            await axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=' + query.occupation + '&keyword=' + query.keyword + '&region=' + query.region)
                 .then((response) => {
+
                     var xml = response.data
                     var json = convert.xml2json(xml, { compact: true })
                     this.jobInfo = JSON.parse(json);
 
-                    const companyName = new Array();
-
-                    this.tableList = [
-                        {
-                            company: this.jobInfo.wantedRoot.wanted[0].company._text,
-                            title: this.jobInfo.wantedRoot.wanted[0].title._text,
-                            ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
-                            Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
-                            deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text,
-                            jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text
-                        }
-                    ]
-                    for (let i = 1; i < this.jobInfo.wantedRoot.wanted.length; i++) {
-                        companyName[i] = this.jobInfo.wantedRoot.wanted[i];
-
-                        this.tableList.push(
+                    if (this.jobInfo.wantedRoot.wanted[0] == undefined) { //결과값이 1개인 경우 
+                        this.tableList = [
                             {
-                                company: companyName[i].company._text,
-                                title: companyName[i].title._text,
-                                ability: companyName[i].minEdubg._text,
-                                Condition: companyName[i].sal._text,
-                                deadline: companyName[i].closeDt._text,
-                                jobNo: companyName[i].wantedAuthNo._text
-                            }
-                        )
-                        //console.log(companyName.company._text);
+                                company: this.jobInfo.wantedRoot.wanted.company._text,
+                                title: this.jobInfo.wantedRoot.wanted.title._text,
+                                ability: this.jobInfo.wantedRoot.wanted.minEdubg._text,
+                                Condition: this.jobInfo.wantedRoot.wanted.sal._text,
+                                deadline: this.jobInfo.wantedRoot.wanted.closeDt._text,
+                                jobNo: this.jobInfo.wantedRoot.wanted.wantedAuthNo._text,
+                                career: this.jobInfo.wantedRoot.wanted.career._text,
+                                region: this.jobInfo.wantedRoot.wanted.region._text,
+                                holidayTpNm: this.jobInfo.wantedRoot.wanted.holidayTpNm._text
+                            }]
+                        commit('SET_JOB_INFO_LIST', this.tableList)
+                        commit('SET_JOB_INFO', this.jobInfo)
+                    }
 
+
+                    const companyName = new Array();
+                    if (this.jobInfo.wantedRoot.wanted != undefined && this.jobInfo.wantedRoot.wanted[0] != undefined) { //결과값이 2개 이상인 경우 
+                        this.tableList = [
+                            {
+                                company: this.jobInfo.wantedRoot.wanted[0].company._text,
+                                title: this.jobInfo.wantedRoot.wanted[0].title._text,
+                                ability: this.jobInfo.wantedRoot.wanted[0].minEdubg._text,
+                                Condition: this.jobInfo.wantedRoot.wanted[0].sal._text,
+                                deadline: this.jobInfo.wantedRoot.wanted[0].closeDt._text,
+                                jobNo: this.jobInfo.wantedRoot.wanted[0].wantedAuthNo._text,
+                                career: this.jobInfo.wantedRoot.wanted[0].career._text,
+                                region: this.jobInfo.wantedRoot.wanted[0].region._text,
+                                holidayTpNm: this.jobInfo.wantedRoot.wanted[0].holidayTpNm._text
+                            }
+                        ]
+                        for (let i = 1; i < this.jobInfo.wantedRoot.wanted.length; i++) {
+                            companyName[i] = this.jobInfo.wantedRoot.wanted[i];
+
+                            this.tableList.push(
+                                {
+                                    company: companyName[i].company._text,
+                                    title: companyName[i].title._text,
+                                    ability: companyName[i].minEdubg._text,
+                                    Condition: companyName[i].sal._text,
+                                    deadline: companyName[i].closeDt._text,
+                                    jobNo: companyName[i].wantedAuthNo._text,
+                                    career: this.jobInfo.wantedRoot.wanted[i].career._text,
+                                    region: this.jobInfo.wantedRoot.wanted[i].region._text,
+                                    holidayTpNm: this.jobInfo.wantedRoot.wanted[i].holidayTpNm._text
+                                }
+                            )
+                            //console.log(companyName.company._text);
+
+                        }
                     }
 
                     commit('SET_JOB_INFO_LIST', this.tableList)

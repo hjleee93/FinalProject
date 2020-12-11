@@ -912,7 +912,7 @@ export default {
       }
     },
     //서치바 폼 전송
-    jobSearch: function() {
+    jobSearch() {
       //지역 value 값 파싱
       let regionStr = String(Object.values(this.selectedArea));
       if (regionStr.includes(",") != false) {
@@ -933,10 +933,31 @@ export default {
         region: regionStr,
       };
       console.log("formData: " + JSON.stringify(formData));
-      this.$router.go({
-        name: "jobSearchDtl",
-        query: formData, //쿼리문으로 전송
-      });
+
+      if (this.$router.currentRoute.name == "home") {
+        this.$router
+          .push({
+            name: "jobSearchDtl",
+            query: formData, //쿼리문으로 전송
+          })
+          .catch((error) => {
+            if (error.name != "NavigationDuplicated") {
+              throw error;
+            }
+          });
+      } else {
+        this.$router
+          .push({
+            name: "jobSearchDtl",
+            query: formData, //쿼리문으로 전송
+          })
+          .catch((error) => {
+            if (error.name != "NavigationDuplicated") {
+              throw error;
+            }
+          });
+        location.reload();
+      }
     },
   },
 };
