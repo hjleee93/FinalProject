@@ -133,7 +133,9 @@
         <div class="col-4 p-0 collab">
           <div class="card table-card collab">
             <div class="card-header ">
-              <h5 class="meeting-title text-center mb-0">최근 등록된 모임</h5>
+              <h5 class="meeting-title text-center mb-0">
+                <b>최근 등록된 모임</b>
+              </h5>
             </div>
 
             <table>
@@ -353,11 +355,9 @@ export default {
 };
 </script>
 <style scoped>
+.banner-area,
 .meeting-title {
-  font-family: "KOTRA_BOLD-Bold";
-}
-.banner-area {
-  font-family: "KOTRA_GOTHIC";
+  font-family: "Nanum Gothic", sans-serif;
 }
 /* 상단 박스 css */
 

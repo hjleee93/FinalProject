@@ -11,7 +11,6 @@
           <v-tabs color="grey darken-3"> </v-tabs>
 
           <!-- 게시판시작 -->
-          <!-- <p>{{this.keyword}}</p> -->
           <SearchBar />
           <div class="overflow">
             <!-- 테이블 -->
@@ -137,6 +136,9 @@ export default {
 </script>
 
 <style scoped>
+.container-fluid{
+    font-family: "Nanum Gothic", sans-serif;
+}
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
 }

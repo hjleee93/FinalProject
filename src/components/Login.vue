@@ -76,7 +76,10 @@
                     >Remember me</b-form-checkbox
                   >
                   <div class="text-center">
-                    <base-button type="primary" @click="login()" class="my-4"
+                    <base-button
+                      type="primary"
+                      @click="login()"
+                      class="login-btn my-4"
                       >Sign in</base-button
                     >
                   </div>
@@ -163,6 +166,15 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: "Nanum Gothic", sans-serif;
+}
+.login-btn {
+  text-decoration: none;
+  color: #fff;
+  background-color: #424874;
+  border-color: #424874;
+}
 /* 카카오버튼 */
 .kakao-login:hover {
   cursor: pointer;

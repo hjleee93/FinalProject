@@ -1,6 +1,6 @@
 <!-- 관리자 마이페이지 -->
 <template>
-  <b-container class="mb-5">
+  <b-container class="mb-5 admin-page">
     <div class="header-body text-center mb-7 my-4">
       <b-row class="justify-content-center">
         <b-col xl="5" lg="6" md="8" class="px-5">

@@ -5,7 +5,7 @@
         <div class="col-lg-4 form-cols ">
           <b-form-input
             type="text"
-            class="form-control"
+            class="form-control text-center"
             name="search"
             v-model="keyword"
             placeholder="검색어를 입력해주세요"
@@ -965,9 +965,7 @@ export default {
 
 <style scoped>
 .banner-content {
-  font-family: "KOTRA_BOLD-Bold";
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Nanum Gothic", sans-serif;
 }
 
 .city-layer,

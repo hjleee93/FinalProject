@@ -123,13 +123,7 @@ export default {
   font-style: normal;
 }
 
-@font-face {
-  font-family: "KOTRA_GOTHIC";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 #menu {
   font-family: "KOTRA_BOLD-Bold";
@@ -154,7 +148,7 @@ export default {
 .navbar-dark .navbar-brand {
   color: white !important;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
 }
 .header-menu {
   width: 95%;

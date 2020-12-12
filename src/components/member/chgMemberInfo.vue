@@ -288,6 +288,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: "Nanum Gothic", sans-serif;
+}
 /* Validation css 수정 */
 .invalid-feedback {
   margin-left: 100px;

@@ -218,6 +218,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: "Nanum Gothic", sans-serif;
+}
 .out-info {
   background-color: #f1f6f9;
   border: 2px solid #a6b1e1 !important;

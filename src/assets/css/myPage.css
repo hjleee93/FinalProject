@@ -1,3 +1,7 @@
+.admin-page,
+.my-page {
+  font-family: "Nanum Gothic", sans-serif;
+}
 li {
   list-style: none;
 }
