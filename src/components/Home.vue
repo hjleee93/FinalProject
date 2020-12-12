@@ -44,26 +44,23 @@
           <div class="row">
             <template v-if="noticeList">
               <div class="card col-6 m-0 p-0 info-card">
-                <div
-                  class="m-2"
-                  v-if="noticeList[noticeList.length - 1] != undefined"
-                >
+                <div class="m-2" v-if="noticeList[0] != undefined">
                   <b-btn class="ntc-btn mr-1">공지</b-btn>
                   <router-link
                     :to="{
                       name: 'NoticeView',
                       params: {
-                        id: noticeList[noticeList.length - 1].noticeSq,
+                        id: noticeList[0].noticeSq,
                       },
                     }"
                     class="notice-router"
                   >
                     <span>
-                      {{ noticeList[noticeList.length - 1].noticeTitle }}
+                      {{ noticeList[0].noticeTitle }}
                     </span>
 
                     <p class="text-muted m-b-0 notice-content">
-                      {{ noticeList[noticeList.length - 1].noticeContent }}
+                      {{ noticeList[0].noticeContent }}
                     </p></router-link
                   >
                 </div>
@@ -73,27 +70,20 @@
             <!-- 자유게시판  -->
             <template v-if="communityboard">
               <div class="card col-6 m-0 p-0 info-card">
-                <div
-                  class="m-2"
-                  v-if="communityboard[communityboard.length - 1] != undefined"
-                >
+                <div class="m-2" v-if="communityboard[0] != undefined">
                   <b-btn class="com-btn mr-1">자유</b-btn>
                   <router-link
                     :to="{
                       name: 'CommunityBoardView',
                       params: {
-                        id: communityboard[communityboard.length - 1].boardSq,
+                        id: communityboard[0].boardSq,
                       },
                     }"
                     class="commu-router"
                   >
-                    <span>{{
-                      communityboard[communityboard.length - 1].boardTitle
-                    }}</span>
+                    <span>{{ communityboard[0].boardTitle }}</span>
                     <p class="text-muted m-b-0 commu-content">
-                      {{
-                        communityboard[communityboard.length - 1].boardContent
-                      }}
+                      {{ communityboard[0].boardContent }}
                     </p>
                   </router-link>
                 </div>
@@ -102,30 +92,30 @@
             </template>
 
             <!-- qna-->
-            <div class="card col-6 m-0 p-0 info-card">
-              <div
-                class="m-2"
-                v-if="qnaboard1[qnaboard1.length - 1] != undefined"
-              >
+            <div
+              class="card col-6 m-0 p-0 info-card"
+              v-for="(item, i) in qnaboard1"
+              :key="i"
+            >
+              <div class="m-2" v-if="qnaboard1[0] != undefined">
                 <router-link
                   :to="{
                     name: 'qnaView',
-                    params: { id: qnaboard1[qnaboard1.length - 1].qboardNo },
+                    params: { id: qnaboard1[i].qboardNo },
                   }"
                   class="qna-router"
                 >
                   <div class="qst">
                     <b-btn class="qna-btn mr-1">질문</b-btn>
-                    <span>{{ qnaboard1[qnaboard1.length - 1].qnaTitle }}</span>
+                    <span>{{ qnaboard1[i].qnaTitle }}</span>
                   </div>
                   <p class="text-muted m-b-0">
-                    {{ qnaboard1[qnaboard1.length - 1].qnaContent }}
+                    {{ qnaboard1[i].qnaContent }}
                   </p>
 
                   <div class="ans">
                     <b-btn class="ans-btn mr-1">답변</b-btn>
-                    <span
-                      v-if="qnaboard1[qnaboard1.length - 1].qnaAnswerYn == 'N'"
+                    <span v-if="qnaboard1[i].qnaAnswerYn == 'N'"
                       ><small>등록된 답변이 없습니다.</small></span
                     >
                     <span v-else><small>답변 확인하기</small></span>
@@ -136,43 +126,6 @@
               <div v-else>
                 <p class="m-2">등록된 질문이 없습니다.</p>
               </div>
-            </div>
-            <div class="card col-6 m-0 p-0 info-card">
-              <div
-                class="m-2"
-                v-if="qnaboard1[qnaboard1.length - 2] != undefined"
-              >
-                <router-link
-                  :to="{
-                    name: 'qnaView',
-                    params: { id: qnaboard1[qnaboard1.length - 2].qboardNo },
-                  }"
-                  class="qna-router"
-                >
-                  <div class="qst">
-                    <b-btn class="qna-btn mr-1">질문</b-btn>
-                    <span>{{ qnaboard1[qnaboard1.length - 2].qnaTitle }}</span>
-                  </div>
-                  <p class="text-muted m-b-0">
-                    {{ qnaboard1[qnaboard1.length - 2].qnaContent }}
-                  </p>
-
-                  <div class="ans">
-                    <b-btn class="ans-btn mr-1">답변</b-btn>
-                    <span
-                      v-if="qnaboard1[qnaboard1.length - 2].qnaAnswerYn == 'N'"
-                      ><small>등록된 답변이 없습니다.</small></span
-                    >
-                    <span v-else><small>답변 확인하기</small></span>
-                  </div>
-                </router-link>
-              </div>
-
-              <div v-else>
-                <p class="m-2">등록된 질문이 없습니다.</p>
-              </div>
-
-              <!-- qna fin -->
             </div>
           </div>
         </div>
@@ -367,11 +320,11 @@ export default {
       });
     }
     await this.$store.dispatch("jobStore/loadXml");
-    this.$store.dispatch("FETCH_QNABOARD");
-    this.$store.dispatch("FETCH_COMMUNITYBOARD");
-    this.$store.dispatch("FECH_MEETINGLIST");
-    this.$store.dispatch("FETCH_NOTICE");
-    this.$store.dispatch("FECH_ITNEWS_LIST");
+    await this.$store.dispatch("FETCH_QNABOARD");
+    await this.$store.dispatch("FETCH_COMMUNITYBOARD");
+    await this.$store.dispatch("FECH_MEETINGLIST");
+    await this.$store.dispatch("FETCH_NOTICE");
+    await this.$store.dispatch("FECH_ITNEWS_LIST");
   },
 
   computed: {
@@ -380,7 +333,11 @@ export default {
     //유저데이터 호출
     ...memberState(["loginStatus", "userData"]),
     ...jobState(["jobs", "rcmJobs"]),
-    ...mapState(["qnaboard1", "communityboard", "noticeList"]),
+    ...mapState(["communityboard", "noticeList"]),
+
+    qnaboard1() {
+      return this.$store.state.qnaboard1.slice(0, 2);
+    },
 
     itnewsList() {
       return this.$store.state.itnewsList.slice(0, 3);
