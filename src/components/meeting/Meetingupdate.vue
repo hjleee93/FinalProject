@@ -90,7 +90,7 @@
          <v-file-input
     :label="vfile"
     filled
-    required
+  
     
    
     accept=".gif,.jpg,.png"
@@ -137,11 +137,12 @@
     
       style="width:500px;height:400px;"/> </b-col>
       </b-row> -->
-    <b-row><b-col>  <b-input required readonly  :placeholder="raddress" v-model="result.address"></b-input></b-col></b-row>
+    <b-row><b-col>  <b-input  readonly  :placeholder="raddress" v-model="result.address"></b-input></b-col></b-row>
     <b-row><b-col>  <b-button  id="s-btn" type="submit">개설완료</b-button></b-col></b-row>
   </form>
   </b-container>
   </div>
+  <div>{{this.$route.params.id}}</div>
   {{mtitle+
 sdate+
 fdate+
@@ -153,6 +154,7 @@ front+
 desgin+
 langs+
 vfile+
+rfile+
 raddress}}
   </div>
 </template>
@@ -164,32 +166,17 @@ import ModalView from '../common/ModalView.vue'
 import { createNamespacedHelpers ,mapState} from "vuex";
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 export default {
-  // mounted() { 
-  //       mapContainer = document.getElementById('map'), // 지도를 표시할 div
-  //       mapOption = {
-  //           center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-  //           level: 5 // 지도의 확대 레벨
-  //       };
-
-  //   //지도를 미리 생성
-  //    map = new daum.maps.Map(mapContainer, mapOption);
-  //   //주소-좌표 변환 객체를 생성
-  //    geocoder = new daum.maps.services.Geocoder();
-  //   //마커를 미리 생성
-  //    marker = new daum.maps.Marker({
-  //       position: new daum.maps.LatLng(37.537187, 127.005476),
-  //       map,
-  //   });  
-  //   },
+ 
   components:{
-    // VueDaumMap,
-   // VueDaumPostcode,
+
     ModalView,
   } ,
   created() {
       const uno=this.$route.params.id
        this.$store.dispatch("FECH_UPDATED",uno)
        .then(({data})=>{
+         console.log(data)
+         //초기값 불러올때 data값에 설정
          this.mtitle=data[0].collabTitle
          this.sdate= this.getToday(data[0].collabUploaddate)
          this.fdate=this.getToday(data[0].collabDeadline)
@@ -201,7 +188,9 @@ export default {
          this.desgin=data[0].collabDesgin
          this.langs=data[0].collabLang
          this.vfile=data[1].originalFilename
+        this.rfile=data[1].renamedFilename
          this.raddress=data[0].address
+         this.mtno=data[1].mattachementNo
        })
 
  console.log("created")
@@ -238,6 +227,7 @@ export default {
   },
   methods: {
     getToday(data){
+      //날자 데이터 포멧 설정하는 로직
     let date = new Date(data);
     let year = date.getFullYear();
     let month = ("0" + (1 + date.getMonth())).slice(-2);
@@ -263,15 +253,15 @@ export default {
         },
        
         enroller(){
-          if(this.result.address==undefined){
-            alert("값이 비여있습니다.")
-            return 
-          }
+          
           let formData=new FormData();
+          if(this.result.address==undefined){
+            //모달로 값을 가져온것이 없으면 초기값가져온것을 넘겨준다.
+            formData.append('address',this.raddress)
+          }else   formData.append('address',this.result.address)
+          formData.append('collabSq',this.$route.params.id)
+          formData.append('mtno',this.mtno)
           formData.append('mtitle',this.mtitle);
-          formData.append('mwriter',this.userData.memberName);
-          formData.append('memail',this.userData.memberEmail);
-          formData.append('mphone',this.userData.memberPhone);
           formData.append('sdate',this.sdate);
           formData.append('fdate',this.fdate);
           formData.append('back',this.back);
@@ -287,11 +277,11 @@ export default {
           for(let key of formData.entries()){
           console.log(`${key}`);
             }
-           axios.post("http://localhost:8082/itjobgo/meeting/enrollmeeting.do",formData
+           axios.post("http://localhost:8082/itjobgo/meeting/updatemeeting.do",formData
     ,{ headers:{
        'Content-Type':'multipart/form-data'
      }})
-     .then(()=>this.$router.push({name:'meeting'}))
+    .then(()=>this.$router.push({name:'mkmeeting',params:{memberSq:this.userData.memberSq}}))
     .catch((error)=>console.log(error))
         },
         handleFile(){
@@ -357,10 +347,12 @@ export default {
       files:'',
       mcontent:'',
       vfile:'',
+      rfile:'',
       langs:[],
       min:minDate,
       state:"disabled",
       raddress:'',
+      mtno:'',
     
       
        
