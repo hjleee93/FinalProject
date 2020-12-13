@@ -23,13 +23,15 @@ const jobStore = {
     actions: {
 
         async rcmJob({ commit }, memberPosition) {
+            console.log(localStorage.getItem("memberEmail"))
             await axios.get(
                 "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&keyword=" +
                 memberPosition.memberPosition
             ) //추천 채용정보
                 .then((response) => {
-
+                    console.log("왜ㅜㅜㅜㅜㅜㅜㅜ")
                     var xml = response.data;
+                    console.log(xml)
                     var json = convert.xml2json(xml, { compact: true });
                     this.rcmJobs = JSON.parse(json);
                     console.log("created!");

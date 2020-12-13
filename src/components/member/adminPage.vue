@@ -181,10 +181,13 @@ export default {
   data: () => ({
     resumePhoto: null,
     previewImage: null,
+    files: "",
   }),
-  created() {
+
+  async mounted() {
+    await this.$store.dispatch("memberStore/getMemberInfo");
     if (this.userData.memberSq != undefined) {
-      axios
+      await axios
         .get(
           "http://localhost:8082/itjobgo/member/loadPhoto?memberSq=" +
             this.userData.memberSq,
@@ -192,11 +195,10 @@ export default {
         )
         .then((res) => {
           const url = window.URL.createObjectURL(new Blob([res.data]));
-
+          console.log(url);
           this.previewImage = url;
         });
     }
-
     this.$store.dispatch("FETCH_NOTICE");
   },
   methods: {
@@ -228,7 +230,7 @@ export default {
     selectImage() {
       this.$refs.fileInput.click();
     },
-    pickFile() {
+    async pickFile() {
       let input = this.$refs.fileInput;
       let file = input.files;
       this.files = input.files;
@@ -241,7 +243,7 @@ export default {
           this.previewImage = e.target.result;
         };
         reader.readAsDataURL(file[0]);
-        this.$emit("input", file[0]);
+        await this.$emit("input", file[0]);
       }
     },
     moveNoticeAll() {

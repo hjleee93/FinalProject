@@ -45,7 +45,6 @@ const memberStore = {
                     } else {//토큰값 있음
                         localStorage.setItem("memberEmail", loginData.memberEmail)
                         localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
-
                         dispatch("getMemberInfo", loginData)//여기로 넘어가서 commit('loginSuccess')실행함
                         router.push('/');//메인페이지로 이동
 
@@ -109,13 +108,14 @@ const memberStore = {
                 });
         },
         //유저 정보 가져오기
-        getMemberInfo({ commit }) {
-            // alert("22222222");
-            console.log("유저정보");
+        async getMemberInfo({ commit }) {
+
 
             let memberEmail = localStorage.getItem("memberEmail")
             let token = localStorage.getItem("access_token")
 
+
+            console.log("유저정보" + memberEmail);
 
             let config = {
                 //헤더에 토큰값 포함해서 보내기
@@ -126,7 +126,7 @@ const memberStore = {
             if (token != null || memberEmail != null) {
                 // alert("도랏냐 이게 3아님?")
                 //토큰으로 member return  
-                axios.get('http://localhost:8082/itjobgo/member/getMember?memberEmail=' + memberEmail, config)
+                await axios.get('http://localhost:8082/itjobgo/member/getMember?memberEmail=' + memberEmail, config)
                     .then(response => {
 
                         var userData = {
@@ -142,7 +142,7 @@ const memberStore = {
                             memberPosition: response.data.memberPosition,
                             memberToken: response.data.memberToken
                         }
-
+                        console.log("store: " + userData.memberSq)
                         commit('loginSuccess', userData)
                     })
                     .catch(() => {

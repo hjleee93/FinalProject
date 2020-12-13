@@ -45,7 +45,8 @@
                 <small>Or sign in with credentials</small>
               </div>
               <validation-observer ref="formValidator">
-                <b-form role="form">
+                <!-- v-on:submit.prevent="onSubmit" : submit 방지용 -->
+                <b-form role="form" v-on:submit.prevent="onSubmit">
                   <b-form-input
                     alternative
                     class="mb-3"
@@ -58,7 +59,7 @@
 
                   <b-form-input
                     alternative
-                    class="mb-3"
+                    class="mb-3 pwdInput"
                     required
                     type="password"
                     placeholder="Password"
@@ -76,11 +77,12 @@
                     >Remember me</b-form-checkbox
                   >
                   <div class="text-center">
-                    <base-button
-                      type="primary"
+                    <b-button
+                      id="loginBtn"
+                      type="submit"
                       @click="login()"
                       class="login-btn my-4"
-                      >Sign in</base-button
+                      >Sign in</b-button
                     >
                   </div>
                 </b-form>

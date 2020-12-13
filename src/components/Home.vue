@@ -180,6 +180,7 @@
               >추천 채용 정보</strong
             >
           </h3>
+
           <template v-if="rcmJobs.wantedRoot != undefined">
             <div class="row">
               <div
@@ -204,7 +205,7 @@
                     <div class="card-footer">
                       <small>
                         <b-card-text
-                          >등록 일자: {{ item.regDt._text }}</b-card-text
+                          ><span>{{ item.region._text }}</span></b-card-text
                         ></small
                       >
                     </div>
@@ -264,8 +265,8 @@
                 </div>
                 <div class="card-footer">
                   <small
-                    ><b-card-text
-                      >등록 일자: {{ item.regDt._text }}</b-card-text
+                    ><b-card-text>
+                      <span>{{ item.region._text }}</span></b-card-text
                     ></small
                   >
                 </div>
@@ -316,11 +317,10 @@ export default {
 
     await this.$store.dispatch("memberStore/getMemberInfo");
 
-    if (this.userData.memberPosition != undefined) {
-      await this.$store.dispatch("jobStore/rcmJob", {
-        memberPosition: this.userData.memberPosition,
-      });
-    }
+    await this.$store.dispatch("jobStore/rcmJob", {
+      memberPosition: this.userData.memberPosition,
+    });
+
     await this.$store.dispatch("jobStore/loadXml");
     await this.$store.dispatch("FETCH_QNABOARD");
     await this.$store.dispatch("FETCH_COMMUNITYBOARD");

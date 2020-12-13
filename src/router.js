@@ -544,7 +544,7 @@ export default new Router({
       beforeEnter: adminDeny()
     },
     {
-      path: '/resumeBoard',
+      path: '/resumeBoard/:id',
       name: 'resumeBoard',
       component: ResumeBoard,
       beforeEnter: LoginAuth()
