@@ -11,6 +11,7 @@ import {
      fetchAttachment,
      fetchcomment,
      fetchcommentdel,
+     fetchmtUpdate,
 
      //모임
      fetchMeeting,
@@ -101,6 +102,7 @@ export default new Vuex.Store({
           meeting: [],
           msubList: [],
           minfo: [],
+          uminfo:[],
           apply: [],
           approvelist: [],
           mklist: [],
@@ -254,10 +256,13 @@ export default new Vuex.Store({
                 const response=await fetchmeetingdel(no)
                 return response
           },
+          //모임업데이트할때 해당 모임 정보를 가져오는 로직
+          async FECH_UPDATED({commit},no){
+              const response=await fetchmtUpdate(no)
+              commit("SET_UMINFO",response.data)
+              return response;
 
-
-
-
+          },
           //주은
           //자유게시판 list 불러오기
           FETCH_COMMUNITYBOARD({ commit }) {
@@ -554,6 +559,9 @@ export default new Vuex.Store({
           },
           SET_MINFO(state, data) {
                state.minfo = data;
+          },
+          SET_UMINFO(state, data) {
+               state.uminfo = data;
           },
           SET_COMMENT(state, data) {
                state.comment = data;

@@ -64,6 +64,10 @@ function fetchmklist(no){
 function fetchmeetingdel(no){
     return axios.get(`${config.Url}meeting/meetingdel${no}.do`)
 }
+//모임업데이트할때 사용하는 로직
+function fetchmtUpdate(no){
+    return axios.get(`${config.Url}meeting/meetingupdate${no}.do`)
+}
 
 
 
@@ -240,6 +244,7 @@ export {
     fetchApproveList,
     fetchmklist,
     fetchmeetingdel,
+    fetchmtUpdate,
   
 
     //주은
