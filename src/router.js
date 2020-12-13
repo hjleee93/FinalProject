@@ -257,7 +257,7 @@ export default new Router({
 
     },
     {
-<<<<<<< HEAD
+
       path:'/meetingapply',
       component:Meetingapply,
       beforeEnter: LoginAuth()
@@ -275,22 +275,6 @@ export default new Router({
       component:Mkmeeting,
       name:'mkmeeting',
       beforeEnter: LoginAuth()
-=======
-      path: '/meetingapply',
-      component: Meetingapply,
-
-    },
-    {
-      path: '/approve/:memberSq',
-      component: Approve,
-      name: 'approve',
-
-    },
-    {
-      path: '/mkmeeting/:memberSq',
-      component: Mkmeeting,
-      name: 'mkmeeting',
->>>>>>> 23a95a777f30213ea3227e85bf29e2e40e13b9c3
     },
     {
       path: '/enrollmeeting',
@@ -310,13 +294,6 @@ export default new Router({
       path: '/meetinginfo/:id',
       component: Meetinginfo,
       name: "meetinginfo",
-<<<<<<< HEAD
-      
-      
-=======
-
->>>>>>> 23a95a777f30213ea3227e85bf29e2e40e13b9c3
-
     },
     {
       path: '/portfolioList',

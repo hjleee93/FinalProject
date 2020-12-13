@@ -244,12 +244,11 @@ export {
     fetchApproveList,
     fetchmklist,
     fetchmeetingdel,
-<<<<<<< HEAD
     fetchmtUpdate,
   
-=======
 
->>>>>>> 23a95a777f30213ea3227e85bf29e2e40e13b9c3
+
+
 
     //주은
     //자유게사판CommunityBoard
