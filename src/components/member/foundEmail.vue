@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div>
     <!-- Header -->
     <div class="header bg-gradient-success py-7 py-lg-8 pt-lg-9">
       <b-container>
@@ -20,14 +20,16 @@
           <b-card no-body class="border-0 mb-0 login-content">
             <b-card-header class="login-content">
               <div class="text-muted text-center mt-2 mb-3">
-                입력하신 정보로 등록된 이메일입니다.<br>
+                입력하신 정보로 등록된 이메일입니다.<br />
               </div>
             </b-card-header>
             <b-card-body class="px-lg-5 py-lg-5">
-                
-              <p class="email"><b>{{this.$route.params.email}}</b></p>
+              <p class="email">
+                <b>{{ this.$route.params.email }}</b>
+              </p>
               <router-link to="/login" class="text-dark"
-                ><b-btn class="login-btn">login</b-btn></router-link>
+                ><b-btn class="login-btn">login</b-btn></router-link
+              >
             </b-card-body>
           </b-card>
 
@@ -45,21 +47,21 @@
           </b-row>
         </b-col>
       </b-row>
-    
     </b-container>
   </div>
 </template>
 
-    
-
 <style scoped>
-.login-content{
+* {
+  font-family: "Nanum Gothic", sans-serif;
+}
+.login-content {
   background-color: #f7fafc !important;
   border-radius: 5px;
 }
 
-.email{
-    margin:0 auto;
-    text-align: center;
+.email {
+  margin: 0 auto;
+  text-align: center;
 }
 </style>

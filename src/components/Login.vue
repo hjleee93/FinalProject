@@ -45,7 +45,8 @@
                 <small>Or sign in with credentials</small>
               </div>
               <validation-observer ref="formValidator">
-                <b-form role="form">
+                <!-- v-on:submit.prevent="onSubmit" : submit 방지용 -->
+                <b-form role="form" v-on:submit.prevent="onSubmit">
                   <b-form-input
                     alternative
                     class="mb-3"
@@ -58,7 +59,7 @@
 
                   <b-form-input
                     alternative
-                    class="mb-3"
+                    class="mb-3 pwdInput"
                     required
                     type="password"
                     placeholder="Password"
@@ -76,8 +77,12 @@
                     >Remember me</b-form-checkbox
                   >
                   <div class="text-center">
-                    <base-button type="primary" @click="login()" class="my-4"
-                      >Sign in</base-button
+                    <b-button
+                      id="loginBtn"
+                      type="submit"
+                      @click="login()"
+                      class="login-btn my-4"
+                      >Sign in</b-button
                     >
                   </div>
                 </b-form>
@@ -108,8 +113,6 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 
-// import axios from "axios"
-
 export default {
   data() {
     return {
@@ -119,7 +122,7 @@ export default {
       redirectURI: `http://localhost:8082/itjobgo/member/naverLogin`, //서버연결
       naverLoginURL:
         "https://nid.naver.com/oauth2.0/authorize?response_type=code",
-      state: Math.floor(Math.random() * 9999) + 1, //TODO : 랜덤값 나올 수 있게 바꾸기
+      state: Math.floor(Math.random() * 9999) + 1,
       test1: [],
       model: {
         email: "",
@@ -129,11 +132,11 @@ export default {
     };
   },
 
-  mounted() {
-    if (window.Kakao == undefined) {
-      window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
-    }
-  },
+  // async mounted() {
+  //   if (window.Kakao == undefined) {
+  //     await window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
+  //   }
+  // },
   methods: {
     login: function() {
       let memberEmail = this.model.email;
@@ -143,6 +146,11 @@ export default {
       this.$store.dispatch("memberStore/login", { memberEmail, memberPwd });
     },
     kakaoLogin() {
+      // window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
+      console.log(Kakao);
+      if (Kakao.Auth == undefined) {
+        window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
+      }
       Kakao.Auth.authorize({
         redirectUri: `${window.location.origin}/loginCallback`,
       });
@@ -160,6 +168,15 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: "Nanum Gothic", sans-serif;
+}
+.login-btn {
+  text-decoration: none;
+  color: #fff;
+  background-color: #424874;
+  border-color: #424874;
+}
 /* 카카오버튼 */
 .kakao-login:hover {
   cursor: pointer;
