@@ -1,3 +1,7 @@
+.admin-page,
+.my-page {
+  font-family: "Nanum Gothic", sans-serif;
+}
 li {
   list-style: none;
 }
@@ -274,24 +278,30 @@ input[type="file"] {
 .pf,
 .scrap,
 .community,
-.notice {
+.notice,
+.resume {
   border: 1px solid #74899e !important;
+  clear: both;
 }
 thead.qna-table,
 thead.pf-table,
 thead.scrap-table,
 thead.community-table,
-thead.notice-table {
+thead.notice-table,
+thead.resume-table {
   background-color: #74899e;
 }
 #qnaBody:hover,
 #pfBody:hover,
 #scrapBody:hover,
 #communityBody:hover,
-#noticeBody:hover {
+#noticeBody:hover,
+#resumeBody:hover {
   cursor: pointer;
 }
-
+#resumeAll {
+  float: right;
+}
 /* 디데이 */
 
 .d-day-btn {
@@ -317,6 +327,11 @@ thead.notice-table {
 
 /* 관리자 mypage */
 #noticeAll {
-  display: flex;
-  margin-left: auto;
+  float: right;
+}
+#noticeDiv {
+  clear: both;
+}
+.urgent-call .mobile {
+  margin-left: 35px;
 }

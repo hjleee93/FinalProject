@@ -6,7 +6,7 @@
 			<h2 class="st_title">QnA 질문등록</h2><hr>
 
     <!-- 데이터 넘기기 form 시작-->
-    <form @submit.prevent="writeQna"
+    <b-form role="form" @submit.prevent="writeQna"
     @reset="onReset" enctype="multipart/form-data">
 
       <!-- 작성자(멤버)불러옴 -->
@@ -21,11 +21,9 @@
           ></b-form-input>
       </b-form-group>
 
-      <b-form-group
-          id="input-group-1"
-          label="제목"
-          label-for="input-1"
-      > 
+      <b-input-group 
+          prepend="제목"
+          class="mb-2" >
       <b-form-input
           id="input-1"
           v-model="qnaTitle"
@@ -33,28 +31,31 @@
           required
           placeholder="제목을 입력해주세요"
         ></b-form-input>
-      </b-form-group>
+      </b-input-group>
 
       <!-- 카테고리 -->
-      <b-form-group id="input-group-2" 
-      label="분류" label-for="input-2" label-align="left">
+      <b-input-group 
+          prepend="분류"
+          class="mb-2" >        
         <b-form-select
           id="input-2"
           v-model="category"
           :options="qnaCategory"
           required
         ></b-form-select>
-      </b-form-group>
+      </b-input-group>
 
       <!-- 에디터창, 내용 -->
-      <b-form-group  label="내용" >
-        <vue-editor 
-          id="input-3"
-          v-model="qnaContent" 
-          name="qnaContent" />
-      </b-form-group>
+        <b-form-group id="input-group-3"  label-for="input-3">
+        <b-form-textarea
+          id="textarea-content"
+          v-model="qnaContent"
+          required
+          placeholder="내용을 입력해주세요"
+          rows="10"
+        ></b-form-textarea>
+        </b-form-group>
 
-    
         <!-- 첨부 파일 -->
          <b-form-group>
         <b-form-file
@@ -71,12 +72,12 @@
 
     
       <div id="btn_bottom">
-      <b-button  id="btn_write" @click="writeQna" class="btn-space">등록하기</b-button>
+      <b-button type="submit" id="btn_write" class="btn-space">등록하기</b-button>
       <b-button type="reset" id="btn_write" class="btn-space">등록취소</b-button>
       <b-button type="button" id="btn_write"  to="/qnaBoard" exact>목록</b-button>
       </div>
 
-    </form>
+    </b-form>
 
   </div>
   
@@ -86,7 +87,7 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
+//import { VueEditor } from "vue2-editor";
 import axios from 'axios';
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
@@ -110,9 +111,9 @@ const { mapState } = createNamespacedHelpers("memberStore");
       }
     },
 
-    components:{
-      VueEditor
-    },
+    // components:{
+    //   VueEditor
+    // },
 
     computed: {
     ...mapState(['userData'])

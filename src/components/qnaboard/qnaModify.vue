@@ -12,11 +12,10 @@
     <form @submit.prevent="updateqna"
     enctype="multipart/form-data">
 
-      <b-form-group
-          id="input-group-1"
-          label="제목"
-          label-for="input-0"
-      > 
+      <b-input-group
+          prepend="제목"
+          class="mb-2"
+      >
       <b-form-input
           id="input-1"
           name="qnaTitle"
@@ -25,36 +24,39 @@
           placeholder="제목을 입력해주세요"
           v-model="qnaboard2.qnaTitle"
         ></b-form-input>
-      </b-form-group>
+      </b-input-group>
 
       <!-- 카테고리 선택 -->
-      <b-form-group id="input-group-2" label="카테고리" label-for="input-2">
-          <b-form-input
-            id="input-2"
-            name="qnaCategory"
-            required
-            placeholder="카테고리"
-            readonly
-            v-model="qnaboard2.qnaCategory"
-          ></b-form-input>
-      </b-form-group>
-      <!-- <b-form-group id="input-group-2" 
-      label="분류" label-for="input-2" label-align="left">
+      <b-input-group
+            prepend="카테고리"
+            class="mb-2">
         <b-form-select
           id="input-2"
           v-model="category"
           :options="qnaCategory"
           required
         ></b-form-select>
-      </b-form-group> -->
+      </b-input-group>
 
       <!-- 에디터창, 내용 -->
-      <b-form-group  label="내용" >
+      <b-form-group 
+          id="input-group-3"
+          label-for="input-3">
+        <b-form-textarea
+          id="textarea-content"
+          v-model="qnaboard2.qnaContent"
+          name="qnaContent"
+          required
+          placeholder="내용을 입력해주세요"
+          rows="10"
+        ></b-form-textarea>
+      </b-form-group>
+      <!-- <b-form-group  label="내용" >
         <vue-editor 
           id="input-3"
           v-model="qnaboard2.qnaContent" 
           name="qnaContent" />
-      </b-form-group>
+      </b-form-group> -->
 
       <!-- 첨부 파일 -->
       <b-form-group>
@@ -71,7 +73,7 @@
   
         <!-- 버튼 -->
         <div id="btn_bottom">
-        <b-button  id="btn_write" @click="updateqna" class="btn-space">수정완료</b-button>
+        <b-button type="submit" id="btn_write" class="btn-space">수정완료</b-button>
         <b-button type="button" id="btn_write"  to="/qnaBoard" exact>목록으로</b-button>
         </div>
       </form>
@@ -80,7 +82,7 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
+// import { VueEditor } from "vue2-editor";
 import { mapState } from 'vuex';
 import axios from 'axios';
 
@@ -90,14 +92,14 @@ import axios from 'axios';
     data() {
       return{
         qnaTitle:"",
-        // category:"null",
         qnaWriter:"",
         qnaAnswerYn:"N",
-        // qnaCategory :[
-        //   { value: null, text: '분류를 선택해주세요' },
-        //   { value: '백엔드', text: '백엔드' },
-        //   { value: '프론트엔드', text: '프론트엔드' },
-        // ],
+        category:null,
+        qnaCategory :[
+          { value: null, text: '분류를 선택해주세요' },
+          { value: '백엔드', text: '백엔드' },
+          { value: '프론트엔드', text: '프론트엔드' },
+        ],
         qnaContent:"",
         files:""
       }
@@ -118,9 +120,9 @@ import axios from 'axios';
       })
     },
 
-    components:{
-      VueEditor,
-    },
+    // components:{
+    //   VueEditor,
+    // },
   
     methods: {
       updateqna(){
@@ -140,7 +142,7 @@ import axios from 'axios';
 
         let formData = new FormData();
         formData.append('qnaTitle',this.qnaTitle);
-        formData.append('qnaCategory',this.category2);
+        formData.append('qnaCategory',this.category);
         formData.append('qnaWriter',this.qnaWriter);
         formData.append('qnaAnswerYn',this.qnaAnswerYn);
         formData.append('qnaContent',this.qnaContent.replace(/(<([^>]+)>)/ig,""))
@@ -149,7 +151,6 @@ import axios from 'axios';
 
         //아이디값=글번호 받아오기
         formData.append('qboardNo',this.$route.params.id);
-
 
         for(let key of formData.entries()){
         console.log(`${key}`);

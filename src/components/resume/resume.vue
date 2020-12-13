@@ -104,7 +104,7 @@
                     </tr>
                 </table>
                 <table>
-                    <div class="resumetitle"><p>학력사항</p></div>
+                    <div class="resumetitle"><p>학력사항</p></div> 
                     <tr>
                         <td class="school"><strong>학력구분</strong></td>
                         <td><strong>학교명</strong></td>

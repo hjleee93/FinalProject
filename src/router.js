@@ -2,12 +2,16 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './components/Home.vue'
 // import store from './store'
-import memberStore from './store/modules/memberStore.js';// member 관리 store
+// import memberStore from './store/modules/memberStore.js';// member 관리 store
 
 //네비게이션가드
-
+var loginCheck = localStorage.loginStatus;
 const LoginAuth = () => (to, from, next) => {
-  if (memberStore.state.loginStatus != false) {
+  //vuex 체크용
+  console.log(localStorage.vuex.includes('"loginStatus":true'))
+  console.log(loginCheck)
+
+  if (localStorage.vuex.includes('"loginStatus":true')) {
 
     return next();
   }
@@ -19,7 +23,7 @@ const LoginAuth = () => (to, from, next) => {
   next('/login')
 }
 const adminDeny = () => (to, from, next) => {
-  if (memberStore.state.loginStatus != false) {
+  if (localStorage.vuex.includes('"loginStatus":true')) {
 
     return next();
   }
@@ -32,7 +36,7 @@ const adminDeny = () => (to, from, next) => {
 }
 
 const LoginDeny = () => (to, from, next) => {
-  if (memberStore.state.loginStatus != false) {
+  if (localStorage.vuex.includes('"loginStatus":true')) {
 
     return next();
   }
@@ -55,6 +59,10 @@ import PortFolio from './components/portfolio/PortFoilo.vue'
 import PortFoiloenroller from './components/portfolio/PortFoiloenroller.vue';
 import Portfolioinfo from './components/portfolio/PortFolioinfo.vue';
 import Portfolioupdate from './components/portfolio/PortFolioupdate.vue';
+import Meetingapply from './components/meeting/Meetingapply.vue';
+import Approve from './components/meeting/Approve.vue';
+import Mkmeeting from './components/meeting/Mkmeeting.vue';
+import Meetingupdate from './components/meeting/Meetingupdate.vue';
 
 //혜지
 
@@ -212,10 +220,9 @@ const LoginCallback = () => {
 const NaverLogin = () => {
   return import('./components/member/naverLogin.vue')
 }
-// const PhotoUpload = () => {
-//   return import('./components/member/photoUpload.vue')
-// }
-
+const ResumeBoard = () => {
+  return import('./components/member/ResumeBoard.vue')
+}
 const KakaoCallbackLogin = () => {
   return import('./components/member/kakaoCallbackLogin.vue')
 }
@@ -223,9 +230,6 @@ const AdminPage = () => {
   return import('./components/member/adminPage.vue')
 }
 
-// const UpdatePassword = () =>{
-//   return import('./components/member/updatePassword.vue')
-// }
 
 export default new Router({
   mode: 'history',
@@ -237,10 +241,12 @@ export default new Router({
       path: '/meetingList',
       component: meetingList,
       name: "meetingList",
+
       children: [
         {
           path: 'meeting',
           component: Meeting,
+          name: 'meeting'
 
         },
         {
@@ -251,23 +257,66 @@ export default new Router({
 
     },
     {
+
+      path:'/meetingapply',
+      component:Meetingapply,
+      beforeEnter: LoginAuth()
+     
+    },
+    {
+      path:'/approve/:memberSq',
+      component:Approve,
+      name:'approve',
+      beforeEnter: LoginAuth()
+    
+    },
+    {
+      path:'/mkmeeting/:memberSq',
+      component:Mkmeeting,
+      name:'mkmeeting',
+      beforeEnter: LoginAuth()
+    },
+    {
       path: '/enrollmeeting',
       component: EnrollerMeeing,
+      beforeEnter: LoginAuth()
+
+
+    },
+    {
+      path:'/meetingupdae/:id',
+      component:Meetingupdate,
+      name:"meetingupdate",
+      beforeEnter: LoginAuth()
+
     },
     {
       path: '/meetinginfo/:id',
       component: Meetinginfo,
-      name: "meetinginfo"
-
+      name: "meetinginfo",
     },
     {
       path: '/portfolioList',
       component: PortFolio,
       name: 'portlist',
+      beforeEnter: LoginAuth()
+
+    },
+    {
+      path: '/portfolioenroller',
+      component: PortFoiloenroller,
+      beforeEnter: LoginAuth()
+
+    },
+    {
+      path: '/Portfolioinfo/:id',
+      component: Portfolioinfo,
+      name: 'Portinfo',
       beforeEnter(to, from, next) {
         //로그인한 사용자의 레벨을 가져온다  
-        const level = memberStore.state.userData.memberLevel;
-        if (level == 2 || level == 0) {
+        const level = localStorage.vuex.includes('"memberLevel":"2"')
+        console.log(level)
+        if (level == true) {
           //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
           next();
         } else {
@@ -276,20 +325,14 @@ export default new Router({
 
 
       }
-    },
-    {
-      path: '/portfolioenroller',
-      component: PortFoiloenroller,
-    },
-    {
-      path: '/Portfolioinfo/:id',
-      component: Portfolioinfo,
-      name: 'Portinfo',
+
     },
     {
       path: '/Portfolioupdate/:id',
       component: Portfolioupdate,
       name: 'Portup',
+      beforeEnter: LoginAuth()
+
     },
     //민지
     {
@@ -347,7 +390,7 @@ export default new Router({
       name: 'NoticeList',
       component: NoticeList
     },
-    
+
 
     {
       path: '/noticeForm',
@@ -446,7 +489,9 @@ export default new Router({
     {
       path: '/jobSearchDtl',
       name: 'jobSearchDtl',
-      component: JobSearchDtl
+      query: { occupation: '', keyword: '', region: '' },
+      component: JobSearchDtl,
+
     },
     {
       path: '/chgMemberInfo',
@@ -507,6 +552,12 @@ export default new Router({
       name: 'adminPage',
       component: AdminPage,
       beforeEnter: adminDeny()
+    },
+    {
+      path: '/resumeBoard/:id',
+      name: 'resumeBoard',
+      component: ResumeBoard,
+      beforeEnter: LoginAuth()
     },
 
     //현주

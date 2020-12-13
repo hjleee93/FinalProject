@@ -1,5 +1,5 @@
 <template>
-  <b-container class="mb-5">
+  <b-container class="mb-5 my-page">
     <div class="header-body text-center mb-7 my-4">
       <b-row class="justify-content-center">
         <b-col xl="5" lg="6" md="8" class="px-5">
@@ -50,15 +50,18 @@
       <ul class="infoList">
         <!-- 이력서 공개중 -->
 
-        <li class="topList first resume">
+        <li class="topList first">
           <p class="title">이력서 등록수</p>
           <p class="count">
-            <a href="http://www.alba.co.kr/person/resume/MagResume.asp">1</a>개
+            <a href="#resumeDive" class="scroll">{{ resume }}</a
+            >개
           </p>
         </li>
         <li class="topList openState">
           <p class="title">참여한 프로젝트수</p>
-          <p class="count"><a href="#projDiv" class="scroll">1</a>개</p>
+          <p class="count">
+            <router-link to="/meetingapply" class="scroll">1</router-link>개
+          </p>
         </li>
 
         <li class="topList last onlineCount">
@@ -116,7 +119,67 @@
       </ul>
       <div></div>
     </div>
+    <!-- 이력서 -->
+    <!-- TODO: 이력서 보기 -->
+    <div id="resumeDive"></div>
+    <div>
+      <p class="h3 mt-5 font-weight-bold text-center">
+        이력서
+      </p>
 
+      <p id="resumeAll" class="mb-2">
+        <b-btn @click="moveResumeAll(userData.memberSq)">전체보기</b-btn>
+      </p>
+      <v-simple-table class="resume">
+        <thead class="resume-table">
+          <tr>
+            <th class="text-left">
+              분류
+            </th>
+            <th class="text-left">
+              제목
+            </th>
+            <th class="text-left">
+              답변여부
+            </th>
+            <th class="text-left">
+              작성일
+            </th>
+          </tr>
+        </thead>
+        <template v-if="pboard[0] != undefined">
+          <tbody>
+            <tr
+              class="resume-table"
+              id="resumeBody"
+              v-for="(pf, index) in pboard"
+              :key="index"
+              @click="movePortf(pboard[index].pboardNo)"
+            >
+              <template v-if="pboard[index] != undefined">
+                <td>수정중~~~~~~~~~~</td>
+                <td>{{ pboard[index].pboardTitle }}</td>
+                <template v-if="pboard[index].pboardStatus == 'N'">
+                  <td>등록된 답변이 없습니다.</td>
+                </template>
+                <template v-else> <td>답변 완료</td></template>
+
+                <td>{{ formatDate(pboard[index].pboardDate) }}</td>
+              </template>
+            </tr>
+          </tbody>
+        </template>
+        <template v-else>
+          <tbody>
+            <tr>
+              <td colspan="4" class="text-center">
+                등록된 포트폴리오가 없습니다.
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </div>
     <!-- 스크랩 구인정보 -->
     <div id="scrapDiv"></div>
     <div>
@@ -454,7 +517,7 @@ import $ from "jquery";
 
 const { mapState: memberState } = createNamespacedHelpers("memberStore");
 const { mapState: jobState } = createNamespacedHelpers("jobStore");
-
+import { mapState } from "vuex";
 $(document).ready(function($) {
   $(".scroll").click(function(event) {
     event.preventDefault();
@@ -487,9 +550,12 @@ export default {
     }
   },
   async mounted() {
+    await this.$store.dispatch("memberStore/getMemberInfo");
     await this.$store.dispatch("jobStore/loadScrap", {
       memberSq: this.userData.memberSq,
     });
+
+    await this.$store.dispatch("FETCH_RESUME", this.userData.memberSq);
     this.$store.dispatch("FETCH_PBOARD");
     this.$store.dispatch("FETCH_QNABOARD");
     this.$store.dispatch("FETCH_COMMUNITYBOARD");
@@ -497,6 +563,7 @@ export default {
     this.$store.dispatch("jobStore/loadJobTable");
   },
   computed: {
+    ...mapState(["resume"]),
     ...memberState(["loginStatus", "userData"]),
     ...jobState(["tableList", "jobInfo", "scrap"]),
 
@@ -607,6 +674,9 @@ export default {
     },
   },
   methods: {
+    moveResumeAll(id) {
+      this.$router.push({ name: "resumeBoard", params: { id: id } });
+    },
     moveCommu(id) {
       this.$router.push({ name: "CommunityBoardView", params: { id: id } });
     },

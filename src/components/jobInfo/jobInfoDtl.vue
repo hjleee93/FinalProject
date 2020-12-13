@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="job-info-detail">
     <div class="header-body text-center mb-7">
       <b-row class="justify-content-center">
         <b-col xl="5" lg="6" md="8" class="px-5 my-4">
@@ -499,6 +499,9 @@ export default {
 </script>
 
 <style scoped>
+.job-info-detail {
+  font-family: "Nanum Gothic", sans-serif;
+}
 /* 지원버튼 */
 .apply-area {
   width: 445px;
