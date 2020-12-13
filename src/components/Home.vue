@@ -5,203 +5,7 @@
         class="row fullscreen d-flex align-items-center justify-content-center"
       >
         <!-- serach 바 -->
-        <div class="banner-content col-lg-12">
-          <b-form action="" class="serach-form-area">
-            <div class="row justify-content-center form-wrap">
-              <div class="col-lg-4 form-cols ">
-                <b-form-input
-                  type="text"
-                  class="form-control"
-                  name="search"
-                  v-model="keyword"
-                  placeholder="검색어를 입력해주세요"
-                />
-              </div>
-              <div class="col-lg-3 form-cols">
-                <div>
-                  <button
-                    type="button"
-                    class="form-control"
-                    name="search"
-                    @click="locationSearch"
-                  >
-                    지역을 선택해주세요
-                  </button>
-                </div>
-              </div>
-
-              <div class="col-lg-3 form-cols ">
-                <div>
-                  <button
-                    type="button"
-                    class="form-control"
-                    name="search"
-                    @click="fieldSearch"
-                  >
-                    직종을 선택해주세요
-                  </button>
-                </div>
-              </div>
-
-              <div class="col-lg-2 form-cols">
-                <b-button
-                  type="button"
-                  class="btn btn-info"
-                  @click="jobSearch()"
-                >
-                  <span class="lnr lnr-magnifier"></span> Search
-                </b-button>
-              </div>
-            </div>
-            <!-- 지역선택 dept 1 -->
-            <div class="location-div">
-              <p class="p-4"><b>지역을 선택해주세요</b></p>
-              <div class="prov-layer p-4">
-                <table>
-                  <tr>
-                    <td class="area-btn">
-                      <b-btn class="areaBtn" @click="locationSelected(' ')"
-                        >전체</b-btn
-                      >
-                    </td>
-                    <td class="area-btn" value="seoul">
-                      <b-btn class="areaBtn">서울</b-btn>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="area-btn" value="sejong">
-                      <b-btn class="areaBtn">세종</b-btn>
-                    </td>
-                    <td class="area-btn" value="gyeonggi">
-                      <b-btn class="areaBtn">경기</b-btn>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="area-btn" value="busan">
-                      <b-btn class="areaBtn">부산</b-btn>
-                    </td>
-                    <td class="area-btn" value="incheon">
-                      <b-btn class="areaBtn">인천</b-btn>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="area-btn" value="daegu">
-                      <b-btn class="areaBtn">대구</b-btn>
-                    </td>
-                    <td class="area-btn" value="daegeon">
-                      <b-btn class="areaBtn">대전</b-btn>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="area-btn" value="ulsan">
-                      <b-btn class="areaBtn">울산</b-btn>
-                    </td>
-                    <td class="area-btn">
-                      <b-btn class="areaBtn" value="gwangju">광주</b-btn>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="area-btn" value="jeonbuk">
-                      <b-btn class="areaBtn">전북</b-btn>
-                    </td>
-                    <td class="area-btn">
-                      <b-btn class="areaBtn" value="jeonnam">전남</b-btn>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="area-btn">
-                      <b-btn class="areaBtn" value="gyeongbuk">경북</b-btn>
-                    </td>
-                    <td class="area-btn">
-                      <b-btn class="areaBtn" value="gyeongnam">경남</b-btn>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="area-btn" value="chungbuk">
-                      <b-btn class="areaBtn">충북</b-btn>
-                    </td>
-                    <td class="area-btn" vlaue="chungnam">
-                      <b-btn class="areaBtn">충남</b-btn>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="area-btn" valeu="gangwon">
-                      <b-btn class="areaBtn">강원</b-btn>
-                    </td>
-                    <td class="area-btn" value="jeju">
-                      <b-btn class="areaBtn">제주</b-btn>
-                    </td>
-                  </tr>
-                  <tr></tr>
-                </table>
-              </div>
-              <!-- 상세지역 dept 2 -->
-              <!-- TODO:테이블에 넣기... -->
-              <div class="city-layer seoul">
-                <b-form-group>
-                  <b-form-checkbox-group
-                    id="seoul"
-                    value="seoul"
-                    v-model="selectedArea"
-                    :options="options"
-                  ></b-form-checkbox-group>
-                </b-form-group>
-              </div>
-              <div class="city-layer sejong">
-                <b-form-group>
-                  <b-form-checkbox-group
-                    id="sejong"
-                    value="sejong"
-                    v-model="selectedArea"
-                    :options="optionSejong"
-                  ></b-form-checkbox-group>
-                </b-form-group>
-              </div>
-              <div class="city-layer busan">
-                <b-form-group>
-                  <b-form-checkbox-group
-                    id="busan"
-                    value="busan"
-                    v-model="selectedArea"
-                    :options="options1"
-                  ></b-form-checkbox-group>
-                </b-form-group>
-              </div>
-              <div class="city-layer daegu">
-                <b-form-group>
-                  <b-form-checkbox-group
-                    id="daegu"
-                    value="daegu"
-                    v-model="selectedArea"
-                    :options="optionDaegu"
-                  ></b-form-checkbox-group>
-                </b-form-group>
-              </div>
-              <div class="city-layer gyeonggi">
-                <b-form-group>
-                  <b-form-checkbox-group
-                    id="gyeonggi"
-                    value="gyeonggi"
-                    v-model="selectedArea"
-                    :options="optionGyeonggi"
-                  ></b-form-checkbox-group>
-                </b-form-group>
-              </div>
-            </div>
-            <div class="job-div">
-              <p class="p-4">직종을 선택해주세요</p>
-              <div class="job-layer">
-                <b-form-group>
-                  <b-form-checkbox-group
-                    v-model="selectedJob"
-                    :options="optionJob"
-                  ></b-form-checkbox-group>
-                </b-form-group>
-              </div>
-            </div>
-          </b-form>
-        </div>
+        <SearchBar />
         <!-- 메인 -->
         <div class="col-4 pl-0">
           <!-- it소식 -->
@@ -240,26 +44,23 @@
           <div class="row">
             <template v-if="noticeList">
               <div class="card col-6 m-0 p-0 info-card">
-                <div
-                  class="m-2"
-                  v-if="noticeList[noticeList.length - 1] != undefined"
-                >
-                  <b-btn class="ntc-btn">공지</b-btn>
+                <div class="m-2" v-if="noticeList[0] != undefined">
+                  <b-btn class="ntc-btn mr-1">공지</b-btn>
                   <router-link
                     :to="{
                       name: 'NoticeView',
                       params: {
-                        id: noticeList[noticeList.length - 1].noticeSq,
+                        id: noticeList[0].noticeSq,
                       },
                     }"
                     class="notice-router"
                   >
                     <span>
-                      {{ noticeList[noticeList.length - 1].noticeTitle }}
+                      {{ noticeList[0].noticeTitle }}
                     </span>
 
                     <p class="text-muted m-b-0 notice-content">
-                      {{ noticeList[noticeList.length - 1].noticeContent }}
+                      {{ noticeList[0].noticeContent }}
                     </p></router-link
                   >
                 </div>
@@ -269,27 +70,20 @@
             <!-- 자유게시판  -->
             <template v-if="communityboard">
               <div class="card col-6 m-0 p-0 info-card">
-                <div
-                  class="m-2"
-                  v-if="communityboard[communityboard.length - 1] != undefined"
-                >
-                  <b-btn class="com-btn">자유</b-btn>
+                <div class="m-2" v-if="communityboard[0] != undefined">
+                  <b-btn class="com-btn mr-1">자유</b-btn>
                   <router-link
                     :to="{
                       name: 'CommunityBoardView',
                       params: {
-                        id: communityboard[communityboard.length - 1].boardSq,
+                        id: communityboard[0].boardSq,
                       },
                     }"
                     class="commu-router"
                   >
-                    <span>{{
-                      communityboard[communityboard.length - 1].boardTitle
-                    }}</span>
+                    <span>{{ communityboard[0].boardTitle }}</span>
                     <p class="text-muted m-b-0 commu-content">
-                      {{
-                        communityboard[communityboard.length - 1].boardContent
-                      }}
+                      {{ communityboard[0].boardContent }}
                     </p>
                   </router-link>
                 </div>
@@ -298,30 +92,30 @@
             </template>
 
             <!-- qna-->
-            <div class="card col-6 m-0 p-0 info-card">
-              <div
-                class="m-2"
-                v-if="qnaboard1[qnaboard1.length - 1] != undefined"
-              >
+            <div
+              class="card col-6 m-0 p-0 info-card"
+              v-for="(item, i) in qnaboard1"
+              :key="i"
+            >
+              <div class="m-2" v-if="qnaboard1[0] != undefined">
                 <router-link
                   :to="{
                     name: 'qnaView',
-                    params: { id: qnaboard1[qnaboard1.length - 1].qboardNo },
+                    params: { id: qnaboard1[i].qboardNo },
                   }"
                   class="qna-router"
                 >
                   <div class="qst">
-                    <b-btn class="qna-btn">질문</b-btn>
-                    <span>{{ qnaboard1[qnaboard1.length - 1].qnaTitle }}</span>
+                    <b-btn class="qna-btn mr-1">질문</b-btn>
+                    <span>{{ qnaboard1[i].qnaTitle }}</span>
                   </div>
                   <p class="text-muted m-b-0">
-                    {{ qnaboard1[qnaboard1.length - 1].qnaContent }}
+                    {{ qnaboard1[i].qnaContent }}
                   </p>
 
                   <div class="ans">
-                    <b-btn class="ans-btn">답변</b-btn>
-                    <span
-                      v-if="qnaboard1[qnaboard1.length - 1].qnaAnswerYn == 'N'"
+                    <b-btn class="ans-btn mr-1">답변</b-btn>
+                    <span v-if="qnaboard1[i].qnaAnswerYn == 'N'"
                       ><small>등록된 답변이 없습니다.</small></span
                     >
                     <span v-else><small>답변 확인하기</small></span>
@@ -332,43 +126,6 @@
               <div v-else>
                 <p class="m-2">등록된 질문이 없습니다.</p>
               </div>
-            </div>
-            <div class="card col-6 m-0 p-0 info-card">
-              <div
-                class="m-2"
-                v-if="qnaboard1[qnaboard1.length - 2] != undefined"
-              >
-                <router-link
-                  :to="{
-                    name: 'qnaView',
-                    params: { id: qnaboard1[qnaboard1.length - 2].qboardNo },
-                  }"
-                  class="qna-router"
-                >
-                  <div class="qst">
-                    <b-btn class="qna-btn">질문</b-btn>
-                    <span>{{ qnaboard1[qnaboard1.length - 2].qnaTitle }}</span>
-                  </div>
-                  <p class="text-muted m-b-0">
-                    {{ qnaboard1[qnaboard1.length - 2].qnaContent }}
-                  </p>
-
-                  <div class="ans">
-                    <b-btn class="ans-btn">답변</b-btn>
-                    <span
-                      v-if="qnaboard1[qnaboard1.length - 2].qnaAnswerYn == 'N'"
-                      ><small>등록된 답변이 없습니다.</small></span
-                    >
-                    <span v-else><small>답변 확인하기</small></span>
-                  </div>
-                </router-link>
-              </div>
-
-              <div v-else>
-                <p class="m-2">등록된 질문이 없습니다.</p>
-              </div>
-
-              <!-- qna fin -->
             </div>
           </div>
         </div>
@@ -376,7 +133,9 @@
         <div class="col-4 p-0 collab">
           <div class="card table-card collab">
             <div class="card-header ">
-              <h5 class="text-center">최근 등록된 모임</h5>
+              <h5 class="meeting-title text-center mb-0">
+                <b>최근 등록된 모임</b>
+              </h5>
             </div>
 
             <table>
@@ -421,6 +180,7 @@
               >추천 채용 정보</strong
             >
           </h3>
+
           <template v-if="rcmJobs.wantedRoot != undefined">
             <div class="row">
               <div
@@ -445,7 +205,7 @@
                     <div class="card-footer">
                       <small>
                         <b-card-text
-                          >등록 일자: {{ item.regDt._text }}</b-card-text
+                          ><span>{{ item.region._text }}</span></b-card-text
                         ></small
                       >
                     </div>
@@ -505,8 +265,8 @@
                 </div>
                 <div class="card-footer">
                   <small
-                    ><b-card-text
-                      >등록 일자: {{ item.regDt._text }}</b-card-text
+                    ><b-card-text>
+                      <span>{{ item.region._text }}</span></b-card-text
                     ></small
                   >
                 </div>
@@ -520,203 +280,25 @@
 </template>
 
 <script>
+import SearchBar from "./SearchBar";
 import { createNamespacedHelpers } from "vuex";
 import { mapState } from "vuex";
-// import $ from "jquery";
 
 const { mapState: jobState } = createNamespacedHelpers("jobStore");
 const { mapState: memberState } = createNamespacedHelpers("memberStore");
-import $ from "jquery";
 
-//지역 상세선택
-$(document).on("click", ".areaBtn", function() {
-  let tem = $(this) //해당 클릭 지역 value값 return
-    .parents(".area-btn")
-    .attr("value");
-  if (
-    //클릭햇을때
-    $(this)
-      .parents(".area-btn") //해당 클릭 버튼의 상위 클래스 값에 on이 있으면
-      .hasClass("on")
-  ) {
-    $(this)
-      .parents(".area-btn") //on 지우고
-      .removeClass("on");
-    $(".city-layer ." + tem).removeClass("on"); //상세지역 dept2 on추가
-    //지역 dept2
-  } else {
-    $(this)
-      .parents(".area-btn") //없으면 on 추가
-      .addClass("on");
-    $("." + tem).addClass("on"); //상세지역 dept2 on추가
-
-    $(".city-layer")
-      .not(document.getElementsByClassName(tem))
-      .removeClass("on"); //해당 layer 제외 on remove
-    $(".areaBtn")
-      .not(this)
-      .parents(".area-btn") //나머지 버튼 on제거
-      .removeClass("on");
-  }
-});
-
-// var convert = require("xml-js");
-// import axios from "axios";
 //로그인한 사람에 따라 추천 parmeter 수정하기
 
 export default {
+  components: {
+    SearchBar,
+  },
   data() {
     return {
-      // inputSearch,//search bar 검색어
-      selectedJob: [],
-      selectedArea: [],
-      allSelected: null,
       rcmJson: [], //추천 채용정보
-      selectedLocation: null,
-      keyword: "",
-      optionJob: [
-        { value: "214201", text: "컴퓨터 기초 강사" },
-        { value: "214200", text: "컴퓨터 강사" },
-        { value: "214202", text: "프로그래밍 강사" },
-
-        // 022: 컴퓨터하드웨어, 통신공학 - 백엔드
-        // 023: 컴퓨터시스템 - 백엔드
-        // 024: 소프트웨어 - 백엔드
-        // 025: 데이터 - 백엔드
-        // 056, 214302: 디자이너 - 디자인
-      ],
-      optionSejong: [{ value: "36110", text: "세종" }],
-      optionGyeonggi: [
-        { value: "41000", text: "경기 전체" },
-        { value: "41110", text: "경기 수원시" },
-        { value: "41111", text: "경기 수원시 장안구" },
-        { value: "41113", text: "경기 수원시 권선구" },
-        { value: "41115", text: "경기 수원시 팔달구" },
-        { value: "41117", text: "경기 수원시 영통구" },
-        { value: "41130", text: "경기 성남시" },
-        { value: "41131", text: "경기 성남시 수정구" },
-        { value: "41133", text: "경기 성남시 중원구" },
-        { value: "41135", text: "경기 성남시 분당구" },
-        { value: "41150", text: "경기 의정부시" },
-        { value: "41170", text: "경기 안양시" },
-        { value: "41171", text: "경기 안양시 만안구" },
-        { value: "41173", text: "경기 안양시 동안구" },
-        { value: "41190", text: "경기 부천시" },
-        { value: "41210", text: "경기 광명시" },
-        { value: "41220", text: "경기 평택시" },
-        { value: "41250", text: "경기 동두천시" },
-        { value: "41270", text: "경기 안산시" },
-        { value: "41271", text: "경기 안산시 상록구" },
-        { value: "41273", text: "경기 안산시 단원구" },
-        { value: "41280", text: "경기 고양시" },
-        { value: "41281", text: "경기 고양시 덕양구" },
-        { value: "41285", text: "경기 고양시 일산동구" },
-        { value: "41287", text: "경기 고양시 일산서구" },
-        { value: "41290", text: "경기 과천시" },
-        { value: "41310", text: "경기 구리시" },
-        { value: "41360", text: "경기 남양주시" },
-        { value: "41370", text: "경기 오산시" },
-        { value: "41390", text: "경기 시흥시" },
-        { value: "41410", text: "경기 군포시" },
-        { value: "41430", text: "경기 의왕시" },
-        { value: "41450", text: "경기 하남시" },
-        { value: "41460", text: "경기 용인시" },
-        { value: "41461", text: "경기 용인시 처인구" },
-        { value: "41463", text: "경기 용인시 기흥구" },
-        { value: "41465", text: "경기 용인시 수지구" },
-        { value: "41480", text: "경기 파주시" },
-        { value: "41500", text: "경기 이천시" },
-        { value: "41550", text: "경기 안성시" },
-        { value: "41570", text: "경기 김포시" },
-        { value: "41590", text: "경기 화성시" },
-        { value: "41610", text: "경기 광주시" },
-        { value: "41630", text: "경기 양주시" },
-        { value: "41650", text: "경기 포천시" },
-        { value: "41670", text: "경기 여주시" },
-        { value: "41800", text: "경기 연천군" },
-        { value: "41820", text: "경기 가평군" },
-        { value: "41830", text: "경기 양평군" },
-      ],
-      optionDaegu: [
-        { value: "27000", text: "대구 전체" },
-        { value: "27110", text: "대구 중구" },
-        { value: "27140", text: "대구 동구" },
-        { value: "27170", text: "대구 서구" },
-        { value: "27200", text: "대구 남구" },
-        { value: "27230", text: "대구 북구" },
-        { value: "27260", text: "대구 수성구" },
-        { value: "27290", text: "대구 달서구" },
-        { value: "27710", text: "대구 달성군" },
-      ],
-      options1: [
-        { value: "26000", text: "부산 전체" },
-        { value: "26110", text: "부산 중구" },
-        { value: "26140", text: "부산 서구" },
-        { value: "26170", text: "부산 동구" },
-        { value: "26200", text: "부산 영도구" },
-        { value: "26230", text: "부산 부산진구" },
-        { value: "26260", text: "부산 동래구" },
-        { value: "26290", text: "부산 남구" },
-        { value: "26320", text: "부산 북구" },
-        { value: "26350", text: "부산 해운대구" },
-        { value: "26380", text: "부산 사하구" },
-        { value: "26410", text: "부산 금정구" },
-        { value: "26440", text: "부산 강서구" },
-        { value: "26470", text: "부산 연제구" },
-        { value: "26500", text: "부산 수영구" },
-        { value: "26530", text: "부산 사상구" },
-        { value: "26710", text: "부산 기장군" },
-      ],
-      options: [
-        { value: "11000", text: "서울 전체" },
-        { value: "11110", text: "서울 종로구" },
-        { value: "11140", text: "서울 중구" },
-        { value: "11170", text: "서울 용산구" },
-        { value: "11200", text: "	서울 성동구" },
-        { value: "11215", text: "서울 광진구" },
-        { value: "11230", text: "서울 동대문구" },
-        { value: "11260", text: "서울 중랑구" },
-        { value: "11290", text: "서울 성북구" },
-        { value: "11305", text: "서울 강북구" },
-        { value: "11320", text: "서울 도봉구" },
-        { value: "11350", text: "서울 노원구" },
-        { value: "11380", text: "서울 은평구" },
-        { value: "11410", text: "서울 서대문구" },
-        { value: "11440", text: "서울 마포구" },
-        { value: "11470", text: "서울 양천구" },
-        { value: "11500", text: "서울 강서구" },
-        { value: "11530", text: "서울 구로구" },
-        { value: "11545", text: "서울 금천구" },
-        { value: "11560", text: "서울 영등포구" },
-        { value: "11590", text: "서울 동작구" },
-        { value: "11620", text: "서울 관악구" },
-        { value: "11650", text: "서울 서초구" },
-        { value: "11680", text: "서울 강남구" },
-        { value: "11710", text: "서울 송파구" },
-        { value: "11740", text: "서울 강동구" },
-      ],
     };
   },
   methods: {
-    //지역 dept1
-    locationSearch() {
-      if ($(".location-div").hasClass("on")) {
-        $(".location-div").removeClass("on");
-      } else {
-        $(".location-div").addClass("on");
-        $(".job-div").removeClass("on");
-      }
-    },
-
-    fieldSearch() {
-      if ($(".job-div").hasClass("on")) {
-        $(".job-div").removeClass("on");
-      } else {
-        $(".job-div").addClass("on");
-        $(".location-div").removeClass("on");
-      }
-    },
-
     //it소식 이동
     cardclick(value) {
       this.$router.push({ name: "itNewsView", params: { id: value.newsSq } });
@@ -728,33 +310,6 @@ export default {
         this.$router.push({ name: "myPage", params: { memberSq: e } });
       }
     },
-    //서치바 폼 전송
-    jobSearch: function() {
-      //지역 value 값 파싱
-      let regionStr = String(Object.values(this.selectedArea));
-      if (regionStr.includes(",") != false) {
-        regionStr = String(Object.values(this.selectedArea)).replace(",", "|");
-      }
-
-      //직종 value 파싱
-      let jobStr = String(Object.values(this.selectedJob));
-      if (jobStr.includes(",") != false) {
-        jobStr = String(Object.values(this.selectedJob)).replace(",", "|");
-      }
-      const formData = {
-        occupation: jobStr,
-        keyword: this.keyword,
-        region: regionStr,
-      };
-      console.log("formData: " + JSON.stringify(formData));
-      this.$router.push({
-        name: "jobSearchDtl",
-        query: formData, //쿼리문으로 전송
-      });
-    },
-    jobCategory: function() {
-      $("#test").show();
-    },
   },
 
   async mounted() {
@@ -762,17 +317,16 @@ export default {
 
     await this.$store.dispatch("memberStore/getMemberInfo");
 
-    if (this.userData.memberPosition != undefined) {
-      await this.$store.dispatch("jobStore/rcmJob", {
-        memberPosition: this.userData.memberPosition,
-      });
-    }
+    await this.$store.dispatch("jobStore/rcmJob", {
+      memberPosition: this.userData.memberPosition,
+    });
+
     await this.$store.dispatch("jobStore/loadXml");
-    this.$store.dispatch("FETCH_QNABOARD");
-    this.$store.dispatch("FETCH_COMMUNITYBOARD");
-    this.$store.dispatch("FECH_MEETINGLIST");
-    this.$store.dispatch("FETCH_NOTICE");
-    this.$store.dispatch("FECH_ITNEWS_LIST");
+    await this.$store.dispatch("FETCH_QNABOARD");
+    await this.$store.dispatch("FETCH_COMMUNITYBOARD");
+    await this.$store.dispatch("FECH_MEETINGLIST");
+    await this.$store.dispatch("FETCH_NOTICE");
+    await this.$store.dispatch("FECH_ITNEWS_LIST");
   },
 
   computed: {
@@ -781,7 +335,11 @@ export default {
     //유저데이터 호출
     ...memberState(["loginStatus", "userData"]),
     ...jobState(["jobs", "rcmJobs"]),
-    ...mapState(["qnaboard1", "communityboard", "noticeList"]),
+    ...mapState(["communityboard", "noticeList"]),
+
+    qnaboard1() {
+      return this.$store.state.qnaboard1.slice(0, 2);
+    },
 
     itnewsList() {
       return this.$store.state.itnewsList.slice(0, 3);
@@ -797,6 +355,10 @@ export default {
 };
 </script>
 <style scoped>
+.banner-area,
+.meeting-title {
+  font-family: "Nanum Gothic", sans-serif;
+}
 /* 상단 박스 css */
 
 .commu-content,
@@ -859,65 +421,7 @@ export default {
 .job-card:hover {
   cursor: pointer;
 }
-/* 서치바 */
-.city-layer {
-  margin: 15px;
-}
-.location-div,
-.job-div {
-  width: 100%;
-  border: 1px solid #424874;
-  margin-top: 0px;
-  padding-top: 0px;
-  display: none;
-}
-div.prov-layer > table {
-  width: 100%;
-}
-div.prov-layer > table > tr > td.area-btn {
-  width: 50%;
-}
-.area-btn button {
-  width: 100%;
-  background-color: #fff;
-  color: black;
-  border: none;
-}
-div.location-div.on > p,
-div.job-div.on > p {
-  border-bottom: 1px solid #424874;
-  margin-bottom: 0px !important;
-}
-div.location-div.on,
-div.job-div.on {
-  display: block;
-}
-.prov-layer {
-  width: 30%;
-  border-right: 1px solid #424874;
-  display: inline-block;
-}
-.city-layer {
-  width: 65%;
-  display: none;
-}
-.city-layer.on {
-  display: inline-block;
-}
-.area-btn.on button {
-  background-color: #42487420;
-}
 
-div.location-div.on[data-v-8dc7cce2],
-div.job-div.on[data-v-8dc7cce2] {
-  position: absolute;
-  left: 0;
-  background: #fff;
-  z-index: 999;
-}
-.city-layer.on[data-v-8dc7cce2] {
-  vertical-align: top;
-}
 /* 추천채용정보 */
 .profile-btn {
   background-color: #424874;
@@ -956,23 +460,7 @@ div.job-div.on[data-v-8dc7cce2] {
 .main-top {
   height: 500px;
 }
-.banner-content .form-wrap {
-  border: 3px solid #424874;
-}
-.banner-content .form-wrap .btn-info {
-  background-color: #424874;
-  width: 100%;
-  height: 100%;
-  color: #fff;
-  border-radius: 0;
-  border: none;
-  text-transform: uppercase;
-}
-.banner-content .form-wrap .form-control {
-  height: 40px;
-  border-radius: 0;
-  font-size: 14px;
-}
+
 .card.table-card {
   height: 385px;
 }
@@ -1021,13 +509,6 @@ div[role="region"] {
   position: unset !important;
   bottom: auto !important;
 }
-#test {
-  border: 1px solid red;
-  height: 200px;
-  width: 500px;
-  display: none;
-}
-
 #itCrousel,
 #carousel-1 {
   min-width: 365px !important;

@@ -89,7 +89,14 @@ export default new Vuex.Store({
      },
      plugins: [
           createPersistedState({
-               paths: ['memberStore']
+               key: 'vuex',
+               reducer(val) {
+
+                    if (val.memberStore.loginStatus === false) { // val.user.token (your user token for example)
+                         return {}
+                    }
+                    return val.memberStore
+               }
           })
      ],
      state: {
@@ -107,7 +114,7 @@ export default new Vuex.Store({
           apply: [],
           approvelist: [],
           mklist: [],
-          
+
 
 
 
@@ -254,9 +261,9 @@ export default new Vuex.Store({
                commit("SET_MKLIST", response.data)
                return response
           },
-          async FECH_MEETINGDEL(data,no){
-                const response=await fetchmeetingdel(no)
-                return response
+          async FECH_MEETINGDEL(data, no) {
+               const response = await fetchmeetingdel(no)
+               return response
           },
 
 

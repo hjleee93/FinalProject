@@ -104,7 +104,9 @@ export default {
 </script>
 
 <style scoped>
-
+* {
+  font-family: "Nanum Gothic", sans-serif;
+}
 .login-content {
   background-color: #f7fafc !important;
   border-radius: 5px;

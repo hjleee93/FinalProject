@@ -148,14 +148,14 @@ export default {
       axios
         .post(
           "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=aYgNgGmIwR3wysmlCfRd&client_secret=voZaFcwXXi&access_token=" +
-            // this.userData.memberToken +
-            localStorage.access_token +
+            this.userData.memberToken +
+            // localStorage.access_token +
             "&service_provider=NAVER"
         )
         .then((res) => {
-          let memberEmail = this.memberEmail;
+          let memberEmail = this.userData.memberEmail;
           let memberPwd = "0000";
-          if (res.data.access_token == localStorage.access_token) {
+          if (res.data.access_token == this.userData.memberToken) {
             //반환된 토큰값과 보낸 토큰값이 같은 경우
             this.$store.dispatch("memberStore/deleteMember", {
               memberEmail,
@@ -218,6 +218,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: "Nanum Gothic", sans-serif;
+}
 .out-info {
   background-color: #f1f6f9;
   border: 2px solid #a6b1e1 !important;

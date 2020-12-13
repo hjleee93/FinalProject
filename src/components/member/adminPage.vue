@@ -1,6 +1,6 @@
 <!-- 관리자 마이페이지 -->
 <template>
-  <b-container class="mb-5">
+  <b-container class="mb-5 admin-page">
     <div class="header-body text-center mb-7 my-4">
       <b-row class="justify-content-center">
         <b-col xl="5" lg="6" md="8" class="px-5">
@@ -66,9 +66,7 @@
 
         <li class="topList last onlineCount">
           <p class="title">등록된 컨설턴트</p>
-          <p class="count">
-            <a href="#qnaDiv" class="scroll"> {{ qnaCount }} </a>명
-          </p>
+          <p class="count"><a href="#qnaDiv" class="scroll"></a>명</p>
         </li>
         <!--  <li class="first resumeCompany">
           <p class="title">등록된 포트폴리오</p>
@@ -97,7 +95,7 @@
             <span class="item"
               ><span class="urgent-call"></span>비상 연락처</span
             >
-            <span class="mobile">{{ userData.memberPhone }}</span>
+            <span class="mobile ml-3">{{ userData.memberPhone }}</span>
           </div>
           <!-- <div class="mail">
             <span class="item"><span class="bullet"></span>이메일</span
@@ -183,10 +181,13 @@ export default {
   data: () => ({
     resumePhoto: null,
     previewImage: null,
+    files: "",
   }),
-  created() {
+
+  async mounted() {
+    await this.$store.dispatch("memberStore/getMemberInfo");
     if (this.userData.memberSq != undefined) {
-      axios
+      await axios
         .get(
           "http://localhost:8082/itjobgo/member/loadPhoto?memberSq=" +
             this.userData.memberSq,
@@ -194,15 +195,14 @@ export default {
         )
         .then((res) => {
           const url = window.URL.createObjectURL(new Blob([res.data]));
-
+          console.log(url);
           this.previewImage = url;
         });
     }
-
     this.$store.dispatch("FETCH_NOTICE");
   },
   methods: {
-    uploadPhoto: function() {
+    async uploadPhoto() {
       let formData = new FormData();
       formData.append("memberSq", this.userData.memberSq);
       formData.append("memberEmail", this.userData.memberEmail);
@@ -211,7 +211,7 @@ export default {
       for (let key of formData.entries()) {
         console.log(`${key}`);
       }
-      axios
+      await axios
         .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -230,7 +230,7 @@ export default {
     selectImage() {
       this.$refs.fileInput.click();
     },
-    pickFile() {
+    async pickFile() {
       let input = this.$refs.fileInput;
       let file = input.files;
       this.files = input.files;
@@ -243,7 +243,7 @@ export default {
           this.previewImage = e.target.result;
         };
         reader.readAsDataURL(file[0]);
-        this.$emit("input", file[0]);
+        await this.$emit("input", file[0]);
       }
     },
     moveNoticeAll() {

@@ -40,7 +40,7 @@
           class="row-pointer mt-4"
           :headers="headers"
           :items="tableList"
-          :search="search"        
+          :search="search"       
         >
         
         <template v-slot:item="props">
