@@ -39,8 +39,9 @@
           class="mx-auto"
           max-width="330"
           v-for="ref in refList" :key="ref.id"
-          @click="cardclick(ref)"
         >
+          <!-- @click="cardclick(ref)" -->
+
         <!-- 이미지 -->
         <v-img
           class="white--text align-end"
@@ -118,9 +119,9 @@
        this.$store.dispatch("FECH_REF_LIST")
     },
     methods: {
-      cardclick(value){
-          this.$router.push({name:'refSiteView',params:{id:value.refNo}})
-      },
+      // cardclick(value){
+      //     this.$router.push({name:'refSiteView',params:{id:value.refNo}})
+      // },
       //링크 새로 열기
       openWindow: function (link) {
        window.open(link);
