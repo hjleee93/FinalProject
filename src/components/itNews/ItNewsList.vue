@@ -25,7 +25,7 @@
             <v-btn to="/itNewsForm" exact  id="st_write_ref" v-if="userData.memberSq!=null">글쓰기</v-btn>
           </div>
 
-    <div class="overflow-auto">
+    <div class="overflow-hidden">
 
 
     <div class="site_ect">

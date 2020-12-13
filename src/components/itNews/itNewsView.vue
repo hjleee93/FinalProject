@@ -23,7 +23,7 @@
     <b-container>
       <b-form>
         <b-row>
-          {{userData}}
+   
           <b-col id="title"> 제목: {{itNewsView.newsTitle}}</b-col>
         </b-row>
         <b-row>
@@ -70,7 +70,7 @@
         <b-col>
           <!-- <b-button to="/communityBoardList" id="prev">이전 </b-button>
           <b-button to="/communityBoardList" id="next">다음 </b-button> -->
-          <b-button to="/communityBoardList" id="list">목록 </b-button>
+          <b-button to="/itNewsList" id="list">목록 </b-button>
         </b-col>
       </b-row>
       

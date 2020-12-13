@@ -56,7 +56,7 @@
         <b-col>
           <!-- <b-button to="/communityBoardList" id="prev">이전 </b-button>
           <b-button to="/communityBoardList" id="next">다음 </b-button> -->
-          <b-button to="/communityBoardList" id="list">목록 </b-button>
+          <b-button to="/noticeList" id="list">목록 </b-button>
         </b-col>
       </b-row>
       
