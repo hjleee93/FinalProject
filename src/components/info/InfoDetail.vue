@@ -13,19 +13,19 @@
         <b-form><h4 class="sub-header">취업설명회 일정</h4> 
         
         <b-row>
-          <b-col cols="2"><b-form-group label="기업명"/></b-col>
-          <b-col> <b-form-input id="form-control" v-model="infoDetail.infoTitle" readonly/></b-col>
+          <b-col cols="3"><b-form-group label="기업명"/></b-col>
+          <b-col><b-form-input id="form-control" v-model="infoDetail.infoTitle" readonly/></b-col>
         </b-row>
         <b-row>
-          <b-col cols="2"><b-form-group  label="분류"/></b-col>
+          <b-col cols="3"><b-form-group  label="분류"/></b-col>
           <b-col> <b-form-input v-model="infoDetail.infoCategory" readonly/></b-col>
         </b-row>
 
         <b-row>
-          <b-col cols="2"><b-form-group  label="날짜"/></b-col>
+          <b-col cols="3"><b-form-group  label="날짜"/></b-col>
           <b-col> <b-form-input v-model="infoDetail.infoDate" readonly/></b-col>
            
-          <b-col cols="2"><b-form-group  label="시간" readonly/></b-col>
+          <b-col cols="3"><b-form-group  label="시간" readonly/></b-col>
           <b-col> <b-form-textarea v-model="infoDetail.infoTime" readonly/></b-col>
         </b-row>
 
@@ -35,12 +35,12 @@
         </b-row> -->
 
            <b-row>
-          <b-col cols="2"><b-form-group  label="주소/내용" readonly/></b-col>
+          <b-col cols="3"><b-form-group  label="주소/내용" readonly/></b-col>
           <b-col> <b-form-textarea v-model="infoDetail.infoContent" readonly/></b-col>
         </b-row>  
         <b-row v-if="attachment">
-          <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
-          <b-col cols="2" id="file"><b-button id="btn_file" @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
+          <b-col cols="3"><b-form-group  label="첨부파일" readonly/></b-col>
+          <b-col cols="3" id="file"><b-button id="btn_file" @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
         </b-row>       
           </b-form>
 
@@ -144,6 +144,10 @@ export default {
 .text-center{
     margin: 10px 100px;
     font-weight: bold;
+}
+.sub-header{
+margin: 35px 100px ;
+
 }
 .form-control{  
   width:550px;
