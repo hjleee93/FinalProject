@@ -137,9 +137,18 @@ export default {
     onSubmit: function() {
       let memberEmail = this.model.email;
       let memberPwd = this.model.password;
+      //local session 구분 처리용
+      //false --> session
+      //true --> local
+      let rememberMe = this.model.rememberMe;
+
       console.log("email: " + memberEmail);
       console.log("password: " + memberPwd);
-      this.$store.dispatch("memberStore/login", { memberEmail, memberPwd });
+      this.$store.dispatch("memberStore/login", {
+        memberEmail,
+        memberPwd,
+        rememberMe,
+      });
     },
     kakaoLogin() {
       // window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");

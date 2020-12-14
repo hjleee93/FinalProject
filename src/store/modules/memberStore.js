@@ -43,17 +43,20 @@ const memberStore = {
 
 
                     } else {//토큰값 있음
-                        localStorage.setItem("memberEmail", loginData.memberEmail)
-                        localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
+
+                        if (loginData.rememberMe == false) {//rememberMe false인경우
+                            //1. 데이터 없어지는 거 확인함
+                            console.log("session")
+                            sessionStorage.setItem("memberEmail", loginData.memberEmail)
+                            sessionStorage.setItem("access_token", token);
+
+                        } else {
+                            //1. 유지되는거 확인함 
+                            localStorage.setItem("memberEmail", loginData.memberEmail)
+                            localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
+                        }
                         dispatch("getMemberInfo", loginData)//여기로 넘어가서 commit('loginSuccess')실행함
                         router.push('/');//메인페이지로 이동
-
-
-                        // console.log("토큰 있: " + res)
-                        // document.cookie = `accessToken=${res.data.token}`;
-                        // //cookie를 이렇게 넣는다고..?
-                        // axios.defaults.headers.common['x-access-token'] = res.data.token;               
-
                     }
 
                 })
@@ -67,7 +70,6 @@ const memberStore = {
             window.localStorage.clear();
             window.sessionStorage.clear();
             window.sessionStorage.removeItem('vuex');
-            //Todo:session로그아웃
 
             // location.reload();
             commit('loginFalse');
@@ -82,9 +84,8 @@ const memberStore = {
                             text: "탈퇴가 완료되었습니다. 그동안 ItJobGo를 이용해주셔서 감사합니다.",
                             icon: "success"
                         })
-
-                        localStorage.removeItem("memberEmail");
-                        localStorage.removeItem("access_token");
+                        sessionStorage.clear();
+                        localStorage.clear();
                         commit('loginFalse');
                         router.push('/');//탈퇴 후 경로
                     } else if (res.data == -1) {//비밀번호 틀린경우 
@@ -109,12 +110,19 @@ const memberStore = {
         },
         //유저 정보 가져오기
         async getMemberInfo({ commit }) {
+            var memberEmail = null;
+            var token = null;
+            console.log(localStorage)
+            if (localStorage.getItem("memberEmail")) {
+                console.log("local!")
+                memberEmail = localStorage.getItem("memberEmail")
+                token = localStorage.getItem("access_token")
 
-
-            let memberEmail = localStorage.getItem("memberEmail")
-            let token = localStorage.getItem("access_token")
-
-
+            } else {
+                console.log("session~~!")
+                memberEmail = sessionStorage.getItem("memberEmail")
+                token = sessionStorage.getItem("access_token")
+            }
             console.log("유저정보" + memberEmail);
 
             let config = {
@@ -124,7 +132,6 @@ const memberStore = {
                 }
             }
             if (token != null || memberEmail != null) {
-                // alert("도랏냐 이게 3아님?")
                 //토큰으로 member return  
                 await axios.get('http://localhost:8082/itjobgo/member/getMember?memberEmail=' + memberEmail, config)
                     .then(response => {
@@ -150,10 +157,9 @@ const memberStore = {
                         commit('loginFalse');
                     })
             } else {
-                // alert("어디가지 미친놈이?")
+
                 commit('loginFalse');
             }
-            // alert("안끝났는데?")
         },
 
 
