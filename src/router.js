@@ -77,6 +77,7 @@ import consult from './components/resume/consult'
 import consultresumeenroll from './components/resume/consultresumeenroll'
 import resumeList from './components/resume/resumeList'
 
+
 //민지
 const InfoList = () => {
      return import('./components/info/InfoList.vue')
@@ -657,7 +658,7 @@ export default new Router({
                name: 'consultresumeenroll',
                component: consultresumeenroll
           },
-          {
+                    {
                path: '/resume/resumeList',
                name: 'resumeList',
                component: resumeList
