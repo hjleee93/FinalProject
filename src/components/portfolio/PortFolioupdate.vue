@@ -42,7 +42,7 @@
    <vue-editor id="input-3" name="pboardContent" v-model="pboardContent" :placeholder="pboardone.pboardContent" />
    </b-form-group>
       <!-- <b-button type="submit" class="s-btn">확인</b-button> -->
-       <b-button @click="test" class="s-btn">확인</b-button>
+       <b-button @click="test" type="submit" class="s-btn">확인</b-button>
       <b-button @click="back" class="r-btn">취소</b-button>
     </form>
     <div>{{attachment}}</div>

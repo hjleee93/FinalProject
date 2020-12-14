@@ -41,7 +41,7 @@
        </b-input-group>
    
        <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
-      placeholder="첨부파일"
+      placeholder="첨부파일" required
      
     ></b-form-file> 
     
