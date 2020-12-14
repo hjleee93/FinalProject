@@ -36,8 +36,11 @@ export default {
             if (res.data > 0) {
               //가입성공
 
-              localStorage.setItem("access_token", memberToken); //로컬에 토큰 저장
-              localStorage.setItem("memberEmail", response.kakao_account.email);
+              sessionStorage.setItem("access_token", memberToken); //로컬에 토큰 저장
+              sessionStorage.setItem(
+                "memberEmail",
+                response.kakao_account.email
+              );
               self.$store.dispatch(
                 "memberStore/getMemberInfo",
                 response.kakao_account.email
