@@ -62,6 +62,7 @@ import Portfolioupdate from './components/portfolio/PortFolioupdate.vue';
 import Meetingapply from './components/meeting/Meetingapply.vue';
 import Approve from './components/meeting/Approve.vue';
 import Mkmeeting from './components/meeting/Mkmeeting.vue';
+import Meetingupdate from './components/meeting/Meetingupdate.vue';
 
 //혜지
 
@@ -195,46 +196,46 @@ const MyPage = () => {
 }
 
 const JobInfoDtl = () => {
-  return import('./components/jobInfo/JobInfoDtl.vue')
+  return import('./components/jobInfo/jobInfoDtl.vue')
 }
 
 const FoundPassword = () => {
-  return import('./components/member/FoundPassword.vue')
+  return import('./components/member/foundPassword.vue')
 }
 
 const FoundEmail = () => {
-  return import('./components/member/FoundEmail.vue')
+  return import('./components/member/foundEmail.vue')
 }
 
 
 const JobSearchDtl = () => {
-  return import('./components/jobInfo/JobSearchDtl.vue')
+  return import('./components/jobInfo/jobSearchDtl.vue')
 }
 
 const ChgMemberInfo = () => {
-  return import('./components/member/ChgMemberInfo.vue')
+  return import('./components/member/chgMemberInfo.vue')
 }
 
 const ChgPwdInfo = () => {
-  return import('./components/member/ChgPwdInfo.vue')
+  return import('./components/member/chgPwdInfo.vue')
 }
 const DeleteMember = () => {
-  return import('./components/member/DeleteMember.vue')
+  return import('./components/member/deleteMember.vue')
 }
 const LoginCallback = () => {
-  return import('./components/member/LoginCallback.vue')
+  return import('./components/member/loginCallback.vue')
 }
 const NaverLogin = () => {
-  return import('./components/member/NaverLogin.vue')
+  return import('./components/member/naverLogin.vue')
 }
 const ResumeBoard = () => {
   return import('./components/member/ResumeBoard.vue')
 }
 const KakaoCallbackLogin = () => {
-  return import('./components/member/KakaoCallbackLogin.vue')
+  return import('./components/member/kakaoCallbackLogin.vue')
 }
 const AdminPage = () => {
-  return import('./components/member/AdminPage.vue')
+  return import('./components/member/adminPage.vue')
 }
 
 
@@ -264,20 +265,24 @@ export default new Router({
 
     },
     {
-      path: '/meetingapply',
-      component: Meetingapply,
 
+      path:'/meetingapply',
+      component:Meetingapply,
+      beforeEnter: LoginAuth()
+     
     },
     {
-      path: '/approve/:memberSq',
-      component: Approve,
-      name: 'approve',
-
+      path:'/approve/:memberSq',
+      component:Approve,
+      name:'approve',
+      beforeEnter: LoginAuth()
+    
     },
     {
-      path: '/mkmeeting/:memberSq',
-      component: Mkmeeting,
-      name: 'mkmeeting',
+      path:'/mkmeeting/:memberSq',
+      component:Mkmeeting,
+      name:'mkmeeting',
+      beforeEnter: LoginAuth()
     },
     {
       path: '/enrollmeeting',
@@ -287,11 +292,16 @@ export default new Router({
 
     },
     {
+      path:'/meetingupdae/:id',
+      component:Meetingupdate,
+      name:"meetingupdate",
+      beforeEnter: LoginAuth()
+
+    },
+    {
       path: '/meetinginfo/:id',
       component: Meetinginfo,
       name: "meetinginfo",
-
-
     },
     {
       path: '/portfolioList',
