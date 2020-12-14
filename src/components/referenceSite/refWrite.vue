@@ -39,7 +39,7 @@
             id="address"
             v-model="refaddress"
             required
-            placeholder="사이트 주소를 정확히 입력해주세요"
+            placeholder="ex) https://www.itjobgo.com"
           ></b-form-input>
         </b-form-group>
 
@@ -80,7 +80,11 @@
 
   </div>
 </div>
+
+
+
 </b-container>
+
 
 </template>
 
@@ -96,7 +100,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
           reftitle:"",
           category:null,
           value: null,
-          refaddress:"",
+          refaddress: "https://",
           refcategory :[
             { value: null, text: '분류를 선택해주세요' },
             { value: '백엔드', text: '백엔드' },

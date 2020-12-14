@@ -46,6 +46,7 @@
         <v-img
           class="white--text align-end"
           height="200px"
+          width="350px"
           :src="`http://localhost:8082/itjobgo/ref/selectsiteImg${ref.refNo}`"
         >
         <!-- 수정필요(조회수) -->
@@ -53,19 +54,23 @@
         </v-img>
 
         <v-card-text class="text--primary">
-          <div id="title"><b>{{ref.refTitle}}</b></div>
+          <div id="title"><b>{{ref.refTitle}}</b><hr></div>
           <div id="content">{{ref.refContent}}</div>
         </v-card-text>
 
-        <v-card-actions>
+        <v-card-actions >         
           <v-btn
-            color="blue"
-            text
-            >
-            사이트 바로가기??
-          </v-btn>
+          class="btn_site"
+          elevation="2"
+          outlined
+          rounded
+          color="accent"
+        >
+          <a href="" v-on:click.stop.prevent=openWindow(ref.refSiteAddr)> go Links </a>
+        </v-btn>
+
           <!-- 등록일 -->
-          <h6 id="date">{{formatDate(ref.refDate)}}</h6>
+          <h6 id="date"> 등록일 : {{formatDate(ref.refDate)}}</h6>
         </v-card-actions>
       </v-card>
       
@@ -82,12 +87,9 @@
           </div> -->
 
     </div>
+    </div>
+  </div>
 
-
-
-        </div>
-
-      </div>
 
 </b-container>
 </template>
@@ -118,27 +120,14 @@
     created() {
        this.$store.dispatch("FECH_REF_LIST")
     },
+
+    //메소드
     methods: {
-      // cardclick(value){
-      //     this.$router.push({name:'refSiteView',params:{id:value.refNo}})
-      // },
+
       //링크 새로 열기
       openWindow: function (link) {
        window.open(link);
       },
-
-      //https:// 아닐때도 링크 연결====테스트중====
-      movePage: function() {
-      if (
-        this.it.newsRefSite.includes("http") == false
-      ) {
-      var url = "https://" + this.it.newsRefSite._text;
-      } else {
-        url = this.it.newsRefSite._text;
-      }
-      document.getElementById("homePage").setAttribute("href", url);
-    },
-
 
         // 날짜변환 함수
     formatDate(value) {
@@ -190,19 +179,21 @@
     margin-bottom: 12%;
 }
 #title{
+  text-align: center;
   margin-top: 2%;
   margin-bottom: 5%;
-  font-size: 22px;
+  font-size: 20px;
   color :#424874
 }
 #content{
-  font-size: 18px;
+  margin-left: 2%;
+  font-size: 16px;
 }
 #date{ 
   color: #9BA4B4;
-  margin-top: 2%;
+  margin-top: 6%;
   font-size: 15px;
-  margin-left: 25%;
+  margin-left: 15%;
 }
  .mx-auto{
   margin: 1.5%;
@@ -218,6 +209,12 @@
   font-family: 'Barlow Semi Condensed', sans-serif;
   color:#4e5157 ;
   font-size: 50px;
+}
+.btn_site{
+  border:1px #3a74df solid;
+  margin-bottom: 3%;
+  margin-top: 3%; 
+  margin-left: 4%;
 }
 
 </style>
