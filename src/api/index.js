@@ -229,6 +229,12 @@ function fetchRboardList() {
 function fetchResume(memberSq) {
     return axios.get(`${config.Url}resume/selectResume/${memberSq}.do`)
 }
+//이력서 리스트 불러오기
+function fetchResumeList(memberSq){
+    return axios.get(`${config.Url}resume/resumeList/${memberSq}.do`)
+}
+
+
 export {
     fetchPboardList,
     fetchPboardOne,
@@ -303,6 +309,7 @@ export {
     //이력서게시판
     fetchRboardList,
     fetchResume,
+    fetchResumeList,
 
 }
 

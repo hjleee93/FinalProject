@@ -65,8 +65,8 @@ import { mapState } from 'vuex';
           },
           // 그리고 spring에서 넘겨주는 json타입의 변수에 매칭시켜서 테이블의 row행의 value값을 동일하게 해준다
 
-          { text: '제목', value: 'rboardTitle'},
-          { text: '작성자', value: 'resumelist_title'  },
+          { text: '제목', value: 'resumelist_title'},
+          { text: '작성자', value: 'resumelist_writer'  },
           { text: '첨부파일', value: 'resumelist_attachment' },
           { text: '답변', value: 'resumelist_status' },
           { text: '조회수', value: 'resumelist_count' },
