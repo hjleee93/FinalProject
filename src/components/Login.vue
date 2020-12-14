@@ -77,11 +77,7 @@
                     >Remember me</b-form-checkbox
                   >
                   <div class="text-center">
-                    <b-button
-                      id="loginBtn"
-                      type="submit"
-                      @click="login()"
-                      class="login-btn my-4"
+                    <b-button id="loginBtn" type="submit" class="login-btn my-4"
                       >Sign in</b-button
                     >
                   </div>
@@ -138,7 +134,7 @@ export default {
   //   }
   // },
   methods: {
-    login: function() {
+    onSubmit: function() {
       let memberEmail = this.model.email;
       let memberPwd = this.model.password;
       console.log("email: " + memberEmail);
