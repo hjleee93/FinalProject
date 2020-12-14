@@ -163,6 +163,14 @@ const RefSite = () => {
 const RefWrite = () => {
   return import('./components/referenceSite/refWrite.vue')
 }
+const qnaBoardback = () => {
+  return import('./components/qnaboard/qnaBoardback.vue')
+}
+const qnaBoardfront = () => {
+  return import('./components/qnaboard/qnaBoardfront.vue')
+}
+
+
 //현정 라우터
 const Login = () => {
   return import('./components/Login.vue')
@@ -591,6 +599,17 @@ export default new Router({
       name: 'qnaModify',
       component: QnaModify
     },
+    {
+      path: '/qnaBoardback',
+      name: 'qnaBoardback',
+      component: qnaBoardback
+    },
+    {
+      path: '/qnaBoardfront',
+      name: 'qnaBoardfront',
+      component: qnaBoardfront
+    },
+
     //혜지
     {
       path: '/resume/resume/',
