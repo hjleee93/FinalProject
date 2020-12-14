@@ -62,6 +62,7 @@ import Portfolioupdate from './components/portfolio/PortFolioupdate.vue';
 import Meetingapply from './components/meeting/Meetingapply.vue';
 import Approve from './components/meeting/Approve.vue';
 import Mkmeeting from './components/meeting/Mkmeeting.vue';
+import Meetingupdate from './components/meeting/Meetingupdate.vue';
 
 //혜지
 
@@ -229,9 +230,6 @@ const AdminPage = () => {
   return import('./components/member/adminPage.vue')
 }
 
-// const UpdatePassword = () =>{
-//   return import('./components/member/updatePassword.vue')
-// }
 
 export default new Router({
   mode: 'history',
@@ -259,20 +257,24 @@ export default new Router({
 
     },
     {
-      path: '/meetingapply',
-      component: Meetingapply,
 
+      path:'/meetingapply',
+      component:Meetingapply,
+      beforeEnter: LoginAuth()
+     
     },
     {
-      path: '/approve/:memberSq',
-      component: Approve,
-      name: 'approve',
-
+      path:'/approve/:memberSq',
+      component:Approve,
+      name:'approve',
+      beforeEnter: LoginAuth()
+    
     },
     {
-      path: '/mkmeeting/:memberSq',
-      component: Mkmeeting,
-      name: 'mkmeeting',
+      path:'/mkmeeting/:memberSq',
+      component:Mkmeeting,
+      name:'mkmeeting',
+      beforeEnter: LoginAuth()
     },
     {
       path: '/enrollmeeting',
@@ -282,11 +284,16 @@ export default new Router({
 
     },
     {
+      path:'/meetingupdae/:id',
+      component:Meetingupdate,
+      name:"meetingupdate",
+      beforeEnter: LoginAuth()
+
+    },
+    {
       path: '/meetinginfo/:id',
       component: Meetinginfo,
       name: "meetinginfo",
-
-
     },
     {
       path: '/portfolioList',
@@ -483,7 +490,8 @@ export default new Router({
       path: '/jobSearchDtl',
       name: 'jobSearchDtl',
       query: { occupation: '', keyword: '', region: '' },
-      component: JobSearchDtl
+      component: JobSearchDtl,
+
     },
     {
       path: '/chgMemberInfo',
@@ -546,7 +554,7 @@ export default new Router({
       beforeEnter: adminDeny()
     },
     {
-      path: '/resumeBoard',
+      path: '/resumeBoard/:id',
       name: 'resumeBoard',
       component: ResumeBoard,
       beforeEnter: LoginAuth()
