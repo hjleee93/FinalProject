@@ -27,6 +27,7 @@
 
   <b-input-group prepend="날짜" class="mb-2">
       <b-form-datepicker 
+        label="날짜"
         :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" 
         :min="min"  
         v-model="infoDate" 
@@ -36,6 +37,7 @@
 
   <b-input-group prepend="시간" class="mb-2" >
       <b-form-input 
+        label="시간"
         type="time"  
         v-model="infoTime"
         required
