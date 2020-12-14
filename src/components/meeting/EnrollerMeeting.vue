@@ -41,7 +41,7 @@
       label="신청 날짜"
       label-for="example-datepicker"
     >
-             <b-form-datepicker id="example-datepicker" required  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model="sdate" class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker" aria-required="true"  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model="sdate" class="mb-3"></b-form-datepicker>
           </b-form-group>
         </b-col  > 
 
@@ -55,7 +55,7 @@
       label="마감 날짜"
       label-for="example-datepicker2"
     >
-             <b-form-datepicker id="example-datepicker2" required :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="fday" :disabled="disabled" v-model="fdate" class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker2" aria-required="true" :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="fday" :disabled="disabled" v-model="fdate" class="mb-3"></b-form-datepicker>
           </b-form-group></b-col>
           <b-col class="d-flex center" cols="4" sm="4">
           <b-form-group
@@ -64,7 +64,7 @@
       label="시작 날짜"
       label-for="example-datepicker3"
     >
-             <b-form-datepicker id="example-datepicker3" required  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="startday" :disabled="disabled" v-model="rdate" class="mb-3"></b-form-datepicker>
+             <b-form-datepicker id="example-datepicker3" aria-required="true" :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="startday" :disabled="disabled" v-model="rdate" class="mb-3"></b-form-datepicker>
           </b-form-group>
         </b-col  > 
       </b-row>
@@ -115,8 +115,9 @@
          <b-col><b-card> <v-combobox
   label="사용할 언어"
   multiple
+  
   small-chips
-   v-bind:items="lang"
+  
    v-model="langs"
 ></v-combobox></b-card> </b-col>
        </b-row>
@@ -327,14 +328,7 @@ export default {
         v => v.length <= 20 || 'Name must be less than 20 characters',
       ],
       // items: ["1","2","3","4","5","6"],
-        lang:[
-          'JAVA',
-          'JAVASCRIPT',
-          'VUE',
-          'C++',
-          'C',
-
-        ],
+        
     }
    }
  }

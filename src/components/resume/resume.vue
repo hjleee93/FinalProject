@@ -32,6 +32,8 @@
     <b-row>
         <b-col>
             <form @submit.prevent="insertResume"  enctype="multipart/form-data">
+                <div class="resumetitle"><p>이력서제목</p></div>
+                <div><input type="text" id="rtitle" v-model="resume.rtitle"></div>
                 <table id="resumetable">
                 <div class="resumetitle"><p>개인정보</p></div>
                     <tr>
@@ -329,8 +331,8 @@ export default {
         }
     },
     created() {
-        const memberSq=this.userData.memberSq;
-        this.$store.dispatch("FETCH_RESUME", memberSq);
+        const resumeNo=this.$route.params.id;
+        this.$store.dispatch("FETCH_RESUME", resumeNo);
     },
     computed: {
         ...mapState({
@@ -433,5 +435,13 @@ button{
 }
 .date{
     width: 100px;
+}
+
+#rtitle{
+    width: 700px;
+    height: 40px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
 }
 </style>

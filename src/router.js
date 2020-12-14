@@ -75,7 +75,7 @@ import updateresume from './components/resume/updateresume'
 import consultresume from './components/resume/consultresume'
 import consult from './components/resume/consult'
 import consultresumeenroll from './components/resume/consultresumeenroll'
-
+import resumeList from './components/resume/resumeList'
 
 //민지
 const InfoList = () => {
@@ -612,7 +612,7 @@ export default new Router({
 
           //혜지
           {
-               path: '/resume/resume/',
+               path: '/resume/resume/:id',
                name: 'resume',
                component: resume,
                beforeEnter: LoginAuth(),
@@ -656,6 +656,11 @@ export default new Router({
                path: '/resume/consultresumeenroll',
                name: 'consultresumeenroll',
                component: consultresumeenroll
+          },
+          {
+               path: '/resume/resumeList',
+               name: 'resumeList',
+               component: resumeList
           },
 
      ]
