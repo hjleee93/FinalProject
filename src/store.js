@@ -11,6 +11,7 @@ import {
      fetchAttachment,
      fetchcomment,
      fetchcommentdel,
+     fetchmtUpdate,
 
      //모임
      fetchMeeting,
@@ -56,6 +57,9 @@ import {
      fetchQnaBoardAttachment,
      fetchqnacomment,
      fetchqnacommentdel,
+
+     fetchrefList,
+
 
      //민지   
      fetchInfoList,
@@ -108,6 +112,7 @@ export default new Vuex.Store({
           meeting: [],
           msubList: [],
           minfo: [],
+          uminfo:[],
           apply: [],
           approvelist: [],
           mklist: [],
@@ -140,6 +145,7 @@ export default new Vuex.Store({
           qbAttachment: [],
           qbAttachment2: [],
           qnacomment: [],
+          refList:[],
 
           //민지
           info: [],
@@ -261,10 +267,13 @@ export default new Vuex.Store({
                const response = await fetchmeetingdel(no)
                return response
           },
+          //모임업데이트할때 해당 모임 정보를 가져오는 로직
+          async FECH_UPDATED({commit},no){
+              const response=await fetchmtUpdate(no)
+              commit("SET_UMINFO",response.data)
+              return response;
 
-
-
-
+          },
           //주은
           //자유게시판 list 불러오기
           FETCH_COMMUNITYBOARD({ commit }) {
@@ -462,7 +471,6 @@ export default new Vuex.Store({
                     .then(({ data }) => commit("SET_QNABOARD_COMMENT", data))
                     .catch(({ error }) => console.log(error))
           },
-
           //qna 게시판 댓글 삭제
           FETCH_QNABOARD_COMMENTDEL(data, qboardCommentNo) {
                console.log(qboardCommentNo)
@@ -471,6 +479,14 @@ export default new Vuex.Store({
                          console.log(data)
                     })
                     .catch(({ error }) => console.log(error))
+          },
+          // REF SITE 불러오기
+          FECH_REF_LIST({ commit }) {
+               fetchrefList()
+                    .then(({ data }) => commit("SET_REF_LIST", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
           },
 
           //민지
@@ -561,6 +577,9 @@ export default new Vuex.Store({
           },
           SET_MINFO(state, data) {
                state.minfo = data;
+          },
+          SET_UMINFO(state, data) {
+               state.uminfo = data;
           },
           SET_COMMENT(state, data) {
                state.comment = data;
@@ -672,6 +691,10 @@ export default new Vuex.Store({
           //qna게시판 댓글
           SET_QNABOARD_COMMENT(state, data) {
                state.qnacomment = data;
+          },
+          // reference site 리스트 불러오기
+          SET_REF_LIST(state, data) {
+               state.refList = data;
           },
 
 

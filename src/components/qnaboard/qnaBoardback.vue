@@ -46,21 +46,18 @@
             single-line
             hide-details
           >
-
           <template v-slot:item="props">
                 <tr @click="handleClick(props.item.qboardNo)">
-                  <td class="text-xs-right">{{props.item.qboardNo }}</td>
-                  <td class="text-xs-right">{{props.item.qnaWriter }}</td>
-                  <!-- <td v-if="props.item.qnaCategory.includes('백엔드')||
-                            props.item.qnaCategory.includes('프론트엔드')">{{props.item.qnaCategory}}</td> -->
-                  <!-- <td class="text-xs-right">{{props.item.qnaCategory }}</td> -->
-                  <td class="text-xs-right">{{props.item.qnaTitle }}</td>
-                  <td class="text-xs-right">{{props.item.qnaAnswerYn}}</td>
-                  <td class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
-                  <td class="text-xs-right">{{props.item.boardCount }}</td>
+                  <td v-if="props.item.qnaCategory.includes('백엔드')" class="text-xs-right">{{props.item.qboardNo }}</td>
+                  <td v-if="props.item.qnaCategory.includes('백엔드')" class="text-xs-right">{{props.item.qnaWriter }}</td>
+                  <!-- <td v-if="props.item.qnaCategory.includes('백엔드')" class="text-xs-right">{{props.item.qnaCategory}}</td> -->
+                  <td v-if="props.item.qnaCategory.includes('백엔드')" class="text-xs-right">{{props.item.qnaTitle }}</td>
+                  <td v-if="props.item.qnaCategory.includes('백엔드')" class="text-xs-right">{{props.item.qnaAnswerYn}}</td>
+                  <td v-if="props.item.qnaCategory.includes('백엔드')" class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
+                  <td v-if="props.item.qnaCategory.includes('백엔드')" class="text-xs-right">{{props.item.boardCount }}</td>
                 </tr>
           </template>  
-          <!-- <td v-if="props.item.deadline.includes('채용시까지')"> -->
+          
         </v-data-table>
 
         </v-card>

@@ -31,7 +31,7 @@
                 <td class="text-xs-right">{{props.item.collabSq }}</td>
                 <td class="text-xs-right">{{props.item.title }}</td>
                 <td class="text-xs-right">{{   new Date(props.item.mdate).toLocaleDateString() }}</td>
-               <td class="text-xs-right"><b-button >수정</b-button><b-button @click="deltemet(props.item)">삭제</b-button></td>
+               <td class="text-xs-right"><b-button @click="update(props.item)">수정</b-button><b-button @click="deltemet(props.item)">삭제</b-button></td>
               </tr>
            </template>
           </v-data-table>
@@ -76,9 +76,11 @@ export default {
     },
      computed: {
          ...mapState({
-             mklist:state=>state.mklist
+             mklist:state=>state.mklist,
+             
          }),
             ...loadUserState(['userData'])  ,
+            
       
          
     }, 
@@ -88,11 +90,20 @@ export default {
        if(check==true){
          const no=item.collabSq
         this.$store.dispatch("FECH_MEETINGDEL",no)
-        const index=this.mklist.indexOf((x)=>x.no===no);
-        this.mklist.splice(index,1);
+        .then(()=>{
+          const index=this.mklist.indexOf((x)=>x.no===no);
+          this.mklist.splice(index,1);
+        })
        }else return 
-        
+      },
+      update(item){
+        let update=confirm("수정하시겠습니까?")
+        if(update==true){
+          const uno=item.collabSq;
+           this.$router.push({name:"meetingupdate",params:{id:uno}})
+         
 
+        }
       }
     }
 

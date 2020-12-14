@@ -64,6 +64,10 @@ function fetchmklist(no) {
 function fetchmeetingdel(no) {
     return axios.get(`${config.Url}meeting/meetingdel${no}.do`)
 }
+//모임업데이트할때 사용하는 로직
+function fetchmtUpdate(no){
+    return axios.get(`${config.Url}meeting/meetingupdate${no}.do`)
+}
 
 
 
@@ -187,7 +191,10 @@ function fetchqnacomment(qboardNo) {
 function fetchqnacommentdel(qboardCommentNo) {
     return axios.post(`${config.Url}qna/commentDelete${qboardCommentNo}`)
 }
-
+// reference site 리스트 불러오기
+function fetchrefList() {
+    return axios.get(`${config.Url}ref/selectsite`);
+}
 
 // 민지
 // info(취업정보)
@@ -240,6 +247,10 @@ export {
     fetchApproveList,
     fetchmklist,
     fetchmeetingdel,
+    fetchmtUpdate,
+  
+
+
 
 
     //주은
@@ -277,6 +288,7 @@ export {
     fetchQnaBoardAttachment,
     fetchqnacomment,
     fetchqnacommentdel,
+    fetchrefList,
 
     //민지
     //info 취업정보 
@@ -293,7 +305,5 @@ export {
     fetchResume,
 
 }
-
-
 
 
