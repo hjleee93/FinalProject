@@ -31,9 +31,23 @@
         :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" 
         :min="min"  
         v-model="infoDate" 
-        required   
+        required 
+        locale="ko"  
       ></b-form-datepicker>
   </b-input-group>
+
+<!--   <b-input-group prepend="시간" class="mb-2" >
+    <b-form-timepicker
+      label="시간"
+      type="time"  
+      v-model="infoTime"
+      required
+      now-button
+      reset-button
+      locale="ko"
+    ></b-form-timepicker>
+    </b-input-group>
+ -->
 
   <b-input-group prepend="시간" class="mb-2" >
       <b-form-input 

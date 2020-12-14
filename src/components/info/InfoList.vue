@@ -9,13 +9,18 @@
   </b-row>
 
   <div class="container">
+    <h4 class="sub-header">취업설명회 일정</h4> 
 
-  <!--서브 제목-->
-  <h4 class="sub-header">취업설명회 일정</h4> 
+  <b-row id="writecontain" align-h="end">
+    <b-button v-if="userData.memberEmail === 'admin@kh.com'" to="/infoForm">
+     글쓰기
+    </b-button>
+  </b-row>
 
-  <b-button v-if="userData.memberEmail === 'admin@kh.com'" to="/infoForm" exact id="st_write1">
-    글쓰기
-  </b-button>
+  <!-- 
+      <b-row id="writecontain" align-h="end">
+            <b-button to="/portfolioenroller" >글쓰기</b-button>
+          </b-row> -->
 
   <div class="overflow-hidden">
 
