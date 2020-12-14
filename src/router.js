@@ -23,7 +23,7 @@ const LoginAuth = () => (to, from, next) => {
      next('/login')
 }
 const adminDeny = () => (to, from, next) => {
-     if (localStorage.vuex.includes('"loginStatus":true')) {
+     if (localStorage.vuex.includes('"memberLevel":"0"')) {
 
           return next();
      }
@@ -164,10 +164,10 @@ const RefWrite = () => {
      return import('./components/referenceSite/refWrite.vue')
 }
 const qnaBoardback = () => {
-  return import('./components/qnaboard/qnaBoardback.vue')
+     return import('./components/qnaboard/qnaBoardback.vue')
 }
 const qnaBoardfront = () => {
-  return import('./components/qnaboard/qnaBoardfront.vue')
+     return import('./components/qnaboard/qnaBoardfront.vue')
 }
 
 
@@ -240,423 +240,423 @@ const AdminPage = () => {
 
 
 export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
+     mode: 'history',
+     base: process.env.BASE_URL,
+     routes: [
 
-    //동욱
-    {
-      path: '/meetingList',
-      component: meetingList,
-      name: "meetingList",
+          //동욱
+          {
+               path: '/meetingList',
+               component: meetingList,
+               name: "meetingList",
 
-      children: [
-        {
-          path: 'meeting',
-          component: Meeting,
-          name: 'meeting'
+               children: [
+                    {
+                         path: 'meeting',
+                         component: Meeting,
+                         name: 'meeting'
 
-        },
-        {
-          path: 'meetingend',
-          component: MeetingEnd,
-        }
-      ]
+                    },
+                    {
+                         path: 'meetingend',
+                         component: MeetingEnd,
+                    }
+               ]
 
-    },
-    {
+          },
+          {
 
-      path:'/meetingapply',
-      component:Meetingapply,
-      beforeEnter: LoginAuth()
-     
-    },
-    {
-      path:'/approve/:memberSq',
-      component:Approve,
-      name:'approve',
-      beforeEnter: LoginAuth()
-    
-    },
-    {
-      path:'/mkmeeting/:memberSq',
-      component:Mkmeeting,
-      name:'mkmeeting',
-      beforeEnter: LoginAuth()
-    },
-    {
-      path: '/enrollmeeting',
-      component: EnrollerMeeing,
-      beforeEnter: LoginAuth()
+               path: '/meetingapply',
+               component: Meetingapply,
+               beforeEnter: LoginAuth()
 
+          },
+          {
+               path: '/approve/:memberSq',
+               component: Approve,
+               name: 'approve',
+               beforeEnter: LoginAuth()
 
-    },
-    {
-      path:'/meetingupdae/:id',
-      component:Meetingupdate,
-      name:"meetingupdate",
-      beforeEnter: LoginAuth()
-
-    },
-    {
-      path: '/meetinginfo/:id',
-      component: Meetinginfo,
-      name: "meetinginfo",
-    },
-    {
-      path: '/portfolioList',
-      component: PortFolio,
-      name: 'portlist',
-      beforeEnter: LoginAuth()
-
-    },
-    {
-      path: '/portfolioenroller',
-      component: PortFoiloenroller,
-      beforeEnter: LoginAuth()
-
-    },
-    {
-      path: '/Portfolioinfo/:id',
-      component: Portfolioinfo,
-      name: 'Portinfo',
-      beforeEnter(to, from, next) {
-        //로그인한 사용자의 레벨을 가져온다  
-        const level = localStorage.vuex.includes('"memberLevel":"2"')
-        console.log(level)
-        if (level == true) {
-          //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
-          next();
-        } else {
-          alert("권한정보가 부족합니다.")
-        }
+          },
+          {
+               path: '/mkmeeting/:memberSq',
+               component: Mkmeeting,
+               name: 'mkmeeting',
+               beforeEnter: LoginAuth()
+          },
+          {
+               path: '/enrollmeeting',
+               component: EnrollerMeeing,
+               beforeEnter: LoginAuth()
 
 
-      }
+          },
+          {
+               path: '/meetingupdae/:id',
+               component: Meetingupdate,
+               name: "meetingupdate",
+               beforeEnter: LoginAuth()
 
-    },
-    {
-      path: '/Portfolioupdate/:id',
-      component: Portfolioupdate,
-      name: 'Portup',
-      beforeEnter: LoginAuth()
+          },
+          {
+               path: '/meetinginfo/:id',
+               component: Meetinginfo,
+               name: "meetinginfo",
+          },
+          {
+               path: '/portfolioList',
+               component: PortFolio,
+               name: 'portlist',
+               beforeEnter: LoginAuth()
 
-    },
-    //민지
-    {
-      path: '/infoList',
-      name: 'InfoList',
-      component: InfoList
-    },
-    {
-      path: '/infoDetail/:id',
-      name: 'InfoDetail',
-      component: InfoDetail
-    },
-    {
-      path: '/infoForm',
-      name: 'InfoForm',
-      component: InfoForm
-    },
-    {
-      path: '/jobList',
-      name: 'jobList',
-      component: JobList
-    },
-    {
-      path: '/infoModify/:id',
-      name: 'InfoModify',
-      component: InfoModify
-    },
-    //주은
-    {
-      path: '/communityBoardList',
-      name: 'CommunityBoardList',
-      component: CommunityBoardList
-    },
+          },
+          {
+               path: '/portfolioenroller',
+               component: PortFoiloenroller,
+               beforeEnter: LoginAuth()
 
-    {
-      path: '/communityBoardForm',
-      name: 'CommunityBoardForm',
-      component: CommunityBoardForm
-    },
-
-    {
-      path: '/itNewsList',
-      component: ItNewsList,
-      name: "ItNewsList",
-    },
-
-    {
-      path: '/itNewsForm',
-      name: 'ItNewsForm',
-      component: ItNewsForm
-    },
-
-    {
-      path: '/noticeList',
-      name: 'NoticeList',
-      component: NoticeList
-    },
+          },
+          {
+               path: '/Portfolioinfo/:id',
+               component: Portfolioinfo,
+               name: 'Portinfo',
+               beforeEnter(to, from, next) {
+                    //로그인한 사용자의 레벨을 가져온다  
+                    const level = localStorage.vuex.includes('"memberLevel":"2"')
+                    console.log(level)
+                    if (level == true) {
+                         //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
+                         next();
+                    } else {
+                         alert("권한정보가 부족합니다.")
+                    }
 
 
-    {
-      path: '/noticeForm',
-      name: 'NoticeForm',
-      component: NoticeForm
-    },
+               }
 
-    {
-      path: '/itNewsView/:id',
-      name: 'itNewsView',
-      component: itNewsView
-    },
+          },
+          {
+               path: '/Portfolioupdate/:id',
+               component: Portfolioupdate,
+               name: 'Portup',
+               beforeEnter: LoginAuth()
 
-    {
-      path: '/communityBoardView/:id',
-      name: 'CommunityBoardView',
-      component: CommunityBoardView
-    },
+          },
+          //민지
+          {
+               path: '/infoList',
+               name: 'InfoList',
+               component: InfoList
+          },
+          {
+               path: '/infoDetail/:id',
+               name: 'InfoDetail',
+               component: InfoDetail
+          },
+          {
+               path: '/infoForm',
+               name: 'InfoForm',
+               component: InfoForm
+          },
+          {
+               path: '/jobList',
+               name: 'jobList',
+               component: JobList
+          },
+          {
+               path: '/infoModify/:id',
+               name: 'InfoModify',
+               component: InfoModify
+          },
+          //주은
+          {
+               path: '/communityBoardList',
+               name: 'CommunityBoardList',
+               component: CommunityBoardList
+          },
 
-    {
-      path: '/noticeView/:id',
-      name: 'NoticeView',
-      component: NoticeView
-    },
+          {
+               path: '/communityBoardForm',
+               name: 'CommunityBoardForm',
+               component: CommunityBoardForm
+          },
 
-    {
-      path: '/noticeUpdate/:id',
-      name: 'NoticeUpdate',
-      component: NoticeUpdate
-    },
+          {
+               path: '/itNewsList',
+               component: ItNewsList,
+               name: "ItNewsList",
+          },
 
-    {
-      path: '/itNewsUpdate/:id',
-      name: 'ItNewsUpdate',
-      component: ItNewsUpdate
-    },
+          {
+               path: '/itNewsForm',
+               name: 'ItNewsForm',
+               component: ItNewsForm
+          },
 
-    {
-      path: '/communityBoardUpdate/:id',
-      name: 'CommunityBoardUpdate',
-      component: CommunityBoardUpdate
-    },
+          {
+               path: '/noticeList',
+               name: 'NoticeList',
+               component: NoticeList
+          },
 
-    //현정
-    {
-      path: '/',//주소
-      name: 'home',
-      component: Home//주소와 연결이되는 컴포넌트
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Register
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/findPassword',
-      name: 'findPassword',
-      component: FindPassword
-    },
-    {
-      path: '/findEmail',
-      name: 'findEmail',
-      component: FindEmail
-    },
-    {
-      path: '/changePassword',
-      name: 'changePassword',
-      component: ChangePassword
-    },
-    {
-      path: '/myPage/:memberSq',
-      name: 'myPage',
-      component: MyPage,
-      beforeEnter: LoginAuth()
-    },
-    {
-      path: '/jobInfoDtl/:wantedNo',
-      name: 'jobInfoDtl',
-      component: JobInfoDtl
-    },
-    {
-      path: '/foundPassword',
-      name: 'foundPassword',
-      component: FoundPassword
-    },
-    {
-      path: '/foundEmail',
-      name: 'foundEmail',
-      component: FoundEmail
-    },
-    {
-      path: '/jobSearchDtl',
-      name: 'jobSearchDtl',
-      query: { occupation: '', keyword: '', region: '' },
-      component: JobSearchDtl,
 
-    },
-    {
-      path: '/chgMemberInfo',
-      name: 'chgMemberInfo',
-      component: ChgMemberInfo,
-      beforeEnter: LoginDeny()
-    },
-    {
-      path: '/chgPwdInfo',
-      name: 'chgPwdInfo',
-      component: ChgPwdInfo,
-      beforeEnter: LoginDeny()
-    },
-    {
-      path: '/deleteMember',
-      name: 'deleteMember',
-      component: DeleteMember,
-      beforeEnter: LoginDeny()
-    },
-    {
-      path: '/loginCallback',
-      name: 'loginCallback',
-      component: LoginCallback,
+          {
+               path: '/noticeForm',
+               name: 'NoticeForm',
+               component: NoticeForm
+          },
 
-    },
-    {
-      path: '/naverLogin',
-      name: 'naverLogin',
-      component: NaverLogin
-    },
-    {
-      path: '/kakaoCallbackLogin',
-      name: 'kakaoCallbackLogin',
-      component: KakaoCallbackLogin
-    },
-    {
-      path: '/jobListBack',
-      name: 'jobListBack',
-      component: JobListBack
-    },
-    {
-      path: '/jobListFront',
-      name: 'jobListFront',
-      component: JobListFront
-    },
-    {
-      path: '/jobListDesign',
-      name: 'jobListDesign',
-      component: JobListDesign
-    },
-    {
-      path: '/jobListPublishing',
-      name: 'jobListPublishing',
-      component: JobListPublishing
-    },
-    {
-      path: '/adminPage',
-      name: 'adminPage',
-      component: AdminPage,
-      beforeEnter: adminDeny()
-    },
-    {
-      path: '/resumeBoard/:id',
-      name: 'resumeBoard',
-      component: ResumeBoard,
-      beforeEnter: LoginAuth()
-    },
+          {
+               path: '/itNewsView/:id',
+               name: 'itNewsView',
+               component: itNewsView
+          },
 
-    //현주
-    {
-      path: '/qnaWrite',
-      name: 'qnaWrite',
-      component: QnaWrite
-    },
-    {
-      path: '/refWrite',
-      name: 'refWrite',
-      component: RefWrite
-    },
-    {
-      path: '/refSite',
-      name: 'refSite',
-      component: RefSite
-    },
-    {
-      path: '/qnaView/:id',
-      name: 'qnaView',
-      component: QnaView
-    },
-    {
-      path: '/qnaBoard',
-      name: 'qnaBoard',
-      component: QnaBoard
-    },
-    {
-      path: '/qnaModify/:id',
-      name: 'qnaModify',
-      component: QnaModify
-    },
-    {
-      path: '/qnaBoardback',
-      name: 'qnaBoardback',
-      component: qnaBoardback
-    },
-    {
-      path: '/qnaBoardfront',
-      name: 'qnaBoardfront',
-      component: qnaBoardfront
-    },
+          {
+               path: '/communityBoardView/:id',
+               name: 'CommunityBoardView',
+               component: CommunityBoardView
+          },
 
-    //혜지
-    {
-      path: '/resume/resume/',
-      name: 'resume',
-      component: resume,
-      beforeEnter: LoginAuth(),
-    },
-    {
-      path: '/resume/BlindResume',
-      name: 'BlindResume',
-      component: BlindResume
-    },
-    {
-      path: '/resume/LineResume',
-      name: 'LineResume',
-      component: LineResume
-    },
-    {
-      path: '/resume/DesignResume',
-      name: 'DesignResume',
-      component: DesignResume
-    },
-    {
-      path: '/resume/insertresume',
-      name: 'insertresume',
-      component: insertresume
-    },
-    {
-      path: '/resume/updateresume',
-      name: 'updateresume',
-      component: updateresume
-    },
-    {
-      path: '/resume/consultresume',
-      name: 'consultresume',
-      component: consultresume
-    },
-    {
-      path: '/resume/consult',
-      name: 'consult',
-      component: consult
-    },
-    {
-      path: '/resume/consultresumeenroll',
-      name: 'consultresumeenroll',
-      component: consultresumeenroll
-    },
+          {
+               path: '/noticeView/:id',
+               name: 'NoticeView',
+               component: NoticeView
+          },
 
-  ]
+          {
+               path: '/noticeUpdate/:id',
+               name: 'NoticeUpdate',
+               component: NoticeUpdate
+          },
+
+          {
+               path: '/itNewsUpdate/:id',
+               name: 'ItNewsUpdate',
+               component: ItNewsUpdate
+          },
+
+          {
+               path: '/communityBoardUpdate/:id',
+               name: 'CommunityBoardUpdate',
+               component: CommunityBoardUpdate
+          },
+
+          //현정
+          {
+               path: '/',//주소
+               name: 'home',
+               component: Home//주소와 연결이되는 컴포넌트
+          },
+          {
+               path: '/register',
+               name: 'register',
+               component: Register
+          },
+          {
+               path: '/login',
+               name: 'login',
+               component: Login
+          },
+          {
+               path: '/findPassword',
+               name: 'findPassword',
+               component: FindPassword
+          },
+          {
+               path: '/findEmail',
+               name: 'findEmail',
+               component: FindEmail
+          },
+          {
+               path: '/changePassword',
+               name: 'changePassword',
+               component: ChangePassword
+          },
+          {
+               path: '/myPage/:memberSq',
+               name: 'myPage',
+               component: MyPage,
+               beforeEnter: LoginAuth()
+          },
+          {
+               path: '/jobInfoDtl/:wantedNo',
+               name: 'jobInfoDtl',
+               component: JobInfoDtl
+          },
+          {
+               path: '/foundPassword',
+               name: 'foundPassword',
+               component: FoundPassword
+          },
+          {
+               path: '/foundEmail',
+               name: 'foundEmail',
+               component: FoundEmail
+          },
+          {
+               path: '/jobSearchDtl',
+               name: 'jobSearchDtl',
+               query: { occupation: '', keyword: '', region: '' },
+               component: JobSearchDtl,
+
+          },
+          {
+               path: '/chgMemberInfo',
+               name: 'chgMemberInfo',
+               component: ChgMemberInfo,
+               beforeEnter: LoginDeny()
+          },
+          {
+               path: '/chgPwdInfo',
+               name: 'chgPwdInfo',
+               component: ChgPwdInfo,
+               beforeEnter: LoginDeny()
+          },
+          {
+               path: '/deleteMember',
+               name: 'deleteMember',
+               component: DeleteMember,
+               beforeEnter: LoginDeny()
+          },
+          {
+               path: '/loginCallback',
+               name: 'loginCallback',
+               component: LoginCallback,
+
+          },
+          {
+               path: '/naverLogin',
+               name: 'naverLogin',
+               component: NaverLogin
+          },
+          {
+               path: '/kakaoCallbackLogin',
+               name: 'kakaoCallbackLogin',
+               component: KakaoCallbackLogin
+          },
+          {
+               path: '/jobListBack',
+               name: 'jobListBack',
+               component: JobListBack
+          },
+          {
+               path: '/jobListFront',
+               name: 'jobListFront',
+               component: JobListFront
+          },
+          {
+               path: '/jobListDesign',
+               name: 'jobListDesign',
+               component: JobListDesign
+          },
+          {
+               path: '/jobListPublishing',
+               name: 'jobListPublishing',
+               component: JobListPublishing
+          },
+          {
+               path: '/adminPage',
+               name: 'adminPage',
+               component: AdminPage,
+               beforeEnter: adminDeny()
+          },
+          {
+               path: '/resumeBoard/:id',
+               name: 'resumeBoard',
+               component: ResumeBoard,
+               beforeEnter: LoginAuth()
+          },
+
+          //현주
+          {
+               path: '/qnaWrite',
+               name: 'qnaWrite',
+               component: QnaWrite
+          },
+          {
+               path: '/refWrite',
+               name: 'refWrite',
+               component: RefWrite
+          },
+          {
+               path: '/refSite',
+               name: 'refSite',
+               component: RefSite
+          },
+          {
+               path: '/qnaView/:id',
+               name: 'qnaView',
+               component: QnaView
+          },
+          {
+               path: '/qnaBoard',
+               name: 'qnaBoard',
+               component: QnaBoard
+          },
+          {
+               path: '/qnaModify/:id',
+               name: 'qnaModify',
+               component: QnaModify
+          },
+          {
+               path: '/qnaBoardback',
+               name: 'qnaBoardback',
+               component: qnaBoardback
+          },
+          {
+               path: '/qnaBoardfront',
+               name: 'qnaBoardfront',
+               component: qnaBoardfront
+          },
+
+          //혜지
+          {
+               path: '/resume/resume/',
+               name: 'resume',
+               component: resume,
+               beforeEnter: LoginAuth(),
+          },
+          {
+               path: '/resume/BlindResume',
+               name: 'BlindResume',
+               component: BlindResume
+          },
+          {
+               path: '/resume/LineResume',
+               name: 'LineResume',
+               component: LineResume
+          },
+          {
+               path: '/resume/DesignResume',
+               name: 'DesignResume',
+               component: DesignResume
+          },
+          {
+               path: '/resume/insertresume',
+               name: 'insertresume',
+               component: insertresume
+          },
+          {
+               path: '/resume/updateresume',
+               name: 'updateresume',
+               component: updateresume
+          },
+          {
+               path: '/resume/consultresume',
+               name: 'consultresume',
+               component: consultresume
+          },
+          {
+               path: '/resume/consult',
+               name: 'consult',
+               component: consult
+          },
+          {
+               path: '/resume/consultresumeenroll',
+               name: 'consultresumeenroll',
+               component: consultresumeenroll
+          },
+
+     ]
 })
