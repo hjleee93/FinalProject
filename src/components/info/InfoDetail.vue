@@ -1,5 +1,5 @@
 <template>
- <b-container fluid>
+ <b-container>
 
       <b-row >
         <div class="submenuimage ">
@@ -20,14 +20,20 @@
           <b-col cols="2"><b-form-group  label="분류"/></b-col>
           <b-col> <b-form-input v-model="infoDetail.infoCategory" readonly/></b-col>
         </b-row>
-          <b-row>
+
+        <b-row>
           <b-col cols="2"><b-form-group  label="날짜"/></b-col>
           <b-col> <b-form-input v-model="infoDetail.infoDate" readonly/></b-col>
-        </b-row>
-        <b-row>
+           
           <b-col cols="2"><b-form-group  label="시간" readonly/></b-col>
           <b-col> <b-form-textarea v-model="infoDetail.infoTime" readonly/></b-col>
         </b-row>
+
+       <!--  <b-row>
+          <b-col cols="2"><b-form-group  label="시간" readonly/></b-col>
+          <b-col> <b-form-textarea v-model="infoDetail.infoTime" readonly/></b-col>
+        </b-row> -->
+
            <b-row>
           <b-col cols="2"><b-form-group  label="주소/내용" readonly/></b-col>
           <b-col> <b-form-textarea v-model="infoDetail.infoContent" readonly/></b-col>
