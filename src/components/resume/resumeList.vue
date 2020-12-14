@@ -35,8 +35,20 @@
             :items=resumeList
             :search="search"
             item-key="name"
-            @click:row="handleClick"
           >
+
+            <template v-slot:item="props">
+              <tr @click="handleClick(props.item.resumeNo)">
+                <td class="text-xs-right">{{props.item.resumelistNo }}</td>
+                <td class="text-xs-right">{{props.item.resumelistTitle }}</td>
+                <td class="text-xs-right">{{props.item.resumelistWriter }}</td>
+                <td class="text-xs-right">{{props.item.resumelistAttachment }}</td>
+                <td class="text-xs-right">{{props.item.resumelistStatus }}</td>
+                <td class="text-xs-right">{{props.item.resumelistCount }}</td>
+                <td class="text-xs-right">{{formatDate(props.item.resumelistDate)}}</td>
+              </tr>
+           </template>
+
           </v-data-table>
         </v-card>
 
@@ -49,8 +61,8 @@
 
 <script>
 import { mapState } from 'vuex';
-//계속 라이브러리를 로딩해야하는 단점이있다 
-// import axios from 'axios';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 
   export default {
     data() {
@@ -61,16 +73,16 @@ import { mapState } from 'vuex';
             text: "번호",
             align: 'start',
             filterable: false,
-            value: 'resumeListNo',
+            value: 'resumelistNo',
           },
           // 그리고 spring에서 넘겨주는 json타입의 변수에 매칭시켜서 테이블의 row행의 value값을 동일하게 해준다
 
-          { text: '제목', value: 'resumelist_title'},
-          { text: '작성자', value: 'resumelist_writer'  },
-          { text: '첨부파일', value: 'resumelist_attachment' },
-          { text: '답변', value: 'resumelist_status' },
-          { text: '조회수', value: 'resumelist_count' },
-          { text: '작성일', value: 'resumelist_date' },
+          { text: '제목', value: 'resumelistTitle'},
+          { text: '작성자', value: 'resumelistWriter'},
+          { text: '첨부파일', value: 'resumelistAttachment'},
+          { text: '답변', value: 'resumelistStatus' },
+          { text: '조회수', value: 'resumelistCount' },
+          { text: '작성일', value: 'resumelistDate' },
         ],
         // spring에서 데이터를 받을 변수 배열형태를 선언한다
 
@@ -80,19 +92,24 @@ import { mapState } from 'vuex';
     computed: {
       ...mapState({
         resumeList:state=>state.resumeList
-      })
+      }),
+      ...loadUserState(['userData'])  
     },
     
     methods: {
       handleClick(value){
      
-        this.$router.push({name:'resume',params:{id:value.rboardNo}})
+        this.$router.push({name:'resume',params:{id:value}})
         console.log(value)
-      }
+      },
+
+      formatDate(value){
+      return this.$moment(value).format("YYYY-MM-DD");
+      } 
     },
     created() {
-      this.$store.dispatch("FETCH_RESUMELIST")
-      
+      const memberSq=this.userData.memberSq;
+      this.$store.dispatch("FETCH_RESUMELIST", memberSq);
     },
     
   }
