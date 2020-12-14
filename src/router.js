@@ -67,6 +67,7 @@ import Meetingupdate from './components/meeting/Meetingupdate.vue';
 //혜지
 
 import resume from './components/resume/resume'
+import resumeList from './components/resume/resumeList'
 import BlindResume from './components/resume/BlindResume'
 import LineResume from './components/resume/LineResume'
 import DesignResume from './components/resume/DesignResume'
@@ -75,6 +76,7 @@ import updateresume from './components/resume/updateresume'
 import consultresume from './components/resume/consultresume'
 import consult from './components/resume/consult'
 import consultresumeenroll from './components/resume/consultresumeenroll'
+
 
 
 //민지
@@ -612,7 +614,7 @@ export default new Router({
 
     //혜지
     {
-      path: '/resume/resume/',
+      path: '/resume/resume/:id',
       name: 'resume',
       component: resume,
       beforeEnter: LoginAuth(),
@@ -656,6 +658,11 @@ export default new Router({
       path: '/resume/consultresumeenroll',
       name: 'consultresumeenroll',
       component: consultresumeenroll
+    },
+    {
+      path: '/resume/resumeList',
+      name: 'resumeList',
+      component: resumeList
     },
 
   ]
