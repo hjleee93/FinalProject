@@ -29,6 +29,8 @@ const memberStore = {
     },
     actions: {
         login({ commit, dispatch }, loginData) {
+            localStorage.clear();
+            sessionStorage.clear();
 
             axios
                 .post('http://localhost:8082/itjobgo/member/login', loginData)
