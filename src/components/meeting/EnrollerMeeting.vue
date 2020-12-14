@@ -44,6 +44,11 @@
              <b-form-datepicker id="example-datepicker" required  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model="sdate" class="mb-3"></b-form-datepicker>
           </b-form-group>
         </b-col  > 
+
+
+
+
+        
        <b-col class="d-flex" cols="4" sm="4"><b-form-group
       label-cols-sm="4"
       label-cols-lg="4"

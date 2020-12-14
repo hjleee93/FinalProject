@@ -25,30 +25,30 @@
       ></b-form-select>
     </b-input-group>
 
-    <b-input-group prepend="날짜" class="mb-2" >
-      <b-form-input 
-        type="date" 
-        v-model="infoDate"  
-        required
-       
-      ></b-form-input>
-    </b-input-group> 
+  <b-input-group prepend="날짜" class="mb-2">
+      <b-form-datepicker 
+        :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" 
+        :min="min"  
+        v-model="infoDate" 
+        required   
+      ></b-form-datepicker>
+  </b-input-group>
 
-    <b-input-group prepend="시간" class="mb-2" >
+  <b-input-group prepend="시간" class="mb-2" >
       <b-form-input 
         type="time"  
         v-model="infoTime"
         required
       ></b-form-input>
     </b-input-group>
-
-    <b-form-group id="input-group-3" label-for="input-3">
+   
+    <b-form-group id="input-group-3" label-for="input-3" >
       <b-form-textarea
         id="textarea-content"
         v-model="infoContent"
         required
         placeholder=" 주소 또는 내용을 작성하세요"
-        rows="7"
+        rows="6"
       ></b-form-textarea>
     </b-form-group>
 
@@ -80,10 +80,14 @@
   import axios from 'axios';
   import { createNamespacedHelpers } from "vuex";
   const { mapState } = createNamespacedHelpers("memberStore");
-
+  
     export default {
       data() {
-        return {
+      const now = new Date()
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      const minDate = new Date(today)
+       
+       return {
             infoTitle: "",
             category : null,
             infoCategory :[
@@ -95,12 +99,14 @@
             infoDate : "",
             infoTime : "",
             infoContent: "",   
-            files : "",       
+            files : "",  
+            min:minDate, 
+            state:null    
         }
       },
- /*    components:{
-      VueEditor
-    }, */
+     components:{
+     /*  VueEditor */
+    }, 
     computed: {
     ...mapState(['userData'])
     },

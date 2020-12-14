@@ -28,13 +28,13 @@
     </b-input-group>
 
     <b-input-group prepend="날짜" class="mb-2" > 
-      <b-form-input
-        id="input-3"
-        type="date"
+      <b-form-datepicker 
+        :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" 
+        :min="min"  
         name="infoDate"
         v-model="infoDetail.infoDate"
         required 
-      ></b-form-input>
+      ></b-form-datepicker>
     </b-input-group> 
 
     <b-input-group prepend="시간" class="mb-2" >
@@ -84,6 +84,10 @@ import axios from 'axios'
 
     export default {
       data() {
+        const now = new Date()
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+        const minDate = new Date(today)
+
         return {
             infoTitle: "",
             category:null,
@@ -96,7 +100,8 @@ import axios from 'axios'
             infoDate : "",
             infoTime : "",
             infoContent: "",    
-            files : "",      
+            files : "", 
+            min:minDate,       
             }
       },
       created() {
