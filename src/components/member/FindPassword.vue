@@ -85,7 +85,6 @@ export default {
               icon: "error", //built in icons: success, warning, error, info
               timer: 5000, //timeOut for auto-close
             });
-
           } else {
             self.$router.push({
               name: "foundPassword",
@@ -94,11 +93,14 @@ export default {
           }
         }); //반환값
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
+* {
+  font-family: "Nanum Gothic", sans-serif;
+}
 .login-content {
   background-color: #f7fafc !important;
   border-radius: 5px;
@@ -107,13 +109,13 @@ export default {
 .btn-primary {
   text-decoration: none;
   color: #fff;
-  background-color: #5e72e4;
-  border-color: #5e72e4;
+  background-color: #424874;
+  border-color: #424874;
 }
 .btn-primary:hover {
   text-decoration: none;
-  border-color: #5e72e4;
-  background-color: #5e72e4;
+  border-color: #424874;
+  background-color: #424874;
   transform: translateY(-1px);
 }
 </style>

@@ -21,13 +21,13 @@ function fetchPboardUp(no) {
     return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`)
 }
 //첨부파일내용가져오기
-function fetchAttachment(no){
+function fetchAttachment(no) {
     return axios.get(`${config.Url}portfolio/attachment${no}.do`)
 }
-function fetchcomment(no){
+function fetchcomment(no) {
     return axios.get(`${config.Url}portfolio/commentList${no}.do`)
 }
-function fetchcommentdel(no){
+function fetchcommentdel(no) {
     return axios.post(`${config.Url}portfolio/commentdel${no}.do`)
 }
 
@@ -35,34 +35,38 @@ function fetchcommentdel(no){
 function fetchMeeting() {
     return axios.get(`${config.Url}meeting/meetingList.do`);
 }
-function fetchmsublist(){
+function fetchmsublist() {
     return axios.get(`${config.Url}meeting/meetingsubList.do`);
 }
-function fetchMeetinginfo(no){
+function fetchMeetinginfo(no) {
     return axios.get(`${config.Url}meeting/meetinginfo${no}.do`)
 }
 //모임 신청하기 버튼 처리
-function fetchMeetingapply(email){
+function fetchMeetingapply(email) {
     return axios.get(`${config.Url}meeting/meetingapply${email}.do`)
 }
 //승인 버튼 눌렀을 경우 실행 로직
-function fetchApprove(no){
+function fetchApprove(no) {
     return axios.get(`${config.Url}meeting/approve${no}.do`)
 }
 //미승인 버튼 이벤트
-function fetchUnapprove(no){
+function fetchUnapprove(no) {
     return axios.get(`${config.Url}meeting/unapprove${no}.do`)
 }
 //신청한 모임 목록을 확인
-function fetchApproveList(no){
+function fetchApproveList(no) {
     return axios.get(`${config.Url}meeting/approvelist${no}.do`)
 }
-function fetchmklist(no){
+function fetchmklist(no) {
     return axios.get(`${config.Url}meeting/mklist${no}.do`)
 }
 //해당모임을 삭제하는 로직
-function fetchmeetingdel(no){
+function fetchmeetingdel(no) {
     return axios.get(`${config.Url}meeting/meetingdel${no}.do`)
+}
+//모임업데이트할때 사용하는 로직
+function fetchmtUpdate(no){
+    return axios.get(`${config.Url}meeting/meetingupdate${no}.do`)
 }
 
 
@@ -88,22 +92,22 @@ function fetchCommunityBoardUpdate(boardSq) {
     return axios.get(`${config.Url}community/communityBoardUpdate${boardSq}`)
 }
 //첨부파일 가져오기(파일 다운로드)
-function fetchCoummunityBoardAttachment(boardSq){
-     return axios.get(`${config.Url}community/communityBoardAttachment${boardSq}`)
+function fetchCoummunityBoardAttachment(boardSq) {
+    return axios.get(`${config.Url}community/communityBoardAttachment${boardSq}`)
 }
 //댓글 조회하기
-function fetchCboardCommentSelectList(cboardNo){
+function fetchCboardCommentSelectList(cboardNo) {
     return axios.get(`${config.Url}community/commentSelectOne${cboardNo}`)
 }
 //댓글  삭제하기
-function fetchCboardCommentDelete(cboardNo){
+function fetchCboardCommentDelete(cboardNo) {
     return axios.post(`${config.Url}community/commentDelete${cboardNo}`)
 }
 
 
 //공지사항 조회
-function fetchNoticeList(){
-   return axios.get(`${config.Url}notice/noticeList`)
+function fetchNoticeList() {
+    return axios.get(`${config.Url}notice/noticeList`)
 }
 // 공지사항 상세화면
 function fetchNoticeView(noticeSq) {
@@ -118,15 +122,15 @@ function fetchNoticeBoardUpdate(noticeSq) {
     return axios.get(`${config.Url}notice/noticeUpdate${noticeSq}`)
 }
 //첨부파일 가져오기(파일 다운로드)
-function fetchNoticeAttachment(noticeSq){
-     return axios.get(`${config.Url}notice/noticeAttachment${noticeSq}`)
+function fetchNoticeAttachment(noticeSq) {
+    return axios.get(`${config.Url}notice/noticeAttachment${noticeSq}`)
 }
 //댓글 조회하기
-function fetchNTboardCommentSelectList(ntBoardNo){
+function fetchNTboardCommentSelectList(ntBoardNo) {
     return axios.get(`${config.Url}notice/commentSelectOne${ntBoardNo}`)
 }
 //댓글  삭제하기
-function fetchNTboardCommentDelete(ntCommentNo){
+function fetchNTboardCommentDelete(ntCommentNo) {
     return axios.post(`${config.Url}notice/commentDelete${ntCommentNo}`)
 }
 
@@ -149,11 +153,11 @@ function fetchItNewsUpdate(newsSq) {
     return axios.get(`${config.Url}itnews/itnewsUpdate${newsSq}`)
 }
 // ItNews 댓글 조회하기
-function fetchITCommentSelectList(itnewsNo){
+function fetchITCommentSelectList(itnewsNo) {
     return axios.get(`${config.Url}itnews/selectCommentList${itnewsNo}`)
 }
 //댓글  삭제하기
-function fetchItNewsCommentDelete(itCommentNo){
+function fetchItNewsCommentDelete(itCommentNo) {
     return axios.post(`${config.Url}itnews/deleteComment${itCommentNo}`)
 }
 
@@ -164,11 +168,11 @@ function fetchQnaBoardList() {
     return axios.get(`${config.Url}qna/qnaboardlist`)
 }
 //qna게시판 상세화면
-function fetchQnaBoardView(qboardNo){
+function fetchQnaBoardView(qboardNo) {
     return axios.get(`${config.Url}qna/qnaBoardView${qboardNo}`)
 }
 //qna게시판 삭제하기
-function fetchQnaBoardDelete(qboardNo){
+function fetchQnaBoardDelete(qboardNo) {
     return axios.post(`${config.Url}qna/qnaBoardDelete${qboardNo}`)
 }
 //qna게시판 수정하기(게시판번호로 객체 값 불러오기 )
@@ -176,39 +180,42 @@ function fetchQnaBoardUpdate(qboardNo) {
     return axios.get(`${config.Url}qna/qnaBoardUpdate${qboardNo}`)
 }
 //qna게시판 첨부파일 가져오기(파일 다운로드)
-function fetchQnaBoardAttachment(qboardNo){
+function fetchQnaBoardAttachment(qboardNo) {
     return axios.get(`${config.Url}qna/qnaBoardAttachment${qboardNo}`)
 }
 //qna게시판 댓글 가져오기
-function fetchqnacomment(qboardNo){
-    return axios.get(`${config.Url}qna/commentSelectOne${qboardNo}`) 
+function fetchqnacomment(qboardNo) {
+    return axios.get(`${config.Url}qna/commentSelectOne${qboardNo}`)
 }
 //qna게시판 댓글 삭제
-function fetchqnacommentdel(qboardCommentNo){
+function fetchqnacommentdel(qboardCommentNo) {
     return axios.post(`${config.Url}qna/commentDelete${qboardCommentNo}`)
 }
-
+// reference site 리스트 불러오기
+function fetchrefList() {
+    return axios.get(`${config.Url}ref/selectsite`);
+}
 
 // 민지
 // info(취업정보)
 // 조회 리스트
-function fetchInfoList(){
+function fetchInfoList() {
     return axios.get(`${config.Url}info/infoList`)
 }
 // 상세화면
-function fetchInfoDetail(infoSq){
+function fetchInfoDetail(infoSq) {
     return axios.get(`${config.Url}info/infoDetail${infoSq}`)
 }
 // 삭제하기
-function fetchInfoDelete(infoSq){
-    return  axios.post(`${config.Url}info/infoDelete${infoSq}`)
+function fetchInfoDelete(infoSq) {
+    return axios.post(`${config.Url}info/infoDelete${infoSq}`)
 }
 // 수정하기(게시판번호로 객체 값 불러오기 )
-function fetchInfoUpdate(infoSq){
+function fetchInfoUpdate(infoSq) {
     return axios.get(`${config.Url}info/infoUpdate${infoSq}`)
 }
 //첨부파일 다운로드
-function fetchInfoAttachment(infoSq){
+function fetchInfoAttachment(infoSq) {
     return axios.get(`${config.Url}info/infoAttachment${infoSq}`)
 }
 
@@ -219,7 +226,7 @@ function fetchRboardList() {
     return axios.get(`${config.Url}resume/rboardList.do`)
 }
 //이력서 불러오기
-function fetchResume(memberSq){
+function fetchResume(memberSq) {
     return axios.get(`${config.Url}resume/selectResume/${memberSq}.do`)
 }
 export {
@@ -240,10 +247,14 @@ export {
     fetchApproveList,
     fetchmklist,
     fetchmeetingdel,
+    fetchmtUpdate,
   
 
+
+
+
     //주은
-        //자유게사판CommunityBoard
+    //자유게사판CommunityBoard
     fetchCommunityBoardList,
     fetchCommunityBoardView,
     fetchCommunityBoardDelete,
@@ -251,7 +262,7 @@ export {
     fetchCoummunityBoardAttachment,
     fetchCboardCommentSelectList,
     fetchCboardCommentDelete,
-        //공지사항 Notice
+    //공지사항 Notice
     fetchNoticeList,
     fetchNoticeView,
     fetchNoticeDelete,
@@ -259,7 +270,7 @@ export {
     fetchNoticeAttachment,
     fetchNTboardCommentSelectList,
     fetchNTboardCommentDelete,
-        // IT소식 ItNews
+    // IT소식 ItNews
     fetchItNewsList,
     fetchItNewsView,
     fetchItNewsDelete,
@@ -277,8 +288,9 @@ export {
     fetchQnaBoardAttachment,
     fetchqnacomment,
     fetchqnacommentdel,
+    fetchrefList,
 
-     //민지
+    //민지
     //info 취업정보 
     fetchInfoList,
     fetchInfoDetail,
@@ -294,6 +306,4 @@ export {
 
 }
 
-    
-    
 

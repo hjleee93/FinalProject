@@ -2,117 +2,72 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-      
-      <!-- 메인 이미지 -->
-      <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">이력서</p>
-      </div>
-    <div class="container">         
+        <!-- 메인 이미지 -->
+        <div class="submenuimage ">
+          <p class="subtitle" id="subtitle">이력서</p>
+        </div>
+        <div class="container">
+          <!-- 게시판시작 -->
 
-    <!-- 게시판시작 -->
-    
-
-    <div class="overflow">
-    <!-- 테이블 -->
-    <v-card>
-      <v-card-title class="search-bar">
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-       </v-card-title>
-        <v-data-table
-          class="row-pointer mt-4"
-          :headers="headers"
-          :items="tableList"
-          :search="search"        
-        >
-        
-        <template v-slot:item="props">
-          
-          <tr class="job-info" @click="moveDtlPage(props.item.jobNo)">
-            <td >{{props.item.company}}</td>
-            <td><p id="job-title">{{props.item.title}}</p><p>
+          <div class="overflow">
+            <!-- 테이블 -->
+            {{ resume }}
+            <!-- <v-card>
+              <v-card-title class="search-bar">
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Search"
+                  single-line
+                  hide-details
+                ></v-text-field>
+              </v-card-title>
+              <v-data-table
+                class="row-pointer mt-4"
+                :headers="headers"
+                :items="resume"
+                :search="search"
+              >
               
-              <table>
-                <tr > 
-              <td class="title-dtl"><span>{{props.item.career}}</span></td>
-              <td class="title-dtl"><span>{{props.item.holidayTpNm}}</span></td>
-              <td class="title-dtl"><span>{{props.item.region}}</span></td>
-              </tr>
-              </table>
-              </p></td>
-            <td>{{props.item.ability}}</td>
-            <td>{{props.item.Condition}}</td>
-            <td v-if="props.item.deadline.includes('채용시까지')">
-             채용시까지</td>
-            <td v-else>
-              <!-- d-day 7일이하  -->
-              <b-btn class="d-day-btn argent-btn mr-2"
-              v-if="($moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 ) <= 7">D-
-              {{$moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 }}
-              </b-btn>
-              <!-- d-day 20일이하  -->
-              <b-btn class="d-day-btn warn-btn mr-2" 
-              v-else-if="($moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 ) > 7 &&
-              ($moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 ) <=20 ">D-
-              {{$moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 }}
-              </b-btn>
-
-              <b-btn class="d-day-btn ok-btn mr-2" v-else>D-
-              {{$moment($moment(20+props.item.deadline).format('YYYY-MM-DD')).diff($moment(new Date()), 'days') + 1 }}
-              </b-btn>
-              {{ props.item.deadline}}
-            </td>
-          </tr>
-        </template>
-        </v-data-table>
-    </v-card>
+              </v-data-table>
+            </v-card> -->
+          </div>
+        </div>
       </div>
-     </div>
-     
     </div>
-   </div>
-   
   </body>
-  
 </template>
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapState } = createNamespacedHelpers("jobStore");
+// import { mapState } from "vuex";
+
+const { mapState: memberState } = createNamespacedHelpers("memberStore");
 
 export default {
   data: () => ({
     search: "",
 
     headers: [
-      { text: "기업명", value: "company", class: "custom-header" },
-      { text: "제목", value: "title", class: "custom-header" },
-      { text: "지원자격", value: "ability", class: "custom-header" },
-      { text: "근무조건", value: "Condition", class: "custom-header" },
-      { text: "마감일", value: "deadline", class: "custom-header" },
+      { text: "제목", value: "company", class: "custom-header" },
+      { text: "날짜", value: "title", class: "custom-header" },
+      { text: "컨설팅 현황", value: "ability", class: "custom-header" },
     ],
   }),
-  mounted() {
-    this.$store.dispatch("jobStore/loadJobTable");
+  async mounted() {
+    await this.$store.dispatch("memberStore/getMemberInfo");
+
+    await this.$store.dispatch("FETCH_RESUME", this.userData.memberSq);
   },
 
   methods: {
     //상세페이지로 이동
-    moveDtlPage: function (e) {
+    moveDtlPage: function(e) {
       this.$router.push({ name: "jobInfoDtl", params: { wantedNo: e } });
     },
   },
   computed: {
-    ...mapState([
-      //매핑값
-      "tableList",
-      "jobInfo",
-    ]),
+    ...memberState(["loginStatus", "userData"]),
   },
 };
 </script>

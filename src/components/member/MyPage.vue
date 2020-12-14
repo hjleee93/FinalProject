@@ -1,5 +1,5 @@
 <template>
-  <b-container class="mb-5">
+  <b-container class="mb-5 my-page">
     <div class="header-body text-center mb-7 my-4">
       <b-row class="justify-content-center">
         <b-col xl="5" lg="6" md="8" class="px-5">
@@ -53,13 +53,15 @@
         <li class="topList first">
           <p class="title">이력서 등록수</p>
           <p class="count">
-            <a href="#resumeDive" class="scroll">{{ qnaCount }}</a
+            <a href="#resumeDive" class="scroll">{{ resume }}</a
             >개
           </p>
         </li>
         <li class="topList openState">
           <p class="title">참여한 프로젝트수</p>
-          <p class="count"><router-link to="/meetingapply" class="scroll">1</router-link>개</p>
+          <p class="count">
+            <router-link to="/meetingapply" class="scroll">1</router-link>개
+          </p>
         </li>
 
         <li class="topList last onlineCount">
@@ -124,8 +126,9 @@
       <p class="h3 mt-5 font-weight-bold text-center">
         이력서
       </p>
+
       <p id="resumeAll" class="mb-2">
-        <b-btn @click="moveResumeAll">전체보기</b-btn>
+        <b-btn @click="moveResumeAll(userData.memberSq)">전체보기</b-btn>
       </p>
       <v-simple-table class="resume">
         <thead class="resume-table">
@@ -514,7 +517,7 @@ import $ from "jquery";
 
 const { mapState: memberState } = createNamespacedHelpers("memberStore");
 const { mapState: jobState } = createNamespacedHelpers("jobStore");
-
+import { mapState } from "vuex";
 $(document).ready(function($) {
   $(".scroll").click(function(event) {
     event.preventDefault();
@@ -547,9 +550,12 @@ export default {
     }
   },
   async mounted() {
+    await this.$store.dispatch("memberStore/getMemberInfo");
     await this.$store.dispatch("jobStore/loadScrap", {
       memberSq: this.userData.memberSq,
     });
+
+    await this.$store.dispatch("FETCH_RESUME", this.userData.memberSq);
     this.$store.dispatch("FETCH_PBOARD");
     this.$store.dispatch("FETCH_QNABOARD");
     this.$store.dispatch("FETCH_COMMUNITYBOARD");
@@ -557,6 +563,7 @@ export default {
     this.$store.dispatch("jobStore/loadJobTable");
   },
   computed: {
+    ...mapState(["resume"]),
     ...memberState(["loginStatus", "userData"]),
     ...jobState(["tableList", "jobInfo", "scrap"]),
 
@@ -667,8 +674,8 @@ export default {
     },
   },
   methods: {
-    moveResumeAll() {
-      this.$router.push({ name: "resumeBoard" });
+    moveResumeAll(id) {
+      this.$router.push({ name: "resumeBoard", params: { id: id } });
     },
     moveCommu(id) {
       this.$router.push({ name: "CommunityBoardView", params: { id: id } });
