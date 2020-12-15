@@ -22,8 +22,6 @@
 
 <style scoped>
 .footer {
-  font-family: "KOTRA_BOLD-Bold";
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Noto Sans KR", sans-serif;
 }
 </style>

@@ -137,7 +137,7 @@ export default {
 
 <style scoped>
 .container-fluid{
-    font-family: "Nanum Gothic", sans-serif;
+    font-family: "Noto Sans KR", sans-serif;
 }
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;

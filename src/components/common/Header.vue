@@ -115,20 +115,11 @@ export default {
 </script>
 
 <style scope>
-@font-face {
-  font-family: "KOTRA_BOLD-Bold";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 #menu {
-  font-family: "KOTRA_BOLD-Bold";
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: bold;
 }
 .header_image {
   background-color: #394867;
