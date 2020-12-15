@@ -212,7 +212,7 @@ export default {
 
 <style scoped>
 * {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .out-info {
   background-color: #f1f6f9;

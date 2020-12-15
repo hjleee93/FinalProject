@@ -8,34 +8,15 @@
         <p class="subtitle" id="subtitle">구인정보</p>
       </div>
     <div class="container">     
-    <!-- 탭 -->   
-    <v-tabs
-    color="grey darken-3"
     
-    >
-    <v-tab to='/jobList'><b>ALL</b></v-tab>
-    <v-tab to='/jobListFront'><b>FRONTEND</b></v-tab>
-    <v-tab to='/jobListBack'><b>BACKEND</b></v-tab>
-    <v-tab to='/jobListDesign'><b>DESIGN</b></v-tab>
-    <v-tab to='/jobListPublishing'><b>PUBLISHING</b></v-tab>
-    <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
-  </v-tabs>
 
     <!-- 게시판시작 -->
-    
+      <SearchBar />
 
     <div class="overflow">
     <!-- 테이블 -->
     <v-card>
-      <v-card-title class="search-bar">
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-       </v-card-title>
+     
         <v-data-table
           class="row-pointer mt-4"
           :headers="headers"
@@ -94,6 +75,7 @@
 </template>
 
 <script>
+import SearchBar from "../SearchBar";
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("jobStore");
 
@@ -112,7 +94,9 @@ export default {
   mounted() {
     this.$store.dispatch("jobStore/loadJobTable");
   },
-
+components: {
+    SearchBar,
+  },
   methods: {
     //상세페이지로 이동
     moveDtlPage: function (e) {
