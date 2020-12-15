@@ -61,13 +61,11 @@ const jobStore = {
 
         //상세페이지 
         async loadJobDetail({ commit }, wantedNo) {
-            console.log("상세페이지 22", wantedNo)
             await axios.get(
                 "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=D&returnType=XML&infoSvc=VALIDATION&wantedAuthNo=" +
                 wantedNo.wantedNo
             )
                 .then((response) => {
-                    console.log("333")
                     var xml = response.data;
 
                     var json = convert.xml2json(xml, { compact: true });
@@ -77,19 +75,22 @@ const jobStore = {
                     let selMthd = this.items.wantedDtl.wantedInfo.selMthd._text;
                     let rcptMthd = this.items.wantedDtl.wantedInfo.rcptMthd._text;
                     let submitDoc = this.items.wantedDtl.wantedInfo.submitDoc._text;
+
                     var attachFileInfo;
                     if (this.items.wantedDtl.wantedInfo.attachFileInfo == undefined) {
 
                         attachFileInfo = '등록된 파일이 없습니다.'
-                    } else {
-                        console.log(this.items.wantedDtl.wantedInfo.attachFileInfo.attachFileUrl)
-                        attachFileInfo = this.items.wantedDtl.wantedInfo.attachFileInfo.attachFileUrl._text;
+                        console.log("파일없음: " + this.items.wantedDtl.wantedInfo.attachFileInfo);
+                    } else {//중복파일이 올라간 경우가있음
 
+                        if (this.items.wantedDtl.wantedInfo.attachFileInfo.length >= 2) {
+                            attachFileInfo = this.items.wantedDtl.wantedInfo.attachFileInfo[0].attachFileUrl._text;
+                        }
                     }
+
+
                     this.apply =
                         { receiptCloseDt: receiptCloseDt, selMthd: selMthd, rcptMthd: rcptMthd, submitDoc: submitDoc, attachFileInfo: attachFileInfo }
-
-
 
                     commit('SET_GET_JOB', this.items)
                     commit('SET_GET_JOB_BOARD', this.apply)
@@ -276,7 +277,7 @@ const jobStore = {
                 });
 
         },
-        loadJobPublishingTable({ commit }) {
+        loadJobKeywordTable({ commit }) {
             axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&keyword=퍼블리셔|퍼블리싱|publisher|publishing')//프론트엔드 테이블
                 .then((response) => {
                     var xml = response.data
