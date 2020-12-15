@@ -136,11 +136,6 @@ export default {
   data: () => ({
     memberPwd: "",
     memberEmail: "",
-    // naverLoginURL: "https://nid.naver.com/oauth2.0/token&grant_type=delete",
-    // CLIENT_ID: "aYgNgGmIwR3wysmlCfRd",
-    // grant_type: "delete",
-    // access_token: localStorage.access_token,
-    // client_secret: "voZaFcwXXi",
   }),
 
   methods: {
@@ -149,7 +144,6 @@ export default {
         .post(
           "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=aYgNgGmIwR3wysmlCfRd&client_secret=voZaFcwXXi&access_token=" +
             this.userData.memberToken +
-            // localStorage.access_token +
             "&service_provider=NAVER"
         )
         .then((res) => {
@@ -170,9 +164,8 @@ export default {
       if (Kakao.Auth == undefined) {
         window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
       }
-      // window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
-      console.log(localStorage.access_token);
-      Kakao.Auth.setAccessToken(localStorage.access_token);
+
+      Kakao.Auth.setAccessToken(sessionStorage.access_token);
       const self = this;
       Kakao.API.request({
         url: "/v1/user/unlink",
@@ -219,7 +212,7 @@ export default {
 
 <style scoped>
 * {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .out-info {
   background-color: #f1f6f9;

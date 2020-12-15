@@ -173,10 +173,8 @@ export default {
             setTimeout(() => this.$router.push({ path: "/" }), 2000); //메인페이지로 이동
 
             //스토리지 삭제
-            localStorage.removeItem("memberEmail");
-            localStorage.removeItem("access_token");
-            sessionStorage.removeItem("memberEmail");
-            sessionStorage.removeItem("access_token");
+            localStorage.clear();
+            sessionStorage.clear();
           } else if (res.data == -1) {
             //비밀번호 틀린경우
             this.$swal({
@@ -208,7 +206,7 @@ export default {
 
 <style scoped>
 * {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .chg-pwd {
   background-color: #f1f6f9;

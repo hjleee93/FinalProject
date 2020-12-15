@@ -357,7 +357,7 @@ export default {
 <style scoped>
 .banner-area,
 .meeting-title {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 /* 상단 박스 css */
 

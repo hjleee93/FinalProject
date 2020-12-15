@@ -77,11 +77,7 @@
                     >Remember me</b-form-checkbox
                   >
                   <div class="text-center">
-                    <b-button
-                      id="loginBtn"
-                      type="submit"
-                      @click="login()"
-                      class="login-btn my-4"
+                    <b-button id="loginBtn" type="submit" class="login-btn my-4"
                       >Sign in</b-button
                     >
                   </div>
@@ -138,12 +134,21 @@ export default {
   //   }
   // },
   methods: {
-    login: function() {
+    onSubmit: function() {
       let memberEmail = this.model.email;
       let memberPwd = this.model.password;
+      //local session 구분 처리용
+      //false --> session
+      //true --> local
+      let rememberMe = this.model.rememberMe;
+
       console.log("email: " + memberEmail);
       console.log("password: " + memberPwd);
-      this.$store.dispatch("memberStore/login", { memberEmail, memberPwd });
+      this.$store.dispatch("memberStore/login", {
+        memberEmail,
+        memberPwd,
+        rememberMe,
+      });
     },
     kakaoLogin() {
       // window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
@@ -169,7 +174,7 @@ export default {
 
 <style scoped>
 * {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .login-btn {
   text-decoration: none;
