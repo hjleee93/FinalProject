@@ -71,6 +71,8 @@ import {
      //혜지
      fetchRboardList,
      fetchResume,
+     fetchResumeList,
+
 
 
 }
@@ -164,6 +166,7 @@ export default new Vuex.Store({
 
           rboard: [],
           resume: [],
+          resumeList: [],
 
      },
      actions: {
@@ -544,9 +547,17 @@ export default new Vuex.Store({
           },
 
           //이력서 불러오기
-          FETCH_RESUME({ commit }, memberSq) {
-               fetchResume(memberSq)
+          FETCH_RESUME({ commit }, resumeNo) {
+               fetchResume(resumeNo)
                     .then(({ data }) => commit("SET_RESUME", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
+          },
+          //이력서리스트 불러오기
+          FETCH_RESUMELIST({ commit }, memberSq){
+               fetchResumeList(memberSq)
+                    .then(({ data }) => commit("SET_RESUMELIST", data))
                     .catch(({ error }) => {
                          console.log(error);
                     })
@@ -728,7 +739,12 @@ export default new Vuex.Store({
           //이력서 불러오기
           SET_RESUME(state, resume) {
                state.resume = resume;
+          },
+          //이력서리스트 불러오기
+          SET_RESUMELIST(state, resumeList){
+               state.resumeList = resumeList;
           }
+
 
 
      }//mutations 끝

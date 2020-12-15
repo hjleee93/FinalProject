@@ -11,7 +11,7 @@
     <div>
         <v-tabs centered color="grey darken-3">
             <v-tab active to="/resume/insertresume">입사지원서 등록</v-tab>
-            <v-tab to="/resume/resume">입사지원서 보기</v-tab>
+            <v-tab to="/resume/resumeList">입사지원서 보기</v-tab>
             <v-tab to="/resume/updateresume">입사지원서 수정</v-tab>
             <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
             <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
@@ -23,6 +23,9 @@
     <b-row>
         <b-col>
             <form @submit.prevent="insertResume"  enctype="multipart/form-data">
+                
+                <div class="resumetitle"><p>이력서제목</p></div>
+                <div><input type="text" id="rtitle" v-model="rtitle" placeholder="이력서 제목을 입력하세요"></div>
                 <table id="resumetable">
                 <div class="resumetitle"><p>개인정보</p></div>
                     <tr>
@@ -411,8 +414,11 @@ export default {
         //  },
 
          insertResume(){
-            let formData=new FormData();
-           
+        let formData=new FormData();
+
+          //이력서 제목
+          formData.append('rtitle',this.rtitle);
+
            //개인정보
           formData.append('memberNo',this.userData.memberSq);
           formData.append('rname',this.userData.memberName);
@@ -517,6 +523,9 @@ export default {
      },
 
      data: () => ({
+      //이력서 제목
+      rtitle:'',
+
       //개인정보
       engName:'',
       birth:'',
@@ -672,5 +681,13 @@ button{
 
 .address{
     width: 300px;
+}
+
+#rtitle{
+    width: 700px;
+    height: 40px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
 }
 </style>
