@@ -1,5 +1,5 @@
 <template>
-<b-container fluid>
+ <div class="container-fluid">
       <b-row >
          <div class="submenuimage ">
         <p class="subtitle" id="subtitle">portfolioinfo</p>
@@ -7,7 +7,7 @@
       </b-row>
       <b-row id=" writecontain" align-h="end"><b-button to="/portfolioList">목록으로 </b-button></b-row>
       <b-row>
-        <b-col><b-card class="text-center"><b-form>
+        <b-col>
         <b-row>
           <b-col cols="2"><b-form-group  label="제목"/></b-col>
           <b-col> <b-form-input v-model="pboardone.pboardTitle" readonly/></b-col>
@@ -25,11 +25,11 @@
           <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
           <b-col cols="2"><b-button @click="attachmentdown(attachment)">{{attachment.originalFilename}}</b-button></b-col>
         </b-row>
-          </b-form>
+          
           <b-row v-if="userData.memberSq===pboardone.pboardId"><b-col>
           <b-button @click="update" v-if="userData.memberSq===pboardone.pboardId">수정</b-button>
           <b-button @click="pdelete"  v-if="userData.memberSq===pboardone.pboardId||userData.memberEmail === 'admin@kh.com'" >삭제</b-button>
-  </b-col></b-row></b-card></b-col>
+  </b-col></b-row></b-col>
       </b-row>
     <b-form @submit.prevent="comment" v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2">{{userData.memberName}}</b-col></b-row>
       <b-row><b-col><b-form-textarea required ref="comment" v-model="pcomment" /></b-col>
@@ -57,8 +57,7 @@
       </b-row></b-card></b-col>
       </b-row>
       <!--<div>{{userData}}</div>-->
-     <div>{{commentlist}}</div>
-     {{updatetext}}
+ 
     
       </b-container>
    
@@ -86,7 +85,7 @@
 
   </ModalView>
      
-</b-container> 
+</div>
 </template>
 
 <script>
