@@ -1,15 +1,17 @@
 <template>
   <div>
-    <div class="header_image">
-      <div>
-        <a href="/"
-          ><img
-            class="main-img"
-            src="../../assets/images/main.png"
-            alt="Vue logo"
-        /></a>
-      </div>
-    </div>
+    <template v-if="this.$router.currentRoute.path == '/'">
+      <div class="header_image">
+        {{ this.$router.currentRoute.path }}
+        <div>
+          <a href="/"
+            ><img
+              class="main-img"
+              src="../../assets/images/main.png"
+              alt="Vue logo"
+          /></a>
+        </div></div
+    ></template>
 
     <b-navbar id="menu" toggleable="md" type="dark" variant="">
       <b-navbar-brand href="/">IT-JOB-GO</b-navbar-brand>

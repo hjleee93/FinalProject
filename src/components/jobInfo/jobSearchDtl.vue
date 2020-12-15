@@ -125,8 +125,8 @@ export default {
 </script>
 
 <style scoped>
-.container-fluid{
-    font-family: "Noto Sans KR", sans-serif;
+*{
+   font-family: "Noto Sans KR", sans-serif;
 }
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
