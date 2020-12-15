@@ -7,23 +7,12 @@
           <p class="subtitle" id="subtitle">구인정보</p>
         </div>
         <div class="container">
-          <!-- 탭 -->
-          <v-tabs color="grey darken-3"> </v-tabs>
-
           <!-- 게시판시작 -->
           <SearchBar />
           <div class="overflow">
             <!-- 테이블 -->
             <v-card>
-              <v-card-title class="search-bar">
-                <v-text-field
-                  v-model="search"
-                  append-icon="mdi-magnify"
-                  label="Search"
-                  single-line
-                  hide-details
-                ></v-text-field>
-              </v-card-title>
+              
               <v-data-table
                class="row-pointer mt-4"
           :headers="headers"
