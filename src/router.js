@@ -212,19 +212,19 @@ const DeleteMember = () => {
      return import('./components/member/deleteMember.vue')
 }
 const LoginCallback = () => {
-     return import('./components/member/loginCallback.vue')
+     return import('./components/member/LoginCallback.vue')
 }
 const NaverLogin = () => {
-     return import('./components/member/naverLogin.vue')
+     return import('./components/member/NaverLogin.vue')
 }
 const ResumeBoard = () => {
      return import('./components/member/ResumeBoard.vue')
 }
 const KakaoCallbackLogin = () => {
-     return import('./components/member/kakaoCallbackLogin.vue')
+     return import('./components/member/KakaoCallbackLogin.vue')
 }
 const AdminPage = () => {
-     return import('./components/member/adminPage.vue')
+     return import('./components/member/AdminPage.vue')
 }
 
 
