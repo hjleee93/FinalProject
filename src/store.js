@@ -74,7 +74,7 @@ import {
      fetchRboardList,
      fetchResume,
      fetchResumeList,
-
+     fetchResumeDelete,
 
 
 }
@@ -594,6 +594,15 @@ export default new Vuex.Store({
                     })
           },
 
+          //이력서 삭제하기
+          FETCH_RESUME_DELETE({ commit }, resumeNo){
+               fetchResumeDelete(resumeNo)
+                    .then(({ data }) => commit("SET_RESUME_DELETE", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
+          },
+
      },//action
 
      mutations: {
@@ -786,9 +795,11 @@ export default new Vuex.Store({
           //이력서리스트 불러오기
           SET_RESUMELIST(state, resumeList){
                state.resumeList = resumeList;
-          }
-
-
+          },
+          //이력서 삭제
+          SET_RESUME_DELETE(state, deta){
+               state.data= deta;
+          },
 
      }//mutations 끝
 

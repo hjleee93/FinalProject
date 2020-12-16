@@ -604,17 +604,17 @@ export default new Router({
                beforeEnter: LoginAuth(),
           },
           {
-               path: '/resume/BlindResume',
+               path: '/resume/BlindResume/:id',
                name: 'BlindResume',
                component: BlindResume
           },
           {
-               path: '/resume/LineResume',
+               path: '/resume/LineResume/:id',
                name: 'LineResume',
                component: LineResume
           },
           {
-               path: '/resume/DesignResume',
+               path: '/resume/DesignResume/:id',
                name: 'DesignResume',
                component: DesignResume
           },
@@ -624,7 +624,7 @@ export default new Router({
                component: insertresume
           },
           {
-               path: '/resume/updateresume',
+               path: '/resume/updateresume/:id',
                name: 'updateresume',
                component: updateresume
           },
