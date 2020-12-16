@@ -28,7 +28,7 @@
               <b-dropdown-item to="/resume/insertresume"
                 >입사지원서 등록</b-dropdown-item
               >
-              <b-dropdown-item to="/resume/resume"
+              <b-dropdown-item to="/resume/resumeList"
                 >입사지원서 보기</b-dropdown-item
               >
               <b-dropdown-item to="/resume/updateresume"

@@ -10,7 +10,7 @@
     <v-img
       class="white--text align-end"
      
-      max-width="350px"
+      width="200px"
       :src="`http://localhost:8082/itjobgo/meeting/imagesrequest${n.collabSq}`"
     >
      

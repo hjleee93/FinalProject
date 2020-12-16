@@ -34,39 +34,43 @@
     <!-- /.row -->
     <div class="row card-align">
     <!-- card -->
-
+ 
       <v-card
           class="mx-auto"
           max-width="330"
           v-for="ref in refList" :key="ref.id"
+          @click="cardclick(ref)"
         >
-          <!-- @click="cardclick(ref)" -->
-
         <!-- 이미지 -->
         <v-img
           class="white--text align-end"
           height="200px"
+          width="350px"
           :src="`http://localhost:8082/itjobgo/ref/selectsiteImg${ref.refNo}`"
         >
-        <!-- 수정필요(조회수) -->
-        <v-card-title>{{ref.refReadCount}}</v-card-title>
+        <!-- 수정필요(조회수) {{ref.refReadCount}} -->
+        <v-card-title></v-card-title>
         </v-img>
 
         <v-card-text class="text--primary">
-          <div id="title"><b>{{ref.refTitle}}</b></div>
+          <div id="title"><b>{{ref.refTitle}}</b><hr></div>
           <div id="content">{{ref.refContent}}</div>
         </v-card-text>
-
-        <v-card-actions>
-          <v-btn
-            color="blue"
-            text
-            >
-            사이트 바로가기??
-          </v-btn>
           <!-- 등록일 -->
-          <h6 id="date">{{formatDate(ref.refDate)}}</h6>
+          <div id="date">등록일 : {{formatDate(ref.refDate)}}</div>
+        <v-card-actions class="test" >         
+          <v-btn
+          class="btn_site"
+          elevation="2"
+          outlined
+          rounded
+          color="accent"
+        >
+        
+          <a href="" v-on:click.stop.prevent=openWindow(ref.refSiteAddr)> go Links </a>
+        </v-btn>
         </v-card-actions>
+
       </v-card>
       
       </div>
@@ -82,12 +86,8 @@
           </div> -->
 
     </div>
-
-
-
-        </div>
-
-      </div>
+    </div>
+  </div>
 
 </b-container>
 </template>
@@ -105,6 +105,7 @@
     
     data() {
       return {
+        showModal:false,
         perPage: 4,
         currentPage: 1,
       }
@@ -118,27 +119,42 @@
     created() {
        this.$store.dispatch("FECH_REF_LIST")
     },
+    components:{
+      
+    },
+
+    //메소드
     methods: {
-      // cardclick(value){
-      //     this.$router.push({name:'refSiteView',params:{id:value.refNo}})
-      // },
+
+      cardclick(value){
+          this.$router.push({name:'refSiteView',params:{id:value.refNo}})
+      },
+
+      pdelete(){
+          this.showModal=!this.showModal;
+      },
+
+      // 삭제 
+      ydele(){
+        let no=this.$route.params.id
+        console.log(no);
+         this.$store.dispatch("FETCH_REF_DELETE",no)
+          //this.$router.push({name:'refSite'})
+          //this.$router.go(this.$router.currentRoute);
+
+      },
+      
+      // 삭제 취소
+      ndele(){
+        this.showModal=!this.showModal;
+      },
+
+
+
       //링크 새로 열기
       openWindow: function (link) {
        window.open(link);
       },
-
-      //https:// 아닐때도 링크 연결====테스트중====
-      movePage: function() {
-      if (
-        this.it.newsRefSite.includes("http") == false
-      ) {
-      var url = "https://" + this.it.newsRefSite._text;
-      } else {
-        url = this.it.newsRefSite._text;
-      }
-      document.getElementById("homePage").setAttribute("href", url);
-    },
-
 
         // 날짜변환 함수
     formatDate(value) {
@@ -190,19 +206,22 @@
     margin-bottom: 12%;
 }
 #title{
+  text-align: center;
   margin-top: 2%;
   margin-bottom: 5%;
-  font-size: 22px;
+  font-size: 19px;
   color :#424874
 }
 #content{
-  font-size: 18px;
+  margin-left: 2%;
+  font-size: 15px;
+  height: 80px;
 }
 #date{ 
   color: #9BA4B4;
-  margin-top: 2%;
-  font-size: 15px;
-  margin-left: 25%;
+  /* margin-top: 6%; */
+  font-size: 14px;
+  margin-left: 20px;
 }
  .mx-auto{
   margin: 1.5%;
@@ -218,6 +237,12 @@
   font-family: 'Barlow Semi Condensed', sans-serif;
   color:#4e5157 ;
   font-size: 50px;
+}
+.btn_site{
+  border:1px #3a74df solid;
+  margin-bottom: 3%;
+  margin-top: 2%; 
+  margin-left: 4%;
 }
 
 </style>
