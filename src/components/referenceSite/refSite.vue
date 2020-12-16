@@ -88,28 +88,10 @@
     </div>
   </div>
 
-  <!-- 글 삭제 모달 -->
-  <ModalView v-if="showModal" @close="showModal = false">
-    <template>
-      <div slot="header">
-        정말 삭제하시겠습니까?
-      </div>
-      <div slot="body" class="modalf"> 
-        <b-button id="modal-yes" @click="ydele">네</b-button>
-         <b-button id="modal-no" @click="ndele">아니오</b-button>
-      </div>
-      <div slot="footer">
-      </div>  
-    </template>
-  </ModalView>
-
-
-
 </b-container>
 </template>
 
 <script>
-  import ModalView from '../common/ModalView.vue'
   import { mapState } from 'vuex';
   import Vue from 'vue'
   import vueMoment from 'vue-moment';
@@ -137,7 +119,7 @@
        this.$store.dispatch("FECH_REF_LIST")
     },
     components:{
-      ModalView,
+      
     },
 
     //메소드

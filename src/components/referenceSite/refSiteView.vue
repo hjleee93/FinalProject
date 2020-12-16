@@ -23,10 +23,11 @@
               <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
             </v-tabs>
 
-          <div>
+          <!-- <div>
             <h4 class="sub-header-ref">분야별 웹 사이트</h4>
             <v-btn to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
-          </div>
+          </div> -->
+
     <div class="overflow-auto">
 
     <div class="site_ect">
@@ -34,105 +35,127 @@
     <div class="row card-align">
     <!-- card -->
 
-      <v-card
-          class="mx-auto"
-          max-width="330"
-        >
-          <!-- v-for="it in refList" : key="ref.id"
-          @click="cardclick(ref)" -->
-        <!-- 이미지 작업전! -->
+
+      <b-form>
+        <b-row>
+          {{userData}}
+          <b-col id="title"> 제목: {{refListView.refTitle}}</b-col>
+        </b-row>
+        <b-row>
+          <b-col id="boardDate"> 날짜: {{formatDate(refListView.refDate)}}</b-col>
+
+          <!-- 뉴스기사 바로가기 -->
+          <a href="" v-on:click.stop.prevent="openWindow(refListView.refSiteAddr)" id="link_a">링크 바로가기</a>
+          
+        <!-- 이미지 -->
+          <!-- max-width="350px" -->
         <v-img
           class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          height="250px"
+          :src="`http://localhost:8082/itjobgo/ref/selectsiteImg${refListView.refNo}`"
+        
         >
-        <v-card-title>이건모다</v-card-title>
+        <v-card-title></v-card-title>
         </v-img>
 
-        <v-card-text class="text--primary">
-          <div id="title">Whitehaven Beach</div>
-          <div id="content">Whitsunday Island, Whitsunday Islands</div><h6 id="ref_date">등록일 : 20/10/31</h6>
-        </v-card-text>
+        </b-row>
+        <b-row>
+        </b-row>
 
-        <v-card-actions>
-          <v-btn
-            color="blue"
-            text
-            >
-            사이트 바로가기??
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+          <b-row>
+          <b-col > <pre id="content">{{refListView.refContent}}</pre></b-col>
+        </b-row>
+
+        <!-- <b-row v-if="attachment">
+          <b-col cols="2" id="attachment-title"><b-form-group  label="첨부된 파일" readonly/></b-col>
+          <b-col cols="2" id="attachment"><b-button id="attachment-btn" @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
+        </b-row> -->
+      </b-form>
+          
+          <b-row >
+            <b-col>
+              <b-button  v-if="userData.memberSq===refListView.memberNum"
+                                                                               @click="update" id="update-btn2">수정</b-button>
+              <b-button   v-if="userData.memberSq===refListView.memberNum || userData.memberEmail === 'admin@kh.com'" 
+                                                                                @click="pdelete" id="delete-btn2">삭제</b-button>
+            </b-col>
+          </b-row>
+
+      <b-row id=" writecontain" align-h="end">
+        <b-col>
+          <!-- <b-button to="/communityBoardList" id="prev">이전 </b-button>
+          <b-button to="/communityBoardList" id="next">다음 </b-button> -->
+          <b-button to="/communityBoardList" id="list">목록 </b-button>
+        </b-col>
+      </b-row>
       
-      </div>
 
-          <!-- search bar -->
-          <div class="search-align">
-          <b-navbar-nav class="ml-auto st_search">
-            <b-nav-form>
-              <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" type="submit" id=searchbtn>Search</b-button>
-            </b-nav-form>
-          </b-navbar-nav>
+
           </div>
-
+        </div>
+      </div>
     </div>
 
-
-
+  <!-- 게시판 삭제 모달 -->
+    <ModalView v-if="showModal" @close="showModal = false">
+      <template>
+        <div slot="header">
+          정말 게시판 글을 삭제하시겠습니까?
         </div>
+        <div slot="body" class="modalf"> 
+          <b-button id="modal-yes" @click="ydele">네</b-button>
+          <b-button id="modal-no" @click="ndele">아니오</b-button>
+        </div>
+        <div slot="footer">
+        </div>  
+      </template>
+    </ModalView>
 
-      </div>
+
 
 </b-container>
+
+
+
+
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import Vue from 'vue'
-  import vueMoment from 'vue-moment';
-  const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
-  import { createNamespacedHelpers } from "vuex";
+import ModalView from '../common/ModalView.vue'
+import { mapState } from 'vuex';
+// import axios from 'axios';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 
+import Vue from 'vue'
+import vueMoment from 'vue-moment';
+Vue.use(vueMoment);
+
+// var moment = require('moment');
+// require('moment-timezone'); 
+// moment.tz.setDefault("Asia/Seoul"); 
 
   export default {
     
     data() {
       return {
+        showModal:false,
         perPage: 4,
         currentPage: 1,
       }
     },
-    computed:{
-      ...mapState({
-      refList:state=>state.refList
-     }),
-      ...loadUserState(['userData'])
+
+    components:{
+      ModalView,
     },
-    created() {
-       this.$store.dispatch("FECH_REF_LIST")
-    },
+
+    
     methods: {
-      cardclick(value){
-          this.$router.push({name:'itNewsView',params:{id:value.newsSq}})
-      },
+
       //링크 새로 열기
       openWindow: function (link) {
        window.open(link);
       },
-
-      //https:// 아닐때도 링크 연결====테스트중====
-      movePage: function() {
-      if (
-        this.it.newsRefSite.includes("http") == false
-      ) {
-      var url = "https://" + this.it.newsRefSite._text;
-      } else {
-        url = this.it.newsRefSite._text;
-      }
-      document.getElementById("homePage").setAttribute("href", url);
-    },
-
 
         // 날짜변환 함수
     formatDate(value) {
@@ -140,7 +163,38 @@
       return this.$moment(value).format("YYYY-MM-DD");
     },
 
+      //글삭제, 모달
+      pdelete(){
+          this.showModal=!this.showModal;
+      },
+      ydele(){
+        let no=this.$route.params.id
+         this.$store.dispatch("FETCH_REF_DELETE",no)
+         this.$router.push({name:'refSite'})
+      
+      },
+
+
     },
+
+    created() {      
+        const refNo=this.$route.params.id;
+        this.$store.dispatch("FETCH_REF_VIEW",refNo)
+        //this.$store.dispatch("FETCH_REF_ATTACHMENT",refNo)
+    },
+
+
+    computed:{
+      ...mapState({
+            refListView:state=>state.refListView,
+            refAttachment:state=>state.refAttachment,  
+        }),
+         ...loadUserState(['userData'])
+    },
+
+
+
+
 
 }
 </script>
@@ -157,10 +211,6 @@
   margin-right: 50px;
   margin-top: 20px;
 }
-.st_search{
-  position:absolute;
-  left:67%;
-}
 .sub-header-ref{
   position: relative;
   left:18px;
@@ -175,27 +225,6 @@
   border:none;
   color:white;
 }
-#searchbtn{
-  background-color: #9BA4B4;
-  border: 1px  #9BA4B4 solid;
-}
-.search-align{
-    margin-top: 2%;
-    margin-bottom: 12%;
-}
-#ref_date{
-  color: #9BA4B4;
-  margin-top: 1%;
-  font-size: 12px;
-}
- .mx-auto{
-  margin: 1.5%;
-}
-.ref_title{
-    font-family: 'Masque';
-    color:#4e5157 ;
-    font-size: 50px;
-} 
 .submenuimage{
     width: 100%;
     height:180px;

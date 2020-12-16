@@ -166,6 +166,9 @@ const RefWrite = () => {
 const RefUpdate = () => {
      return import('./components/referenceSite/refUpdate.vue')
 }
+const RefSiteView = () => {
+     return import('./components/referenceSite/refSiteView.vue')
+}
 const qnaBoardback = () => {
      return import('./components/qnaboard/qnaBoardback.vue')
 }
@@ -591,6 +594,11 @@ export default new Router({
                path: '/refUpdate',
                name: 'refUpdate',
                component: RefUpdate
+          },
+          {
+               path: '/refSiteView',
+               name: 'refSiteView',
+               component: RefSiteView
           },
           {
                path: '/qnaView/:id',
