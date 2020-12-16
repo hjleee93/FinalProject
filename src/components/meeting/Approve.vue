@@ -17,8 +17,7 @@
       </div>
   </div>
   
- {{$route.params.memberSq}}
- {{approvelist}}
+
   <b-row>
 <b-col> 
     <v-data-table

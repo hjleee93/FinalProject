@@ -34,9 +34,9 @@
         <b-form-input
           id="input-2"
           name="pboardWriter"
-          required
+        
           placeholder="작성자"
-          
+         readonly
           v-model="userData.memberName"
         ></b-form-input>
        </b-input-group>
@@ -45,10 +45,18 @@
       placeholder="첨부파일" required
      
     ></b-form-file> 
-    
-  <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
+      <b-form-group id="input-group-3"  label-for="input-3">
+        <b-form-textarea
+          id="textarea-content"
+          v-model="pboardContent"
+          required
+          placeholder="내용을 입력해주세요"
+          rows="10"
+        ></b-form-textarea>
+    </b-form-group>
+  <!-- <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
    <vue-editor id="input-3" required name="pboardContent" v-model="pboardContent" />
-   </b-form-group>
+   </b-form-group> -->
       <!-- <b-button type="submit" class="s-btn">확인</b-button> -->
       <b-row align-h="end"><b-col cols="1">
         <b-button type="submit" class="s-btn">확인</b-button></b-col>
@@ -67,7 +75,7 @@
 <script>
 import axios from 'axios';
 import { createNamespacedHelpers } from "vuex";
-import { VueEditor } from "vue2-editor";
+//import { VueEditor } from "vue2-editor";
 const { mapState } = createNamespacedHelpers("memberStore");
 export default {
  
@@ -92,7 +100,7 @@ export default {
         ...mapState(['userData'])
     },
     components:{
-      VueEditor,  
+     // VueEditor,  
     },
     methods: {
       reset(){
