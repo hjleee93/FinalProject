@@ -39,9 +39,8 @@
           class="mx-auto"
           max-width="330"
           v-for="ref in refList" :key="ref.id"
+          @click="cardclick(ref)"
         >
-          <!-- @click="cardclick(ref)" -->
-
         <!-- 이미지 -->
         <v-img
           class="white--text align-end"
@@ -49,16 +48,17 @@
           width="350px"
           :src="`http://localhost:8082/itjobgo/ref/selectsiteImg${ref.refNo}`"
         >
-        <!-- 수정필요(조회수) -->
-        <v-card-title>{{ref.refReadCount}}</v-card-title>
+        <!-- 수정필요(조회수) {{ref.refReadCount}} -->
+        <v-card-title></v-card-title>
         </v-img>
 
         <v-card-text class="text--primary">
           <div id="title"><b>{{ref.refTitle}}</b><hr></div>
           <div id="content">{{ref.refContent}}</div>
         </v-card-text>
-
-        <v-card-actions >         
+          <!-- 등록일 -->
+          <div id="date">등록일 : {{formatDate(ref.refDate)}}</div>
+        <v-card-actions class="test" >         
           <v-btn
           class="btn_site"
           elevation="2"
@@ -68,10 +68,8 @@
         >
           <a href="" v-on:click.stop.prevent=openWindow(ref.refSiteAddr)> go Links </a>
         </v-btn>
-
-          <!-- 등록일 -->
-          <h6 id="date"> 등록일 : {{formatDate(ref.refDate)}}</h6>
         </v-card-actions>
+
       </v-card>
       
       </div>
@@ -90,11 +88,28 @@
     </div>
   </div>
 
+  <!-- 글 삭제 모달 -->
+  <ModalView v-if="showModal" @close="showModal = false">
+    <template>
+      <div slot="header">
+        정말 삭제하시겠습니까?
+      </div>
+      <div slot="body" class="modalf"> 
+        <b-button id="modal-yes" @click="ydele">네</b-button>
+         <b-button id="modal-no" @click="ndele">아니오</b-button>
+      </div>
+      <div slot="footer">
+      </div>  
+    </template>
+  </ModalView>
+
+
 
 </b-container>
 </template>
 
 <script>
+  import ModalView from '../common/ModalView.vue'
   import { mapState } from 'vuex';
   import Vue from 'vue'
   import vueMoment from 'vue-moment';
@@ -107,6 +122,7 @@
     
     data() {
       return {
+        showModal:false,
         perPage: 4,
         currentPage: 1,
       }
@@ -120,9 +136,37 @@
     created() {
        this.$store.dispatch("FECH_REF_LIST")
     },
+    components:{
+      ModalView,
+    },
 
     //메소드
     methods: {
+
+      cardclick(value){
+          this.$router.push({name:'refSiteView',params:{id:value.refNo}})
+      },
+
+      pdelete(){
+          this.showModal=!this.showModal;
+      },
+
+      // 삭제 
+      ydele(){
+        let no=this.$route.params.id
+        console.log(no);
+         this.$store.dispatch("FETCH_REF_DELETE",no)
+          //this.$router.push({name:'refSite'})
+          //this.$router.go(this.$router.currentRoute);
+
+      },
+      
+      // 삭제 취소
+      ndele(){
+        this.showModal=!this.showModal;
+      },
+
+
 
       //링크 새로 열기
       openWindow: function (link) {
@@ -182,18 +226,19 @@
   text-align: center;
   margin-top: 2%;
   margin-bottom: 5%;
-  font-size: 20px;
+  font-size: 19px;
   color :#424874
 }
 #content{
   margin-left: 2%;
-  font-size: 16px;
+  font-size: 15px;
+  height: 80px;
 }
 #date{ 
   color: #9BA4B4;
-  margin-top: 6%;
-  font-size: 15px;
-  margin-left: 15%;
+  /* margin-top: 6%; */
+  font-size: 14px;
+  margin-left: 20px;
 }
  .mx-auto{
   margin: 1.5%;
@@ -213,7 +258,7 @@
 .btn_site{
   border:1px #3a74df solid;
   margin-bottom: 3%;
-  margin-top: 3%; 
+  margin-top: 2%; 
   margin-left: 4%;
 }
 
