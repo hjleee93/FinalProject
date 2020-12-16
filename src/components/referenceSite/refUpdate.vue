@@ -6,18 +6,18 @@
     <div class="info">
           * 참고 사이트 등록은 관리자 승인 후 업로드 됩니다. (작성일 기준 1-2일 소요)
     </div><hr>
-    이거 나오냐 {{refListView}} ?,{{refAttachment}}
+    {{refListView}} ?,{{refAttachment}}
     
-    <b-form role="form"  @submit.prevent="updateForm"
-                          enctype="multipart/form-data">
+    <b-form role="form" @submit.prevent="updateForm"
+      enctype="multipart/form-data">
         <b-form-group
             label="사이트명"
             >
           <b-form-input
-            name="reftitle"
             type="text"
+            name="refTitle"
             required
-            v-model="refListView.reftitle"
+            v-model="refListView.refTitle"
             placeholder="사이트 명을 입력해주세요"
           ></b-form-input>
         </b-form-group>
@@ -27,7 +27,7 @@
             label-for="input-3">
           <b-form-select
             v-model="category"
-            :options="refcategory" 
+            :options="refCategory"
             required
           ></b-form-select>
         </b-form-group>
@@ -49,7 +49,7 @@
             placeholder="사이트 소개 및 정보를 입력해주세요"
             rows="5"
             max-rows="10"
-            v-model="refListView.refcontent"
+            v-model="refListView.refContent"
             required
           ></b-form-textarea>
         </b-form-group>
@@ -57,14 +57,14 @@
       <!-- 첨부파일 -->
       <b-form-group>
         <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
-        :placeholder="refListView.originalfilename" ></b-form-file> 
+        :placeholder="refAttachment.originalfilename" ></b-form-file> 
       </b-form-group>
 
       <!-- 등록버튼  -->
       <div class="btn_sr2">
-      <b-button type="submit" id="btn_write2" class="btn-space2">수정완료</b-button>
-      <b-button type="button" id="btn_write2" class="btn-space2">삭제하기</b-button>
+      <b-button id="btn_write2" type="submit" >수정 완료</b-button>
       </div>
+
   </b-form>
 
   </div>
@@ -87,15 +87,16 @@ import axios from 'axios';
       return {
           reftitle:"",
           category:null,
-          refSiteAddr: "",
-          refcategory :[
+          refSiteAddr:"",
+          refCategory :[
             { value: null, text: '분류를 선택해주세요' },
             { value: '백엔드', text: '백엔드' },
             { value: '프론트엔드', text: '프론트엔드' },
             { value: '기타', text: '기타' },
           ],
-          refcontent:"",
+          refContent:"",
           files : "",
+
       }
     },
 
@@ -118,14 +119,14 @@ import axios from 'axios';
     methods: {
       updateForm() {
         //새롭게 수정된 내용이 없다면 원래 객체의 컬럼값을 가져가도록
-        if(!this.reftitle){
-          this.reftitle=this.refListView.reftitle;
+        if(!this.refTitle){
+          this.refTitle=this.refListView.refTitle;
         }
-        if(!this.refcontent){
-          this.refcontent=this.refListView.refcontent;
+        if(!this.refContent){
+          this.refContent=this.refListView.refContent;
         }
-        if(!this.refcategory){
-          this.refcategory=this.refListView.refcategory;
+        if(!this.refCategory){
+          this.refCategory=this.refListView.refCategory;
         }
         if(!this.refSiteAddr){
           this.refSiteAddr=this.refListView.refSiteAddr;
@@ -135,11 +136,11 @@ import axios from 'axios';
         }
         
         let formData = new FormData();
-        formData.append('refNo',this.$route.params.id);
-        formData.append('refTitle',this.reftitle);
+        formData.append('refTitle',this.refTitle);
+        formData.append('refSiteAddr',this.refSiteAddr);
         formData.append('refCategory',this.category);
-        formData.append('refContent',this.refcontent.replace(/(<([^>]+)>)/ig,""));
-        formData.append('refSiteAddr',this.refaddress);
+        formData.append('refNo',this.$route.params.id);
+        formData.append('refContent',this.refContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('file',this.files);
         
         for(let key of formData.entries()){
@@ -154,6 +155,7 @@ import axios from 'axios';
         .catch((error)=>
         console.log(error))
         console.log(formData);
+        //수정 후 게시판 리스트로 이동
         this.$router.push({name:'refSite'});
       },
       

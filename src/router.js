@@ -149,6 +149,15 @@ const QnaWrite = () => {
 const RefSite = () => {
      return import('./components/referenceSite/refSite.vue')
 }
+const RefSiteback = () => {
+     return import('./components/referenceSite/refSiteback.vue')
+}
+const RefSitefront = () => {
+     return import('./components/referenceSite/refSitefront.vue')
+}
+const RefSiteEtc = () => {
+     return import('./components/referenceSite/refSiteEtc.vue')
+}
 const RefWrite = () => {
      return import('./components/referenceSite/refWrite.vue')
 }
@@ -559,6 +568,21 @@ export default new Router({
                path: '/refSite',
                name: 'refSite',
                component: RefSite
+          },
+          {
+               path: '/refSiteback',
+               name: 'refSiteback',
+               component: RefSiteback
+          },
+          {
+               path: '/refSitefront',
+               name: 'refSitefront',
+               component: RefSitefront
+          },
+          {
+               path: '/refSiteEtc',
+               name: 'refSiteEtc',
+               component: RefSiteEtc
           },
           {
                path: '/refUpdate',

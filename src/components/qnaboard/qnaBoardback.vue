@@ -45,7 +45,7 @@
             item-key="qboardNo"
             single-line
             hide-details
-          >
+          > 
           <template v-slot:item="props">
                 <tr @click="handleClick(props.item.qboardNo)">
                   <td v-if="props.item.qnaCategory.includes('백엔드')" class="text-xs-right">{{props.item.qboardNo }}</td>

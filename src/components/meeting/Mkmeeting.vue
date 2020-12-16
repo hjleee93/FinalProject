@@ -10,7 +10,7 @@
         color="grey darken-3"
         >
         <v-tab to="/meetingapply"><b>신청자승인</b></v-tab>
-          <v-tab  :to="{name:'approve',params:{'memberSq':userData.memberSq}}"><b>신청한모임</b></v-tab>
+          <v-tab  :to="{name:'approve',params:{'memberSq':userData.memberSq}}"><b>참여한모임</b></v-tab>
           <v-tab :to="{name:'mkmeeting',params:{'memberSq':userData.memberSq}}"><b>생성한모임</b></v-tab>
           <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
         </v-tabs>

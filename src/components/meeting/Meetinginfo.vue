@@ -1,5 +1,11 @@
 <template>
+ <div class="container-fluid">
+     <div class="submenuimage">
+        <p class="subtitle">모임상세내용</p>
+      </div>
+
   <b-container class="cont">
+    
     <b-row  class="justify-content-md-center"><h1>{{minfo.collabTitle}}</h1></b-row>
     <b-row>
       <b-col>
@@ -23,16 +29,16 @@
       <b-row><b-col>개설자성명:{{minfo.collabWriter}}</b-col></b-row>
       <b-row><b-col>개설자번호:{{minfo.collabPhone}}</b-col></b-row>
       <b-row><b-col>개설자이메일:{{minfo.collabEmail}}</b-col></b-row>
-      
+   
       </b-card>
      
        <b-card title="모집정보">
          <b-card>{{minfo.collabContent}}</b-card>
        </b-card>
     <b-row v-if="minfo.collabEmail!=userData.memberEmail">
-        <b-col align-self="center"><b-button id="m-btn" @click="apbtn">신청하기</b-button></b-col>
+        <b-col align-self="center"><b-button  id="m-btn" @click="apbtn">신청하기</b-button><b-button @click="debtn">취소하기</b-button></b-col>
     </b-row>
-    <div>{{minfo}}</div>
+    
     <ModalView v-if="showModal" @close="showModal = false">
     <template>
       <div slot="header">
@@ -46,7 +52,7 @@
             <b-form-radio v-model="selected"  name="postion" value="back">백엔드</b-form-radio>
             <b-form-radio v-model="selected"  name="postion" value="front">프론트</b-form-radio>
             <b-form-radio v-model="selected"  name="postion" value="desgin">디자인</b-form-radio>
-            {{selected}}
+       
             </b-form>
           </b-row>
         </b-card>
@@ -60,6 +66,7 @@
     </template>
   </ModalView>
     </b-container>  
+    </div>
     
 </template>
  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5b349346bb95bb8e5b3f00ce10d2072e&libraries=services"></script>
@@ -76,6 +83,7 @@ export default {
     return{
     showModal:false,
     selected:'',
+    applycheck:false,
     }
   },
     mounted() {
@@ -135,21 +143,49 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
       document.head.appendChild(script);
       },
     apbtn(){
+       if(this.userData.length==0){
+          alert("로그인후 이용해주세요")
+          return 
+        }
       this.showModal=!this.showModal;
     },
     ndele(){
         this.showModal=!this.showModal;
       },
+      debtn(){
+        let delform=new FormData
+        delform.append("memberSq",this.userData.memberSq)
+        delform.append("collabSq",this.minfo.collabSq)
+        axios.post("http://localhost:8082/itjobgo/meeting/delapplymeeting.do",delform)
+        .then((data)=>{
+          console.log(data)
+          if(data.data>0){
+            alert("삭제 성공")
+          }else {
+            alert("삭제 오류")
+          }
+        })
+      },
       applybtn(value){
+       
         let applyform=new FormData
         applyform.append("memberSq",this.userData.memberSq)
         applyform.append("postion",value)
         applyform.append("collabSq",this.minfo.collabSq)
         applyform.append("writerNo",this.minfo.memberSq)
        axios.post("http://localhost:8082/itjobgo/meeting/applymeeting.do",applyform)
-       .then(()=>{
-         alert("신청완료")
+       .then((data)=>{
+         console.log(data)
+         if(data.data==0){
+                alert("중복된 신청입니다.")
+                this.showModal=!this.showModal;
+             
+         }else {
+            alert("신청완료")
+            this.applycheck=true;
            this.showModal=!this.showModal;
+           }
+       
        })
           
         .catch((error)=>
@@ -171,6 +207,22 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
 </script>
 
 <style scoped>
+.submenuimage {
+  background-image: url("../../assets/images/computer-2583383_1920.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
+}
 #m-btn{
   background-color: #424874;
 }
