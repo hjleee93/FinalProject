@@ -25,7 +25,7 @@
             <v-btn to="/itNewsForm" exact  id="st_write_ref" v-if="userData.memberSq!=null">글쓰기</v-btn>
           </div>
 
-    <div class="overflow-auto">
+    <div class="overflow-hidden">
 
 
     <div class="site_ect">
@@ -54,28 +54,16 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn
-            color="blue"
-            text
-            >
-             <!-- @mouseover="movePage" -->
+     
 
-          <a href="" v-on:click.stop.prevent="openWindow(it.newsRefSite)" id="link_a">링크 바로가기</a>
-          
+          <b-button v-on:click.stop.prevent="openWindow(it.newsRefSite)" id="link_a">기사보기</b-button>
 
-                 
-              <!-- <a id="homePage"  @mouseover="movePage">{{
-                it.newsRefSite._text
-              }}테스트 링크</a> -->
-      
-          
-          </v-btn>
+        
         </v-card-actions>
           <h4 id="ref_date">등록일 : {{formatDate(it.newsDate)}}</h4>
 
 
       </v-card>
-
 
       </div>
 
@@ -184,8 +172,14 @@
 }
 
 #link_a{
-  position: relative;
-  top:20px;
+  position: absolute;
+  top:320px;
+  background-color:#3f4996;
+  font-size:10px;
+  font-weight: bold;
+  border: none;
+  left:5px;
+  border-radius: 9px;
 }
 #subtitle{
 font-family: 'Barlow Semi Condensed', sans-serif;
