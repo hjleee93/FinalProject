@@ -34,7 +34,7 @@
     <!-- /.row -->
     <div class="row card-align">
     <!-- card -->
-
+ 
       <v-card
           class="mx-auto"
           max-width="330"
