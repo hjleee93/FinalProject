@@ -5,7 +5,7 @@
       <!-- 메인 이미지 -->
       <b-row>
           <div class="submenuimage">
-             <p class="subtitle">Reference</p>
+             <p class="subtitle">Reference테스트프론트</p>
           </div>
       </b-row>
             
