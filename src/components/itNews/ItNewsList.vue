@@ -56,7 +56,7 @@
         <v-card-actions>
      
 
-          <b-button v-on:click.stop.prevent="openWindow(it.newsRefSite)" id="link_a">기사보기</b-button>
+          <b-button v-on:click.stop.prevent="openWindow(it.newsRefSite)" id="link_a2">기사보기</b-button>
 
         
         </v-card-actions>
@@ -171,7 +171,7 @@
   font-size:10px;
 }
 
-#link_a{
+#link_a2{
   position: absolute;
   top:320px;
   background-color:#3f4996;

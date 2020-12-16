@@ -31,7 +31,7 @@
 
           <!-- 뉴스기사 바로가기 -->
           <!-- <a href="" v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">링크 바로가기</a> -->
-          <b-button  v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">기사바로 보기</b-button>
+          <!-- <b-button  v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">바로 보기</b-button> -->
         <!-- 이미지 -->
           <!-- max-width="350px" -->
         <v-img
@@ -70,7 +70,9 @@
         <b-col>
           <!-- <b-button to="/communityBoardList" id="prev">이전 </b-button>
           <b-button to="/communityBoardList" id="next">다음 </b-button> -->
+            <b-button  v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">기사 원문</b-button>
           <b-button to="/itNewsList" id="list">목록 </b-button>
+          
         </b-col>
       </b-row>
       
@@ -261,10 +263,9 @@ export default {
         let delfirm=confirm("댓글을 삭제 하시겠습니까?")
         if(delfirm){
           const cno=commentno;
-        this.$store.dispatch("FETCH_ITNEWS_COMMENT_DELETE",cno)
-        return  this.$store.dispatch("FETCH_ITNEWS_COMMENT_LIST",this.$route.params.id);
-        }else{
-          return
+        this.$store.dispatch("FETCH_ITNEWS_COMMENT_DELETE",cno).then(()=>{
+             this.$store.dispatch("FETCH_ITNEWS_COMMENT_LIST",this.$route.params.id);
+        })
         }
       },
     //   //댓글수정
