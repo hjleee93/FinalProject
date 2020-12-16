@@ -11,7 +11,7 @@
     <div>
         <v-tabs centered color="grey darken-3">
             <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
-            <v-tab active to="/resume/resume">입사지원서 보기</v-tab>
+            <v-tab active to="/resume/resumeList">입사지원서 보기</v-tab>
             <v-tab to="/resume/updateresume">입사지원서 수정</v-tab>
             <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
             <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
@@ -37,7 +37,14 @@
                 <table id="resumetable">
                 <div class="resumetitle"><p>개인정보</p></div>
                     <tr>
-                        <td rowspan="7" class="resumetitle2">이미지파일</td>
+                        <td rowspan="8" class="resumetitle2">
+                            <div v-if="userData.memberPic == null">
+                            <div
+                                class="imagePreviewWrapper"
+                                :style="{ 'background-image': `url(${previewImage})` }"
+                            ></div>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td><strong>이름</strong></td>
@@ -99,8 +106,19 @@
                         <td><input type="tel" readonly v-model="resume.rphone" id="phone"></td> 
                     </tr>
                     <tr>
-                        <td class="resumetitle2"><b-form-file v-on:change="handleFile" id="files" ref="upfiles"></b-form-file></td>
-
+                        <!-- <td>
+                        <b-btn class="upload-photo">
+                                <label for="uploadPhoto">사진선택</label
+                                ><b-form-file
+                                    ref="fileInput"
+                                    id="uploadPhoto"
+                                    v-model="resumePhoto"
+                                    style="display:none"
+                                    @input="pickFile"
+                                    v-on:change="handleFile"
+                                ></b-form-file
+                            ></b-btn>
+                        </td> -->
                         <td><strong>이메일</strong></td>
                         <td colspan="3"><input type="email" id="email" readonly  v-model="resume.remail"></td>
                     </tr>
@@ -320,20 +338,34 @@
 </template>
 
 <script>
+import axios from "axios";
 import { mapState } from 'vuex';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
 
 export default {
-    data(){
-        return {
-            
-        }
-    },
+    data: () => ({
+        previewImage: null,
+        resumePhoto: null,
+        files: "",
+    }),
     created() {
         const resumeNo=this.$route.params.id;
         this.$store.dispatch("FETCH_RESUME", resumeNo);
+
+        axios
+            .get(
+            "http://localhost:8082/itjobgo/resume/selectAttachment?resumeNo="+resumeNo,
+            { responseType: "arraybuffer" }
+            )
+            .then((res) => {
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+
+            this.previewImage = url;
+            });
+        
     },
+    
     computed: {
         ...mapState({
             resume:state=>state.resume,
@@ -443,5 +475,30 @@ button{
     text-align: center;
     font-size: 25px;
     font-weight: bold;
+}
+
+.imagePreviewWrapper {
+  display: block;
+  width: 150px;
+  height: 200px;
+  padding: 9px;
+  margin: 30px auto 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  background-size: cover;
+  background-position: center center;
+}
+
+input[type="file"] {
+  position: absolute;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.upload-photo {
+  height: 37px;
+  width: 106px;
 }
 </style>
