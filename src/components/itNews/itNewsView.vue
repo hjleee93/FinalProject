@@ -6,7 +6,7 @@
       </div>
         <!-- 탭 -->   
         <div class="container">
-          <v-tabs
+          <!-- <v-tabs
           centered
           color="grey darken-3"
           >
@@ -14,7 +14,7 @@
             <v-tab to="/itNewsList"><b>IT소식</b></v-tab>
             <v-tab to="/communityBoardList" ><b>자유게시판</b></v-tab>
             <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
-          </v-tabs>
+          </v-tabs> -->
         </div>
       </b-row>
       <b-row>
@@ -27,11 +27,11 @@
           <b-col id="title"> 제목: {{itNewsView.newsTitle}}</b-col>
         </b-row>
         <b-row>
-          <b-col id="boardDate"> 날짜: {{formatDate(itNewsView.newsDate)}}</b-col>
+          <b-col id="boardDate"> 작성일 : {{formatDate(itNewsView.newsDate)}}</b-col>
 
           <!-- 뉴스기사 바로가기 -->
-          <a href="" v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">링크 바로가기</a>
-          
+          <!-- <a href="" v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">링크 바로가기</a> -->
+          <b-button  v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">기사바로 보기</b-button>
         <!-- 이미지 -->
           <!-- max-width="350px" -->
         <v-img

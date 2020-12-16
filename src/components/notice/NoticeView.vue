@@ -7,7 +7,7 @@
 
         <!-- 탭 -->   
         <div class="container">
-          <v-tabs
+          <!-- <v-tabs
           centered
           color="grey darken-3"
           >
@@ -15,7 +15,7 @@
             <v-tab to="/itNewsList"><b>IT소식</b></v-tab>
             <v-tab to="/communityBoardList" ><b>자유게시판</b></v-tab>
             <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
-          </v-tabs>
+          </v-tabs> -->
         </div>
       </b-row>
       <b-row>
