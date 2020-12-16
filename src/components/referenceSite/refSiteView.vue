@@ -45,7 +45,7 @@
           <b-col id="boardDate"> 날짜: {{formatDate(refListView.refDate)}}</b-col>
 
           <!-- 뉴스기사 바로가기 -->
-          <a href="" v-on:click.stop.prevent="openWindow(refListView.refSiteAddr)" id="link_a">링크 바로가기</a>
+          <a href="" v-on:click.stop.prevent="openWindow(refListView.refSiteAddr)" id="link_a">링크 이동</a>
           
         <!-- 이미지 -->
           <!-- max-width="350px" -->
@@ -75,17 +75,15 @@
           <b-row >
             <b-col>
               <b-button  v-if="userData.memberSq===refListView.memberNum"
-                                                                               @click="update" id="update-btn2">수정</b-button>
+                        @click="update" id="update-btn2">수정</b-button>
               <b-button   v-if="userData.memberSq===refListView.memberNum || userData.memberEmail === 'admin@kh.com'" 
-                                                                                @click="pdelete" id="delete-btn2">삭제</b-button>
+                        @click="pdelete" id="delete-btn2">삭제</b-button>
             </b-col>
           </b-row>
 
       <b-row id=" writecontain" align-h="end">
         <b-col>
-          <!-- <b-button to="/communityBoardList" id="prev">이전 </b-button>
-          <b-button to="/communityBoardList" id="next">다음 </b-button> -->
-          <b-button to="/communityBoardList" id="list">목록 </b-button>
+          <b-button to="/refSite" id="list">목록 </b-button>
         </b-col>
       </b-row>
       
