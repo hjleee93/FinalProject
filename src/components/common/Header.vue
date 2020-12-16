@@ -1,15 +1,17 @@
 <template>
   <div>
-    <div class="header_image">
-      <div>
-        <a href="/"
-          ><img
-            class="main-img"
-            src="../../assets/images/main.png"
-            alt="Vue logo"
-        /></a>
-      </div>
-    </div>
+    <template v-if="this.$router.currentRoute.path == '/'">
+      <div class="header_image">
+        {{ this.$router.currentRoute.path }}
+        <div>
+          <a href="/"
+            ><img
+              class="main-img"
+              src="../../assets/images/main.png"
+              alt="Vue logo"
+          /></a>
+        </div></div
+    ></template>
 
     <b-navbar id="menu" toggleable="md" type="dark" variant="">
       <b-navbar-brand href="/">IT-JOB-GO</b-navbar-brand>
@@ -26,7 +28,7 @@
               <b-dropdown-item to="/resume/insertresume"
                 >입사지원서 등록</b-dropdown-item
               >
-              <b-dropdown-item to="/resume/resume"
+              <b-dropdown-item to="/resume/resumeList"
                 >입사지원서 보기</b-dropdown-item
               >
               <b-dropdown-item to="/resume/updateresume"
@@ -115,20 +117,11 @@ export default {
 </script>
 
 <style scope>
-@font-face {
-  font-family: "KOTRA_BOLD-Bold";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 #menu {
-  font-family: "KOTRA_BOLD-Bold";
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: bold;
 }
 .header_image {
   background-color: #394867;

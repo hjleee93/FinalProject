@@ -174,7 +174,7 @@ export default {
 
 <style scoped>
 * {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .login-btn {
   text-decoration: none;

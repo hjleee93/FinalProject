@@ -53,7 +53,7 @@
 
 <style scoped>
 * {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .login-content {
   background-color: #f7fafc !important;

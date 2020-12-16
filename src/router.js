@@ -75,6 +75,7 @@ import updateresume from './components/resume/updateresume'
 import consultresume from './components/resume/consultresume'
 import consult from './components/resume/consult'
 import consultresumeenroll from './components/resume/consultresumeenroll'
+import resumeList from './components/resume/resumeList'
 
 
 //민지
@@ -92,18 +93,6 @@ const InfoModify = () => {
 }
 const JobList = () => {
      return import('./components/jobInfo/JobList.vue')
-}
-const JobListFront = () => {
-     return import('./components/jobInfo/JobListFront.vue')
-}
-const JobListBack = () => {
-     return import('./components/jobInfo/JobListBack.vue')
-}
-const JobListDesign = () => {
-     return import('./components/jobInfo/JobListDesign.vue')
-}
-const JobListPublishing = () => {
-     return import('./components/jobInfo/JobListPublishing.vue')
 }
 
 //주은
@@ -541,26 +530,7 @@ export default new Router({
                name: 'kakaoCallbackLogin',
                component: KakaoCallbackLogin
           },
-          {
-               path: '/jobListBack',
-               name: 'jobListBack',
-               component: JobListBack
-          },
-          {
-               path: '/jobListFront',
-               name: 'jobListFront',
-               component: JobListFront
-          },
-          {
-               path: '/jobListDesign',
-               name: 'jobListDesign',
-               component: JobListDesign
-          },
-          {
-               path: '/jobListPublishing',
-               name: 'jobListPublishing',
-               component: JobListPublishing
-          },
+
           {
                path: '/adminPage',
                name: 'adminPage',
@@ -628,7 +598,7 @@ export default new Router({
 
           //혜지
           {
-               path: '/resume/resume/',
+               path: '/resume/resume/:id',
                name: 'resume',
                component: resume,
                beforeEnter: LoginAuth(),
@@ -672,6 +642,11 @@ export default new Router({
                path: '/resume/consultresumeenroll',
                name: 'consultresumeenroll',
                component: consultresumeenroll
+          },
+                    {
+               path: '/resume/resumeList',
+               name: 'resumeList',
+               component: resumeList
           },
 
      ]

@@ -17,6 +17,8 @@
            
            </b-col>
            </b-row>
+           <b-row><b-col>찾아오시는 길</b-col></b-row>
+          <b-row><b-col><div id="map"></div></b-col></b-row>
       <b-card> <b-row><b-col>개설자정보</b-col></b-row>
       <b-row><b-col>개설자성명:{{minfo.collabWriter}}</b-col></b-row>
       <b-row><b-col>개설자번호:{{minfo.collabPhone}}</b-col></b-row>
@@ -56,14 +58,13 @@
       <b-button @click="ndele">NO</b-button>
       </div>
     </template>
-
-
   </ModalView>
     </b-container>  
     
 </template>
-
+ <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5b349346bb95bb8e5b3f00ce10d2072e&libraries=services"></script>
 <script>
+
 import axios from "axios"
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
@@ -77,8 +78,62 @@ export default {
     selected:'',
     }
   },
+    mounted() {
+    window.kakao && window.kakao.maps
+      ? this.initMap()
+      : this.addKakaoMapScript();
+  },
  
   methods: {
+    initMap(){
+       setTimeout(() => {
+      let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+let map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+let geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch(this.minfo.address, function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        let marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        let infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">모임장소</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+}); 
+       }, 500);  
+
+    },
+    addKakaoMapScript() {
+      const script = document.createElement("script");
+      /* global kakao */
+      script.onload = () => kakao.maps.load(this.initMap);
+      script.src =
+        "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=5b349346bb95bb8e5b3f00ce10d2072e&libraries=services";
+      document.head.appendChild(script);
+      },
     apbtn(){
       this.showModal=!this.showModal;
     },
@@ -132,6 +187,10 @@ export default {
 .layout2{
   margin-top:1.5rem;
   border:1px solid black;
+}
+#map {
+  width: 100%;
+  height: 400px;
 }
 
 

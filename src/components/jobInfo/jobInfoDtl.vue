@@ -500,7 +500,7 @@ export default {
 
 <style scoped>
 .job-info-detail {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 /* 지원버튼 */
 .apply-area {

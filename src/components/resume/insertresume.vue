@@ -11,7 +11,7 @@
     <div>
         <v-tabs centered color="grey darken-3">
             <v-tab active to="/resume/insertresume">입사지원서 등록</v-tab>
-            <v-tab to="/resume/resume">입사지원서 보기</v-tab>
+            <v-tab to="/resume/resumeList">입사지원서 보기</v-tab>
             <v-tab to="/resume/updateresume">입사지원서 수정</v-tab>
             <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
             <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
@@ -23,10 +23,20 @@
     <b-row>
         <b-col>
             <form @submit.prevent="insertResume"  enctype="multipart/form-data">
+                
+                <div class="resumetitle"><p>이력서제목</p></div>
+                <div><input type="text" id="rtitle" v-model="rtitle" placeholder="이력서 제목을 입력하세요"></div>
                 <table id="resumetable">
                 <div class="resumetitle"><p>개인정보</p></div>
                     <tr>
-                        <td rowspan="7" class="resumetitle2">이미지파일</td>
+                        <td rowspan="7" class="resumetitle2">
+                            <div v-if="userData.memberPic == null">
+                            <div
+                                class="imagePreviewWrapper"
+                                :style="{ 'background-image': `url(${previewImage})` }"
+                            ></div>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td><strong>이름</strong></td>
@@ -105,7 +115,31 @@
                         <td><input type="tel" readonly v-model="userData.memberPhone" id="phone"></td> 
                     </tr>
                     <tr>
-                        <td class="resumetitle2"><b-form-file v-on:change="handleFile" id="files" ref="upfiles"></b-form-file></td>
+                        <td class="resumetitle2">
+                            <!-- <b-btn class="upload-photo">
+                                <label for="uploadPhoto">사진선택</label>
+                                    <b-form-file 
+                                        v-on:change="handleFile"
+                                        id="files" 
+                                        ref="upfiles"
+                                        v-model="resumePhoto"
+                                        >
+                                    </b-form-file>
+                            </b-btn> -->
+                            <b-btn class="upload-photo">
+                                <label for="uploadPhoto">사진선택</label
+                                ><b-form-file
+                                    ref="fileInput"
+                                    id="uploadPhoto"
+                                    v-model="resumePhoto"
+                                    style="display:none"
+                                    @input="pickFile"
+                                    v-on:change="handleFile"
+                                ></b-form-file
+                            ></b-btn>
+
+                        </td>
+
 
                         <td><strong>이메일</strong></td>
                         <td colspan="3"><input type="email" id="email" readonly  v-model="userData.memberEmail"></td>
@@ -334,16 +368,33 @@ import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 import $ from 'jquery'
 export default {
+    
      components:{
          //ModalView,
      },
 
+    created() {
+        // if (this.userData.memberSq != undefined) {
+        // axios
+        //     .get(
+        //     "http://localhost:8082/itjobgo/resume/loadPhoto?memberSq=" +
+        //         this.userData.memberSq,
+        //     { responseType: "arraybuffer" }
+        //     )
+        //     .then((res) => {
+        //     const url = window.URL.createObjectURL(new Blob([res.data]));
+
+        //     this.previewImage = url;
+        //     });
+        // }
+    },
+    
     computed: {
       ...mapState(['userData'])
      },
 
-     methods: {
-         daumPostcode: function() {
+    methods: {
+    daumPostcode: function() {
       daum.postcode.load(function() {
         new daum.Postcode({
           oncomplete: function(data) {
@@ -402,17 +453,14 @@ export default {
         }).open();
       });
     },
-        //   // 지도가 로드 완료되면 load 이벤트 발생
-        //  onLoad (map) {
-        //      this.map = map
-        //  },
-        //  printaddress(result){
-        //    this.result=result;
-        //  },
 
-         insertResume(){
-            let formData=new FormData();
-           
+
+     insertResume(){
+        let formData=new FormData();
+
+          //이력서 제목
+          formData.append('rtitle',this.rtitle);
+
            //개인정보
           formData.append('memberNo',this.userData.memberSq);
           formData.append('rname',this.userData.memberName);
@@ -506,17 +554,51 @@ export default {
                 //setTimeout( () => this.$router.push({ path: '/resume/resume'}), 2000);
                 })
             .catch((error)=>console.log(error));
-                },
+               
+        },
             
 
-            handleFile(){
-                    console.log(this.$refs.upfiles.$refs.input.files[0]);
-                    this.files=this.$refs.upfiles.$refs.input.files[0];
-                    console.log(this.files);
+            // handleFile(){
+            //         this.files=this.$refs.upfiles.$refs.input.files[0];
+            //         console.log(this.files);
+            //     },
+        handleFile(){
+            this.files=this.$refs.fileInput.$refs.input.files[0];
+            console.log(this.files);
+        },
+        
+        selectImage() {
+                this.$refs.fileInput.click();
+            },
+
+        pickFile() {
+                let input = this.$refs.fileInput;
+                let file = input.files;
+                // this.files = input.files;
+
+                // if (file[0].name != null) {
+                //     $(".submit-photo").show();
+                // }
+
+                if (file && file[0]) {
+                    let reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.previewImage = e.target.result;
+                    };
+                    reader.readAsDataURL(file[0]);
+                    this.$emit("input", file[0]);
                 }
+        },
      },
 
      data: () => ({
+      //증명사진
+      previewImage: null,
+      resumePhoto: null,
+
+      //이력서 제목
+      rtitle:'',
+
       //개인정보
       engName:'',
       birth:'',
@@ -672,5 +754,38 @@ button{
 
 .address{
     width: 300px;
+}
+
+#rtitle{
+    width: 700px;
+    height: 40px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.imagePreviewWrapper {
+  display: block;
+  width: 150px;
+  height: 200px;
+  padding: 9px;
+  margin: 30px auto 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  background-size: cover;
+  background-position: center center;
+}
+
+input[type="file"] {
+  position: absolute;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.upload-photo {
+  height: 37px;
+  width: 106px;
 }
 </style>

@@ -11,7 +11,7 @@
       <div>
           <v-tabs centered color="grey darken-3">
             <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
-            <v-tab active to="/resume/resume">입사지원서 보기</v-tab>
+            <v-tab active to="/resume/resumeList">입사지원서 보기</v-tab>
             <v-tab to="/resume/updateresume">입사지원서 수정</v-tab>
             <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
             <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
