@@ -66,6 +66,7 @@
           rounded
           color="accent"
         >
+        
           <a href="" v-on:click.stop.prevent=openWindow(ref.refSiteAddr)> go Links </a>
         </v-btn>
         </v-card-actions>
