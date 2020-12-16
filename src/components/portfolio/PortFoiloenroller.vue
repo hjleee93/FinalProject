@@ -7,6 +7,7 @@
         <p class="subtitle" id="subtitle">portfolio</p>
       </div>
   <b-container>
+
      <b-form role="form"  @submit.prevent="test">
     <b-input-group   prepend="제목" class="mb-2" >
      
@@ -49,8 +50,11 @@
    <vue-editor id="input-3" required name="pboardContent" v-model="pboardContent" />
    </b-form-group>
       <!-- <b-button type="submit" class="s-btn">확인</b-button> -->
-       <b-button type="submit" class="s-btn">확인</b-button>
-      <b-button type="reset" class="r-btn">취소</b-button>
+      <b-row align-h="end"><b-col cols="1">
+        <b-button type="submit" class="s-btn">확인</b-button></b-col>
+     <b-col cols="2"><b-button @click="reset()"  class="r-btn">돌아가기</b-button></b-col>
+       </b-row>
+       
 
     
     </b-form> 
@@ -91,6 +95,12 @@ export default {
       VueEditor,  
     },
     methods: {
+      reset(){
+        let check=confirm("작성된 글은 저장되지 않습니다. 돌아가시겠습니까?")
+        if(check==true){
+          this.$router.push({name:'portlist'})
+        }else return
+      },
       test(){
         let formData=new FormData();
         formData.append('pboardWriter',this.userData.memberName);

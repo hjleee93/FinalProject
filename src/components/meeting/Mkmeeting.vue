@@ -27,9 +27,9 @@
             item-key="name"
           >
           <template v-slot:item="props">
-              <tr>
+              <tr  >
                 <td class="text-xs-right">{{props.item.collabSq }}</td>
-                <td class="text-xs-right">{{props.item.title }}</td>
+                <td class="text-xs-right" @click="movemeeting(props.item.collabSq)">{{props.item.title }}</td>
                 <td class="text-xs-right">{{   new Date(props.item.mdate).toLocaleDateString() }}</td>
                <td class="text-xs-right"><b-button @click="update(props.item)">수정</b-button><b-button @click="deltemet(props.item)">삭제</b-button></td>
               </tr>
@@ -85,6 +85,9 @@ export default {
          
     }, 
     methods: {
+      movemeeting(item){
+         this.$router.push({name:"meetinginfo",params:{id:item}})
+      },
       deltemet(item){
        let check=confirm("정말삭제하시겠습니까?")
        if(check==true){
