@@ -232,9 +232,6 @@ const LoginCallback = () => {
 const NaverLogin = () => {
      return import('./components/member/NaverLogin.vue')
 }
-const ResumeBoard = () => {
-     return import('./components/member/ResumeBoard.vue')
-}
 const KakaoCallbackLogin = () => {
      return import('./components/member/KakaoCallbackLogin.vue')
 }
@@ -546,12 +543,7 @@ export default new Router({
                component: AdminPage,
                beforeEnter: adminDeny()
           },
-          {
-               path: '/resumeBoard/:id',
-               name: 'resumeBoard',
-               component: ResumeBoard,
-               beforeEnter: LoginAuth()
-          },
+
 
           //현주
           {

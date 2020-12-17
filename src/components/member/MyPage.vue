@@ -53,7 +53,7 @@
         <li class="topList first">
           <p class="title">이력서 등록수</p>
           <p class="count">
-            <a href="#resumeDive" class="scroll">{{ resume }}</a
+            <a href="#resumeDive" class="scroll">{{ resumeList }}</a
             >개
           </p>
         </li>
@@ -128,7 +128,7 @@
       </p>
 
       <p id="resumeAll" class="mb-2">
-        <b-btn @click="moveResumeAll(userData.memberSq)">전체보기</b-btn>
+        <b-btn to="/resume/resumeList">전체보기</b-btn>
       </p>
       <v-simple-table class="resume">
         <thead class="resume-table">
@@ -147,9 +147,9 @@
             </th>
           </tr>
         </thead>
-        <template v-if="pboard[0] != undefined">
+        <template v-if="resumeList[0] != undefined">
           <tbody>
-            <tr
+            <!-- <tr
               class="resume-table"
               id="resumeBody"
               v-for="(pf, index) in pboard"
@@ -166,7 +166,7 @@
 
                 <td>{{ formatDate(pboard[index].pboardDate) }}</td>
               </template>
-            </tr>
+            </tr> -->
           </tbody>
         </template>
         <template v-else>
@@ -517,7 +517,7 @@ import $ from "jquery";
 
 const { mapState: memberState } = createNamespacedHelpers("memberStore");
 const { mapState: jobState } = createNamespacedHelpers("jobStore");
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 $(document).ready(function($) {
   $(".scroll").click(function(event) {
     event.preventDefault();
@@ -563,10 +563,26 @@ export default {
     this.$store.dispatch("jobStore/loadJobTable");
   },
   computed: {
-    ...mapState(["resume"]),
     ...memberState(["loginStatus", "userData"]),
     ...jobState(["tableList", "jobInfo", "scrap"]),
+    resumeList() {
+      let objArr = new Object(); //반환할 객체
 
+      for (let i = 0; i < this.$store.state.resumeList.length; i++) {
+        // console.log(this.$store.state.resumeList);
+        if (
+          this.$store.state.resumeList[i].memberNo == this.userData.memberSq
+        ) {
+          objArr[i] = this.$store.state.resumeList[i];
+        }
+      }
+      let tem = [];
+      for (let i = 0; i < 3; i++) {
+        tem[i] = Object.values(objArr)[i];
+      }
+      console.log(tem);
+      return tem;
+    },
     communityboard() {
       let objArr = new Object(); //반환할 객체
 
@@ -674,9 +690,6 @@ export default {
     },
   },
   methods: {
-    moveResumeAll(id) {
-      this.$router.push({ name: "resumeBoard", params: { id: id } });
-    },
     moveCommu(id) {
       this.$router.push({ name: "CommunityBoardView", params: { id: id } });
     },
