@@ -28,19 +28,22 @@
         </b-row>
         <b-row>
           <b-col id="boardDate"> 작성일 : {{formatDate(itNewsView.newsDate)}}</b-col>
+          <br>
 
           <!-- 뉴스기사 바로가기 -->
           <!-- <a href="" v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">링크 바로가기</a> -->
-          <b-button  v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">기사바로 보기</b-button>
+          <!-- <b-button  v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">바로 보기</b-button> -->
         <!-- 이미지 -->
           <!-- max-width="350px" -->
+        <div class="container">
         <v-img
           class="white--text align-end"
-          height="250px"
+          id="images"
           :src="`http://localhost:8082/itjobgo/itnews/imagesrequest${itNewsView.newsSq}`"
         >
         <v-card-title></v-card-title>
         </v-img>
+        </div>
 
         </b-row>
         <b-row>
@@ -70,7 +73,9 @@
         <b-col>
           <!-- <b-button to="/communityBoardList" id="prev">이전 </b-button>
           <b-button to="/communityBoardList" id="next">다음 </b-button> -->
+            <b-button  v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">기사 원문</b-button>
           <b-button to="/itNewsList" id="list">목록 </b-button>
+          
         </b-col>
       </b-row>
       
@@ -261,10 +266,9 @@ export default {
         let delfirm=confirm("댓글을 삭제 하시겠습니까?")
         if(delfirm){
           const cno=commentno;
-        this.$store.dispatch("FETCH_ITNEWS_COMMENT_DELETE",cno)
-        return  this.$store.dispatch("FETCH_ITNEWS_COMMENT_LIST",this.$route.params.id);
-        }else{
-          return
+        this.$store.dispatch("FETCH_ITNEWS_COMMENT_DELETE",cno).then(()=>{
+             this.$store.dispatch("FETCH_ITNEWS_COMMENT_LIST",this.$route.params.id);
+        })
         }
       },
     //   //댓글수정
@@ -336,6 +340,14 @@ export default {
 
 <style scoped>
 @import '../../assets/css/BoardView.css';
+#images{
+  width: 500px; 
+  height: 300px;
+  object-fit: cover;
+  margin-bottom: 50px;
+  align-items: center;
+}
+
 
 #subtitle{
 font-family: 'Barlow Semi Condensed', sans-serif;
