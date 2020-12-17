@@ -5,7 +5,7 @@
       <!-- 메인 이미지 -->
       <b-row>
           <div class="submenuimage">
-             <p class="subtitle">Reference테스트백</p>
+             <p class="subtitle">Reference</p>
           </div>
       </b-row>
             
@@ -24,8 +24,8 @@
             </v-tabs>
 
           <div>
-            <h4 class="sub-header-ref">분야별 웹 사이트</h4>
-            <v-btn to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
+            <h4 class="sub-header-ref">사이트 미승인 목록</h4>
+            <!-- <v-btn to="/refWrite" exact  id="st_write_ref" >글쓰기</v-btn> -->
           </div>
     <div class="overflow-auto">
 
@@ -39,10 +39,9 @@
           class="mx-auto"
           max-width="330"
           v-for="ref in refList" :key="ref.id"
-          v-show="ref.status==='Y' && ref.refCategory.includes('백엔드')"
+          v-show="ref.status==='N'"
           @click="cardclick(ref)"
         >
-        
         <!-- 이미지 -->
         <v-img
           class="white--text align-end"
@@ -73,9 +72,8 @@
         </v-btn>
         </v-card-actions>
 
-        </v-card>
+      </v-card>
       
-
       </div>
 
           <!-- search bar -->
@@ -190,7 +188,7 @@
   position: relative;
   left:18px;
   top:70px;
-  margin-bottom: 3%;
+  margin-bottom: 5%;
 }
 #st_write_ref{
   left:990px;
