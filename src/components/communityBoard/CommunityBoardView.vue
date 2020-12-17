@@ -184,6 +184,7 @@ export default {
         // console.log(value);
         return this.$moment(value).format('YYYY년 MM월 DD일');
       },      
+      
     
       update(){
         //수정버튼 눌렸을때 처리하는 로직
