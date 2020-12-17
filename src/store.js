@@ -285,11 +285,13 @@ export default new Vuex.Store({
           //주은
           //자유게시판 list 불러오기
           FETCH_COMMUNITYBOARD({ commit }) {
+                setTimeout(() => {
                fetchCommunityBoardList()
                     .then(({ data }) => commit("SET_COMMUNITYBOARD", data))
                     .catch(({ error }) => {
                          console.log(error);
                     })
+               }, 1000)
           },
           //자유게시판 상세화면
           FETCH_COMMUNITYBOARD_VIEW({ commit }, communityboardNo) {
@@ -301,6 +303,7 @@ export default new Vuex.Store({
           },
           //자유게시판 삭제하기
           FETCH_COMMUNITYBOARD_DELETE({ commit }, communityboardNo) {
+               
                fetchCommunityBoardDelete(communityboardNo)
                     .then(({ data }) => commit("SET_COMMUNITYBOARD_DELETE", data))
                     .catch(({ error }) => {
@@ -338,11 +341,13 @@ export default new Vuex.Store({
 
           //공지사항  list 조회
           FETCH_NOTICE({ commit }) {
+                setTimeout(() => {
                fetchNoticeList()
                     .then(({ data }) => commit("SET_NOTICE", data))
                     .catch(({ error }) => {
                          console.log(error);
                     })
+                           }, 1000)
           },
           //공지사항 상세화면
           FETCH_NOTICE_VIEW({ commit }, noticeSq) {
@@ -391,11 +396,13 @@ export default new Vuex.Store({
           //ItNews
           // ItNews 불러오기
           FECH_ITNEWS_LIST({ commit }) {
+               setTimeout(() => {
                fetchItNewsList()
                     .then(({ data }) => commit("SET_ITNEWS_LIST", data))
                     .catch(({ error }) => {
                          console.log(error);
                     })
+                       }, 1000)
           },
           // ItNews 상세화면
           FETCH_ITNEWS_VIEW({ commit }, newsSq) {
