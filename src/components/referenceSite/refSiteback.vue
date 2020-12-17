@@ -42,7 +42,7 @@
           v-show="ref.status==='Y' && ref.refCategory.includes('백엔드')"
           @click="cardclick(ref)"
         >
-        
+         
         <!-- 이미지 -->
         <v-img
           class="white--text align-end"
