@@ -195,6 +195,19 @@ function fetchqnacommentdel(qboardCommentNo) {
 function fetchrefList() {
     return axios.get(`${config.Url}ref/selectsite`);
 }
+// reference site 삭제하기
+function fetchrefListDelete(refNo) {
+    return axios.post(`${config.Url}ref/deletesite${refNo}`)
+}
+// reference site 상세화면
+function fetchrefListView(refNo) {
+    return axios.get(`${config.Url}ref/refView${refNo}`)
+}
+// reference site 수정하기(게시판번호로 객체 값 불러오기 )
+function fetchrefListUpdate(refNo) {
+    return axios.get(`${config.Url}ref/refUpdate${refNo}`)
+}
+
 
 // 민지
 // info(취업정보)
@@ -233,7 +246,10 @@ function fetchResume(resumeNo) {
 function fetchResumeList(memberSq){
     return axios.get(`${config.Url}resume/resumeList/${memberSq}.do`)
 }
-
+//이력서 삭제하기
+function fetchResumeDelete(resumeNo){
+    return axios.get(`${config.Url}resume/deleteResume/${resumeNo}.do`)
+}
 
 export {
     fetchPboardList,
@@ -294,7 +310,11 @@ export {
     fetchQnaBoardAttachment,
     fetchqnacomment,
     fetchqnacommentdel,
+
     fetchrefList,
+    fetchrefListDelete,
+    fetchrefListView,
+    fetchrefListUpdate,
 
     //민지
     //info 취업정보 
@@ -303,13 +323,14 @@ export {
     fetchInfoDelete,
     fetchInfoUpdate,
     fetchInfoAttachment,
-
+    
 
     //혜지
     //이력서게시판
     fetchRboardList,
     fetchResume,
     fetchResumeList,
+    fetchResumeDelete,
 
 }
 

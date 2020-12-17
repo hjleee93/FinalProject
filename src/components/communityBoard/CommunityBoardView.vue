@@ -7,7 +7,7 @@
 
         <!-- 탭 -->   
         <div class="container">
-          <v-tabs
+          <!-- <v-tabs
           centered
           color="grey darken-3"
           >
@@ -15,7 +15,7 @@
             <v-tab to="/itNewsList"><b>IT소식</b></v-tab>
             <v-tab to="/communityBoardList" ><b>자유게시판</b></v-tab>
             <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
-          </v-tabs>
+          </v-tabs> -->
         </div>
       </b-row>
       <b-row>
@@ -319,29 +319,5 @@ export default {
 
 <style scoped>
 @import '../../assets/css/BoardView.css';
-
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
-}
-.submenuimage{
-  width: 100%;
-  height:180px;
-  background-color:#F4EEFF;
-  text-align: center;
-  line-height: 180px; 
-}
-.subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
-  font-size: 50px;
-}
-#writecontain{
-  margin-bottom: 10%;
-  
-}
-.modalf{
-  display: flex;
-  justify-content: space-around;
-}
 
 </style>

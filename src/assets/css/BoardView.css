@@ -40,13 +40,19 @@
 
 }
 
+#link_a{
+  font-weight: bold;
+  background-color: #4e5157;
+  border:none;
+}
+
 #comment_insert_btn{
   background-color: #424874;
   border:none;
   width:70px;
   height: 50px;
   position: relative;
-  top:155px;
+  top:147px;
   left:-20px;
 }
 
@@ -146,6 +152,8 @@ background-color: #394867;
   /* margin-top: -10px; */
   font-size: 15px;
   margin-top: -27px;
+  font-size:6px;
+  position: relative;
 }
 
 #title{
@@ -153,6 +161,7 @@ background-color: #394867;
   /* border: 1px red solid; */
   font-weight: bolder;
   font-size:18px;
+  margin-bottom: 10px;
 }
 #text-card{
   /* border: 1px solid blue; */
@@ -275,4 +284,28 @@ font-family: 'Barlow Semi Condensed', sans-serif;
 #detailbtn1{
   background-color:  #424874;
   border: 1px  #424874 solid;
+}
+
+#subtitle{
+font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.submenuimage{
+  width: 100%;
+  height:180px;
+  background-color:#F4EEFF;
+  text-align: center;
+  line-height: 180px; 
+}
+.subtitle{
+  font-family: 'Masque';
+  color:#4e5157 ;
+  font-size: 50px;
+}
+#writecontain{
+  margin-bottom: 10%;
+  
+}
+.modalf{
+  display: flex;
+  justify-content: space-around;
 }

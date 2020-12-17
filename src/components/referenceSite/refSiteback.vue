@@ -5,7 +5,7 @@
       <!-- 메인 이미지 -->
       <b-row>
           <div class="submenuimage">
-             <p class="subtitle">Reference</p>
+             <p class="subtitle">Reference테스트백</p>
           </div>
       </b-row>
             
@@ -41,6 +41,7 @@
           v-for="ref in refList" :key="ref.id"
           @click="cardclick(ref)"
         >
+        
         <!-- 이미지 -->
         <v-img
           class="white--text align-end"
@@ -71,8 +72,9 @@
         </v-btn>
         </v-card-actions>
 
-      </v-card>
+        </v-card>
       
+
       </div>
 
           <!-- search bar -->
