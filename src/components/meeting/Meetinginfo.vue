@@ -182,11 +182,14 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
                 this.showModal=!this.showModal;
                 
              
-         }else {
+         }else if(data.data==1) {
             alert("신청완료")
           this.selected="";
            this.showModal=!this.showModal;
-           }
+           }else if(data.data==2)
+           alert("마감 된 포지션입니다.")
+            this.selected="";
+           this.showModal=!this.showModal;
        
        })
           
