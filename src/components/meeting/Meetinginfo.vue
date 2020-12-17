@@ -83,7 +83,7 @@ export default {
     return{
     showModal:false,
     selected:'',
-    applycheck:false,
+   
     }
   },
     mounted() {
@@ -178,11 +178,13 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
          console.log(data)
          if(data.data==0){
                 alert("중복된 신청입니다.")
+                 this.selected="";
                 this.showModal=!this.showModal;
+                
              
          }else {
             alert("신청완료")
-            this.applycheck=true;
+          this.selected="";
            this.showModal=!this.showModal;
            }
        

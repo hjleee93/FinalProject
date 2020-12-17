@@ -203,7 +203,7 @@
                   
                   :label="vfile"
                   filled
-                  required
+                  
                   accept=".gif,.jpg,.png"
                   ref="upfiles"
                   prepend-icon="mdi-camera"
@@ -273,7 +273,7 @@
 
           <b-row
             ><b-col class="text-center">
-              <b-button id="s-btn" type="submit">개설완료</b-button></b-col
+              <b-button id="s-btn" type="submit">수정하기</b-button></b-col
             ></b-row
           >
         </form>
