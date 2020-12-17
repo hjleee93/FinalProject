@@ -11,18 +11,6 @@
               
         <div class="container">          
 
-            <!-- 탭 -->   
-            <v-tabs
-            centered
-            color="grey darken-3"
-            >
-              <v-tab><b>ALL</b></v-tab>
-              <v-tab><b>FrontEnd</b></v-tab>
-              <v-tab><b>BackEnd</b></v-tab>
-              <v-tab><b>ETC 기타</b></v-tab>
-              <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
-            </v-tabs>
-
           <!-- <div>
             <h4 class="sub-header-ref">분야별 웹 사이트</h4>
             <v-btn to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
