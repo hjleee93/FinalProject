@@ -39,6 +39,7 @@
           class="mx-auto"
           max-width="330"
           v-for="ref in refList" :key="ref.id"
+          v-show="ref.status==='Y' && ref.refCategory.includes('기타')"
           @click="cardclick(ref)"
         >
         <!-- 이미지 -->
