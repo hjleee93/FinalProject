@@ -117,7 +117,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
 
     methods: {
       enrollBoard() {
-        
+        setTimeout(() => {
         let formData = new FormData();
         formData.append('boardWriter',this.userData.memberName);
         formData.append('memberNum',this.userData.memberSq);
@@ -141,6 +141,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         console.log(error))
         console.log(formData);
         this.$router.push({name:'ItNewsList'});
+        }, 1000)
       },
       
         handleFile(){

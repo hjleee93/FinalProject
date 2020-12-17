@@ -93,7 +93,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
     methods: {
       //글쓰기 버튼
       enrollBoard() {
-        
+        setTimeout(() => {
         let formData = new FormData();
         formData.append('memberNum',this.userData.memberSq)
         formData.append('noticeTitle',this.noticeTitle);
@@ -115,6 +115,8 @@ const { mapState } = createNamespacedHelpers("memberStore");
         console.log(error))
         console.log(formData);
         this.$router.push({name:'NoticeList'});
+
+            }, 1000)
       },
       
       

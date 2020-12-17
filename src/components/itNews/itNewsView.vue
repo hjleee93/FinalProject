@@ -39,15 +39,14 @@
         <v-img
           class="white--text align-end"
           id="images"
+
           :src="`http://localhost:8082/itjobgo/itnews/imagesrequest${itNewsView.newsSq}`"
         >
-        <v-card-title></v-card-title>
         </v-img>
         </div>
 
         </b-row>
-        <b-row>
-        </b-row>
+      
 
           <b-row>
           <b-col > <pre id="content">{{itNewsView.newsContent}}</pre></b-col>
@@ -59,7 +58,7 @@
         </b-row> -->
       </b-form>
     </b-container>
-          
+        
           <b-row >
             <b-col>
               <b-button  v-if="userData.memberSq===itNewsView.memberNum"
@@ -87,7 +86,11 @@
       <b-row v-for="comment in commentlist" :key="comment.id">
         <b-col>
           <b-card class="text-center">
-            <b-row><b-col cols="2">{{comment.memberName}}
+            
+            <b-row>
+
+              
+              <b-col cols="2" id="nameAndDate2">{{comment.memberName}}
             <br>{{comment.itCommentDate | moment('YYYY.MM.DD HH:mm:ss')}}
             </b-col> 
             <!-- 쓴사람과 아닐떄는 일반 댓글로 보여주지않기 -->
@@ -313,6 +316,19 @@ export default {
 
     }, //method
     created() {
+          if (this.userData.memberSq != undefined) {
+      axios
+        .get(
+          "http://localhost:8082/itjobgo/member/loadPhoto?memberSq=" +
+            this.userData.memberSq,
+          { responseType: "arraybuffer" }
+        )
+        .then((res) => {
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+
+          this.previewImage = url;
+        });
+    }
         const newsSq=this.$route.params.id;
         this.$store.dispatch("FETCH_ITNEWS_VIEW",newsSq)
         // this.$store.dispatch("FETCH_COMMUNITYBOARD_ATTACHMENT",newsSq)
@@ -339,13 +355,356 @@ export default {
 </script>
 
 <style scoped>
-@import '../../assets/css/BoardView.css';
+/* @import '../../assets/css/BoardView.css'; */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+#nameAndDate2{
+  /* position: absolute; */
+  position: relative;
+  left:15px;
+  margin:-15px;
+
+}
+
+#profileImage2{
+  position:absolute;
+  top:10px;
+  left:20px;
+  height: 70px;
+  width:70px;
+  border-radius: 70px;
+  border:none;
+}
+
+#commentUptxt{
+  width:800px;
+  height:150px;
+
+}
+#update-btn{
+  background-color: #424874;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:100px;
+   border:none
+}
+#update-btn2{
+  background-color: #424874;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:30px;
+   border:none
+}
+#updateEnd-btn{
+    background-color: #394867;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:100px;
+  border:none
+}
+
+#deltet-btn{
+  background-color:#9BA4B4;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:100px;
+   border:none
+
+}
+
+#link_a{
+  font-weight: bold;
+  background-color: #4e5157;
+  border:none;
+  position: relative;
+  left :-470px;
+  width:100px;
+  height: 50px;
+}
+
+#comment_insert_btn{
+  background-color: #424874;
+  border:none;
+  width:70px;
+  height: 50px;
+  position: relative;
+  top:147px;
+  left:-20px;
+}
+
+#modal-yes{
+  background-color: #424874;
+  width:100px;
+  position: relative;
+  left:50px;
+  border:none;
+}
+
+#modal-no{
+  background-color: #9BA4B4;
+  width:100px;
+  position: relative;
+  left:-50px;
+  border:none;
+}
+
+
+#content {
+  /* background-color: #E6E6FA; */
+  /* padding:10px; */
+  overflow: auto;
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+#textarea-test{
+  height:100%;
+}
+
+
+#update-btn{
+background-color: #424874;
+border: none;
+}
+#delete-btn2{
+background-color: #9BA4B4;
+  height:50px;
+  width:70px;
+  position: relative;
+  top:30px;
+   border:none;
+
+}
+
+#prev{
+ position: relative;
+ left: -393px;
+ /* background-color: red; */
+}
+
+#next{
+ position: relative;
+ left: -392px;
+ /* background-color: red; */
+}
+
+#list{
+ position: relative;
+ left: 460px;
+ height: 50px;
+ width: 80px;
+ align-items: center;
+ font-size: 19px;
+ border:none;
+ font-weight: bold;
+ padding-top:10px;
+ /* margin-top: 10px; */
+background-color: #4975cc;
+}
+
+
+#attachment-btn{
+  background-color: orange;
+  border: none;
+  position: relative;
+  left:-25px;
+  /* width:100px; */
+}
+
+#attachment-title{
+  text-align: left;
+  font-weight: bold;
+}
+#attachment{
+  /* border: 1px red solid; */
+  position: relative;
+  left:-174px;
+  top:25px;
+}
+
+#writer{
+  /* border : 1px blue solid; */
+    font-size: 15px;
+  margin-top: -27px;
+    text-align: right;
+}
+
+
+#boardDate{
+  text-align: left;
+    /* border: 1px red solid; */
+  /* margin-top: -10px; */
+  font-size: 15px;
+  margin-top: -27px;
+  font-size:6px;
+  position: relative;
+}
+
+#title{
+  text-align: left;
+  /* border: 1px red solid; */
+  font-weight: bolder;
+  font-size:18px;
+  margin-bottom: 10px;
+}
+#text-card{
+  /* border: 1px solid blue; */
+  border:none;
+  /* width: 1000px; */
+  /* height: 1000px; */
+  /* position: relative; */
+  /* left : 200px; */
+}
+
+#date{
+    text-align: right;
+    /* margin-top: 100px; */
+    position: relative;
+    right:150px;
+}
+#subtitle{
+font-family: 'Barlow Semi Condensed', sans-serif;
+}
+
+#selected{
+  width:100px;
+}
+.submenuimage{
+    width: 100%;
+    height:180px;
+    background-color:#F4EEFF;
+    text-align: center;
+    line-height: 180px;
+}
+.subtitle{
+    font-family: 'Masque';
+    color:#4e5157 ;
+    font-size: 50px;
+}
+
+#my-table{
+  text-align: center;
+}
+
+#main-container{
+  margin-top: 0px;
+  /* padding-top: -100px; */
+}
+
+#header-image{
+  width:100%;
+}
+.table_ect{
+  margin-bottom:20px;
+  margin-left: 20px;
+  margin-right: 50px;
+  margin-top: 10px;
+}
+.sidebar{
+  margin-top: 30px;
+}
+.st_search{
+  float: right;
+}
+.st_pagebar{
+  margin-top: 3%;
+    position:absolute;
+    left:40%;
+}
+.sub-header{
+  margin-left: 25px;
+  margin-top: 25px;
+}
+.st_nav4{
+  margin-left: 10px;
+  position: relative;
+}
+#st_write2{
+  position: relative;
+  top: 0px;
+  left: -100px;
+  margin-right: 3.5%;
+  background-color: #424874;
+  border:none;
+  color:white;
+  width:90px;
+}
+
+#st_write3{
+  position: relative;
+  top: 0px;
+  left: -135px;
+  margin-right: 3.5%;
+  background-color: #9BA4B4;
+  border:none;
+  color:white;
+  width:90px;
+}
+
+#list-btn{
+  width:100px;
+  color:white;
+  position: relative;
+  left:0px;
+}
+
+.detail_{
+    margin-top:6%;
+    margin-right: 2%;
+}
+.detail_write{
+    height: 400px;
+}
+.detail_top{
+    margin-left: 12px;
+}
+.detail_btn{
+    margin-left: 10px;
+}
+.detail_btn_div{
+    text-align: center;
+    margin-top: 3%;
+}
+#detailbtn1{
+  background-color:  #424874;
+  border: 1px  #424874 solid;
+}
+
+#subtitle{
+font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.submenuimage{
+  width: 100%;
+  height:180px;
+  background-color:#F4EEFF;
+  text-align: center;
+  line-height: 180px; 
+}
+.subtitle{
+  font-family: 'Masque';
+  color:#4e5157 ;
+  font-size: 50px;
+}
+#writecontain{
+  margin-bottom: 10%;
+  
+}
+.modalf{
+  display: flex;
+  justify-content: space-around;
+}
+
 #images{
-  width: 500px; 
-  height: 300px;
-  object-fit: cover;
-  margin-bottom: 50px;
-  align-items: center;
+   height: auto; 
+    width: auto; 
+    object-fit:cover;
+    max-width: 500px; 
+    max-height: 700px;
+    
 }
 
 

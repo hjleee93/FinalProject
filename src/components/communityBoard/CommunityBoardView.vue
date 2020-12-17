@@ -69,9 +69,12 @@
       <b-row v-for="comment in commentlist" :key="comment.id">
         <b-col>
           <b-card class="text-center">
-            <b-row><b-col cols="2">{{comment.memberName}}
+            <b-row>
+
+              
+              <b-col cols="2" id="nameAndDate">{{comment.memberName}}
             <br>{{comment.cbCommentDate | moment('YYYY.MM.DD HH:mm:ss')}}
-            </b-col>
+            </b-col> 
             <!-- 쓴사람과 아닐떄는 일반 댓글로 보여주지않기 -->
             <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.cbCommentContent}}</b-col>
             
@@ -292,10 +295,12 @@ export default {
 
     }, //method
     created() {
+
         const communityBoardNo=this.$route.params.id;
         this.$store.dispatch("FETCH_COMMUNITYBOARD_VIEW",communityBoardNo)
         this.$store.dispatch("FETCH_COMMUNITYBOARD_ATTACHMENT",communityBoardNo)
         this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
+        
         
     },
     computed: {

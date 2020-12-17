@@ -132,7 +132,7 @@
     </template>
   </ModalView>
 
-     {{commentlist}}
+     <!-- {{commentlist}} -->
 </b-container> 
 </template>
 
