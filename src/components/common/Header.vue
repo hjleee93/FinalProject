@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="header_image">
+    <div class="header_image" v-if="this.$route.name == 'home'">
       <div>
         <a href="/"
           ><img
