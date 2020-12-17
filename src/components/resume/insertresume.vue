@@ -456,6 +456,8 @@ export default {
 
 
      insertResume(){
+
+        
         let formData=new FormData();
 
           //이력서 제목

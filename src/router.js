@@ -149,6 +149,15 @@ const QnaWrite = () => {
 const RefSite = () => {
      return import('./components/referenceSite/refSite.vue')
 }
+const RefSiteback = () => {
+     return import('./components/referenceSite/refSiteback.vue')
+}
+const RefSitefront = () => {
+     return import('./components/referenceSite/refSitefront.vue')
+}
+const RefSiteEtc = () => {
+     return import('./components/referenceSite/refSiteEtc.vue')
+}
 const RefWrite = () => {
      return import('./components/referenceSite/refWrite.vue')
 }
@@ -567,6 +576,21 @@ export default new Router({
                component: RefSite
           },
           {
+               path: '/refSiteback',
+               name: 'refSiteback',
+               component: RefSiteback
+          },
+          {
+               path: '/refSitefront',
+               name: 'refSitefront',
+               component: RefSitefront
+          },
+          {
+               path: '/refSiteEtc',
+               name: 'refSiteEtc',
+               component: RefSiteEtc
+          },
+          {
                path: '/refUpdate',
                name: 'refUpdate',
                component: RefUpdate
@@ -610,17 +634,17 @@ export default new Router({
                beforeEnter: LoginAuth(),
           },
           {
-               path: '/resume/BlindResume',
+               path: '/resume/BlindResume/:id',
                name: 'BlindResume',
                component: BlindResume
           },
           {
-               path: '/resume/LineResume',
+               path: '/resume/LineResume/:id',
                name: 'LineResume',
                component: LineResume
           },
           {
-               path: '/resume/DesignResume',
+               path: '/resume/DesignResume/:id',
                name: 'DesignResume',
                component: DesignResume
           },
@@ -630,7 +654,7 @@ export default new Router({
                component: insertresume
           },
           {
-               path: '/resume/updateresume',
+               path: '/resume/updateresume/:id',
                name: 'updateresume',
                component: updateresume
           },

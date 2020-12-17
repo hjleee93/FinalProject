@@ -31,9 +31,6 @@
               <b-dropdown-item to="/resume/resumeList"
                 >입사지원서 보기</b-dropdown-item
               >
-              <b-dropdown-item to="/resume/updateresume"
-                >입사지원서 수정
-              </b-dropdown-item>
               <b-dropdown-item to="/resume/consultresume"
                 >입사지원서 컨설팅</b-dropdown-item
               >
