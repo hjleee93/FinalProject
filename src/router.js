@@ -373,7 +373,8 @@ export default new Router({
           {
                path: '/communityBoardForm',
                name: 'CommunityBoardForm',
-               component: CommunityBoardForm
+               component: CommunityBoardForm,
+                beforeEnter: LoginDeny()
           },
 
           {
@@ -385,7 +386,8 @@ export default new Router({
           {
                path: '/itNewsForm',
                name: 'ItNewsForm',
-               component: ItNewsForm
+               component: ItNewsForm,
+                beforeEnter: LoginDeny()
           },
 
           {
@@ -398,7 +400,8 @@ export default new Router({
           {
                path: '/noticeForm',
                name: 'NoticeForm',
-               component: NoticeForm
+               component: NoticeForm,
+               beforeEnter: adminDeny()
           },
 
           {
@@ -422,19 +425,22 @@ export default new Router({
           {
                path: '/noticeUpdate/:id',
                name: 'NoticeUpdate',
-               component: NoticeUpdate
+               component: NoticeUpdate,
+               beforeEnter: adminDeny()
           },
 
           {
                path: '/itNewsUpdate/:id',
                name: 'ItNewsUpdate',
-               component: ItNewsUpdate
+               component: ItNewsUpdate,
+               beforeEnter: LoginDeny()
           },
 
           {
                path: '/communityBoardUpdate/:id',
                name: 'CommunityBoardUpdate',
-               component: CommunityBoardUpdate
+               component: CommunityBoardUpdate,
+                beforeEnter: LoginDeny()
           },
 
           //현정

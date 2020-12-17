@@ -28,19 +28,22 @@
         </b-row>
         <b-row>
           <b-col id="boardDate"> 작성일 : {{formatDate(itNewsView.newsDate)}}</b-col>
+          <br>
 
           <!-- 뉴스기사 바로가기 -->
           <!-- <a href="" v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">링크 바로가기</a> -->
           <!-- <b-button  v-on:click.stop.prevent="openWindow(itNewsView.newsRefSite)" id="link_a">바로 보기</b-button> -->
         <!-- 이미지 -->
           <!-- max-width="350px" -->
+        <div class="container">
         <v-img
           class="white--text align-end"
-          height="250px"
+          id="images"
           :src="`http://localhost:8082/itjobgo/itnews/imagesrequest${itNewsView.newsSq}`"
         >
         <v-card-title></v-card-title>
         </v-img>
+        </div>
 
         </b-row>
         <b-row>
@@ -337,6 +340,14 @@ export default {
 
 <style scoped>
 @import '../../assets/css/BoardView.css';
+#images{
+  width: 500px; 
+  height: 300px;
+  object-fit: cover;
+  margin-bottom: 50px;
+  align-items: center;
+}
+
 
 #subtitle{
 font-family: 'Barlow Semi Condensed', sans-serif;
