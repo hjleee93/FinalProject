@@ -44,6 +44,12 @@
           </div>
         </b-form>
         <p class="name font-weight-bold">{{ userData.memberName }}님</p>
+        <div class="tel text-center">
+          <span class="item "
+            ><span class="urgent-call"></span>비상 연락처</span
+          >
+          <span class="mobile ml-3">{{ userData.memberPhone }}</span>
+        </div>
       </div>
 
       <!-- //사진영역 -->
@@ -52,10 +58,10 @@
       <ul class="infoList">
         <!-- 이력서 공개중 -->
 
-        <li class="topList first resume">
+        <li class="topList first ">
           <p class="title">공지사항</p>
           <p class="count">
-            <a href="#noticeDiv">{{ noticeCount }}</a
+            <a href="#noticeDiv" class="scroll">{{ noticeCount }}</a
             >개
           </p>
         </li>
@@ -68,21 +74,25 @@
           <p class="title">등록된 컨설턴트</p>
           <p class="count"><a href="#qnaDiv" class="scroll"></a>명</p>
         </li>
-        <!--  <li class="first resumeCompany">
-          <p class="title">등록된 포트폴리오</p>
+        <li class="first resumeCompany">
+          <p class="title">IT News</p>
           <p class="count">
-            <a href="#portfDiv" class="scroll">{{ portfCount }}</a
-            >건
+            <a href="#itDiv" class="scroll">{{
+              this.$store.state.itnewsList.length
+            }}</a
+            >개
           </p>
         </li>
         <li class="apply">
-          <p class="title">스크랩한 구인광고</p>
+          <p class="title">취업 정보</p>
           <p class="count">
-            <a href="#scrapDiv" class="scroll">{{ scrapCount }}</a
-            >건
+            <a href="#infoDiv" class="scroll">{{
+              this.$store.state.info.length
+            }}</a
+            >개
           </p>
         </li>
-        <li class="commu">
+        <!-- <li class="commu">
           <p class="title">내가 쓴 글</p>
           <p class="count">
             <a href="#communityDiv" class="scroll">{{ commuCount }}</a
@@ -91,12 +101,11 @@
         </li> -->
 
         <li class="first bottomList userInfomation">
-          <div class="tel">
-            <span class="item"
-              ><span class="urgent-call"></span>비상 연락처</span
-            >
-            <span class="mobile ml-3">{{ userData.memberPhone }}</span>
-          </div>
+          <p>
+            서버에 문제가 생긴경우에는 02-9999-1111(야) / 02-9999-2222(주)로
+            연락 주시길 바랍니다.
+          </p>
+
           <!-- <div class="mail">
             <span class="item"><span class="bullet"></span>이메일</span
             ><b>{{ userData.memberEmail }}</b>
@@ -161,6 +170,122 @@
         </template>
       </v-simple-table>
     </div>
+
+    <!-- 취업 정보 -->
+    <div id="infoDiv"></div>
+    <div>
+      <p class="h3 mt-3 font-weight-bold text-center">
+        취업 정보
+      </p>
+      <p id="infoAll" class="mb-2">
+        <b-btn to="infoList">전체보기</b-btn>
+      </p>
+
+      <v-simple-table class="info">
+        <thead class="info-table">
+          <tr>
+            <th class="text-left">
+              분류
+            </th>
+            <th class="text-left">
+              제목
+            </th>
+            <th class="text-left">
+              작성일
+            </th>
+          </tr>
+        </thead>
+
+        <template v-if="info[0] != undefined">
+          <tbody>
+            <tr
+              id="infoBody"
+              class="info-table"
+              v-for="(f, i) in info"
+              :key="i"
+              @click="moveInfoDetail(info[i].infoSq)"
+            >
+              <template v-if="info[i] != undefined">
+                <td>
+                  {{ info[i].infoCategory }}
+                </td>
+                <td>
+                  {{ info[i].infoTitle }}
+                </td>
+                <td>{{ formatDate(info[i].infoDate) }}</td>
+              </template>
+            </tr>
+          </tbody>
+        </template>
+        <template v-else>
+          <tbody>
+            <tr>
+              <td colspan="3" class="text-center">
+                작성한 글이 없습니다.
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </div>
+
+    <!-- it 뉴스 연결 -->
+    <div id="itDiv"></div>
+    <div>
+      <p class="h3 mt-3 font-weight-bold text-center">
+        IT NEWS
+      </p>
+      <p id="itAll" class="mb-2">
+        <b-btn to="itNewsList">전체보기</b-btn>
+      </p>
+
+      <v-simple-table class="it">
+        <thead class="it-table">
+          <tr>
+            <th class="text-left">
+              분류
+            </th>
+            <th class="text-left">
+              제목
+            </th>
+            <th class="text-left">
+              작성일
+            </th>
+          </tr>
+        </thead>
+
+        <template v-if="info[0] != undefined">
+          <tbody>
+            <tr
+              id="infoBody"
+              class="info-table"
+              v-for="(it, i) in itnewsList"
+              :key="i"
+              @click="moveInfoDetail(itnewsList[i].newsSq)"
+            >
+              <template v-if="itnewsList[i] != undefined">
+                <td>
+                  {{ itnewsList[i].newsDivision }}
+                </td>
+                <td>
+                  {{ itnewsList[i].newsTitle }}
+                </td>
+                <td>{{ formatDate(itnewsList[i].newsDate) }}</td>
+              </template>
+            </tr>
+          </tbody>
+        </template>
+        <template v-else>
+          <tbody>
+            <tr>
+              <td colspan="3" class="text-center">
+                작성한 글이 없습니다.
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </div>
   </b-container>
 </template>
 
@@ -168,8 +293,8 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 import $ from "jquery";
-
 import axios from "axios";
+
 $(document).ready(function($) {
   $(".scroll").click(function(event) {
     event.preventDefault();
@@ -200,6 +325,8 @@ export default {
         });
     }
     this.$store.dispatch("FETCH_NOTICE");
+    this.$store.dispatch("FETCH_INFO");
+    this.$store.dispatch("FECH_ITNEWS_LIST");
   },
   methods: {
     async uploadPhoto() {
@@ -246,6 +373,12 @@ export default {
         await this.$emit("input", file[0]);
       }
     },
+    moveItDetail(value) {
+      this.$router.push({ name: "itNewsView", params: { id: value.newsSq } });
+    },
+    moveInfoDetail(value) {
+      this.$router.push({ name: "InfoDetail", params: { id: value } });
+    },
     moveNoticeAll() {
       this.$router.push({ name: "NoticeList" });
     },
@@ -259,6 +392,36 @@ export default {
   },
   computed: {
     ...mapState(["userData"]),
+    itnewsList() {
+      let obj = new Object(); //반환할 객체
+      if (this.$store.state.itnewsList != undefined) {
+        for (let i = 0; i < this.$store.state.itnewsList.length; i++) {
+          obj[i] = this.$store.state.itnewsList[i];
+        }
+      }
+
+      let arr = [];
+      for (let i = 0; i < 3; i++) {
+        arr[i] = Object.values(obj)[i];
+      }
+
+      return arr;
+    },
+    info() {
+      let obj = new Object(); //반환할 객체
+      if (this.$store.state.info != undefined) {
+        for (let i = 0; i < this.$store.state.info.length; i++) {
+          obj[i] = this.$store.state.info[i];
+        }
+      }
+
+      let arr = [];
+      for (let i = 0; i < 3; i++) {
+        arr[i] = Object.values(obj)[i];
+      }
+
+      return arr;
+    },
     noticeList() {
       var obj = new Object(); //반환할 객체
       if (this.$store.state.noticeList != undefined) {
