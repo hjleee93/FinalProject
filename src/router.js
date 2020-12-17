@@ -167,6 +167,9 @@ const RefUpdate = () => {
 const RefSiteView = () => {
      return import('./components/referenceSite/refSiteView.vue')
 }
+const RefSiteStatus = () => {
+     return import('./components/referenceSite/refSiteStatus.vue')
+}
 const qnaBoardback = () => {
      return import('./components/qnaboard/qnaBoardback.vue')
 }
@@ -231,9 +234,6 @@ const LoginCallback = () => {
 }
 const NaverLogin = () => {
      return import('./components/member/NaverLogin.vue')
-}
-const ResumeBoard = () => {
-     return import('./components/member/ResumeBoard.vue')
 }
 const KakaoCallbackLogin = () => {
      return import('./components/member/KakaoCallbackLogin.vue')
@@ -382,7 +382,8 @@ export default new Router({
           {
                path: '/communityBoardForm',
                name: 'CommunityBoardForm',
-               component: CommunityBoardForm
+               component: CommunityBoardForm,
+                beforeEnter: LoginDeny()
           },
 
           {
@@ -394,7 +395,8 @@ export default new Router({
           {
                path: '/itNewsForm',
                name: 'ItNewsForm',
-               component: ItNewsForm
+               component: ItNewsForm,
+                beforeEnter: LoginDeny()
           },
 
           {
@@ -407,7 +409,8 @@ export default new Router({
           {
                path: '/noticeForm',
                name: 'NoticeForm',
-               component: NoticeForm
+               component: NoticeForm,
+               beforeEnter: adminDeny()
           },
 
           {
@@ -431,19 +434,22 @@ export default new Router({
           {
                path: '/noticeUpdate/:id',
                name: 'NoticeUpdate',
-               component: NoticeUpdate
+               component: NoticeUpdate,
+               beforeEnter: adminDeny()
           },
 
           {
                path: '/itNewsUpdate/:id',
                name: 'ItNewsUpdate',
-               component: ItNewsUpdate
+               component: ItNewsUpdate,
+               beforeEnter: LoginDeny()
           },
 
           {
                path: '/communityBoardUpdate/:id',
                name: 'CommunityBoardUpdate',
-               component: CommunityBoardUpdate
+               component: CommunityBoardUpdate,
+                beforeEnter: LoginDeny()
           },
 
           //현정
@@ -546,12 +552,7 @@ export default new Router({
                component: AdminPage,
                beforeEnter: adminDeny()
           },
-          {
-               path: '/resumeBoard/:id',
-               name: 'resumeBoard',
-               component: ResumeBoard,
-               beforeEnter: LoginAuth()
-          },
+
 
           //현주
           {
@@ -593,6 +594,11 @@ export default new Router({
                path: '/refSiteView',
                name: 'refSiteView',
                component: RefSiteView
+          },
+          {
+               path: '/refSiteStatus',
+               name: 'refSiteStatus',
+               component: RefSiteStatus
           },
           {
                path: '/qnaView/:id',
@@ -667,7 +673,7 @@ export default new Router({
                name: 'consultresumeenroll',
                component: consultresumeenroll
           },
-                    {
+          {
                path: '/resume/resumeList',
                name: 'resumeList',
                component: resumeList

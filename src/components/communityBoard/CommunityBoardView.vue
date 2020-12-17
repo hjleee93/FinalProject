@@ -244,10 +244,10 @@ export default {
         let delfirm=confirm("댓글을 삭제 하시겠습니까?")
         if(delfirm){
           const cno=commentno;
-        this.$store.dispatch("FETCH_COMMENT_DELETE",cno)
-        return  this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
-        }else{
-          return
+        this.$store.dispatch("FETCH_COMMENT_DELETE",cno).then(()=>{
+             this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
+        })
+
         }
       },
     //   //댓글수정

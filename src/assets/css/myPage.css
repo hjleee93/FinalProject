@@ -279,7 +279,9 @@ input[type="file"] {
 .scrap,
 .community,
 .notice,
-.resume {
+.resume,
+.info,
+.it {
   border: 1px solid #74899e !important;
   clear: both;
 }
@@ -288,7 +290,9 @@ thead.pf-table,
 thead.scrap-table,
 thead.community-table,
 thead.notice-table,
-thead.resume-table {
+thead.resume-table,
+thead.info-table,
+thead.it-table {
   background-color: #74899e;
 }
 #qnaBody:hover,
@@ -296,7 +300,9 @@ thead.resume-table {
 #scrapBody:hover,
 #communityBody:hover,
 #noticeBody:hover,
-#resumeBody:hover {
+#resumeBody:hover,
+#infoBody:hover,
+#itBody:hover {
   cursor: pointer;
 }
 #resumeAll {
@@ -326,12 +332,20 @@ thead.resume-table {
 }
 
 /* 관리자 mypage */
-#noticeAll {
+#noticeAll,
+#infoAll,
+#itAll {
   float: right;
 }
-#noticeDiv {
+#noticeDiv,
+#infoDiv,
+#itDiv {
   clear: both;
 }
 .urgent-call .mobile {
   margin-left: 35px;
+}
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
 }

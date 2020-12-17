@@ -36,13 +36,15 @@
        <v-card
           class="mx-auto mcard"
           max-width="250"
+          max-height="300"
           v-for="it in itnewsList" :key="it.id"
           @click="cardclick(it)"
         >
         <!-- 이미지 -->
         <v-img
           class="white--text align-end"
-          max-width="350px"
+          max-width="250px"
+          max-height="200px"
           :src="`http://localhost:8082/itjobgo/itnews/imagesrequest${it.newsSq}`"
         >
         <v-card-title></v-card-title>
@@ -50,13 +52,13 @@
 
         <v-card-text class="text--primary">
           <div id="title">{{it.newsTitle}}</div>
-          <div id="content">{{it.newsContent}}</div>
+          <div id="content"></div>
         </v-card-text>
 
         <v-card-actions>
      
 
-          <b-button v-on:click.stop.prevent="openWindow(it.newsRefSite)" id="link_a">기사보기</b-button>
+          <b-button v-on:click.stop.prevent="openWindow(it.newsRefSite)" id="link_a2">기사보기</b-button>
 
         
         </v-card-actions>
@@ -171,9 +173,10 @@
   font-size:10px;
 }
 
-#link_a{
+#link_a2{
   position: absolute;
-  top:320px;
+  top:265px;
+  left:5px;
   background-color:#3f4996;
   font-size:10px;
   font-weight: bold;
@@ -222,8 +225,10 @@ font-size: 50px;
   color: #9BA4B4;
   margin-top: -10px;
   font-size: 10px;
-  position: relative;
-  left:145px;
+  position: absolute;
+   top:285px;
+
+  left:140px;
 }
  .mx-auto{
   margin: 1.5%;
