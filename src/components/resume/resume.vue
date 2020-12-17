@@ -12,7 +12,6 @@
         <v-tabs centered color="grey darken-3">
             <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
             <v-tab active to="/resume/resumeList">입사지원서 보기</v-tab>
-            <v-tab to="/resume/updateresume">입사지원서 수정</v-tab>
             <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
             <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
             <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
@@ -20,11 +19,11 @@
     </div>
 
     <div id="submenu">
-        <b-nav pills>
-            <b-nav-item active to="/resume/resume">기본 이력서</b-nav-item>
-            <b-nav-item to="/resume/BlindResume">블라인드 이력서</b-nav-item>
-            <b-nav-item to="/resume/LineResume">라인 이력서</b-nav-item>
-            <b-nav-item to="/resume/DesignResume">디자인 이력서</b-nav-item>
+        <b-nav tabs align="center">
+            <b-nav-item active><router-link :to="{name: 'resume', params: {id: resume.resumeNo }}">기본 이력서</router-link></b-nav-item>
+            <b-nav-item><router-link :to="{name: 'DesignResume', params: {id: resume.resumeNo }}">디자인 이력서</router-link></b-nav-item>
+            <b-nav-item><router-link :to="{name: 'LineResume', params: {id: resume.resumeNo }}">라인 이력서</router-link></b-nav-item>
+            <b-nav-item><router-link :to="{name: 'BlindResume', params: {id: resume.resumeNo }}">블라인드 이력서</router-link></b-nav-item>
         </b-nav>
     </div>
 
@@ -497,8 +496,4 @@ input[type="file"] {
   border: 0;
 }
 
-.upload-photo {
-  height: 37px;
-  width: 106px;
-}
 </style>

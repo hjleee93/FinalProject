@@ -5,7 +5,7 @@
       
       <!-- 메인 이미지 -->
       <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">구인정보</p>
+        <p class="subtitle">구인정보</p>
       </div>
     <div class="container">     
     
@@ -114,6 +114,25 @@ components: {
 </script>
 
 <style scoped>
+*{
+   font-family: "Noto Sans KR", sans-serif;
+}
+.submenuimage {
+  background-image: url("../../assets/images/job-search.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
+}
 #job-title {
   font-size: 16px;
   margin-top: 13px;
@@ -171,14 +190,7 @@ components: {
   text-align: center;
   line-height: 180px;
 }
-#subtitle {
-  font-family: "Barlow Semi Condensed", sans-serif;
-}
-.subtitle {
-  font-family: "Masque";
-  color: #4e5157;
-  font-size: 50px;
-}
+
 
 .sub-header {
   position: relative;

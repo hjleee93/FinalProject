@@ -246,7 +246,10 @@ function fetchResume(resumeNo) {
 function fetchResumeList(memberSq){
     return axios.get(`${config.Url}resume/resumeList/${memberSq}.do`)
 }
-
+//이력서 삭제하기
+function fetchResumeDelete(resumeNo){
+    return axios.get(`${config.Url}resume/deleteResume/${resumeNo}.do`)
+}
 
 export {
     fetchPboardList,
@@ -327,6 +330,7 @@ export {
     fetchRboardList,
     fetchResume,
     fetchResumeList,
+    fetchResumeDelete,
 
 }
 

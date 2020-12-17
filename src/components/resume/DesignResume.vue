@@ -12,18 +12,17 @@
           <v-tabs centered color="grey darken-3">
             <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
             <v-tab active to="/resume/resumeList">입사지원서 보기</v-tab>
-            <v-tab to="/resume/updateresume">입사지원서 수정</v-tab>
             <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
             <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
             <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
           </v-tabs>
       </div>
         <div id="submenu">
-            <b-nav pills>
-                <b-nav-item to="/resume/resume">기본 이력서</b-nav-item>
-                <b-nav-item to="/resume/BlindResume">블라인드 이력서</b-nav-item>
-                <b-nav-item to="/resume/LineResume">라인 이력서</b-nav-item>
-                <b-nav-item active to="/resume/DesignResume">디자인 이력서</b-nav-item>
+            <b-nav tabs align="center">
+                <b-nav-item><router-link :to="{name: 'resume', params: {id: resume.resumeNo }}">기본 이력서</router-link></b-nav-item>
+                <b-nav-item active><router-link :to="{name: 'DesignResume', params: {id: resume.resumeNo }}">디자인 이력서</router-link></b-nav-item>
+                <b-nav-item><router-link :to="{name: 'LineResume', params: {id: resume.resumeNo }}">라인 이력서</router-link></b-nav-item>
+                <b-nav-item><router-link :to="{name: 'BlindResume', params: {id: resume.resumeNo }}">블라인드 이력서</router-link></b-nav-item>
             </b-nav>
         </div>
         <div>
@@ -38,7 +37,12 @@
                 <b-col class="profile">
                     <div>
                     <b-card title="" class="person_info">
-                        <b-img v-bind="mainProps" rounded="circle" alt="Circle image"></b-img>
+                        
+                                <div
+                                class="imagePreviewWrapper"
+                                :style="{ 'background-image': `url(${previewImage})` }"
+                            ></div>
+                        
                     </b-card>
                     </div>
 
@@ -219,20 +223,35 @@
  </div>
 </template>
 <script>
+import axios from "axios";
 import { mapState } from 'vuex';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
 
 export default {
-    data(){
-        return {
-            
-        }
-    },
+    data: () => ({
+        previewImage: null,
+        resumePhoto: null,
+        files: "",
+        mainProps: { blank: true, blankColor: '#777', width: 200, height: 200, class: 'm1' },
+    }),
     created() {
-        const memberSq=this.userData.memberSq;
-        this.$store.dispatch("FETCH_RESUME", memberSq);
+        const resumeNo=this.$route.params.id;
+        this.$store.dispatch("FETCH_RESUME", resumeNo);
+
+        axios
+            .get(
+            "http://localhost:8082/itjobgo/resume/selectAttachment?resumeNo="+resumeNo,
+            { responseType: "arraybuffer" }
+            )
+            .then((res) => {
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+
+            this.previewImage = url;
+            });
+        
     },
+    
     computed: {
         ...mapState({
             resume:state=>state.resume,
@@ -347,5 +366,24 @@ div{
 }
 .languages_table .languages_level{
     width: 50px;
+}
+.imagePreviewWrapper {
+  display: block;
+  width: 200px;
+  height: 250px;
+  padding: 9px;
+  margin: 30px auto 10px;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  background: #fff;
+  background-size: cover;
+  background-position: center center;
+}
+input[type="file"] {
+  position: absolute;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 </style>

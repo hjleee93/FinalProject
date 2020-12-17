@@ -235,9 +235,6 @@ const LoginCallback = () => {
 const NaverLogin = () => {
      return import('./components/member/NaverLogin.vue')
 }
-const ResumeBoard = () => {
-     return import('./components/member/ResumeBoard.vue')
-}
 const KakaoCallbackLogin = () => {
      return import('./components/member/KakaoCallbackLogin.vue')
 }
@@ -385,7 +382,8 @@ export default new Router({
           {
                path: '/communityBoardForm',
                name: 'CommunityBoardForm',
-               component: CommunityBoardForm
+               component: CommunityBoardForm,
+                beforeEnter: LoginDeny()
           },
 
           {
@@ -397,7 +395,8 @@ export default new Router({
           {
                path: '/itNewsForm',
                name: 'ItNewsForm',
-               component: ItNewsForm
+               component: ItNewsForm,
+                beforeEnter: LoginDeny()
           },
 
           {
@@ -410,7 +409,8 @@ export default new Router({
           {
                path: '/noticeForm',
                name: 'NoticeForm',
-               component: NoticeForm
+               component: NoticeForm,
+               beforeEnter: adminDeny()
           },
 
           {
@@ -434,19 +434,22 @@ export default new Router({
           {
                path: '/noticeUpdate/:id',
                name: 'NoticeUpdate',
-               component: NoticeUpdate
+               component: NoticeUpdate,
+               beforeEnter: adminDeny()
           },
 
           {
                path: '/itNewsUpdate/:id',
                name: 'ItNewsUpdate',
-               component: ItNewsUpdate
+               component: ItNewsUpdate,
+               beforeEnter: LoginDeny()
           },
 
           {
                path: '/communityBoardUpdate/:id',
                name: 'CommunityBoardUpdate',
-               component: CommunityBoardUpdate
+               component: CommunityBoardUpdate,
+                beforeEnter: LoginDeny()
           },
 
           //현정
@@ -549,12 +552,7 @@ export default new Router({
                component: AdminPage,
                beforeEnter: adminDeny()
           },
-          {
-               path: '/resumeBoard/:id',
-               name: 'resumeBoard',
-               component: ResumeBoard,
-               beforeEnter: LoginAuth()
-          },
+
 
           //현주
           {
@@ -636,17 +634,17 @@ export default new Router({
                beforeEnter: LoginAuth(),
           },
           {
-               path: '/resume/BlindResume',
+               path: '/resume/BlindResume/:id',
                name: 'BlindResume',
                component: BlindResume
           },
           {
-               path: '/resume/LineResume',
+               path: '/resume/LineResume/:id',
                name: 'LineResume',
                component: LineResume
           },
           {
-               path: '/resume/DesignResume',
+               path: '/resume/DesignResume/:id',
                name: 'DesignResume',
                component: DesignResume
           },
@@ -656,7 +654,7 @@ export default new Router({
                component: insertresume
           },
           {
-               path: '/resume/updateresume',
+               path: '/resume/updateresume/:id',
                name: 'updateresume',
                component: updateresume
           },
@@ -675,7 +673,7 @@ export default new Router({
                name: 'consultresumeenroll',
                component: consultresumeenroll
           },
-                    {
+          {
                path: '/resume/resumeList',
                name: 'resumeList',
                component: resumeList
