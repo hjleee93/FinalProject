@@ -24,7 +24,7 @@
            </b-col>
            </b-row>
            <b-row><b-col>찾아오시는 길</b-col></b-row>
-          <b-row><b-col><div id="map"></div></b-col></b-row>
+          <b-row ><b-col><div   id="map"></div></b-col></b-row>
       <b-card> <b-row><b-col>개설자정보</b-col></b-row>
       <b-row><b-col>개설자성명:{{minfo.collabWriter}}</b-col></b-row>
       <b-row><b-col>개설자번호:{{minfo.collabPhone}}</b-col></b-row>
@@ -95,8 +95,9 @@ export default {
   methods: {
     initMap(){
        setTimeout(() => {
+         if(this.minfo.address!=null||this.minfo.address!=undefined){
       let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
+        mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
@@ -131,7 +132,7 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
         map.setCenter(coords);
     } 
 }); 
-       }, 500);  
+        } }, 500);  
 
     },
     addKakaoMapScript() {
@@ -180,16 +181,21 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
                 alert("중복된 신청입니다.")
                  this.selected="";
                 this.showModal=!this.showModal;
-                
              
          }else if(data.data==1) {
             alert("신청완료")
-          this.selected="";
+           this.selected="";
            this.showModal=!this.showModal;
-           }else if(data.data==2)
-           alert("마감 된 포지션입니다.")
+           }else if(data.data==2){
+            alert("마감 된 포지션입니다.")
             this.selected="";
            this.showModal=!this.showModal;
+           }else if(data.data==3){
+             alert("이미 신청하신 모임입니다.")
+            this.selected="";
+           this.showModal=!this.showModal;
+           }
+         
        
        })
           

@@ -39,7 +39,7 @@
 
       
   </b-row>
- {{mklist}}
+
   </div>
 </template>
 

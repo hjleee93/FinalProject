@@ -5,32 +5,38 @@
         <p class="subtitle" id="subtitle">portfolioinfo</p>
       </div>
       </b-row>
-      <b-row id=" writecontain" align-h="end"><b-button to="/portfolioList">목록으로 </b-button></b-row>
+     
+    
       <b-row>
+        
         <b-col>
+          <b-card  class="text-center">
+          
         <b-row>
-          <b-col cols="2"><b-form-group  label="제목"/></b-col>
+          
+          <b-col cols="2"> {{pboardone.pboardDivision}}</b-col>
           <b-col> <b-form-input v-model="pboardone.pboardTitle" readonly/></b-col>
         </b-row>
+         
           <b-row>
-          <b-col cols="2"><b-form-group  label="작성자"/></b-col>
-          <b-col> <b-form-input v-model="pboardone.pboardWriter" readonly/></b-col>
-        </b-row>
-          <b-row>
-          <b-col cols="2"><b-form-group  label="작성내용" readonly/></b-col>
-          <b-col> <b-form-textarea   rows="3"
-        max-rows="8" v-model="pboardone.pboardContent" readonly/></b-col>
+          <b-col cols="12" style="text-align:left;">{{pboardone.pboardContent}}</b-col>
+         
         </b-row>
         <b-row v-if="attachment">
           <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
-          <b-col cols="2"><b-button @click="attachmentdown(attachment)">{{attachment.originalFilename}}</b-button></b-col>
+          <b-col cols="3" class="filedown" @click="attachmentdown(attachment)"><b-icon icon="file-earmark-arrow-down-fill"></b-icon>{{attachment.originalFilename}}</b-col>
+        </b-row>
+         <b-row>
+          <b-col style="text-align: right;" >작성자:<span class="h4 mb-2">{{pboardone.pboardWriter}}</span></b-col>
         </b-row>
           
           <b-row v-if="userData.memberSq===pboardone.pboardId"><b-col>
           <b-button @click="update" v-if="userData.memberSq===pboardone.pboardId">수정</b-button>
           <b-button @click="pdelete"  v-if="userData.memberSq===pboardone.pboardId||userData.memberEmail === 'admin@kh.com'" >삭제</b-button>
-  </b-col></b-row></b-col>
+  </b-col></b-row></b-card></b-col>
+
       </b-row>
+      <b-row id=" writecontain" ><b-col align-self="end"><b-button  to="/portfolioList">목록으로 </b-button></b-col></b-row>
     <b-form @submit.prevent="comment" v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2">{{userData.memberName}}</b-col></b-row>
       <b-row><b-col><b-form-textarea required ref="comment" v-model="pcomment" /></b-col>
       <b-col cols="1"><b-button type="submit">전송</b-button></b-col></b-row>
@@ -56,6 +62,7 @@
       
       </b-row></b-card></b-col>
       </b-row>
+      
       <!--<div>{{userData}}</div>-->
  
     
@@ -249,6 +256,9 @@ font-family: 'Barlow Semi Condensed', sans-serif;
 #writecontain{
   margin-bottom: 10%;
   
+}
+.filedown{
+  cursor: pointer;
 }
 .modalf{
   display: flex;
