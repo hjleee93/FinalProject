@@ -127,7 +127,6 @@
        this.$store.dispatch("FECH_REF_LIST")
     },
     components:{
-      
     },
 
     //메소드
