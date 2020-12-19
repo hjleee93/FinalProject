@@ -9,44 +9,46 @@
   <b-container>
     
       <form  @submit.prevent="test"  enctype="multipart/form-data">
-      <b-form-group
-        id="input-group-1"
-        label="제목"
-        label-for="input-1"
-     
-      >
+      <b-input-group   prepend="제목" class="mb-2" >
         <b-form-input
+        required
           id="input-1"
           name="pboardTitle"
           type="text"
-          required
-          :placeholder="pboardone.pboardTitle"
+          placeholder="제목"
           v-model="pboardTitle"
         ></b-form-input>
-      </b-form-group>
+</b-input-group>
 
-      <b-form-group id="input-group-2" label="작성자" label-for="input-2">
+      <b-input-group  prepend="작성자" class="mb-2">
         <b-form-input
           id="input-2"
           name="pboardWriter"
-          readonly
-         :placeholder="pboardone.pboardWriter"
-         
+        
+          placeholder="작성자"
+         readonly
+          v-model="pboardone.pboardWriter"
         ></b-form-input>
-       
-      </b-form-group>
+       </b-input-group>
        <b-form-file ref="upfiles" v-on:change="handleFile" :placeholder="attachment.originalFilename"
     ></b-form-file> 
     
   <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
-   <vue-editor id="input-3" name="pboardContent" v-model="pboardContent" :placeholder="pboardone.pboardContent" />
+    <b-form-textarea
+          id="textarea-content"
+          v-model.lazy="pboardContent"
+          required
+          placeholder="내용을 입력해주세요"
+          rows="10"
+        ></b-form-textarea>
+ 
    </b-form-group>
       <!-- <b-button type="submit" class="s-btn">확인</b-button> -->
-       <b-button @click="test" type="submit" class="s-btn">확인</b-button>
-      <b-button @click="back" class="r-btn">취소</b-button>
+      <b-row align-h="center">
+<b-col cols="1"> <b-button @click="test" type="submit" class="s-btn">확인</b-button></b-col>
+<b-col cols="1"><b-button @click="back" class="r-btn">취소</b-button></b-col>
+      </b-row>
     </form>
-    <div>{{attachment}}</div>
-   
  </b-container>
 
  </div>
@@ -56,7 +58,7 @@
 
 <script>
 
-import { VueEditor } from "vue2-editor";
+//import { VueEditor } from "vue2-editor";
 import { mapState } from 'vuex';
 import axios from 'axios'
 export default {
@@ -72,12 +74,22 @@ export default {
     created() {
       const pboardNo=this.$route.params.id;
        this.$store.dispatch("FETCH_PBOARDUP",pboardNo)
+       .then(({data})=>{
+         console.log(data)
+       })
+       this.$store.dispatch("FETCH_PBOARDONE",pboardNo)
+       .then(({data})=>{
+         this.pboardTitle=data.pboardTitle;
+         this.pboardContent=data.pboardContent;
+       })
+      
       
      
      
     },
  
     computed: {
+      
         ...mapState({
             pboardone:state=>state.pboardone,
             attachment:state=>state.attachment,
@@ -85,18 +97,13 @@ export default {
           
            
         })
+      
     },
     components:{
-      VueEditor,
+     // VueEditor,
     },
     methods: {
       test(){
-       if(!this.pboardTitle){
-         this.pboardTitle=this.pboardone.pboardTitle;
-       }
-       if(!this.pboardContent){
-         this.pboardContent=this.pboardone.pboardContent;
-       }
         if(!this.files){
          this.files=this.attachment.renamedFilename;
        }
@@ -114,7 +121,7 @@ export default {
           'Content-Type':'multipart/form-data'
         }})
           .then(()=>{
-                this.$router.push({name:'portlist'})
+                this.$router.push('/portfolioList').catch(()=>{})
           })
           .catch((error)=>console.log(error))
       

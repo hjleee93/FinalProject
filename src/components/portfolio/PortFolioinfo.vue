@@ -5,32 +5,38 @@
         <p class="subtitle" id="subtitle">portfolioinfo</p>
       </div>
       </b-row>
-      <b-row id=" writecontain" align-h="end"><b-button to="/portfolioList">목록으로 </b-button></b-row>
+     
+    
       <b-row>
+        
         <b-col>
+          <b-card  class="text-center">
+             <b-row   align-h="between" id=" writecontain" > <b-col cols="2" ><p class="division">{{pboardone.pboardDivision}}</p></b-col><b-col cols="2"><b-button  align-self="end" to="/portfolioList"><b-icon icon="chevron-left"></b-icon> </b-button></b-col></b-row>
         <b-row>
-          <b-col cols="2"><b-form-group  label="제목"/></b-col>
+          
+         
           <b-col> <b-form-input v-model="pboardone.pboardTitle" readonly/></b-col>
         </b-row>
+         
           <b-row>
-          <b-col cols="2"><b-form-group  label="작성자"/></b-col>
-          <b-col> <b-form-input v-model="pboardone.pboardWriter" readonly/></b-col>
-        </b-row>
-          <b-row>
-          <b-col cols="2"><b-form-group  label="작성내용" readonly/></b-col>
-          <b-col> <b-form-textarea   rows="3"
-        max-rows="8" v-model="pboardone.pboardContent" readonly/></b-col>
+          <b-col cols="12" style="text-align:left;"><p class="content">{{pboardone.pboardContent}}</p></b-col>
+         
         </b-row>
         <b-row v-if="attachment">
-          <b-col cols="2"><b-form-group  label="첨부파일" readonly/></b-col>
-          <b-col cols="2"><b-button @click="attachmentdown(attachment)">{{attachment.originalFilename}}</b-button></b-col>
+          
+          <b-col cols="4" class="filedown" @click="attachmentdown(attachment)"><b-icon icon="file-earmark-arrow-down-fill"></b-icon>{{attachment.originalFilename}}</b-col>
+        </b-row>
+         <b-row>
+          <b-col style="text-align: right;" >작성자:<span class="h6 mb-2">{{pboardone.pboardWriter}}</span></b-col>
         </b-row>
           
           <b-row v-if="userData.memberSq===pboardone.pboardId"><b-col>
           <b-button @click="update" v-if="userData.memberSq===pboardone.pboardId">수정</b-button>
           <b-button @click="pdelete"  v-if="userData.memberSq===pboardone.pboardId||userData.memberEmail === 'admin@kh.com'" >삭제</b-button>
-  </b-col></b-row></b-col>
+  </b-col></b-row></b-card></b-col>
+
       </b-row>
+   
     <b-form @submit.prevent="comment" v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2">{{userData.memberName}}</b-col></b-row>
       <b-row><b-col><b-form-textarea required ref="comment" v-model="pcomment" /></b-col>
       <b-col cols="1"><b-button type="submit">전송</b-button></b-col></b-row>
@@ -40,22 +46,24 @@
        <b-col align-self="end"  style="text-align:end" >{{new Date(comments.pcommentDate).toLocaleDateString()}}</b-col>
       </b-row>
       <!-- 인풋 박스를 조건으로 비활성화 할수 있음-->
-      <b-row><b-col>
-     
-      <b-form-textarea  :disabled="commentcheck"  :value="comments.pcommentContent" @input="updateInput" />
+      <b-row>
+      <b-col v-if="commentcheck==true">
+      <b-form-textarea  :value="comments.pcommentContent" @input="updateInput" />
       </b-col>
+      <b-col v-if="commentcheck==false"><p>{{comments.pcommentContent}}</p></b-col>
      
       <template v-if="comments.memberSq==userData.memberSq">
-        <b-col cols="1">
-           <div @click="declick(comments.pcommentNo)">삭제</div> 
-           <div @click="upclick($event)" >수정</div> <!--v-if="commentcheck==false"-->
-           <div @click="upendclick(comments.pcommentNo,$event)" >확인</div> 
+        <b-col cols="2">
+           <div  v-if="boolcheck==false" @click="declick(comments.pcommentNo)"><b-icon icon="trash-fill"></b-icon></div> 
+           <div v-if="boolcheck==false" @click="upclick(comments.pcommentContent)" ><b-icon icon="pencil-square"></b-icon></div> <!--v-if="commentcheck==false"-->
+           <div v-if="boolcheck==true" @click="upendclick(comments.pcommentNo,$event)" ><b-icon icon="check-circle"></b-icon></div> 
         </b-col>
         
       </template>
       
       </b-row></b-card></b-col>
       </b-row>
+      
       <!--<div>{{userData}}</div>-->
  
     
@@ -100,13 +108,14 @@ export default {
             showModal:false,
             pboardno:0,
             pcomment:'',
-            commentcheck:true,
+            commentcheck:false,
             changeval:'',
             boolcheck:false,
             values:'',
             updatetext:'',
             comments:'',
             retext:'',
+            
       
         }
     },
@@ -130,15 +139,18 @@ export default {
         
       },
       updateInput(event){
+      
         this.updatetext=event;
         
 
       },
-      upclick(e){
-        console.log(e)
-       if(e.target.parentElement.parentElement.children[0].children[0].disabled==true){
-         e.target.parentElement.parentElement.children[0].children[0].disabled = false
-       }else e.target.parentElement.parentElement.children[0].children[0].disabled = true
+      upclick(value){
+        this.boolcheck=true;
+        this.commentcheck=true;
+        this.retext=value;
+      //  if(e.target.parentElement.parentElement.children[0].children[0].disabled==true){
+      //    e.target.parentElement.parentElement.children[0].children[0].disabled = false
+      //  }else e.target.parentElement.parentElement.children[0].children[0].disabled = true
        
         //console.log()//
        // this.commentcheck=false;
@@ -147,17 +159,20 @@ export default {
         let no=this.$route.params.id
          this.$store.dispatch("FETCH_PBOARDDEL",no)
          this.$router.push({name:'portlist'})
-        
-        
       },
-      upendclick(commentno,e){
+      upendclick(commentno){
        const ccno=commentno
-        e.target.parentElement.parentElement.children[0].children[0].disabled = true;
-        if(this.updatetext=='') this.updatetext = e.target.parentElement.parentElement.children[0].children[0].value
-       axios.post("http://localhost:8082/itjobgo/portfolio/updatecomment.do",{pcommentcontent:this.updatetext,pcommentNo:ccno})
+        //e.target.parentElement.parentElement.children[0].children[0].disabled = true;
+         if(this.updatetext=='')this.updatetext=this.retext;
+       // console.log(this.updatetext==""?'공백이야':'값이 있어')
+       // console.log(this.comments.pcommentcontent)
+        
+        axios.post("http://localhost:8082/itjobgo/portfolio/updatecomment.do",{pcommentcontent:this.updatetext,pcommentNo:ccno})
        .then(()=>{
            this.$store.dispatch("FETCH_COMMNET",this.$route.params.id);
            this.updatetext='';
+           this.boolcheck=false
+           this.commentcheck=false;
        })
       },
       declick(commentno){
@@ -250,9 +265,21 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   margin-bottom: 10%;
   
 }
+.filedown{
+  cursor: pointer;
+}
 .modalf{
   display: flex;
   justify-content: space-around;
+}
+.division{
+  font-size: 20px;
+}
+.content{
+  min-height: 200px;
+  max-height: auto;
+  border-bottom:1px solid black;
+  
 }
 
 </style>
