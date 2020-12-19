@@ -58,6 +58,7 @@
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refCategory}}</td>
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refTitle}}</td>
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refContent}}</td>
+                  <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.status}}</td>
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
                 </tr>
           </template>  
@@ -124,6 +125,7 @@
           { text: '분류', value: 'refCategory' },     
           { text: '사이트 명', value: 'refTitle' },
           { text: '내용', value: 'refContent' },
+          { text: '승인 여부', value: 'status' },
           { text: '작성일', value: 'refDate' },
 
         ],
