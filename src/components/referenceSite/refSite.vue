@@ -25,9 +25,9 @@
 
           <div>
             <h4 class="sub-header-ref">분야별 웹 사이트</h4>
+            <v-btn v-if="userData.memberSq!=null" to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
             <v-btn v-if="userData.memberSq!=null && userData.memberEmail==='admin@kh.com'" 
                                        to="/refSiteStatus" exact id="st_write_ref2">승인 대기 [0]</v-btn>
-            <v-btn v-if="userData.memberSq!=null" to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
           </div>
     <div class="overflow-auto">
 
@@ -77,8 +77,6 @@
         </v-card-actions>
 
       </v-card>
-
-
 
       </div>
 
@@ -204,11 +202,10 @@
   color:white;
 }
 #st_write_ref2{
-  margin-right: 1%;
-  left:990px;
+  left: 760px;
   position: relative;
   top: 5px;
-  background-color: #df2323;
+  background-color:  #df433e;
   border:none;
   color:white;
 }

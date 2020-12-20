@@ -31,7 +31,7 @@
         <b-row>
           <b-col id="boardDate"> 날짜: {{formatDate(refListView.refDate)}}</b-col>
 
-          <!-- 뉴스기사 바로가기 -->
+          <!-- 링크 바로가기 -->
           <a href="" v-on:click.stop.prevent="openWindow(refListView.refSiteAddr)" id="link_a">링크 이동</a>
           
         <!-- 이미지 -->

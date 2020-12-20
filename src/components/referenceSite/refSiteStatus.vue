@@ -52,13 +52,11 @@
           <template v-slot:item="props">
                 <tr @click="handleClick(props.item.refNo)">
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refNo}}</td>         
-                  <!-- <td v-if="props.item.qnaCategory.includes('백엔드')||
-                            props.item.qnaCategory.includes('프론트엔드')">{{props.item.qnaCategory}}</td> -->
-                  <!-- <td class="text-xs-right">{{props.item.qnaCategory }}</td> -->
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refCategory}}</td>
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refTitle}}</td>
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refContent}}</td>
-                  <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.status}}</td>
+                  <td v-if="props.item.status.includes('N')" class="text-xs-right">
+                    <v-btn class="mx-2 answerbtn3" dark small>승인대기</v-btn></td>
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
                 </tr>
           </template>  
@@ -125,7 +123,7 @@
           { text: '분류', value: 'refCategory' },     
           { text: '사이트 명', value: 'refTitle' },
           { text: '내용', value: 'refContent' },
-          { text: '승인 여부', value: 'status' },
+          { text: '승인여부', value: 'status' },
           { text: '작성일', value: 'refDate' },
 
         ],
@@ -221,5 +219,7 @@
   margin-top: 2%; 
   margin-left: 4%;
 }
-
+.answerbtn3 {
+  background-color: #777a7e !important;
+}
 </style>
