@@ -604,12 +604,12 @@ export default new Router({
                component: RefSiteEtc
           },
           {
-               path: '/refUpdate',
+               path: '/refUpdate/:id',
                name: 'refUpdate',
                component: RefUpdate
           },
           {
-               path: '/refSiteView',
+               path: '/refSiteView/:id',
                name: 'refSiteView',
                component: RefSiteView
           },

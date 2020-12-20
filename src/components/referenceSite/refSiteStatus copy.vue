@@ -24,8 +24,8 @@
             </v-tabs>
 
           <div>
-            <h4 class="sub-header-ref">분야별 웹 사이트</h4>
-            <v-btn v-if="userData.memberSq!=null" to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
+            <h4 class="sub-header-ref">사이트 미승인 목록</h4>
+            <!-- <v-btn to="/refWrite" exact  id="st_write_ref" >글쓰기</v-btn> -->
           </div>
     <div class="overflow-auto">
 
@@ -39,7 +39,7 @@
           class="mx-auto"
           max-width="330"
           v-for="ref in refList" :key="ref.id"
-          v-show="ref.status==='Y' && ref.refCategory.includes('프론트엔드')"
+          v-show="ref.status==='N'"
           @click="cardclick(ref)"
         >
         <!-- 이미지 -->
@@ -49,7 +49,6 @@
           width="350px"
           :src="`http://localhost:8082/itjobgo/ref/selectsiteImg${ref.refNo}`"
         >
-        <!-- 수정필요(조회수) {{ref.refReadCount}} -->
         <v-card-title></v-card-title>
         </v-img>
 
@@ -188,7 +187,7 @@
   position: relative;
   left:18px;
   top:70px;
-  margin-bottom: 3%;
+  margin-bottom: 5%;
 }
 #st_write_ref{
   left:990px;
