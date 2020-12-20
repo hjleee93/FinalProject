@@ -15,7 +15,7 @@
         <b-row>
           
          
-          <b-col> <b-form-input v-model="pboardone.pboardTitle" readonly/></b-col>
+          <b-col><h3 style="text-align:left;">{{pboardone.pboardTitle}}</h3> </b-col>
         </b-row>
          
           <b-row>
