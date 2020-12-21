@@ -27,7 +27,7 @@
             <h4 class="sub-header-ref">분야별 웹 사이트</h4>
             <v-btn v-if="userData.memberSq!=null" to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
             <v-btn v-if="userData.memberSq!=null && userData.memberEmail==='admin@kh.com'" 
-                                       to="/refSiteStatus" exact id="st_write_ref2">승인 대기 [0]</v-btn>
+                                       to="/refSiteStatus" exact id="st_write_ref2">승인 대기 [{{refList.statuscount}}]</v-btn>
           </div>
     <div class="overflow-auto">
 

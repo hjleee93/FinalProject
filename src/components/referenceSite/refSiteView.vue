@@ -145,6 +145,9 @@ Vue.use(vueMoment);
 
         //관리자 승인처리 STATUS 'N'->'Y'
         updateStatus(){
+        //새로고침 1초컷
+        setTimeout(() => {
+
         let formData=new FormData(); 
         formData.append('refNo',this.refListView.refNo);
       
@@ -156,6 +159,7 @@ Vue.use(vueMoment);
         console.log(formData);
         //저장완료, 화면전환 이동!
         this.$router.push({name:'refSiteStatus'})
+           }, 1000)
       },
 
 

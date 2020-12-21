@@ -126,6 +126,8 @@ import axios from 'axios';
   
     methods: {
       updateqna(){
+        //새로고침 1초컷
+        setTimeout(() => {
         //새롭게 수정된 내용이 없다면 원래 객체의 컬럼값을 가져가도록
         if(!this.qnaTitle){
           this.qnaTitle=this.qnaboard2.qnaTitle;
@@ -166,6 +168,7 @@ import axios from 'axios';
         console.log(formData);
         //저장완료, 화면전환 이동!
         this.$router.push({name:'qnaBoard'})
+          }, 1000)
       },
     
       handleFile(){

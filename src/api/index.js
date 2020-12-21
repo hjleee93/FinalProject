@@ -189,7 +189,9 @@ function fetchqnacomment(qboardNo) {
 }
 //qna게시판 댓글 삭제
 function fetchqnacommentdel(qboardCommentNo) {
+    setTimeout(() => {
     return axios.post(`${config.Url}qna/commentDelete${qboardCommentNo}`)
+    }, 1000)
 }
 // reference site 리스트 불러오기
 function fetchrefList() {
