@@ -576,12 +576,14 @@ export default new Router({
           {
                path: '/qnaWrite',
                name: 'qnaWrite',
-               component: QnaWrite
+               component: QnaWrite,
+               beforeEnter: LoginDeny()
           },
           {
                path: '/refWrite',
                name: 'refWrite',
-               component: RefWrite
+               component: RefWrite,
+               beforeEnter: LoginDeny()
           },
           {
                path: '/refSite',
@@ -606,7 +608,8 @@ export default new Router({
           {
                path: '/refUpdate/:id',
                name: 'refUpdate',
-               component: RefUpdate
+               component: RefUpdate,
+               beforeEnter: LoginDeny()
           },
           {
                path: '/refSiteView/:id',
@@ -631,7 +634,8 @@ export default new Router({
           {
                path: '/qnaModify/:id',
                name: 'qnaModify',
-               component: QnaModify
+               component: QnaModify,
+               beforeEnter: LoginDeny()
           },
           {
                path: '/qnaBoardback',
