@@ -118,8 +118,7 @@ import { createNamespacedHelpers } from "vuex";
             filterable: false,
             value: 'qboardNo', //spring vo값 !
           },
-          { text: '작성자', value: 'qnaWriter' },
-          // { text: '분류', value: 'qnaCategory' },          
+          { text: '작성자', value: 'qnaWriter' },       
           { text: '제목', value: 'qnaTitle' },
           { text: '진행상태',value: 'qnaAnswerYn' },
           { text: '작성일', value: 'qnaDate' },

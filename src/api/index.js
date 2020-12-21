@@ -209,7 +209,10 @@ function fetchrefListView(refNo) {
 function fetchrefListUpdate(refNo) {
     return axios.get(`${config.Url}ref/refUpdate${refNo}`)
 }
-
+//글작성 카운트
+function fetchrefCount() {
+    return axios.get(`${config.Url}ref/statusCount`);
+}
 
 // 민지
 // info(취업정보)
@@ -317,6 +320,7 @@ export {
     fetchrefListDelete,
     fetchrefListView,
     fetchrefListUpdate,
+    fetchrefCount,
 
     //민지
     //info 취업정보 

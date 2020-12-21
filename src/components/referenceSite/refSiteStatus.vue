@@ -115,7 +115,8 @@
       
       search: '',
         headers: [
-          { text: 'NO',
+          { 
+            text: 'NO',
             align: 'start',
             filterable: false,
             value: 'refNo', //spring vo값 !
@@ -135,15 +136,15 @@
 
 </script>
 
-
-
 <style scoped >
 * {
    font-family: 'Nanum Gothic', sans-serif;
 }
 .overflow .v-card{
+  border:1px red solid;
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
+  height: 1000px;
 }
 .site_ect{
   margin-bottom:20px;
@@ -186,11 +187,6 @@
   margin-bottom: 5%;
   font-size: 19px;
   color :#424874
-}
-#content{
-  margin-left: 2%;
-  font-size: 15px;
-  height: 80px;
 }
 #date{ 
   color: #9BA4B4;
