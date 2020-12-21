@@ -203,43 +203,43 @@ const MyPage = () => {
 }
 
 const JobInfoDtl = () => {
-     return import('./components/jobInfo/JobInfoDtl.vue')
+     return import('./components/jobInfo/jobInfoDtl.vue')
 }
 
 const FoundPassword = () => {
-     return import('./components/member/FoundPassword.vue')
+     return import('./components/member/foundPassword.vue')
 }
 
 const FoundEmail = () => {
-     return import('./components/member/FoundEmail.vue')
+     return import('./components/member/foundEmail.vue')
 }
 
 
 const JobSearchDtl = () => {
-     return import('./components/jobInfo/JobSearchDtl.vue')
+     return import('./components/jobInfo/jobSearchDtl.vue')
 }
 
 const ChgMemberInfo = () => {
-     return import('./components/member/ChgMemberInfo.vue')
+     return import('./components/member/chgMemberInfo.vue')
 }
 
 const ChgPwdInfo = () => {
-     return import('./components/member/ChgPwdInfo.vue')
+     return import('./components/member/chgPwdInfo.vue')
 }
 const DeleteMember = () => {
-     return import('./components/member/DeleteMember.vue')
+     return import('./components/member/deleteMember.vue')
 }
 const LoginCallback = () => {
-     return import('./components/member/LoginCallback.vue')
+     return import('./components/member/loginCallback.vue')
 }
 const NaverLogin = () => {
-     return import('./components/member/NaverLogin.vue')
+     return import('./components/member/naverLogin.vue')
 }
 const KakaoCallbackLogin = () => {
-     return import('./components/member/KakaoCallbackLogin.vue')
+     return import('./components/member/kakaoCallbackLogin.vue')
 }
 const AdminPage = () => {
-     return import('./components/member/AdminPage.vue')
+     return import('./components/member/adminPage.vue')
 }
 
 
@@ -371,27 +371,30 @@ export default new Router({
           {
                path: '/infoList',
                name: 'InfoList',
-               component: InfoList
+               component: InfoList,
+             
           },
           {
                path: '/infoDetail/:id',
                name: 'InfoDetail',
-               component: InfoDetail
+               component: InfoDetail,
           },
           {
                path: '/infoForm',
                name: 'InfoForm',
-               component: InfoForm
+               component: InfoForm,
+               beforeEnter: adminDeny()
           },
           {
                path: '/jobList',
                name: 'jobList',
-               component: JobList
+               component: JobList,
           },
           {
                path: '/infoModify/:id',
                name: 'InfoModify',
-               component: InfoModify
+               component: InfoModify,
+               beforeEnter: adminDeny()
           },
           //주은
           {
@@ -661,47 +664,56 @@ export default new Router({
           {
                path: '/resume/BlindResume/:id',
                name: 'BlindResume',
-               component: BlindResume
+               component: BlindResume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/LineResume/:id',
                name: 'LineResume',
-               component: LineResume
+               component: LineResume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/DesignResume/:id',
                name: 'DesignResume',
-               component: DesignResume
+               component: DesignResume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/insertresume',
                name: 'insertresume',
-               component: insertresume
+               component: insertresume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/updateresume/:id',
                name: 'updateresume',
-               component: updateresume
+               component: updateresume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/consultresume',
                name: 'consultresume',
-               component: consultresume
+               component: consultresume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/consult',
                name: 'consult',
-               component: consult
+               component: consult,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/consultresumeenroll',
                name: 'consultresumeenroll',
-               component: consultresumeenroll
+               component: consultresumeenroll,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/resumeList',
                name: 'resumeList',
-               component: resumeList
+               component: resumeList,
+               beforeEnter: LoginAuth(),
           },
 
      ]
