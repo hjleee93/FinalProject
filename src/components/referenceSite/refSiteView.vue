@@ -11,18 +11,6 @@
               
         <div class="container">          
 
-            <!-- 탭 -->   
-            <v-tabs
-            centered
-            color="grey darken-3"
-            >
-              <v-tab><b>ALL</b></v-tab>
-              <v-tab><b>FrontEnd</b></v-tab>
-              <v-tab><b>BackEnd</b></v-tab>
-              <v-tab><b>ETC 기타</b></v-tab>
-              <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
-            </v-tabs>
-
           <!-- <div>
             <h4 class="sub-header-ref">분야별 웹 사이트</h4>
             <v-btn to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
@@ -34,7 +22,6 @@
     <!-- /.row -->
     <div class="row card-align">
     <!-- card -->
-
 
       <b-form>
         <b-row>
@@ -71,15 +58,19 @@
           <b-col cols="2" id="attachment"><b-button id="attachment-btn" @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
         </b-row> -->
       </b-form>
-          
+
+      <form @submit.prevent="updateStatus" enctype="multipart/form-data">     
           <b-row >
             <b-col>
               <b-button  v-if="userData.memberSq===refListView.memberNum"
                         @click="update" id="update-btn2">수정</b-button>
               <b-button   v-if="userData.memberSq===refListView.memberNum || userData.memberEmail === 'admin@kh.com'" 
                         @click="pdelete" id="delete-btn2">삭제</b-button>
+              <b-button v-if="userData.memberEmail==='admin@kh.com' && refListView.status === 'N'"
+                        type="submit" exact id="status-btn2">사이트 승인</b-button>
             </b-col>
           </b-row>
+      </form>
 
       <b-row id=" writecontain" align-h="end">
         <b-col>
@@ -125,6 +116,8 @@ import { mapState } from 'vuex';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
 
+import axios from 'axios';
+
 import Vue from 'vue'
 import vueMoment from 'vue-moment';
 Vue.use(vueMoment);
@@ -149,6 +142,22 @@ Vue.use(vueMoment);
 
     
     methods: {
+
+        //관리자 승인처리 STATUS 'N'->'Y'
+        updateStatus(){
+        let formData=new FormData(); 
+        formData.append('refNo',this.refListView.refNo);
+      
+      axios.post("http://localhost:8082/itjobgo/ref/refStatus",formData)
+
+        .then((data)=>console.log(data))
+        .catch((error)=>
+        console.log(error))
+        console.log(formData);
+        //저장완료, 화면전환 이동!
+        this.$router.push({name:'refSiteStatus'})
+      },
+
 
       update(){
         // 수정버튼 눌렸을때 처리하는 로직
@@ -243,5 +252,7 @@ Vue.use(vueMoment);
   color:#4e5157 ;
   font-size: 50px;
 }
-
+#status-btn2{
+  margin-left: 2%;
+}
 </style>

@@ -4,7 +4,7 @@
       
       <!-- 메인 이미지 -->
       <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">portfolio</p>
+        <p class="subtitle" id="subtitle">포트폴리오 게시글 생성</p>
       </div>
   <b-container>
 
@@ -58,8 +58,8 @@
    <vue-editor id="input-3" required name="pboardContent" v-model="pboardContent" />
    </b-form-group> -->
       <!-- <b-button type="submit" class="s-btn">확인</b-button> -->
-      <b-row align-h="end"><b-col cols="1">
-        <b-button type="submit" class="s-btn">확인</b-button></b-col>
+      <b-row align-h="center"><b-col cols="1">
+        <b-button type="submit" class="s-btn"> 확인 </b-button></b-col>
      <b-col cols="2"><b-button @click="reset()"  class="r-btn">돌아가기</b-button></b-col>
        </b-row>
        
@@ -144,27 +144,31 @@ export default {
 </script>
 
 <style scoped>
+.submenuimage {
+  background-image: url("../../assets/images/computer-2583383_1920.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
+}
 .s-btn{
   background-color: #424874;
 }
 .r-btn{
   background-color: #9BA4B4;
 }
-.submenuimage{
-    width: 100%;
-    height:180px;
-    background-color:#F4EEFF;
-    text-align: center;
-    line-height: 180px;
-}
-#subtitle{
- font-family: 'Barlow Semi Condensed', sans-serif;
-}
-.subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
-  font-size: 50px;
-}
+
+
+
 
 </style>
 

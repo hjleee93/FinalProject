@@ -184,10 +184,11 @@ export default new Vuex.Store({
                     })
 
           },
-          FETCH_PBOARDONE({ commit }, pboardNo) {
-               fetchPboardOne(pboardNo)
-                    .then(({ data }) => commit("SET_PBOARDONE", data))
-                    .catch(({ error }) => console.log(error))
+         async FETCH_PBOARDONE({ commit }, pboardNo) {
+               const response=await fetchPboardOne(pboardNo)
+     
+               commit("SET_PBOARDONE", response.data)
+                    return response;
           },
 
           FETCH_PBOARDDEL({ commit }, no) {
@@ -197,10 +198,10 @@ export default new Vuex.Store({
           },
 
 
-          FETCH_PBOARDUP({ commit }, no) {
-               fetchPboardUp(no)
-                    .then(({ data }) => commit("SET_PBOARDUP", data))
-                    .catch(({ error }) => console.log(error))
+         async FETCH_PBOARDUP({ commit }, no) {
+              const response=await fetchPboardUp(no)
+                   commit("SET_PBOARDUP", response.data)
+                    return  response;
           },
           //게시판번호로 첨부파일내용 가져오가
           FETCH_ATTACHMENT({ commit }, no) {

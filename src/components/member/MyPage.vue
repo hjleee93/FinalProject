@@ -60,9 +60,9 @@
           </p>
         </li>
         <li class="topList openState">
-          <p class="title">참여한 프로젝트수</p>
+          <p class="title">프로젝트 정보</p>
           <p class="count">
-            <router-link to="/meetingapply" class="scroll">1</router-link>개
+            <router-link to="/meetingapply" class="scroll">바로가기</router-link>
           </p>
         </li>
 
