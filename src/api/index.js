@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+ 
 //HTTP Request & Response와 관련된 기본 설정
 const config = {
     Url: "http://localhost:8082/itjobgo/"
@@ -261,6 +261,18 @@ function fetchResumeList(memberSq){
 function fetchResumeDelete(resumeNo){
     return axios.get(`${config.Url}resume/deleteResume/${resumeNo}.do`)
 }
+//이력서 게시판 상세화면
+function fetchRboardView(rboardNo) {
+    return axios.get(`${config.Url}resume/rboardView/${rboardNo}.do`)
+}
+//이력서 게시판 상세화면(첨부파일)
+function fetchRboardAttachment(rboardNo) {
+    return axios.get(`${config.Url}resume/rboardAttachment/${rboardNo}.do`)
+}
+//이력서 게시판 상세화면(첨부파일)
+function fetchRboardDelete(rboardNo) {
+    return axios.get(`${config.Url}resume/deleteRboard/${rboardNo}.do`)
+}
 
 export {
     fetchPboardList,
@@ -345,6 +357,9 @@ export {
     fetchResume,
     fetchResumeList,
     fetchResumeDelete,
+    fetchRboardView,
+    fetchRboardAttachment,
+    fetchRboardDelete,
 
 }
 

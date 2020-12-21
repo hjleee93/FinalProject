@@ -358,9 +358,6 @@ button{
     font-size: 15px;
     font-weight: bold;
 }
-input {
-     
-}
 select{
     border: none;
 }

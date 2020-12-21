@@ -16,7 +16,7 @@
       </div>
       <div class="container">      
 
-        <div class="overflow-auto">
+        <div class="overflow">
          <!-- 테이블 -->
         <v-card>
           <v-card-title>
@@ -151,6 +151,9 @@ import { createNamespacedHelpers } from "vuex";
 #writecontain > .btn{
   background-color: #424874;
 }
-
+.overflow .v-card{
+  box-shadow: 0 0 black !important;
+  margin-bottom: 12%;
+}
 
 </style>
