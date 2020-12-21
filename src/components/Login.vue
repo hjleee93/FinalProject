@@ -35,22 +35,11 @@
                     width="250px"
                   />
                 </a>
-	   
-     <div>
-    		<div id="google-signin-btn"></div>
-  	 </div>
-<!-- <GoogleLogin
- class="google-login-button"
- :params="params"
- :onSuccess="onSuccess"
- :onFailure="onFailure"
-><img 
-id="google-signin-btn"
-    alt="googleLogin"
-    src="img/google_logo.png" width="250px"
-></GoogleLogin>   //민지
- -->
 
+              <!-- 구글...죄송합니다 -민지- -->
+                <div>
+                    <div id="google-signin-btn"></div>
+                </div>
 
             <a href="#">
                   <img src="img/google_logo.png" width="250px" />
@@ -121,6 +110,7 @@ id="google-signin-btn"
 </template>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://apis.google.com/js/platform.js"></script>
 
 <script>
 import { createNamespacedHelpers } from "vuex";
@@ -147,15 +137,8 @@ export default {
     };
   },
 
-/* GoogleLoginSuccess(googleUser){
-  if(localStirage.getItem('JWT_token')) return 
- Google.googleLoginSuccess(gooleUser);
-},
-GoogleLoginFailure(){
-  Google.GoogleLoginFailure();
-},  //민지
- */
 
+//구글 로그인 //민지
   mounted() {
     if (window.Kakao == undefined) {
       window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");

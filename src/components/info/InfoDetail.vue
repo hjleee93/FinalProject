@@ -7,14 +7,14 @@
         </div>
       </b-row>
 
-<b-container>
+<b-container >
     <b-row>
       <b-col>
        <b-card class="text-center">
         <b-form>
           <h4 class="sub-header">취업설명회 일정</h4>
           <hr>
-        
+
         <b-row>
             <b-col class="title"><b>기업명</b> :  {{infoDetail.infoTitle}}</b-col>
         </b-row>
@@ -35,10 +35,10 @@
         <b-row>
             <b-col class="title"><b>주소</b> : {{infoDetail.infoContent}}</b-col>
         </b-row>
-
+        
         <b-row v-if="attachment">
-              <b-col class="qnaphoto">첨부파일</b-col>
-              <b-col><b-button class="qnaphotofile"  @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
+              <b-col class="photo">첨부파일</b-col>
+              <b-col><b-button class="photofile"  @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
         </b-row>
 
        <!-- 
@@ -231,4 +231,15 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   display: flex;
   justify-content: space-around;
 }
+/* .photofile{
+ background-color: #512d7ee7;
+   margin-bottom: 5px; 
+    border:5px;
+  margin-left: 0%
+ */
+/* .photo{
+  margin-left: 0%;
+  position:absolute;
+} */
+
 </style>

@@ -368,27 +368,30 @@ export default new Router({
           {
                path: '/infoList',
                name: 'InfoList',
-               component: InfoList
+               component: InfoList,
+             
           },
           {
                path: '/infoDetail/:id',
                name: 'InfoDetail',
-               component: InfoDetail
+               component: InfoDetail,
           },
           {
                path: '/infoForm',
                name: 'InfoForm',
-               component: InfoForm
+               component: InfoForm,
+               beforeEnter: adminDeny()
           },
           {
                path: '/jobList',
                name: 'jobList',
-               component: JobList
+               component: JobList,
           },
           {
                path: '/infoModify/:id',
                name: 'InfoModify',
-               component: InfoModify
+               component: InfoModify,
+               beforeEnter: adminDeny()
           },
           //주은
           {
