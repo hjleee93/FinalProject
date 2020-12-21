@@ -71,6 +71,9 @@ function fetchmtUpdate(no){
 function fetchapprovecount(no){
     return axios.get(`${config.Url}meeting/meetingcount${no}.do`)
 }
+function fetchentrant(no){
+    return axios.get(`${config.Url}meeting/meetingenter${no}.do`)
+}
 
 
 
@@ -279,6 +282,7 @@ export {
     fetchmeetingdel,
     fetchmtUpdate,
     fetchapprovecount,
+    fetchentrant,
   
 
 

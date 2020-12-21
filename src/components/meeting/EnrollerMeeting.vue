@@ -209,7 +209,10 @@
                   v-on:change="handleFile"
                 ></v-file-input>
               </b-col> </b-row
-          ></b-card>
+          >
+          <div id="preview">
+    <img v-if="url" :src="url" />
+  </div></b-card>
           <b-card title="상세모집요강">
             <span class="star te">*</span
             ><b-form-textarea
@@ -254,21 +257,11 @@
                   </h3>
                 </modal-view>
 
-                <!-- <VueDaumPostcode @complete="result = $event"/> -->
+             
               </b-col>
             </b-row></b-card
           >
-          <!-- <b-row><b-col><vue-daum-map
-      :appKey="appKey"
-      :center.sync="center"
-      :level.sync="level"
-      :mapTypeId="mapTypeId"
-      :libraries="libraries"
-      @load="onLoad"
-      
-    
-      style="width:500px;height:400px;"/> </b-col>
-      </b-row> -->
+        
 
           <b-row
             ><b-col class="text-center">
@@ -288,26 +281,9 @@ import ModalView from "../common/ModalView.vue";
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 export default {
-  // mounted() {
-  //       mapContainer = document.getElementById('map'), // 지도를 표시할 div
-  //       mapOption = {
-  //           center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-  //           level: 5 // 지도의 확대 레벨
-  //       };
-
-  //   //지도를 미리 생성
-  //    map = new daum.maps.Map(mapContainer, mapOption);
-  //   //주소-좌표 변환 객체를 생성
-  //    geocoder = new daum.maps.services.Geocoder();
-  //   //마커를 미리 생성
-  //    marker = new daum.maps.Marker({
-  //       position: new daum.maps.LatLng(37.537187, 127.005476),
-  //       map,
-  //   });
-  //   },
+  
   components: {
-    // VueDaumMap,
-    // VueDaumPostcode,
+   
     ModalView,
   },
   computed: {
@@ -385,38 +361,12 @@ export default {
     handleFile() {
       console.log(this.$refs.upfiles.$refs.input.files[0]);
       this.files = this.$refs.upfiles.$refs.input.files[0];
+      const cfile =this.$refs.upfiles.$refs.input.files[0];
+      this.url = URL.createObjectURL(cfile);
       console.log(this.files);
     },
 
-    //  sample5_execDaumPostcode(){
-    //         new daum.Postcode({
-    //     oncomplete(data) {
-    //         var addr = data.address; // 최종 주소 변수
-
-    //         // 주소 정보를 해당 필드에 넣는다.
-    //         document.getElementById("sample5_address").value = addr;
-    //         // 주소로 상세 정보를 검색
-    //         geocoder.addressSearch(data.address, function(results, status) {
-    //             // 정상적으로 검색이 완료됐으면
-    //             if (status === daum.maps.services.Status.OK) {
-
-    //                 var result = results[0]; //첫번째 결과의 값을 활용
-
-    //                 // 해당 주소에 대한 좌표를 받아서
-    //                 var coords = new daum.maps.LatLng(result.y, result.x);
-    //                 // 지도를 보여준다.
-    //                 mapContainer.style.display = "block";
-    //                 map.relayout();
-    //                 // 지도 중심을 변경한다.
-    //                 map.setCenter(coords);
-    //                 console.log(coords);
-    //                 // 마커를 결과값으로 받은 위치로 옮긴다.
-    //                 marker.setPosition(coords)
-    //             }
-    //         });
-    //     }
-    // }).open();
-    // }
+   
   },
 
   data() {
@@ -444,7 +394,7 @@ export default {
       langs: [],
       min: minDate,
       state: "disabled",
-
+      url:null,
       back: 1,
       front: 1,
       desgin: 1,
@@ -541,5 +491,15 @@ export default {
   margin-left: 125px;
   margin-right: 5px;
   margin-bottom: 15px;
+}
+#preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#preview img {
+  max-width: 100%;
+  max-height: 150px;
 }
 </style>

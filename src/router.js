@@ -356,16 +356,6 @@ export default new Router({
                          
                     }
                
-                   
-                    // 
-                   
-                    // if (level == true || mck(mno,pno)==true) {
-                    //      //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
-                    //      next();
-                    // } else {
-                    //      alert("권한정보가 부족합니다.")
-                    // }
-
 
                }
 

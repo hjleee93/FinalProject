@@ -24,6 +24,7 @@ import {
      fetchmklist,
      fetchmeetingdel,
      fetchapprovecount,
+     fetchentrant,
 
 
      //주은
@@ -123,6 +124,7 @@ export default new Vuex.Store({
           approvelist: [],
           mklist: [],
           acount:[],
+          enter:[],
 
 
 
@@ -292,6 +294,12 @@ export default new Vuex.Store({
               commit("SET_UMINFO",response.data)
               return response;
 
+          },
+          async FECH_APPLYLIST({commit},no)
+          {
+               const response=await fetchentrant(no)
+               commit("SET_ENTER",response.data)
+               return response;
           },
           //주은
           //자유게시판 list 불러오기
@@ -671,6 +679,9 @@ export default new Vuex.Store({
           },
           SET_COUNT(state,data){
                state.acount=data;
+          },
+          SET_ENTER(state,data){
+               state.enter=data;
           },
 
           //주은
