@@ -330,6 +330,7 @@ export default new Vuex.Store({
           },
           //게시판 댓글 삭제
           FETCH_COMMENT_DELETE(data, no) {
+               
                console.log(no)
                fetchCboardCommentDelete(no)
                     .then((data) => {

@@ -79,7 +79,7 @@
             <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.cbCommentContent}}</b-col>
             
             <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
-            <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
+            <b-form v-if="userData.memberSq!=null ">
        
               <b-col>
                 <b-row>
@@ -88,7 +88,7 @@
                   </b-col>
             
       
-                  <template v-if="comment.memberSq==userData.memberSq">
+                  <template>
                   
                       <b-col>
                       <b-button v-if="userData.memberSq===comment.memberSq"
