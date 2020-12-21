@@ -25,7 +25,6 @@
 
  <!-- 서브제목 -->
       <h4 class="sub-header">사이트 미승인 리스트</h4>
-
     <div class="overflow">
 
          <!-- 테이블 -->
@@ -42,7 +41,7 @@
         
           <v-data-table
             :headers="headers"
-            :items="refList"
+            :items="refListNo"
             :search="search"
             item-key="refNo"
             single-line
@@ -51,13 +50,13 @@
 
           <template v-slot:item="props">
                 <tr @click="handleClick(props.item.refNo)">
-                  <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refNo}}</td>         
-                  <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refCategory}}</td>
-                  <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refTitle}}</td>
-                  <!-- <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refContent}}</td> -->
-                  <td v-if="props.item.status.includes('N')" class="text-xs-right">
+                  <!-- <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refNo}}</td>  -->
+                  <td class="text-xs-right">{{props.item.refNo}}</td>        
+                  <td class="text-xs-right">{{props.item.refCategory}}</td>
+                  <td class="text-xs-right">{{props.item.refTitle}} * {{props.item.refSiteAddr}}</td>
+                  <td class="text-xs-right">
                     <v-btn class="mx-2 answerbtn3" dark small>승인대기</v-btn></td>
-                  <td v-if="props.item.status.includes('N')" class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
+                  <td class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
                 </tr>
           </template>  
           <!-- <td v-if="props.item.deadline.includes('채용시까지')"> -->
@@ -70,13 +69,7 @@
 </b-container>
 
 
-
-
 </template>
-
-
-
-
 
 <script>
 
@@ -90,11 +83,11 @@
   export default {
 
     created() {
-       this.$store.dispatch("FECH_REF_LIST")
+       this.$store.dispatch("FECH_REF_LIST_NO")
     },
     computed:{
       ...mapState({
-      refList:state=>state.refList,
+      refListNo:state=>state.refListNo,
      }),
       ...loadUserState(['userData'])
     },

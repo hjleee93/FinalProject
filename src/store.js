@@ -59,6 +59,7 @@ import {
      fetchqnacommentdel,
 
      fetchrefList,
+     fetchrefListNo,
      fetchrefListDelete,
      fetchrefListView,
      fetchrefListUpdate,
@@ -151,6 +152,7 @@ export default new Vuex.Store({
           qbAttachment2: [],
           qnacomment: [],
           refList:[],
+          refListNo:[],
           refListView:[],
           refAttachment:[],
           refCount:[],
@@ -507,6 +509,14 @@ export default new Vuex.Store({
                          console.log(error);
                     })
           },
+          // REF SITE 불러오기(미승인 만)
+          FECH_REF_LIST_NO({ commit }) {
+               fetchrefListNo()
+                    .then(({ data }) => commit("SET_REF_LIST_NO", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
+          },
           // REF SITE 삭제하기
           FETCH_REF_DELETE({ commit }, refNo) {
                fetchrefListDelete(refNo)
@@ -763,6 +773,10 @@ export default new Vuex.Store({
           // reference site 리스트 불러오기
           SET_REF_LIST(state, data) {
                state.refList = data;
+          },
+          // reference site 리스트 불러오기(미승인 만)
+          SET_REF_LIST_NO(state, data) {
+               state.refListNo = data;
           },
           // reference site 삭제
           SET_REF_DELETE(state, data) {

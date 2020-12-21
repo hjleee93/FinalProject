@@ -197,6 +197,10 @@ function fetchqnacommentdel(qboardCommentNo) {
 function fetchrefList() {
     return axios.get(`${config.Url}ref/selectsite`);
 }
+// reference site 리스트 불러오기(미승인 만)
+function fetchrefListNo() {
+    return axios.get(`${config.Url}ref/selectsiteNo`);
+}
 // reference site 삭제하기
 function fetchrefListDelete(refNo) {
     return axios.post(`${config.Url}ref/deletesite${refNo}`)
@@ -317,6 +321,7 @@ export {
     fetchqnacommentdel,
 
     fetchrefList,
+    fetchrefListNo,
     fetchrefListDelete,
     fetchrefListView,
     fetchrefListUpdate,
