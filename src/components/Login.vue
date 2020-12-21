@@ -35,9 +35,15 @@
                     width="250px"
                   />
                 </a>
-                <a href="#">
+
+              <!-- 구글...죄송합니다 -민지- -->
+                <div>
+                    <div id="google-signin-btn"></div>
+                </div>
+
+            <a href="#">
                   <img src="img/google_logo.png" width="250px" />
-                </a>
+                </a> 
               </div>
             </b-card-header>
             <b-card-body class="px-lg-5 py-lg-5">
@@ -104,10 +110,13 @@
 </template>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://apis.google.com/js/platform.js"></script>
 
 <script>
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
+
+// import axios from "axios"
 
 export default {
   data() {
@@ -118,7 +127,7 @@ export default {
       redirectURI: `http://localhost:8082/itjobgo/member/naverLogin`, //서버연결
       naverLoginURL:
         "https://nid.naver.com/oauth2.0/authorize?response_type=code",
-      state: Math.floor(Math.random() * 9999) + 1,
+      state: Math.floor(Math.random() * 9999) + 1, //TODO : 랜덤값 나올 수 있게 바꾸기
       test1: [],
       model: {
         email: "",
@@ -128,12 +137,26 @@ export default {
     };
   },
 
-  // async mounted() {
-  //   if (window.Kakao == undefined) {
-  //     await window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
-  //   }
-  // },
+
+//구글 로그인 //민지
+  mounted() {
+    if (window.Kakao == undefined) {
+      window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
+    }
+
+  gapi.signin2.render("google-signin-btn", {
+            onsuccess: this.onSignIn, // 
+        });  //민지
+
+  },
   methods: {
+
+    onSignIn(googleUser){
+        	// 로그인한 유저 정보
+        	console.log(googleUser)
+        },  //민지
+        
+
     onSubmit: function() {
       let memberEmail = this.model.email;
       let memberPwd = this.model.password;
@@ -151,15 +174,10 @@ export default {
       });
     },
     kakaoLogin() {
-      // window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
-      console.log(Kakao);
-      if (Kakao.Auth == undefined) {
-        window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
-      }
       Kakao.Auth.authorize({
         redirectUri: `${window.location.origin}/loginCallback`,
       });
-    },
+    }, 
   },
   computed: {
     ...mapState(["loginStatus", "loginError"]),

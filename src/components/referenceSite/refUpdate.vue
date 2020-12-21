@@ -118,6 +118,8 @@ import axios from 'axios';
 
     methods: {
       updateForm() {
+        //새로고침 1초컷
+        setTimeout(() => {
         //새롭게 수정된 내용이 없다면 원래 객체의 컬럼값을 가져가도록
         if(!this.refTitle){
           this.refTitle=this.refListView.refTitle;
@@ -157,6 +159,7 @@ import axios from 'axios';
         console.log(formData);
         //수정 후 게시판 리스트로 이동
         this.$router.push({name:'refSite'});
+           }, 1000)
       },
       
         handleFile(){

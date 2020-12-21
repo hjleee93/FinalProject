@@ -51,9 +51,15 @@
                 <tr @click="handleClick(props.item.qboardNo)">
                   <td v-if="props.item.qnaCategory.includes('프론트엔드')" class="text-xs-right">{{props.item.qboardNo }}</td>
                   <td v-if="props.item.qnaCategory.includes('프론트엔드')" class="text-xs-right">{{props.item.qnaWriter }}</td>
-                  <!-- <td v-if="props.item.qnaCategory.includes('프론트엔드')" class="text-xs-right">{{props.item.qnaCategory }}</td> -->
-                  <td v-if="props.item.qnaCategory.includes('프론트엔드')" class="text-xs-right">{{props.item.qnaTitle }}</td>
-                  <td v-if="props.item.qnaCategory.includes('프론트엔드')" class="text-xs-right">{{props.item.qnaAnswerYn}}</td>
+                  <td v-if="props.item.qnaCategory.includes('프론트엔드')" class="text-xs-right">{{props.item.qnaTitle }}
+                    <v-icon v-if="props.item.commentCount >0">mdi-message-text</v-icon>
+                  </td>                
+                  <td v-if="props.item.qnaAnswerYn==='N' && props.item.qnaCategory.includes('프론트엔드')" class="text-xs-right">
+                    <v-btn class="mx-2 answerbtn1" dark small>답변대기</v-btn>
+                      </td>
+                  <td v-else-if="props.item.qnaAnswerYn==='Y' && props.item.qnaCategory.includes('프론트엔드')" class="text-xs-right">
+                    <v-btn class="mx-2 answerbtn2" dark small>답변 [{{props.item.commentCount}}]</v-btn>
+                      </td>
                   <td v-if="props.item.qnaCategory.includes('프론트엔드')" class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
                   <td v-if="props.item.qnaCategory.includes('프론트엔드')" class="text-xs-right">{{props.item.boardCount }}</td>
                 </tr>
@@ -115,7 +121,7 @@ import { createNamespacedHelpers } from "vuex";
           { text: '작성자', value: 'qnaWriter' },
           // { text: '분류', value: 'qnaCategory' },          
           { text: '제목', value: 'qnaTitle' },
-          { text: '답변여부', value: 'qnaAnswerYn' },
+          { text: '진행상태', value: 'qnaAnswerYn' },
           { text: '작성일', value: 'qnaDate' },
           { text: '조회수', value: 'boardCount' },
 
@@ -166,6 +172,11 @@ import { createNamespacedHelpers } from "vuex";
   margin-top: 20px;
   text-align: left;
 }
-
+.answerbtn1 {
+  background-color: #a250b3 !important;
+}
+.answerbtn2 {
+  background-color:#9BA4B4 !important;
+}
 
 </style>

@@ -191,7 +191,9 @@ function fetchqnacomment(qboardNo) {
 }
 //qna게시판 댓글 삭제
 function fetchqnacommentdel(qboardCommentNo) {
+    setTimeout(() => {
     return axios.post(`${config.Url}qna/commentDelete${qboardCommentNo}`)
+    }, 1000)
 }
 // reference site 리스트 불러오기
 function fetchrefList() {
@@ -209,7 +211,10 @@ function fetchrefListView(refNo) {
 function fetchrefListUpdate(refNo) {
     return axios.get(`${config.Url}ref/refUpdate${refNo}`)
 }
-
+//글작성 카운트
+function fetchrefCount() {
+    return axios.get(`${config.Url}ref/statusCount`);
+}
 
 // 민지
 // info(취업정보)
@@ -317,6 +322,7 @@ export {
     fetchrefListDelete,
     fetchrefListView,
     fetchrefListUpdate,
+    fetchrefCount,
 
     //민지
     //info 취업정보 

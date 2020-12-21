@@ -119,7 +119,8 @@ const { mapState } = createNamespacedHelpers("memberStore");
 
     methods: {
       enrollref() {
-        
+        //새로고침 1초컷
+        setTimeout(() => {
         let formData = new FormData();
         formData.append('boardWriter',this.userData.memberName);
         formData.append('MemberNum',this.userData.memberSq);
@@ -143,6 +144,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         console.log(error))
         console.log(formData);
         this.$router.push({name:'refSite'});
+           }, 1000)
       },
       
         handleFile(){

@@ -12,7 +12,6 @@
         <v-tabs centered color="grey darken-3">
             <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
             <v-tab to="/resume/resumeList">입사지원서 보기</v-tab>
-            <v-tab to="/resume/updateresume">입사지원서 수정</v-tab>
             <v-tab active to="/resume/consultresume">입사지원서 컨설팅</v-tab>
             <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
             <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
@@ -30,44 +29,55 @@
                             label-class="font-weight-bold pt-0"
                             class="mb-0"
                             >
+                            </b-form-group>
+                            <b-form-group
+                            label-cols-lg="10"
+                            label="관리자 승인 후 이력서 컨설팅(댓글) 활동이 가능합니다."
+                            label-size="md"
+                            label-class="font-weight-bold pt-0"
+                            class="consult_text"
+                            >
+                            </b-form-group>
                             <b-form-group
                                 label-cols-sm="3"
                                 label="이름"
                                 label-align-sm="right"
-                                label-for="nested-street"
+                                label-for="consultName"
                             >
-                                <b-form-input id="nested-street"></b-form-input>
+                                <b-form-input id="consultName" v-model="userData.memberName"></b-form-input>
                             </b-form-group>
 
                             <b-form-group
                                 label-cols-sm="3"
                                 label="전문 분야"
                                 label-align-sm="right"
-                                label-for="nested-city"
+                                label-for="consultField"
                             >
-                                <b-form-input id="nested-city"></b-form-input>
+                                <b-form-input id="consultField" v-model="consultField"></b-form-input>
                             </b-form-group>
 
                             <b-form-group
                                 label-cols-sm="3"
                                 label="업무 경력"
                                 label-align-sm="right"
-                                label-for="nested-state"
+                                label-for="consultWork"
                             >
-                                <b-form-input id="nested-state"></b-form-input>
+                                <b-form-input id="consultWork" v-model="consultWork"></b-form-input>
                             </b-form-group>
 
                             <b-form-group
                                 label-cols-sm="3"
-                                label="수상 경력"
+                                label="증빙 자료"
                                 label-align-sm="right"
                                 label-for="nested-country"
                             >
-                                <b-form-input id="nested-country"></b-form-input>
+                                <b-form-file id="files" 
+                                ref="upfiles" 
+                                v-on:change="handleFile"
+                                placeholder="첨부파일"
+                                ></b-form-file> 
                             </b-form-group>
-
-                            </b-form-group>
-                            <b-button type="submit" id="submit" variant="primary">등록</b-button>
+                            <b-button type="submit" id="submit" variant="primary" @click="insertConsult">등록</b-button>
                             <b-button type="reset" id="reset" variant="danger">취소</b-button>
                         </b-card>
                         </div>
@@ -77,7 +87,55 @@
  </div>
 </template>
 <script>
+import axios from 'axios'
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
+export default {
+    data() {
+      return {
+        consultField:'',
+        consultWork:'',
+        files:'',
+      }
+    },
+    computed: {
+        ...mapState(['userData'])
+    },
+    methods: {
+      handleFile(){
+        console.log(this.$refs.upfiles.$refs.input.files[0]);
+        this.files=this.$refs.upfiles.$refs.input.files[0];
+        console.log(this.files);
+      },
+      insertConsult(){
+        let formData=new FormData();
 
+            //첨부파일
+          formData.append('upfile',this.files);
+
+           //개인정보
+          formData.append('memberSq',this.userData.memberSq);
+          formData.append('consultName',this.userData.memberName);
+          formData.append('consultField',this.consultField);
+          formData.append('consultWork',this.consultWork);
+
+            for(let key of formData.entries()){
+                console.log(`${key}`);
+            }
+
+           axios.post("http://localhost:8082/itjobgo/resume/insertconsult.do",formData
+            ,{ headers:{
+            'Content-Type':'multipart/form-data'
+            }})
+            .then((res)=>{
+                console.log(res.data);
+                //setTimeout( () => this.$router.push({ path: '/resume/resume'}), 2000);
+                })
+            .catch((error)=>console.log(error));
+      },
+    }
+
+}
 </script>
 <style scoped>
 
@@ -109,6 +167,8 @@
     background-color: #9BA4B4;
     border-color: #9BA4B4;
 }
-
+.consult_text{
+    color:#424874;
+}
 
 </style>

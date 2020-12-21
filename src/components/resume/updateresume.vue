@@ -68,8 +68,8 @@
                             class="readonly-input postcode"
                             type="number"
                             id="sample6_postcode"
-                            v-model="postcode"
-                            :placeholder="resume.postcode"
+                            v-model="resume.postcode"
+                            
                         ></b-form-input>
                         </td> 
                         <!-- <td colspan="2"><input class="address" type="text" placeholder="우편번호" v-model="result.address"></td>  -->
@@ -81,7 +81,7 @@
                             class="readonly-input addr"
                             type="text"
                             id="sample6_address"
-                            v-model="memberAddr"
+                            v-model="resume.address"
                             :placeholder="resume.address"
                         ></b-form-input>
                         </td>
@@ -94,7 +94,7 @@
                             type="text"
                             id="sample6_detailAddress"
                             :placeholder="resume.addressDetail"
-                            v-model="memberAddrDtl"
+                            v-model="resume.addressDetail"
                         ></b-form-input>
                         </td>
                         <td>

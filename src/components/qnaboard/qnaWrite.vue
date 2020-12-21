@@ -121,7 +121,9 @@ const { mapState } = createNamespacedHelpers("memberStore");
 
     methods: {
       writeQna(){
-        
+        //새로고침 1초
+        setTimeout(() => {
+
         let formData = new FormData();
         formData.append('qnaWriter',this.userData.memberName);
         formData.append('memberSq', this.userData.memberSq),
@@ -149,6 +151,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         console.log(formData);
         //저장완료, 화면전환 이동!
         this.$router.push({name:'qnaBoard'})
+          }, 1000)
       },
 
     
