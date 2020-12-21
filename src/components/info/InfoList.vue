@@ -12,7 +12,7 @@
     <h4 class="sub-header">취업설명회 일정</h4> 
 
   <b-row id="writecontain" align-h="end">
-    <b-button v-if="userData.memberEmail === 'admin@kh.com'" to="/infoForm">
+    <b-button to="/infoForm" v-if="userData.memberEmail === 'admin@kh.com'" >
      글쓰기
     </b-button>
   </b-row>
@@ -143,4 +143,10 @@ const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
   width: 30%;
   margin-left: 72%;
   }
+  #writecontain > .btn{
+  background-color: #424874;
+}
+#writecontain{
+  margin-bottom: 10%;
+}
 </style>

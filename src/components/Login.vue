@@ -35,9 +35,26 @@
                     width="250px"
                   />
                 </a>
-                <a href="#">
+	   
+     <div>
+    		<div id="google-signin-btn"></div>
+  	 </div>
+<!-- <GoogleLogin
+ class="google-login-button"
+ :params="params"
+ :onSuccess="onSuccess"
+ :onFailure="onFailure"
+><img 
+id="google-signin-btn"
+    alt="googleLogin"
+    src="img/google_logo.png" width="250px"
+></GoogleLogin>   //민지
+ -->
+
+
+            <a href="#">
                   <img src="img/google_logo.png" width="250px" />
-                </a>
+                </a> 
               </div>
             </b-card-header>
             <b-card-body class="px-lg-5 py-lg-5">
@@ -130,12 +147,33 @@ export default {
     };
   },
 
+/* GoogleLoginSuccess(googleUser){
+  if(localStirage.getItem('JWT_token')) return 
+ Google.googleLoginSuccess(gooleUser);
+},
+GoogleLoginFailure(){
+  Google.GoogleLoginFailure();
+},  //민지
+ */
+
   mounted() {
     if (window.Kakao == undefined) {
       window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
     }
+
+  gapi.signin2.render("google-signin-btn", {
+            onsuccess: this.onSignIn, // 
+        });  //민지
+
   },
   methods: {
+
+    onSignIn(googleUser){
+        	// 로그인한 유저 정보
+        	console.log(googleUser)
+        },  //민지
+        
+
     onSubmit: function() {
       let memberEmail = this.model.email;
       let memberPwd = this.model.password;
@@ -156,7 +194,7 @@ export default {
       Kakao.Auth.authorize({
         redirectUri: `${window.location.origin}/loginCallback`,
       });
-    },
+    }, 
   },
   computed: {
     ...mapState(["loginStatus", "loginError"]),
