@@ -27,19 +27,20 @@
       ></b-form-select>
     </b-input-group>
 
-        <!-- :options="date" -->
     <b-input-group prepend="날짜" class="mb-2" > 
-      <b-form-input
-        id="input-3"
-        type="date"
+      <b-form-datepicker 
+        label="날짜"
+        :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" 
+        :min="min"  
         name="infoDate"
         v-model="infoDetail.infoDate"
         required 
-      ></b-form-input>
+      ></b-form-datepicker>
     </b-input-group> 
 
     <b-input-group prepend="시간" class="mb-2" >
       <b-form-input 
+        label="시간"
         type="time"  
         v-model="infoDetail.infoTime"
         required
@@ -75,7 +76,6 @@
       <b-button type="button" id="golist"  to="/infoList" exact>목록</b-button>
    </div>
   </form>
-
 </b-container>
 </template>
 
@@ -86,6 +86,10 @@ import axios from 'axios'
 
     export default {
       data() {
+        const now = new Date()
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+        const minDate = new Date(today)
+
         return {
             infoTitle: "",
             category:null,
@@ -98,7 +102,8 @@ import axios from 'axios'
             infoDate : "",
             infoTime : "",
             infoContent: "",    
-            files : "",      
+            files : "", 
+            min:minDate,       
             }
       },
       created() {
@@ -106,7 +111,6 @@ import axios from 'axios'
           this.$store.dispatch("FETCH_INFO_UPDATE",infoSq)
           console.log("지금하고있는 로그 " + infoSq);
       },
-
       computed:{
         //mapState를 통해서 store에 저장된 객체를 가져온다
         ...mapState({
