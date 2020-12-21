@@ -141,10 +141,8 @@
    font-family: 'Nanum Gothic', sans-serif;
 }
 .overflow .v-card{
-  border:1px red solid;
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
-  height: 1000px;
 }
 .site_ect{
   margin-bottom:20px;
