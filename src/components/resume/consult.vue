@@ -30,42 +30,45 @@
                             label-class="font-weight-bold pt-0"
                             class="mb-0"
                             >
+                            </b-form-group>
                             <b-form-group
                                 label-cols-sm="3"
                                 label="이름"
                                 label-align-sm="right"
-                                label-for="nested-street"
+                                label-for="consultName"
                             >
-                                <b-form-input id="nested-street"></b-form-input>
+                                <b-form-input id="consultName" v-model="userData.memberName"></b-form-input>
                             </b-form-group>
 
                             <b-form-group
                                 label-cols-sm="3"
                                 label="전문 분야"
                                 label-align-sm="right"
-                                label-for="nested-city"
+                                label-for="consultField"
                             >
-                                <b-form-input id="nested-city"></b-form-input>
+                                <b-form-input id="consultField" v-model="consultField"></b-form-input>
                             </b-form-group>
 
                             <b-form-group
                                 label-cols-sm="3"
                                 label="업무 경력"
                                 label-align-sm="right"
-                                label-for="nested-state"
+                                label-for="consultWork"
                             >
-                                <b-form-input id="nested-state"></b-form-input>
+                                <b-form-input id="consultWork" v-model="consultWork"></b-form-input>
                             </b-form-group>
 
                             <b-form-group
                                 label-cols-sm="3"
-                                label="수상 경력"
+                                label="첨부 파일"
                                 label-align-sm="right"
                                 label-for="nested-country"
                             >
-                                <b-form-input id="nested-country"></b-form-input>
-                            </b-form-group>
-
+                                <b-form-file id="files" 
+                                ref="upfiles" 
+                                v-on:change="handleFile"
+                                placeholder="첨부파일"
+                                ></b-form-file> 
                             </b-form-group>
                             <b-button type="submit" id="submit" variant="primary">등록</b-button>
                             <b-button type="reset" id="reset" variant="danger">취소</b-button>
@@ -77,7 +80,27 @@
  </div>
 </template>
 <script>
-
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("memberStore");
+export default {
+    data() {
+      return {
+        consultField:'',
+        consultWork:'',
+        files:'',
+      }
+    },
+    computed: {
+        ...mapState(['userData'])
+    },
+    methods: {
+      handleFile(){
+        console.log(this.$refs.upfiles.$refs.input.files[0]);
+        this.files=this.$refs.upfiles.$refs.input.files[0];
+        console.log(this.files);
+      }
+    }
+}
 </script>
 <style scoped>
 
