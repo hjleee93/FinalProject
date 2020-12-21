@@ -19,11 +19,11 @@
     </div>
 
     <div id="submenu">
-        <b-nav tabs align="center">
+        <b-nav tabs align="center" class="resume_title">
             <b-nav-item active><router-link :to="{name: 'resume', params: {id: resume.resumeNo }}">기본 이력서</router-link></b-nav-item>
             <b-nav-item><router-link :to="{name: 'DesignResume', params: {id: resume.resumeNo }}">디자인 이력서</router-link></b-nav-item>
             <b-nav-item><router-link :to="{name: 'LineResume', params: {id: resume.resumeNo }}">라인 이력서</router-link></b-nav-item>
-            <b-nav-item><router-link :to="{name: 'BlindResume', params: {id: resume.resumeNo }}">블라인드 이력서</router-link></b-nav-item>
+            <!-- <b-nav-item><router-link :to="{name: 'BlindResume', params: {id: resume.resumeNo }}">블라인드 이력서</router-link></b-nav-item> -->
         </b-nav>
     </div>
 
@@ -496,4 +496,9 @@ input[type="file"] {
   border: 0;
 }
 
+.resume_title * {
+    color: #4e5157;
+    font-size: 15px;
+    font-weight: bold;
+}
 </style>
