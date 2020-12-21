@@ -119,7 +119,7 @@
                                 <tr>
                                     <td>주요직무 및 업무</td>
                                     <td>
-                                    <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="resume.workDetail"></b-form-textarea>
+                                    <b-form-textarea style="overflow:hidden" id="textarea" rows="3" max-rows="6" v-model="resume.workDetail"></b-form-textarea>
                                     </td>
                                 </tr>
                                 <div class="hr"></div>
@@ -167,7 +167,7 @@
                                 <tr>
                                     <td><strong>주요 업무 및 성과</strong></td>
                                     <td colspan="4">
-                                    <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="resume.projectDetail"></b-form-textarea>
+                                    <b-form-textarea style="overflow:hidden" id="textarea" rows="3" max-rows="6" v-model="resume.projectDetail"></b-form-textarea>
                                     </td>
                                 </tr>
                                 <div class="hr"></div>
@@ -357,5 +357,15 @@ button{
     color: #4e5157;
     font-size: 15px;
     font-weight: bold;
+}
+input {
+     
+}
+select{
+    border: none;
+}
+textarea{
+    border: none;
+    resize: none;
 }
 </style>
