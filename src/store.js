@@ -23,6 +23,8 @@ import {
      fetchApproveList,
      fetchmklist,
      fetchmeetingdel,
+     fetchapprovecount,
+     fetchentrant,
 
 
      //주은
@@ -121,6 +123,8 @@ export default new Vuex.Store({
           apply: [],
           approvelist: [],
           mklist: [],
+          acount:[],
+          enter:[],
 
 
 
@@ -242,12 +246,17 @@ export default new Vuex.Store({
                     })
 
           },
-          FECH_MOBOARDINFO({ commit }, no) {
-               fetchMeetinginfo(no)
-                    .then(({ data }) => commit("SET_MINFO", data))
-                    .catch(({ error }) => {
-                         console.log(error);
-                    })
+          async FECH_MOBOARDINFO({ commit }, no) {
+              const response=await fetchMeetinginfo(no)
+               commit("SET_MINFO",response.data)
+               return response;
+                   
+          },
+         async FECH_APPLYCOUNT({commit},no){
+              const response=await fetchapprovecount(no)
+              commit("SET_COUNT",response.data)
+              return response;
+
           },
 
           async FECH_MEETINGAPPLY({ commit }, email) {
@@ -285,6 +294,12 @@ export default new Vuex.Store({
               commit("SET_UMINFO",response.data)
               return response;
 
+          },
+          async FECH_APPLYLIST({commit},no)
+          {
+               const response=await fetchentrant(no)
+               commit("SET_ENTER",response.data)
+               return response;
           },
           //주은
           //자유게시판 list 불러오기
@@ -661,6 +676,12 @@ export default new Vuex.Store({
           },
           SET_MKLIST(state, data) {
                state.mklist = data;
+          },
+          SET_COUNT(state,data){
+               state.acount=data;
+          },
+          SET_ENTER(state,data){
+               state.enter=data;
           },
 
           //주은
