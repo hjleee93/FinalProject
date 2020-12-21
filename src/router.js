@@ -167,6 +167,9 @@ const RefUpdate = () => {
 const RefSiteView = () => {
      return import('./components/referenceSite/refSiteView.vue')
 }
+const RefSiteStatus = () => {
+     return import('./components/referenceSite/refSiteStatus.vue')
+}
 const qnaBoardback = () => {
      return import('./components/qnaboard/qnaBoardback.vue')
 }
@@ -231,9 +234,6 @@ const LoginCallback = () => {
 }
 const NaverLogin = () => {
      return import('./components/member/NaverLogin.vue')
-}
-const ResumeBoard = () => {
-     return import('./components/member/ResumeBoard.vue')
 }
 const KakaoCallbackLogin = () => {
      return import('./components/member/KakaoCallbackLogin.vue')
@@ -321,14 +321,32 @@ export default new Router({
 
           },
           {
-               path: '/Portfolioinfo/:id',
+               path: '/Portfolioinfo/:id/:number',
                component: Portfolioinfo,
                name: 'Portinfo',
                beforeEnter(to, from, next) {
-                    //로그인한 사용자의 레벨을 가져온다  
+                    //로그인한 사용자의 레벨을 가져온다 
+                    //console.log(to)
+                    if (localStorage.vuex.includes('"loginStatus":true')) {
+
+                         return next();
+                    }
+               
+                    Vue.swal({
+                         text: "로그인 후 이용해주세요.",
+                         icon: "error",
+                    });
+                    next('/login')
+                    const no =localStorage.getItem("vuex")
+                    const obb=JSON.parse(no);
+                   const mno=obb.userData.memberSq
+                  const pno=to.params.number
+               //    console.log(`mno:${mno}pno:${pno}`)
+                  const mck= (mno,pno)=> mno===pno ;
+               //    console.log(mck(mno,pno));
                     const level = localStorage.vuex.includes('"memberLevel":"2"')
                     console.log(level)
-                    if (level == true) {
+                    if (level == true || mck(mno,pno)==true) {
                          //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
                          next();
                     } else {
@@ -382,7 +400,8 @@ export default new Router({
           {
                path: '/communityBoardForm',
                name: 'CommunityBoardForm',
-               component: CommunityBoardForm
+               component: CommunityBoardForm,
+                beforeEnter: LoginDeny()
           },
 
           {
@@ -394,7 +413,8 @@ export default new Router({
           {
                path: '/itNewsForm',
                name: 'ItNewsForm',
-               component: ItNewsForm
+               component: ItNewsForm,
+                beforeEnter: LoginDeny()
           },
 
           {
@@ -407,7 +427,8 @@ export default new Router({
           {
                path: '/noticeForm',
                name: 'NoticeForm',
-               component: NoticeForm
+               component: NoticeForm,
+               beforeEnter: adminDeny()
           },
 
           {
@@ -431,19 +452,22 @@ export default new Router({
           {
                path: '/noticeUpdate/:id',
                name: 'NoticeUpdate',
-               component: NoticeUpdate
+               component: NoticeUpdate,
+               beforeEnter: adminDeny()
           },
 
           {
                path: '/itNewsUpdate/:id',
                name: 'ItNewsUpdate',
-               component: ItNewsUpdate
+               component: ItNewsUpdate,
+               beforeEnter: LoginDeny()
           },
 
           {
                path: '/communityBoardUpdate/:id',
                name: 'CommunityBoardUpdate',
-               component: CommunityBoardUpdate
+               component: CommunityBoardUpdate,
+                beforeEnter: LoginDeny()
           },
 
           //현정
@@ -546,12 +570,7 @@ export default new Router({
                component: AdminPage,
                beforeEnter: adminDeny()
           },
-          {
-               path: '/resumeBoard/:id',
-               name: 'resumeBoard',
-               component: ResumeBoard,
-               beforeEnter: LoginAuth()
-          },
+
 
           //현주
           {
@@ -585,14 +604,19 @@ export default new Router({
                component: RefSiteEtc
           },
           {
-               path: '/refUpdate',
+               path: '/refUpdate/:id',
                name: 'refUpdate',
                component: RefUpdate
           },
           {
-               path: '/refSiteView',
+               path: '/refSiteView/:id',
                name: 'refSiteView',
                component: RefSiteView
+          },
+          {
+               path: '/refSiteStatus',
+               name: 'refSiteStatus',
+               component: RefSiteStatus
           },
           {
                path: '/qnaView/:id',
@@ -675,7 +699,7 @@ export default new Router({
                component: consultresumeenroll,
                beforeEnter: LoginAuth(),
           },
-                    {
+          {
                path: '/resume/resumeList',
                name: 'resumeList',
                component: resumeList,

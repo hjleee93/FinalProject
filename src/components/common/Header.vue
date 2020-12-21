@@ -1,17 +1,15 @@
 <template>
   <div>
-    <template v-if="this.$router.currentRoute.path == '/'">
-      <div class="header_image">
-        {{ this.$router.currentRoute.path }}
-        <div>
-          <a href="/"
-            ><img
-              class="main-img"
-              src="../../assets/images/main.png"
-              alt="Vue logo"
-          /></a>
-        </div></div
-    ></template>
+    <div class="header_image" v-if="this.$route.name == 'home'">
+      <div>
+        <a href="/"
+          ><img
+            class="main-img"
+            src="../../assets/images/main.png"
+            alt="Vue logo"
+        /></a>
+      </div>
+    </div>
 
     <b-navbar id="menu" toggleable="md" type="dark" variant="">
       <b-navbar-brand href="/">IT-JOB-GO</b-navbar-brand>

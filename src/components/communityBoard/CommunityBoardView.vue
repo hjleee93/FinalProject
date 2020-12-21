@@ -69,9 +69,12 @@
       <b-row v-for="comment in commentlist" :key="comment.id">
         <b-col>
           <b-card class="text-center">
-            <b-row><b-col cols="2">{{comment.memberName}}
+            <b-row>
+
+              
+              <b-col cols="2" id="nameAndDate">{{comment.memberName}}
             <br>{{comment.cbCommentDate | moment('YYYY.MM.DD HH:mm:ss')}}
-            </b-col>
+            </b-col> 
             <!-- 쓴사람과 아닐떄는 일반 댓글로 보여주지않기 -->
             <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.cbCommentContent}}</b-col>
             
@@ -181,6 +184,7 @@ export default {
         // console.log(value);
         return this.$moment(value).format('YYYY년 MM월 DD일');
       },      
+      
     
       update(){
         //수정버튼 눌렸을때 처리하는 로직
@@ -244,10 +248,10 @@ export default {
         let delfirm=confirm("댓글을 삭제 하시겠습니까?")
         if(delfirm){
           const cno=commentno;
-        this.$store.dispatch("FETCH_COMMENT_DELETE",cno)
-        return  this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
-        }else{
-          return
+        this.$store.dispatch("FETCH_COMMENT_DELETE",cno).then(()=>{
+             this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
+        })
+
         }
       },
     //   //댓글수정
@@ -292,10 +296,12 @@ export default {
 
     }, //method
     created() {
+
         const communityBoardNo=this.$route.params.id;
         this.$store.dispatch("FETCH_COMMUNITYBOARD_VIEW",communityBoardNo)
         this.$store.dispatch("FETCH_COMMUNITYBOARD_ATTACHMENT",communityBoardNo)
         this.$store.dispatch("FETCH_CB_COMMENT_LIST",this.$route.params.id);
+        
         
     },
     computed: {

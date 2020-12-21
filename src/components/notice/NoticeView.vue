@@ -64,18 +64,18 @@
       </b-row>
 
 <!-- 댓글 영역 -->
-      <b-container>
+      <!-- <b-container>
       <b-row v-for="comment in commentlist" :key="comment.id">
         <b-col>
           <b-card class="text-center">
             <b-row><b-col cols="2">{{comment.memberName}}
             <br>{{comment.ntCommentDate | moment('YYYY.MM.DD HH:mm:ss')}}
-            </b-col>
+            </b-col> -->
             <!-- 쓴사람과 아닐떄는 일반 댓글로 보여주지않기 -->
-            <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.ntCommentContent}}</b-col>
+            <!-- <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.ntCommentContent}}</b-col> -->
             
             <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
-            <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
+            <!-- <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
        
               <b-col>
                 <b-row>
@@ -103,9 +103,9 @@
              </b-form>
       
       </b-row></b-card></b-col>
-      </b-row>
+      </b-row> -->
 <!-- 댓글쓰기 -->
-    <b-form v-if="userData.memberSq!=null">
+    <!-- <b-form v-if="userData.memberSq!=null">
         <b-row >
           <b-col>
             <b-card class="text-center">
@@ -115,7 +115,7 @@
               </b-row>
             </b-card></b-col></b-row></b-form>
 
-      </b-container>
+      </b-container> -->
 
 <!-- 게시판 삭제 모달 -->
   <ModalView v-if="showModal" @close="showModal = false">
@@ -132,7 +132,7 @@
     </template>
   </ModalView>
 
-     {{commentlist}}
+     <!-- {{commentlist}} -->
 </b-container> 
 </template>
 

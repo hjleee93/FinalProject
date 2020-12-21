@@ -5,7 +5,7 @@
       <!-- 메인 이미지 -->
       <b-row>
           <div class="submenuimage">
-             <p class="subtitle">Reference테스트백</p>
+             <p class="subtitle">Reference</p>
           </div>
       </b-row>
             
@@ -25,7 +25,7 @@
 
           <div>
             <h4 class="sub-header-ref">분야별 웹 사이트</h4>
-            <v-btn to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
+            <v-btn v-if="userData.memberSq!=null" to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
           </div>
     <div class="overflow-auto">
 
@@ -39,9 +39,10 @@
           class="mx-auto"
           max-width="330"
           v-for="ref in refList" :key="ref.id"
+          v-show="ref.status==='Y' && ref.refCategory.includes('백엔드')"
           @click="cardclick(ref)"
         >
-        
+         
         <!-- 이미지 -->
         <v-img
           class="white--text align-end"

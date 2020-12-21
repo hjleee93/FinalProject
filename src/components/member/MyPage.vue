@@ -53,14 +53,16 @@
         <li class="topList first">
           <p class="title">이력서 등록수</p>
           <p class="count">
-            <a href="#resumeDive" class="scroll">{{ resume }}</a
+            <a href="#resumeDive" class="scroll">{{
+              this.$store.state.resumeList.length
+            }}</a
             >개
           </p>
         </li>
         <li class="topList openState">
-          <p class="title">참여한 프로젝트수</p>
+          <p class="title">프로젝트 정보</p>
           <p class="count">
-            <router-link to="/meetingapply" class="scroll">1</router-link>개
+            <router-link to="/meetingapply" class="scroll">바로가기</router-link>
           </p>
         </li>
 
@@ -120,7 +122,7 @@
       <div></div>
     </div>
     <!-- 이력서 -->
-    <!-- TODO: 이력서 보기 -->
+    <!-- TODO: 컨설팅 연결 -->
     <div id="resumeDive"></div>
     <div>
       <p class="h3 mt-5 font-weight-bold text-center">
@@ -128,43 +130,40 @@
       </p>
 
       <p id="resumeAll" class="mb-2">
-        <b-btn @click="moveResumeAll(userData.memberSq)">전체보기</b-btn>
+        <b-btn to="/resume/resumeList">전체보기</b-btn>
       </p>
       <v-simple-table class="resume">
         <thead class="resume-table">
           <tr>
             <th class="text-left">
-              분류
-            </th>
-            <th class="text-left">
               제목
             </th>
             <th class="text-left">
-              답변여부
+              컨설팅신청여부
             </th>
             <th class="text-left">
               작성일
             </th>
           </tr>
         </thead>
-        <template v-if="pboard[0] != undefined">
+
+        <template v-if="resumeList[0] != undefined">
           <tbody>
             <tr
               class="resume-table"
               id="resumeBody"
-              v-for="(pf, index) in pboard"
+              v-for="(pf, index) in resumeList"
               :key="index"
-              @click="movePortf(pboard[index].pboardNo)"
+              @click="moveResume(resumeList[index].resumeNo)"
             >
-              <template v-if="pboard[index] != undefined">
-                <td>수정중~~~~~~~~~~</td>
-                <td>{{ pboard[index].pboardTitle }}</td>
-                <template v-if="pboard[index].pboardStatus == 'N'">
-                  <td>등록된 답변이 없습니다.</td>
+              <template v-if="resumeList[index] != undefined">
+                <td>{{ resumeList[index].resumelistTitle }}</td>
+                <!-- <template v-if="resumeList[index].pboardStatus == 'N'">
+                 
                 </template>
-                <template v-else> <td>답변 완료</td></template>
-
-                <td>{{ formatDate(pboard[index].pboardDate) }}</td>
+                <template v-else> <td>답변 완료</td></template> -->
+                <td>등록된 답변이 없습니다.</td>
+                <td>{{ formatDate(resumeList[index].resumelistDate) }}</td>
               </template>
             </tr>
           </tbody>
@@ -517,7 +516,7 @@ import $ from "jquery";
 
 const { mapState: memberState } = createNamespacedHelpers("memberStore");
 const { mapState: jobState } = createNamespacedHelpers("jobStore");
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 $(document).ready(function($) {
   $(".scroll").click(function(event) {
     event.preventDefault();
@@ -555,7 +554,7 @@ export default {
       memberSq: this.userData.memberSq,
     });
 
-    await this.$store.dispatch("FETCH_RESUME", this.userData.memberSq);
+    this.$store.dispatch("FETCH_RESUMELIST", this.userData.memberSq);
     this.$store.dispatch("FETCH_PBOARD");
     this.$store.dispatch("FETCH_QNABOARD");
     this.$store.dispatch("FETCH_COMMUNITYBOARD");
@@ -563,10 +562,27 @@ export default {
     this.$store.dispatch("jobStore/loadJobTable");
   },
   computed: {
-    ...mapState(["resume"]),
     ...memberState(["loginStatus", "userData"]),
     ...jobState(["tableList", "jobInfo", "scrap"]),
+    resumeList() {
+      console.log("도랏뉘");
+      let objArr = new Object(); //반환할 객체
 
+      for (let i = 0; i < this.$store.state.resumeList.length; i++) {
+        // console.log(this.$store.state.resumeList);
+        if (
+          this.$store.state.resumeList[i].memberNo == this.userData.memberSq
+        ) {
+          objArr[i] = this.$store.state.resumeList[i];
+        }
+      }
+      let tem = [];
+      for (let i = 0; i < 3; i++) {
+        tem[i] = Object.values(objArr)[i];
+      }
+      console.log(tem);
+      return tem;
+    },
     communityboard() {
       let objArr = new Object(); //반환할 객체
 
@@ -674,8 +690,8 @@ export default {
     },
   },
   methods: {
-    moveResumeAll(id) {
-      this.$router.push({ name: "resumeBoard", params: { id: id } });
+    moveResume(id) {
+      this.$router.push({ name: "resume", params: { id: id } });
     },
     moveCommu(id) {
       this.$router.push({ name: "CommunityBoardView", params: { id: id } });

@@ -110,7 +110,9 @@ const { mapState } = createNamespacedHelpers("memberStore");
     },
 
     methods: {
+      
       enrollBoard() {
+        setTimeout(() => {
         
         let formData = new FormData();
         formData.append('boardWriter',this.userData.memberName);
@@ -121,10 +123,10 @@ const { mapState } = createNamespacedHelpers("memberStore");
         formData.append('file',this.files);
         
         for(let key of formData.entries()){
-        console.log(`${key}`);
+          console.log(`${key}`);
         }
           console.log(this.category);
-
+    
       axios.post("http://localhost:8082/itjobgo/community/communityBoardForm",
         formData,
         { headers:{
@@ -134,6 +136,8 @@ const { mapState } = createNamespacedHelpers("memberStore");
         console.log(error))
         console.log(formData);
         this.$router.push({name:'CommunityBoardList'});
+
+        }, 1000)
       },
       
       handleFile(){

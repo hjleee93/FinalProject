@@ -57,7 +57,7 @@
 
       <b-button id="submit-btn2" type="submit" >완료</b-button>
       <!-- <b-button id="submit-btn2"  @click="onReset" >취소</b-button> -->
-      <b-button type="button" id="list-btn2" to="/communityBoardList" exact>목록</b-button>
+      <b-button type="button" id="list-btn2" to="/itNewsList" exact>목록</b-button>
       
     </form>
   </b-container>
