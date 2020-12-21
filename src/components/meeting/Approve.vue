@@ -17,48 +17,50 @@
       </div>
   </div>
   
- {{$route.params.memberSq}}
- {{approvelist}}
+
   <b-row>
 <b-col> 
+
     <v-data-table
             :headers="headers"
             :items=approvelist
             item-key="name"
           >
-          <template v-slot:item.status={item}>
-              <div >
-<v-icon v-if="item.status=='Y'" id="approve"
+           <template v-slot:item="props">
+             
+              <tr>
+                <td class="text-xs-right">{{props.item.no }}</td>
+                <td class="text-xs-right">{{props.item.position }}</td>
+                <td class="text-xs-right" @click="movepage(props.item.collsq)">{{props.item.collname}}</td>
+               <td class="text-xs-right"><v-icon v-if='props.item.status=="Y"' id="approve"
           dark
           right
           color="blue darken-2"
         >
-      
           mdi-checkbox-marked-circle
         </v-icon>
-          <v-icon v-if="item.status=='N'"
+          <v-icon 
           dark
+          v-if='props.item.status=="N"'
           right
           id="unpprove"
         >
           mdi-cancel
-        </v-icon>
-    </div>
+        </v-icon> </td>
+<!-- </td> -->
+              </tr>
+           </template>
+          
+             
+
    
-        
     
-
-         
-       
-     
-
-          </template>
           </v-data-table>
 </b-col>
 
       
   </b-row>
- 
+  
   </div>
 </template>
 
@@ -102,6 +104,10 @@ export default {
          
     }, 
     methods: {
+      movepage(item){
+        
+         this.$router.push({name:"meetinginfo",params:{id:item}})
+      }
     }
 
 }

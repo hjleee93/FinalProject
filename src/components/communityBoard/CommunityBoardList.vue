@@ -60,7 +60,7 @@
               <tr @click="handleClick(props.item.boardSq)">
                 <td class="text-xs-right">{{props.item.boardSq }}</td>
                 <td class="text-xs-right">{{props.item.boardDivision }}</td>
-                <td class="text-xs-right">{{props.item.boardTitle }}</td>
+                <td class="text-xs-right">{{props.item.boardTitle }} ({{props.item.commentCount}})</td>
                 <td class="text-xs-right">{{props.item.boardWriter }}</td>
                 <td class="text-xs-right">{{formatDate(props.item.boardDate)}}</td>
                 <td class="text-xs-right">{{props.item.boardCount }}</td>

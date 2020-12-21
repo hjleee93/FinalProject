@@ -1,17 +1,15 @@
 <template>
   <div>
-    <template v-if="this.$router.currentRoute.path == '/'">
-      <div class="header_image">
-        {{ this.$router.currentRoute.path }}
-        <div>
-          <a href="/"
-            ><img
-              class="main-img"
-              src="../../assets/images/main.png"
-              alt="Vue logo"
-          /></a>
-        </div></div
-    ></template>
+    <div class="header_image" v-if="this.$route.name == 'home'">
+      <div>
+        <a href="/"
+          ><img
+            class="main-img"
+            src="../../assets/images/main.png"
+            alt="Vue logo"
+        /></a>
+      </div>
+    </div>
 
     <b-navbar id="menu" toggleable="md" type="dark" variant="">
       <b-navbar-brand href="/">IT-JOB-GO</b-navbar-brand>
@@ -28,12 +26,9 @@
               <b-dropdown-item to="/resume/insertresume"
                 >입사지원서 등록</b-dropdown-item
               >
-              <b-dropdown-item to="/resume/resume"
+              <b-dropdown-item to="/resume/resumeList"
                 >입사지원서 보기</b-dropdown-item
               >
-              <b-dropdown-item to="/resume/updateresume"
-                >입사지원서 수정
-              </b-dropdown-item>
               <b-dropdown-item to="/resume/consultresume"
                 >입사지원서 컨설팅</b-dropdown-item
               >

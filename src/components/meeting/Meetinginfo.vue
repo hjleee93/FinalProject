@@ -1,5 +1,11 @@
 <template>
+ <div class="container-fluid">
+     <div class="submenuimage">
+        <p class="subtitle">모임상세내용</p>
+      </div>
+
   <b-container class="cont">
+   
     <b-row  class="justify-content-md-center"><h1>{{minfo.collabTitle}}</h1></b-row>
     <b-row>
       <b-col>
@@ -14,25 +20,31 @@
            <b-row><div  class="f-box"> 장소:{{minfo.address}}</div></b-row>
            <b-row><div  class="f-box"> 개발언어:{{minfo.collabLang}}</div></b-row>
            </b-card>
-           
            </b-col>
            </b-row>
            <b-row><b-col>찾아오시는 길</b-col></b-row>
-          <b-row><b-col><div id="map"></div></b-col></b-row>
-      <b-card> <b-row><b-col>개설자정보</b-col></b-row>
-      <b-row><b-col>개설자성명:{{minfo.collabWriter}}</b-col></b-row>
+          <b-row ><b-col><div   id="map"></div></b-col></b-row>
+         
+      <b-card > <b-row><b-col>개설자정보</b-col></b-row>
+      <b-row><b-col >개설자성명:{{minfo.collabWriter}}</b-col></b-row>
       <b-row><b-col>개설자번호:{{minfo.collabPhone}}</b-col></b-row>
       <b-row><b-col>개설자이메일:{{minfo.collabEmail}}</b-col></b-row>
-      
       </b-card>
+       <!-- <b-card v-if="usercheck==false"> <b-row><b-col>개설자정보</b-col></b-row>
+      <b-row><b-col>개설자성명:***</b-col></b-row>
+      <b-row><b-col>개설자번호:***-***-****</b-col></b-row>
+      <b-row><b-col>개설자이메일:*****@******</b-col></b-row>
+      <b-row><small>*로그인을 하시면 개설자 정보를 확인하실 수 있습니다.</small></b-row>
+      </b-card>
+      {{userData}} -->
      
        <b-card title="모집정보">
          <b-card>{{minfo.collabContent}}</b-card>
        </b-card>
-    <b-row v-if="minfo.collabEmail!=userData.memberEmail">
-        <b-col align-self="center"><b-button id="m-btn" @click="apbtn">신청하기</b-button></b-col>
+    <b-row  align-h="around" v-if="minfo.collabEmail!=userData.memberEmail">
+        <b-col ><b-button   id="m-btn" @click="apbtn">신청하기</b-button></b-col><b-col><b-button id="de-btn" @click="debtn">취소하기</b-button></b-col>
     </b-row>
-    <div>{{minfo}}</div>
+    
     <ModalView v-if="showModal" @close="showModal = false">
     <template>
       <div slot="header">
@@ -46,7 +58,7 @@
             <b-form-radio v-model="selected"  name="postion" value="back">백엔드</b-form-radio>
             <b-form-radio v-model="selected"  name="postion" value="front">프론트</b-form-radio>
             <b-form-radio v-model="selected"  name="postion" value="desgin">디자인</b-form-radio>
-            {{selected}}
+       
             </b-form>
           </b-row>
         </b-card>
@@ -60,6 +72,7 @@
     </template>
   </ModalView>
     </b-container>  
+    </div>
     
 </template>
  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5b349346bb95bb8e5b3f00ce10d2072e&libraries=services"></script>
@@ -70,33 +83,40 @@ const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
 import { mapState } from 'vuex'
 import ModalView from '../common/ModalView.vue';
+
 export default {
+  
   components: { ModalView },
   data(){
     return{
     showModal:false,
     selected:'',
+    usercheck:'',
     }
   },
     mounted() {
     window.kakao && window.kakao.maps
       ? this.initMap()
       : this.addKakaoMapScript();
+      
   },
  
   methods: {
+   
     initMap(){
-      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
+       setTimeout(() => {
+         if(this.minfo.address!=null||this.minfo.address!=undefined){
+      let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
 
 // 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+let map = new kakao.maps.Map(mapContainer, mapOption); 
 
 // 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
+let geocoder = new kakao.maps.services.Geocoder();
 
 // 주소로 좌표를 검색합니다
 geocoder.addressSearch(this.minfo.address, function(result, status) {
@@ -104,16 +124,16 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
     // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
         // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
+        let marker = new kakao.maps.Marker({
             map: map,
             position: coords
         });
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
+        let infowindow = new kakao.maps.InfoWindow({
             content: '<div style="width:150px;text-align:center;padding:6px 0;">모임장소</div>'
         });
         infowindow.open(map, marker);
@@ -121,7 +141,8 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
-});    
+}); 
+        } }, 500);  
 
     },
     addKakaoMapScript() {
@@ -133,21 +154,59 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
       document.head.appendChild(script);
       },
     apbtn(){
+       if(this.userData.length==0){
+          alert("로그인후 이용해주세요")
+          return 
+        }
       this.showModal=!this.showModal;
     },
     ndele(){
         this.showModal=!this.showModal;
       },
+      debtn(){
+        let delform=new FormData
+        delform.append("memberSq",this.userData.memberSq)
+        delform.append("collabSq",this.minfo.collabSq)
+        axios.post("http://localhost:8082/itjobgo/meeting/delapplymeeting.do",delform)
+        .then((data)=>{
+          console.log(data)
+          if(data.data>0){
+            alert("삭제 성공")
+          }else {
+            alert("삭제 오류")
+          }
+        })
+      },
       applybtn(value){
+       
         let applyform=new FormData
         applyform.append("memberSq",this.userData.memberSq)
         applyform.append("postion",value)
         applyform.append("collabSq",this.minfo.collabSq)
         applyform.append("writerNo",this.minfo.memberSq)
        axios.post("http://localhost:8082/itjobgo/meeting/applymeeting.do",applyform)
-       .then(()=>{
-         alert("신청완료")
+       .then((data)=>{
+         console.log(data)
+         if(data.data==0){
+                alert("중복된 신청입니다.")
+                 this.selected="";
+                this.showModal=!this.showModal;
+             
+         }else if(data.data==1) {
+            alert("신청완료")
+           this.selected="";
            this.showModal=!this.showModal;
+           }else if(data.data==2){
+            alert("마감 된 포지션입니다.")
+            this.selected="";
+           this.showModal=!this.showModal;
+           }else if(data.data==3){
+             alert("이미 신청하신 모임입니다.")
+            this.selected="";
+           this.showModal=!this.showModal;
+           }
+         
+       
        })
           
         .catch((error)=>
@@ -157,20 +216,43 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
   created() {
     const no=this.$route.params.id
     this.$store.dispatch("FECH_MOBOARDINFO",no)
+  
   },
   computed: {
     ...mapState({
       minfo:state=>state.minfo
     }),
-     ...loadUserState(['userData'])  
+     ...loadUserState(['userData'])  ,
+   
   },
 
 }
 </script>
 
 <style scoped>
+.submenuimage {
+  background-image: url("../../assets/images/computer-2583383_1920.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
+}
 #m-btn{
   background-color: #424874;
+  margin-left:50% ;
+  
+}
+#de-btn{
+  margin-left: 50%;
 }
 .rowbox1{
   font-size: 1.5em;
@@ -181,6 +263,8 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
 .cont{
   border: 1px solid black;
   margin-top:1.5rem;
+  border-radius: 10px;
+  background-color:#f5f5f5 ;
 }
 .layout2{
   margin-top:1.5rem;

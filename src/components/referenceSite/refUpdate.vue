@@ -2,20 +2,22 @@
 <b-container>
 <div class="container">
   <div>
-		<h2 class="st_title">사이트 등록하기</h2>
+		<h2 class="st_title">사이트 수정 및 삭제</h2>
     <div class="info">
           * 참고 사이트 등록은 관리자 승인 후 업로드 됩니다. (작성일 기준 1-2일 소요)
     </div><hr>
-
-    <b-form role="form"  @submit.prevent="enrollref"
-                          @reset="onReset" enctype="multipart/form-data">
+    {{refListView}} ?,{{refAttachment}}
+    
+    <b-form role="form" @submit.prevent="updateForm"
+      enctype="multipart/form-data">
         <b-form-group
             label="사이트명"
             >
           <b-form-input
-            v-model="reftitle"
             type="text"
+            name="refTitle"
             required
+            v-model="refListView.refTitle"
             placeholder="사이트 명을 입력해주세요"
           ></b-form-input>
         </b-form-group>
@@ -25,7 +27,7 @@
             label-for="input-3">
           <b-form-select
             v-model="category"
-            :options="refcategory" 
+            :options="refCategory"
             required
           ></b-form-select>
         </b-form-group>
@@ -35,9 +37,8 @@
             >
           <b-form-input
             id="address"
-            v-model="refaddress"
+            v-model="refListView.refSiteAddr"
             required
-            placeholder="ex) https://www.itjobgo.com"
           ></b-form-input>
         </b-form-group>
 
@@ -48,32 +49,22 @@
             placeholder="사이트 소개 및 정보를 입력해주세요"
             rows="5"
             max-rows="10"
-            v-model="refcontent"
+            v-model="refListView.refContent"
             required
           ></b-form-textarea>
         </b-form-group>
 
-        <b-col
-          cols="12"
-          md="12"
-        >
-        <v-file-input
-          label="대표 이미지를 등록해주세요"
-          filled
-          accept=".gif,.jpg,.png"
-          ref="upfiles"
-          prepend-icon="mdi-camera"
-          v-on:change="handleFile"
-          required
-        >
-        </v-file-input>
-        </b-col>
+      <!-- 첨부파일 -->
+      <b-form-group>
+        <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
+        :placeholder="refAttachment.originalfilename" ></b-form-file> 
+      </b-form-group>
 
       <!-- 등록버튼  -->
       <div class="btn_sr2">
-      <b-button type="submit" id="btn_write2" class="btn-space2">등록하기</b-button>
-      <b-button type="button" id="btn_write2" class="btn-space2" to="/refSite">등록취소</b-button>
+      <b-button id="btn_write2" type="submit" >수정 완료</b-button>
       </div>
+
   </b-form>
 
   </div>
@@ -88,53 +79,75 @@
 
 
 <script>
+import { mapState } from 'vuex';
 import axios from 'axios';
-import { createNamespacedHelpers } from "vuex";
-const { mapState } = createNamespacedHelpers("memberStore");
 
   export default {
     data() {
       return {
           reftitle:"",
           category:null,
-          value: null,
-          refaddress: "https://",
-          refcategory :[
+          refSiteAddr:"",
+          refCategory :[
             { value: null, text: '분류를 선택해주세요' },
             { value: '백엔드', text: '백엔드' },
             { value: '프론트엔드', text: '프론트엔드' },
             { value: '기타', text: '기타' },
           ],
-          refcontent:"",
+          refContent:"",
           files : "",
+
       }
     },
 
-      components:{
-      },
+    created() {
+    const refNo=this.$route.params.id;
+      this.$store.dispatch("FETCH_REF_UPDATE",refNo)
+    },
+
+    components:{
+    },
 
     computed: {
-    ...mapState(['userData'])
-      },
+    ...mapState({
+        //mapState를 통해서 store에 저장된 (객체) data를 가져다 쓸수있다
+        refListView:state=>state.refListView,    
+        refAttachment:state=>state.refAttachment,
+      })
+    },
 
     methods: {
-      enrollref() {
+      updateForm() {
+        //새롭게 수정된 내용이 없다면 원래 객체의 컬럼값을 가져가도록
+        if(!this.refTitle){
+          this.refTitle=this.refListView.refTitle;
+        }
+        if(!this.refContent){
+          this.refContent=this.refListView.refContent;
+        }
+        if(!this.refCategory){
+          this.refCategory=this.refListView.refCategory;
+        }
+        if(!this.refSiteAddr){
+          this.refSiteAddr=this.refListView.refSiteAddr;
+        }
+        if(!this.files){
+          this.files=this.refAttachment.renamedfilename;
+        }
         
         let formData = new FormData();
-        formData.append('boardWriter',this.userData.memberName);
-        formData.append('MemberNum',this.userData.memberSq);
-        formData.append('refTitle',this.reftitle);
+        formData.append('refTitle',this.refTitle);
+        formData.append('refSiteAddr',this.refSiteAddr);
         formData.append('refCategory',this.category);
-        formData.append('refContent',this.refcontent.replace(/(<([^>]+)>)/ig,""));
-        formData.append('refSiteAddr',this.refaddress);
-        formData.append('upfile',this.files);
+        formData.append('refNo',this.$route.params.id);
+        formData.append('refContent',this.refContent.replace(/(<([^>]+)>)/ig,""));
+        formData.append('file',this.files);
         
         for(let key of formData.entries()){
         console.log(`${key}`);
         }
-          console.log(this.category);
 
-      axios.post("http://localhost:8082/itjobgo/ref/insertsite.do",
+      axios.post("http://localhost:8082/itjobgo/ref/updateEnd",
         formData,
         { headers:{
           'Content-Type':'multipart/form-data'
@@ -142,6 +155,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         .catch((error)=>
         console.log(error))
         console.log(formData);
+        //수정 후 게시판 리스트로 이동
         this.$router.push({name:'refSite'});
       },
       
@@ -150,14 +164,6 @@ const { mapState } = createNamespacedHelpers("memberStore");
         this.files=this.$refs.upfiles.$refs.input.files[0];
         console.log(this.files);
         },
-
-      onReset(evt) {
-        evt.preventDefault()
-        this.boardTitle = ''
-        this.category = null
-        this.boardContent=''
-        this.files.name=''
-      }
     }
     
 

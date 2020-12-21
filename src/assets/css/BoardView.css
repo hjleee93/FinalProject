@@ -1,5 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 
+#nameAndDate{
+  /* position: absolute; */
+  position: relative;
+  left:10px;
+  top:0px;
+  margin:-15px;
+}
+
+#profileImage{
+  position:absolute;
+  top:-15px;
+  left:20px;
+  height: 70px;
+  width:70px;
+  border-radius: 70px;
+  border:none;
+}
 #commentUptxt{
   width:800px;
   height:150px;
@@ -40,13 +57,23 @@
 
 }
 
+#link_a{
+  font-weight: bold;
+  background-color: #4e5157;
+  border:none;
+  position: relative;
+  left :-470px;
+  width:100px;
+  height: 50px;
+}
+
 #comment_insert_btn{
   background-color: #424874;
   border:none;
   width:70px;
   height: 50px;
   position: relative;
-  top:155px;
+  top:147px;
   left:-20px;
 }
 
@@ -108,8 +135,15 @@ background-color: #9BA4B4;
 
 #list{
  position: relative;
- left: 500px;
-background-color: #394867;
+  padding-top:10px;
+ left: 460px;
+ height: 50px;
+ width: 80px;
+ align-items: center;
+ font-size: 19px;
+ border:none;
+ font-weight: bold;
+background-color: #4975cc;
 }
 
 
@@ -146,6 +180,8 @@ background-color: #394867;
   /* margin-top: -10px; */
   font-size: 15px;
   margin-top: -27px;
+  font-size:6px;
+  position: relative;
 }
 
 #title{
@@ -153,6 +189,7 @@ background-color: #394867;
   /* border: 1px red solid; */
   font-weight: bolder;
   font-size:18px;
+  margin-bottom: 10px;
 }
 #text-card{
   /* border: 1px solid blue; */
@@ -275,4 +312,28 @@ font-family: 'Barlow Semi Condensed', sans-serif;
 #detailbtn1{
   background-color:  #424874;
   border: 1px  #424874 solid;
+}
+
+#subtitle{
+font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.submenuimage{
+  width: 100%;
+  height:180px;
+  background-color:#F4EEFF;
+  text-align: center;
+  line-height: 180px; 
+}
+.subtitle{
+  font-family: 'Masque';
+  color:#4e5157 ;
+  font-size: 50px;
+}
+#writecontain{
+  margin-bottom: 10%;
+  
+}
+.modalf{
+  display: flex;
+  justify-content: space-around;
 }

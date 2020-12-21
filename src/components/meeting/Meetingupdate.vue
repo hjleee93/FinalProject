@@ -1,132 +1,265 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-     <div class="submenuimage">
-        <p class="subtitle">Meeting</p>
-    </div>
-     <div class="container">
-   
-  </div>
-    <b-container class="main">
-    <form @submit.prevent="enroller"  enctype="multipart/form-data"> 
-    
-      <b-row>
-        <b-col
-          cols="12"
-          md="6"
-        >
-           <label for="title">모임명 </label> <b-form-input id="title" required v-model.lazy="mtitle" placeholder="모임명"></b-form-input>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-card title="개설자정보" >
-    <b-card-text>
-      <label for="name">개설자 이름:</label> <b-form-input id="name" readonly v-model="userData.memberName" placeholder="이름"></b-form-input>
-      </b-card-text>
-     
-      <b-card-text>
-     <label for="email">개설자 이메일:</label> <b-form-input id="email" readonly  v-model="userData.memberEmail" type="email" placeholder="이메일"></b-form-input>
-      </b-card-text>
-    <b-card-text><label for="phone">개설자 전화번호:</label> <b-form-input readonly v-model="userData.memberPhone" type="tel" id="phone" placeholder="번호"></b-form-input></b-card-text>
-  </b-card>
-        </b-col>
-      </b-row>
-       <b-card title="개설내용"> <b-row>
-       
-        <b-col class="d-flex center" cols="4" sm="4">
-          <b-form-group
-      label-cols-sm="4"
-      label-cols-lg="4"
-      label="신청 날짜"
-      label-for="example-datepicker"
-    >
-             <b-form-datepicker id="example-datepicker" required  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="min" v-model.lazy="sdate"  class="mb-3"></b-form-datepicker>
-          </b-form-group>
-        </b-col  > 
-       <b-col class="d-flex" cols="4" sm="4"><b-form-group
-      label-cols-sm="4"
-      label-cols-lg="4"
-      label="마감 날짜"
-      label-for="example-datepicker2"
-    >
-             <b-form-datepicker id="example-datepicker2" required :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="fday" :disabled="disabled" v-model.lazy="fdate" class="mb-3"></b-form-datepicker>
-          </b-form-group></b-col>
-          <b-col class="d-flex center" cols="4" sm="4">
-          <b-form-group
-      label-cols-sm="4"
-      label-cols-lg="4"
-      label="시작 날짜"
-      label-for="example-datepicker3"
-    >
-             <b-form-datepicker id="example-datepicker3" required  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" :min="startday" :disabled="disabled" v-model.lazy="rdate" class="mb-3"></b-form-datepicker>
-          </b-form-group>
-        </b-col  > 
-      </b-row>
-       <b-row>
-         <b-col> <b-form-group class="slabel" label="백엔드" label-for="back"><b-form-spinbutton id="back" v-model.lazy="back" min="1" max="100"/></b-form-group>  </b-col>
-       <b-col> <b-form-group class="slabel" label="프론트" label-for="front"> <b-form-spinbutton id="front" v-model.lazy="front" min="1" max="100"/></b-form-group></b-col>
-       <b-col> <b-form-group class="slabel" label="디자이너" label-for="design"> <b-form-spinbutton id="design" v-model.lazy="desgin" min="1" max="100"/></b-form-group></b-col>
-       </b-row>
-      <b-row>
-     <b-col
-          cols="12"
-          md="12"
-        >
-          <b-form-textarea
-      id="textarea-state"
-      placeholder="간단한 모집정보"
-      rows="3"
-       required
-      v-model.lazy="simcontent"
-    ></b-form-textarea>
-        </b-col>
-      </b-row>
-      <b-row>
-      <b-col
-          cols="12"
-          md="12"
-        >
-         <v-file-input
-    :label="vfile"
-    filled
-  
-    
-   
-    accept=".gif,.jpg,.png"
-    ref="upfiles"
-    prepend-icon="mdi-camera"
-    v-on:change="handleFile"
-  ></v-file-input>
-      </b-col>
-      </b-row></b-card>  
-    <b-card title="상세모집요강"><b-form-textarea
-        id="textarea-auto-height"
-        placeholder="상세모집요강"
-        rows="3"
-         required
-        max-rows="8"
-        v-model.lazy="mcontent"
-      ></b-form-textarea></b-card>
-      <b-row>
-         <b-col><b-card> <v-combobox
-  label="사용할 언어"
-  multiple
-  small-chips
-  
-   v-model.lazy="langs"
-></v-combobox></b-card> </b-col>
-       </b-row>
-       <b-row><b-col>
-    <b-button type="button" @click="address">주소검색</b-button>
-  <modal-view v-if="showModal" @close="showModal = false" @raddress="printaddress">      
-   <h3 slot="header">주소검색하기 <i class="fas fa-times" @click="showModal=false" ></i></h3>
-  </modal-view>
-  
-         <!-- <VueDaumPostcode @complete="result = $event"/> -->
-    
-         </b-col></b-row>
-       <!-- <b-row><b-col><vue-daum-map
+      <div class="submenuimage">
+        <p class="subtitle">모임 수정</p>
+      </div>
+
+      <b-container class="main mt-5">
+        <form @submit.prevent="enroller" enctype="multipart/form-data">
+          <h2 class="text-center my-4">모임 신청서</h2>
+          <small class="required-field"
+            ><span class="star">*</span> 모든 항목을 작성해주세요</small
+          >
+          <div class="meeting-div">
+            <b-row>
+              <b-col md="3" class="meeting-title">
+                <label for="title"
+                  ><span class="star">*</span> 모임 명 / 모임 주제
+                </label>
+              </b-col>
+              <b-col md="9">
+                <b-form-input
+                  id="title"
+                  required
+                  v-model.lazy="mtitle"
+                  placeholder="모임명"
+                ></b-form-input>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col md="3" class="meeting-desc">
+                <label for="title"><span class="star">*</span> 모임 설명</label>
+              </b-col>
+              <b-col md="9">
+                <b-form-textarea
+                  id="textarea-state"
+                  placeholder="모임 목록에 보여질 간단한 정보에 대해서 적어주세요"
+                  rows="3"
+                  required
+                  v-model.lazy="simcontent"
+                ></b-form-textarea
+              ></b-col>
+            </b-row>
+          </div>
+          <!-- 개설자 정보 -->
+
+          <b-card title="개설자정보" class="my-3">
+            <b-row>
+              <b-col md="3">
+                <label for="name" class="left-field">개설자 이름:</label></b-col
+              >
+              <b-col md="9">
+                <b-form-input
+                  id="name"
+                  readonly
+                  v-model="userData.memberName"
+                  placeholder="이름"
+                ></b-form-input>
+              </b-col>
+            </b-row>
+
+            <b-row>
+              <b-col md="3">
+                <label for="email" class="left-field"
+                  >개설자 이메일:</label
+                ></b-col
+              >
+              <b-col md="9"
+                ><b-form-input
+                  id="email"
+                  readonly
+                  v-model="userData.memberEmail"
+                  type="email"
+                  placeholder="이메일"
+                ></b-form-input
+              ></b-col>
+            </b-row>
+            <b-row>
+              <b-col md="3">
+                <label for="phone" class="left-field"
+                  >개설자 전화번호:</label
+                ></b-col
+              >
+              <b-col md="9">
+                <b-form-input
+                  readonly
+                  v-model="userData.memberPhone"
+                  type="tel"
+                  id="phone"
+                  placeholder="번호"
+                ></b-form-input
+              ></b-col>
+            </b-row>
+          </b-card>
+
+          <!-- 개설 상세 내용 -->
+          <b-card title="개설내용" class="my-3">
+            <b-row>
+              <b-col class="d-flex center" cols="4" sm="4">
+                <span class="star">*</span>
+                <b-form-group
+                  label-cols-sm="4"
+                  label-cols-lg="4"
+                  label="신청 날짜"
+                  class="left-field"
+                  label-for="example-datepicker"
+                >
+                  <b-form-datepicker
+                    id="example-datepicker"
+                    aria-required="true"
+                    :date-format-options="{
+                      year: 'numeric',
+                      month: 'numeric',
+                      day: 'numeric',
+                    }"
+                    :min="min"
+                    v-model.lazy="sdate"
+                    class="mb-3"
+                  ></b-form-datepicker>
+                </b-form-group>
+              </b-col>
+              <b-col class="d-flex" cols="4" sm="4"
+                ><span class="star">*</span>
+                <b-form-group
+                  label-cols-sm="4"
+                  label-cols-lg="4"
+                  label="마감 날짜"
+                  class="left-field"
+                  label-for="example-datepicker2"
+                >
+                  <b-form-datepicker
+                    id="example-datepicker2"
+                    aria-required="true"
+                    :date-format-options="{
+                      year: 'numeric',
+                      month: 'numeric',
+                      day: 'numeric',
+                    }"
+                    :min="fday"
+                    :disabled="disabled"
+                    v-model.lazy="fdate"
+                    class="mb-3"
+                  ></b-form-datepicker> </b-form-group
+              ></b-col>
+              <b-col class="d-flex center" cols="4" sm="4">
+                <span class="star">*</span>
+                <b-form-group
+                  label-cols-sm="4"
+                  label-cols-lg="4"
+                  class="left-field"
+                  label="시작 날짜"
+                  label-for="example-datepicker3"
+                >
+                  <b-form-datepicker
+                    id="example-datepicker3"
+                    aria-required="true"
+                    :date-format-options="{
+                      year: 'numeric',
+                      month: 'numeric',
+                      day: 'numeric',
+                    }"
+                    :min="startday"
+                    :disabled="disabled"
+                    v-model.lazy="rdate"
+                    class="mb-3"
+                  ></b-form-datepicker>
+                </b-form-group>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                <span class="star_">*</span
+                ><span class="left-field">백엔드</span>
+                <b-form-group class="slabel" label-for="back"
+                  ><b-form-spinbutton id="back" v-model.lazy="back" min="1" max="100"
+                /></b-form-group>
+              </b-col>
+              <b-col>
+                <span class="star_">*</span
+                ><span class="left-field">프론트</span>
+                <b-form-group class="slabel" label-for="front">
+                  <b-form-spinbutton
+                    id="front"
+                    v-model.lazy="front"
+                    min="1"
+                    max="100"/></b-form-group
+              ></b-col>
+              <b-col>
+                <span class="star_">*</span
+                ><span class="left-field">디자이너</span>
+                <b-form-group class="slabel" label-for="design">
+                  <b-form-spinbutton
+                    id="design"
+                    v-model.lazy="desgin"
+                    min="1"
+                    max="100"/></b-form-group
+              ></b-col>
+            </b-row>
+
+            <b-row>
+              <b-col cols="12" md="12">
+                <v-file-input
+                  
+                  :label="vfile"
+                  filled
+                  
+                  accept=".gif,.jpg,.png"
+                  ref="upfiles"
+                  prepend-icon="mdi-camera"
+                  v-on:change="handleFile"
+                ></v-file-input>
+              </b-col> </b-row
+          ></b-card>
+          <b-card title="상세모집요강">
+            <span class="star te">*</span
+            ><b-form-textarea
+              id="textarea-auto-height"
+              placeholder="상세모집요강"
+              rows="3"
+              required
+              max-rows="8"
+              v-model.lazy="mcontent"
+            ></b-form-textarea>
+            <b-row>
+              <b-col>
+                <span class="star te">*</span
+                ><b-card>
+                  <v-combobox
+                    label="사용할 언어"
+                    multiple
+                    small-chips
+                    v-model.lazy="langs"
+                  ></v-combobox
+                ></b-card>
+              </b-col>
+            </b-row>
+
+            <b-row>
+              <b-col md="1">
+                <span class="star ml-2">*</span>
+                <span class="left-field ml-2 ">주소</span></b-col
+              ><b-col md="9">
+                <b-input required readonly  :placeholder="raddress" v-model="result.address"></b-input
+              ></b-col>
+              <b-col md="2" class="text-center">
+                <b-button type="button" @click="address">주소검색</b-button>
+                <modal-view
+                  v-if="showModal"
+                  @close="showModal = false"
+                  @raddress="printaddress"
+                >
+                  <h3 slot="header">
+                    주소검색하기
+                    <i class="fas fa-times" @click="showModal = false"></i>
+                  </h3>
+                </modal-view>
+
+                <!-- <VueDaumPostcode @complete="result = $event"/> -->
+              </b-col>
+            </b-row></b-card
+          >
+          <!-- <b-row><b-col><vue-daum-map
       :appKey="appKey"
       :center.sync="center"
       :level.sync="level"
@@ -137,25 +270,15 @@
     
       style="width:500px;height:400px;"/> </b-col>
       </b-row> -->
-    <b-row><b-col>  <b-input  readonly  :placeholder="raddress" v-model="result.address"></b-input></b-col></b-row>
-    <b-row><b-col>  <b-button  id="s-btn" type="submit">개설완료</b-button></b-col></b-row>
-  </form>
-  </b-container>
-  </div>
-  <div>{{this.$route.params.id}}</div>
-  {{mtitle+
-sdate+
-fdate+
-rdate+
-simcontent+
-mcontent+
-back+
-front+
-desgin+
-langs+
-vfile+
-rfile+
-raddress}}
+
+          <b-row
+            ><b-col class="text-center">
+              <b-button id="s-btn" type="submit">수정하기</b-button></b-col
+            ></b-row
+          >
+        </form>
+      </b-container>
+    </div>
   </div>
 </template>
 
@@ -396,31 +519,76 @@ export default {
 </script>
 
 <style scoped>
-.slabel{
-  text-align: center;
+* {
+  font-family: "Noto Sans KR", sans-serif;
 }
-.container{
+.slabel {
+  text-align: center;
+  margin-top: 10px;
+}
+.container {
   max-height: auto;
 }
-#s-btn{
+#s-btn {
   background-color: #424874;
 }
-.main{
-  border:1px solid black
+.main {
+  border: 1px solid #4e515763;
 }
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
-}
-.submenuimage{
-  width: 100%;
-  height:180px;
-  background-color:#F4EEFF;
+.submenuimage {
+  background-image: url("../../assets/images/computer-2583383_1920.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
   text-align: center;
-  line-height: 180px; 
+  line-height: 180px;
 }
-.subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
   font-size: 50px;
+}
+
+/* css수정 부분 */
+.meeting-div {
+  clear: both;
+}
+.left-field {
+  font-size: 20px;
+}
+.meeting-desc {
+  text-align: center;
+  padding-top: 35px;
+  font-size: 20px;
+}
+.meeting-title {
+  text-align: center;
+  padding-top: 20px;
+  font-size: 20px;
+}
+#title {
+  height: 50px;
+}
+.card-title {
+  text-align: center;
+}
+#textarea-state {
+  resize: none;
+}
+.required-field {
+  float: right;
+  color: #ff4646;
+}
+.star {
+  color: #ff4646;
+}
+.star_ {
+  color: #ff4646;
+  margin-left: 125px;
+  margin-right: 5px;
+  margin-bottom: 15px;
 }
 </style>

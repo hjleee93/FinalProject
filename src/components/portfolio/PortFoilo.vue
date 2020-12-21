@@ -37,6 +37,7 @@
           </v-data-table>
         </v-card>
         </div>
+       
        </div>
       </div>
  
@@ -82,7 +83,7 @@ import { mapState } from 'vuex';
     methods: {
       handleClick(value){
      
-        this.$router.push({name:'Portinfo',params:{id:value.pboardNo}})
+        this.$router.push({name:'Portinfo',params:{id:value.pboardNo,number:value.pboardId}})
       },
      
     },

@@ -8,7 +8,7 @@
              <p class="subtitle">Reference</p>
           </div>
       </b-row>
-          
+            
         <div class="container">          
 
             <!-- 탭 -->   
@@ -25,8 +25,6 @@
 
           <div>
             <h4 class="sub-header-ref">분야별 웹 사이트</h4>
-            <v-btn v-if="userData.memberSq!=null && userData.memberEmail==='admin@kh.com'" 
-                                       to="/refSiteStatus" exact id="st_write_ref2">승인 대기 [0]</v-btn>
             <v-btn v-if="userData.memberSq!=null" to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
           </div>
     <div class="overflow-auto">
@@ -36,14 +34,12 @@
     <!-- /.row -->
     <div class="row card-align">
     <!-- card -->
-
-      {{refList}}<br>테스트>>>>>>[0] {{refList[0].status}} [1] {{refList[1].status}} [2] {{refList[2].status}}
-
+ 
       <v-card
           class="mx-auto"
           max-width="330"
-          v-for="ref in refList" :key="ref.id" 
-          v-show="ref.status==='Y'"
+          v-for="ref in refList" :key="ref.id"
+          v-show="ref.status==='Y' && ref.refCategory.includes('프론트엔드')"
           @click="cardclick(ref)"
         >
         <!-- 이미지 -->
@@ -77,9 +73,7 @@
         </v-card-actions>
 
       </v-card>
-
-
-
+      
       </div>
 
           <!-- search bar -->
@@ -119,7 +113,7 @@
     },
     computed:{
       ...mapState({
-      refList:state=>state.refList,
+      refList:state=>state.refList
      }),
       ...loadUserState(['userData'])
     },
@@ -127,6 +121,7 @@
        this.$store.dispatch("FECH_REF_LIST")
     },
     components:{
+      
     },
 
     //메소드
@@ -200,15 +195,6 @@
   position: relative;
   top: 5px;
   background-color: #424874;
-  border:none;
-  color:white;
-}
-#st_write_ref2{
-  margin-right: 1%;
-  left:990px;
-  position: relative;
-  top: 5px;
-  background-color: #df2323;
   border:none;
   color:white;
 }

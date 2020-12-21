@@ -10,7 +10,7 @@
         color="grey darken-3"
         >
         <v-tab to="/meetingapply"><b>신청자승인</b></v-tab>
-          <v-tab  :to="{name:'approve',params:{'memberSq':userData.memberSq}}"><b>신청한모임</b></v-tab>
+          <v-tab  :to="{name:'approve',params:{'memberSq':userData.memberSq}}"><b>참여한모임</b></v-tab>
           <v-tab :to="{name:'mkmeeting',params:{'memberSq':userData.memberSq}}"><b>생성한모임</b></v-tab>
           <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
         </v-tabs>
@@ -27,11 +27,11 @@
             item-key="name"
           >
           <template v-slot:item="props">
-              <tr>
+              <tr  >
                 <td class="text-xs-right">{{props.item.collabSq }}</td>
-                <td class="text-xs-right">{{props.item.title }}</td>
+                <td class="text-xs-right" @click="movemeeting(props.item.collabSq)">{{props.item.title }}</td>
                 <td class="text-xs-right">{{   new Date(props.item.mdate).toLocaleDateString() }}</td>
-               <td class="text-xs-right"><b-button @click="update(props.item)">수정</b-button><b-button @click="deltemet(props.item)">삭제</b-button></td>
+               <td class="text-xs-right"><b-button @click="update(props.item)">수정</b-button><b-button @click="deltemet(props.item,props.index)">삭제</b-button></td>
               </tr>
            </template>
           </v-data-table>
@@ -39,7 +39,7 @@
 
       
   </b-row>
- {{mklist}}
+
   </div>
 </template>
 
@@ -85,13 +85,16 @@ export default {
          
     }, 
     methods: {
-      deltemet(item){
+      movemeeting(item){
+         this.$router.push({name:"meetinginfo",params:{id:item}})
+      },
+      deltemet(item,index){
+       
        let check=confirm("정말삭제하시겠습니까?")
        if(check==true){
          const no=item.collabSq
         this.$store.dispatch("FECH_MEETINGDEL",no)
         .then(()=>{
-          const index=this.mklist.indexOf((x)=>x.no===no);
           this.mklist.splice(index,1);
         })
        }else return 

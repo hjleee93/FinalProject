@@ -8,8 +8,7 @@
       <div>
           <v-tabs centered color="grey darken-3">
               <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
-              <v-tab active to="/resume/resume">입사지원서 보기</v-tab>
-              <v-tab to="/resume/updateresume">입사지원서 수정</v-tab>
+              <v-tab active to="/resume/resumeList">입사지원서 보기</v-tab>
               <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
               <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
               <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
@@ -38,14 +37,14 @@
           >
 
             <template v-slot:item="props">
-              <tr @click="handleClick(props.item.resumeNo)">
-                <td class="text-xs-right">{{props.item.resumelistNo }}</td>
-                <td class="text-xs-right">{{props.item.resumelistTitle }}</td>
-                <td class="text-xs-right">{{props.item.resumelistWriter }}</td>
-                <td class="text-xs-right">{{props.item.resumelistAttachment }}</td>
-                <td class="text-xs-right">{{props.item.resumelistStatus }}</td>
-                <td class="text-xs-right">{{props.item.resumelistCount }}</td>
-                <td class="text-xs-right">{{formatDate(props.item.resumelistDate)}}</td>
+              <tr>
+                <td class="text-xs-right" @click="handleClick(props.item.resumeNo)">{{props.item.resumelistNo }}</td>
+                <td class="text-xs-right" @click="handleClick(props.item.resumeNo)">{{props.item.resumelistTitle }}</td>
+                <td class="text-xs-right" @click="handleClick(props.item.resumeNo)">{{props.item.resumelistWriter }}</td>
+                <td class="text-xs-right" @click="handleClick(props.item.resumeNo)">{{props.item.resumelistAttachment }}</td>
+                <td class="text-xs-right" @click="handleClick(props.item.resumeNo)">{{formatDate(props.item.resumelistDate)}}</td>
+                <td class="text-xs-right"><b-button pill variant="outline-success" @click="updateResume(props.item.resumeNo)">수정</b-button></td>
+                <td class="text-xs-right"><b-button pill variant="outline-danger" @click="deleteResume(props.item.resumeNo)">삭제</b-button></td>
               </tr>
            </template>
 
@@ -60,6 +59,7 @@
 </template>
 
 <script>
+//import axios from "axios";
 import { mapState } from 'vuex';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
@@ -80,9 +80,9 @@ import { createNamespacedHelpers } from "vuex";
           { text: '제목', value: 'resumelistTitle'},
           { text: '작성자', value: 'resumelistWriter'},
           { text: '첨부파일', value: 'resumelistAttachment'},
-          { text: '답변', value: 'resumelistStatus' },
-          { text: '조회수', value: 'resumelistCount' },
           { text: '작성일', value: 'resumelistDate' },
+          { text: '', value: '' },
+          { text: '', value: '' },
         ],
         // spring에서 데이터를 받을 변수 배열형태를 선언한다
 
@@ -101,6 +101,17 @@ import { createNamespacedHelpers } from "vuex";
      
         this.$router.push({name:'resume',params:{id:value}})
         console.log(value)
+      },
+
+      updateResume(value){
+        this.$router.push({name:'updateresume',params:{id:value}})
+        console.log(value)
+      },
+
+      deleteResume(value){
+        alert("이력서를 삭제하시겠습니까?");
+        const resumeNo=value;
+        this.$store.dispatch("FETCH_RESUME_DELETE", resumeNo);
       },
 
       formatDate(value){
