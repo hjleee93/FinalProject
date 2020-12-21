@@ -15,6 +15,7 @@
             <v-tabs
             centered
             color="grey darken-3"
+            id="tab_font"
             >
               <v-tab to='/refSite'><b>ALL</b></v-tab>
               <v-tab to='/refSitefront'><b>FrontEnd</b></v-tab>
@@ -24,14 +25,13 @@
             </v-tabs>
 
           <div>
-            <h4 class="sub-header-ref">분야별 웹 사이트</h4>
+            <!-- <h4 id="sub-header-ref">Reference Site <small><br>분야별 웹 사이트</small></h4> -->
             <v-btn v-if="userData.memberSq!=null" to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
             <v-btn v-if="userData.memberSq!=null && userData.memberEmail==='admin@kh.com'" 
                                        to="/refSiteStatus" exact id="st_write_ref2">승인 대기 [{{refCount}}]</v-btn>
                                         
           </div>
     <div class="overflow-auto">
-
 
     <div class="site_ect">
     <!-- /.row -->
@@ -177,8 +177,13 @@
 
 
 <style scoped >
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@600&display=swap");
+
 * {
-   font-family: 'Nanum Gothic', sans-serif;
+  font-family: "Nanum Gothic", sans-serif;
+}
+#tab_font{
+  margin-bottom:5%;
 }
 .site_ect{
   margin-bottom:20px;
@@ -189,12 +194,6 @@
 .st_search{
   position:absolute;
   left:67%;
-}
-.sub-header-ref{
-  position: relative;
-  left:18px;
-  top:70px;
-  margin-bottom: 3%;
 }
 #st_write_ref{
   left:980px;

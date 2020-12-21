@@ -9,12 +9,13 @@
           </div>
       </b-row>
             
-        <div class="container">          
+        <div class="container">
 
             <!-- 탭 -->   
             <v-tabs
             centered
             color="grey darken-3"
+            id="tab_font"
             >
               <v-tab to='/refSite'><b>ALL</b></v-tab>
               <v-tab to='/refSitefront'><b>FrontEnd</b></v-tab>
@@ -24,7 +25,7 @@
             </v-tabs>
 
  <!-- 서브제목 -->
-      <h4 class="sub-header">사이트 미승인 리스트</h4>
+      <h4 class="sub-header">미승인 대기 리스트</h4>
     <div class="overflow">
 
          <!-- 테이블 -->
@@ -53,7 +54,7 @@
                   <!-- <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refNo}}</td>  -->
                   <td class="text-xs-right">{{props.item.refNo}}</td>        
                   <td class="text-xs-right">{{props.item.refCategory}}</td>
-                  <td class="text-xs-right">{{props.item.refTitle}} * {{props.item.refSiteAddr}}</td>
+                  <td class="text-xs-right">{{props.item.refTitle}} _ {{props.item.refSiteAddr}}</td>
                   <td class="text-xs-right">
                     <v-btn class="mx-2 answerbtn3" dark small>승인대기</v-btn></td>
                   <td class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
@@ -133,6 +134,9 @@
 * {
    font-family: 'Nanum Gothic', sans-serif;
 }
+#tab_font{
+  margin-bottom:5%;
+}
 .overflow .v-card{
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
@@ -147,14 +151,11 @@
   position:absolute;
   left:67%;
 }
-.sub-header-ref{
-  position: relative;
-  left:18px;
-  top:70px;
-  margin-bottom: 5%;
-}
 .sub-header{
-  margin-top: 5%;
+  color:rgb(83, 83, 83);
+  margin-top: 6%;
+  border-left: 15px dotted rgb(104, 104, 104);
+  padding-left: 20px;
 }
 #st_write_ref{
   left:990px;
