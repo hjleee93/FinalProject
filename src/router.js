@@ -579,12 +579,14 @@ export default new Router({
           {
                path: '/qnaWrite',
                name: 'qnaWrite',
-               component: QnaWrite
+               component: QnaWrite,
+               beforeEnter: LoginDeny()
           },
           {
                path: '/refWrite',
                name: 'refWrite',
-               component: RefWrite
+               component: RefWrite,
+               beforeEnter: LoginDeny()
           },
           {
                path: '/refSite',
@@ -609,7 +611,8 @@ export default new Router({
           {
                path: '/refUpdate/:id',
                name: 'refUpdate',
-               component: RefUpdate
+               component: RefUpdate,
+               beforeEnter: LoginDeny()
           },
           {
                path: '/refSiteView/:id',
@@ -634,7 +637,8 @@ export default new Router({
           {
                path: '/qnaModify/:id',
                name: 'qnaModify',
-               component: QnaModify
+               component: QnaModify,
+               beforeEnter: LoginDeny()
           },
           {
                path: '/qnaBoardback',
@@ -657,47 +661,56 @@ export default new Router({
           {
                path: '/resume/BlindResume/:id',
                name: 'BlindResume',
-               component: BlindResume
+               component: BlindResume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/LineResume/:id',
                name: 'LineResume',
-               component: LineResume
+               component: LineResume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/DesignResume/:id',
                name: 'DesignResume',
-               component: DesignResume
+               component: DesignResume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/insertresume',
                name: 'insertresume',
-               component: insertresume
+               component: insertresume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/updateresume/:id',
                name: 'updateresume',
-               component: updateresume
+               component: updateresume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/consultresume',
                name: 'consultresume',
-               component: consultresume
+               component: consultresume,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/consult',
                name: 'consult',
-               component: consult
+               component: consult,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/consultresumeenroll',
                name: 'consultresumeenroll',
-               component: consultresumeenroll
+               component: consultresumeenroll,
+               beforeEnter: LoginAuth(),
           },
           {
                path: '/resume/resumeList',
                name: 'resumeList',
-               component: resumeList
+               component: resumeList,
+               beforeEnter: LoginAuth(),
           },
 
      ]
