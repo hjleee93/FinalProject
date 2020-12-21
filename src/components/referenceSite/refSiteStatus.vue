@@ -54,7 +54,7 @@
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refNo}}</td>         
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refCategory}}</td>
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refTitle}}</td>
-                  <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refContent}}</td>
+                  <!-- <td v-if="props.item.status.includes('N')" class="text-xs-right">{{props.item.refContent}}</td> -->
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">
                     <v-btn class="mx-2 answerbtn3" dark small>승인대기</v-btn></td>
                   <td v-if="props.item.status.includes('N')" class="text-xs-right">{{formatDate(props.item.qnaDate)}}</td>
@@ -123,7 +123,7 @@
           },
           { text: '분류', value: 'refCategory' },     
           { text: '사이트 명', value: 'refTitle' },
-          { text: '내용', value: 'refContent' },
+          // { text: '내용', value: 'refContent' },
           { text: '승인여부', value: 'status' },
           { text: '작성일', value: 'refDate' },
 
