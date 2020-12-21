@@ -203,43 +203,43 @@ const MyPage = () => {
 }
 
 const JobInfoDtl = () => {
-     return import('./components/jobInfo/jobInfoDtl.vue')
+     return import('./components/jobInfo/JobInfoDtl.vue')
 }
 
 const FoundPassword = () => {
-     return import('./components/member/foundPassword.vue')
+     return import('./components/member/FoundPassword.vue')
 }
 
 const FoundEmail = () => {
-     return import('./components/member/foundEmail.vue')
+     return import('./components/member/FoundEmail.vue')
 }
 
 
 const JobSearchDtl = () => {
-     return import('./components/jobInfo/jobSearchDtl.vue')
+     return import('./components/jobInfo/JobSearchDtl.vue')
 }
 
 const ChgMemberInfo = () => {
-     return import('./components/member/chgMemberInfo.vue')
+     return import('./components/member/ChgMemberInfo.vue')
 }
 
 const ChgPwdInfo = () => {
-     return import('./components/member/chgPwdInfo.vue')
+     return import('./components/member/ChgPwdInfo.vue')
 }
 const DeleteMember = () => {
-     return import('./components/member/deleteMember.vue')
+     return import('./components/member/DeleteMember.vue')
 }
 const LoginCallback = () => {
-     return import('./components/member/loginCallback.vue')
+     return import('./components/member/LoginCallback.vue')
 }
 const NaverLogin = () => {
-     return import('./components/member/naverLogin.vue')
+     return import('./components/member/NaverLogin.vue')
 }
 const KakaoCallbackLogin = () => {
-     return import('./components/member/kakaoCallbackLogin.vue')
+     return import('./components/member/KakaoCallbackLogin.vue')
 }
 const AdminPage = () => {
-     return import('./components/member/adminPage.vue')
+     return import('./components/member/AdminPage.vue')
 }
 
 
@@ -331,22 +331,22 @@ export default new Router({
 
                          return next();
                     }
-               
+
                     Vue.swal({
                          text: "로그인 후 이용해주세요.",
                          icon: "error",
                     });
                     next('/login')
-                    const no =localStorage.getItem("vuex")
-                    const obb=JSON.parse(no);
-                   const mno=obb.userData.memberSq
-                  const pno=to.params.number
-               //    console.log(`mno:${mno}pno:${pno}`)
-                  const mck= (mno,pno)=> mno===pno ;
-               //    console.log(mck(mno,pno));
+                    const no = localStorage.getItem("vuex")
+                    const obb = JSON.parse(no);
+                    const mno = obb.userData.memberSq
+                    const pno = to.params.number
+                    //    console.log(`mno:${mno}pno:${pno}`)
+                    const mck = (mno, pno) => mno === pno;
+                    //    console.log(mck(mno,pno));
                     const level = localStorage.vuex.includes('"memberLevel":"2"')
                     console.log(level)
-                    if (level == true || mck(mno,pno)==true) {
+                    if (level == true || mck(mno, pno) == true) {
                          //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
                          next();
                     } else {
@@ -369,7 +369,7 @@ export default new Router({
                path: '/infoList',
                name: 'InfoList',
                component: InfoList,
-             
+
           },
           {
                path: '/infoDetail/:id',
@@ -404,7 +404,7 @@ export default new Router({
                path: '/communityBoardForm',
                name: 'CommunityBoardForm',
                component: CommunityBoardForm,
-                beforeEnter: LoginDeny()
+               beforeEnter: LoginDeny()
           },
 
           {
@@ -417,7 +417,7 @@ export default new Router({
                path: '/itNewsForm',
                name: 'ItNewsForm',
                component: ItNewsForm,
-                beforeEnter: LoginDeny()
+               beforeEnter: LoginDeny()
           },
 
           {
@@ -470,7 +470,7 @@ export default new Router({
                path: '/communityBoardUpdate/:id',
                name: 'CommunityBoardUpdate',
                component: CommunityBoardUpdate,
-                beforeEnter: LoginDeny()
+               beforeEnter: LoginDeny()
           },
 
           //현정
