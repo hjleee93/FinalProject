@@ -23,6 +23,7 @@ import {
      fetchApproveList,
      fetchmklist,
      fetchmeetingdel,
+     fetchapprovecount,
 
 
      //주은
@@ -120,6 +121,7 @@ export default new Vuex.Store({
           apply: [],
           approvelist: [],
           mklist: [],
+          acount:[],
 
 
 
@@ -239,12 +241,17 @@ export default new Vuex.Store({
                     })
 
           },
-          FECH_MOBOARDINFO({ commit }, no) {
-               fetchMeetinginfo(no)
-                    .then(({ data }) => commit("SET_MINFO", data))
-                    .catch(({ error }) => {
-                         console.log(error);
-                    })
+          async FECH_MOBOARDINFO({ commit }, no) {
+              const response=await fetchMeetinginfo(no)
+               commit("SET_MINFO",response.data)
+               return response;
+                   
+          },
+         async FECH_APPLYCOUNT({commit},no){
+              const response=await fetchapprovecount(no)
+              commit("SET_COUNT",response.data)
+              return response;
+
           },
 
           async FECH_MEETINGAPPLY({ commit }, email) {
@@ -652,6 +659,9 @@ export default new Vuex.Store({
           },
           SET_MKLIST(state, data) {
                state.mklist = data;
+          },
+          SET_COUNT(state,data){
+               state.acount=data;
           },
 
           //주은
