@@ -5,7 +5,7 @@
       </div>
 
   <b-container class="cont">
-    
+   
     <b-row  class="justify-content-md-center"><h1>{{minfo.collabTitle}}</h1></b-row>
     <b-row>
       <b-col>
@@ -20,23 +20,29 @@
            <b-row><div  class="f-box"> 장소:{{minfo.address}}</div></b-row>
            <b-row><div  class="f-box"> 개발언어:{{minfo.collabLang}}</div></b-row>
            </b-card>
-           
            </b-col>
            </b-row>
            <b-row><b-col>찾아오시는 길</b-col></b-row>
           <b-row ><b-col><div   id="map"></div></b-col></b-row>
-      <b-card> <b-row><b-col>개설자정보</b-col></b-row>
-      <b-row><b-col>개설자성명:{{minfo.collabWriter}}</b-col></b-row>
+         
+      <b-card > <b-row><b-col>개설자정보</b-col></b-row>
+      <b-row><b-col >개설자성명:{{minfo.collabWriter}}</b-col></b-row>
       <b-row><b-col>개설자번호:{{minfo.collabPhone}}</b-col></b-row>
       <b-row><b-col>개설자이메일:{{minfo.collabEmail}}</b-col></b-row>
-   
       </b-card>
+       <!-- <b-card v-if="usercheck==false"> <b-row><b-col>개설자정보</b-col></b-row>
+      <b-row><b-col>개설자성명:***</b-col></b-row>
+      <b-row><b-col>개설자번호:***-***-****</b-col></b-row>
+      <b-row><b-col>개설자이메일:*****@******</b-col></b-row>
+      <b-row><small>*로그인을 하시면 개설자 정보를 확인하실 수 있습니다.</small></b-row>
+      </b-card>
+      {{userData}} -->
      
        <b-card title="모집정보">
          <b-card>{{minfo.collabContent}}</b-card>
        </b-card>
-    <b-row v-if="minfo.collabEmail!=userData.memberEmail">
-        <b-col align-self="center"><b-button  id="m-btn" @click="apbtn">신청하기</b-button><b-button @click="debtn">취소하기</b-button></b-col>
+    <b-row  align-h="around" v-if="minfo.collabEmail!=userData.memberEmail">
+        <b-col ><b-button   id="m-btn" @click="apbtn">신청하기</b-button></b-col><b-col><b-button id="de-btn" @click="debtn">취소하기</b-button></b-col>
     </b-row>
     
     <ModalView v-if="showModal" @close="showModal = false">
@@ -77,22 +83,26 @@ const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
 import { mapState } from 'vuex'
 import ModalView from '../common/ModalView.vue';
+
 export default {
+  
   components: { ModalView },
   data(){
     return{
     showModal:false,
     selected:'',
-   
+    usercheck:'',
     }
   },
     mounted() {
     window.kakao && window.kakao.maps
       ? this.initMap()
       : this.addKakaoMapScript();
+      
   },
  
   methods: {
+   
     initMap(){
        setTimeout(() => {
          if(this.minfo.address!=null||this.minfo.address!=undefined){
@@ -206,12 +216,14 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
   created() {
     const no=this.$route.params.id
     this.$store.dispatch("FECH_MOBOARDINFO",no)
+  
   },
   computed: {
     ...mapState({
       minfo:state=>state.minfo
     }),
-     ...loadUserState(['userData'])  
+     ...loadUserState(['userData'])  ,
+   
   },
 
 }
@@ -236,6 +248,11 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
 }
 #m-btn{
   background-color: #424874;
+  margin-left:50% ;
+  
+}
+#de-btn{
+  margin-left: 50%;
 }
 .rowbox1{
   font-size: 1.5em;
@@ -246,6 +263,8 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
 .cont{
   border: 1px solid black;
   margin-top:1.5rem;
+  border-radius: 10px;
+  background-color:#f5f5f5 ;
 }
 .layout2{
   margin-top:1.5rem;
