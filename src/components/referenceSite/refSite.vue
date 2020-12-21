@@ -25,9 +25,10 @@
 
           <div>
             <h4 class="sub-header-ref">분야별 웹 사이트</h4>
-            <v-btn v-if="userData.memberSq!=null && userData.memberEmail==='admin@kh.com'" 
-                                       to="/refSiteStatus" exact id="st_write_ref2">승인 대기 [0]</v-btn>
             <v-btn v-if="userData.memberSq!=null" to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
+            <v-btn v-if="userData.memberSq!=null && userData.memberEmail==='admin@kh.com'" 
+                                       to="/refSiteStatus" exact id="st_write_ref2">승인 대기 [{{refCount}}]</v-btn>
+                                        
           </div>
     <div class="overflow-auto">
 
@@ -37,7 +38,7 @@
     <div class="row card-align">
     <!-- card -->
 
-      {{refList}}<br>테스트>>>>>>[0] {{refList[0].status}} [1] {{refList[1].status}} [2] {{refList[2].status}}
+      <!-- {{refList}}<br>테스트>>>>>>[0] {{refList[0].status}} [1] {{refList[1].status}} [2] {{refList[2].status}} -->
 
       <v-card
           class="mx-auto"
@@ -78,15 +79,13 @@
 
       </v-card>
 
-
-
       </div>
 
           <!-- search bar -->
           <!-- <div class="search-align">
           <b-navbar-nav class="ml-auto st_search">
             <b-nav-form>
-              <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+              <b-form-input size="sm" class="mr-sm-2" placeholder="검색어를 입력하세요."></b-form-input>
               <b-button size="sm" class="my-2 my-sm-0" type="submit" id=searchbtn>Search</b-button>
             </b-nav-form>
           </b-navbar-nav>
@@ -120,11 +119,13 @@
     computed:{
       ...mapState({
       refList:state=>state.refList,
+      refCount:state=>state.refCount,
      }),
       ...loadUserState(['userData'])
     },
     created() {
        this.$store.dispatch("FECH_REF_LIST")
+       this.$store.dispatch("FETCH_REF_COUNT")
     },
     components:{
     },
@@ -196,7 +197,7 @@
   margin-bottom: 3%;
 }
 #st_write_ref{
-  left:990px;
+  left:980px;
   position: relative;
   top: 5px;
   background-color: #424874;
@@ -204,11 +205,10 @@
   color:white;
 }
 #st_write_ref2{
-  margin-right: 1%;
-  left:990px;
+  left: 760px;
   position: relative;
   top: 5px;
-  background-color: #df2323;
+  background-color:  #df433e;
   border:none;
   color:white;
 }

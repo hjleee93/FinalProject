@@ -197,6 +197,8 @@ export default {
 
             //댓글등록
             comment(){
+                //새로고침 1초컷
+                setTimeout(() => {
                 let formData2=new FormData(); 
                   formData2.append('qboardNo',this.qnaboard2.qboardNo);
                   formData2.append('qbCommentContent',this.qbcomment);
@@ -210,7 +212,7 @@ export default {
                 console.log(data)
                 this.qbcomment="",
                 this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
-                
+                  }, 1000)
             })
                 
             .catch((error)=>

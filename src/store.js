@@ -63,6 +63,7 @@ import {
      fetchrefListDelete,
      fetchrefListView,
      fetchrefListUpdate,
+     fetchrefCount,
 
      //민지   
      fetchInfoList,
@@ -154,6 +155,8 @@ export default new Vuex.Store({
           refList:[],
           refListView:[],
           refAttachment:[],
+          refCount:[],
+          
           
 
           //민지
@@ -533,6 +536,12 @@ export default new Vuex.Store({
                     .then(({ data }) => commit("SET_REF_UPDATE", data))
                     .catch(({ error }) => console.log(error))
           },
+          // REF SITE 글 작성 카운트
+          FETCH_REF_COUNT({ commit }) {
+               fetchrefCount()
+                    .then(({ data }) => commit("SET_REF_COUNT", data))
+                    .catch(({ error }) => console.log(error))
+          },
 
 
 
@@ -776,6 +785,10 @@ export default new Vuex.Store({
           //reference site 수정(첨부파일 불러오기)
           SET_REF_UPDATE(state, data) {
                state.refAttachment = data;
+          },
+          //글작성 카운트
+          SET_REF_COUNT(state, data) {
+               state.refCount = data;
           },
 
 
