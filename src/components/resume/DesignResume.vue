@@ -6,7 +6,7 @@
 -->
   <div class="Design_resume ">
     <div class="submenuimage noprint">
-      <p class="subtitle">resume</p>
+      <p class="subtitle">RESUME</p>
     </div>
     <div class="noprint">
       <v-tabs centered color="grey darken-3">
@@ -40,7 +40,8 @@
         <!-- <b-nav-item><router-link :to="{name: 'BlindResume', params: {id: resume.resumeNo }}">블라인드 이력서</router-link></b-nav-item> -->
       </b-nav>
     </div>
-    <b-container>
+    <b-container class="text-center noprint">
+      기본 이력서를 바탕으로 제작된 디자인 이력서 입니다.
       <b-button @click="printResume" class="print noprint">인쇄</b-button>
     </b-container>
 
@@ -63,97 +64,71 @@
           </div>
 
           <b-card title="CONTACT ME" class="person_info ">
-            <div class="text-center contact my-2">
+            <div class=" contact my-2">
               <img
                 class="person_images text-center"
                 src="../../assets/images/phone.png"
                 fluid
                 alt="Responsive image"
               />
-              <input type="tel" v-model="resume.telephone" />
+              {{ resume.telephone }}
             </div>
-            <div class="text-center contact my-2">
+            <div class="contact my-2">
               <img
                 class="person_images"
                 src="../../assets/images/home.png"
                 fluid
                 alt="Responsive image"
               />
-              <input type="text" v-model="resume.rphone" />
+              {{ userData.memberAddr }} {{ userData.memberAddrDtl }}
             </div>
-            <div class="text-center contact my-2">
+            <div class="contact my-2">
               <img
                 class="person_images"
                 src="../../assets/images/email.png"
                 fluid
                 alt="Responsive image"
               />
-              <input type="email" v-model="resume.remail" />
+              {{ resume.remail }}
             </div>
           </b-card>
 
-          <b-card title="학력사항" class="person_info">
+          <b-card title="EDUCATION" class="person_info">
             <table class="edu_table">
+              <!-- 고등학교 -->
               <tr>
+                <td class="school-name">{{ resume.schoolName2 }}</td>
+
+                <td class="education_div">
+                  {{ formatDate(resume.schoolStartDate2) }}~{{
+                    formatDate(resume.schoolFinishDate2)
+                  }}
+                </td>
+              </tr>
+              <!-- 중학교 -->
+              <tr>
+                <td class="school-name">{{ resume.schoolName1 }}</td>
+
                 <td class="education_div">
                   {{ formatDate(resume.schoolStartDate1) }}~{{
                     formatDate(resume.schoolFinishDate1)
                   }}
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <input type="text" placeholder="학교명" /><input
-                    type="text"
-                    placeholder="전공선택"
-                    v-model="resume.major1"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <b-form-select
-                    class="select_school"
-                    v-model="resume.education1"
-                  >
-                    <b-form-select-option value="graduation"
-                      >졸업</b-form-select-option
-                    >
-                    <b-form-select-option value="prograduation"
-                      >졸업예정</b-form-select-option
-                    >
-                    <b-form-select-option value="student"
-                      >재학</b-form-select-option
-                    >
-                    <b-form-select-option value="stopout"
-                      >휴학</b-form-select-option
-                    >
-                    <b-form-select-option value="leaveschool"
-                      >중퇴</b-form-select-option
-                    >
-                    <b-form-select-option value="qualificationExam"
-                      >검정고시</b-form-select-option
-                    >
-                  </b-form-select>
-                </td>
-              </tr>
             </table>
           </b-card>
 
-          <b-card title="외국어능력" class="person_info">
+          <b-card title="LANGUAGE" class="person_info">
             <table class="languages_table">
-              <tr>
-                <td><strong>외국어</strong></td>
-                <td><strong>수준</strong></td>
-              </tr>
               <tr>
                 <td><input type="text" v-model="resume.languageName" /></td>
                 <td>
                   <input
                     type="text"
-                    class="languages_level"
+                    class="languages_level text-center"
                     v-model="resume.languageLevel"
                   />
+                  - <input v-model="resume.languageScore" />
                 </td>
               </tr>
             </table>
@@ -161,159 +136,134 @@
         </b-col>
 
         <b-col cols="7">
-          <b-card title="경력사항" class="person_info2">
-            <table class="person_table">
-              <tr>
-                <td><strong>기간</strong></td>
-                <td>
-                  {{ formatDate(resume.workStartDate) }}~
-                  {{ formatDate(resume.workFinishDate) }}
-                </td>
-              </tr>
-              <tr>
-                <td><strong>회사명</strong></td>
-                <td>
-                  <input
-                    type="text"
-                    class="work_input"
-                    v-model="resume.workName"
-                  />
-                </td>
-              </tr>
+          <b-card title="CAREER" class="person_info2" style="margin-top:32px">
+            <div class="text-center">
+              <table class="person_table ">
+                <tr>
+                  <td class="career-title"><strong>기간</strong></td>
+                  <td class="career-content">
+                    {{ formatDate(resume.workStartDate) }}~
+                    {{ formatDate(resume.workFinishDate) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="career-title"><strong>회사명</strong></td>
+                  <td class="career-content">
+                    {{ resume.workName }}
+                  </td>
+                </tr>
 
-              <tr>
-                <td><strong>직급/직책</strong></td>
-                <td>
-                  <input
-                    type="text"
-                    class="work_input"
-                    v-model="resume.workLevel"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td><strong>상태</strong></td>
-                <td>
-                  <b-form-select v-model="resume.workState">
-                    <b-form-select-option value="resignation"
-                      >퇴사</b-form-select-option
-                    >
-                    <b-form-select-option value="work"
-                      >재직</b-form-select-option
-                    >
-                  </b-form-select>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>주요직무 및 업무</strong></td>
-                <td>
-                  <b-form-textarea
-                    id="textarea"
-                    rows="3"
-                    max-rows="6"
-                    v-model="resume.workDetail"
-                  ></b-form-textarea>
-                </td>
-              </tr>
-            </table>
+                <tr>
+                  <td class="career-title"><strong>직급/직책</strong></td>
+                  <td class="career-content">
+                    {{ resume.workLevel }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="career-title"><strong>상태</strong></td>
+
+                  <td
+                    class="career-content"
+                    v-if="resume.workState == 'resignation'"
+                  >
+                    퇴사
+                  </td>
+                  <td
+                    class="career-content"
+                    v-else-if="resume.workState == 'work'"
+                  >
+                    재직
+                  </td>
+                </tr>
+                <tr>
+                  <td class="career-title"><strong>주요 업무</strong></td>
+                  <td class="career-content">
+                    {{ resume.workDetail }}
+                  </td>
+                </tr>
+              </table>
+            </div>
           </b-card>
 
-          <b-card title="자격증" class="person_info2">
-            <table class="license_table">
-              <tr>
-                <td><strong>자격증명</strong></td>
-                <td><strong>발급기관</strong></td>
-                <td><strong>취득일</strong></td>
+          <b-card title="CERTIFICATE" class="person_info2">
+            <table class="license_table ">
+              <tr class="my-3">
+                <td style="width:120px"><strong>자격증명</strong></td>
+                <td style="width:200px"><strong>발급기관</strong></td>
+                <td style="width:120px"><strong>취득일</strong></td>
               </tr>
               <tr>
-                <td><input type="text" v-model="resume.licenseName" /></td>
-                <td><input type="text" v-model="resume.licenseAgency" /></td>
+                <td>{{ resume.licenseName }}</td>
+                <td>{{ resume.licenseAgency }}</td>
                 <td>{{ formatDate(resume.licenseDate) }}</td>
               </tr>
             </table>
           </b-card>
 
-          <b-card title="프로젝트" class="person_info2">
+          <b-card title="PROJECT" class="person_info2">
             <table class="project_table">
               <tr>
                 <td><strong>구분</strong></td>
                 <td colspan="2"><strong>기간</strong></td>
                 <td><strong>프로젝트명</strong></td>
               </tr>
-              <tr></tr>
+
               <tr>
-                <td>
-                  <b-form-select
-                    class="select_project"
-                    v-model="resume.projectPart"
-                  >
-                    <b-form-select-option value="person"
-                      >개인</b-form-select-option
-                    >
-                    <b-form-select-option value="team">팀</b-form-select-option>
-                    <b-form-select-option value="order"
-                      >발주</b-form-select-option
-                    >
-                  </b-form-select>
+                <td v-if="resume.projectPart == 'team'">
+                  그룹
                 </td>
-                <td>{{ formatDate(resume.projectStartDate) }}</td>
+                <td v-else-if="resume.projectPart == 'person'">
+                  개인
+                </td>
+                <td v-else-if="resume.projectPart == 'order'">
+                  기획
+                </td>
+                <td>{{ formatDate(resume.projectStartDate) }}~</td>
+
                 <td>{{ formatDate(resume.projectFinishDate) }}</td>
-                <td><input type="text" v-model="resume.projectName" /></td>
+                <td>{{ resume.projectName }}</td>
               </tr>
               <tr>
                 <td><strong>주요 업무 및 성과</strong></td>
                 <td colspan="4">
-                  <b-form-textarea
-                    id="textarea"
-                    rows="3"
-                    max-rows="6"
-                    v-model="resume.projectDetail"
-                  ></b-form-textarea>
+                  {{ resume.projectDetail }}
                 </td>
               </tr>
             </table>
           </b-card>
 
-          <b-card title="주요활동" class="person_info2">
-            <table>
+          <b-card title="EXPERIENCE" class="person_info2">
+            <table class="ex_table">
               <tr>
                 <td><strong>구분</strong></td>
                 <td colspan="2"><strong>기간/일자</strong></td>
                 <td><strong>기관명</strong></td>
               </tr>
               <tr>
-                <td>
-                  <b-form-select v-model="resume.activity">
-                    <b-form-select-option value="award"
-                      >수상경력</b-form-select-option
-                    >
-                    <b-form-select-option value="volunteer"
-                      >봉사활동</b-form-select-option
-                    >
-                    <b-form-select-option value="social"
-                      >사회활동</b-form-select-option
-                    >
-                    <b-form-select-option value="intern"
-                      >인턴</b-form-select-option
-                    >
-                    <b-form-select-option value="club"
-                      >동아리 및 교내활동</b-form-select-option
-                    >
-                  </b-form-select>
+                <td v-if="resume.activity == 'award'">
+                  수상경력
                 </td>
+                <td v-else-if="resume.activity == 'volunteer'">
+                  봉사활동
+                </td>
+                <td v-else-if="resume.activity == 'social'">
+                  사회활동
+                </td>
+                <td v-else-if="resume.activity == 'intern'">
+                  인턴
+                </td>
+                <td v-else-if="resume.activity == 'club'">
+                  동아리 및 교내활동
+                </td>
+
                 <td>{{ formatDate(resume.activityStartDate) }}</td>
                 <td>{{ formatDate(resume.activityFinishDate) }}</td>
-                <td><input type="text" v-model="resume.activityAgency" /></td>
+                <td>{{ resume.activityAgency }}</td>
               </tr>
               <tr>
                 <td><strong>주요 업무 및 성과</strong></td>
                 <td colspan="4">
-                  <b-form-textarea
-                    id="textarea"
-                    rows="3"
-                    max-rows="6"
-                    v-model="resume.activityDetail"
-                  ></b-form-textarea>
+                  {{ resume.activityDetail }}
                 </td>
               </tr>
             </table>
@@ -387,21 +337,44 @@ export default {
 * {
   font-family: "Noto Sans KR", sans-serif;
 }
+
+.submenuimage {
+  background-image: url("../../assets/images/resume.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.subtitle {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
+}
+.profile {
+  border-right: 2px solid #4e5157;
+}
 /* 이름 */
 .rname {
   font-size: 3.5rem;
 }
 .resumen-name {
-  border-bottom: 1px solid #4e5157;
+  border-bottom: 3px solid #4e5157;
 }
 .card-title {
   font-size: 25px;
-}
-.contact {
-  margin-left: 100px;
+  padding-bottom: 8px;
+  color: #0278ae;
+  /* border-bottom: 3px solid #4e5157; */
 }
 .print {
   float: right;
+  background-color: #0278ae;
+  border: none;
 }
 .Design_resume {
   display: flex;
@@ -414,33 +387,17 @@ export default {
   display: flex;
   justify-content: center;
 }
-.submenuimage {
-  width: 100%;
-  height: 180px;
-  background-color: #f4eeff;
-  text-align: center;
-  line-height: 180px;
-}
-.subtitle {
-  font-family: "Masque";
-  color: #4e5157;
-  font-size: 50px;
-}
 .bv-example-row {
   margin-bottom: 100px;
 }
-.profile {
-  /* background-color: #9BA4B4 ; */
-  /* background-color: #f4eeff; */
-}
+
 .person_info {
   /* background-color: #f4eeff; */
   border: none;
-  font-family: a아시아헤드3;
 }
 .person_info2 {
-  background-color: #f1f6f9;
   border: none;
+  margin-bottom: 20px;
 }
 b-card {
   margin-top: 20px;
@@ -449,9 +406,8 @@ b-card {
 .name {
   width: 100%;
   height: 150px;
-  background-color: #f4eeff;
+
   border: none;
-  font-family: a아시아헤드4;
 }
 
 .person_images {
@@ -461,10 +417,16 @@ b-card {
   max-height: 20px;
   margin-right: 10px;
 }
-
+/* Education */
+.school-name {
+  width: 40%;
+}
 .edu_table {
   text-align: center;
   margin-left: 10%;
+}
+.edu_table > tr {
+  height: 50px !important;
 }
 .edu_table input {
   width: 150px;
@@ -476,16 +438,17 @@ b-card {
   margin-left: 10%;
   text-align: left;
 }
-.license_table {
-  margin-left: 3%;
-  text-align: left;
+.license_table,
+.project_table,
+.ex_table {
+  margin: 0 auto;
 }
 .languages_table {
   margin-left: 15%;
   text-align: center;
 }
 .languages_table input {
-  width: 170px;
+  width: 50%;
   margin-left: 10px;
 }
 .languages_table .languages_level {
@@ -514,5 +477,24 @@ input[type="file"] {
   color: #4e5157;
   font-size: 15px;
   font-weight: bold;
+}
+/* career */
+.career-title {
+  text-align: right;
+  width: 100px;
+  padding-right: 20px;
+}
+.career-content {
+  text-align: left;
+  width: 200px;
+}
+.person_table {
+  display: inline-block;
+}
+.person_table tr,
+.license_table tr,
+.project_table tr,
+.ex_table tr {
+  height: 35px;
 }
 </style>
