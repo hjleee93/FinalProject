@@ -32,8 +32,8 @@
           <!-- max-width="350px" -->
         <v-img
           class="white--text align-end siteimg"
-          max-height="800px"
-          max-width="800px"
+          max-height="600px"
+          max-width="600px"
           :src="`http://localhost:8082/itjobgo/ref/selectsiteImg${refListView.refNo}`"
         >
         <v-card-title></v-card-title>
@@ -267,7 +267,7 @@ Vue.use(vueMoment);
 .siteimg{
   margin-top: 5%;
   margin-bottom: 5%;
-  margin-left: 15%;
+  margin-left: 23%;
 }
 #content2{
   margin-top: 3%;
