@@ -26,12 +26,12 @@
           <br>
         <!-- 버튼 -->
         
-       
-          <v-btn  class="button" to="/noticeForm" exact  id="st_write" v-if="userData.memberEmail === 'admin@kh.com'">
+          <b-row id="writecontain3" align-h="end">
+          <b-button  class="button" to="/noticeForm" exact v-if="userData.memberEmail === 'admin@kh.com'">
                글쓰기
-           </v-btn>
+           </b-button>
+          </b-row>
           <div class="overflow-hidden">
-
 
          <!-- 테이블 -->
         <v-card>
@@ -154,6 +154,19 @@ methods: {
 
 <style>
 @import '../../assets/css/BoardList.css';
+
+  #writecontain3 > .btn{
+ position: relative;
+top:50px;
+left:-20px;
+  background-color: #424874;
+  border:none;
+  color:white;
+
+  }
+  #writecontain3{
+    margin-bottom: 10%;
+  }
 
 #subtitle2{
     color:white ;
