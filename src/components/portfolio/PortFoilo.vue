@@ -9,7 +9,7 @@
         <div class="container">      
         <br>
       
-        <b-row id="writecontain" align-h="between">
+        <b-row id="writecontain" align-h="end">
            
           <b-button  to="/portfolioenroller" >글쓰기</b-button>
         </b-row>
@@ -17,7 +17,7 @@
         <div class="overflow-hidden">
          <!-- 테이블 -->
         <v-card>
-        <v-card-title>
+        <v-card-title class="search-bar">
           <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
@@ -122,7 +122,7 @@ import { mapState } from 'vuex';
   font-size: 50px;
 }
 #writecontain{
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 #writecontain > .btn{
   background-color: #424874;
@@ -130,11 +130,13 @@ import { mapState } from 'vuex';
 .example::-webkit-scrollbar {
   display: none;
 }
-.modal{
-  margin-left:1000px ;
-}
+
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
 }
+.search-bar {
+  width: 30%;
+  margin-left: 70%;
+ }
 
 </style>
