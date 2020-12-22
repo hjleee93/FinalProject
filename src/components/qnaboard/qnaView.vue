@@ -10,7 +10,7 @@
     <div class="container">
         
         <b-col>
-            <b-card class="viewcontainer">
+            <b-card class="viewcontainers">
                 <b-form>
                     <b-row>
                         <b-col class="qnawriter">{{qnaboard2.qnaWriter}}<br>
@@ -35,8 +35,8 @@
                     <!-- max-width="350px" -->
                     <v-img
                     class="white--text align-end siteimg"
-                    max-height="900px"
-                    max-width="900px"
+                    max-height="700px"
+                    max-width="700px"
                     :src="`http://localhost:8082/itjobgo/qna/selectImg${qnaboard2.qboardNo}`"
                     >
                     <v-card-title></v-card-title>
@@ -56,12 +56,12 @@
         </b-col>
 
             <b-row>
-                <b-col class="btndiv">
+                <b-col class="btndivv">
                     <b-button to="/qnaBoard">목록으로 </b-button> 
                 </b-col>
             </b-row>
 
-            <b-row class="btndiv2">
+            <b-row class="btndiv22">
                 <b-button v-if="userData.memberSq===qnaboard2.memberNum||userData.memberEmail==='admin@kh.com'"
                     class="btn_center btn-danger" @click="deleteqna">삭제</b-button>
                 <b-button v-if="userData.memberSq===qnaboard2.memberNum"
@@ -74,7 +74,7 @@
     <b-container>
     <b-row v-for="comment in commentlist" :key="comment.id">
         <b-col>
-          <b-card class="text-center">
+          <b-card class="textcenter">
             <b-row>
                 <!-- 댓글 작성자가 관리자일때 -->
                 <b-col v-if="comment.memberName==='관리자'" class="memberNameAdmin" cols="2">      
@@ -83,7 +83,7 @@
                 </b-col>
                 <!-- 댓글 작성자-->
                 <b-col v-else
-                            class="memberName" cols="2">{{comment.memberName}}
+                            class="memberNa" cols="2">{{comment.memberName}}
                     <br><small>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}</small>
                 </b-col>
 
@@ -92,7 +92,7 @@
                 <b-col class="contentcmAdmin" v-if="comment.memberSq===999">
                     {{comment.qbCommentContent}}
                 </b-col>
-                <b-col class="contentcm" v-else-if="comment.memberSq!=userData.memberSq">{{comment.qbCommentContent}}</b-col>
+                <b-col class="contentccm" v-else-if="comment.memberSq!=userData.memberSq">{{comment.qbCommentContent}}</b-col>
             </b-row>
             <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
             <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
@@ -101,16 +101,16 @@
                 <b-row>
                   <b-col>
                     <b-form-textarea :disabled="commentcheck" :value="comment.qbCommentContent" 
-                    @input="updateInput" id="commentUptxt"/>
-                  </b-col>
+                    @input="updateInput" id="commentUpt" v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"/>
+                    </b-col>
                         <template v-if="comment.memberSq==userData.memberSq">
-                            <b-col class="btndiv_comment">
+                            <b-col class="btndivcomment">
                             <b-button v-if="userData.memberSq===comment.memberSq"
-                                @click="upclick($event)"  id="update-btn">수정</b-button> 
+                                @click="upclick($event)"  id="updateb">수정</b-button> 
                             <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
-                                @click="declick(comment.qboardCommentNo)" id="deltet-btn">삭제</b-button> 
-                            <b-button 
-                                @click="upendclick(comment.qboardCommentNo,$event)" id="updateEnd-btn">확인</b-button> 
+                                @click="declick(comment.qboardCommentNo)" id="deltetb">삭제</b-button> 
+                            <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
+                                @click="upendclick(comment.qboardCommentNo,$event)" id="updateEndb">확인</b-button> 
                             </b-col>
                         </template>
                     </b-row>
@@ -122,19 +122,19 @@
     <b-form v-if="userData.memberSq!=null">
         <b-row >
           <b-col>
-            <b-card class="text-center">
+            <b-card class="textcenter">
               <b-row>
                 <b-col><b-form-textarea rows="8" ref="comment"
                         v-model="qbcomment" placeholder="댓글을 남겨보세요" /></b-col>
                 <b-col cols="1"><b-button
-                        @click="comment" id="comment_insert_btn">등록</b-button></b-col>
+                        @click="comment" id="comment_insertbtn">등록</b-button></b-col>
               </b-row>
             </b-card></b-col>
         </b-row>
     </b-form>
 
     </b-container>
-    
+
     <!-- 삭제 모달창 -->
     <ModalView v-if="showModal" @close="showModal=false">
     <template>
@@ -274,14 +274,17 @@ export default {
  
             //댓글삭제
             declick(commentno){
+                 //새로고침 1초컷
+                setTimeout(() => {
                 let delfirm=confirm("댓글을 삭제 하시겠습니까?")
                 if(delfirm){
                 const qno=commentno;
-                this.$store.dispatch("FETCH_QNABOARD_COMMENTDEL",qno)
-                return  this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
-                }else{
-                return
+                this.$store.dispatch("FETCH_QNABOARD_COMMENTDEL",qno).then(()=>{
+                return this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
+                })
                 }
+                 }, 1000)
+
             },
 
             //댓글수정
@@ -401,16 +404,16 @@ export default {
     margin-left: -85%;
     width: 150px;
 }
-.viewcontainer{
+.viewcontainers{
     margin-top: 5%;
     margin-bottom: 5%;
     width: 100%;
 }
-.btndiv{
+.btndivv{
     margin-left: 43%;
     margin-bottom: 1%;
 }
-.btndiv2{
+.btndiv22{
     margin-left: 85%;
     margin-bottom: 1%;
 }
@@ -430,18 +433,18 @@ export default {
   text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
-#deltet-btn{
+#deltetb{
     margin-left: 3%;
     margin-right: 2%;
 }
-.btndiv_comment{
+.btndivcomment{
    width: 220px;
 }
-#commentUptxt{
+#commentUpt{
     width: 620px;
     height: 100px;
 }
-.memberName{
+.memberNa{
     text-align: left;
     font-size: 17px;
     margin-left: 1%;
@@ -459,7 +462,7 @@ export default {
 .icon{
     margin-left: 1.5%;
 }
-.contentcm{
+.contentccm{
     border-left: 3px rgb(6, 21, 92) solid;
     padding-left: 25px;
     margin-top: 1%;
@@ -477,12 +480,9 @@ export default {
 }
 .siteimg{
     margin-top: 7%;
-    margin-left: 6%;
+    margin-left: 15%;
     margin-bottom: 5%;
 }
-.staricon{
-    color:yellow;
-    
-}
+
 
 </style>

@@ -192,6 +192,9 @@ export default {
 .enteruser {
   font-size: 14px;
 }
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 
 /* header css */
 .row-pointer >>> thead tr {

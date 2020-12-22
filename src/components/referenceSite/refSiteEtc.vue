@@ -54,7 +54,7 @@
 
         <v-card-text class="text--primary">
           <div id="title"><b>{{ref.refTitle}}</b><hr></div>
-          <div id="content">{{ref.refContent}}</div>
+          <div id="contents">{{ref.refContent}}</div>
         </v-card-text>
           <!-- 등록일 -->
           <div id="date">등록일 : {{formatDate(ref.refDate)}}</div>
@@ -211,10 +211,12 @@
   font-size: 19px;
   color :#424874
 }
-#content{
+#contents{
   margin-left: 2%;
   font-size: 15px;
   height: 80px;
+  overflow: auto;
+  text-overflow:ellipsis;
 }
 #date{ 
   color: #9BA4B4;

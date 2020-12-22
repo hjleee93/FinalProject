@@ -67,7 +67,10 @@
         </v-data-table>
         </v-card>
 
-        <v-btn to="/qnaWrite" exact  id="st_write" v-if="userData.memberSq!=null">글쓰기</v-btn>
+        <b-row align-h="end" id="stwriterow">
+            <b-button to="/qnaWrite" id="stwrite" v-if="userData.memberSq!=null">글쓰기</b-button>
+        </b-row>
+        
 
       </div>
     </div>
@@ -157,15 +160,13 @@ import { createNamespacedHelpers } from "vuex";
   text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
-#st_write{
-  position: relative;
-  left:1020px;
-  width:70px;
-  margin-top: -210px;
-  margin-left: 2%;
+#stwrite{
   background-color: #424874;
-  border:none;
-  color:white;
+}
+#stwriterow{
+  margin-top: -80px;
+  margin-right: 0px;
+  margin-bottom: 15%;
 }
 .sub-header{
   color:rgb(83, 83, 83);

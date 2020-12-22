@@ -21,9 +21,9 @@
             <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
           </v-tabs>
 
-          <div>
-            <v-btn to="/itNewsForm" exact  id="st_write_ref" v-if="userData.memberSq!=null">글쓰기</v-btn>
-          </div>
+      <b-row id="writecontain" align-h="end">
+        <b-button to="/itNewsForm" exact   v-if="userData.memberSq!=null">글쓰기</b-button>
+      </b-row>
 
     <div class="overflow-hidden">
 
@@ -163,6 +163,20 @@
 
 
 <style scoped >
+
+  #writecontain > .btn{
+ position: relative;
+top:100px;
+left:-55px;
+  background-color: #424874;
+  border:none;
+  color:white;
+
+  }
+  #writecontain{
+    margin-bottom: 10%;
+  }
+
 * {
   font-family: "Noto Sans KR", sans-serif;
 }

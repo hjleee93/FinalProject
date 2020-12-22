@@ -76,7 +76,10 @@ function fetchentrant(no) {
 }
 //모임 waitList 가져오기
 function fetchWaitList(no) {
-    return axios.get(`${config.Url}meeting/waitList${no}.do`);
+    return axios.get(`${config.Url}meeting/waitList${no}.do`)
+}
+function fetchMeetingend() {
+    return axios.get(`${config.Url}meeting/meetingendList.do`)
 }
 
 
@@ -111,9 +114,9 @@ function fetchCboardCommentSelectList(cboardNo) {
 }
 //댓글  삭제하기
 function fetchCboardCommentDelete(cboardNo) {
-     setTimeout(() => {
-    return axios.post(`${config.Url}community/commentDelete${cboardNo}`)
-        }, 1000)
+    setTimeout(() => {
+        return axios.post(`${config.Url}community/commentDelete${cboardNo}`)
+    }, 1000)
 }
 
 
@@ -310,6 +313,8 @@ export {
     fetchapprovecount,
     fetchentrant,
     fetchWaitList,
+    fetchMeetingend,
+
 
 
 

@@ -331,12 +331,8 @@ export default new Router({
                          const obb = JSON.parse(no);
                          const mno = obb.userData.memberSq
                          const pno = to.params.number
-                         console.log(`mno:${mno}pno:${pno}`)
                          const mck = (mno, pno) => mno === pno;
-                         console.log(mck(mno, pno));
-                         console.log(mck)
                          const level = localStorage.vuex.includes('"memberLevel":"2"')
-                         console.log(level)
                          if (level === true) {
                               //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
                               next();

@@ -152,8 +152,8 @@ background-color: #4975cc;
 #attachment-btn{
   background-color: rgb(16, 172, 99);
   border: none;
-  position: relative;
-  left:-20px;
+  position: absolute;
+  left:0px;
   /* width:100px; */
 }
 

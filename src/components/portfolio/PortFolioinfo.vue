@@ -246,8 +246,8 @@ export default {
 </script>
 
 <style scoped>
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
+* {
+  font-family: "Noto Sans KR", sans-serif;
 }
 .submenuimage{
   width: 100%;
