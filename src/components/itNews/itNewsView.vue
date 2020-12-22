@@ -105,7 +105,7 @@
                     <b-form-textarea :disabled="commentcheck" :value="comment.itCommentContent" @input="updateInput" id="commentUptxt"
                     v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"/>
                   </b-col>
-            
+          
       
                   <template >
                   
