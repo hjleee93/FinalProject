@@ -213,7 +213,7 @@ function fetchrefListView(refNo) {
 function fetchrefListUpdate(refNo) {
     return axios.get(`${config.Url}ref/refUpdate${refNo}`)
 }
-//글작성 카운트
+// reference site 글작성 카운트
 function fetchrefCount() {
     return axios.get(`${config.Url}ref/statusCount`);
 }

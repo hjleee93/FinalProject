@@ -29,6 +29,18 @@
                         </b-col>
                     </b-row>
                         <hr>
+
+                    <!-- 이미지 -->
+                    <!-- max-width="350px" -->
+                    <!-- <v-img
+                    class="white--text align-end siteimg"
+                    max-height="800px"
+                    max-width="800px"
+                    :src="`http://localhost:8082/itjobgo/qna/selectImg${attachment.qboardNo}`"
+                    >
+                    <v-card-title></v-card-title>
+                    </v-img> -->
+
                     <b-row>
                         <b-col class="qnacontent">{{qnaboard2.qnaContent}}</b-col>                
                     </b-row> 
