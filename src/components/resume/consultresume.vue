@@ -21,6 +21,7 @@
            <!-- <b-button to="/resume/consultant" v-if="userData.memberEmail==='admin@kh.com'">관리자 승인</b-button> -->
            <b-button to="/resume/consultant" v-if="userData.memberEmail==='admin@kh.com'">관리자 승인</b-button>
         </b-row>
+        <br>
         <!-- 글쓰기 버튼  -->
         <b-row id="writecontain" align-h="end">
            <b-button to="/resume/consultresumeenroll" >글쓰기</b-button>
@@ -137,6 +138,7 @@ import { createNamespacedHelpers } from "vuex";
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
 }
-
-
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 </style>

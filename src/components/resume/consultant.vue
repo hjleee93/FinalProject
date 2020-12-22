@@ -37,7 +37,7 @@
           >
 
             <template v-slot:item="props">
-              <tr>
+              <tr class="end">
                 <td class="text-xs-right">{{props.item.consultNo }}</td>
                 <td class="text-xs-right">{{props.item.memberSq }}</td>
                 <td class="text-xs-right">{{props.item.consultName }}</td>
@@ -45,7 +45,7 @@
                 <td class="text-xs-right">{{props.item.consultWork }}</td>
                 <td class="text-xs-right">{{formatDate(props.item.consultDate)}}</td>
                 <td class="text-xs-right"><b-button pill variant="outline-primary" @click="download(props.item.consultNo)">증빙서류</b-button></td>
-                <td class="text-xs-right"><b-button pill variant="outline-success" @click="approval(props.item.consultNo)">승인</b-button></td>
+                <td class="text-xs-right"><b-button pill variant="outline-success" @click="approval(props.item.memberSq)">승인</b-button></td>
                 <td class="text-xs-right"><b-button pill variant="outline-danger" @click="refuse(props.item.consultNo)">거절</b-button></td>
               </tr>
            </template>
@@ -108,10 +108,13 @@ import { createNamespacedHelpers } from "vuex";
 
       approval(value){
         alert("이력서 전문가 신청을 승인하겠습니까?");
-        const consultNo=value;
+        const memberSq=value;
         console.log(value);
 
-        axios.post("http://localhost:8082/itjobgo/resume/insertconsultant.do",consultNo
+        let formData=new FormData();
+        formData.append('memberSq',memberSq);
+
+        axios.post("http://localhost:8082/itjobgo/member/updateConsultant.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
         }}).then((res)=>{
@@ -123,11 +126,24 @@ import { createNamespacedHelpers } from "vuex";
         console.log(error));
       },
 
-      // refuse(value){
-      //   alert("이력서 전문가 신청을 거절하겠습니까?");
-      //   const consultNo=value;
-      //   this.$store.dispatch("FETCH_RESUME_DELETE", resumeNo);
-      // },
+      refuse(value){
+        alert("이력서 전문가 신청을 거절하겠습니까?");
+        const memberSq=value;
+        console.log(value);
+        let formData=new FormData();
+        formData.append('memberSq',memberSq);
+
+        axios.post("http://localhost:8082/itjobgo/member/updateConsultant.do",formData
+       ,{ headers:{
+          'Content-Type':'multipart/form-data'
+        }}).then((res)=>{
+          console.log(res.data);
+          // setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
+          // this.$route.push({name:'consultresume'})
+          })
+        .catch((error)=>
+        console.log(error));
+      },
 
       formatDate(value){
       return this.$moment(value).format("YYYY-MM-DD");
@@ -172,5 +188,8 @@ import { createNamespacedHelpers } from "vuex";
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
 }
-
+td{
+  text-align: center;
+}
+/* .base_text{background-color: #424874;} */
 </style>
