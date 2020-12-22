@@ -1,5 +1,5 @@
 import axios from 'axios'
- 
+
 //HTTP Request & Response와 관련된 기본 설정
 const config = {
     Url: "http://localhost:8082/itjobgo/"
@@ -65,14 +65,18 @@ function fetchmeetingdel(no) {
     return axios.get(`${config.Url}meeting/meetingdel${no}.do`)
 }
 //모임업데이트할때 사용하는 로직
-function fetchmtUpdate(no){
+function fetchmtUpdate(no) {
     return axios.get(`${config.Url}meeting/meetingupdate${no}.do`)
 }
-function fetchapprovecount(no){
+function fetchapprovecount(no) {
     return axios.get(`${config.Url}meeting/meetingcount${no}.do`)
 }
-function fetchentrant(no){
+function fetchentrant(no) {
     return axios.get(`${config.Url}meeting/meetingenter${no}.do`)
+}
+//모임 waitList 가져오기
+function fetchWaitList(no) {
+    return axios.get(`${config.Url}meeting/waitList${no}.do`);
 }
 
 
@@ -196,7 +200,7 @@ function fetchqnacomment(qboardNo) {
 //qna게시판 댓글 삭제
 function fetchqnacommentdel(qboardCommentNo) {
     setTimeout(() => {
-    return axios.post(`${config.Url}qna/commentDelete${qboardCommentNo}`)
+        return axios.post(`${config.Url}qna/commentDelete${qboardCommentNo}`)
     }, 1000)
 }
 // reference site 리스트 불러오기
@@ -258,11 +262,11 @@ function fetchResume(resumeNo) {
     return axios.get(`${config.Url}resume/selectResume/${resumeNo}.do`)
 }
 //이력서 리스트 불러오기
-function fetchResumeList(memberSq){
+function fetchResumeList(memberSq) {
     return axios.get(`${config.Url}resume/resumeList/${memberSq}.do`)
 }
 //이력서 삭제하기
-function fetchResumeDelete(resumeNo){
+function fetchResumeDelete(resumeNo) {
     return axios.get(`${config.Url}resume/deleteResume/${resumeNo}.do`)
 }
 //이력서 게시판 상세화면
@@ -303,7 +307,7 @@ export {
     fetchmtUpdate,
     fetchapprovecount,
     fetchentrant,
-  
+    fetchWaitList,
 
 
 
@@ -358,7 +362,7 @@ export {
     fetchInfoDelete,
     fetchInfoUpdate,
     fetchInfoAttachment,
-    
+
 
     //혜지
     //이력서게시판

@@ -2,8 +2,9 @@
   <div class="container-fluid">
     <div class="row">
       <div class="submenuimage">
-        <p class="subtitle">PARTICIPATED MEETING</p>
+        <p class="subtitle">WAITING LIST</p>
       </div>
+
       <div class="container">
         <v-tabs centered color="grey darken-3">
           <v-tab to="/meetingapply"><b>신청자승인</b></v-tab>
@@ -25,44 +26,31 @@
     </div>
     <b-container>
       <p class="text-center">
-        {{ userData.memberName }}님이 참여중인 모임 목록입니다
+        {{ userData.memberName }}님이 신청한 모임의 개설자가 허가를 보류중인
+        목록입니다
       </p>
       <b-row>
         <b-col>
           <v-data-table
-            class="row-pointer mt-4"
             :headers="headers"
-            :items="approvelist"
+            :items="waitList"
+            class="row-pointer mt-4"
             item-key="name"
           >
             <template v-slot:item="props">
-              <tr>
-                <td class="text-xs-right">{{ props.item.no }}</td>
-                <td class="text-xs-right">{{ props.item.position }}</td>
-                <td class="text-xs-right" @click="movepage(props.item.collsq)">
-                  {{ props.item.collname }}
-                </td>
-                <td class="text-xs-right">
-                  <v-icon
-                    v-if="props.item.status == 'Y'"
-                    id="approve"
-                    dark
-                    right
-                    color="blue darken-2"
-                  >
-                    mdi-checkbox-marked-circle
-                  </v-icon>
-                  <v-icon
-                    dark
-                    v-if="props.item.status == 'N'"
-                    right
-                    id="unpprove"
-                  >
-                    mdi-cancel
-                  </v-icon>
-                </td>
-                <!-- </td> -->
-              </tr>
+              <template v-if="props.item.memberSq == userData.memberSq">
+                <tr @click="movemeeting(props.item.mboard.collabSq)">
+                  <td class="text-xs-right">
+                    {{ props.item.mboard.collabTitle }}
+                  </td>
+                  <td class="text-xs-right">
+                    {{ props.item.mboard.collabWriter }}
+                  </td>
+                  <td class="text-xs-right">
+                    {{ formatDate(props.item.tmpDate) }}
+                  </td>
+                </tr>
+              </template>
             </template>
           </v-data-table>
         </b-col>
@@ -80,32 +68,30 @@ export default {
     return {
       memberSq: "",
       headers: [
-        {
-          text: "번호",
-          align: "start",
-          filterable: false,
-          value: "no",
-        },
         // 그리고 spring에서 넘겨주는 json타입의 변수에 매칭시켜서 테이블의 row행의 value값을 동일하게 해준다
-        { text: "포지션", value: "position" },
-        { text: "모임제목", value: "collname" },
-        { text: "승인/미승인", value: "status" },
+        { text: "모임 제목", value: "meetingTitle" },
+        { text: "모임 개설자", value: "meetingWriter" },
+        { text: "신청 날짜", value: "applyDate" },
       ],
     };
   },
-  created() {
-    //로컬 사용해서 로그인한 사용자 이메일 가져오기
-    const no = this.$route.params.memberSq;
-    this.$store.dispatch("FECH_APPROVELIST", no);
+  async mounted() {
+    await this.$store.dispatch("memberStore/getMemberInfo");
+    await this.$store.dispatch("FECH_WAITLIST", this.$route.params.memberSq);
   },
+
   computed: {
     ...mapState({
-      approvelist: (state) => state.approvelist,
+      waitList: (state) => state.waitList,
     }),
     ...loadUserState(["userData"]),
   },
   methods: {
-    movepage(item) {
+    formatDate(value) {
+      // console.log(value);
+      return this.$moment(value).format("YYYY-MM-DD");
+    },
+    movemeeting(item) {
       this.$router.push({ name: "meetinginfo", params: { id: item } });
     },
   },
@@ -113,12 +99,6 @@ export default {
 </script>
 
 <style scoped>
-#approve {
-  color: blue;
-}
-#unpprove {
-  color: red;
-}
 .submenuimage {
   background-image: url("../../assets/images/meeting-status.jpg");
   background-repeat: no-repeat;
@@ -144,7 +124,6 @@ export default {
   text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
-
 /* header css */
 .row-pointer >>> thead tr {
   background-color: #ededed;

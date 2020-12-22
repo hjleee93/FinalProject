@@ -63,6 +63,7 @@ import Meetingapply from './components/meeting/Meetingapply.vue';
 import Approve from './components/meeting/Approve.vue';
 import Mkmeeting from './components/meeting/Mkmeeting.vue';
 import Meetingupdate from './components/meeting/Meetingupdate.vue';
+import WaitList from './components/meeting/WaitList.vue';
 
 //혜지
 
@@ -366,6 +367,13 @@ export default new Router({
                path: '/Portfolioupdate/:id',
                component: Portfolioupdate,
                name: 'Portup',
+               beforeEnter: LoginAuth()
+
+          },
+          {
+               path: '/waitList/:memberSq',
+               component: WaitList,
+               name: 'waitList',
                beforeEnter: LoginAuth()
 
           },

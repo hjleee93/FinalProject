@@ -25,7 +25,7 @@ import {
      fetchmeetingdel,
      fetchapprovecount,
      fetchentrant,
-
+     fetchWaitList,
 
      //주은
      fetchCommunityBoardList,
@@ -124,12 +124,12 @@ export default new Vuex.Store({
           meeting: [],
           msubList: [],
           minfo: [],
-          uminfo:[],
+          uminfo: [],
           apply: [],
           approvelist: [],
           mklist: [],
-          acount:[],
-          enter:[],
+          acount: [],
+          enter: [],
 
 
 
@@ -159,13 +159,13 @@ export default new Vuex.Store({
           qbAttachment: [],
           qbAttachment2: [],
           qnacomment: [],
-          refList:[],
-          refListNo:[],
-          refListView:[],
-          refAttachment:[],
-          refCount:[],
-          
-          
+          refList: [],
+          refListNo: [],
+          refListView: [],
+          refAttachment: [],
+          refCount: [],
+
+
 
           //민지
           info: [],
@@ -200,11 +200,11 @@ export default new Vuex.Store({
                     })
 
           },
-         async FETCH_PBOARDONE({ commit }, pboardNo) {
-               const response=await fetchPboardOne(pboardNo)
-     
+          async FETCH_PBOARDONE({ commit }, pboardNo) {
+               const response = await fetchPboardOne(pboardNo)
+
                commit("SET_PBOARDONE", response.data)
-                    return response;
+               return response;
           },
 
           FETCH_PBOARDDEL({ commit }, no) {
@@ -214,10 +214,10 @@ export default new Vuex.Store({
           },
 
 
-         async FETCH_PBOARDUP({ commit }, no) {
-              const response=await fetchPboardUp(no)
-                   commit("SET_PBOARDUP", response.data)
-                    return  response;
+          async FETCH_PBOARDUP({ commit }, no) {
+               const response = await fetchPboardUp(no)
+               commit("SET_PBOARDUP", response.data)
+               return response;
           },
           //게시판번호로 첨부파일내용 가져오가
           FETCH_ATTACHMENT({ commit }, no) {
@@ -256,15 +256,15 @@ export default new Vuex.Store({
 
           },
           async FECH_MOBOARDINFO({ commit }, no) {
-              const response=await fetchMeetinginfo(no)
-               commit("SET_MINFO",response.data)
+               const response = await fetchMeetinginfo(no)
+               commit("SET_MINFO", response.data)
                return response;
-                   
+
           },
-         async FECH_APPLYCOUNT({commit},no){
-              const response=await fetchapprovecount(no)
-              commit("SET_COUNT",response.data)
-              return response;
+          async FECH_APPLYCOUNT({ commit }, no) {
+               const response = await fetchapprovecount(no)
+               commit("SET_COUNT", response.data)
+               return response;
 
           },
 
@@ -298,27 +298,32 @@ export default new Vuex.Store({
                return response
           },
           //모임업데이트할때 해당 모임 정보를 가져오는 로직
-          async FECH_UPDATED({commit},no){
-              const response=await fetchmtUpdate(no)
-              commit("SET_UMINFO",response.data)
-              return response;
+          async FECH_UPDATED({ commit }, no) {
+               const response = await fetchmtUpdate(no)
+               commit("SET_UMINFO", response.data)
+               return response;
 
           },
-          async FECH_APPLYLIST({commit},no)
-          {
-               const response=await fetchentrant(no)
-               commit("SET_ENTER",response.data)
+          async FECH_APPLYLIST({ commit }, no) {
+               const response = await fetchentrant(no)
+               commit("SET_ENTER", response.data)
                return response;
           },
+          async FECH_WAITLIST({ commit }, no) {
+               const response = await fetchWaitList(no)
+               commit("SET_WAITLIST", response.data)
+               return response;
+          },
+
           //주은
           //자유게시판 list 불러오기
           FETCH_COMMUNITYBOARD({ commit }) {
-                setTimeout(() => {
-               fetchCommunityBoardList()
-                    .then(({ data }) => commit("SET_COMMUNITYBOARD", data))
-                    .catch(({ error }) => {
-                         console.log(error);
-                    })
+               setTimeout(() => {
+                    fetchCommunityBoardList()
+                         .then(({ data }) => commit("SET_COMMUNITYBOARD", data))
+                         .catch(({ error }) => {
+                              console.log(error);
+                         })
                }, 1000)
           },
           //자유게시판 상세화면
@@ -331,7 +336,7 @@ export default new Vuex.Store({
           },
           //자유게시판 삭제하기
           FETCH_COMMUNITYBOARD_DELETE({ commit }, communityboardNo) {
-               
+
                fetchCommunityBoardDelete(communityboardNo)
                     .then(({ data }) => commit("SET_COMMUNITYBOARD_DELETE", data))
                     .catch(({ error }) => {
@@ -369,13 +374,13 @@ export default new Vuex.Store({
 
           //공지사항  list 조회
           FETCH_NOTICE({ commit }) {
-                setTimeout(() => {
-               fetchNoticeList()
-                    .then(({ data }) => commit("SET_NOTICE", data))
-                    .catch(({ error }) => {
-                         console.log(error);
-                    })
-                           }, 1000)
+               setTimeout(() => {
+                    fetchNoticeList()
+                         .then(({ data }) => commit("SET_NOTICE", data))
+                         .catch(({ error }) => {
+                              console.log(error);
+                         })
+               }, 1000)
           },
           //공지사항 상세화면
           FETCH_NOTICE_VIEW({ commit }, noticeSq) {
@@ -425,12 +430,12 @@ export default new Vuex.Store({
           // ItNews 불러오기
           FECH_ITNEWS_LIST({ commit }) {
                setTimeout(() => {
-               fetchItNewsList()
-                    .then(({ data }) => commit("SET_ITNEWS_LIST", data))
-                    .catch(({ error }) => {
-                         console.log(error);
-                    })
-                       }, 1000)
+                    fetchItNewsList()
+                         .then(({ data }) => commit("SET_ITNEWS_LIST", data))
+                         .catch(({ error }) => {
+                              console.log(error);
+                         })
+               }, 1000)
           },
           // ItNews 상세화면
           FETCH_ITNEWS_VIEW({ commit }, newsSq) {
@@ -635,7 +640,7 @@ export default new Vuex.Store({
           },
 
           //이력서리스트 불러오기
-          FETCH_RESUMELIST({ commit }, memberSq){
+          FETCH_RESUMELIST({ commit }, memberSq) {
                fetchResumeList(memberSq)
                     .then(({ data }) => commit("SET_RESUMELIST", data))
                     .catch(({ error }) => {
@@ -644,7 +649,7 @@ export default new Vuex.Store({
           },
 
           //이력서 삭제하기
-          FETCH_RESUME_DELETE({ commit }, resumeNo){
+          FETCH_RESUME_DELETE({ commit }, resumeNo) {
                fetchResumeDelete(resumeNo)
                     .then(({ data }) => commit("SET_RESUME_DELETE", data))
                     .catch(({ error }) => {
@@ -669,7 +674,7 @@ export default new Vuex.Store({
                     })
           },
 
-           //이력서 게시판 삭제하기
+          //이력서 게시판 삭제하기
           FETCH_RBOARD_DELETE({ commit }, rboardNo) {
                fetchRboardDelete(rboardNo)
                     .then(({ data }) => commit("SET_RBOARD_DELETE", data))
@@ -678,7 +683,7 @@ export default new Vuex.Store({
                     })
           },
 
-           //이력서 전문가 리스트 불러오기
+          //이력서 전문가 리스트 불러오기
           FETCH_CONSULTANT({ commit }) {
                fetchConsultant()
                     .then(({ data }) => commit("SET_CONSULTANT", data))
@@ -729,11 +734,14 @@ export default new Vuex.Store({
           SET_MKLIST(state, data) {
                state.mklist = data;
           },
-          SET_COUNT(state,data){
-               state.acount=data;
+          SET_COUNT(state, data) {
+               state.acount = data;
           },
-          SET_ENTER(state,data){
-               state.enter=data;
+          SET_ENTER(state, data) {
+               state.enter = data;
+          },
+          SET_WAITLIST(state, data) {
+               state.waitList = data;
           },
 
           //주은
@@ -891,28 +899,28 @@ export default new Vuex.Store({
                state.resume = resume;
           },
           //이력서리스트 불러오기
-          SET_RESUMELIST(state, resumeList){
+          SET_RESUMELIST(state, resumeList) {
                state.resumeList = resumeList;
           },
           //이력서 삭제
-          SET_RESUME_DELETE(state, deta){
-               state.data= deta;
+          SET_RESUME_DELETE(state, deta) {
+               state.data = deta;
           },
           //이력서 상세화면
-          SET_RBOARD_VIEW(state, rboardDetail){
-               state.rboardDetail=rboardDetail;
+          SET_RBOARD_VIEW(state, rboardDetail) {
+               state.rboardDetail = rboardDetail;
           },
           //이력서 상세화면(첨부파일)
-          SET_RBOARD_ATTACHMENT(state, rboardAttachment){
-               state.rboardAttachment=rboardAttachment;
+          SET_RBOARD_ATTACHMENT(state, rboardAttachment) {
+               state.rboardAttachment = rboardAttachment;
           },
           //이력서 게시판 삭제
           SET_RBOARD_DELETE(state, data) {
                state.data = data;
           },
           //이력서 전문가 리스트
-          SET_CONSULTANT(state, consultant){
-               state.consultant=consultant;
+          SET_CONSULTANT(state, consultant) {
+               state.consultant = consultant;
           }
 
      }//mutations 끝

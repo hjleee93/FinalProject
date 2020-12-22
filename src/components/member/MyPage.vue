@@ -62,7 +62,7 @@
         <li class="topList openState">
           <p class="title">프로젝트 정보</p>
           <p class="count">
-            <router-link to="/meetingapply" class="scroll">바로가기</router-link>
+            <router-link to="/meetingapply">바로가기</router-link>
           </p>
         </li>
 
