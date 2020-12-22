@@ -19,7 +19,7 @@
         ></b-form-input>
     </b-input-group>
        
-       <b-input-group  prepend="작성자" class="mb-2">
+       <b-input-group  prepend="작성자" class="mb-2" hidden>
         <b-form-input
           id="input-2"
           name="boardWriter"
@@ -163,4 +163,8 @@ const { mapState } = createNamespacedHelpers("memberStore");
 
 <style>
 @import '../../assets/css/BoardForm.css';
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 </style>

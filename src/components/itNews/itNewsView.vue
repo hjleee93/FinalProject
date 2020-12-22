@@ -1,8 +1,8 @@
 <template>
 <b-container fluid>
       <b-row >
-         <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">ItNewsInfo</p>
+         <div class="submenuimage2 ">
+        <p  id="subtitle4">IT소식</p>
       </div>
         <!-- 탭 -->   
         <div class="container">
@@ -102,7 +102,8 @@
               <b-col>
                 <b-row>
                   <b-col>
-                    <b-form-textarea :disabled="commentcheck" :value="comment.itCommentContent" @input="updateInput" id="commentUptxt"/>
+                    <b-form-textarea :disabled="commentcheck" :value="comment.itCommentContent" @input="updateInput" id="commentUptxt"
+                    v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"/>
                   </b-col>
             
       
@@ -113,7 +114,7 @@
                                                                                                 @click="upclick($event)"  id="update-btn">수정</b-button> 
                       <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
                                                                                                 @click="declick(comment.itCommentNo)" id="deltet-btn">삭제</b-button> 
-                      <b-button 
+                      <b-button  v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
                                                                                                 @click="upendclick(comment.itCommentNo,$event)" id="updateEnd-btn">확인</b-button> 
                     </b-col>
                 </template>
@@ -355,9 +356,33 @@ export default {
 </script>
 
 <style scoped>
-/* @import '../../assets/css/BoardView.css'; */
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+.submenuimage2 {
+  background-image: url("../../assets/images/itnewsList.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+#subtitle4{
+/* font-family: 'Barlow Semi Condensed', sans-serif; */
+color:white;
+font-weight: bold;
+font-size: 50px;
+}
 
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+.submenuimage2 {
+  width: 100%;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
 #nameAndDate2{
   /* position: absolute; */
   position: relative;
@@ -383,15 +408,15 @@ export default {
 }
 #update-btn{
   background-color: #424874;
-  height:50px;
-  width:70px;
+  height:40px;
+  width:60px;
   position: relative;
-  top:100px;
+  top:107px;
    border:none
 }
 #update-btn2{
   background-color: #424874;
-  height:50px;
+  height:40px;
   width:70px;
   position: relative;
   top:30px;
@@ -399,20 +424,20 @@ export default {
 }
 #updateEnd-btn{
     background-color: #394867;
-  height:50px;
-  width:70px;
+  height:40px;
+  width:60px;
   position: relative;
-  top:100px;
-  border:none
+  border:none;
+  top:107px;
 }
 
 #deltet-btn{
   background-color:#9BA4B4;
-  height:50px;
-  width:70px;
+  height:40px;
+  width:60px;
   position: relative;
-  top:100px;
-   border:none
+  border:none;
+  top:107px;
 
 }
 
@@ -421,9 +446,10 @@ export default {
   background-color: #4e5157;
   border:none;
   position: relative;
-  left :-470px;
+  left :-465px;
   width:100px;
-  height: 50px;
+  height: 40px;
+  
 }
 
 #comment_insert_btn{
@@ -432,7 +458,7 @@ export default {
   width:70px;
   height: 50px;
   position: relative;
-  top:147px;
+  top:153px;
   left:-20px;
 }
 
@@ -472,7 +498,7 @@ border: none;
 }
 #delete-btn2{
 background-color: #9BA4B4;
-  height:50px;
+  height:40px;
   width:70px;
   position: relative;
   top:30px;
@@ -495,10 +521,10 @@ background-color: #9BA4B4;
 #list{
  position: relative;
  left: 460px;
- height: 50px;
+ height: 45px;
  width: 80px;
  align-items: center;
- font-size: 19px;
+ font-size: 17px;
  border:none;
  font-weight: bold;
  padding-top:10px;
@@ -538,7 +564,7 @@ background-color: #4975cc;
   text-align: left;
     /* border: 1px red solid; */
   /* margin-top: -10px; */
-  font-size: 15px;
+  font-size: 17px;
   margin-top: -27px;
   font-size:6px;
   position: relative;
@@ -566,9 +592,8 @@ background-color: #4975cc;
     position: relative;
     right:150px;
 }
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
-}
+
+
 
 #selected{
   width:100px;
@@ -579,11 +604,6 @@ font-family: 'Barlow Semi Condensed', sans-serif;
     background-color:#F4EEFF;
     text-align: center;
     line-height: 180px;
-}
-.subtitle{
-    font-family: 'Masque';
-    color:#4e5157 ;
-    font-size: 50px;
 }
 
 #my-table{
@@ -650,6 +670,7 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   color:white;
   position: relative;
   left:0px;
+  border:none;
 }
 
 .detail_{
@@ -674,9 +695,7 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   border: 1px  #424874 solid;
 }
 
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
-}
+
 .submenuimage{
   width: 100%;
   height:180px;
@@ -684,11 +703,7 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   text-align: center;
   line-height: 180px; 
 }
-.subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
-  font-size: 50px;
-}
+
 #writecontain{
   margin-bottom: 10%;
   
@@ -708,9 +723,6 @@ font-family: 'Barlow Semi Condensed', sans-serif;
 }
 
 
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
-}
 .submenuimage{
   width: 100%;
   height:180px;
@@ -718,11 +730,7 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   text-align: center;
   line-height: 180px; 
 }
-.subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
-  font-size: 50px;
-}
+
 #writecontain{
   margin-bottom: 10%;
   

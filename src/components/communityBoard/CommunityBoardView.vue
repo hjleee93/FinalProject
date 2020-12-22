@@ -1,8 +1,8 @@
 <template>
 <b-container fluid>
       <b-row >
-         <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">communityBoardInfo</p>
+         <div class="submenuimage3 ">
+        <p class="subtitle" id="subtitle1">자유게시판</p>
       </div>
 
         <!-- 탭 -->   
@@ -24,10 +24,10 @@
     <b-container>
       <b-form>
         <b-row>
-          <b-col id="title"> {{communityboardView.boardTitle}}</b-col>
+          <b-col id="title">{{communityboardView.boardTitle}}</b-col>
         </b-row>
         <b-row>
-          <b-col id="boardDate"> {{formatDate(communityboardView.boardDate)}}</b-col>
+          <b-col id="boardDate"> 작성일 : {{formatDate(communityboardView.boardDate)}}</b-col>
           <b-col id="writer"> 작성자 : {{communityboardView.boardWriter}}</b-col>
         </b-row>
         <b-row>
@@ -84,7 +84,8 @@
               <b-col>
                 <b-row>
                   <b-col>
-                    <b-form-textarea :disabled="commentcheck" :value="comment.cbCommentContent" @input="updateInput" id="commentUptxt"/>
+                    <b-form-textarea :disabled="commentcheck" :value="comment.cbCommentContent" 
+                    @input="updateInput" id="commentUptxt" v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"/>
                   </b-col>
             
       
@@ -95,7 +96,7 @@
                                                                                                 @click="upclick($event)"  id="update-btn">수정</b-button> 
                       <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
                                                                                                 @click="declick(comment.cbCommentNo)" id="deltet-btn">삭제</b-button> 
-                      <b-button 
+                      <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
                                                                                                 @click="upendclick(comment.cbCommentNo,$event)" id="updateEnd-btn">확인</b-button> 
                     </b-col>
                 </template>
@@ -167,13 +168,13 @@ export default {
 
         }
     },
-    watch:{
-      commentlist:{
-        handler(newValue){
-          this.changeval=newValue[0].cbCommentContent;
-        },deep:true,
-      }
-    },
+    // watch:{
+    //   commentlist:{
+    //     handler(newValue){
+    //       this.changeval=newValue[0].cbCommentContent;
+    //     },deep:true,
+    //   }
+    // },
     components:{
       ModalView,
     },
@@ -325,5 +326,32 @@ export default {
 
 <style scoped>
 @import '../../assets/css/BoardView.css';
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+#subtitle1{
+
+    color:white ;
+    font-size: 50px;
+    font-weight: bold;
+}
+.submenuimage3 {
+  background-image: url("../../assets/images/communityList.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.submenuimage3 {
+  width: 100%;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
 
 </style>
