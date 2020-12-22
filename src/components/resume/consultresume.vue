@@ -16,6 +16,11 @@
       </div>
       <div class="container">      
         <br>
+        <!-- 관리자 승인 버튼 -->
+        <b-row id="consultApproval" align-h="end">
+           <!-- <b-button to="/resume/consultant" v-if="userData.memberEmail==='admin@kh.com'">관리자 승인</b-button> -->
+           <b-button to="/resume/consultant" v-if="userData.memberEmail==='admin@kh.com'">관리자 승인</b-button>
+        </b-row>
         <!-- 글쓰기 버튼  -->
         <b-row id="writecontain" align-h="end">
            <b-button to="/resume/consultresumeenroll" >글쓰기</b-button>
@@ -53,8 +58,8 @@
 
 <script>
 import { mapState } from 'vuex';
-//계속 라이브러리를 로딩해야하는 단점이있다 
-// import axios from 'axios';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 
   export default {
     data() {
@@ -79,12 +84,15 @@ import { mapState } from 'vuex';
          
       }
     },
-    computed: {
-      ...mapState({
-        rboard:state=>state.rboard
-      })
+    computed:{
+
+        ...mapState({ //store
+            rboard:state=>state.rboard
+            }),
+        
+        ...loadUserState(['userData'])
     },
-    
+
     methods: {
       handleClick(value){
      

@@ -81,6 +81,7 @@ import {
      fetchRboardView,
      fetchRboardAttachment,
      fetchRboardDelete,
+     fetchConsultant,
 
 
 }
@@ -184,6 +185,7 @@ export default new Vuex.Store({
           resumeList: [],
           rboardDetail: [],
           rboardAttachment: [],
+          consultant: [],
 
      },
      actions: {
@@ -657,10 +659,19 @@ export default new Vuex.Store({
                     })
           },
 
-           //qna 게시판 삭제하기
+           //이력서 게시판 삭제하기
           FETCH_RBOARD_DELETE({ commit }, rboardNo) {
                fetchRboardDelete(rboardNo)
                     .then(({ data }) => commit("SET_RBOARD_DELETE", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
+          },
+
+           //이력서 전문가 리스트 불러오기
+          FETCH_CONSULTANT({ commit }) {
+               fetchConsultant()
+                    .then(({ data }) => commit("SET_CONSULTANT", data))
                     .catch(({ error }) => {
                          console.log(error);
                     })
@@ -881,10 +892,14 @@ export default new Vuex.Store({
           SET_RBOARD_ATTACHMENT(state, rboardAttachment){
                state.rboardAttachment=rboardAttachment;
           },
-          //qna게시판 삭제
+          //이력서 게시판 삭제
           SET_RBOARD_DELETE(state, data) {
                state.data = data;
           },
+          //이력서 전문가 리스트
+          SET_CONSULTANT(state, consultant){
+               state.consultant=consultant;
+          }
 
      }//mutations 끝
 

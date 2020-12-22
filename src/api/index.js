@@ -273,6 +273,10 @@ function fetchRboardAttachment(rboardNo) {
 function fetchRboardDelete(rboardNo) {
     return axios.get(`${config.Url}resume/deleteRboard/${rboardNo}.do`)
 }
+//이력서 전문가 리스트
+function fetchConsultant() {
+    return axios.get(`${config.Url}resume/Consultant.do`)
+}
 
 export {
     fetchPboardList,
@@ -360,6 +364,7 @@ export {
     fetchRboardView,
     fetchRboardAttachment,
     fetchRboardDelete,
+    fetchConsultant,
 
 }
 
