@@ -17,12 +17,12 @@ const memberStore = {
             state.loginStatus = true;
             state.loginError = false;
             state.userData = payload;
-            console.log("로그인성공" + payload.memberEmail);
+
 
         },
         //로그인 실패
         loginFalse(state) {
-            console.log("로그인실패");
+
             state.loginStatus = false;
             state.loginError = true;
         }
@@ -40,7 +40,7 @@ const memberStore = {
 
                     if (token === undefined) {//로그인 실패 토큰값 없는 경우
                         Vue.swal({ text: "이메일, 비밀번호를 다시 확인해주세요" })
-                        console.log("토큰 없: " + loginData.email)
+
                         commit('loginFalse')
 
 
@@ -48,7 +48,6 @@ const memberStore = {
 
                         if (loginData.rememberMe == false) {//rememberMe false인경우
                             //1. 데이터 없어지는 거 확인함
-                            console.log("session")
                             sessionStorage.setItem("memberEmail", loginData.memberEmail)
                             sessionStorage.setItem("access_token", token);
 
@@ -114,18 +113,18 @@ const memberStore = {
         async getMemberInfo({ commit }) {
             var memberEmail = null;
             var token = null;
-            console.log(localStorage)
+
             if (localStorage.getItem("memberEmail")) {
-                console.log("local!")
+
                 memberEmail = localStorage.getItem("memberEmail")
                 token = localStorage.getItem("access_token")
 
             } else {
-                console.log("session~~!")
+
                 memberEmail = sessionStorage.getItem("memberEmail")
                 token = sessionStorage.getItem("access_token")
             }
-            console.log("유저정보" + memberEmail);
+
 
             let config = {
                 //헤더에 토큰값 포함해서 보내기
@@ -151,7 +150,7 @@ const memberStore = {
                             memberPosition: response.data.memberPosition,
                             memberToken: response.data.memberToken
                         }
-                        console.log("store: " + userData.memberSq)
+
                         commit('loginSuccess', userData)
                     })
                     .catch(() => {

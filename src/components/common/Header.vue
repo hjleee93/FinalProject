@@ -102,7 +102,6 @@ export default {
     moveMyPage: function(e) {
       //중복 라우터 방지
       if (this.$route.path != "/myPage/" + e) {
-        console.log(this.$route.path);
         this.$router.push({ name: "myPage", params: { memberSq: e } });
       }
     },

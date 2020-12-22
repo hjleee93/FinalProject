@@ -242,7 +242,6 @@ export default {
       axios
         .post("http://localhost:8082/itjobgo/member/register", formData) //form server 연결
         .then(function(res) {
-          console.log(formData);
           if (res.data > 0) {
             //가입성공
             alert("가입에 성공하셨습니다!");
@@ -251,10 +250,9 @@ export default {
             alert("회원가입에 실패하였습니다. 다시 시도해주세요");
           }
         })
-        .catch((error) => {
+        .catch(() => {
           //서버문제인 경우
           alert("회원가입에 실패하였습니다. 관리자에게 문의해주세요");
-          console.log("실패", error);
         });
     },
 

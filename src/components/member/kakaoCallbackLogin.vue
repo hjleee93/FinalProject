@@ -18,8 +18,6 @@ export default {
     Kakao.API.request({
       url: "/v2/user/me",
       success(response) {
-        console.log(">>" + response.kakao_account.email);
-        console.log(" this.memberToken: " + memberToken);
         const formData = {
           memberEmail: response.kakao_account.email,
           memberToken: memberToken,
@@ -32,7 +30,6 @@ export default {
         axios
           .post("http://localhost:8082/itjobgo/member/kakaoRegister", formData) //form server 연결
           .then(function(res) {
-            console.log(formData);
             if (res.data > 0) {
               //가입성공
 
@@ -48,13 +45,9 @@ export default {
               self.$router.push("/"); //회원가입 후 경로 설정
             }
           })
-          .catch((error) => {
-            console.log("실패", error);
-          });
+          .catch((error) => {});
       },
-      fail(error) {
-        console.log(error);
-      },
+      fail(error) {},
     });
   },
 };

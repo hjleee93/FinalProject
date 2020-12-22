@@ -74,8 +74,6 @@ export default {
   created() {
     //로컬 사용해서 로그인한 사용자 이메일 가져오기
     let email = sessionStorage.getItem("memberEmail");
-
-    console.log(email);
     this.$store.dispatch("FECH_MEETINGAPPLY", email);
   },
   computed: {

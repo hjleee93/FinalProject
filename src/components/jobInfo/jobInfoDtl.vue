@@ -312,7 +312,6 @@ export default {
     url: "",
   }),
   async mounted() {
-    console.log("스크립트 추가");
     //카카오맵 라이브러리 호출
     if (window.kakao && window.kakao.maps) {
       this.kakaoMap();
@@ -351,9 +350,6 @@ export default {
     },
 
     scrap: function() {
-      console.log(this.items.wantedDtl.wantedInfo.rcptMthd);
-      console.log(this.userData.memberSq);
-
       const formData = {
         memberSq: this.userData.memberSq,
         jobNo: this.$route.params.wantedNo,
@@ -365,7 +361,6 @@ export default {
       axios
         .post("http://localhost:8082/itjobgo/member/scrapJob", formData) //form server 연결
         .then((res) => {
-          console.log(res.data);
           if (res.data > 0) {
             this.$swal({
               text: "스크랩된 구직정보는 마이페이지에서 확인 가능합니다.",
@@ -396,9 +391,7 @@ export default {
       axios
         .post("http://localhost:8082/itjobgo/member/unscrapJob", formData) //form server 연결
         .then((res) => {
-          console.log(res.data);
           if (res.data > 0) {
-            console.log("스크랩 제거");
           } else {
             this.$swal({
               text: "스크랩에 제거에 실패하였습니다. 관리자에게 문의해주세요",
@@ -419,12 +412,10 @@ export default {
     async kakaoMap() {
       setTimeout(() => {
         if (this.items.wantedDtl != undefined) {
-          console.log("지도실행");
           var temp = this.items.wantedDtl.corpInfo.corpAddr._text;
           var add = temp.substr(6, temp.length);
 
           var cn = this.items.wantedDtl.corpInfo.corpNm._text;
-          console.log(add);
           var mapContainer = document.getElementById("map"), // 지도를 표시할 div
             mapOption = {
               center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -474,7 +465,6 @@ export default {
     ]),
   },
   async created() {
-    console.log("created! 11");
     await this.$store.dispatch("memberStore/getMemberInfo");
     await this.$store.dispatch("jobStore/loadJobDetail", {
       wantedNo: this.$route.params.wantedNo,
@@ -488,7 +478,6 @@ export default {
       .then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           if (this.$route.params.wantedNo == response.data[i].jobNo) {
-            console.log("스크랩됨");
             $("#whiteStar").hide();
             $("#fillStar").show();
           }

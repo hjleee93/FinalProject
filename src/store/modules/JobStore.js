@@ -40,20 +40,17 @@ const jobStore = {
         },
         async loadXml({ commit }) {
             //최신 채용 정보 xml
-            console.log("11")
             await axios.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056")
                 .then((response) => {
 
                     let data = response.data
-                    console.log("2")
+
                     //xml to json
                     let json = convert.xml2json(data, { compact: true })
                     this.jobs = JSON.parse(json)
                     commit('SET_POST', this.jobs);
 
                 });
-
-            console.log("3")
 
 
 
@@ -80,7 +77,6 @@ const jobStore = {
                     if (this.items.wantedDtl.wantedInfo.attachFileInfo == undefined) {
 
                         attachFileInfo = '등록된 파일이 없습니다.'
-                        console.log("파일없음: " + this.items.wantedDtl.wantedInfo.attachFileInfo);
                     } else {//중복파일이 올라간 경우가있음
 
                         if (this.items.wantedDtl.wantedInfo.attachFileInfo.length >= 2) {
@@ -100,8 +96,7 @@ const jobStore = {
         },
         //스크랩한 구직정보 wantedNo호출
         async loadScrap({ commit }, memberSq) {
-            console.log("진짜2")
-            console.log(memberSq.memberSq)
+
             await axios
                 .get(
                     "http://localhost:8082/itjobgo/member/getScrapStatus?memberSq=" + memberSq.memberSq
@@ -171,7 +166,7 @@ const jobStore = {
                                     holidayTpNm: companyName[i].holidayTpNm._text,
                                 }
                             )
-                            //console.log(companyName.company._text);
+
 
                         }
 
@@ -187,7 +182,6 @@ const jobStore = {
             if (query.occupation.length === 0) { //직업 전체 선택인 경우
 
                 query.occupation = '214200|214201|214202|214302|022|023|024|025|056'
-                console.log(query.occupation)
             }
             await axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=' + query.occupation + '&keyword=' + query.keyword + '&region=' + query.region)
                 .then((response) => {
@@ -245,7 +239,6 @@ const jobStore = {
                                     holidayTpNm: this.jobInfo.wantedRoot.wanted[i].holidayTpNm._text
                                 }
                             )
-                            //console.log(companyName.company._text);
 
                         }
                     }

@@ -158,7 +158,6 @@ export default {
       if (auth2.isSignedIn.get()) {
         // 로그인한 유저 정보 가져오기
         var profile = auth2.currentUser.get().getBasicProfile();
-        console.log(auth2.currentUser.get());
         let ranPhone = Math.floor(Math.random() * 9999999999);
         const formData = {
           memberName: profile.getName(),
@@ -188,7 +187,6 @@ export default {
           .catch((error) => {
             //서버문제인 경우
             alert("회원등록에 실패했습니다. 관리자에게 문의해주세요.");
-            console.log("실패", error);
           });
       }
     },
@@ -201,8 +199,6 @@ export default {
       //true --> local
       let rememberMe = this.model.rememberMe;
 
-      console.log("email: " + memberEmail);
-      console.log("password: " + memberPwd);
       this.$store.dispatch("memberStore/login", {
         memberEmail,
         memberPwd,

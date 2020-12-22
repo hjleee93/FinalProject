@@ -88,7 +88,6 @@ export default {
   },
   methods: {
     formatDate(value) {
-      // console.log(value);
       return this.$moment(value).format("YYYY-MM-DD");
     },
     movemeeting(item) {

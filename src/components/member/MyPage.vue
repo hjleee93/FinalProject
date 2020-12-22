@@ -565,11 +565,9 @@ export default {
     ...memberState(["loginStatus", "userData"]),
     ...jobState(["tableList", "jobInfo", "scrap"]),
     resumeList() {
-      console.log("도랏뉘");
       let objArr = new Object(); //반환할 객체
 
       for (let i = 0; i < this.$store.state.resumeList.length; i++) {
-        // console.log(this.$store.state.resumeList);
         if (
           this.$store.state.resumeList[i].memberNo == this.userData.memberSq
         ) {
@@ -580,7 +578,7 @@ export default {
       for (let i = 0; i < 3; i++) {
         tem[i] = Object.values(objArr)[i];
       }
-      console.log(tem);
+
       return tem;
     },
     communityboard() {
@@ -601,18 +599,7 @@ export default {
 
       return tem;
     },
-    // //스크랩한 글 리턴
-    // scrap() {
-    //   var temp = new Object(); //반환할 객체
-    //   console.log("this.$store.scrap: " + JSON.stringify(this.$store.scrap));
-    //   if (this.$store.scrap != undefined) {
-    //     for (let i = 0; i < 3; i++) {
-    //       temp[i] = this.$store.scrap[i];
-    //     }
-    //   }
 
-    //   return temp;
-    // },
     pboard() {
       var objTemp = new Object(); //반환할 객체
 
@@ -644,7 +631,7 @@ export default {
       for (let i = 0; i < 3; i++) {
         arr[i] = Object.values(obj)[i];
       }
-      // console.log(arr);
+
       return arr;
     },
     // 자유 게시판 카운트 용
