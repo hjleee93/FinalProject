@@ -120,6 +120,7 @@ import axios from 'axios'
      components:{
       /*     VueEditor, */
       }, 
+      
       methods: {
        updateForm() {
         if(!this.infoTitle){
