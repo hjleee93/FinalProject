@@ -170,10 +170,10 @@
 
 
 <style scoped >
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 
 * {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 #tab_font{
   margin-bottom:5%;

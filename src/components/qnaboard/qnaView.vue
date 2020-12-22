@@ -33,14 +33,14 @@
 
                     <!-- 이미지 -->
                     <!-- max-width="350px" -->
-                    <!-- <v-img
+                    <v-img
                     class="white--text align-end siteimg"
-                    max-height="800px"
-                    max-width="800px"
-                    :src="`http://localhost:8082/itjobgo/qna/selectImg${attachment.qboardNo}`"
+                    max-height="900px"
+                    max-width="900px"
+                    :src="`http://localhost:8082/itjobgo/qna/selectImg${qnaboard2.qboardNo}`"
                     >
                     <v-card-title></v-card-title>
-                    </v-img> -->
+                    </v-img>
 
                     <b-row>
                         <b-col class="qnacontent">{{qnaboard2.qnaContent}}</b-col>                
@@ -51,8 +51,6 @@
                         <b-col><b-button class="qnaphotofile" @click="qbattachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
                     </b-row>
 
-                
-
                 </b-form>
           </b-card>
         </b-col>
@@ -60,11 +58,14 @@
             <b-row>
                 <b-col class="btndiv">
                     <b-button to="/qnaBoard">목록으로 </b-button> 
-                    <b-button v-if="userData.memberSq===qnaboard2.memberNum"
-                        class="btn_center" @click="updateqna">수정</b-button>
-                    <b-button v-if="userData.memberSq===qnaboard2.memberNum||userData.memberEmail==='admin@kh.com'"
-                        class="btn_center" @click="deleteqna">삭제</b-button>
                 </b-col>
+            </b-row>
+
+            <b-row class="btndiv2">
+                <b-button v-if="userData.memberSq===qnaboard2.memberNum||userData.memberEmail==='admin@kh.com'"
+                    class="btn_center btn-danger" @click="deleteqna">삭제</b-button>
+                <b-button v-if="userData.memberSq===qnaboard2.memberNum"
+                    class="btn_center" @click="updateqna">수정</b-button>
             </b-row>
 
     </div>
@@ -338,7 +339,7 @@ export default {
   justify-content: space-around;
 }
 .btn_center{
-    margin-left:1%;
+    margin-left:4%;
 }
 .contents_view{
     border:1px red solid;
@@ -353,6 +354,7 @@ export default {
     margin-top: -10px;
 }
 .qnacontent{
+    font-size: 20px;
     margin-left: 2%;
     margin-top: 2%;
     margin-bottom: 20%;
@@ -387,7 +389,11 @@ export default {
     width: 100%;
 }
 .btndiv{
-    margin-left: 42%;
+    margin-left: 43%;
+    margin-bottom: 1%;
+}
+.btndiv2{
+    margin-left: 85%;
     margin-bottom: 1%;
 }
 .submenuimage{
@@ -429,6 +435,11 @@ export default {
     margin-top: 1%;
     margin-left: 1%;
     text-align: left;
+}
+.siteimg{
+    margin-top: 7%;
+    margin-left: 6%;
+    margin-bottom: 5%;
 }
 
 </style>

@@ -2,11 +2,8 @@
   <b-container>
 
     <div class="container">
-        <h2 class="st_title">게시글 수정</h2><hr>
-        qna게시판 객체(테스트) : {{qnaboard2}}
-        qna게시판 제목(테스트) : {{qnaboard2.qnaTitle}}
-        첨부파일 테스트 : {{qbAttachment}}
-    </div>
+        <h2 class="st_title">QnA 게시글 수정</h2>
+    </div><hr><br>
 
     <!-- 데이터 넘기기 form 시작 -->
     <form @submit.prevent="updateqna"
@@ -196,9 +193,14 @@ import axios from 'axios';
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 .st_title{
+  margin-left: -1%;
   margin-top:5%;
-  margin-bottom: 1%;
+  margin-bottom: -0.5%;
 }
 .btn_sr{
   padding-left: 37%;

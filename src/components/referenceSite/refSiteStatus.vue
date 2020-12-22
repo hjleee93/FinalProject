@@ -24,13 +24,14 @@
               <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
             </v-tabs>
 
- <!-- 서브제목 -->
-      <h4 class="sub-header">미승인 대기 리스트</h4>
+    <!-- 서브제목 -->
+    <h4 class="sub-header">미승인 대기 리스트</h4>
+
     <div class="overflow">
 
          <!-- 테이블 -->
         <v-card>
-        <v-card-title>
+        <v-card-title class="search-bar">
           <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
@@ -132,7 +133,7 @@
 
 <style scoped >
 * {
-   font-family: 'Nanum Gothic', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 #tab_font{
   margin-bottom:5%;
@@ -209,5 +210,9 @@
 }
 .answerbtn3 {
   background-color: #777a7e !important;
+}
+.search-bar {
+  width: 30%;
+  margin-left: 72%;
 }
 </style>

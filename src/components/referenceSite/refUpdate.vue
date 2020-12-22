@@ -6,7 +6,6 @@
     <div class="info">
           * 참고 사이트 등록은 관리자 승인 후 업로드 됩니다. (작성일 기준 1-2일 소요)
     </div><hr>
-    {{refListView}} ?,{{refAttachment}}
     
     <b-form role="form" @submit.prevent="updateForm"
       enctype="multipart/form-data">
@@ -174,6 +173,11 @@ import axios from 'axios';
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 .info{
   margin-left: 0%;
   margin-top: 2%;
@@ -192,6 +196,7 @@ import axios from 'axios';
   margin-right: 13px;
 }
 #btn_write2{
+  margin-left: 7%;
   background-color:  #424874;
   border: 1px  #424874 solid;
   color:white;

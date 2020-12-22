@@ -3,7 +3,7 @@
 <b-container>
 <div class="container">
   <div>
-			<h2 class="st_title">QnA 질문등록</h2><hr>
+			<h2 class="st_title_write">QnA 질문등록</h2><hr>
 
     <!-- 데이터 넘기기 form 시작-->
     <b-form role="form" @submit.prevent="writeQna"
@@ -180,7 +180,12 @@ const { mapState } = createNamespacedHelpers("memberStore");
 </script>
 
 <style>
-.st_title{
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+.st_title_write{
+  margin-left: 0.1%;
   margin-top:5%;
   margin-bottom: 1%;
 }

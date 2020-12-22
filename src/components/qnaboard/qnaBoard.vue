@@ -22,13 +22,12 @@
 
     <!-- 서브제목 -->
       <h4 class="sub-header">질문/답변 게시판</h4>
-      <v-btn to="/qnaWrite" exact  id="st_write" v-if="userData.memberSq!=null">글쓰기</v-btn>
-
+      
     <div class="overflow">
 
          <!-- 테이블 -->
         <v-card>
-        <v-card-title>
+        <v-card-title class="search-bar">
           <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
@@ -66,9 +65,10 @@
           </template>  
           <!-- <td v-if="props.item.deadline.includes('채용시까지')"> -->
         </v-data-table>
-
         </v-card>
-       
+
+        <v-btn to="/qnaWrite" exact  id="st_write" v-if="userData.memberSq!=null">글쓰기</v-btn>
+     
       </div>
     </div>
 
@@ -134,7 +134,7 @@ import { createNamespacedHelpers } from "vuex";
 <style scoped >
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 * {
-   font-family: 'Nanum Gothic', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .overflow .v-card{
   box-shadow: 0 0 black !important;
@@ -156,9 +156,8 @@ import { createNamespacedHelpers } from "vuex";
   position: relative;
   left:1020px;
   width:70px;
-  margin-top: -20px;
-  right: -40px;
-  margin-right: 3.5%;
+  margin-top: -210px;
+  margin-left: 2%;
   background-color: #424874;
   border:none;
   color:white;
@@ -175,5 +174,8 @@ import { createNamespacedHelpers } from "vuex";
 .answerbtn2 {
   background-color:#9BA4B4 !important;
 }
-
+.search-bar {
+  width: 30%;
+  margin-left: 72%;
+}
 </style>

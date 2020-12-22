@@ -17,9 +17,16 @@
           <!-- {{userData}} -->
           <b-col id="title">
             <hr>{{refListView.refTitle}}
-          <p id="boardDate">{{formatDate(refListView.refDate)}}</p><hr>
+          <p id="boardDate">No.{{refListView.refNo}} {{formatDate(refListView.refDate)}} _{{userData.memberName}} 작성</p><hr>
           </b-col>
           <h2><hr></h2>
+        </b-row>
+
+
+        <b-row>
+          <b-col >
+            <pre id="content2">＜ {{refListView.refContent}} ＞</pre>
+          </b-col>
         </b-row>
 
         <!-- 이미지 -->
@@ -34,11 +41,9 @@
         </v-img>
 
         <!-- 링크 바로가기 -->
-          <a href="" v-on:click.stop.prevent="openWindow(refListView.refSiteAddr)" id="link_a">{{refListView.refSiteAddr}}</a>
-
-          <b-row>
-          <b-col > <pre id="content2">{{refListView.refContent}}</pre><br><br><hr></b-col>
-        </b-row>
+        <b-btn class="btn-secondary" id="linka" href="" v-on:click.stop.prevent="openWindow(refListView.refSiteAddr)">
+          사이트 바로가기</b-btn>
+        <hr>
 
         <!-- <b-row v-if="attachment">
           <b-col cols="2" id="attachment-title"><b-form-group  label="첨부된 파일" readonly/></b-col>
@@ -47,33 +52,27 @@
       </b-form>
 
       <form @submit.prevent="updateStatus" enctype="multipart/form-data">     
-          <b-row >
+          <b-row class="bottom" >
             <b-col>
               <b-row class="list">
                 <b-button v-if="refListView.status === 'Y'" to="/refSite">목록 이동</b-button>
                 <b-button v-if="refListView.status === 'N'" to="/refSiteStatus">목록 이동</b-button>
               </b-row>
-              
-              <b-row class="listadmin">
-              <b-button class="btn btn-danger" v-if="userData.memberEmail==='admin@kh.com' && refListView.status === 'N'"
-                        type="submit" exact>사이트 승인하기</b-button>
-              </b-row>
 
               <b-row class="listupdel">
+                
+              <b-button class="adminbtn btn btn-success" v-if="userData.memberEmail==='admin@kh.com' && refListView.status === 'N'"
+                        type="submit" exact>사이트 승인하기</b-button>
+
               <b-button v-if="userData.memberSq===refListView.memberNum"
                         @click="update" id="update-btn2">수정</b-button>
               <b-button v-if="userData.memberSq===refListView.memberNum || userData.memberEmail === 'admin@kh.com'" 
-                        @click="pdelete" id="delete-btn2">삭제</b-button>
+                        @click="pdelete" class="btn btn-danger" id="delete-btn2">삭제</b-button>
               </b-row>
-
 
             </b-col>
           </b-row>
       </form>
-
-      
-
-
 
  
     </div>
@@ -214,8 +213,10 @@ Vue.use(vueMoment);
 
 
 <style scoped >
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+
 * {
-   font-family: 'Nanum Gothic', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .site_ect{
   margin-bottom:20px;
@@ -251,8 +252,7 @@ Vue.use(vueMoment);
   font-weight: bold;
 }
 #boardDate{
-  font-size: 18px;
-  margin-top: -0.5%;
+  font-size: 16px;
   color:#87888a ;
   font-weight: lighter;
 }
@@ -266,16 +266,14 @@ Vue.use(vueMoment);
   margin-bottom: 5%;
   margin-left: 15%;
 }
-#link_a{
-  margin-left: 10%;
-  font-size: 18px;
-}
 #content2{
-  margin-left: 10%;
-  font-size: 18px;
+  margin-top: 3%;
+  text-align: center;
+  font-size: 19px;
 }
 .list{
-  margin-left: 48%;
+  margin-top: 3%;
+  margin-left: 46.5%;
 }
 .listupdel{
   margin-top: 3%;
@@ -284,8 +282,20 @@ Vue.use(vueMoment);
 #delete-btn2{
   margin-left: 4%;
 }
-.listadmin{
-  margin-left: 45.7%;
-  margin-top: 1.5%;
+.adminbtn{
+  margin-left: 0.5%;
 }
+.bottom{
+  margin-bottom: 15%;
+}
+#linka{
+  font-size: 18px;
+  margin-top: 2%;
+  margin-left: 44%;
+  margin-bottom: 15%;
+  background-color: white ;
+  color:rgb(158, 158, 158);
+  border:1px rgb(173, 173, 173) solid;
+}
+
 </style>

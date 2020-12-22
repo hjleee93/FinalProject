@@ -167,6 +167,11 @@ const { mapState } = createNamespacedHelpers("memberStore");
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 .info{
   margin-left: 0%;
   margin-top: 2%;
