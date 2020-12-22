@@ -107,7 +107,7 @@ const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
           { text: '기업명', value: 'infoTitle' },          
           { text: '날짜', value: 'infoDate' },
           { text: '시간', value: 'infoTime' },
-          { text: '주소', value: 'infoContent' },
+          { text: '주소/내용', value: 'infoContent' },
           { text: '조회수', value: 'infoCount' } 
         ],
       }

@@ -7,27 +7,24 @@
         </div>
       </b-row>
 
-<b-container >
+ <b-container>
     <b-row>
       <b-col>
        <b-card class="text-center">
         <b-form>
-          <h4 class="sub-header">취업설명회 일정</h4>
+          <h2 class="sub-header">
+            <b-row class="infodetail">
+             <b-col id="ititle">{{infoDetail.infoTitle}}</b-col>
+            </b-row>
+          </h2>
+          <b-row>
+            <b-col id="icategory"><b>취업{{infoDetail.infoCategory}}</b></b-col>
+          </b-row>
           <hr>
 
-
-<b-container id="container" >
-        <b-row class="infodetail">
-            <b-col id="ititle"><b>기업명</b> :  {{infoDetail.infoTitle}}</b-col>
-        </b-row>
-        
-        <b-row>
-            <b-col id="icategory"><b>분류</b> :  {{infoDetail.infoCategory}}</b-col>
-        </b-row>
-
+    <b-container id="container">
         <b-row> 
-           <!--  <b-col class="title"><b>날짜</b> :  {{infoDetail.infoDate}}</b-col> -->
-        <b-col id="idate"><b>날짜</b> :  {{infoDetail.infoDate | moment('YYYY년 MM월 DD일')}}</b-col>
+           <b-col id="idate"><b>날짜</b> :  {{infoDetail.infoDate | moment('YYYY년 MM월 DD일')}}</b-col>
         </b-row>
 
         <b-row>
@@ -35,46 +32,10 @@
         </b-row>
 
         <b-row>
-            <b-col id="icontent"><b>주소</b> : {{infoDetail.infoContent}}</b-col>
+            <b-col id="icontent"><b>주소/내용</b> : {{infoDetail.infoContent}}</b-col>
         </b-row>
-        
-        <b-row v-if="attachment">
-              <b-col id="attachment">첨부파일</b-col>
-              <b-col><b-button class="iphotofile"  @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
-        </b-row>
+        <hr>
 
-    <!--    
-        <b-row>
-          <b-col cols="3"><b-form-group label="기업명"/></b-col>
-          <b-col><b-form-input id="form-control" v-model="infoDetail.infoTitle" readonly/></b-col>
-        </b-row> 
-         
-        <b-row>
-          <b-col cols="3"><b-form-group  label="분류"/></b-col>
-          <b-col> <b-form-input v-model="infoDetail.infoCategory" readonly/></b-col>
-        </b-row>
- -->
-      
-      <!--   <b-row>
-           <b-col cols="3"><b-form-group  label="날짜"/></b-col>
-        <b-col>{{infoDetail.infoDate | moment('YYYY년 MM월 DD일')}}</b-col>
-        </b-row> -->
-
-      <!--   <b-row>
-          <b-col cols="3"><b-form-group label="날짜" readonly/></b-col>
-          <b-col>{{formatDate(infoDetail.infoDate)}}</b-col>
-        </b-row>
-
-        <b-row>
-          <b-col cols="3"><b-form-group  label="시간" readonly/></b-col>
-          <b-col> <b-form-textarea v-model="infoDetail.infoTime" readonly/></b-col>
-        </b-row> 
-
-        <b-row>
-          <b-col cols="3"><b-form-group  label="주소/내용" readonly/></b-col>
-          <b-col> <b-form-textarea v-model="infoDetail.infoContent" readonly/></b-col>
-        </b-row>  
- -->
         <!--이미지 미리보기-->
         <div class="container" v-if="attachment">
           <v-img
@@ -82,14 +43,15 @@
             id="images"
             :src="`http://localhost:8082/itjobgo/info/imagesrequest${infoDetail.infoSq}`"
           ></v-img>
+          <hr>
         </div>
-</b-container>
-    <!--     <b-row v-if="attachment">
-          <b-col cols="3"><b-form-group  label="첨부파일" readonly/></b-col>
-          <b-col cols="1" id="file"><b-button id="btn_file" @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
-        </b-row>  -->      
-          </b-form>
-     <!--    </b-form> -->
+      
+        <b-row v-if="attachment">
+            <b-col id="iphoto">첨부파일</b-col>
+            <b-col><b-button class="iphotofile"  @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
+        </b-row>
+     </b-container>  
+        </b-form>
         
         <b-row id="writecontain" align-h="end">
           <b-col>
@@ -103,19 +65,17 @@
   </b-row>
   </b-container>   
     <ModalView v-if="showModal" @close="showModal = false">
-
-    <template>
-      <div slot="header">
-        삭제하시겠습니까?
-      </div>
-      <div slot="body" class="modalf"> 
-        <b-button id="but_ydele" @click="ydele">네</b-button>
-        <b-button id="but_ndele" @click="ndele">아니요</b-button>
-      </div>
-        <div slot="footer">
+      <template>
+        <div slot="header">
+          삭제하시겠습니까?
         </div>
-    </template>
-  </ModalView>
+        <div slot="body" class="modalf"> 
+          <b-button id="but_ydele" @click="ydele">네</b-button>
+          <b-button id="but_ndele" @click="ndele">아니요</b-button>
+        </div>
+        <div slot="footer"></div>
+      </template>
+    </ModalView>
   </b-container> 
 </template>
 
@@ -138,7 +98,6 @@ export default {
        formatDate(value) {
         return this.$moment(value).format('YYYY년 MM월 DD일');
       },
-
 
       update(){
         //새로운 수정 컴포넌트로 이동
@@ -203,8 +162,8 @@ export default {
   font-weight: bold;
 }
 .sub-header{
-  margin: 35px 100px ;
-
+  margin: 3px;
+  font-weight: bold;
 }
 .form-control{  
   width:550px;
@@ -255,45 +214,51 @@ export default {
   display: flex;
   justify-content: space-around;
 }
-.iphotofile{
-  background-color: #512d7ee7;
-  margin-bottom: 5px; 
-  border:5px;
-  margin-right: 300% 
-  }
-.iphoto{
-  margin-left: 30%;
-/*   position:absolute; */
-
+#iphoto{
+  width: 15px; 
+  text-align: left;
+  color: rgb(75, 75, 75);   
 }
+.iphotofile{
+  text-align: left;
+  margin-left: -220%;
+  max-width: 300px; 
+  max-height: 300px; 
+  }
 #images{
    height: auto; 
     width: auto; 
     object-fit:cover;
-    max-width: 1000px; 
-    max-height: 1000px; 
+   /*  max-width: 100px; 
+    max-height: 100px; */ 
 }
 #ititle {
-  left:1px;
+   text-align: canter;
 }
 #icategory {
-  left:-3px;
+  right: 25px;
+  text-align: right;
+  font-size: 21px;
+  font-weight: lighter;
 }
 #itime   {
-  left:10px;
+ left:10px;
+  text-align: left;
 }
 #iphotofile{
 left:10px;
+  text-align: left;
 }
 #idate {
 left:10px;
+  text-align: left;
 }
 #icontent{
 left:10px;
+  text-align: left;
 }
-
-
-
-
-
+#attachment{
+left:10px;
+text-align: left;
+}
 </style>
