@@ -3,7 +3,7 @@
 
       <b-row >
          <div class="submenuimage ">
-        <p class="subtitle">Q&A</p>
+        <p class="subtitle">Q & A</p>
         </div>
       </b-row>
 
@@ -142,16 +142,20 @@ import { createNamespacedHelpers } from "vuex";
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
 }
-.submenuimage{
-    width: 100%;
-    height:180px;
-    background-color:#F4EEFF;
-    text-align: center;
-    line-height: 180px;
+.submenuimage {
+  background-image: url("../../assets/images/qna.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
 }
-.subtitle{
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  color:#4e5157 ;
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
 #st_write{
@@ -171,7 +175,7 @@ import { createNamespacedHelpers } from "vuex";
   padding-left: 20px;
 }
 .answerbtn1 {
-  background-color: #a250b3 !important;
+  background-color: #50b35d !important;
 }
 .answerbtn2 {
   background-color:#9BA4B4 !important;

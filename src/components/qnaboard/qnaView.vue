@@ -3,12 +3,12 @@
 
       <b-row >
          <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">Q&A</p>
+        <p class="subtitle">Q & A</p>
         </div>
       </b-row>
 
-    <!-- 상세페이지 본문 시작 -->
     <div class="container">
+        
         <b-col>
             <b-card class="viewcontainer">
                 <b-form>
@@ -333,7 +333,10 @@ export default {
 </script>
 
 <style>
-
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 .modalf{
   display: flex;
   justify-content: space-around;
@@ -356,9 +359,8 @@ export default {
 .qnacontent{
     font-size: 20px;
     margin-left: 2%;
-    margin-top: 2%;
+    margin-top: 0%;
     margin-bottom: 20%;
-    
 }
 .qnawriter{
     font-size: 18px;
@@ -396,16 +398,20 @@ export default {
     margin-left: 85%;
     margin-bottom: 1%;
 }
-.submenuimage{
-    width: 100%;
-    height:180px;
-    background-color:#F4EEFF;
-    text-align: center;
-    line-height: 180px;
+.submenuimage {
+  background-image: url("../../assets/images/qna.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
 }
-.subtitle{
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  color:#4e5157 ;
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
 #deltet-btn{

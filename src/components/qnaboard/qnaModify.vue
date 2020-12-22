@@ -1,7 +1,14 @@
 <template>
-  <b-container>
+<b-container fluid>
 
-    <div class="container">
+      <b-row >
+          <div class="submenuimage ">
+        <p class="subtitle">Q & A</p>
+        </div>
+      </b-row>
+
+  <div class="container">
+    <div>
         <h2 class="st_title">QnA 게시글 수정</h2>
     </div><hr><br>
 
@@ -75,6 +82,7 @@
         </div>
       </form>
 
+  </div>
   </b-container>
 </template>
 
@@ -196,6 +204,22 @@ import axios from 'axios';
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 * {
   font-family: "Noto Sans KR", sans-serif;
+}
+.submenuimage {
+  background-image: url("../../assets/images/qna.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
 }
 .st_title{
   margin-left: -1%;
