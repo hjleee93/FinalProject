@@ -331,34 +331,34 @@ export default new Router({
                     //로그인한 사용자의 레벨을 가져온다 
                     //console.log(to)
                     if (localStorage.vuex.includes('"loginStatus":true')) {
-                    const no =localStorage.getItem("vuex")
-                    const obb=JSON.parse(no);
-                    const mno=obb.userData.memberSq
-                    const pno=to.params.number
-                    console.log(`mno:${mno}pno:${pno}`)
-                    const mck= (mno,pno)=> mno===pno ;
-                    console.log(mck(mno,pno));
-                    console.log(mck)
-                    const level = localStorage.vuex.includes('"memberLevel":"2"')
-                      console.log(level)
-                    if (level ===true ) {
+                         const no = localStorage.getItem("vuex")
+                         const obb = JSON.parse(no);
+                         const mno = obb.userData.memberSq
+                         const pno = to.params.number
+                         console.log(`mno:${mno}pno:${pno}`)
+                         const mck = (mno, pno) => mno === pno;
+                         console.log(mck(mno, pno));
+                         console.log(mck)
+                         const level = localStorage.vuex.includes('"memberLevel":"2"')
+                         console.log(level)
+                         if (level === true) {
                               //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
-                         next();
-                     }
-                     else if(mck(mno,pno)===true) {
-                         next();
-                    }else{
-                         alert("권한정보가 부족합니다.")
-                     }
-                    }else{
+                              next();
+                         }
+                         else if (mck(mno, pno) === true) {
+                              next();
+                         } else {
+                              alert("권한정보가 부족합니다.")
+                         }
+                    } else {
                          Vue.swal({
                               text: "로그인 후 이용해주세요.",
                               icon: "error",
                          });
                          next('/login')
-                         
+
                     }
-               
+
 
                }
 
@@ -375,7 +375,7 @@ export default new Router({
                path: '/infoList',
                name: 'InfoList',
                component: InfoList,
-             
+
           },
           {
                path: '/infoDetail/:id',
@@ -410,7 +410,7 @@ export default new Router({
                path: '/communityBoardForm',
                name: 'CommunityBoardForm',
                component: CommunityBoardForm,
-                beforeEnter: LoginDeny()
+               beforeEnter: LoginDeny()
           },
 
           {
@@ -423,7 +423,7 @@ export default new Router({
                path: '/itNewsForm',
                name: 'ItNewsForm',
                component: ItNewsForm,
-                beforeEnter: LoginDeny()
+               beforeEnter: LoginDeny()
           },
 
           {
@@ -476,7 +476,7 @@ export default new Router({
                path: '/communityBoardUpdate/:id',
                name: 'CommunityBoardUpdate',
                component: CommunityBoardUpdate,
-                beforeEnter: LoginDeny()
+               beforeEnter: LoginDeny()
           },
 
           //현정
@@ -718,7 +718,7 @@ export default new Router({
                component: resumeList,
                beforeEnter: LoginAuth(),
           },
-          
+
           {
                path: '/resume/consultView/:id',
                name: 'consultView',

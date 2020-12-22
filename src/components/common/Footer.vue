@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="footer px-4 mt-5">
+  <v-footer class="footer px-4 mt-5 noprint">
     <v-row align-v="center" class="justify-content-lg-between">
       <v-col lg="12">
         <div class="copyright text-center text-lg-center text-muted pt-2">
@@ -23,5 +23,10 @@
 <style scoped>
 .footer {
   font-family: "Noto Sans KR", sans-serif;
+}
+@media print {
+  .noprint {
+    display: none;
+  }
 }
 </style>
