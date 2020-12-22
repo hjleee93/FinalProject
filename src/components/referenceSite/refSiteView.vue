@@ -64,7 +64,7 @@
                         type="submit" exact>사이트 승인하기</b-button>
 
               <b-button v-if="userData.memberSq===refListView.memberNum"
-                        @click="update" id="update-btn2">수정</b-button>
+                        @click="update" id="updatebutton">수정</b-button>
               <b-button v-if="userData.memberSq===refListView.memberNum || userData.memberEmail === 'admin@kh.com'" 
                         @click="pdelete" class="btn btn-danger" id="delete-btn2">삭제</b-button>
               </b-row>
@@ -300,5 +300,7 @@ Vue.use(vueMoment);
   color:rgb(158, 158, 158);
   border:1px rgb(173, 173, 173) solid;
 }
-
+#updatebutton{
+  margin-left: 2%;
+}
 </style>
