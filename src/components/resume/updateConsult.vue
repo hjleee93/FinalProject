@@ -119,7 +119,7 @@ export default {
           'Content-Type':'multipart/form-data'
         }}).then((res)=>{
           console.log(res.data);
-          //setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
+          setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
           //this.$route.push({name:'consultresume'})
           })
         .catch((error)=>

@@ -124,8 +124,7 @@ import { createNamespacedHelpers } from "vuex";
   text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
-#writecontain{
-}
+
 #writecontain > .btn{
   background-color: #424874;
 }
