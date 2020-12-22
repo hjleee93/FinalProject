@@ -6,8 +6,8 @@
 
         <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
           <!-- 메인 이미지 -->
-              <div class="submenuimage ">
-                  <p class="subtitle" id="subtitle">Notice</p>
+              <div class="submenuimage1 ">
+                  <p class="subtitle" id="subtitle2">공지사항</p>
               </div>
               
         <!-- 탭 -->   
@@ -26,16 +26,16 @@
           <br>
         <!-- 버튼 -->
         
-       
-          <v-btn  class="button" to="/noticeForm" exact  id="st_write" v-if="userData.memberEmail === 'admin@kh.com'">
+          <b-row id="writecontain3" align-h="end">
+          <b-button  class="button" to="/noticeForm" exact v-if="userData.memberEmail === 'admin@kh.com'">
                글쓰기
-           </v-btn>
+           </b-button>
+          </b-row>
           <div class="overflow-hidden">
-
 
          <!-- 테이블 -->
         <v-card>
-          <v-card-title>
+          <v-card-title class="search-bar">
             <v-text-field
                 v-model="search"
                 append-icon="mdi-magnify"
@@ -46,6 +46,7 @@
           </v-card-title>
 
               <v-data-table
+               class="hoverplease"
                 :headers="headers"
                 :items="noticeList"
                 :search="search"
@@ -154,7 +155,60 @@ methods: {
 <style>
 @import '../../assets/css/BoardList.css';
 
+  #writecontain3 > .btn{
+ position: relative;
+top:50px;
+left:-20px;
+  background-color: #424874;
+  border:none;
+  color:white;
+
+  }
+  #writecontain3{
+    margin-bottom: 10%;
+  }
+
+#subtitle2{
+    color:white ;
+    font-size: 50px;
+    font-weight: bold;
+}
 .example::-webkit-scrollbar {
   display: none;
 }
+
+
+*{
+   font-family: "Noto Sans KR", sans-serif;
+}
+
+  .search-bar {
+  width: 30%;
+  margin-left: 72%;
+  }
+
+  .submenuimage1 {
+  background-image: url("../../assets/images/noticeList.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  
+  line-height: 180px;
+}
+.submenuimage1 {
+  width: 100%;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+
+/* hover */
+.hoverplease >>> tbody tr :hover {
+  cursor: pointer;
+}
+
 </style>

@@ -6,12 +6,12 @@
 -->
   <div class="Design_resume ">
     <div class="submenuimage noprint">
-      <p class="subtitle">RESUME</p>
+      <p class="subtitle">DESIGN RESUME</p>
     </div>
     <div class="noprint">
       <v-tabs centered color="grey darken-3">
         <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
-        <v-tab active to="/resume/resumeList">입사지원서 보기</v-tab>
+        <v-tab to="/resume/resumeList">입사지원서 보기</v-tab>
         <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
         <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
         <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>

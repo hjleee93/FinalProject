@@ -1,12 +1,19 @@
 <template>
-<b-container>
+<b-container fluid>
+  
+      <!-- 메인 이미지 -->
+      <b-row>
+          <div class="submenuimage">
+             <p class="subtitle">Reference</p>
+          </div>
+      </b-row>
+
 <div class="container">
   <div>
 		<h2 class="st_title">사이트 수정 및 삭제</h2>
     <div class="info">
           * 참고 사이트 등록은 관리자 승인 후 업로드 됩니다. (작성일 기준 1-2일 소요)
     </div><hr>
-    {{refListView}} ?,{{refAttachment}}
     
     <b-form role="form" @submit.prevent="updateForm"
       enctype="multipart/form-data">
@@ -174,6 +181,27 @@ import axios from 'axios';
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+.submenuimage {
+  background-image: url("../../assets/images/refimg.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
+}
 .info{
   margin-left: 0%;
   margin-top: 2%;
@@ -192,6 +220,7 @@ import axios from 'axios';
   margin-right: 13px;
 }
 #btn_write2{
+  margin-left: 7%;
   background-color:  #424874;
   border: 1px  #424874 solid;
   color:white;

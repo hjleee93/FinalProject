@@ -110,7 +110,9 @@ function fetchCboardCommentSelectList(cboardNo) {
 }
 //댓글  삭제하기
 function fetchCboardCommentDelete(cboardNo) {
+     setTimeout(() => {
     return axios.post(`${config.Url}community/commentDelete${cboardNo}`)
+        }, 1000)
 }
 
 

@@ -1,8 +1,8 @@
 <template>
 <b-container fluid>
       <b-row >
-         <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">NoticeInfo</p>
+         <div class="submenuimage1 ">
+        <p class="subtitle" id="subtitle2">공지사항</p>
       </div>
 
         <!-- 탭 -->   
@@ -167,13 +167,13 @@ export default {
 
         }
     },
-    watch:{
-      commentlist:{
-        handler(newValue){
-          this.changeval=newValue[0].ntCommentContent;
-        },deep:true,
-      }
-    },
+    // watch:{
+    //   commentlist:{
+    //     handler(newValue){
+    //       this.changeval=newValue[0].ntCommentContent;
+    //     },deep:true,
+    //   }
+    // },
     components:{
       ModalView,
     },
@@ -203,26 +203,26 @@ export default {
         
         
       },
-      comment(){
-        let formData2=new FormData();
+      // comment(){
+      //   let formData2=new FormData();
 
-        formData2.append('ntBoardNo',this.noticeView.noticeSq);
-        formData2.append('ntCommentContent',this.ntcomment);
-        formData2.append('memberSq',this.userData.memberSq);
-        formData2.append('memberName',this.userData.memberName)
+      //   formData2.append('ntBoardNo',this.noticeView.noticeSq);
+      //   formData2.append('ntCommentContent',this.ntcomment);
+      //   formData2.append('memberSq',this.userData.memberSq);
+      //   formData2.append('memberName',this.userData.memberName)
 
-      axios.post("http://localhost:8082/itjobgo/notice/comment",formData2)
-      .then((data)=>{
-        console.log(data)
-        this.ntcomment="",
-        this.$store.dispatch("FETCH_NT_COMMENT_LIST",this.$route.params.id);
+      // axios.post("http://localhost:8082/itjobgo/notice/comment",formData2)
+      // .then((data)=>{
+      //   console.log(data)
+      //   this.ntcomment="",
+      //   this.$store.dispatch("FETCH_NT_COMMENT_LIST",this.$route.params.id);
       
-      })
+      // })
      
-      .catch((error)=>
-        console.log(error))
+      // .catch((error)=>
+      //   console.log(error))
      
-      },
+      // },
       //게시판 삭제 모달 취소
       ndele(){
         this.showModal=!this.showModal;
@@ -314,18 +314,38 @@ export default {
 <style scoped>
 @import '../../assets/css/BoardView.css';
 
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
 }
-.submenuimage{
-  width: 100%;
-  height:180px;
-  background-color:#F4EEFF;
+#subtitle2{
+    color:white ;
+    font-size: 50px;
+    font-weight: bold;
+}
+.example::-webkit-scrollbar {
+  display: none;
+}
+  .submenuimage1 {
+  background-image: url("../../assets/images/noticeList.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
   text-align: center;
-  line-height: 180px; 
+  
+  line-height: 180px;
+}
+.submenuimage1 {
+  width: 100%;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
 }
 .subtitle{
-  font-family: 'Masque';
+  /* font-family: 'Masque'; */
   color:#4e5157 ;
   font-size: 50px;
 }
