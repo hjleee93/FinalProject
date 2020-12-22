@@ -177,10 +177,10 @@
 
 
 <style scoped >
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 
 * {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 #tab_font{
   margin-bottom:5%;
@@ -204,7 +204,7 @@
   color:white;
 }
 #st_write_ref2{
-  left: 760px;
+  left: 770px;
   position: relative;
   top: 5px;
   background-color:  #df433e;
@@ -240,16 +240,20 @@
  .mx-auto{
   margin: 1.5%;
 }
-.submenuimage{
-    width: 100%;
-    height:180px;
-    background-color:#F4EEFF;
-    text-align: center;
-    line-height: 180px;
+.submenuimage {
+  background-image: url("../../assets/images/refimg.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
 }
-.subtitle{
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  color:#4e5157 ;
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
 .btn_site{
@@ -258,5 +262,4 @@
   margin-top: 2%; 
   margin-left: 4%;
 }
-
 </style>

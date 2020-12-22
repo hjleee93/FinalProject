@@ -3,7 +3,7 @@
 
       <b-row >
          <div class="submenuimage ">
-        <p class="subtitle">Q&A</p>
+        <p class="subtitle">Q & A</p>
         </div>
       </b-row>
 
@@ -22,13 +22,12 @@
 
     <!-- 서브제목 -->
       <h4 class="sub-header">질문/답변 게시판</h4>
-      <v-btn to="/qnaWrite" exact  id="st_write" v-if="userData.memberSq!=null">글쓰기</v-btn>
-
+      
     <div class="overflow">
 
          <!-- 테이블 -->
         <v-card>
-        <v-card-title>
+        <v-card-title class="search-bar">
           <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
@@ -39,6 +38,7 @@
         </v-card-title>
         
           <v-data-table
+            class="qnahover"
             :headers="headers"
             :items="qnaboard1"
             :search="search"
@@ -66,9 +66,10 @@
           </template>  
           <!-- <td v-if="props.item.deadline.includes('채용시까지')"> -->
         </v-data-table>
-
         </v-card>
-       
+
+        <v-btn to="/qnaWrite" exact  id="st_write" v-if="userData.memberSq!=null">글쓰기</v-btn>
+     
       </div>
     </div>
 
@@ -134,31 +135,34 @@ import { createNamespacedHelpers } from "vuex";
 <style scoped >
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 * {
-   font-family: 'Nanum Gothic', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .overflow .v-card{
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
 }
-.submenuimage{
-    width: 100%;
-    height:180px;
-    background-color:#F4EEFF;
-    text-align: center;
-    line-height: 180px;
+.submenuimage {
+  background-image: url("../../assets/images/qna.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
 }
-.subtitle{
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  color:#4e5157 ;
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
 #st_write{
   position: relative;
   left:1020px;
   width:70px;
-  margin-top: -20px;
-  right: -40px;
-  margin-right: 3.5%;
+  margin-top: -210px;
+  margin-left: 2%;
   background-color: #424874;
   border:none;
   color:white;
@@ -170,10 +174,17 @@ import { createNamespacedHelpers } from "vuex";
   padding-left: 20px;
 }
 .answerbtn1 {
-  background-color: #a250b3 !important;
+  background-color: #50b35d !important;
 }
 .answerbtn2 {
   background-color:#9BA4B4 !important;
 }
-
+.search-bar {
+  width: 30%;
+  margin-left: 72%;
+}
+/* hover */
+.qnahover >>> tbody tr :hover {
+  cursor: pointer;
+}
 </style>
