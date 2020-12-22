@@ -217,7 +217,6 @@ const FoundEmail = () => {
      return import('./components/member/FoundEmail.vue')
 }
 
-
 const JobSearchDtl = () => {
      return import('./components/jobInfo/JobSearchDtl.vue')
 }

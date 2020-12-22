@@ -203,6 +203,10 @@ function fetchqnacommentdel(qboardCommentNo) {
 function fetchrefList() {
     return axios.get(`${config.Url}ref/selectsite`);
 }
+// reference site 리스트 불러오기(미승인 만)
+function fetchrefListNo() {
+    return axios.get(`${config.Url}ref/selectsiteNo`);
+}
 // reference site 삭제하기
 function fetchrefListDelete(refNo) {
     return axios.post(`${config.Url}ref/deletesite${refNo}`)
@@ -215,7 +219,7 @@ function fetchrefListView(refNo) {
 function fetchrefListUpdate(refNo) {
     return axios.get(`${config.Url}ref/refUpdate${refNo}`)
 }
-//글작성 카운트
+// reference site 글작성 카운트
 function fetchrefCount() {
     return axios.get(`${config.Url}ref/statusCount`);
 }
@@ -341,6 +345,7 @@ export {
     fetchqnacommentdel,
 
     fetchrefList,
+    fetchrefListNo,
     fetchrefListDelete,
     fetchrefListView,
     fetchrefListUpdate,

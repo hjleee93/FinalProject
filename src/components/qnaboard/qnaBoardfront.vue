@@ -155,10 +155,9 @@ import { createNamespacedHelpers } from "vuex";
 }
 #st_write{
   position: relative;
-  top: 9px;
   left:1020px;
   width:70px;
-  margin-bottom: 10px;
+  margin-top: -20px;
   right: -40px;
   margin-right: 3.5%;
   background-color: #424874;
@@ -166,11 +165,10 @@ import { createNamespacedHelpers } from "vuex";
   color:white;
 }
 .sub-header{
-  position: relative;
-  bottom: -45px;
-  left:  15px;
-  margin-top: 20px;
-  text-align: left;
+  color:rgb(83, 83, 83);
+  margin-top: 5%;
+  border-left: 15px dotted rgb(104, 104, 104);
+  padding-left: 20px;
 }
 .answerbtn1 {
   background-color: #a250b3 !important;
