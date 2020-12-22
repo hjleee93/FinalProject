@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row">
          <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">portfolio</p>
+        <p class="subtitle" id="subtitle">포트폴리오</p>
       </div>
         <div class="container">      
         <br>
@@ -105,16 +105,20 @@ import { mapState } from 'vuex';
 * {
   font-family: "Noto Sans KR", sans-serif;
 }
-.submenuimage{
-  width: 100%;
-  height:180px;
-  background-color:#F4EEFF;
+.submenuimage {
+  background-image: url("../../assets/images/code-1839406_1920.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
   text-align: center;
-  line-height: 180px; 
+  line-height: 180px;
 }
-.subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
 #writecontain{
