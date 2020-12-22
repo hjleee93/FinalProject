@@ -310,9 +310,18 @@ export default new Vuex.Store({
                return response;
           },
           async FECH_WAITLIST({ commit }, no) {
+
                const response = await fetchWaitList(no)
-               commit("SET_WAITLIST", response.data)
-               return response;
+               const waitArr = new Array();
+               for (let i = 0; i < response.data.length; i++) {
+                    if (response.data[i].memberSq == no) {
+                         let j = 0;
+                         waitArr[j] = response.data[i];
+                         j++;
+                    }
+               }
+               commit("SET_WAITLIST", waitArr)
+
           },
 
           //주은
@@ -363,7 +372,6 @@ export default new Vuex.Store({
           },
           //게시판 댓글 삭제
           FETCH_COMMENT_DELETE(data, no) {
-               
                console.log(no)
                fetchCboardCommentDelete(no)
                     .then((data) => {
@@ -742,7 +750,7 @@ export default new Vuex.Store({
                state.enter = data;
           },
           SET_WAITLIST(state, data) {
-               state.waitList = data;
+               state.waitArr = data;
           },
 
           //주은

@@ -26,31 +26,29 @@
     </div>
     <b-container>
       <p class="text-center">
-        {{ userData.memberName }}님이 신청한 모임의 개설자가 허가를 보류중인
-        목록입니다
+        {{ userData.memberName }}님이 신청한 모임의 개설자가 승인을 보류중인
+        목록입니다.
       </p>
       <b-row>
         <b-col>
           <v-data-table
             :headers="headers"
-            :items="waitList"
+            :items="waitArr"
             class="row-pointer mt-4"
             item-key="name"
           >
             <template v-slot:item="props">
-              <template v-if="props.item.memberSq == userData.memberSq">
-                <tr @click="movemeeting(props.item.mboard.collabSq)">
-                  <td class="text-xs-right">
-                    {{ props.item.mboard.collabTitle }}
-                  </td>
-                  <td class="text-xs-right">
-                    {{ props.item.mboard.collabWriter }}
-                  </td>
-                  <td class="text-xs-right">
-                    {{ formatDate(props.item.tmpDate) }}
-                  </td>
-                </tr>
-              </template>
+              <tr @click="movemeeting(props.item.mboard.collabSq)">
+                <td class="text-xs-right">
+                  {{ props.item.mboard.collabTitle }}
+                </td>
+                <td class="text-xs-right">
+                  {{ props.item.mboard.collabWriter }}
+                </td>
+                <td class="text-xs-right">
+                  {{ formatDate(props.item.tmpDate) }}
+                </td>
+              </tr>
             </template>
           </v-data-table>
         </b-col>
@@ -60,7 +58,7 @@
 </template>
 
 <script>
-import { createNamespacedHelpers, mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
 const { mapState: loadUserState } = createNamespacedHelpers("memberStore");
 
 export default {
@@ -76,14 +74,18 @@ export default {
     };
   },
   async mounted() {
-    await this.$store.dispatch("memberStore/getMemberInfo");
-    await this.$store.dispatch("FECH_WAITLIST", this.$route.params.memberSq);
+    await this.$store.dispatch("memberStore/getMemberInfo").then(() => {
+      console.log("111");
+      this.$store.dispatch("FECH_WAITLIST", this.userData.memberSq);
+    });
   },
-
   computed: {
-    ...mapState({
-      waitList: (state) => state.waitList,
-    }),
+    //     ...mapState({
+    //       waitArr: (state) => state.waitArr,
+    //     }),
+    waitArr() {
+      return this.$store.state.waitArr;
+    },
     ...loadUserState(["userData"]),
   },
   methods: {
