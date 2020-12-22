@@ -4,8 +4,8 @@
   
       <!-- 메인 이미지 -->
       <b-row>
-          <div class="submenuimage">
-             <p id="subtitle">ItNews</p>
+          <div class="submenuimage2">
+             <p id="subtitle4">IT소식</p>
           </div>
       </b-row>
               
@@ -35,16 +35,20 @@
 
        <v-card
           class="mx-auto mcard"
-          max-width="250"
-          max-height="300"
+          max-width="250px"
+          max-height="300px"
+          min-width="250px"
+          min-height="300px"
           v-for="it in itnewsList" :key="it.id"
           @click="cardclick(it)"
         >
         <!-- 이미지 -->
         <v-img
           class="white--text align-end"
-          max-width="250px"
+          max-width="250"
           max-height="200px"
+          min-width="250px"
+          min-height="200px"
           :src="`http://localhost:8082/itjobgo/itnews/imagesrequest${it.newsSq}`"
         >
         <v-card-title></v-card-title>
@@ -52,7 +56,7 @@
 
         <v-card-text class="text--primary">
           <div id="title">{{it.newsTitle}}</div>
-          <div id="content"></div>
+          
         </v-card-text>
 
         <v-card-actions>
@@ -159,15 +163,33 @@
 
 
 <style scoped >
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
 * {
-   font-family: 'Nanum Gothic', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
+}
+.submenuimage2 {
+  background-image: url("../../assets/images/itnewsList.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+
+.submenuimage2 {
+  width: 100%;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
 }
 
 #title{
   position: relative;
   top:-10px;
   font-weight: bold;
+  font-size:15px;
 }
 #content{
   font-size:10px;
@@ -184,9 +206,10 @@
   left:5px;
   border-radius: 9px;
 }
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
-color:#4e5157 ;
+#subtitle4{
+/* font-family: 'Barlow Semi Condensed', sans-serif; */
+color:white;
+font-weight: bold;
 font-size: 50px;
 }
 .site_ect{
@@ -234,7 +257,7 @@ font-size: 50px;
   margin: 1.5%;
 }
 .ref_title{
-    font-family: 'Masque';
+    /* font-family: 'Masque'; */
     color:#4e5157 ;
     font-size: 50px;
 }
