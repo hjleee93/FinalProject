@@ -1,95 +1,83 @@
 <template>
   <div class="resume_List">
-    <body>
-      <div class="container-fluid">
-        <div class="submenuimage">
-          <p class="subtitle">RESUME LIST</p>
-        </div>
-        <div>
-          <v-tabs centered color="grey darken-3">
-            <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
-            <v-tab active to="/resume/resumeList">입사지원서 보기</v-tab>
-            <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
-            <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
-            <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
-          </v-tabs>
-        </div>
-        <div class="container">
-          <div class="overflow">
-            <!-- 테이블 -->
-            <v-card>
-              <v-card-title>
-                <v-text-field
-                  v-model="search"
-                  append-icon="mdi-magnify"
-                  label="Search"
-                  single-line
-                  hide-details
-                ></v-text-field>
-              </v-card-title>
-              <!-- vuetify에 data table에 items를 선언한 배열 변수로 지정해준다 -->
-              <v-data-table
-                :headers="headers"
-                :items="resumeList"
-                :search="search"
-                item-key="name"
-              >
-                <template v-slot:item="props">
-                  <tr>
-                    <td
-                      class="text-xs-right"
-                      @click="handleClick(props.item.resumeNo)"
+    <div>
+      <div class="submenuimage">
+        <p class="subtitle">RESUME LIST</p>
+      </div>
+      <div>
+        <v-tabs centered color="grey darken-3">
+          <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
+          <v-tab active to="/resume/resumeList">입사지원서 보기</v-tab>
+          <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
+          <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
+          <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
+        </v-tabs>
+      </div>
+      <div class="container">
+        <p class="text-center mb-5 mt-4">
+          작성하신 입사지원서 정보를 바탕으로 기본/디자인/라인 이력서을
+          제공합니다.
+        </p>
+        <div class="overflow">
+          <!-- 테이블 -->
+          <v-card>
+            <!-- vuetify에 data table에 items를 선언한 배열 변수로 지정해준다 -->
+            <v-data-table
+              :headers="headers"
+              :items="resumeList"
+              :search="search"
+              class="row-pointer mt-4"
+              item-key="name"
+            >
+              <template v-slot:item="props">
+                <tr>
+                  <td
+                    class="text-xs-right"
+                    @click="handleClick(props.item.resumeNo)"
+                  >
+                    {{ props.item.resumelistTitle }}
+                  </td>
+                  <td
+                    class="text-xs-right"
+                    @click="handleClick(props.item.resumeNo)"
+                  >
+                    {{ props.item.resumelistWriter }}
+                  </td>
+                  <td
+                    class="text-xs-right"
+                    @click="handleClick(props.item.resumeNo)"
+                  >
+                    {{ props.item.resumelistAttachment }}
+                  </td>
+                  <td
+                    class="text-xs-right"
+                    @click="handleClick(props.item.resumeNo)"
+                  >
+                    {{ formatDate(props.item.resumelistDate) }}
+                  </td>
+                  <td class="text-xs-right">
+                    <b-button
+                      pill
+                      variant="outline-success"
+                      @click="updateResume(props.item.resumeNo)"
+                      >수정</b-button
                     >
-                      {{ props.item.resumelistNo }}
-                    </td>
-                    <td
-                      class="text-xs-right"
-                      @click="handleClick(props.item.resumeNo)"
+                  </td>
+                  <td class="text-xs-right">
+                    <b-button
+                      pill
+                      variant="outline-danger"
+                      @click="deleteResume(props.item.resumeNo)"
+                      >삭제</b-button
                     >
-                      {{ props.item.resumelistTitle }}
-                    </td>
-                    <td
-                      class="text-xs-right"
-                      @click="handleClick(props.item.resumeNo)"
-                    >
-                      {{ props.item.resumelistWriter }}
-                    </td>
-                    <td
-                      class="text-xs-right"
-                      @click="handleClick(props.item.resumeNo)"
-                    >
-                      {{ props.item.resumelistAttachment }}
-                    </td>
-                    <td
-                      class="text-xs-right"
-                      @click="handleClick(props.item.resumeNo)"
-                    >
-                      {{ formatDate(props.item.resumelistDate) }}
-                    </td>
-                    <td class="text-xs-right">
-                      <b-button
-                        pill
-                        variant="outline-success"
-                        @click="updateResume(props.item.resumeNo)"
-                        >수정</b-button
-                      >
-                    </td>
-                    <td class="text-xs-right">
-                      <b-button
-                        pill
-                        variant="outline-danger"
-                        @click="deleteResume(props.item.resumeNo)"
-                        >삭제</b-button
-                      >
-                    </td>
-                  </tr>
-                </template>
-              </v-data-table>
-            </v-card>
-          </div>
+                  </td>
+                </tr>
+              </template>
+            </v-data-table>
+          </v-card>
         </div>
       </div>
-    </body>
+    </div>
   </div>
 </template>
 
@@ -104,12 +92,6 @@ export default {
     return {
       search: "",
       headers: [
-        {
-          text: "번호",
-          align: "start",
-          filterable: false,
-          value: "resumelistNo",
-        },
         // 그리고 spring에서 넘겨주는 json타입의 변수에 매칭시켜서 테이블의 row행의 value값을 동일하게 해준다
 
         { text: "제목", value: "resumelistTitle" },
@@ -200,5 +182,19 @@ export default {
 .overflow .v-card {
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
+}
+/* header css */
+.row-pointer >>> thead tr {
+  background-color: #ededed;
+  border-top: 2px solid #d5d5d5;
+}
+.row-pointer >>> thead tr th span {
+  font-size: 15px;
+  font-weight: bold;
+  color: #4e5157;
+}
+/* hover */
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
 }
 </style>

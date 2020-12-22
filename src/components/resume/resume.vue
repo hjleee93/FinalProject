@@ -529,7 +529,9 @@ input {
 }
 
 .print {
-  margin-left: 80%;
+  float: right;
+  background-color: #0278ae;
+  border: none;
 }
 tr,
 td {
@@ -581,10 +583,7 @@ div .resumetitle {
   color: #f1f6f9;
   border-radius: 30px;
 }
-button {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+
 #submit {
   margin-left: 45%;
   background-color: #424874;
