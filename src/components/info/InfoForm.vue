@@ -78,11 +78,11 @@
     </b-input-group>
 
     <!--첨부파일 리셋 버튼-->
-    <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button>
+   <!--  <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button> -->
     <!--버튼 -->
     <div id="btn_bottom">
       <b-button type="submit" id="submit">등록</b-button>
-      <b-button type="reset" id="reset-btn">Reset </b-button>
+    <!--   <b-button type="reset" id="reset-btn">Reset </b-button> -->
       <b-button to="/infoList" exact id="cancel">취소</b-button>
     </div>
 
@@ -158,16 +158,16 @@
           this.files=this.$refs.upfiles.$refs.input.files[0];
           console.log(this.files);
         },
-        onReset(evt) {
+ /*         onReset(evt) {
          evt.preventDefault()
           this.infoTitle=''
           this.category=null
           this.infoContent=''
           this.files.name=''
-        },
+        },  */
         clearFiles() {
           this.$refs['upfiles'].reset()
-        },
+        }, 
       }
     }
 </script>

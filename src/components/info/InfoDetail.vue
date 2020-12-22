@@ -15,33 +15,35 @@
           <h4 class="sub-header">취업설명회 일정</h4>
           <hr>
 
-        <b-row>
-            <b-col class="title"><b>기업명</b> :  {{infoDetail.infoTitle}}</b-col>
+
+<b-container id="container" >
+        <b-row class="infodetail">
+            <b-col id="ititle"><b>기업명</b> :  {{infoDetail.infoTitle}}</b-col>
         </b-row>
         
         <b-row>
-            <b-col class="title"><b>분류</b> :  {{infoDetail.infoCategory}}</b-col>
+            <b-col id="icategory"><b>분류</b> :  {{infoDetail.infoCategory}}</b-col>
         </b-row>
 
-        <b-row>
+        <b-row> 
            <!--  <b-col class="title"><b>날짜</b> :  {{infoDetail.infoDate}}</b-col> -->
-          <b-col class="title"><b>날짜</b> :  {{infoDetail.infoDate | moment('YYYY년 MM월 DD일')}}</b-col>
+        <b-col id="idate"><b>날짜</b> :  {{infoDetail.infoDate | moment('YYYY년 MM월 DD일')}}</b-col>
         </b-row>
 
         <b-row>
-            <b-col class="title"><b>시간</b> :  {{infoDetail.infoTime}}</b-col>  
+            <b-col id="itime"><b>시간</b> :  {{infoDetail.infoTime| moment('hh시 ss분')}}</b-col>  
         </b-row>
 
         <b-row>
-            <b-col class="title"><b>주소</b> : {{infoDetail.infoContent}}</b-col>
+            <b-col id="icontent"><b>주소</b> : {{infoDetail.infoContent}}</b-col>
         </b-row>
         
         <b-row v-if="attachment">
-              <b-col class="photo">첨부파일</b-col>
-              <b-col><b-button class="photofile"  @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
+              <b-col id="attachment">첨부파일</b-col>
+              <b-col><b-button class="iphotofile"  @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
         </b-row>
 
-       <!-- 
+    <!--    
         <b-row>
           <b-col cols="3"><b-form-group label="기업명"/></b-col>
           <b-col><b-form-input id="form-control" v-model="infoDetail.infoTitle" readonly/></b-col>
@@ -51,13 +53,19 @@
           <b-col cols="3"><b-form-group  label="분류"/></b-col>
           <b-col> <b-form-input v-model="infoDetail.infoCategory" readonly/></b-col>
         </b-row>
+ -->
+      
+      <!--   <b-row>
+           <b-col cols="3"><b-form-group  label="날짜"/></b-col>
+        <b-col>{{infoDetail.infoDate | moment('YYYY년 MM월 DD일')}}</b-col>
+        </b-row> -->
 
-        <b-row>
-          <b-col cols="3"><b-form-group  label="날짜"/></b-col>
-          <b-col> <b-form-input v-model="infoDetail.infoDate" readonly/></b-col>       
+      <!--   <b-row>
+          <b-col cols="3"><b-form-group label="날짜" readonly/></b-col>
+          <b-col>{{formatDate(infoDetail.infoDate)}}</b-col>
         </b-row>
 
-         <b-row>
+        <b-row>
           <b-col cols="3"><b-form-group  label="시간" readonly/></b-col>
           <b-col> <b-form-textarea v-model="infoDetail.infoTime" readonly/></b-col>
         </b-row> 
@@ -66,15 +74,24 @@
           <b-col cols="3"><b-form-group  label="주소/내용" readonly/></b-col>
           <b-col> <b-form-textarea v-model="infoDetail.infoContent" readonly/></b-col>
         </b-row>  
-
-        <b-row v-if="attachment">
+ -->
+        <!--이미지 미리보기-->
+        <div class="container" v-if="attachment">
+          <v-img
+            class="white--text align-end"
+            id="images"
+            :src="`http://localhost:8082/itjobgo/info/imagesrequest${infoDetail.infoSq}`"
+          ></v-img>
+        </div>
+</b-container>
+    <!--     <b-row v-if="attachment">
           <b-col cols="3"><b-form-group  label="첨부파일" readonly/></b-col>
           <b-col cols="1" id="file"><b-button id="btn_file" @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
-        </b-row>       
-          </b-form> -->
-        </b-form>
+        </b-row>  -->      
+          </b-form>
+     <!--    </b-form> -->
         
-        <b-row id=" writecontain" align-h="end">
+        <b-row id="writecontain" align-h="end">
           <b-col>
             <b-button id="btn_update" v-if="userData.memberEmail === 'admin@kh.com'" @click="update">수정</b-button>
             <b-button id="btn_pdelete" v-if="userData.memberEmail === 'admin@kh.com'" @click="pdelete">삭제</b-button>
@@ -118,6 +135,12 @@ export default {
       ModalView,
     },
     methods: {
+       formatDate(value) {
+        // console.log(value);
+        return this.$moment(value).format('YYYY년 MM월 DD일');
+      },
+
+
       update(){
         //새로운 수정 컴포넌트로 이동
         let no=this.$route.params.id
@@ -231,15 +254,45 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   display: flex;
   justify-content: space-around;
 }
-/* .photofile{
- background-color: #512d7ee7;
-   margin-bottom: 5px; 
-    border:5px;
-  margin-left: 0%
- */
-/* .photo{
-  margin-left: 0%;
-  position:absolute;
-} */
+.iphotofile{
+  background-color: #512d7ee7;
+  margin-bottom: 5px; 
+  border:5px;
+  margin-right: 300% 
+  }
+.iphoto{
+  margin-left: 30%;
+/*   position:absolute; */
+
+}
+#images{
+   height: auto; 
+    width: auto; 
+    object-fit:cover;
+    max-width: 1000px; 
+    max-height: 1000px; 
+}
+#ititle {
+  left:1px;
+}
+#icategory {
+  left:-3px;
+}
+#itime   {
+  left:10px;
+}
+#iphotofile{
+left:10px;
+}
+#idate {
+left:10px;
+}
+#icontent{
+left:10px;
+}
+
+
+
+
 
 </style>

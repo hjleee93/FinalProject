@@ -68,11 +68,11 @@
     </b-form-group>
 
     <!--첨부파일 리셋 버튼-->
-    <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button>
+   <!--  <b-button @click="clearFiles" id="file_btn" class="mr-2">Clear files</b-button> -->
     <!-- 수정 버튼 -->
     <div id="btn_bottom">
       <b-button  id="submit1" type="submit" >완료</b-button>
-      <b-button type="reset"  id="reset-btn">Reset</b-button>
+    <!--   <b-button type="reset"  id="reset-btn">Reset</b-button> -->
       <b-button type="button" id="golist"  to="/infoList" exact>목록</b-button>
    </div>
   </form>

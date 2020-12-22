@@ -203,43 +203,42 @@ const MyPage = () => {
 }
 
 const JobInfoDtl = () => {
-     return import('./components/jobInfo/jobInfoDtl.vue')
+     return import('./components/jobInfo/JobInfoDtl.vue')
 }
 
 const FoundPassword = () => {
-     return import('./components/member/foundPassword.vue')
+     return import('./components/member/FoundPassword.vue')
 }
 
 const FoundEmail = () => {
-     return import('./components/member/foundEmail.vue')
+     return import('./components/member/FoundEmail.vue')
 }
 
-
 const JobSearchDtl = () => {
-     return import('./components/jobInfo/jobSearchDtl.vue')
+     return import('./components/jobInfo/JobSearchDtl.vue')
 }
 
 const ChgMemberInfo = () => {
-     return import('./components/member/chgMemberInfo.vue')
+     return import('./components/member/ChgMemberInfo.vue')
 }
 
 const ChgPwdInfo = () => {
-     return import('./components/member/chgPwdInfo.vue')
+     return import('./components/member/ChgPwdInfo.vue')
 }
 const DeleteMember = () => {
-     return import('./components/member/deleteMember.vue')
+     return import('./components/member/DeleteMember.vue')
 }
 const LoginCallback = () => {
-     return import('./components/member/loginCallback.vue')
+     return import('./components/member/LoginCallback.vue')
 }
 const NaverLogin = () => {
-     return import('./components/member/naverLogin.vue')
+     return import('./components/member/NaverLogin.vue')
 }
 const KakaoCallbackLogin = () => {
-     return import('./components/member/kakaoCallbackLogin.vue')
+     return import('./components/member/KakaoCallbackLogin.vue')
 }
 const AdminPage = () => {
-     return import('./components/member/adminPage.vue')
+     return import('./components/member/AdminPage.vue')
 }
 
 
