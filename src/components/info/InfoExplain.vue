@@ -48,17 +48,15 @@
     >
 
     <template v-slot:item="props">
-    <tr @click="handleClick(props.item.infoSq)">
-      <td class="text-xs-right">{{props.item.infoSq }}</td>
-   <!--    <td class="text-xs-right">{{props.item.infoCategory }}</td> -->
-      <td class="text-xs-right">{{props.item.infoTitle }}</td>
-      <td class="text-xs-right">{{props.item.infoDate }}</td>
-      <td class="text-xs-right">{{props.item.infoTime }}</td>
-      <td class="text-xs-right">{{props.item.infoContent }}</td>
-      <td class="text-xs-right">{{props.item.infoCount }}</td>
-    </tr>
-  </template>
-
+        <tr @click="handleClick(props.item.infoSq)">
+        <td v-if="props.item.infoCategory.includes('설명회')" class="text-xs-right">{{props.item.infoSq }}</td>
+        <td v-if="props.item.infoCategory.includes('설명회')" class="text-xs-right">{{props.item.infoTitle }}</td>
+        <td v-if="props.item.infoCategory.includes('설명회')" class="text-xs-right">{{props.item.infoDate }}</td>
+        <td v-if="props.item.infoCategory.includes('설명회')" class="text-xs-right">{{props.item.infoTime }}</td>
+        <td v-if="props.item.infoCategory.includes('설명회')" class="text-xs-right">{{props.item.infoContent }}</td>
+        <td v-if="props.item.infoCategory.includes('설명회')" class="text-xs-right">{{props.item.infoCount }}</td>
+        </tr>
+    </template>  
     </v-data-table>
   </v-card>
   </div>

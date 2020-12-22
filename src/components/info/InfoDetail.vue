@@ -136,7 +136,6 @@ export default {
     },
     methods: {
        formatDate(value) {
-        // console.log(value);
         return this.$moment(value).format('YYYY년 MM월 DD일');
       },
 
@@ -242,8 +241,8 @@ export default {
   color:white; 
 }
 #but_ydele{
-  background-color: red;
-  border-color:red;
+  background-color: #9BA4B4;
+  border-color:  #9BA4B4;
 }
 #but_ndele{
   background-color: #424874;
@@ -292,5 +291,9 @@ left:10px;
 #icontent{
 left:10px;
 }
+
+
+
+
 
 </style>

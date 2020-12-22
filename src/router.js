@@ -97,6 +97,15 @@ const InfoModify = () => {
 const JobList = () => {
      return import('./components/jobInfo/JobList.vue')
 }
+const InfoExplain = () => {
+     return import('./components/info/InfoExplain.vue')
+}
+const InfoCounsel = () => {
+     return import('./components/info/InfoCounsel.vue')
+}
+const InfoFair = () => {
+     return import('./components/info/InfoFair.vue')
+}
 
 //주은
 const CommunityBoardList = () => {
@@ -369,6 +378,7 @@ export default new Router({
                beforeEnter: LoginAuth()
 
           },
+
           //민지
           {
                path: '/infoList',
@@ -385,7 +395,7 @@ export default new Router({
                path: '/infoForm',
                name: 'InfoForm',
                component: InfoForm,
-               beforeEnter: adminDeny()
+             
           },
           {
                path: '/jobList',
@@ -396,8 +406,24 @@ export default new Router({
                path: '/infoModify/:id',
                name: 'InfoModify',
                component: InfoModify,
-               beforeEnter: adminDeny()
+              
           },
+          {
+               path: '/infoExplain',
+               name: 'InfoExplain',
+               component: InfoExplain,
+          },
+          {
+               path: '/infoFair',
+               name: 'InfoFair',
+               component: InfoFair,
+          },
+          {
+               path: '/infoCounsel',
+               name: 'InfoCounsel',
+               component: InfoCounsel,
+          },
+          
           //주은
           {
                path: '/communityBoardList',

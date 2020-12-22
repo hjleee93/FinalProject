@@ -4,9 +4,11 @@
  <div class="container">
   <h2 class="st_title">Information 작성</h2><hr>
     
-    <b-form role="form" @submit.prevent="enrollInfo" 
-    @reset="onReset"  enctype="multipart/form-data">
-     
+<!--     <b-form role="form" @submit.prevent="enrollInfo" 
+    @reset="onReset"  enctype="multipart/form-data"> -->
+  <b-form @submit.prevent="enrollInfo" 
+     enctype="multipart/form-data">
+
     <b-input-group prepend="기업" class="mb-2" >
       <b-form-input
         id="input-2"
@@ -141,8 +143,6 @@
           console.log(`${key}`);
           }
 
-          console.log(this.category);
-
         axios.post("http://localhost:8082/itjobgo/info/infoForm",
           formData,
           { headers:{
@@ -165,9 +165,9 @@
           this.infoContent=''
           this.files.name=''
         },  */
-        clearFiles() {
+    /*     clearFiles() {
           this.$refs['upfiles'].reset()
-        }, 
+        },  */
       }
     }
 </script>
@@ -201,14 +201,14 @@
     border:5px;
     color:white; 
   }
-  #reset-btn{
+ /*  #reset-btn{
     width:60px;
     margin-bottom: 5px; 
     margin-right: 2%;
     background-color: #9BA4B4;
     border:5px;
     color:white; 
-  }
+  } */
   #btn_bottom{
   margin: 2%;
   text-align: center;

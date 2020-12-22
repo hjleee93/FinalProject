@@ -109,7 +109,6 @@ import axios from 'axios'
       created() {
         const infoSq=this.$route.params.id;
           this.$store.dispatch("FETCH_INFO_UPDATE",infoSq)
-          console.log("지금하고있는 로그 " + infoSq);
       },
       computed:{
         //mapState를 통해서 store에 저장된 객체를 가져온다
@@ -170,16 +169,6 @@ import axios from 'axios'
         console.log(this.$refs.upfiles.$refs.input.files[0]);
         this.files=this.$refs.upfiles.$refs.input.files[0];
         console.log(this.files);
-      },
-      onReset(evt) {
-        evt.preventDefault()
-        this.infoTitle=''
-        this.category=null
-        this.infoContent=''
-        this.files.name=''
-      },
-      clearFiles() {
-        this.$refs['upfiles'].reset()
       },
     }
   }
