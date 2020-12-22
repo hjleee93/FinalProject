@@ -3,12 +3,12 @@
 
       <b-row >
          <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">Q&A</p>
+        <p class="subtitle">Q & A</p>
         </div>
       </b-row>
 
-    <!-- 상세페이지 본문 시작 -->
     <div class="container">
+        
         <b-col>
             <b-card class="viewcontainer">
                 <b-form>
@@ -33,14 +33,14 @@
 
                     <!-- 이미지 -->
                     <!-- max-width="350px" -->
-                    <!-- <v-img
+                    <v-img
                     class="white--text align-end siteimg"
-                    max-height="800px"
-                    max-width="800px"
-                    :src="`http://localhost:8082/itjobgo/qna/selectImg${attachment.qboardNo}`"
+                    max-height="900px"
+                    max-width="900px"
+                    :src="`http://localhost:8082/itjobgo/qna/selectImg${qnaboard2.qboardNo}`"
                     >
                     <v-card-title></v-card-title>
-                    </v-img> -->
+                    </v-img>
 
                     <b-row>
                         <b-col class="qnacontent">{{qnaboard2.qnaContent}}</b-col>                
@@ -51,8 +51,6 @@
                         <b-col><b-button class="qnaphotofile" @click="qbattachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
                     </b-row>
 
-                
-
                 </b-form>
           </b-card>
         </b-col>
@@ -60,11 +58,14 @@
             <b-row>
                 <b-col class="btndiv">
                     <b-button to="/qnaBoard">목록으로 </b-button> 
-                    <b-button v-if="userData.memberSq===qnaboard2.memberNum"
-                        class="btn_center" @click="updateqna">수정</b-button>
-                    <b-button v-if="userData.memberSq===qnaboard2.memberNum||userData.memberEmail==='admin@kh.com'"
-                        class="btn_center" @click="deleteqna">삭제</b-button>
                 </b-col>
+            </b-row>
+
+            <b-row class="btndiv2">
+                <b-button v-if="userData.memberSq===qnaboard2.memberNum||userData.memberEmail==='admin@kh.com'"
+                    class="btn_center btn-danger" @click="deleteqna">삭제</b-button>
+                <b-button v-if="userData.memberSq===qnaboard2.memberNum"
+                    class="btn_center" @click="updateqna">수정</b-button>
             </b-row>
 
     </div>
@@ -74,11 +75,25 @@
     <b-row v-for="comment in commentlist" :key="comment.id">
         <b-col>
           <b-card class="text-center">
-            <b-row><b-col class="memberName" cols="2">{{comment.memberName}}
-            <br><small>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}</small>
-            </b-col>
-            <!-- 쓴사람과 아닐떄는 일반 댓글로 보여주지않기 -->
-            <b-col class="contentcm" v-if="comment.memberSq!=userData.memberSq">{{comment.qbCommentContent}}</b-col>
+            <b-row>
+                <!-- 댓글 작성자가 관리자일때 -->
+                <b-col v-if="comment.memberName==='관리자'" class="memberNameAdmin" cols="2">      
+                    {{comment.memberName}}
+                    <br><small>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}</small>
+                </b-col>
+                <!-- 댓글 작성자-->
+                <b-col v-else
+                            class="memberName" cols="2">{{comment.memberName}}
+                    <br><small>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}</small>
+                </b-col>
+
+            <!-- 글쓴이가 아닐때는(관리자포함) 일반 댓글로 보여주지않기 -->
+            <b-row>
+                <b-col class="contentcmAdmin" v-if="comment.memberSq===999">
+                    {{comment.qbCommentContent}}
+                </b-col>
+                <b-col class="contentcm" v-else-if="comment.memberSq!=userData.memberSq">{{comment.qbCommentContent}}</b-col>
+            </b-row>
             <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
             <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
 
@@ -117,7 +132,9 @@
             </b-card></b-col>
         </b-row>
     </b-form>
+
     </b-container>
+    
     <!-- 삭제 모달창 -->
     <ModalView v-if="showModal" @close="showModal=false">
     <template>
@@ -332,13 +349,16 @@ export default {
 </script>
 
 <style>
-
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 .modalf{
   display: flex;
   justify-content: space-around;
 }
 .btn_center{
-    margin-left:1%;
+    margin-left:4%;
 }
 .contents_view{
     border:1px red solid;
@@ -353,10 +373,10 @@ export default {
     margin-top: -10px;
 }
 .qnacontent{
+    font-size: 20px;
     margin-left: 2%;
-    margin-top: 2%;
+    margin-top: 0%;
     margin-bottom: 20%;
-    
 }
 .qnawriter{
     font-size: 18px;
@@ -387,19 +407,27 @@ export default {
     width: 100%;
 }
 .btndiv{
-    margin-left: 42%;
+    margin-left: 43%;
     margin-bottom: 1%;
 }
-.submenuimage{
-    width: 100%;
-    height:180px;
-    background-color:#F4EEFF;
-    text-align: center;
-    line-height: 180px;
+.btndiv2{
+    margin-left: 85%;
+    margin-bottom: 1%;
 }
-.subtitle{
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  color:#4e5157 ;
+.submenuimage {
+  background-image: url("../../assets/images/qna.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
 #deltet-btn{
@@ -420,15 +448,41 @@ export default {
     margin-top: 1%;
     color:rgb(59, 59, 59);
 }
+.memberNameAdmin{
+    font-weight: bold;
+    text-align: left;
+    font-size: 17px;
+    margin-left: 1%;
+    margin-top: 1%;
+    color: rgb(235, 68, 17);
+}
 .icon{
     margin-left: 1.5%;
 }
 .contentcm{
-    border-left: 1px rgb(212, 208, 208) solid;
+    border-left: 3px rgb(6, 21, 92) solid;
     padding-left: 25px;
     margin-top: 1%;
     margin-left: 1%;
     text-align: left;
+}
+.contentcmAdmin{
+    border-left: 3px rgb(235, 68, 17) solid;
+    padding-left: 25px;
+    margin-top: 1%;
+    margin-left: 1%;
+    text-align: left;
+    margin-right: 5%;
+    height: 90%;
+}
+.siteimg{
+    margin-top: 7%;
+    margin-left: 6%;
+    margin-bottom: 5%;
+}
+.staricon{
+    color:yellow;
+    
 }
 
 </style>
