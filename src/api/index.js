@@ -284,6 +284,16 @@ function fetchConsultant() {
     return axios.get(`${config.Url}resume/Consultant.do`)
 }
 
+//나의 이력서 전문가 리스트
+function fetchConsultantOne(memberSq) {
+    return axios.get(`${config.Url}resume/ConsultantOne/${memberSq}.do`)
+}
+//이력서 게시판 상세화면(첨부파일)
+function fetchConsultAttachment(consultNo) {
+    return axios.get(`${config.Url}resume/consultAttachment/${consultNo}.do`)
+}
+
+
 export {
     fetchPboardList,
     fetchPboardOne,
@@ -372,6 +382,8 @@ export {
     fetchRboardAttachment,
     fetchRboardDelete,
     fetchConsultant,
+    fetchConsultAttachment,
+    fetchConsultantOne,
 
 }
 

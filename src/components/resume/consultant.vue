@@ -14,12 +14,12 @@
               <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
           </v-tabs>
       </div>
-      <div class="container">      
 
+      <div class="container">
         <div class="overflow">
          <!-- 테이블 -->
         <v-card>
-          <v-card-title>
+          <v-card-title class="search-bar">
             <v-text-field
                 v-model="search"
                 append-icon="mdi-magnify"
@@ -43,13 +43,13 @@
                 <td class="text-xs-right">{{props.item.consultName }}</td>
                 <td class="text-xs-right">{{props.item.consultField }}</td>
                 <td class="text-xs-right">{{props.item.consultWork }}</td>
+                <td class="text-xs-right">{{props.item.consultAttachment }}</td>
                 <td class="text-xs-right">{{formatDate(props.item.consultDate)}}</td>
-                <td class="text-xs-right"><b-button pill variant="outline-primary" @click="download(props.item.consultNo)">증빙서류</b-button></td>
-                <td class="text-xs-right"><b-button pill variant="outline-success" @click="approval(props.item.memberSq)">승인</b-button></td>
-                <td class="text-xs-right"><b-button pill variant="outline-danger" @click="refuse(props.item.consultNo)">거절</b-button></td>
+                <td class="text-xs-right"><b-button pill variant="outline-primary" v-if="props.item.originalFilename!=null" @click="download(props.item.consultNo, props.item.originalFilename, props.item.renamedFilename)">증빙서류</b-button></td>
+                <td class="text-xs-right"><b-button pill variant="outline-success" @click="approval(props.item.memberSq, props.item.consultNo)">승인</b-button></td>
+                <td class="text-xs-right"><b-button pill variant="outline-danger" @click="refuse(props.item.memberSq, props.item.consultNo)">거절</b-button></td>
               </tr>
            </template>
-
           </v-data-table>
         </v-card>
 
@@ -58,6 +58,7 @@
     </div>
   </body>
  </div>
+
 </template>
 
 <script>
@@ -83,6 +84,7 @@ import { createNamespacedHelpers } from "vuex";
           { text: '이름', value: 'consultName'},
           { text: '분야', value: 'consultField'},
           { text: '경력', value: 'consultWork' },
+          { text: '첨부파일', value: 'consultAttachment' },
           { text: '등록일자', value: 'consultDate' },
           { text: '', value: '' },
           { text: '', value: '' },
@@ -96,6 +98,7 @@ import { createNamespacedHelpers } from "vuex";
     computed: {
       ...mapState({
         consultant:state=>state.consultant
+        
       }),
       ...loadUserState(['userData'])  
     },
@@ -105,14 +108,23 @@ import { createNamespacedHelpers } from "vuex";
     //     this.$router.push({name:'resume',params:{id:value}})
     //     console.log(value)
     //   },
+      download(consultNo, originalFilename, renamedFilename){
+          //this.$store.dispatch("FETCH_CONSULT_ATTACHMENT",value);
+          //let Attachment=this.consultAttachment;
+          console.log("consultNo : "+consultNo);
+          console.log("originalFilename : "+originalFilename);
+          console.log("renamedFilename : "+renamedFilename);
+          location.href="http://localhost:8082/itjobgo/resume/consultFileDownload?oriName="+originalFilename+"&reName="+renamedFilename;
 
-      approval(value){
+      },
+      approval(memberSq, consultNo){
         alert("이력서 전문가 신청을 승인하겠습니까?");
-        const memberSq=value;
-        console.log(value);
+        let approval="Y";
 
         let formData=new FormData();
         formData.append('memberSq',memberSq);
+        formData.append('approval',approval);
+        formData.append('consultNo',consultNo);
 
         axios.post("http://localhost:8082/itjobgo/member/updateConsultant.do",formData
        ,{ headers:{
@@ -124,16 +136,29 @@ import { createNamespacedHelpers } from "vuex";
           })
         .catch((error)=>
         console.log(error));
+
+        axios.post("http://localhost:8082/itjobgo/resume/updateConsultApproval.do",formData
+       ,{ headers:{
+          'Content-Type':'multipart/form-data'
+        }}).then((res)=>{
+          console.log(res.data);
+          // setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
+          // this.$route.push({name:'consultresume'})
+          })
+        .catch((error)=>
+        console.log(error));
       },
 
-      refuse(value){
+      refuse(memberSq, consultNo){
         alert("이력서 전문가 신청을 거절하겠습니까?");
-        const memberSq=value;
-        console.log(value);
+        let approval="R";
+
         let formData=new FormData();
         formData.append('memberSq',memberSq);
+        formData.append('approval',approval);
+        formData.append('consultNo',consultNo);
 
-        axios.post("http://localhost:8082/itjobgo/member/updateConsultant.do",formData
+        axios.post("http://localhost:8082/itjobgo/resume/updateConsultApproval.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
         }}).then((res)=>{
@@ -173,10 +198,12 @@ import { createNamespacedHelpers } from "vuex";
   text-align: center;
   line-height: 180px; 
 }
-.subtitle{
-    font-family: 'Masque';
-    color:#4e5157 ;
-    font-size: 50px;
+.subtitle {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
 }
 #writecontain{
   margin-bottom: 10%;
@@ -184,6 +211,7 @@ import { createNamespacedHelpers } from "vuex";
 #writecontain > .btn{
   background-color: #424874;
 }
+
 .overflow .v-card{
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
@@ -191,5 +219,9 @@ import { createNamespacedHelpers } from "vuex";
 td{
   text-align: center;
 }
+  .search-bar {
+  width: 30%;
+  margin-left: 72%;
+  }
 /* .base_text{background-color: #424874;} */
 </style>
