@@ -25,6 +25,7 @@ import {
      fetchmeetingdel,
      fetchapprovecount,
      fetchentrant,
+     fetchMeetingend,
 
 
      //주은
@@ -130,6 +131,7 @@ export default new Vuex.Store({
           mklist: [],
           acount:[],
           enter:[],
+          meetingend:[],
 
 
 
@@ -245,6 +247,13 @@ export default new Vuex.Store({
                     .catch(({ error }) => {
                          console.log(error);
                     })
+          },
+          FECH_MEETINGENDLIST({commit}){
+               fetchMeetingend()
+               .then(({ data }) => commit("SET_MEETINGEND", data))
+               .catch(({ error }) => {
+                    console.log(error);
+               })
           },
 
           FECH_MSUBLIST({ commit }) {
@@ -723,6 +732,9 @@ export default new Vuex.Store({
           SET_APPLY(state, data) {
                state.apply = data;
 
+          },
+          SET_MEETINGEND(state,data){
+               state.meetingend=data;
           },
           SET_APPROVE(state, data) {
                state.approvelist = data;

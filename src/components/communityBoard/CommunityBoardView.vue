@@ -57,7 +57,7 @@
         <b-col>
           <!-- <b-button to="/communityBoardList" id="prev">이전 </b-button>
           <b-button to="/communityBoardList" id="next">다음 </b-button> -->
-          <b-button to="/communityBoardList" id="list">목록 </b-button>
+          <b-button to="/communityBoardList" id="list4">목록 </b-button>
         </b-col>
       </b-row>
       
@@ -79,7 +79,7 @@
             <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.cbCommentContent}}</b-col>
             
             <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
-            <b-form v-if="userData.memberSq!=null ">
+            <b-form v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'">
        
               <b-col>
                 <b-row>
@@ -329,6 +329,18 @@ export default {
 
 * {
   font-family: "Noto Sans KR", sans-serif;
+}
+#list4{
+ position: relative;
+  padding-top:10px;
+ left: 520px;
+ height: 45px;
+ width: 80px;
+ align-items: center;
+ font-size: 17px;
+ border:none;
+ font-weight: bold;
+background-color: #4975cc;
 }
 #subtitle1{
 

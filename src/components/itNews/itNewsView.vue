@@ -186,13 +186,13 @@ export default {
 
         }
     },
-    watch:{
-      commentlist:{
-        handler(newValue){
-          this.changeval=newValue[0].cbCommentContent;
-        },deep:true,
-      }
-    },
+    // watch:{
+    //   commentlist:{
+    //     handler(newValue){
+    //       this.changeval=newValue[0].cbCommentContent;
+    //     },deep:true,
+    //   }
+    // },
     components:{
       ModalView,
     },
