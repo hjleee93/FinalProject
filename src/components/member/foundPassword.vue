@@ -25,7 +25,6 @@
             </b-card-header>
             <b-card-body class="px-lg-5 py-lg-5">
               <b-form role="form" @submit.prevent="onSubmit">
-                <!-- TODO: 첫 입력 문자로 입력되는거 수정해야됨 -->
                 <b-form-input
                   alternative
                   class="mb-3"

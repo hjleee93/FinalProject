@@ -23,6 +23,8 @@ import {
      fetchApproveList,
      fetchmklist,
      fetchmeetingdel,
+     fetchapprovecount,
+     fetchentrant,
 
 
      //주은
@@ -77,6 +79,10 @@ import {
      fetchResume,
      fetchResumeList,
      fetchResumeDelete,
+     fetchRboardView,
+     fetchRboardAttachment,
+     fetchRboardDelete,
+     fetchConsultant,
 
 
 }
@@ -122,6 +128,8 @@ export default new Vuex.Store({
           apply: [],
           approvelist: [],
           mklist: [],
+          acount:[],
+          enter:[],
 
 
 
@@ -177,6 +185,9 @@ export default new Vuex.Store({
           rboard: [],
           resume: [],
           resumeList: [],
+          rboardDetail: [],
+          rboardAttachment: [],
+          consultant: [],
 
      },
      actions: {
@@ -244,12 +255,17 @@ export default new Vuex.Store({
                     })
 
           },
-          FECH_MOBOARDINFO({ commit }, no) {
-               fetchMeetinginfo(no)
-                    .then(({ data }) => commit("SET_MINFO", data))
-                    .catch(({ error }) => {
-                         console.log(error);
-                    })
+          async FECH_MOBOARDINFO({ commit }, no) {
+              const response=await fetchMeetinginfo(no)
+               commit("SET_MINFO",response.data)
+               return response;
+                   
+          },
+         async FECH_APPLYCOUNT({commit},no){
+              const response=await fetchapprovecount(no)
+              commit("SET_COUNT",response.data)
+              return response;
+
           },
 
           async FECH_MEETINGAPPLY({ commit }, email) {
@@ -287,6 +303,12 @@ export default new Vuex.Store({
               commit("SET_UMINFO",response.data)
               return response;
 
+          },
+          async FECH_APPLYLIST({commit},no)
+          {
+               const response=await fetchentrant(no)
+               commit("SET_ENTER",response.data)
+               return response;
           },
           //주은
           //자유게시판 list 불러오기
@@ -593,7 +615,6 @@ export default new Vuex.Store({
 
           //혜지
           //이력서 게시판 리스트 보기
-
           FETCH_RBOARD({ commit }) {
                //인자로 centext가 제공 centext.commit
                fetchRboardList()
@@ -612,6 +633,7 @@ export default new Vuex.Store({
                          console.log(error);
                     })
           },
+
           //이력서리스트 불러오기
           FETCH_RESUMELIST({ commit }, memberSq){
                fetchResumeList(memberSq)
@@ -625,6 +647,41 @@ export default new Vuex.Store({
           FETCH_RESUME_DELETE({ commit }, resumeNo){
                fetchResumeDelete(resumeNo)
                     .then(({ data }) => commit("SET_RESUME_DELETE", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
+          },
+          //이력서 게시판 상세화면
+          FETCH_RBOARD_VIEW({ commit }, rboardNo) {
+               fetchRboardView(rboardNo)
+                    .then(({ data }) => commit("SET_RBOARD_VIEW", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
+          },
+
+          //이력서 게시판 상세화면(첨부파일)
+          FETCH_RBOARD_ATTACHMENT({ commit }, rboardNo) {
+               fetchRboardAttachment(rboardNo)
+                    .then(({ data }) => commit("SET_RBOARD_ATTACHMENT", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
+          },
+
+           //이력서 게시판 삭제하기
+          FETCH_RBOARD_DELETE({ commit }, rboardNo) {
+               fetchRboardDelete(rboardNo)
+                    .then(({ data }) => commit("SET_RBOARD_DELETE", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
+          },
+
+           //이력서 전문가 리스트 불러오기
+          FETCH_CONSULTANT({ commit }) {
+               fetchConsultant()
+                    .then(({ data }) => commit("SET_CONSULTANT", data))
                     .catch(({ error }) => {
                          console.log(error);
                     })
@@ -671,6 +728,12 @@ export default new Vuex.Store({
           },
           SET_MKLIST(state, data) {
                state.mklist = data;
+          },
+          SET_COUNT(state,data){
+               state.acount=data;
+          },
+          SET_ENTER(state,data){
+               state.enter=data;
           },
 
           //주은
@@ -835,6 +898,22 @@ export default new Vuex.Store({
           SET_RESUME_DELETE(state, deta){
                state.data= deta;
           },
+          //이력서 상세화면
+          SET_RBOARD_VIEW(state, rboardDetail){
+               state.rboardDetail=rboardDetail;
+          },
+          //이력서 상세화면(첨부파일)
+          SET_RBOARD_ATTACHMENT(state, rboardAttachment){
+               state.rboardAttachment=rboardAttachment;
+          },
+          //이력서 게시판 삭제
+          SET_RBOARD_DELETE(state, data) {
+               state.data = data;
+          },
+          //이력서 전문가 리스트
+          SET_CONSULTANT(state, consultant){
+               state.consultant=consultant;
+          }
 
      }//mutations 끝
 

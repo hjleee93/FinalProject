@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+ 
 //HTTP Request & Response와 관련된 기본 설정
 const config = {
     Url: "http://localhost:8082/itjobgo/"
@@ -67,6 +67,12 @@ function fetchmeetingdel(no) {
 //모임업데이트할때 사용하는 로직
 function fetchmtUpdate(no){
     return axios.get(`${config.Url}meeting/meetingupdate${no}.do`)
+}
+function fetchapprovecount(no){
+    return axios.get(`${config.Url}meeting/meetingcount${no}.do`)
+}
+function fetchentrant(no){
+    return axios.get(`${config.Url}meeting/meetingenter${no}.do`)
 }
 
 
@@ -259,6 +265,22 @@ function fetchResumeList(memberSq){
 function fetchResumeDelete(resumeNo){
     return axios.get(`${config.Url}resume/deleteResume/${resumeNo}.do`)
 }
+//이력서 게시판 상세화면
+function fetchRboardView(rboardNo) {
+    return axios.get(`${config.Url}resume/rboardView/${rboardNo}.do`)
+}
+//이력서 게시판 상세화면(첨부파일)
+function fetchRboardAttachment(rboardNo) {
+    return axios.get(`${config.Url}resume/rboardAttachment/${rboardNo}.do`)
+}
+//이력서 게시판 상세화면(첨부파일)
+function fetchRboardDelete(rboardNo) {
+    return axios.get(`${config.Url}resume/deleteRboard/${rboardNo}.do`)
+}
+//이력서 전문가 리스트
+function fetchConsultant() {
+    return axios.get(`${config.Url}resume/Consultant.do`)
+}
 
 export {
     fetchPboardList,
@@ -279,6 +301,8 @@ export {
     fetchmklist,
     fetchmeetingdel,
     fetchmtUpdate,
+    fetchapprovecount,
+    fetchentrant,
   
 
 
@@ -342,6 +366,10 @@ export {
     fetchResume,
     fetchResumeList,
     fetchResumeDelete,
+    fetchRboardView,
+    fetchRboardAttachment,
+    fetchRboardDelete,
+    fetchConsultant,
 
 }
 

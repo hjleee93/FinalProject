@@ -3,14 +3,14 @@
   <body>
     <div class="container-fluid">
       <div class="submenuimage">
-          <p class="subtitle">ResumeList</p>
+          <p class="subtitle">Consultant LIST</p>
       </div>
       <div>
           <v-tabs centered color="grey darken-3">
               <v-tab to="/resume/insertresume">입사지원서 등록</v-tab>
-              <v-tab active to="/resume/resumeList">입사지원서 보기</v-tab>
+              <v-tab to="/resume/resumeList">입사지원서 보기</v-tab>
               <v-tab to="/resume/consultresume">입사지원서 컨설팅</v-tab>
-              <v-tab to="/resume/consult">컨설팅 전문가 등록</v-tab>
+              <v-tab active to="/resume/consult">컨설팅 전문가 등록</v-tab>
               <v-tabs-slider color="deep-purple lighten-5"></v-tabs-slider>
           </v-tabs>
       </div>
@@ -31,20 +31,22 @@
         <!-- vuetify에 data table에 items를 선언한 배열 변수로 지정해준다 -->
           <v-data-table
             :headers="headers"
-            :items=resumeList
+            :items=consultant
             :search="search"
             item-key="name"
           >
 
             <template v-slot:item="props">
               <tr>
-                <td class="text-xs-right" @click="handleClick(props.item.resumeNo)">{{props.item.resumelistNo }}</td>
-                <td class="text-xs-right" @click="handleClick(props.item.resumeNo)">{{props.item.resumelistTitle }}</td>
-                <td class="text-xs-right" @click="handleClick(props.item.resumeNo)">{{props.item.resumelistWriter }}</td>
-                <td class="text-xs-right" @click="handleClick(props.item.resumeNo)">{{props.item.resumelistAttachment }}</td>
-                <td class="text-xs-right" @click="handleClick(props.item.resumeNo)">{{formatDate(props.item.resumelistDate)}}</td>
-                <td class="text-xs-right"><b-button pill variant="outline-success" @click="updateResume(props.item.resumeNo)">수정</b-button></td>
-                <td class="text-xs-right"><b-button pill variant="outline-danger" @click="deleteResume(props.item.resumeNo)">삭제</b-button></td>
+                <td class="text-xs-right">{{props.item.consultNo }}</td>
+                <td class="text-xs-right">{{props.item.memberSq }}</td>
+                <td class="text-xs-right">{{props.item.consultName }}</td>
+                <td class="text-xs-right">{{props.item.consultField }}</td>
+                <td class="text-xs-right">{{props.item.consultWork }}</td>
+                <td class="text-xs-right">{{formatDate(props.item.consultDate)}}</td>
+                <td class="text-xs-right"><b-button pill variant="outline-primary" @click="download(props.item.consultNo)">증빙서류</b-button></td>
+                <td class="text-xs-right"><b-button pill variant="outline-success" @click="approval(props.item.consultNo)">승인</b-button></td>
+                <td class="text-xs-right"><b-button pill variant="outline-danger" @click="refuse(props.item.consultNo)">거절</b-button></td>
               </tr>
            </template>
 
@@ -59,7 +61,7 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from 'axios';
 import { mapState } from 'vuex';
 const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
@@ -73,14 +75,16 @@ import { createNamespacedHelpers } from "vuex";
             text: "번호",
             align: 'start',
             filterable: false,
-            value: 'resumelistNo',
+            value: 'consultNo',
           },
           // 그리고 spring에서 넘겨주는 json타입의 변수에 매칭시켜서 테이블의 row행의 value값을 동일하게 해준다
 
-          { text: '제목', value: 'resumelistTitle'},
-          { text: '작성자', value: 'resumelistWriter'},
-          { text: '첨부파일', value: 'resumelistAttachment'},
-          { text: '작성일', value: 'resumelistDate' },
+          { text: '회원번호', value: 'memberSq'},
+          { text: '이름', value: 'consultName'},
+          { text: '분야', value: 'consultField'},
+          { text: '경력', value: 'consultWork' },
+          { text: '등록일자', value: 'consultDate' },
+          { text: '', value: '' },
           { text: '', value: '' },
           { text: '', value: '' },
         ],
@@ -91,36 +95,49 @@ import { createNamespacedHelpers } from "vuex";
     },
     computed: {
       ...mapState({
-        resumeList:state=>state.resumeList
+        consultant:state=>state.consultant
       }),
       ...loadUserState(['userData'])  
     },
     
     methods: {
-      handleClick(value){
-     
-        this.$router.push({name:'resume',params:{id:value}})
-        console.log(value)
+    //   handleClick(value){
+    //     this.$router.push({name:'resume',params:{id:value}})
+    //     console.log(value)
+    //   },
+
+      approval(value){
+        alert("이력서 전문가 신청을 승인하겠습니까?");
+        const consultNo=value;
+        console.log(value);
+
+        axios.post("http://localhost:8082/itjobgo/resume/insertconsultant.do",consultNo
+       ,{ headers:{
+          'Content-Type':'multipart/form-data'
+        }}).then((res)=>{
+          console.log(res.data);
+          // setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
+          // this.$route.push({name:'consultresume'})
+          })
+        .catch((error)=>
+        console.log(error));
       },
 
-      updateResume(value){
-        this.$router.push({name:'updateresume',params:{id:value}})
-        console.log(value)
-      },
-
-      deleteResume(value){
-        alert("이력서를 삭제하시겠습니까?");
-        const resumeNo=value;
-        this.$store.dispatch("FETCH_RESUME_DELETE", resumeNo);
-      },
+      // refuse(value){
+      //   alert("이력서 전문가 신청을 거절하겠습니까?");
+      //   const consultNo=value;
+      //   this.$store.dispatch("FETCH_RESUME_DELETE", resumeNo);
+      // },
 
       formatDate(value){
       return this.$moment(value).format("YYYY-MM-DD");
       } 
     },
+
+
+
     created() {
-      const memberSq=this.userData.memberSq;
-      this.$store.dispatch("FETCH_RESUMELIST", memberSq);
+      this.$store.dispatch("FETCH_CONSULTANT");
     },
     
   }

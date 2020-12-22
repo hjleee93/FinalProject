@@ -32,9 +32,27 @@
                 <td class="text-xs-right" @click="movemeeting(props.item.collabSq)">{{props.item.title }}</td>
                 <td class="text-xs-right">{{   new Date(props.item.mdate).toLocaleDateString() }}</td>
                <td class="text-xs-right"><b-button @click="update(props.item)">수정</b-button><b-button @click="deltemet(props.item,props.index)">삭제</b-button></td>
+                <td class="text-xs-right"> <b-button v-b-toggle.sidebar-backdrop @click="applylist(props.item.collabSq)">참가자현황</b-button></td>
               </tr>
            </template>
           </v-data-table>
+          <b-sidebar
+      id="sidebar-backdrop"
+      title="모임 참가자 현황"
+      :backdrop-variant="variant"
+      backdrop
+      shadow
+    >
+      <div class="px-3 py-2">
+        <b-card title="참가자">
+            <div v-for="user in enter" :key="user.id">
+              <b-avatar size="sm"></b-avatar>
+              <p class="enteruser">{{`${user.MEMBER_NAME}/${user.MEMBER_EMAIL}/${user.POSITION}`}}</p>
+            </div>
+        </b-card>
+     
+      </div>
+    </b-sidebar>
 </b-col>
 
       
@@ -54,6 +72,8 @@ export default {
   
     data(){
      return{
+       enter:[],
+       variant:'dark',
         headers: [
           {
             text: "번호",
@@ -65,6 +85,7 @@ export default {
           { text: '모임제목', value: 'title' },
            { text: '생성일', value: 'mdate'},
          { text: '수정/삭제', value: 'status' },
+          { text: '참가자현황',  },
         ]
     }
     },
@@ -72,6 +93,7 @@ export default {
         //로컬 사용해서 로그인한 사용자 이메일 가져오기
        const no=this.$route.params.memberSq
       this.$store.dispatch("FECH_MKLIST",no)
+      
         
     },
      computed: {
@@ -85,6 +107,15 @@ export default {
          
     }, 
     methods: {
+      applylist(no){
+       this.$store.dispatch("FECH_APPLYLIST",no)
+       .then(({data})=>{
+        this.enter=data
+       })
+
+       
+
+      },
       movemeeting(item){
          this.$router.push({name:"meetinginfo",params:{id:item}})
       },
@@ -119,6 +150,9 @@ export default {
 }
 #unpprove{
     color:red
+}
+.enteruser{
+  font-size: 14px;
 }
 
 </style>
