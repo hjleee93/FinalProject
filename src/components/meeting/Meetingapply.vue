@@ -115,6 +115,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 </style>

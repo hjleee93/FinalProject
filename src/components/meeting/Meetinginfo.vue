@@ -252,6 +252,9 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
   text-align: center;
   line-height: 180px;
 }
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 .subtitle {
   font-weight: 700;
   color: #fff;
