@@ -1,9 +1,15 @@
 <template>
+<b-container fluid>
 
-<b-container>
+      <b-row >
+         <div class="submenuimage ">
+        <p class="subtitle">Q & A</p>
+        </div>
+      </b-row>
+
 <div class="container">
   <div>
-			<h2 class="st_title">QnA 질문등록</h2><hr>
+			<h2 class="st_title_write">QnA 질문등록</h2><hr>
 
     <!-- 데이터 넘기기 form 시작-->
     <b-form role="form" @submit.prevent="writeQna"
@@ -180,7 +186,28 @@ const { mapState } = createNamespacedHelpers("memberStore");
 </script>
 
 <style>
-.st_title{
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+.submenuimage {
+  background-image: url("../../assets/images/qna.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
+}
+.st_title_write{
+  margin-left: 0.1%;
   margin-top:5%;
   margin-bottom: 1%;
 }

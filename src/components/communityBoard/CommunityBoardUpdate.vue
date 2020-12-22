@@ -157,4 +157,7 @@ import axios from 'axios'
 
 <style>
 @import '../../assets/css/BoardUpdate.css';
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 </style>

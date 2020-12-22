@@ -143,4 +143,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
 
 <style>
 @import '../../assets/css/BoardForm.css';
+*{
+   font-family: "Noto Sans KR", sans-serif;
+}
 </style>
