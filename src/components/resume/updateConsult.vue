@@ -111,9 +111,9 @@ export default {
         formData.append('file',this.files);
         formData.append('rboardNo',this.$route.params.id);
 
-        for(let key of formData.entries()){
-          console.log(`${key}`);
-        }
+        // for(let key of formData.entries()){
+        //   console.log(`${key}`);
+        // }
       axios.post("http://localhost:8082/itjobgo/resume/updateRboard.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
@@ -125,13 +125,13 @@ export default {
         .catch((error)=>
         console.log(error))
 
-        console.log(formData);
+        //console.log(formData);
 
       },
       handleFile(){
-        console.log(this.$refs.upfiles.$refs.input.files[0]);
+        //console.log(this.$refs.upfiles.$refs.input.files[0]);
         this.files=this.$refs.upfiles.$refs.input.files[0];
-        console.log(this.files);
+        //console.log(this.files);
       }
      
     }

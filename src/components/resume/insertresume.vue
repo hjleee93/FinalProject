@@ -862,9 +862,9 @@ export default {
       formData.append("abroadAgency", this.abroadAgency);
       formData.append("abroadDetail", this.abroadDetail);
 
-      for (let key of formData.entries()) {
-        console.log(`${key}`);
-      }
+      // for (let key of formData.entries()) {
+      //   console.log(`${key}`);
+      // }
 
       axios
         .post(
@@ -889,7 +889,7 @@ export default {
     //     },
     handleFile() {
       this.files = this.$refs.fileInput.$refs.input.files[0];
-      console.log(this.files);
+      //console.log(this.files);
     },
 
     selectImage() {

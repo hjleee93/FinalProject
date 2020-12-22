@@ -89,7 +89,7 @@ import { createNamespacedHelpers } from "vuex";
       handleClick(value){
      
         this.$router.push({name:'consultView',params:{id:value.rboardNo}})
-        console.log(value)
+        //console.log(value)
       }
     },
     created() {
