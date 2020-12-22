@@ -283,7 +283,6 @@ export default {
                 return this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
                 })
                 }
-
                  }, 1000)
 
             },
