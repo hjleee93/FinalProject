@@ -775,7 +775,7 @@ export default {
             }})
             .then((res)=>{
                 console.log(res.data);
-                //setTimeout( () => this.$router.push({ path: '/resume/resume'}), 2000);
+                setTimeout( () => this.$router.push({ path: '/resume/resumeList'}), 2000);
                 })
             .catch((error)=>console.log(error));
                

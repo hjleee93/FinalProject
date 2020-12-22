@@ -3,7 +3,7 @@
   <body>
     <div class="container-fluid">
       <div class="submenuimage">
-          <p class="subtitle">Consult Resume</p>
+          <p class="subtitle">입사지원서 컨설팅 게시판</p>
       </div>
       <div>
           <v-tabs centered color="grey darken-3">
@@ -15,21 +15,13 @@
           </v-tabs>
       </div>
       <div class="container">      
-        <br>
-        <!-- 관리자 승인 버튼 -->
-        <b-row id="consultApproval" align-h="end">
-           <!-- <b-button to="/resume/consultant" v-if="userData.memberEmail==='admin@kh.com'">관리자 승인</b-button> -->
-           <b-button to="/resume/consultant" v-if="userData.memberEmail==='admin@kh.com'">관리자 승인</b-button>
-        </b-row>
-        <!-- 글쓰기 버튼  -->
-        <b-row id="writecontain" align-h="end">
-           <b-button to="/resume/consultresumeenroll" >글쓰기</b-button>
-        </b-row>
-
         <div class="overflow">
          <!-- 테이블 -->
         <v-card>
-          <v-card-title>
+          <b-row id="writecontain" align-h="end">
+            <b-button to="/resume/consultresumeenroll" >글쓰기</b-button>
+          </b-row>
+          <v-card-title class="search-bar">
             <v-text-field
                 v-model="search"
                 append-icon="mdi-magnify"
@@ -40,6 +32,7 @@
           </v-card-title>
         <!-- vuetify에 data table에 items를 선언한 배열 변수로 지정해준다 -->
           <v-data-table
+          class="row-pointer mt-4"
             :headers="headers"
             :items=rboard
             :search="search"
@@ -48,7 +41,6 @@
           >
           </v-data-table>
         </v-card>
-
        </div>
       </div>
     </div>
@@ -115,20 +107,24 @@ import { createNamespacedHelpers } from "vuex";
   flex-direction: column;
   justify-content: center;
 }
-.submenuimage{
-  width: 100%;
-  height:180px;
-  background-color:#F4EEFF;
+.submenuimage {
+  background-image: url("../../assets/images/consult1.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
   text-align: center;
-  line-height: 180px; 
+  line-height: 180px;
 }
-.subtitle{
-    font-family: 'Masque';
-    color:#4e5157 ;
-    font-size: 50px;
+.subtitle {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
 }
 #writecontain{
-  margin-bottom: 10%;
 }
 #writecontain > .btn{
   background-color: #424874;
@@ -137,6 +133,16 @@ import { createNamespacedHelpers } from "vuex";
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
 }
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 
-
+  .search-bar {
+  width: 30%;
+  margin-left: 72%;
+  }
+/* hover */
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
 </style>

@@ -6,7 +6,7 @@
 -->
   <div class="insert_resume">
     <div class="submenuimage">
-      <p class="subtitle">CREATE YOUR RESUME</p>
+      <p class="subtitle">입사지원서 등록</p>
     </div>
     <div>
       <v-tabs centered color="grey darken-3">
@@ -837,7 +837,7 @@ export default {
         )
         .then((res) => {
           console.log(res.data);
-          //setTimeout( () => this.$router.push({ path: '/resume/resume'}), 2000);
+          setTimeout( () => this.$router.push({ path: '/resume/resumeList'}), 2000);
         })
         .catch((error) => console.log(error));
     },
