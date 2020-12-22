@@ -9,9 +9,11 @@
         <div class="container">      
         <br>
       
-        <b-row id="writecontain" align-h="end">
-           <b-button to="/portfolioenroller" >글쓰기</b-button>
+        <b-row id="writecontain" align-h="between">
+             <b-col><b-button to="/portfolioenroller" >글쓰기</b-button> </b-col>
+            <b-col><b-button id="modal" to="/portfolioenroller" >글쓰기</b-button></b-col>
         </b-row>
+        
         <div class="overflow-hidden">
          <!-- 테이블 -->
         <v-card>
@@ -26,6 +28,7 @@
         </v-card-title>
         <!-- vuetify에 data table에 items를 선언한 배열 변수로 지정해준다 -->
           <v-data-table
+          class="row-pointer"
             :headers="headers"
             :items=pboard
             :search="search"
@@ -89,27 +92,7 @@ import { mapState } from 'vuex';
     },
     created() {
       this.$store.dispatch("FETCH_PBOARD")
-      //https://www.youtube.com/watch?v=PN8un6a1x1s 참조할수 있는 유튜브 주소
-      //라이프사이클의 생성주기를 이용해서 axios를 사용한다 
-      //url에는 spring의 매핑주소를 적고 
-      //받아오는 데이터를 선언한 배열 변수에 넣어준다 
-       //console.log(this)
-
-      //리턴값이 하나면 한줄로 {}생략가능하다.
-      //화살표함수 사용시 this는 해당 컴포넌트의this를 가지고 올수 있다.
-      //화살표함수를 사용안하고 콜백함수를 사용하면 undefind가 나온다
-    //    .then(({data})=>{
-    //   let test='';
-    //   for(test in data){
-    //  console.log(data[test]);
-    //  this.testtable=data;
-    //  console.log(this.testtable);
-    //   }
-    //     })
-    // .then(res=>{
-    //   this.testtable=res.data;
-    //   console.log(this.testtable);
-    // })
+      
                
      
     },
@@ -118,8 +101,9 @@ import { mapState } from 'vuex';
 </script>
 
 <style scoped>
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
 }
 .submenuimage{
   width: 100%;
@@ -142,6 +126,11 @@ font-family: 'Barlow Semi Condensed', sans-serif;
 .example::-webkit-scrollbar {
   display: none;
 }
-
+.modal{
+  margin-left:1000px ;
+}
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
 
 </style>
