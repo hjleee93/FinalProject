@@ -13,22 +13,45 @@
             <b-card class="viewcontainer">
                 <b-form>
                     <b-row>
-                        <b-col class="qnawriter">작성자 : {{qnaboard2.qnaWriter}}<br></b-col>
+                        <b-col class="qnawriter">{{qnaboard2.qnaWriter}}<br>
                         <p class="qnadate">{{formatDate(qnaboard2.qnaDate)}} 작성</p>
+                        <p class="qnareadcount">조회수 ({{qnaboard2.boardCount}})</p>
+                        <hr>
+                        </b-col>
                     </b-row>
-                        
-                    <b-row>
-                        <b-col class="qnatitle"><b>{{qnaboard2.qnaTitle}}</b></b-col>
+
+                    <h6 class="qnatitleno">NO. {{qnaboard2.qboardNo}}</h6>
+                    <b-row> 
+                        <b-col class="qnatitle">
+                            <br><b>{{qnaboard2.qnaTitle}} </b>
+                            <v-icon v-if="qnaboard2.commentCount >0" class="icon">mdi-message-text</v-icon>
+                            <small v-if="qnaboard2.commentCount >0"> ({{qnaboard2.commentCount}})</small>
+                        </b-col>
                     </b-row>
                         <hr>
+
+
+                    <!-- 이미지 -->
+                    <!-- max-width="350px" -->
+                    <!-- <v-img
+                    class="white--text align-end siteimg"
+                    max-height="800px"
+                    max-width="800px"
+                    :src="`http://localhost:8082/itjobgo/qna/selectImg${attachment.qboardNo}`"
+                    >
+                    <v-card-title></v-card-title>
+                    </v-img> -->
+
                     <b-row>
                         <b-col class="qnacontent">{{qnaboard2.qnaContent}}</b-col>                
                     </b-row> 
-                        <hr><br>
+                        <br><hr>
                     <b-row v-if="attachment">
                         <b-col class="qnaphoto">첨부파일</b-col>
                         <b-col><b-button class="qnaphotofile" @click="qbattachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
                     </b-row>
+
+                
 
                 </b-form>
           </b-card>
@@ -51,11 +74,11 @@
     <b-row v-for="comment in commentlist" :key="comment.id">
         <b-col>
           <b-card class="text-center">
-            <b-row><b-col cols="2">{{comment.memberName}}
-            <br>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}
+            <b-row><b-col class="memberName" cols="2">{{comment.memberName}}
+            <br><small>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}</small>
             </b-col>
             <!-- 쓴사람과 아닐떄는 일반 댓글로 보여주지않기 -->
-            <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.qbCommentContent}}</b-col>
+            <b-col class="contentcm" v-if="comment.memberSq!=userData.memberSq">{{comment.qbCommentContent}}</b-col>
             <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
             <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
 
@@ -66,7 +89,7 @@
                     @input="updateInput" id="commentUptxt"/>
                   </b-col>
                         <template v-if="comment.memberSq==userData.memberSq">
-                            <b-col>
+                            <b-col class="btndiv_comment">
                             <b-button v-if="userData.memberSq===comment.memberSq"
                                 @click="upclick($event)"  id="update-btn">수정</b-button> 
                             <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
@@ -113,7 +136,7 @@
     </template>
     </ModalView>
 
-   댓글 테스트 :  {{commentlist}}
+   <!-- 댓글 테스트 :  {{commentlist}} -->
 </b-container>
 </template>
 
@@ -321,25 +344,51 @@ export default {
     border:1px red solid;
 }
 .qnatitle{
-    font-size: 18px;
+    margin-top: -75px;
+    margin-left: 65px;
+    font-size: 22px;
+}
+.qnatitleno{
+    color:rgb(92, 92, 92);
+    margin-top: -10px;
+}
+.qnacontent{
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-bottom: 20%;
+    
 }
 .qnawriter{
-    font-size: 14px;
+    font-size: 18px;
 }
 .qnadate{
-    font-size: 14px;
-    margin-left: -120px;
+    font-size: 15px;
+    margin-top: 5px;
     color: grey;   
+}
+.qnareadcount{
+    font-size: 15px;
+    color: grey;   
+    margin-top: -3.6%;
+    margin-left: 92%;
+}
+.qnaphoto{
+    margin-bottom: 2%;
+    font-size: 16px;
+    color: rgb(75, 75, 75);   
 }
 .qnaphotofile{
     margin-left: -85%;
+    width: 150px;
 }
 .viewcontainer{
-    margin: 3%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 100%;
 }
 .btndiv{
-    margin-left: 38%;
-    margin-bottom: 3%;
+    margin-left: 42%;
+    margin-bottom: 1%;
 }
 .submenuimage{
     width: 100%;
@@ -353,7 +402,33 @@ export default {
   color:#4e5157 ;
   font-size: 50px;
 }
-
-
+#deltet-btn{
+    margin-left: 3%;
+    margin-right: 2%;
+}
+.btndiv_comment{
+   width: 220px;
+}
+#commentUptxt{
+    width: 620px;
+    height: 100px;
+}
+.memberName{
+    text-align: left;
+    font-size: 17px;
+    margin-left: 1%;
+    margin-top: 1%;
+    color:rgb(59, 59, 59);
+}
+.icon{
+    margin-left: 1.5%;
+}
+.contentcm{
+    border-left: 1px rgb(212, 208, 208) solid;
+    padding-left: 25px;
+    margin-top: 1%;
+    margin-left: 1%;
+    text-align: left;
+}
 
 </style>

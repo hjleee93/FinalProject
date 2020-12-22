@@ -16,12 +16,17 @@
       </div>
       <div class="container">      
         <br>
+        <!-- 관리자 승인 버튼 -->
+        <b-row id="consultApproval" align-h="end">
+           <!-- <b-button to="/resume/consultant" v-if="userData.memberEmail==='admin@kh.com'">관리자 승인</b-button> -->
+           <b-button to="/resume/consultant" v-if="userData.memberEmail==='admin@kh.com'">관리자 승인</b-button>
+        </b-row>
         <!-- 글쓰기 버튼  -->
         <b-row id="writecontain" align-h="end">
            <b-button to="/resume/consultresumeenroll" >글쓰기</b-button>
         </b-row>
 
-        <div class="overflow-auto">
+        <div class="overflow">
          <!-- 테이블 -->
         <v-card>
           <v-card-title>
@@ -53,8 +58,8 @@
 
 <script>
 import { mapState } from 'vuex';
-//계속 라이브러리를 로딩해야하는 단점이있다 
-// import axios from 'axios';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { createNamespacedHelpers } from "vuex";
 
   export default {
     data() {
@@ -79,16 +84,19 @@ import { mapState } from 'vuex';
          
       }
     },
-    computed: {
-      ...mapState({
-        rboard:state=>state.rboard
-      })
+    computed:{
+
+        ...mapState({ //store
+            rboard:state=>state.rboard
+            }),
+        
+        ...loadUserState(['userData'])
     },
-    
+
     methods: {
       handleClick(value){
      
-        this.$router.push({name:'resume',params:{id:value.rboardNo}})
+        this.$router.push({name:'consultView',params:{id:value.rboardNo}})
         console.log(value)
       }
     },
@@ -124,6 +132,10 @@ import { mapState } from 'vuex';
 }
 #writecontain > .btn{
   background-color: #424874;
+}
+.overflow .v-card{
+  box-shadow: 0 0 black !important;
+  margin-bottom: 12%;
 }
 
 

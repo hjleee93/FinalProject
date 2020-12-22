@@ -112,6 +112,14 @@
                       >회원 탈퇴</base-button
                     >
                   </template>
+                  <template v-if="userData.memberLevel == 5">
+                    <base-button
+                      type="primary "
+                      class="delete-btn my-4"
+                      @click="googleDelete"
+                      >회원 탈퇴</base-button
+                    >
+                  </template>
                 </div>
               </b-form>
             </b-card-body>
@@ -137,8 +145,48 @@ export default {
     memberPwd: "",
     memberEmail: "",
   }),
-
+  mounted() {
+    if (gapi.auth2 == undefined) {
+      //script 로드 안됏을 경우
+      gapi.load("auth2", function() {
+        gapi.auth2.init();
+      });
+    }
+  },
   methods: {
+    googleDelete() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      const self = this; //this scope문제
+      auth2.signOut().then(function() {
+        auth2.disconnect();
+        let memberEmail = self.userData.memberEmail;
+        let memberPwd = "0000"; //소셜로그인 회원 비밀번호 기본값
+
+        //반환된 토큰값과 보낸 토큰값이 같은 경우
+        self.$store.dispatch("memberStore/deleteMember", {
+          memberEmail,
+          memberPwd,
+        });
+      });
+
+      // axios
+      //   .post(
+      //     "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=aYgNgGmIwR3wysmlCfRd&client_secret=voZaFcwXXi&access_token=" +
+      //       this.userData.memberToken +
+      //       "&service_provider=NAVER"
+      //   )
+      //   .then((res) => {
+      //     let memberEmail = this.userData.memberEmail;
+      //     let memberPwd = "0000";
+      //     if (res.data.access_token == this.userData.memberToken) {
+      //       //반환된 토큰값과 보낸 토큰값이 같은 경우
+      //       this.$store.dispatch("memberStore/deleteMember", {
+      //         memberEmail,
+      //         memberPwd,
+      //       });
+      //     }
+      //   });
+    },
     naverLoginURL() {
       axios
         .post(
