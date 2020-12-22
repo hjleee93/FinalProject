@@ -30,7 +30,7 @@
                 </a>
                 <a @click="kakaoLogin">
                   <img
-                    class="kakao-login"
+                    class="social-login"
                     src="img/kakao_logo.png"
                     width="250px"
                   />
@@ -38,7 +38,7 @@
 
                 <div>
                   <img
-                    class="kakao-login"
+                    class="social-login"
                     src="img/google_logo.png"
                     width="250px"
                     @click="onSignIn()"
@@ -127,7 +127,7 @@ export default {
       redirectURI: `http://localhost:8082/itjobgo/member/naverLogin`, //서버연결
       naverLoginURL:
         "https://nid.naver.com/oauth2.0/authorize?response_type=code",
-      state: Math.floor(Math.random() * 9999) + 1, //TODO : 랜덤값 나올 수 있게 바꾸기
+      state: Math.floor(Math.random() * 9999) + 1,
       test1: [],
       model: {
         email: "",
@@ -139,7 +139,7 @@ export default {
 
   //구글 로그인 //민지
   async mounted() {
-    if (window.Kakao == undefined) {
+    if (Kakao.Auth == undefined) {
       window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
     }
 
@@ -151,6 +151,7 @@ export default {
     }
   },
   methods: {
+    //todo: 구글 로그인 배포 후 확인
     onSignIn() {
       var auth2 = gapi.auth2.getAuthInstance();
 
@@ -243,7 +244,7 @@ export default {
   margin-top: 3px;
 }
 /* 카카오버튼 */
-.kakao-login:hover {
+.social-login:hover {
   cursor: pointer;
 }
 .login-content {
