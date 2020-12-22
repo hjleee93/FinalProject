@@ -86,6 +86,8 @@ import {
      fetchConsultant,
      fetchConsultAttachment,
      fetchConsultantOne,
+     fetchRboardComment,
+     fetchRboardCommentdel,
 
 
 }
@@ -194,6 +196,7 @@ export default new Vuex.Store({
           consultant: [],
           consultAttachment: [],
           consultantOne: [],
+          rboardComment: [],
 
      },
      actions: {
@@ -718,6 +721,22 @@ export default new Vuex.Store({
                          console.log(error);
                     })
           },
+          //이력서 컨설팅 게시판 댓글 불러오기
+          FETCH_RBOARD_COMMENT({ commit }, rboardNo) {
+               fetchRboardComment(rboardNo)
+                    .then(({ data }) => commit("SET_RBOARD_COMMENT", data))
+                    .catch(({ error }) => console.log(error))
+          },
+
+          //이력서 컨설팅 게시판 댓글 삭제
+          FETCH_RBOARD_COMMENTDEL(data, rboardCommentNo) {
+               console.log(rboardCommentNo)
+               fetchRboardCommentdel(rboardCommentNo)
+                    .then((data) => {
+                         console.log(data)
+                    })
+                    .catch(({ error }) => console.log(error))
+          },
 
           
 
@@ -958,6 +977,10 @@ export default new Vuex.Store({
           //이력서 전문가 신청 첨부파일
           SET_CONSULT_ATTACHMENT(state, consultAttachment){
                state.consultAttachment=consultAttachment;
+          },
+          //이력서 컨설팅 게시판 댓글
+          SET_RBOARD_COMMENT(state, data) {
+               state.rboardComment = data;
           },
 
      }//mutations 끝

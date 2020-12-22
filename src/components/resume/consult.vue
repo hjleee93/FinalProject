@@ -181,9 +181,9 @@ export default {
         return this.$moment(value).format("YYYY-MM-DD");
       }, 
       handleFile(){
-        console.log(this.$refs.upfiles.$refs.input.files[0]);
+        //console.log(this.$refs.upfiles.$refs.input.files[0]);
         this.files=this.$refs.upfiles.$refs.input.files[0];
-        console.log(this.files);
+        //console.log(this.files);
       },
       insertConsult(){
         let formData=new FormData();
@@ -197,9 +197,9 @@ export default {
           formData.append('consultField',this.consultField);
           formData.append('consultWork',this.consultWork);
 
-            for(let key of formData.entries()){
-                console.log(`${key}`);
-            }
+            // for(let key of formData.entries()){
+            //     console.log(`${key}`);
+            // }
 
            axios.post("http://localhost:8082/itjobgo/resume/insertconsult.do",formData
             ,{ headers:{

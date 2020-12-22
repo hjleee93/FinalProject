@@ -111,9 +111,9 @@ import { createNamespacedHelpers } from "vuex";
       download(consultNo, originalFilename, renamedFilename){
           //this.$store.dispatch("FETCH_CONSULT_ATTACHMENT",value);
           //let Attachment=this.consultAttachment;
-          console.log("consultNo : "+consultNo);
-          console.log("originalFilename : "+originalFilename);
-          console.log("renamedFilename : "+renamedFilename);
+          //console.log("consultNo : "+consultNo);
+          //console.log("originalFilename : "+originalFilename);
+          //console.log("renamedFilename : "+renamedFilename);
           location.href="http://localhost:8082/itjobgo/resume/consultFileDownload?oriName="+originalFilename+"&reName="+renamedFilename;
 
       },

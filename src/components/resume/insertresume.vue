@@ -738,6 +738,47 @@ export default {
     },
 
     insertResume() {
+      //이력서 제목
+        if(!this.rtitle){
+        alert("이력서 제목을 입력해주세요.");
+       }
+
+        if(!this.rname||!this.rname||this.remail||!this.engName||!this.birth||!this.gender||!this.postcode
+        ||!this.address||!this.addressDetail||!this.telephone||!this.rphone||!this.files){
+        alert("개인정보에서 입력하지 않은 사항이 있습니다.");
+       }
+
+        if(!this.school1||!this.school2||this.schoolName1||!this.schoolName2||!this.schoolStartDate1||!this.schoolStartDate2||!this.schoolFinishDate1
+        ||!this.schoolFinishDate2||!this.major1||!this.major2||!this.education1||!this.education2){
+        alert("학력사항에서 입력하지 않은 사항이 있습니다.");
+       }
+
+        if(!this.workStartDate||!this.workFinishDate||this.workName||!this.workLevel||!this.workState||!this.workDetail){
+        alert("경럭사항에서 입력하지 않은 사항이 있습니다.");
+       }
+
+        if(!this.licenseName||!this.licenseAgency||this.licenseDate){
+        alert("자격증에서 입력하지 않은 사항이 있습니다.");
+       }
+
+        if(!this.languageName||!this.languageLevel||this.languageTest||!this.languageScore||!this.languageDate){
+        alert("외국어능력에서 입력하지 않은 사항이 있습니다.");
+       }
+
+        if(!this.activity||!this.activityStartDate||this.activityFinishDate||!this.activityAgency||!this.activityWork||!this.activityDetail){
+        alert("주요활동 및 수상에서 입력하지 않은 사항이 있습니다.");
+       }
+
+        if(!this.projectPart||!this.projectStartDate||this.projectFinishDate||!this.projectName||!this.projectWork||!this.projectDetail){
+        alert("프로젝트에서 입력하지 않은 사항이 있습니다.");
+       }
+       
+        if(!this.abroad||!this.abroadStartDate||this.abroadFinishDate||!this.abroadCountury||!this.abroadAgency||!this.abroadDetail){
+        alert("해외경험에서 입력하지 않은 사항이 있습니다.");
+       }
+
+      
+
       let formData = new FormData();
 
       //이력서 제목
@@ -821,9 +862,9 @@ export default {
       formData.append("abroadAgency", this.abroadAgency);
       formData.append("abroadDetail", this.abroadDetail);
 
-      for (let key of formData.entries()) {
-        console.log(`${key}`);
-      }
+      // for (let key of formData.entries()) {
+      //   console.log(`${key}`);
+      // }
 
       axios
         .post(
@@ -848,7 +889,7 @@ export default {
     //     },
     handleFile() {
       this.files = this.$refs.fileInput.$refs.input.files[0];
-      console.log(this.files);
+      //console.log(this.files);
     },
 
     selectImage() {
