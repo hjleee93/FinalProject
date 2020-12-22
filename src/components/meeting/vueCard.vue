@@ -44,11 +44,14 @@ created() {
 }
 </script>
 
-<style>
+<style scoped> 
 .mcard{
     margin-top: 20px;
     margin-bottom: 10px;
     
+}
+* {
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 </style>

@@ -26,10 +26,11 @@
           <br>
         <!-- 버튼 -->
         
-       
-          <v-btn   to="/communityBoardForm" exact  id="st_write"  v-if="userData.memberSq!=null">
-               글쓰기
-           </v-btn>
+          <b-row id="writecontain2" align-h="end">
+            <b-button   to="/communityBoardForm" exact  v-if="userData.memberSq!=null">
+                글쓰기
+            </b-button>
+          </b-row>
           <div class="overflow-hidden">
 
 
@@ -46,6 +47,7 @@
           </v-card-title>
 
               <v-data-table
+             class="qnahover"
                 :headers="headers"
                 :items="communityboard"
                 :search="search"
@@ -157,6 +159,21 @@ methods: {
 <style>
 @import '../../assets/css/BoardList.css';
 
+  #writecontain2 > .btn{
+ position: relative;
+top:50px;
+left:-20px;
+  background-color: #424874;
+  border:none;
+  color:white;
+
+  }
+  #writecontain2{
+    margin-bottom: 10%;
+  }
+
+
+
 #subtitle1{
 
     color:white ;
@@ -190,6 +207,10 @@ methods: {
   background-color: #f4eeff;
   text-align: center;
   line-height: 180px;
+}
+/* hover */
+.qnahover >>> tbody tr :hover {
+  cursor: pointer;
 }
 
 </style>

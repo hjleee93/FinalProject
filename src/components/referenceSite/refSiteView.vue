@@ -32,8 +32,8 @@
           <!-- max-width="350px" -->
         <v-img
           class="white--text align-end siteimg"
-          max-height="800px"
-          max-width="800px"
+          max-height="600px"
+          max-width="600px"
           :src="`http://localhost:8082/itjobgo/ref/selectsiteImg${refListView.refNo}`"
         >
         <v-card-title></v-card-title>
@@ -64,7 +64,7 @@
                         type="submit" exact>사이트 승인하기</b-button>
 
               <b-button v-if="userData.memberSq===refListView.memberNum"
-                        @click="update" id="update-btn2">수정</b-button>
+                        @click="update" id="updatebutton">수정</b-button>
               <b-button v-if="userData.memberSq===refListView.memberNum || userData.memberEmail === 'admin@kh.com'" 
                         @click="pdelete" class="btn btn-danger" id="delete-btn2">삭제</b-button>
               </b-row>
@@ -267,7 +267,7 @@ Vue.use(vueMoment);
 .siteimg{
   margin-top: 5%;
   margin-bottom: 5%;
-  margin-left: 15%;
+  margin-left: 23%;
 }
 #content2{
   margin-top: 3%;
@@ -300,5 +300,7 @@ Vue.use(vueMoment);
   color:rgb(158, 158, 158);
   border:1px rgb(173, 173, 173) solid;
 }
-
+#updatebutton{
+  margin-left: 2%;
+}
 </style>

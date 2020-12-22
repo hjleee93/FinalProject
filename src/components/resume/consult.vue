@@ -216,7 +216,6 @@ export default {
 }
 </script>
 <style scoped>
-
 .bv-example-row{
     margin-top: 30px;
     margin-bottom: 30px;

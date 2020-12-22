@@ -155,11 +155,11 @@ export default {
     text-align: center;
     line-height: 180px;
 }
-#subtitle{
- font-family: 'Barlow Semi Condensed', sans-serif;
+* {
+  font-family: "Noto Sans KR", sans-serif;
 }
 .subtitle{
-  font-family: 'Masque';
+
   color:#4e5157 ;
   font-size: 50px;
 }

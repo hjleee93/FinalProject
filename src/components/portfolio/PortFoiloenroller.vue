@@ -166,6 +166,9 @@ export default {
 .r-btn{
   background-color: #9BA4B4;
 }
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
 
 
 

@@ -54,9 +54,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .mainc{
   max-width: 960px;
   margin: 0 auto
+}
+* {
+  font-family: "Noto Sans KR", sans-serif;
 }
 </style>
