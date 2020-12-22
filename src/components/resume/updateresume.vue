@@ -472,7 +472,7 @@ export default {
        }
         if(!this.birth){
         const birth=this.formatDate(this.resume.birth);
-        console.log("birth : "+birth);
+        //console.log("birth : "+birth);
         this.birth=birth;
        }
         if(!this.gender){
@@ -480,7 +480,7 @@ export default {
        }
         if(!this.postcode){
         const postcode=this.resume.postcode;
-        console.log("postcode : "+postcode);
+        //console.log("postcode : "+postcode);
         this.postcode=postcode;
        }
         if(!this.address){
@@ -516,22 +516,22 @@ export default {
        }
         if(!this.schoolStartDate1){
         const schoolStartDate1=this.formatDate(this.resume.schoolStartDate1);
-        console.log("schoolStartDate1 : "+schoolStartDate1);
+        //console.log("schoolStartDate1 : "+schoolStartDate1);
         this.schoolStartDate1=schoolStartDate1;
        }
         if(!this.schoolStartDate2){
         const schoolStartDate2=this.formatDate(this.resume.schoolStartDate2);
-        console.log("schoolStartDate2 : "+schoolStartDate2);
+        //console.log("schoolStartDate2 : "+schoolStartDate2);
         this.schoolStartDate2=schoolStartDate2;
        }
         if(!this.schoolFinishDate1){
         const schoolFinishDate1=this.formatDate(this.resume.schoolFinishDate1);
-        console.log("schoolFinishDate1 : "+schoolFinishDate1);
+        //console.log("schoolFinishDate1 : "+schoolFinishDate1);
         this.schoolFinishDate1=schoolFinishDate1;
        }
         if(!this.schoolFinishDate2){
         const schoolFinishDate2=this.formatDate(this.resume.schoolFinishDate2);
-        console.log("schoolFinishDate2 : "+schoolFinishDate2);
+        //console.log("schoolFinishDate2 : "+schoolFinishDate2);
         this.schoolFinishDate2=schoolFinishDate2;
        }
         if(!this.major1){
@@ -550,12 +550,12 @@ export default {
        // 경력사항
         if(!this.workStartDate){
         const workStartDate=this.formatDate(this.resume.workStartDate);
-        console.log("workStartDate : "+workStartDate);
+        //console.log("workStartDate : "+workStartDate);
         this.workStartDate=workStartDate;
        }
         if(!this.workFinishDate){
         const workFinishDate=this.formatDate(this.resume.workFinishDate);
-        console.log("workFinishDate : "+workFinishDate);
+        //console.log("workFinishDate : "+workFinishDate);
         this.workFinishDate=workFinishDate;
        }
         if(!this.workName){
@@ -580,7 +580,7 @@ export default {
        }
         if(!this.licenseDate){
         const licenseDate=this.formatDate(this.resume.licenseDate);
-        console.log("licenseDate : "+licenseDate);
+        //console.log("licenseDate : "+licenseDate);
         this.licenseDate=licenseDate;
        }
 
@@ -599,7 +599,7 @@ export default {
        }
         if(!this.languageDate){
         const languageDate=this.formatDate(this.resume.languageDate);
-        console.log("languageDate : "+languageDate);
+       // console.log("languageDate : "+languageDate);
         this.languageDate=languageDate;
        }
 
@@ -609,12 +609,12 @@ export default {
        }
         if(!this.activityStartDate){
         const activityStartDate=this.formatDate(this.resume.activityStartDate);
-        console.log("activityStartDate : "+activityStartDate);
+        //console.log("activityStartDate : "+activityStartDate);
         this.activityStartDate=activityStartDate;
        }
         if(!this.activityFinishDate){
         const activityFinishDate=this.formatDate(this.resume.activityFinishDate);
-        console.log("activityFinishDate : "+activityFinishDate);
+       // console.log("activityFinishDate : "+activityFinishDate);
         this.activityFinishDate=activityFinishDate;
        }
         if(!this.activityAgency){
@@ -633,12 +633,12 @@ export default {
        }
         if(!this.projectStartDate){
         const projectStartDate=this.formatDate(this.resume.projectStartDate);
-        console.log("projectStartDate : "+projectStartDate);
+        //("projectStartDate : "+projectStartDate);
         this.projectStartDate=projectStartDate;
        }
         if(!this.projectFinishDate){
         const projectFinishDate=this.formatDate(this.resume.projectFinishDate);
-        console.log("abroadFinishDate : "+projectFinishDate);
+       // console.log("abroadFinishDate : "+projectFinishDate);
         this.projectFinishDate=projectFinishDate;
        }
         if(!this.projectName){
@@ -657,12 +657,12 @@ export default {
        }
         if(!this.abroadStartDate){
         const abroadStartDate=this.formatDate(this.resume.abroadStartDate);
-        console.log("abroadFinishDate : "+abroadStartDate);
+        //console.log("abroadFinishDate : "+abroadStartDate);
         this.abroadStartDate=abroadStartDate;
        }
         if(!this.abroadFinishDate){
         const abroadFinishDate=this.formatDate(this.resume.abroadFinishDate);
-        console.log("abroadFinishDate : "+abroadFinishDate);
+        //console.log("abroadFinishDate : "+abroadFinishDate);
         this.abroadFinishDate=abroadFinishDate;
        }
         if(!this.abroadCountury){
@@ -765,9 +765,9 @@ export default {
           formData.append('abroadDetail',this.abroadDetail);
 
 
-          for(let key of formData.entries()){
-          console.log(`${key}`);
-            }
+        //   for(let key of formData.entries()){
+        //   console.log(`${key}`);
+        //     }
 
            axios.post("http://localhost:8082/itjobgo/resume/updateResume.do",formData
             ,{ headers:{
@@ -775,7 +775,7 @@ export default {
             }})
             .then((res)=>{
                 console.log(res.data);
-                //setTimeout( () => this.$router.push({ path: '/resume/resume'}), 2000);
+                setTimeout( () => this.$router.push({ path: '/resume/resumeList'}), 2000);
                 })
             .catch((error)=>console.log(error));
                
@@ -788,7 +788,7 @@ export default {
             //     },
         handleFile(){
             this.files=this.$refs.fileInput.$refs.input.files[0];
-            console.log(this.files);
+            //console.log(this.files);
         },
         
         selectImage() {

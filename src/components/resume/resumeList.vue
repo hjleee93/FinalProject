@@ -3,7 +3,7 @@
     <body>
       <div class="container-fluid">
         <div class="submenuimage">
-          <p class="subtitle">RESUME LIST</p>
+          <p class="subtitle">입사지원서 목록</p>
         </div>
         <div>
           <v-tabs centered color="grey darken-3">
@@ -18,7 +18,7 @@
           <div class="overflow">
             <!-- 테이블 -->
             <v-card>
-              <v-card-title>
+              <v-card-title class="search-bar">
                 <v-text-field
                   v-model="search"
                   append-icon="mdi-magnify"
@@ -29,6 +29,7 @@
               </v-card-title>
               <!-- vuetify에 data table에 items를 선언한 배열 변수로 지정해준다 -->
               <v-data-table
+                class="row-pointer mt-4"
                 :headers="headers"
                 :items="resumeList"
                 :search="search"
@@ -105,7 +106,7 @@ export default {
       search: "",
       headers: [
         {
-          text: "번호",
+          text: "",
           align: "start",
           filterable: false,
           value: "resumelistNo",
@@ -132,18 +133,19 @@ export default {
   methods: {
     handleClick(value) {
       this.$router.push({ name: "resume", params: { id: value } });
-      console.log(value);
+      //console.log(value);
     },
 
     updateResume(value) {
       this.$router.push({ name: "updateresume", params: { id: value } });
-      console.log(value);
+      //console.log(value);
     },
 
     deleteResume(value) {
       alert("이력서를 삭제하시겠습니까?");
       const resumeNo = value;
       this.$store.dispatch("FETCH_RESUME_DELETE", resumeNo);
+      setTimeout( () => this.$router.go(this.$router.currentRoute), 2000);
     },
 
     formatDate(value) {
@@ -200,5 +202,17 @@ export default {
 .overflow .v-card {
   box-shadow: 0 0 black !important;
   margin-bottom: 12%;
+}
+  .search-bar {
+  width: 30%;
+  margin-left: 72%;
+  }
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+/* hover */
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
 }
 </style>

@@ -84,6 +84,10 @@ import {
      fetchRboardAttachment,
      fetchRboardDelete,
      fetchConsultant,
+     fetchConsultAttachment,
+     fetchConsultantOne,
+     fetchRboardComment,
+     fetchRboardCommentdel,
 
 
 }
@@ -190,6 +194,9 @@ export default new Vuex.Store({
           rboardDetail: [],
           rboardAttachment: [],
           consultant: [],
+          consultAttachment: [],
+          consultantOne: [],
+          rboardComment: [],
 
      },
      actions: {
@@ -697,6 +704,42 @@ export default new Vuex.Store({
                     })
           },
 
+          //나의 이력서 전문가 리스트 불러오기
+          FETCH_CONSULTANTONE({ commit }, memberSq) {
+               fetchConsultantOne(memberSq)
+                    .then(({ data }) => commit("SET_CONSULTANTONE", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
+          },
+
+          //이력서 전문가 요청 첨부파일 조회
+          FETCH_CONSULT_ATTACHMENT({ commit }, consultNo) {
+               fetchConsultAttachment(consultNo)
+                    .then(({ data }) => commit("SET_CONSULT_ATTACHMENT", data))
+                    .catch(({ error }) => {
+                         console.log(error);
+                    })
+          },
+          //이력서 컨설팅 게시판 댓글 불러오기
+          FETCH_RBOARD_COMMENT({ commit }, rboardNo) {
+               fetchRboardComment(rboardNo)
+                    .then(({ data }) => commit("SET_RBOARD_COMMENT", data))
+                    .catch(({ error }) => console.log(error))
+          },
+
+          //이력서 컨설팅 게시판 댓글 삭제
+          FETCH_RBOARD_COMMENTDEL(data, rboardCommentNo) {
+               console.log(rboardCommentNo)
+               fetchRboardCommentdel(rboardCommentNo)
+                    .then((data) => {
+                         console.log(data)
+                    })
+                    .catch(({ error }) => console.log(error))
+          },
+
+          
+
      },//action
 
      mutations: {
@@ -926,7 +969,19 @@ export default new Vuex.Store({
           //이력서 전문가 리스트
           SET_CONSULTANT(state, consultant){
                state.consultant=consultant;
-          }
+          },
+          //나의 이력서 전문가 리스트
+          SET_CONSULTANTONE(state, consultantOne){
+               state.consultantOne=consultantOne;
+          },
+          //이력서 전문가 신청 첨부파일
+          SET_CONSULT_ATTACHMENT(state, consultAttachment){
+               state.consultAttachment=consultAttachment;
+          },
+          //이력서 컨설팅 게시판 댓글
+          SET_RBOARD_COMMENT(state, data) {
+               state.rboardComment = data;
+          },
 
      }//mutations 끝
 

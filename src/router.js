@@ -97,6 +97,15 @@ const InfoModify = () => {
 const JobList = () => {
      return import('./components/jobInfo/JobList.vue')
 }
+const InfoExplain = () => {
+     return import('./components/info/InfoExplain.vue')
+}
+const InfoCounsel = () => {
+     return import('./components/info/InfoCounsel.vue')
+}
+const InfoFair = () => {
+     return import('./components/info/InfoFair.vue')
+}
 
 //주은
 const CommunityBoardList = () => {
@@ -334,8 +343,12 @@ export default new Router({
                          const obb = JSON.parse(no);
                          const mno = obb.userData.memberSq
                          const pno = to.params.number
+                         console.log(`mno:${mno}pno:${pno}`)
                          const mck = (mno, pno) => mno === pno;
+                         console.log(mck(mno, pno));
+                         console.log(mck)
                          const level = localStorage.vuex.includes('"memberLevel":"2"')
+                         console.log(level)
                          if (level === true) {
                               //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
                               next();
@@ -365,6 +378,7 @@ export default new Router({
                beforeEnter: LoginAuth()
 
           },
+
           //민지
           {
                path: '/infoList',
@@ -394,6 +408,22 @@ export default new Router({
                component: InfoModify,
                beforeEnter: adminDeny()
           },
+          {
+               path: '/infoExplain',
+               name: 'InfoExplain',
+               component: InfoExplain,
+          },
+          {
+               path: '/infoFair',
+               name: 'InfoFair',
+               component: InfoFair,
+          },
+          {
+               path: '/infoCounsel',
+               name: 'InfoCounsel',
+               component: InfoCounsel,
+          },
+          
           //주은
           {
                path: '/communityBoardList',

@@ -111,27 +111,27 @@ export default {
         formData.append('file',this.files);
         formData.append('rboardNo',this.$route.params.id);
 
-        for(let key of formData.entries()){
-          console.log(`${key}`);
-        }
+        // for(let key of formData.entries()){
+        //   console.log(`${key}`);
+        // }
       axios.post("http://localhost:8082/itjobgo/resume/updateRboard.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
         }}).then((res)=>{
           console.log(res.data);
-          //setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
+          setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
           //this.$route.push({name:'consultresume'})
           })
         .catch((error)=>
         console.log(error))
 
-        console.log(formData);
+        //console.log(formData);
 
       },
       handleFile(){
-        console.log(this.$refs.upfiles.$refs.input.files[0]);
+        //console.log(this.$refs.upfiles.$refs.input.files[0]);
         this.files=this.$refs.upfiles.$refs.input.files[0];
-        console.log(this.files);
+        //console.log(this.files);
       }
      
     }
@@ -150,19 +150,21 @@ export default {
   margin-left: 37%;
   margin-right: 20px;
 }
-.submenuimage{
-    width: 100%;
-    height:180px;
-    background-color:#F4EEFF;
-    text-align: center;
-    line-height: 180px;
+.submenuimage {
+  background-image: url("../../assets/images/resume.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
 }
-#subtitle{
- font-family: 'Barlow Semi Condensed', sans-serif;
-}
-.subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
+.subtitle {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
 
