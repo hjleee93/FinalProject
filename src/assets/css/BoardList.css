@@ -10,7 +10,9 @@
   background-color: #5563cc;
 }
 
-
+.sibalhover >>> tbody tr :hover {
+  cursor: pointer;
+}
 
 #selected{
   width:100px;

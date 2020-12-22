@@ -46,6 +46,7 @@
           </v-card-title>
 
               <v-data-table
+              class="qnahover"
                 :headers="headers"
                 :items="communityboard"
                 :search="search"
@@ -190,6 +191,10 @@ methods: {
   background-color: #f4eeff;
   text-align: center;
   line-height: 180px;
+}
+/* hover */
+.qnahover >>> tbody tr :hover {
+  cursor: pointer;
 }
 
 </style>

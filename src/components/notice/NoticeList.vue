@@ -46,6 +46,7 @@
           </v-card-title>
 
               <v-data-table
+               class="hoverplease"
                 :headers="headers"
                 :items="noticeList"
                 :search="search"
@@ -191,4 +192,10 @@ methods: {
   text-align: center;
   line-height: 180px;
 }
+
+/* hover */
+.hoverplease >>> tbody tr :hover {
+  cursor: pointer;
+}
+
 </style>
