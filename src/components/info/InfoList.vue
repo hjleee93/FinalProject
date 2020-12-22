@@ -3,8 +3,8 @@
 
   <!--서브 이미지-->    
   <b-row>
-    <div class="submenuimage ">
-      <p class="subtitle" id="subtitle">Job Information</p>
+    <div class="submenuimageinfo">
+      <p class="subtitle" id="subtitle">취업정보</p>
     </div>
   </b-row>
 
@@ -37,6 +37,7 @@
   </v-card-title>
     
     <v-data-table
+      class="infohover"
       :headers="headers"
       :items="info"
       :search="search"
@@ -75,8 +76,7 @@ const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
     },
     computed:{
       ...mapState({
-          info:state=>state.info,
-        /*    infoList:state=>state.infoList,  */  
+          info:state=>state.info,  
       }),
         ...loadUserState(['userData'])     
     },
@@ -108,23 +108,25 @@ const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 </script>
 
 <style scoped >
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
-  * {
-    font-family: 'Nanum Gothic', sans-serif;
+  *{
+   font-family: "Noto Sans KR", sans-serif;
   }
-  .submenuimage{
-  width: 100%;
-  height:180px;
-  background-color:#F4EEFF;
+  .submenuimageinfo{
+  background-image: url("../../assets/images/infoJob.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
   text-align: center;
-  line-height: 180px; 
-  }
-  #subtitle{
-  font-family: 'Barlow Semi Condensed', sans-serif;
+  line-height: 180px;
+  width: 100%;
   }
   .subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  color: rgb(253, 253, 253);
+  text-shadow: 2px 2px #0d0d0e63;
   font-size: 50px;
   }
   #st_write1{
@@ -145,8 +147,11 @@ const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
   }
   #writecontain > .btn{
   background-color: #424874;
-}
-#writecontain{
-  margin-bottom: 10%;
-}
+  }
+  #writecontain{
+    margin-bottom: 10%;
+  }
+  .infohover >>> tbody tr :hover {
+    cursor: pointer;
+  }
 </style>

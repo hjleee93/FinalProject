@@ -2,8 +2,8 @@
  <b-container fluid>
 
       <b-row>
-        <div class="submenuimage">
-          <p class="subtitle" id="subtitle">Job Information</p>
+        <div class="submenuimageinfo">
+          <p class="subtitle" id="subtitle">취업정보</p>
         </div>
       </b-row>
 
@@ -178,28 +178,33 @@ export default {
 </script>
 
 <style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
-  * {
-    font-family: 'Nanum Gothic', sans-serif;
-  }
+*{
+  font-family: "Noto Sans KR", sans-serif;
+}
 .subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  color: rgb(253, 253, 253);
+  text-shadow: 2px 2px #0d0d0e63;
   font-size: 50px;
 }
-.submenuimage{
-  width: 100%;
-  height:180px;
-  background-color:#F4EEFF;
+.submenuimageinfo{
+  background-image: url("../../assets/images/infoJob.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
   text-align: center;
-  line-height: 180px; 
+  line-height: 180px;
+  width: 100%;
 }
 .text-center{
-    margin: 10px 100px;
-    font-weight: bold;
+  margin: 10px 100px;
+  font-weight: bold;
 }
 .sub-header{
-margin: 35px 100px ;
+  margin: 35px 100px ;
 
 }
 .form-control{  
@@ -208,9 +213,6 @@ margin: 35px 100px ;
   background-color: white;
   border-color:white;
   resize: none; 
-}
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
 }
 #writecontain{
   margin: 2%;
@@ -290,9 +292,5 @@ left:10px;
 #icontent{
 left:10px;
 }
-
-
-
-
 
 </style>
