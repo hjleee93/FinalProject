@@ -78,6 +78,7 @@ import consultresumeenroll from './components/resume/consultresumeenroll'
 import resumeList from './components/resume/resumeList'
 import consultView from './components/resume/consultView'
 import updateConsult from './components/resume/updateConsult'
+import consultant from './components/resume/consultant'
 
 
 //민지
@@ -729,6 +730,12 @@ export default new Router({
                path: '/resume/updateConsult/:id',
                name: 'updateConsult',
                component: updateConsult,
+               beforeEnter: LoginAuth(),
+          },
+          {
+               path: '/resume/consultant',
+               name: 'consultant',
+               component: consultant,
                beforeEnter: LoginAuth(),
           },
      ]
