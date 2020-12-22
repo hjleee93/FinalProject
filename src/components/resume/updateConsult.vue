@@ -3,7 +3,7 @@
   <body>
     <div class="container-fluid">
       <div class="submenuimage">
-          <p class="subtitle">Consult Resume</p>
+          <p class="subtitle">Update Consult Resume Detail</p>
       </div>
       <div>
           <v-tabs centered color="grey darken-3">
@@ -17,7 +17,7 @@
       
         <b-container>
         
-        <form  @submit.prevent="test"  enctype="multipart/form-data">
+        <form  @submit.prevent="updateConsult"  enctype="multipart/form-data">
         <b-form-group
             id="input-group-1"
             label="제목"
@@ -28,7 +28,7 @@
             name="rboardTitle"
             type="text"
             required
-            placeholder="제목"
+            :placeholder="rboardDetail.rboardTitle"
             v-model="rboardTitle"
             ></b-form-input>
         </b-form-group>
@@ -40,21 +40,23 @@
             required
             placeholder="작성자"
             readonly
-            v-model="userData.memberName"
+            v-model="rboardDetail.rboardWriter"
             ></b-form-input>
         
         </b-form-group>
         <b-form-file id="files" ref="upfiles" v-on:change="handleFile"
-        placeholder="첨부파일"
-        
+        :placeholder="rboardAttachment.originalFilename"
         ></b-form-file> 
         
     <b-form-group id="input-group-3" label="상세내용:" label-for="input-3">
-    <vue-editor id="input-3" name="rboardContent" v-model="rboardContent" />
+    <vue-editor id="input-3" name="rboardContent" 
+    v-model="rboardDetail.rboardContent" />
     </b-form-group>
         <!-- <b-button type="submit" class="s-btn">확인</b-button> -->
-        <b-button @click="test" class="s-btn">등록</b-button>
+        
         <b-button type="reset" class="r-btn">취소</b-button>
+        <b-button @click="updateConsult" class="s-btn">수정</b-button>
+        <b-button to="../../resume/consultresume">목록으로</b-button>
         </form>
     </b-container>
       </div>
@@ -63,10 +65,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import axios from 'axios';
+const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
 import { VueEditor } from "vue2-editor";
-const { mapState } = createNamespacedHelpers("memberStore");
 export default {
  
   data() {
@@ -78,28 +81,45 @@ export default {
       }
     },
     computed: {
-        ...mapState(['userData'])
-    },
+        ...mapState({
+            rboardDetail:state=>state.rboardDetail,
+            rboardAttachment:state=>state.rboardAttachment,
+        }),
+         ...loadUserState(['userData'])  
+     },
+
     components:{
       VueEditor,  
     },
     methods: {
-      test(){
+      updateConsult(){
+        if(!this.rboardTitle){
+          this.rboardTitle=this.rboardDetail.rboardTitle;
+        }
+        if(!this.rboardContent){
+          this.rboardContent=this.rboardDetail.rboardContent;
+        }
+        if(!this.files){
+          this.files=this.rboardAttachmentFilename;
+        }
+
         let formData=new FormData();
         formData.append('rboardWriter',this.userData.memberName);
         formData.append('rboardTitle',this.rboardTitle);
         formData.append('memberSq',this.userData.memberSq)
         formData.append('rboardContent',this.rboardContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('file',this.files);
+        formData.append('rboardNo',this.$route.params.id);
+
         for(let key of formData.entries()){
           console.log(`${key}`);
         }
-      axios.post("http://localhost:8082/itjobgo/resume/rboardEnroll.do",formData
+      axios.post("http://localhost:8082/itjobgo/resume/updateRboard.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
         }}).then((res)=>{
           console.log(res.data);
-          setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
+          //setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
           //this.$route.push({name:'consultresume'})
           })
         .catch((error)=>
@@ -121,11 +141,14 @@ export default {
 <style scoped>
 .s-btn{
   background-color: #424874;
+  margin-right: 20px;
   border: none;
 }
 .r-btn{
   background-color: #9BA4B4;
   border: none;
+  margin-left: 37%;
+  margin-right: 20px;
 }
 .submenuimage{
     width: 100%;
@@ -142,9 +165,6 @@ export default {
   color:#4e5157 ;
   font-size: 50px;
 }
-.s-btn{
-  margin-left: 41%;
-  margin-right: 20px;
-}
+
 
 </style>
