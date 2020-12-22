@@ -76,6 +76,8 @@ import consultresume from './components/resume/consultresume'
 import consult from './components/resume/consult'
 import consultresumeenroll from './components/resume/consultresumeenroll'
 import resumeList from './components/resume/resumeList'
+import consultView from './components/resume/consultView'
+import updateConsult from './components/resume/updateConsult'
 
 
 //민지
@@ -328,29 +330,32 @@ export default new Router({
                     //로그인한 사용자의 레벨을 가져온다 
                     //console.log(to)
                     if (localStorage.vuex.includes('"loginStatus":true')) {
-
-                         return next();
-                    }
-
-                    Vue.swal({
-                         text: "로그인 후 이용해주세요.",
-                         icon: "error",
-                    });
-                    next('/login')
-                    const no = localStorage.getItem("vuex")
-                    const obb = JSON.parse(no);
-                    const mno = obb.userData.memberSq
-                    const pno = to.params.number
-                    //    console.log(`mno:${mno}pno:${pno}`)
-                    const mck = (mno, pno) => mno === pno;
-                    //    console.log(mck(mno,pno));
-                    const level = localStorage.vuex.includes('"memberLevel":"2"')
-                    console.log(level)
-                    if (level == true || mck(mno, pno) == true) {
-                         //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
-                         next();
+                         const no = localStorage.getItem("vuex")
+                         const obb = JSON.parse(no);
+                         const mno = obb.userData.memberSq
+                         const pno = to.params.number
+                         console.log(`mno:${mno}pno:${pno}`)
+                         const mck = (mno, pno) => mno === pno;
+                         console.log(mck(mno, pno));
+                         console.log(mck)
+                         const level = localStorage.vuex.includes('"memberLevel":"2"')
+                         console.log(level)
+                         if (level === true) {
+                              //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
+                              next();
+                         }
+                         else if (mck(mno, pno) === true) {
+                              next();
+                         } else {
+                              alert("권한정보가 부족합니다.")
+                         }
                     } else {
-                         alert("권한정보가 부족합니다.")
+                         Vue.swal({
+                              text: "로그인 후 이용해주세요.",
+                              icon: "error",
+                         });
+                         next('/login')
+
                     }
 
 
@@ -713,5 +718,18 @@ export default new Router({
                beforeEnter: LoginAuth(),
           },
 
+          {
+               path: '/resume/consultView/:id',
+               name: 'consultView',
+               component: consultView,
+               beforeEnter: LoginAuth(),
+          },
+
+          {
+               path: '/resume/updateConsult/:id',
+               name: 'updateConsult',
+               component: updateConsult,
+               beforeEnter: LoginAuth(),
+          },
      ]
 })

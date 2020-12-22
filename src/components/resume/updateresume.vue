@@ -49,8 +49,8 @@
                         <td><strong>성별</strong></td> 
                         <td>
                             <b-form-group class="gender" inline="true">
-                                <b-form-radio name="gender" value="M" v-model="gender">남</b-form-radio>
-                                <b-form-radio name="gender" value="F" v-model="gender">여</b-form-radio>
+                                <b-form-radio name="gender" value="M" v-model="resume.gender">남</b-form-radio>
+                                <b-form-radio name="gender" value="F" v-model="resume.gender">여</b-form-radio>
                             </b-form-group>    
                         </td> 
                     </tr>
@@ -145,7 +145,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <b-form-select class="school" v-model="school1">
+                            <b-form-select class="school" v-model="resume.school1">
                                 <b-form-select-option value="middleshcool">중학교</b-form-select-option>
                                 <b-form-select-option value="highscool">고등학교</b-form-select-option>
                                 <b-form-select-option value="college">대학교(2/3년)</b-form-select-option>
@@ -159,7 +159,7 @@
                         <td><input type="date" id="schoolFinishDate1" v-model="schoolFinishDate1"></td>
                         <td><input type="text" v-model="major1" :placeholder="resume.major1"></td>
                         <td>
-                            <b-form-select class="school" v-model="education1">
+                            <b-form-select class="school" v-model="resume.education1">
                                 <b-form-select-option value="graduation">졸업</b-form-select-option>
                                 <b-form-select-option value="prograduation">졸업예정</b-form-select-option>
                                 <b-form-select-option value="studying">재학</b-form-select-option>
@@ -171,7 +171,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <b-form-select class="school" v-model="school2">
+                            <b-form-select class="school" v-model="resume.school2">
                                 <b-form-select-option value="middleschool">중학교</b-form-select-option>
                                 <b-form-select-option value="highscool">고등학교</b-form-select-option>
                                 <b-form-select-option value="college">대학교(2/3년)</b-form-select-option>
@@ -185,7 +185,7 @@
                         <td><input type="date" id="schoolFinishDate2" v-model="schoolFinishDate2"></td>
                         <td><input type="text" v-model="major2" :placeholder="resume.major2"></td>
                         <td>
-                            <b-form-select class="school" v-model="education2">
+                            <b-form-select class="school" v-model="resume.education2">
                                 <b-form-select-option value="graduation">졸업</b-form-select-option>
                                 <b-form-select-option value="prograduation">졸업예정</b-form-select-option>
                                 <b-form-select-option value="studying">재학</b-form-select-option>
@@ -210,7 +210,7 @@
                         <td><input type="text" id="workName" v-model="workName" :placeholder="resume.workName"></td>
                         <td><input type="text" id="workState" v-model="workLevel" :placeholder="resume.workLevel"></td>
                         <td>
-                            <b-form-select class="select" v-model="workState">
+                            <b-form-select class="select" v-model="resume.workState">
                                 <b-form-select-option value="resignation">퇴사</b-form-select-option>
                                 <b-form-select-option value="work">재직</b-form-select-option>
                             </b-form-select>
@@ -263,7 +263,7 @@
                     </tr>
                     <tr>
                         <td>
-                        <b-form-select v-model="activity">
+                        <b-form-select v-model="resume.activity">
                                 <b-form-select-option value="award">수상경력</b-form-select-option>
                                 <b-form-select-option value="volunteer">봉사활동</b-form-select-option>
                                 <b-form-select-option value="social">사회활동</b-form-select-option>
@@ -293,7 +293,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <b-form-select class="select_project" v-model="projectPart">
+                            <b-form-select class="select_project" v-model="resume.projectPart">
                                 <b-form-select-option value="person">개인</b-form-select-option>
                                 <b-form-select-option value="team">팀</b-form-select-option>
                                 <b-form-select-option value="order">발주</b-form-select-option>
@@ -321,7 +321,7 @@
                     </tr>
                     <tr>
                         <td>
-                        <b-form-select v-model="abroad">
+                        <b-form-select v-model="resume.abroad">
                                 <b-form-select-option value="award">해외연수</b-form-select-option>
                                 <b-form-select-option value="volunteer">해외봉사</b-form-select-option>
                                 <b-form-select-option value="social">해외취업</b-form-select-option>
@@ -497,8 +497,8 @@ export default {
        }
 
        //증명사진(첨부파일)
-        if(!this.upfile){
-        this.upfile=this.resume.upfile;
+        if(!this.files){
+        this.files=this.resume.upfile;
        }
 
        //학력사항
@@ -830,10 +830,12 @@ export default {
       postcode:'',
       address:'',
       addressDetail:'',
+      memberAddrExtra:'',
       telephone:'',
       remail:'',
       mphone:'',
       files:'',
+
 
         //학력사항1
       school1:'',
@@ -1002,12 +1004,15 @@ button{
 
 input[type="file"] {
   position: absolute;
-
+  text-align: center;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
 
+input {
+    text-align: center;
+}
 .upload-photo {
   height: 37px;
   width: 106px;

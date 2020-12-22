@@ -21,7 +21,7 @@
            <b-button to="/resume/consultresumeenroll" >글쓰기</b-button>
         </b-row>
 
-        <div class="overflow-auto">
+        <div class="overflow">
          <!-- 테이블 -->
         <v-card>
           <v-card-title>
@@ -88,7 +88,7 @@ import { mapState } from 'vuex';
     methods: {
       handleClick(value){
      
-        this.$router.push({name:'resume',params:{id:value.rboardNo}})
+        this.$router.push({name:'consultView',params:{id:value.rboardNo}})
         console.log(value)
       }
     },
@@ -124,6 +124,10 @@ import { mapState } from 'vuex';
 }
 #writecontain > .btn{
   background-color: #424874;
+}
+.overflow .v-card{
+  box-shadow: 0 0 black !important;
+  margin-bottom: 12%;
 }
 
 

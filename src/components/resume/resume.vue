@@ -207,7 +207,7 @@
                     <tr>
                         <td colspan="2">주요직무 및 업무</td>
                         <td colspan="3">
-                        <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="resume.workDetail"></b-form-textarea>
+                        <b-form-textarea style="overflow:hidden" id="textarea" rows="3" max-rows="6" v-model="resume.workDetail"></b-form-textarea>
                         </td>
                     </tr>
                 </table>
@@ -267,7 +267,7 @@
                     <tr>
                         <td><strong>주요 활동 및 성과</strong></td>
                         <td colspan="4">
-                        <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="resume.activityDetail"></b-form-textarea>
+                        <b-form-textarea style="overflow:hidden" id="textarea" rows="3" max-rows="6" v-model="resume.activityDetail"></b-form-textarea>
                         </td>
                     </tr>
                 </table>
@@ -295,7 +295,7 @@
                     <tr>
                         <td><strong>주요 업무 및 성과</strong></td>
                         <td colspan="4">
-                        <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="resume.projectDetail"></b-form-textarea>
+                        <b-form-textarea style="overflow:hidden" id="textarea" rows="3" max-rows="6" v-model="resume.projectDetail"></b-form-textarea>
                         </td>
                     </tr>
                 </table>
@@ -323,7 +323,7 @@
                     <tr>
                         <td><strong>주요활동</strong></td>
                         <td colspan="4">
-                        <b-form-textarea id="textarea" rows="3" max-rows="6" v-model="resume.abroadDetail"></b-form-textarea>
+                        <b-form-textarea style="overflow:hidden" id="textarea" rows="3" max-rows="6" v-model="resume.abroadDetail"></b-form-textarea>
                         </td>
                     </tr>
                 </table>
@@ -500,5 +500,14 @@ input[type="file"] {
     color: #4e5157;
     font-size: 15px;
     font-weight: bold;
+}
+select{
+    border: none;
+    text-align: center;
+    width: 150px;
+}
+textarea{
+    border: none;
+    resize: none;
 }
 </style>
