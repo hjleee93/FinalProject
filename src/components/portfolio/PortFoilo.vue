@@ -10,8 +10,8 @@
         <br>
       
         <b-row id="writecontain" align-h="between">
-             <b-col><b-button to="/portfolioenroller" >글쓰기</b-button> </b-col>
-            <b-col><b-button id="modal" to="/portfolioenroller" >글쓰기</b-button></b-col>
+           
+          <b-button  to="/portfolioenroller" >글쓰기</b-button>
         </b-row>
         
         <div class="overflow-hidden">
