@@ -30,20 +30,20 @@
                 </a>
                 <a @click="kakaoLogin">
                   <img
-                    class="kakao-login"
+                    class="social-login"
                     src="img/kakao_logo.png"
                     width="250px"
                   />
                 </a>
 
-              <!-- 구글...죄송합니다 -민지- -->
                 <div>
-                    <div id="google-signin-btn"></div>
+                  <img
+                    class="social-login"
+                    src="img/google_logo.png"
+                    width="250px"
+                    @click="onSignIn()"
+                  />
                 </div>
-
-            <a href="#">
-                  <img src="img/google_logo.png" width="250px" />
-                </a> 
               </div>
             </b-card-header>
             <b-card-body class="px-lg-5 py-lg-5">
@@ -116,7 +116,7 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 
-// import axios from "axios"
+import axios from "axios";
 
 export default {
   data() {
@@ -127,7 +127,7 @@ export default {
       redirectURI: `http://localhost:8082/itjobgo/member/naverLogin`, //서버연결
       naverLoginURL:
         "https://nid.naver.com/oauth2.0/authorize?response_type=code",
-      state: Math.floor(Math.random() * 9999) + 1, //TODO : 랜덤값 나올 수 있게 바꾸기
+      state: Math.floor(Math.random() * 9999) + 1,
       test1: [],
       model: {
         email: "",
@@ -137,25 +137,61 @@ export default {
     };
   },
 
-
-//구글 로그인 //민지
-  mounted() {
-    if (window.Kakao == undefined) {
+  //구글 로그인 //민지
+  async mounted() {
+    if (Kakao.Auth == undefined) {
       window.Kakao.init("9865d6b20cfcf557f7f17640b4431305");
     }
 
-  gapi.signin2.render("google-signin-btn", {
-            onsuccess: this.onSignIn, // 
-        });  //민지
-
+    if (gapi.auth2 == undefined) {
+      //script 로드 안됏을 경우
+      gapi.load("auth2", function() {
+        gapi.auth2.init();
+      });
+    }
   },
   methods: {
+    //todo: 구글 로그인 배포 후 확인
+    onSignIn() {
+      var auth2 = gapi.auth2.getAuthInstance();
 
-    onSignIn(googleUser){
-        	// 로그인한 유저 정보
-        	console.log(googleUser)
-        },  //민지
-        
+      if (auth2.isSignedIn.get()) {
+        // 로그인한 유저 정보 가져오기
+        var profile = auth2.currentUser.get().getBasicProfile();
+        console.log(auth2.currentUser.get());
+        let ranPhone = Math.floor(Math.random() * 9999999999);
+        const formData = {
+          memberName: profile.getName(),
+          memberEmail: profile.getEmail(),
+          memberPwd: "0000",
+          memberLevel: 5,
+          memberToken: auth2.currentUser.get().getAuthResponse().id_token,
+          memberPhone: ranPhone,
+        };
+        const self = this; //this scope문제
+        axios
+          .post("http://localhost:8082/itjobgo/member/googleLogin", formData) //form server 연결
+          .then(function(res) {
+            if (res.data > 0) {
+              //가입성공
+              sessionStorage.setItem("access_token", formData.memberToken); //로컬에 토큰 저장
+              sessionStorage.setItem("memberEmail", formData.memberEmail);
+              self.$store.dispatch(
+                "memberStore/getMemberInfo",
+                formData.memberEmail
+              );
+              self.$router.push("/"); //회원가입 후 경로 설정
+            } else {
+              alert("회원등록에 실패했습니다. 관리자에게 문의해주세요.");
+            }
+          })
+          .catch((error) => {
+            //서버문제인 경우
+            alert("회원등록에 실패했습니다. 관리자에게 문의해주세요.");
+            console.log("실패", error);
+          });
+      }
+    },
 
     onSubmit: function() {
       let memberEmail = this.model.email;
@@ -177,7 +213,7 @@ export default {
       Kakao.Auth.authorize({
         redirectUri: `${window.location.origin}/loginCallback`,
       });
-    }, 
+    },
   },
   computed: {
     ...mapState(["loginStatus", "loginError"]),
@@ -200,8 +236,15 @@ export default {
   background-color: #424874;
   border-color: #424874;
 }
+/* 구글 버튼 */
+
+.google-btn {
+  vertical-align: middle;
+  margin-left: 89px;
+  margin-top: 3px;
+}
 /* 카카오버튼 */
-.kakao-login:hover {
+.social-login:hover {
   cursor: pointer;
 }
 .login-content {

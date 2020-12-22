@@ -125,7 +125,6 @@
           </table>
         </div>
         <!-- 상세지역 dept 2 -->
-        <!-- TODO:테이블에 넣기... -->
         <div class="city-layer seoul">
           <b-form-group>
             <b-form-checkbox-group

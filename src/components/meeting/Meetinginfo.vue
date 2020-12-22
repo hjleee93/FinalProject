@@ -5,38 +5,43 @@
       </div>
 
   <b-container class="cont">
-   
+ 
     <b-row  class="justify-content-md-center"><h1>{{minfo.collabTitle}}</h1></b-row>
+    <b-card>
     <b-row>
       <b-col>
        <v-img :src="`http://localhost:8082/itjobgo/meeting/imagesrequest${minfo.collabSq}`"   min-height="200" max-height="300"  max-width="500" min-width="400" aspect-ratio="1.7"></v-img>
      </b-col>
       <b-col >
-        <b-card> 
+        <b-card class="cardinfo"> 
            <b-row>
-          <div class="f-box">일시:{{new Date(minfo.rdate).toLocaleDateString()}}</div>
+            <div class="f-box">모집기간: {{`${new Date(minfo.collabUploaddate).toLocaleDateString()}~${new Date(minfo.collabDeadline).toLocaleDateString()}`}}</div>
+        
+          
         </b-row>
-           <b-row><div  class="f-box"> 정원:{{minfo.collabBack+minfo.collabFront+minfo.collabDesgin}}명</div></b-row>
-           <b-row><div  class="f-box"> 장소:{{minfo.address}}</div></b-row>
-           <b-row><div  class="f-box"> 개발언어:{{minfo.collabLang}}</div></b-row>
+        <b-row>  <div class="f-box">시작일시: {{new Date(minfo.rdate).toLocaleDateString()}}</div></b-row>
+           <b-row><div  class="f-box"> 인원: {{`백엔드${acount.backCount}/${acount.collabBack}명 프론트${acount.frontCount}/${acount.collabFront}명 디자이너${acount.desginCount}/${acount.collabDesgin}명`}}</div></b-row>
+           <b-row><div  class="f-box"> 장소: {{minfo.address}}</div></b-row>
+           <b-row><div  class="f-box3"> 개발언어: {{minfo.collabLang}}</div></b-row>
            </b-card>
            </b-col>
-           </b-row>
-           <b-row><b-col>찾아오시는 길</b-col></b-row>
-          <b-row ><b-col><div   id="map"></div></b-col></b-row>
+           </b-row></b-card>
+           <b-card>
+           <b-row><b-col><h3>찾아오시는 길</h3></b-col></b-row>
+          <b-row ><b-col><div   id="map"></div></b-col></b-row></b-card>
          
-      <b-card > <b-row><b-col>개설자정보</b-col></b-row>
+      <b-card v-if="usercheck===true"> <b-row><b-col><h4>개설자정보</h4></b-col></b-row>
       <b-row><b-col >개설자성명:{{minfo.collabWriter}}</b-col></b-row>
       <b-row><b-col>개설자번호:{{minfo.collabPhone}}</b-col></b-row>
       <b-row><b-col>개설자이메일:{{minfo.collabEmail}}</b-col></b-row>
       </b-card>
-       <!-- <b-card v-if="usercheck==false"> <b-row><b-col>개설자정보</b-col></b-row>
+        <b-card v-if="usercheck==false"> <b-row><b-col>개설자정보</b-col></b-row>
       <b-row><b-col>개설자성명:***</b-col></b-row>
       <b-row><b-col>개설자번호:***-***-****</b-col></b-row>
       <b-row><b-col>개설자이메일:*****@******</b-col></b-row>
       <b-row><small>*로그인을 하시면 개설자 정보를 확인하실 수 있습니다.</small></b-row>
       </b-card>
-      {{userData}} -->
+      <!--{{userData}} -->
      
        <b-card title="모집정보">
          <b-card>{{minfo.collabContent}}</b-card>
@@ -169,11 +174,11 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
         delform.append("collabSq",this.minfo.collabSq)
         axios.post("http://localhost:8082/itjobgo/meeting/delapplymeeting.do",delform)
         .then((data)=>{
-          console.log(data)
+        
           if(data.data>0){
-            alert("삭제 성공")
+            alert("신청이 취소되었습니다.")
           }else {
-            alert("삭제 오류")
+            alert("이미 승인 되었거니 신청하신 정보가 없습니다.")
           }
         })
       },
@@ -186,7 +191,7 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
         applyform.append("writerNo",this.minfo.memberSq)
        axios.post("http://localhost:8082/itjobgo/meeting/applymeeting.do",applyform)
        .then((data)=>{
-         console.log(data)
+        
          if(data.data==0){
                 alert("중복된 신청입니다.")
                  this.selected="";
@@ -216,11 +221,18 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
   created() {
     const no=this.$route.params.id
     this.$store.dispatch("FECH_MOBOARDINFO",no)
+    this.$store.dispatch("FECH_APPLYCOUNT",no)
+    const check=localStorage.getItem("vuex")
+   
+    if(check==="{}"){
+      this.usercheck=false
+    }else this.usercheck=true
   
   },
   computed: {
     ...mapState({
-      minfo:state=>state.minfo
+      minfo:state=>state.minfo,
+      acount:state=>state.acount
     }),
      ...loadUserState(['userData'])  ,
    
@@ -260,6 +272,7 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
 .f-box{
   margin-bottom: 20px;
 }
+
 .cont{
   border: 1px solid black;
   margin-top:1.5rem;
@@ -274,6 +287,8 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
   width: 100%;
   height: 400px;
 }
-
+.cardinfo{
+  margin-bottom: 0;
+}
 
 </style>

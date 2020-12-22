@@ -9,48 +9,35 @@
           </div>
       </b-row>
               
-        <div class="container">          
-
-          <!-- <div>
-            <h4 class="sub-header-ref">분야별 웹 사이트</h4>
-            <v-btn to="/refWrite" exact  id="st_write_ref">글쓰기</v-btn>
-          </div> -->
-
-    <div class="overflow-auto">
-
-    <div class="site_ect">
-    <!-- /.row -->
-    <div class="row card-align">
-    <!-- card -->
+    <div class="container">          
 
       <b-form>
-        <b-row>
-          {{userData}}
-          <b-col id="title"> 제목: {{refListView.refTitle}}</b-col>
-        </b-row>
-        <b-row>
-          <b-col id="boardDate"> 날짜: {{formatDate(refListView.refDate)}}</b-col>
 
-          <!-- 링크 바로가기 -->
-          <a href="" v-on:click.stop.prevent="openWindow(refListView.refSiteAddr)" id="link_a">링크 이동</a>
-          
+        <b-row>
+          <!-- {{userData}} -->
+          <b-col id="title">
+            <hr>{{refListView.refTitle}}
+          <p id="boardDate">{{formatDate(refListView.refDate)}}</p><hr>
+          </b-col>
+          <h2><hr></h2>
+        </b-row>
+
         <!-- 이미지 -->
           <!-- max-width="350px" -->
         <v-img
-          class="white--text align-end"
-          height="250px"
+          class="white--text align-end siteimg"
+          max-height="800px"
+          max-width="800px"
           :src="`http://localhost:8082/itjobgo/ref/selectsiteImg${refListView.refNo}`"
-        
         >
         <v-card-title></v-card-title>
         </v-img>
 
-        </b-row>
-        <b-row>
-        </b-row>
+        <!-- 링크 바로가기 -->
+          <a href="" v-on:click.stop.prevent="openWindow(refListView.refSiteAddr)" id="link_a">{{refListView.refSiteAddr}}</a>
 
           <b-row>
-          <b-col > <pre id="content">{{refListView.refContent}}</pre></b-col>
+          <b-col > <pre id="content2">{{refListView.refContent}}</pre><br><br><hr></b-col>
         </b-row>
 
         <!-- <b-row v-if="attachment">
@@ -62,27 +49,33 @@
       <form @submit.prevent="updateStatus" enctype="multipart/form-data">     
           <b-row >
             <b-col>
-              <b-button  v-if="userData.memberSq===refListView.memberNum"
+              <b-row class="list">
+                <b-button v-if="refListView.status === 'Y'" to="/refSite">목록 이동</b-button>
+                <b-button v-if="refListView.status === 'N'" to="/refSiteStatus">목록 이동</b-button>
+              </b-row>
+              
+              <b-row class="listadmin">
+              <b-button class="btn btn-danger" v-if="userData.memberEmail==='admin@kh.com' && refListView.status === 'N'"
+                        type="submit" exact>사이트 승인하기</b-button>
+              </b-row>
+
+              <b-row class="listupdel">
+              <b-button v-if="userData.memberSq===refListView.memberNum"
                         @click="update" id="update-btn2">수정</b-button>
-              <b-button   v-if="userData.memberSq===refListView.memberNum || userData.memberEmail === 'admin@kh.com'" 
+              <b-button v-if="userData.memberSq===refListView.memberNum || userData.memberEmail === 'admin@kh.com'" 
                         @click="pdelete" id="delete-btn2">삭제</b-button>
-              <b-button v-if="userData.memberEmail==='admin@kh.com' && refListView.status === 'N'"
-                        type="submit" exact id="status-btn2">사이트 승인</b-button>
+              </b-row>
+
+
             </b-col>
           </b-row>
       </form>
 
-      <b-row id=" writecontain" align-h="end">
-        <b-col>
-          <b-button to="/refSite" id="list">목록 </b-button>
-        </b-col>
-      </b-row>
       
 
 
-          </div>
-        </div>
-      </div>
+
+ 
     </div>
 
   <!-- 게시판 삭제 모달 -->
@@ -251,12 +244,48 @@ Vue.use(vueMoment);
     text-align: center;
     line-height: 180px;
 }
+#title{
+  text-align: center;
+  margin-top: 3%;
+  font-size: 28px;
+  font-weight: bold;
+}
+#boardDate{
+  font-size: 18px;
+  margin-top: -0.5%;
+  color:#87888a ;
+  font-weight: lighter;
+}
 .subtitle{
   font-family: 'Barlow Semi Condensed', sans-serif;
   color:#4e5157 ;
   font-size: 50px;
 }
-#status-btn2{
-  margin-left: 2%;
+.siteimg{
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 15%;
+}
+#link_a{
+  margin-left: 10%;
+  font-size: 18px;
+}
+#content2{
+  margin-left: 10%;
+  font-size: 18px;
+}
+.list{
+  margin-left: 48%;
+}
+.listupdel{
+  margin-top: 3%;
+  margin-left: 80%;
+}
+#delete-btn2{
+  margin-left: 4%;
+}
+.listadmin{
+  margin-left: 45.7%;
+  margin-top: 1.5%;
 }
 </style>
