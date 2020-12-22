@@ -132,7 +132,9 @@
             </b-card></b-col>
         </b-row>
     </b-form>
+
     </b-container>
+    
     <!-- 삭제 모달창 -->
     <ModalView v-if="showModal" @close="showModal=false">
     <template>
