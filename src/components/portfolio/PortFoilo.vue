@@ -16,8 +16,13 @@
         
         <div class="overflow-hidden">
          <!-- 테이블 -->
-        <v-card>
+        <v-card class="tableborder">
+          
         <v-card-title class="search-bar">
+          포트폴리오
+           <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
+             <v-spacer></v-spacer>
           <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
@@ -105,6 +110,9 @@ import { mapState } from 'vuex';
 * {
   font-family: "Noto Sans KR", sans-serif;
 }
+.tableborder{
+  border: 1px solid black;
+}
 .submenuimage {
   background-image: url("../../assets/images/code-1839406_1920.jpg");
   background-repeat: no-repeat;
@@ -134,9 +142,6 @@ import { mapState } from 'vuex';
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
 }
-.search-bar {
-  width: 30%;
-  margin-left: 70%;
- }
+
 
 </style>
