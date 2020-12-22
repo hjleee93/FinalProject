@@ -75,11 +75,25 @@
     <b-row v-for="comment in commentlist" :key="comment.id">
         <b-col>
           <b-card class="text-center">
-            <b-row><b-col class="memberName" cols="2">{{comment.memberName}}
-            <br><small>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}</small>
-            </b-col>
-            <!-- 쓴사람과 아닐떄는 일반 댓글로 보여주지않기 -->
-            <b-col class="contentcm" v-if="comment.memberSq!=userData.memberSq">{{comment.qbCommentContent}}</b-col>
+            <b-row>
+                <!-- 댓글 작성자가 관리자일때 -->
+                <b-col v-if="comment.memberName==='관리자'" class="memberNameAdmin" cols="2">      
+                    {{comment.memberName}}
+                    <br><small>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}</small>
+                </b-col>
+                <!-- 댓글 작성자-->
+                <b-col v-else
+                            class="memberName" cols="2">{{comment.memberName}}
+                    <br><small>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}</small>
+                </b-col>
+
+            <!-- 글쓴이가 아닐때는(관리자포함) 일반 댓글로 보여주지않기 -->
+            <b-row>
+                <b-col class="contentcmAdmin" v-if="comment.memberSq===999">
+                    {{comment.qbCommentContent}}
+                </b-col>
+                <b-col class="contentcm" v-else-if="comment.memberSq!=userData.memberSq">{{comment.qbCommentContent}}</b-col>
+            </b-row>
             <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
             <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
 
@@ -432,20 +446,41 @@ export default {
     margin-top: 1%;
     color:rgb(59, 59, 59);
 }
+.memberNameAdmin{
+    font-weight: bold;
+    text-align: left;
+    font-size: 17px;
+    margin-left: 1%;
+    margin-top: 1%;
+    color: rgb(235, 68, 17);
+}
 .icon{
     margin-left: 1.5%;
 }
 .contentcm{
-    border-left: 1px rgb(212, 208, 208) solid;
+    border-left: 3px rgb(6, 21, 92) solid;
     padding-left: 25px;
     margin-top: 1%;
     margin-left: 1%;
     text-align: left;
 }
+.contentcmAdmin{
+    border-left: 3px rgb(235, 68, 17) solid;
+    padding-left: 25px;
+    margin-top: 1%;
+    margin-left: 1%;
+    text-align: left;
+    margin-right: 5%;
+    height: 90%;
+}
 .siteimg{
     margin-top: 7%;
     margin-left: 6%;
     margin-bottom: 5%;
+}
+.staricon{
+    color:yellow;
+    
 }
 
 </style>

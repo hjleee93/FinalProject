@@ -17,11 +17,10 @@
           <!-- {{userData}} -->
           <b-col id="title">
             <hr>{{refListView.refTitle}}
-          <p id="boardDate">No.{{refListView.refNo}} {{formatDate(refListView.refDate)}} _{{userData.memberName}} 작성</p><hr>
+          <p id="boardDate">No.{{refListView.refNo}} {{formatDate(refListView.refDate)}}</p><hr>
           </b-col>
           <h2><hr></h2>
         </b-row>
-
 
         <b-row>
           <b-col >
@@ -218,6 +217,22 @@ Vue.use(vueMoment);
 * {
   font-family: "Noto Sans KR", sans-serif;
 }
+.submenuimage {
+  background-image: url("../../assets/images/refimg.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
+}
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
+}
 .site_ect{
   margin-bottom:20px;
   margin-left: 20px;
@@ -238,13 +253,6 @@ Vue.use(vueMoment);
   border:none;
   color:white;
 }
-.submenuimage{
-    width: 100%;
-    height:180px;
-    background-color:#F4EEFF;
-    text-align: center;
-    line-height: 180px;
-}
 #title{
   text-align: center;
   margin-top: 3%;
@@ -255,11 +263,6 @@ Vue.use(vueMoment);
   font-size: 16px;
   color:#87888a ;
   font-weight: lighter;
-}
-.subtitle{
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  color:#4e5157 ;
-  font-size: 50px;
 }
 .siteimg{
   margin-top: 5%;
@@ -292,7 +295,7 @@ Vue.use(vueMoment);
   font-size: 18px;
   margin-top: 2%;
   margin-left: 44%;
-  margin-bottom: 15%;
+  margin-bottom: 10%;
   background-color: white ;
   color:rgb(158, 158, 158);
   border:1px rgb(173, 173, 173) solid;

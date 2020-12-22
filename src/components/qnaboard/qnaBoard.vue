@@ -38,6 +38,7 @@
         </v-card-title>
         
           <v-data-table
+            class="qnahover"
             :headers="headers"
             :items="qnaboard1"
             :search="search"
@@ -181,5 +182,9 @@ import { createNamespacedHelpers } from "vuex";
 .search-bar {
   width: 30%;
   margin-left: 72%;
+}
+/* hover */
+.qnahover >>> tbody tr :hover {
+  cursor: pointer;
 }
 </style>
