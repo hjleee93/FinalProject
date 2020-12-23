@@ -114,18 +114,19 @@ export default {
   methods: {
     handleClick(value) {
       this.$router.push({ name: "resume", params: { id: value } });
-      console.log(value);
+      //console.log(value);
     },
 
     updateResume(value) {
       this.$router.push({ name: "updateresume", params: { id: value } });
-      console.log(value);
+      //console.log(value);
     },
 
     deleteResume(value) {
       alert("이력서를 삭제하시겠습니까?");
       const resumeNo = value;
       this.$store.dispatch("FETCH_RESUME_DELETE", resumeNo);
+      setTimeout(() => this.$router.go(this.$router.currentRoute), 2000);
     },
 
     formatDate(value) {

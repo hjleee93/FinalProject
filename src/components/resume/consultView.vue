@@ -3,7 +3,7 @@
   <body>
     <div class="container-fluid">
       <div class="submenuimage">
-          <p class="subtitle">Consult Resume Detail</p>
+          <p class="subtitle">입사지원서 컨설팅</p>
       </div>
       <div>
           <v-tabs centered color="grey darken-3">
@@ -60,17 +60,17 @@
                 <b-col>
                 <b-card class="text-center">
                     <b-row><b-col cols="2">{{comment.memberName}}
-                    <br>{{comment.qbcommentDate | moment('YYYY.MM.DD HH:mm:ss')}}
+                    <br>{{comment.rboardCommentDate | moment('YYYY.MM.DD HH:mm:ss')}}
                     </b-col>
                     <!-- 쓴사람과 아닐떄는 일반 댓글로 보여주지않기 -->
-                    <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.qbCommentContent}}</b-col>
+                    <b-col v-if="comment.memberSq!=userData.memberSq">{{comment.rboardCommentContent}}</b-col>
                     <!-- 자기 댓글은 수정할수있는 input 박스로 보여주기 -->
                     <b-form v-if="userData.memberSq!=null && comment.memberSq==userData.memberSq">
 
                     <b-col>
                         <b-row>
                         <b-col>
-                            <b-form-textarea :disabled="commentcheck" :value="comment.qbCommentContent" 
+                            <b-form-textarea :disabled="commentcheck" :value="comment.rboardCommentContent" 
                             @input="updateInput" id="commentUptxt"/>
                         </b-col>
                                 <template v-if="comment.memberSq==userData.memberSq">
@@ -78,9 +78,9 @@
                                     <b-button v-if="userData.memberSq===comment.memberSq"
                                         @click="upclick($event)"  id="update-btn">수정</b-button> 
                                     <b-button v-if="userData.memberSq===comment.memberSq || userData.memberEmail === 'admin@kh.com'"
-                                        @click="declick(comment.qboardCommentNo)" id="deltet-btn">삭제</b-button> 
+                                        @click="declick(comment.rboardCommentno)" id="deltet-btn">삭제</b-button> 
                                     <b-button 
-                                        @click="upendclick(comment.qboardCommentNo,$event)" id="updateEnd-btn">확인</b-button> 
+                                        @click="upendclick(comment.rboardCommentno,$event)" id="updateEnd-btn">확인</b-button> 
                                     </b-col>
                                 </template>
                             </b-row>
@@ -90,16 +90,19 @@
                 </b-row>
         <!-- 댓글쓰기 -->
             <b-form v-if="userData.memberSq!=null">
-                <b-row >
+                <b-row v-if="userData.memberEmail === 'admin@kh.com' || userData.memberSq===rboardDetail.rboardId || userData.memberLevel==2">
                 <b-col>
                     <b-card class="text-center">
                     <b-row>
                         <b-col><b-form-textarea rows="8" ref="comment"
-                                v-model="qbcomment" placeholder="댓글을 남겨보세요" /></b-col>
+                                v-model="rboardComment" placeholder="댓글을 남겨보세요" /></b-col>
                         <b-col cols="1"><b-button
                                 @click="comment" id="comment_insert_btn">등록</b-button></b-col>
                     </b-row>
                     </b-card></b-col>
+                </b-row>
+                <b-row v-else> 
+                    <p class="p1">이력서 컨설팅 전문가, 작성자, 관리자만 댓글 작성이 가능합니다.</p>
                 </b-row>
             </b-form>
             </b-container>
@@ -148,9 +151,8 @@ export default {
     data(){
         return{
             showModal:false,
-            qnaBoardNo:0,
-            qbcomment:'',
-
+            rboardNo:0,
+            rboardComment:'',
             commentModal:false,
             commentcheck:true,
             changeval:'',
@@ -159,13 +161,13 @@ export default {
         }
     },
 
-    watch:{
-      commentlist:{
-        handler(newValue){
-          this.changeval=newValue[0].qbCommentContent;
-        },deep:true,
-      }
-    },
+    // watch:{
+    //   commentlist:{
+    //     handler(newValue){
+    //       this.changeval=newValue[0].rboardCommentContent;
+    //     },deep:true,
+    //   }
+    // },
 
     components :{
         ModalView,
@@ -182,7 +184,7 @@ export default {
             // 게시글 수정버튼
                 updateConsult(){
                 let no=this.$route.params.id
-                console.log("수정버튼(params) :"+ no);
+                //console.log("수정버튼(params) :"+ no);
                 this.$router.push({name:'updateConsult',params:{id:no}})
             },
 
@@ -204,27 +206,22 @@ export default {
 
             //댓글등록
             comment(){
-                //새로고침 1초컷
-                setTimeout(() => {
                 let formData2=new FormData(); 
-                  formData2.append('qboardNo',this.qnaboard2.qboardNo);
-                  formData2.append('qbCommentContent',this.qbcomment);
+                  formData2.append('rboardNo',this.rboardDetail.rboardNo);
+                  formData2.append('rboardCommentContent',this.rboardComment);
                   formData2.append('memberSq',this.userData.memberSq);
                   formData2.append('memberName',this.userData.memberName)
                     // for(let key of formData2.entries()){
                     //   console.log(`${key}`); 
                     // }
-            axios.post("http://localhost:8082/itjobgo/qna/qnacomment",formData2)
+            axios.post("http://localhost:8082/itjobgo/resume/insertRboardComment",formData2)
             .then((data)=>{
                 console.log(data)
-                this.qbcomment="",
-                this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
-                  }, 1000)
+                this.rboardComment=""
+                this.$store.dispatch("FETCH_RBOARD_COMMENT",this.$route.params.id);
             })
-                
             .catch((error)=>
               console.log(error))
-                
             },
 
             //코멘트 모달 취소
@@ -243,11 +240,11 @@ export default {
             declick(commentno){
                 let delfirm=confirm("댓글을 삭제 하시겠습니까?")
                 if(delfirm){
-                const qno=commentno;
-                this.$store.dispatch("FETCH_QNABOARD_COMMENTDEL",qno)
-                return  this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
-                }else{
-                return
+                const rboardCommentNo=commentno;
+                this.$store.dispatch("FETCH_RBOARD_COMMENTDEL",rboardCommentNo).then(()=>{
+                    this.$store.dispatch("FETCH_RBOARD_COMMENT",this.$route.params.id);
+                })
+
                 }
             },
 
@@ -275,14 +272,14 @@ export default {
             },
 
             upendclick(commentno,e){
-            const qqno=commentno
+            const rbno=commentno
                 e.target.parentElement.parentElement.children[0].children[0].disabled = true;
                 if(this.updatetext=='') this.updatetext = e.target.parentElement.parentElement.children[0].children[0].value
-            axios.post("http://localhost:8082/itjobgo/qna/updateComment",{qbCommentContent:this.updatetext,qboardCommentNo:qqno})
+            axios.post("http://localhost:8082/itjobgo/resume/updateRboardComment",{rboardCommentContent:this.updatetext,rboardCommentno:rbno})
             .then((data)=>{
                 console.log(data)
                     // this.commentcheck=true;
-                this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
+                this.$store.dispatch("FETCH_RBOARD_COMMENT",this.$route.params.id);
                 this.updatetext='';
             })
             },
@@ -294,9 +291,7 @@ export default {
         const rboardNo=this.$route.params.id;
         this.$store.dispatch("FETCH_RBOARD_VIEW", rboardNo)
         this.$store.dispatch("FETCH_RBOARD_ATTACHMENT", rboardNo)
-        // this.$store.dispatch("FETCH_QNABOARD_VIEW",qnaboardNo)
-        // this.$store.dispatch("FETCH_QNABOARD_ATTACHMENT",qnaboardNo)
-        // this.$store.dispatch("FETCH_QNABOARD_COMMENT",this.$route.params.id);
+        this.$store.dispatch("FETCH_RBOARD_COMMENT",rboardNo);
     },
 
     mounted() {
@@ -309,8 +304,7 @@ export default {
         ...mapState({ //store
             rboardDetail:state=>state.rboardDetail,
             rboardAttachment:state=>state.rboardAttachment,
-
-            commentlist:state=>state.qnacomment}),
+            commentlist:state=>state.rboardComment}),
         
         ...loadUserState(['userData'])
         },
@@ -352,12 +346,15 @@ export default {
     margin-left: 38%;
     margin-bottom: 3%;
 }
-.submenuimage{
-    width: 100%;
-    height:180px;
-    background-color:#F4EEFF;
-    text-align: center;
-    line-height: 180px;
+.submenuimage {
+  background-image: url("../../assets/images/resume.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
+  text-align: center;
+  line-height: 180px;
 }
 
 .consult_resume{
@@ -365,17 +362,13 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
-.submenuimage{
-  width: 100%;
-  height:180px;
-  background-color:#F4EEFF;
-  text-align: center;
-  line-height: 180px; 
-}
-.subtitle{
-    font-family: 'Masque';
-    color:#4e5157 ;
-    font-size: 50px;
+
+.subtitle {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
+  font-size: 50px;
 }
 #writecontain{
   margin-bottom: 10%;
@@ -388,4 +381,338 @@ export default {
   margin-bottom: 12%;
 }
 
+.p1{
+    color : red;
+    font-weight: bold;
+    margin-left: 30%;
+}
+
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+#nameAndDate{
+  /* position: absolute; */
+  position: relative;
+  left:10px;
+  top:0px;
+  margin:-15px;
+}
+
+#profileImage{
+  position:absolute;
+  top:-15px;
+  left:20px;
+  height: 70px;
+  width:70px;
+  border-radius: 70px;
+  border:none;
+}
+#commentUptxt{
+  width:800px;
+  height:150px;
+
+}
+#update-btn{
+  background-color: #424874;
+  height:40px;
+  width:70px;
+  position: relative;
+  top:107px;
+   border:none
+}
+#update-btn2{
+  background-color: #424874;
+  height:40px;
+  width:70px;
+  position: relative;
+  top:30px;
+   border:none
+}
+#updateEnd-btn{
+    background-color: #394867;
+  height:40px;
+  width:70px;
+  position: relative;
+  top:107px;
+  border:none
+}
+
+#deltet-btn{
+  background-color:#9BA4B4;
+  height:40px;
+  width:70px;
+  position: relative;
+  top:107px;
+   border:none
+
+}
+
+#link_a{
+  font-weight: bold;
+  background-color: #4e5157;
+  border:none;
+  position: relative;
+  left :-470px;
+  width:100px;
+  height: 50px;
+}
+
+#comment_insert_btn{
+  background-color: #424874;
+  border:none;
+  width:70px;
+  height: 40px;
+  position: relative;
+  top:163px;
+  left:-20px;
+}
+
+#modal-yes{
+  background-color: #424874;
+  width:100px;
+  position: relative;
+  left:50px;
+  border:none;
+}
+
+#modal-no{
+  background-color: #9BA4B4;
+  width:100px;
+  position: relative;
+  left:-50px;
+  border:none;
+}
+
+
+#content {
+  /* background-color: #E6E6FA; */
+  /* padding:10px; */
+  overflow: auto;
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+#textarea-test{
+  height:100%;
+}
+
+
+#update-btn{
+background-color: #424874;
+border: none;
+}
+#delete-btn2{
+background-color: #9BA4B4;
+  height:40px;
+  width:70px;
+  position: relative;
+  top:30px;
+   border:none;
+
+}
+
+#prev{
+ position: relative;
+ left: -393px;
+ /* background-color: red; */
+}
+
+#next{
+ position: relative;
+ left: -392px;
+ /* background-color: red; */
+}
+
+#list{
+ position: relative;
+  padding-top:10px;
+ left: 460px;
+ height: 45px;
+ width: 80px;
+ align-items: center;
+ font-size: 17px;
+ border:none;
+ font-weight: bold;
+background-color: #4975cc;
+}
+
+
+#attachment-btn{
+  background-color: rgb(16, 172, 99);
+  border: none;
+  position: absolute;
+  left:0px;
+  /* width:100px; */
+}
+
+#attachment-title{
+  text-align: left;
+  font-weight: bold;
+}
+#attachment{
+  /* border: 1px red solid; */
+  position: relative;
+  left:-174px;
+  top:25px;
+}
+
+#writer{
+  /* border : 1px blue solid; */
+    font-size: 15px;
+  margin-top: -27px;
+    text-align: right;
+}
+
+
+#boardDate{
+  text-align: left;
+    /* border: 1px red solid; */
+  /* margin-top: -10px; */
+  font-size: 15px;
+  margin-top: -27px;
+  font-size:6px;
+  position: relative;
+}
+
+#title{
+  text-align: left;
+  /* border: 1px red solid; */
+  font-weight: bolder;
+  font-size:18px;
+  margin-bottom: 10px;
+}
+#text-card{
+  /* border: 1px solid blue; */
+  border:none;
+  /* width: 1000px; */
+  /* height: 1000px; */
+  /* position: relative; */
+  /* left : 200px; */
+}
+
+#date{
+    text-align: right;
+    /* margin-top: 100px; */
+    position: relative;
+    right:150px;
+}
+
+
+#selected{
+  width:100px;
+}
+.submenuimage{
+    width: 100%;
+    height:180px;
+    background-color:#F4EEFF;
+    text-align: center;
+    line-height: 180px;
+}
+
+
+#my-table{
+  text-align: center;
+}
+
+#main-container{
+  margin-top: 0px;
+  /* padding-top: -100px; */
+}
+
+#header-image{
+  width:100%;
+}
+.table_ect{
+  margin-bottom:20px;
+  margin-left: 20px;
+  margin-right: 50px;
+  margin-top: 10px;
+}
+.sidebar{
+  margin-top: 30px;
+}
+.st_search{
+  float: right;
+}
+.st_pagebar{
+  margin-top: 3%;
+    position:absolute;
+    left:40%;
+}
+.sub-header{
+  margin-left: 25px;
+  margin-top: 25px;
+}
+.st_nav4{
+  margin-left: 10px;
+  position: relative;
+}
+#st_write2{
+  position: relative;
+  top: 0px;
+  left: -100px;
+  margin-right: 3.5%;
+  background-color: #424874;
+  border:none;
+  color:white;
+  width:90px;
+}
+
+#st_write3{
+  position: relative;
+  top: 0px;
+  left: -135px;
+  margin-right: 3.5%;
+  background-color: #9BA4B4;
+  border:none;
+  color:white;
+  width:90px;
+}
+
+#list-btn{
+  width:100px;
+  color:white;
+  position: relative;
+  left:0px;
+}
+
+.detail_{
+    margin-top:6%;
+    margin-right: 2%;
+}
+.detail_write{
+    height: 400px;
+}
+.detail_top{
+    margin-left: 12px;
+}
+.detail_btn{
+    margin-left: 10px;
+}
+.detail_btn_div{
+    text-align: center;
+    margin-top: 3%;
+}
+#detailbtn1{
+  background-color:  #424874;
+  border: 1px  #424874 solid;
+}
+
+.submenuimage{
+  width: 100%;
+  height:180px;
+  background-color:#F4EEFF;
+  text-align: center;
+  line-height: 180px; 
+}
+#writecontain{
+  margin-bottom: 10%;
+  
+}
+.modalf{
+  display: flex;
+  justify-content: space-around;
+}
 </style>

@@ -2,79 +2,58 @@
  <b-container fluid>
 
       <b-row>
-        <div class="submenuimage">
-          <p class="subtitle" id="subtitle">Job Information</p>
+        <div class="submenuimageinfo">
+          <p class="subtitle" id="subtitle">취업정보</p>
         </div>
       </b-row>
 
-<b-container >
+ <b-container>
     <b-row>
       <b-col>
        <b-card class="text-center">
         <b-form>
-          <h4 class="sub-header">취업설명회 일정</h4>
+          <h2 class="sub-header">
+            <b-row class="infodetail">
+             <b-col id="ititle">{{infoDetail.infoTitle}}</b-col>
+            </b-row>
+          </h2>
+          <b-row>
+            <b-col id="icategory"><b>취업{{infoDetail.infoCategory}}</b></b-col>
+          </b-row>
           <hr>
 
-        <b-row>
-            <b-col class="title"><b>기업명</b> :  {{infoDetail.infoTitle}}</b-col>
-        </b-row>
-        
-        <b-row>
-            <b-col class="title"><b>분류</b> :  {{infoDetail.infoCategory}}</b-col>
+    <b-container id="container">
+        <b-row> 
+           <b-col id="idate"><b>날짜</b> :  {{infoDetail.infoDate | moment('YYYY년 MM월 DD일')}}</b-col>
         </b-row>
 
         <b-row>
-           <!--  <b-col class="title"><b>날짜</b> :  {{infoDetail.infoDate}}</b-col> -->
-          <b-col class="title"><b>날짜</b> :  {{infoDetail.infoDate | moment('YYYY년 MM월 DD일')}}</b-col>
+            <b-col id="itime"><b>시간</b> :  {{infoDetail.infoTime| moment('hh시 ss분')}}</b-col>  
         </b-row>
 
         <b-row>
-            <b-col class="title"><b>시간</b> :  {{infoDetail.infoTime}}</b-col>  
+            <b-col id="icontent"><b>주소/내용</b> : {{infoDetail.infoContent}}</b-col>
         </b-row>
+        <hr>
 
-        <b-row>
-            <b-col class="title"><b>주소</b> : {{infoDetail.infoContent}}</b-col>
-        </b-row>
-        
+        <!--이미지 미리보기-->
+        <div class="container" v-if="attachment">
+          <v-img
+            class="white--text align-end"
+            id="images"
+            :src="`http://localhost:8082/itjobgo/info/imagesrequest${infoDetail.infoSq}`"
+          ></v-img>
+          <hr>
+        </div>
+      
         <b-row v-if="attachment">
-              <b-col class="photo">첨부파일</b-col>
-              <b-col><b-button class="photofile"  @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
+            <b-col id="iphoto">첨부파일</b-col>
+            <b-col><b-button class="iphotofile"  @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
         </b-row>
-
-       <!-- 
-        <b-row>
-          <b-col cols="3"><b-form-group label="기업명"/></b-col>
-          <b-col><b-form-input id="form-control" v-model="infoDetail.infoTitle" readonly/></b-col>
-        </b-row> 
-         
-        <b-row>
-          <b-col cols="3"><b-form-group  label="분류"/></b-col>
-          <b-col> <b-form-input v-model="infoDetail.infoCategory" readonly/></b-col>
-        </b-row>
-
-        <b-row>
-          <b-col cols="3"><b-form-group  label="날짜"/></b-col>
-          <b-col> <b-form-input v-model="infoDetail.infoDate" readonly/></b-col>       
-        </b-row>
-
-         <b-row>
-          <b-col cols="3"><b-form-group  label="시간" readonly/></b-col>
-          <b-col> <b-form-textarea v-model="infoDetail.infoTime" readonly/></b-col>
-        </b-row> 
-
-        <b-row>
-          <b-col cols="3"><b-form-group  label="주소/내용" readonly/></b-col>
-          <b-col> <b-form-textarea v-model="infoDetail.infoContent" readonly/></b-col>
-        </b-row>  
-
-        <b-row v-if="attachment">
-          <b-col cols="3"><b-form-group  label="첨부파일" readonly/></b-col>
-          <b-col cols="1" id="file"><b-button id="btn_file" @click="attachmentdown(attachment)">{{attachment.originalfilename}}</b-button></b-col>
-        </b-row>       
-          </b-form> -->
+     </b-container>  
         </b-form>
         
-        <b-row id=" writecontain" align-h="end">
+        <b-row id="writecontain" align-h="end">
           <b-col>
             <b-button id="btn_update" v-if="userData.memberEmail === 'admin@kh.com'" @click="update">수정</b-button>
             <b-button id="btn_pdelete" v-if="userData.memberEmail === 'admin@kh.com'" @click="pdelete">삭제</b-button>
@@ -86,19 +65,17 @@
   </b-row>
   </b-container>   
     <ModalView v-if="showModal" @close="showModal = false">
-
-    <template>
-      <div slot="header">
-        삭제하시겠습니까?
-      </div>
-      <div slot="body" class="modalf"> 
-        <b-button id="but_ydele" @click="ydele">네</b-button>
-        <b-button id="but_ndele" @click="ndele">아니요</b-button>
-      </div>
-        <div slot="footer">
+      <template>
+        <div slot="header">
+          삭제하시겠습니까?
         </div>
-    </template>
-  </ModalView>
+        <div slot="body" class="modalf"> 
+          <b-button id="but_ydele" @click="ydele">네</b-button>
+          <b-button id="but_ndele" @click="ndele">아니요</b-button>
+        </div>
+        <div slot="footer"></div>
+      </template>
+    </ModalView>
   </b-container> 
 </template>
 
@@ -118,6 +95,10 @@ export default {
       ModalView,
     },
     methods: {
+       formatDate(value) {
+        return this.$moment(value).format('YYYY년 MM월 DD일');
+      },
+
       update(){
         //새로운 수정 컴포넌트로 이동
         let no=this.$route.params.id
@@ -155,29 +136,34 @@ export default {
 </script>
 
 <style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@1,600&display=swap');
-  * {
-    font-family: 'Nanum Gothic', sans-serif;
-  }
+*{
+  font-family: "Noto Sans KR", sans-serif;
+}
 .subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  color: rgb(253, 253, 253);
+  text-shadow: 2px 2px #0d0d0e63;
   font-size: 50px;
 }
-.submenuimage{
-  width: 100%;
-  height:180px;
-  background-color:#F4EEFF;
+.submenuimageinfo{
+  background-image: url("../../assets/images/infoJob.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
   text-align: center;
-  line-height: 180px; 
+  line-height: 180px;
+  width: 100%;
 }
 .text-center{
-    margin: 10px 100px;
-    font-weight: bold;
+  margin: 10px 100px;
+  font-weight: bold;
 }
 .sub-header{
-margin: 35px 100px ;
-
+  margin: 3px;
+  font-weight: bold;
 }
 .form-control{  
   width:550px;
@@ -185,9 +171,6 @@ margin: 35px 100px ;
   background-color: white;
   border-color:white;
   resize: none; 
-}
-#subtitle{
-font-family: 'Barlow Semi Condensed', sans-serif;
 }
 #writecontain{
   margin: 2%;
@@ -217,8 +200,8 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   color:white; 
 }
 #but_ydele{
-  background-color: red;
-  border-color:red;
+  background-color: #9BA4B4;
+  border-color:  #9BA4B4;
 }
 #but_ndele{
   background-color: #424874;
@@ -231,15 +214,51 @@ font-family: 'Barlow Semi Condensed', sans-serif;
   display: flex;
   justify-content: space-around;
 }
-/* .photofile{
- background-color: #512d7ee7;
-   margin-bottom: 5px; 
-    border:5px;
-  margin-left: 0%
- */
-/* .photo{
-  margin-left: 0%;
-  position:absolute;
-} */
-
+#iphoto{
+  width: 15px; 
+  text-align: left;
+  color: rgb(75, 75, 75);   
+}
+.iphotofile{
+  text-align: left;
+  margin-left: -220%;
+  max-width: 300px; 
+  max-height: 300px; 
+  }
+#images{
+   height: auto; 
+    width: auto; 
+    object-fit:cover;
+   /*  max-width: 100px; 
+    max-height: 100px; */ 
+}
+#ititle {
+   text-align: canter;
+}
+#icategory {
+  right: 25px;
+  text-align: right;
+  font-size: 21px;
+  font-weight: lighter;
+}
+#itime   {
+ left:10px;
+  text-align: left;
+}
+#iphotofile{
+left:10px;
+  text-align: left;
+}
+#idate {
+left:10px;
+  text-align: left;
+}
+#icontent{
+left:10px;
+  text-align: left;
+}
+#attachment{
+left:10px;
+text-align: left;
+}
 </style>

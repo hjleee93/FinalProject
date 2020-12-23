@@ -527,12 +527,14 @@ input {
   display: flex;
   align-content: center;
 }
-
 .print {
   float: right;
   background-color: #0278ae;
   border: none;
 }
+/* .print {
+  margin-left: 80%;
+} */
 tr,
 td {
   width: 50px;
