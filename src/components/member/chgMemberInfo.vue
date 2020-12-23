@@ -174,7 +174,6 @@ export default {
   created() {},
   methods: {
     onSubmit() {
-      //  console.log($('#sample6_postcode').val());
       const formData = {
         memberEmail: this.userData.memberEmail,
         memberPwd: this.memberPwd,
@@ -183,15 +182,12 @@ export default {
         memberAddr: $("#sample6_address").val(),
         memberAddrDtl: this.userData.memberAddrDtl,
         memberPosition: $("#position").val(),
-        // memberPosition: this.userData.memberPosition,
         memberAddrExtra: $("#sample6_extraAddress").val(),
       };
       const self = this; //this scope문제
-      console.log("form:" + JSON.stringify(formData));
       axios
         .post("http://localhost:8082/itjobgo/member/updateInfo", formData) //form server 연결
         .then((res) => {
-          console.log(res.data);
           if (res.data > 0) {
             //업데이트 ok
             this.$swal({

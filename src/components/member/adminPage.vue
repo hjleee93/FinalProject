@@ -320,7 +320,6 @@ export default {
         )
         .then((res) => {
           const url = window.URL.createObjectURL(new Blob([res.data]));
-          console.log(url);
           this.previewImage = url;
         });
     }
@@ -335,9 +334,6 @@ export default {
       formData.append("memberEmail", this.userData.memberEmail);
       formData.append("upFile", this.files[0]);
 
-      for (let key of formData.entries()) {
-        console.log(`${key}`);
-      }
       await axios
         .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
           headers: {
@@ -434,7 +430,6 @@ export default {
       for (let i = 0; i < 3; i++) {
         arr[i] = Object.values(obj)[i];
       }
-      // console.log(arr);
       return arr;
     },
     noticeCount() {

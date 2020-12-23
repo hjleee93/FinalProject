@@ -78,8 +78,6 @@ new Vue({
   computed: {
     ...mapState(["loginStatus"]),
     jobs() {
-      console.log("computed! in main");
-      console.log(this.$store.jobs);
       return this.$store.jobs;
     },
 

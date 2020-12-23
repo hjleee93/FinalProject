@@ -931,7 +931,6 @@ export default {
         keyword: this.keyword,
         region: regionStr,
       };
-      console.log("formData: " + JSON.stringify(formData));
 
       if (this.$router.currentRoute.name == "home") {
         this.$router

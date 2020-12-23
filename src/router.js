@@ -1,15 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './components/Home.vue'
-// import store from './store'
-// import memberStore from './store/modules/memberStore.js';// member 관리 store
 
 //네비게이션가드
-var loginCheck = localStorage.loginStatus;
 const LoginAuth = () => (to, from, next) => {
      //vuex 체크용
-     console.log(localStorage.vuex.includes('"loginStatus":true'))
-     console.log(loginCheck)
+
 
      if (localStorage.vuex.includes('"loginStatus":true')) {
 
@@ -63,6 +59,7 @@ import Meetingapply from './components/meeting/Meetingapply.vue';
 import Approve from './components/meeting/Approve.vue';
 import Mkmeeting from './components/meeting/Mkmeeting.vue';
 import Meetingupdate from './components/meeting/Meetingupdate.vue';
+import WaitList from './components/meeting/WaitList.vue';
 
 //혜지
 
@@ -343,12 +340,8 @@ export default new Router({
                          const obb = JSON.parse(no);
                          const mno = obb.userData.memberSq
                          const pno = to.params.number
-                         console.log(`mno:${mno}pno:${pno}`)
                          const mck = (mno, pno) => mno === pno;
-                         console.log(mck(mno, pno));
-                         console.log(mck)
                          const level = localStorage.vuex.includes('"memberLevel":"2"')
-                         console.log(level)
                          if (level === true) {
                               //레벨이 2어간 관리자 레벨이면 게시물에 접근 가능
                               next();
@@ -378,7 +371,13 @@ export default new Router({
                beforeEnter: LoginAuth()
 
           },
+          {
+               path: '/waitList/:memberSq',
+               component: WaitList,
+               name: 'waitList',
+               beforeEnter: LoginAuth()
 
+          },
           //민지
           {
                path: '/infoList',
@@ -423,7 +422,7 @@ export default new Router({
                name: 'InfoCounsel',
                component: InfoCounsel,
           },
-          
+
           //주은
           {
                path: '/communityBoardList',

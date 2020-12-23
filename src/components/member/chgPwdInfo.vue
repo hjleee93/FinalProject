@@ -158,12 +158,10 @@ export default {
         memberPwd: this.memberPwd,
         memberNewPwd: this.password,
       };
-      console.log("form:" + JSON.stringify(formData));
 
       axios
         .post("http://localhost:8082/itjobgo/member/updatePwdInfo", formData) //form server 연결
         .then((res) => {
-          console.log(res.data);
           if (res.data > 0) {
             //업데이트 ok
             this.$swal({

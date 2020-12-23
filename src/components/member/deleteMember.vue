@@ -168,24 +168,6 @@ export default {
           memberPwd,
         });
       });
-
-      // axios
-      //   .post(
-      //     "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=aYgNgGmIwR3wysmlCfRd&client_secret=voZaFcwXXi&access_token=" +
-      //       this.userData.memberToken +
-      //       "&service_provider=NAVER"
-      //   )
-      //   .then((res) => {
-      //     let memberEmail = this.userData.memberEmail;
-      //     let memberPwd = "0000";
-      //     if (res.data.access_token == this.userData.memberToken) {
-      //       //반환된 토큰값과 보낸 토큰값이 같은 경우
-      //       this.$store.dispatch("memberStore/deleteMember", {
-      //         memberEmail,
-      //         memberPwd,
-      //       });
-      //     }
-      //   });
     },
     naverLoginURL() {
       axios
