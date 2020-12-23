@@ -1,7 +1,7 @@
 <template>
 
-  <body>
-    <div class="container-fluid">
+  
+    <b-container fluid>
       <div class="row">
          <div class="submenuimage ">
         <p class="subtitle" id="subtitle">포트폴리오</p>
@@ -49,8 +49,9 @@
        </div>
       </div>
  
-    </div>
-  </body>
+    
+    </b-container>
+  
 </template>
 
 <script>
@@ -110,9 +111,7 @@ import { mapState } from 'vuex';
 * {
   font-family: "Noto Sans KR", sans-serif;
 }
-.tableborder{
-  border: 1px solid black;
-}
+
 .submenuimage {
   background-image: url("../../assets/images/code-1839406_1920.jpg");
   background-repeat: no-repeat;
