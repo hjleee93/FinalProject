@@ -142,6 +142,14 @@ import { mapState } from 'vuex';
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
 }
-
+.row-pointer >>> thead tr {
+  background-color: #ededed;
+  border-top: 2px solid #d5d5d5;
+}
+.row-pointer >>> thead tr th span {
+  font-size: 15px;
+  font-weight: bold;
+  color: #4e5157;
+}
 
 </style>
