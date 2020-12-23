@@ -1,7 +1,7 @@
 <template>
 
-  <body>
-    <div class="container-fluid">
+  
+    <b-container fluid>
       <div class="row">
          <div class="submenuimage ">
         <p class="subtitle" id="subtitle">포트폴리오</p>
@@ -16,8 +16,13 @@
         
         <div class="overflow-hidden">
          <!-- 테이블 -->
-        <v-card>
+        <v-card class="tableborder">
+          
         <v-card-title class="search-bar">
+          포트폴리오
+           <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
+             <v-spacer></v-spacer>
           <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
@@ -44,8 +49,9 @@
        </div>
       </div>
  
-    </div>
-  </body>
+    
+    </b-container>
+  
 </template>
 
 <script>
@@ -105,6 +111,7 @@ import { mapState } from 'vuex';
 * {
   font-family: "Noto Sans KR", sans-serif;
 }
+
 .submenuimage {
   background-image: url("../../assets/images/code-1839406_1920.jpg");
   background-repeat: no-repeat;
@@ -134,9 +141,14 @@ import { mapState } from 'vuex';
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
 }
-.search-bar {
-  width: 30%;
-  margin-left: 70%;
- }
+.row-pointer >>> thead tr {
+  background-color: #ededed;
+  border-top: 2px solid #d5d5d5;
+}
+.row-pointer >>> thead tr th span {
+  font-size: 15px;
+  font-weight: bold;
+  color: #4e5157;
+}
 
 </style>

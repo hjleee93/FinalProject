@@ -1,14 +1,13 @@
 <template>
- <div class="container-fluid">
+<b-container fluid>
       <b-row >
          <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">portfolioinfo</p>
-      </div>
+        <p class="subtitle" id="subtitle">상세보기</p>
+        </div>
       </b-row>
      
     
-      <b-row>
-        
+      <b-row> 
         <b-col>
           <b-card  class="text-center">
              <b-row   align-h="between" id=" writecontain" > <b-col cols="2" ><p class="division">{{pboardone.pboardDivision}}</p></b-col><b-col cols="2"><b-button  align-self="end" to="/portfolioList"><b-icon icon="chevron-left"></b-icon> </b-button></b-col></b-row>
@@ -33,11 +32,11 @@
           <b-row v-if="userData.memberSq===pboardone.pboardId"><b-col>
           <b-button @click="update" v-if="userData.memberSq===pboardone.pboardId">수정</b-button>
           <b-button @click="pdelete"  v-if="userData.memberSq===pboardone.pboardId||userData.memberEmail === 'admin@kh.com'" >삭제</b-button>
-  </b-col></b-row></b-card></b-col>
+        </b-col></b-row></b-card></b-col>
 
-      </b-row>
+        </b-row>
    
-    <b-form @submit.prevent="comment" v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2">{{userData.memberName}}</b-col></b-row>
+      <b-form @submit.prevent="comment" v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2">{{userData.memberName}}</b-col></b-row>
       <b-row><b-col><b-form-textarea required ref="comment" v-model="pcomment" /></b-col>
       <b-col cols="1"><b-button type="submit">전송</b-button></b-col></b-row>
       </b-card></b-col></b-row></b-form>
@@ -64,9 +63,8 @@
       </b-row></b-card></b-col>
       </b-row>
       
-      <!--<div>{{userData}}</div>-->
  
-    
+      
       </b-container>
    
 
@@ -92,8 +90,8 @@
 
 
   </ModalView>
-     
-</div>
+
+</b-container>
 </template>
 
 <script>
@@ -256,9 +254,10 @@ export default {
   text-align: center;
   line-height: 180px; 
 }
-.subtitle{
-  font-family: 'Masque';
-  color:#4e5157 ;
+.subtitle {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px #4e515763;
   font-size: 50px;
 }
 #writecontain{
