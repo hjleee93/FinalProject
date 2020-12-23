@@ -1,7 +1,7 @@
 <template>
  <div class="resume_List">
   <body>
-    <div class="container-fluid">
+    <div>
       <div class="submenuimage">
           <p class="subtitle">Consultant LIST</p>
       </div>
@@ -191,12 +191,16 @@ import { createNamespacedHelpers } from "vuex";
   flex-direction: column;
   justify-content: center;
 }
-.submenuimage{
-  width: 100%;
-  height:180px;
-  background-color:#F4EEFF;
+.submenuimage {
+  /* background-image: url("../../assets/images/resume.jpeg"); */
+  background-image: url("../../assets/images/consult1.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.7;
+  height: 180px;
+  background-color: #f4eeff;
   text-align: center;
-  line-height: 180px; 
+  line-height: 180px;
 }
 .subtitle {
   font-family: "Noto Sans KR", sans-serif;
@@ -224,4 +228,8 @@ td{
   margin-left: 72%;
   }
 /* .base_text{background-color: #424874;} */
+
+.overflow{
+  width: 1150px;
+}
 </style>

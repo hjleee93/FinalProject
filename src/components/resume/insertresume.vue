@@ -654,22 +654,11 @@ const { mapState } = createNamespacedHelpers("memberStore");
 import $ from "jquery";
 export default {
   components: {
-    //ModalView,
+
   },
 
   created() {
-    // if (this.userData.memberSq != undefined) {
-    // axios
-    //     .get(
-    //     "http://localhost:8082/itjobgo/resume/loadPhoto?memberSq=" +
-    //         this.userData.memberSq,
-    //     { responseType: "arraybuffer" }
-    //     )
-    //     .then((res) => {
-    //     const url = window.URL.createObjectURL(new Blob([res.data]));
-    //     this.previewImage = url;
-    //     });
-    // }
+
   },
 
   computed: {
