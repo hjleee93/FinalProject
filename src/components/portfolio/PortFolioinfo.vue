@@ -6,11 +6,12 @@
         </div>
       </b-row>
      
-    
+    <div class="container">
       <b-row> 
         <b-col>
           <b-card  class="text-center">
-             <b-row   align-h="between" id=" writecontain" > <b-col cols="2" ><p class="division">{{pboardone.pboardDivision}}</p></b-col><b-col cols="2"><b-button  align-self="end" to="/portfolioList"><b-icon icon="chevron-left"></b-icon> </b-button></b-col></b-row>
+             <b-row   align-h="between" id=" writecontain" > <b-col cols="2" ><p class="division">{{pboardone.pboardDivision}}</p></b-col ><b-col cols="2"><b-icon icon="eye"></b-icon><small class="count">{{pboardone.pboardCount}}</small></b-col></b-row>
+
         <b-row>
           
          
@@ -27,6 +28,7 @@
         </b-row>
          <b-row>
           <b-col style="text-align: right;" >작성자:<span class="h6 mb-2">{{pboardone.pboardWriter}}</span></b-col>
+          <b-col cols="2"><b-button  align-self="end" to="/portfolioList"><b-icon icon="chevron-left"></b-icon> </b-button></b-col>
         </b-row>
           
           <b-row v-if="userData.memberSq===pboardone.pboardId"><b-col>
@@ -35,7 +37,8 @@
         </b-col></b-row></b-card></b-col>
 
         </b-row>
-   
+      </div >
+      <b-container>
       <b-form @submit.prevent="comment" v-if="userData.memberLevel>=2"><b-row ><b-col><b-card class="text-center"><b-row><b-col cols="2">{{userData.memberName}}</b-col></b-row>
       <b-row><b-col><b-form-textarea required ref="comment" v-model="pcomment" /></b-col>
       <b-col cols="1"><b-button type="submit">전송</b-button></b-col></b-row>
@@ -49,7 +52,7 @@
       <b-col v-if="commentcheck==true">
       <b-form-textarea  :value="comments.pcommentContent" @input="updateInput" />
       </b-col>
-      <b-col v-if="commentcheck==false"><p>{{comments.pcommentContent}}</p></b-col>
+      <b-col v-if="commentcheck==false"><p class="comment">{{comments.pcommentContent}}</p></b-col>
      
       <template v-if="comments.memberSq==userData.memberSq">
         <b-col cols="2">
@@ -66,7 +69,7 @@
  
       
       </b-container>
-   
+   </b-container>
 
   
 
@@ -264,6 +267,9 @@ export default {
   margin-bottom: 10%;
   
 }
+.count{
+  padding-left: 10px;
+}
 .filedown{
   cursor: pointer;
 }
@@ -279,6 +285,10 @@ export default {
   max-height: auto;
   border-bottom:1px solid black;
   
+}
+.comment{
+  text-align: start;
+  padding-left: 10%;
 }
 
 </style>

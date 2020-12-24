@@ -37,8 +37,8 @@
             :items="apply"
             item-key="name"
           >
-            <template v-slot:item.status="{ item }">
-              <b-button @click="approve(item, index)">승인</b-button>
+            <template v-slot:item.status="{ item }" class="btntd">
+              <b-button class="abtn" @click="approve(item, index)">승인</b-button>
               <b-button @click="unapproved(item, index)">미승인</b-button>
             </template>
           </v-data-table>
@@ -150,4 +150,9 @@ export default {
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
 }
+.abtn{
+  background-color: #424874;
+  margin-right: 10px;
+}
+
 </style>
