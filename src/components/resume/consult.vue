@@ -207,7 +207,7 @@ export default {
             }})
             .then((res)=>{
                 console.log(res.data);
-                setTimeout( () => this.$router.go(this.$router.currentRoute), 2000);
+                //setTimeout( () => this.$router.go(this.$router.currentRoute), 2000);
                 })
             .catch((error)=>console.log(error));
       },
