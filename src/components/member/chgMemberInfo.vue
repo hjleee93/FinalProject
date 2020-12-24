@@ -186,7 +186,7 @@ export default {
       };
       const self = this; //this scope문제
       axios
-        .post("http://localhost:8082/itjobgo/member/updateInfo", formData) //form server 연결
+        .post("http://localhost:8082/member/updateInfo", formData) //form server 연결
         .then((res) => {
           if (res.data > 0) {
             //업데이트 ok

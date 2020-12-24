@@ -160,7 +160,7 @@ export default {
       };
 
       axios
-        .post("http://localhost:8082/itjobgo/member/updatePwdInfo", formData) //form server 연결
+        .post("http://localhost:8082/member/updatePwdInfo", formData) //form server 연결
         .then((res) => {
           if (res.data > 0) {
             //업데이트 ok

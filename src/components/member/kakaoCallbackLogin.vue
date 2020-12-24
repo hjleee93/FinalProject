@@ -28,7 +28,7 @@ export default {
         };
 
         axios
-          .post("http://localhost:8082/itjobgo/member/kakaoRegister", formData) //form server 연결
+          .post("http://localhost:8082/member/kakaoRegister", formData) //form server 연결
           .then(function(res) {
             if (res.data > 0) {
               //가입성공

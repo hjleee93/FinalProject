@@ -130,7 +130,7 @@ export default {
       };
       const self = this; //this scope문제
       axios
-        .post("http://localhost:8082/itjobgo/member/updatePwd", formData) //form server 연결
+        .post("http://localhost:8082/member/updatePwd", formData) //form server 연결
         .then((res) => {
           if (res.data > 0) {
             alert("비밀번호가 변경되었습니다.");

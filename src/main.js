@@ -24,8 +24,7 @@ import LoadScript from 'vue-plugin-load-script';
 import VueMoment from 'vue-moment'
 import VueLodash from 'vue-lodash'
 import lodash from 'lodash'
-// import { mapState } from 'vuex'
-// import { fetchCommunityBoardDelete } from './api'
+
 
 
 

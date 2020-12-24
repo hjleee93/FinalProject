@@ -4,7 +4,7 @@
     버튼(확인) : #424874
     버튼(취소) : #9BA4B4 
 -->
-  <div class="insert_resume">
+  <b-container class="insert_resume">
     <div class="submenuimage">
       <p class="subtitle">입사지원서 등록</p>
     </div>
@@ -643,7 +643,7 @@
         </b-col>
       </b-row>
     </b-container>
-  </div>
+  </b-container>
 </template>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <script>
@@ -653,13 +653,9 @@ import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 import $ from "jquery";
 export default {
-  components: {
+  components: {},
 
-  },
-
-  created() {
-
-  },
+  created() {},
 
   computed: {
     ...mapState(["userData"]),
@@ -728,45 +724,101 @@ export default {
 
     insertResume() {
       //이력서 제목
-        if(!this.rtitle){
+      if (!this.rtitle) {
         alert("이력서 제목을 입력해주세요.");
-       }
+      }
 
-        if(!this.rname||!this.rname||this.remail||!this.engName||!this.birth||!this.gender||!this.postcode
-        ||!this.address||!this.addressDetail||!this.telephone||!this.rphone||!this.files){
+      if (
+        !this.rname ||
+        !this.rname ||
+        this.remail ||
+        !this.engName ||
+        !this.birth ||
+        !this.gender ||
+        !this.postcode ||
+        !this.address ||
+        !this.addressDetail ||
+        !this.telephone ||
+        !this.rphone ||
+        !this.files
+      ) {
         alert("개인정보에서 입력하지 않은 사항이 있습니다.");
-       }
+      }
 
-        if(!this.school1||!this.school2||this.schoolName1||!this.schoolName2||!this.schoolStartDate1||!this.schoolStartDate2||!this.schoolFinishDate1
-        ||!this.schoolFinishDate2||!this.major1||!this.major2||!this.education1||!this.education2){
+      if (
+        !this.school1 ||
+        !this.school2 ||
+        this.schoolName1 ||
+        !this.schoolName2 ||
+        !this.schoolStartDate1 ||
+        !this.schoolStartDate2 ||
+        !this.schoolFinishDate1 ||
+        !this.schoolFinishDate2 ||
+        !this.major1 ||
+        !this.major2 ||
+        !this.education1 ||
+        !this.education2
+      ) {
         alert("학력사항에서 입력하지 않은 사항이 있습니다.");
-       }
+      }
 
-        if(!this.workStartDate||!this.workFinishDate||this.workName||!this.workLevel||!this.workState||!this.workDetail){
+      if (
+        !this.workStartDate ||
+        !this.workFinishDate ||
+        this.workName ||
+        !this.workLevel ||
+        !this.workState ||
+        !this.workDetail
+      ) {
         alert("경럭사항에서 입력하지 않은 사항이 있습니다.");
-       }
+      }
 
-        if(!this.licenseName||!this.licenseAgency||this.licenseDate){
+      if (!this.licenseName || !this.licenseAgency || this.licenseDate) {
         alert("자격증에서 입력하지 않은 사항이 있습니다.");
-       }
+      }
 
-        if(!this.languageName||!this.languageLevel||this.languageTest||!this.languageScore||!this.languageDate){
+      if (
+        !this.languageName ||
+        !this.languageLevel ||
+        this.languageTest ||
+        !this.languageScore ||
+        !this.languageDate
+      ) {
         alert("외국어능력에서 입력하지 않은 사항이 있습니다.");
-       }
+      }
 
-        if(!this.activity||!this.activityStartDate||this.activityFinishDate||!this.activityAgency||!this.activityWork||!this.activityDetail){
+      if (
+        !this.activity ||
+        !this.activityStartDate ||
+        this.activityFinishDate ||
+        !this.activityAgency ||
+        !this.activityWork ||
+        !this.activityDetail
+      ) {
         alert("주요활동 및 수상에서 입력하지 않은 사항이 있습니다.");
-       }
+      }
 
-        if(!this.projectPart||!this.projectStartDate||this.projectFinishDate||!this.projectName||!this.projectWork||!this.projectDetail){
+      if (
+        !this.projectPart ||
+        !this.projectStartDate ||
+        this.projectFinishDate ||
+        !this.projectName ||
+        !this.projectWork ||
+        !this.projectDetail
+      ) {
         alert("프로젝트에서 입력하지 않은 사항이 있습니다.");
-       }
-       
-        if(!this.abroad||!this.abroadStartDate||this.abroadFinishDate||!this.abroadCountury||!this.abroadAgency||!this.abroadDetail){
-        alert("해외경험에서 입력하지 않은 사항이 있습니다.");
-       }
+      }
 
-      
+      if (
+        !this.abroad ||
+        !this.abroadStartDate ||
+        this.abroadFinishDate ||
+        !this.abroadCountury ||
+        !this.abroadAgency ||
+        !this.abroadDetail
+      ) {
+        alert("해외경험에서 입력하지 않은 사항이 있습니다.");
+      }
 
       let formData = new FormData();
 
@@ -867,7 +919,10 @@ export default {
         )
         .then((res) => {
           console.log(res.data);
-          setTimeout( () => this.$router.push({ path: '/resume/resumeList'}), 2000);
+          setTimeout(
+            () => this.$router.push({ path: "/resume/resumeList" }),
+            2000
+          );
         })
         .catch((error) => console.log(error));
     },

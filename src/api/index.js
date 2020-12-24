@@ -2,85 +2,169 @@ import axios from 'axios'
 
 //HTTP Request & Response와 관련된 기본 설정
 const config = {
-    Url: "http://localhost:8082/itjobgo/"
+    Url: "http://localhost:8082/"
 }
 
 //2.API 함수들을 정리
 function fetchPboardList() {
-    return axios.get(`${config.Url}portfolio/portfolioList.do`)
+    return axios.get(`${config.Url}portfolio/portfolioList.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
     //백틱 es6사용
     //return 해주는것이 핵심
 }
 function fetchPboardOne(pboardNo) {
-    return axios.get(`${config.Url}portfolio/pboardinfo${pboardNo}.do`)
+    return axios.get(`${config.Url}portfolio/pboardinfo${pboardNo}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 function fetchPboardDel(no) {
-    return axios.post(`${config.Url}portfolio/pboarddel${no}.do`)
+    return axios.post(`${config.Url}portfolio/pboarddel${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 function fetchPboardUp(no) {
-    return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`)
+    return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 //첨부파일내용가져오기
 function fetchAttachment(no) {
-    return axios.get(`${config.Url}portfolio/attachment${no}.do`)
+    return axios.get(`${config.Url}portfolio/attachment${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 function fetchcomment(no) {
-    return axios.get(`${config.Url}portfolio/commentList${no}.do`)
+    return axios.get(`${config.Url}portfolio/commentList${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 function fetchcommentdel(no) {
-    return axios.post(`${config.Url}portfolio/commentdel${no}.do`)
+    return axios.post(`${config.Url}portfolio/commentdel${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 
 //모임
 function fetchMeeting() {
-    return axios.get(`${config.Url}meeting/meetingList.do`);
+    return axios.get(`${config.Url}meeting/meetingList.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    });
 }
 function fetchmsublist() {
-    return axios.get(`${config.Url}meeting/meetingsubList.do`);
+    return axios.get(`${config.Url}meeting/meetingsubList.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    });
 }
 function fetchMeetinginfo(no) {
-    return axios.get(`${config.Url}meeting/meetinginfo${no}.do`)
+    return axios.get(`${config.Url}meeting/meetinginfo${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 //모임 신청하기 버튼 처리
 function fetchMeetingapply(email) {
-    return axios.get(`${config.Url}meeting/meetingapply${email}.do`)
+    return axios.get(`${config.Url}meeting/meetingapply${email}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 //승인 버튼 눌렀을 경우 실행 로직
 function fetchApprove(no) {
-    return axios.get(`${config.Url}meeting/approve${no}.do`)
+    return axios.get(`${config.Url}meeting/approve${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 //미승인 버튼 이벤트
 function fetchUnapprove(no) {
-    return axios.get(`${config.Url}meeting/unapprove${no}.do`)
+    return axios.get(`${config.Url}meeting/unapprove${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 //신청한 모임 목록을 확인
 function fetchApproveList(no) {
-    return axios.get(`${config.Url}meeting/approvelist${no}.do`)
+    return axios.get(`${config.Url}meeting/approvelist${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 function fetchmklist(no) {
-    return axios.get(`${config.Url}meeting/mklist${no}.do`)
+    return axios.get(`${config.Url}meeting/mklist${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 //해당모임을 삭제하는 로직
 function fetchmeetingdel(no) {
-    return axios.get(`${config.Url}meeting/meetingdel${no}.do`)
+    return axios.get(`${config.Url}meeting/meetingdel${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 //모임업데이트할때 사용하는 로직
 function fetchmtUpdate(no) {
-    return axios.get(`${config.Url}meeting/meetingupdate${no}.do`)
+    return axios.get(`${config.Url}meeting/meetingupdate${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 function fetchapprovecount(no) {
-    return axios.get(`${config.Url}meeting/meetingcount${no}.do`)
+    return axios.get(`${config.Url}meeting/meetingcount${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 function fetchentrant(no) {
-    return axios.get(`${config.Url}meeting/meetingenter${no}.do`)
+    return axios.get(`${config.Url}meeting/meetingenter${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 //모임 waitList 가져오기
 function fetchWaitList(no) {
-    return axios.get(`${config.Url}meeting/waitList${no}.do`)
+    return axios.get(`${config.Url}meeting/waitList${no}.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 
 function fetchMeetingend() {
-    return axios.get(`${config.Url}meeting/meetingendList.do`)
+    return axios.get(`${config.Url}meeting/meetingendList.do`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    })
 }
 
 

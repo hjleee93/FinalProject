@@ -33,7 +33,11 @@ const memberStore = {
             sessionStorage.clear();
 
             axios
-                .post('http://localhost:8082/itjobgo/member/login', loginData)
+                .post('http://localhost:8082/member/login', loginData, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    }
+                })
                 .then(res => {
                     let token = res.data.token;
 
@@ -77,7 +81,11 @@ const memberStore = {
             router.go('/');
         },
         deleteMember({ commit }, loginData) {
-            axios.post("http://localhost:8082/itjobgo/member/deleteMember", loginData) //form server 연결
+            axios.post("http://localhost:8082/member/deleteMember", loginData, {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                }
+            }) //form server 연결
                 .then((res) => {
                     if (res.data > 0) {
                         //업데이트 ok
@@ -129,12 +137,15 @@ const memberStore = {
             let config = {
                 //헤더에 토큰값 포함해서 보내기
                 headers: {
-                    "access-token": token
+                    "access-token": token,
+
+                    'Access-Control-Allow-Origin': '*',
+
                 }
             }
             if (token != null || memberEmail != null) {
                 //토큰으로 member return  
-                await axios.get('http://localhost:8082/itjobgo/member/getMember?memberEmail=' + memberEmail, config)
+                await axios.get('http://localhost:8082/member/getMember?memberEmail=' + memberEmail, config)
                     .then(response => {
 
                         var userData = {

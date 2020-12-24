@@ -172,7 +172,11 @@
                 <span class="star_">*</span
                 ><span class="left-field">백엔드</span>
                 <b-form-group class="slabel" label-for="back"
-                  ><b-form-spinbutton id="back" v-model.lazy="back" min="1" max="100"
+                  ><b-form-spinbutton
+                    id="back"
+                    v-model.lazy="back"
+                    min="1"
+                    max="100"
                 /></b-form-group>
               </b-col>
               <b-col>
@@ -200,10 +204,8 @@
             <b-row>
               <b-col cols="12" md="12">
                 <v-file-input
-                  
                   :label="vfile"
                   filled
-                  
                   accept=".gif,.jpg,.png"
                   ref="upfiles"
                   prepend-icon="mdi-camera"
@@ -240,7 +242,12 @@
                 <span class="star ml-2">*</span>
                 <span class="left-field ml-2 ">주소</span></b-col
               ><b-col md="9">
-                <b-input required readonly  :placeholder="raddress" v-model="result.address"></b-input
+                <b-input
+                  required
+                  readonly
+                  :placeholder="raddress"
+                  v-model="result.address"
+                ></b-input
               ></b-col>
               <b-col md="2" class="text-center">
                 <b-button type="button" @click="address">주소검색</b-button>
@@ -284,238 +291,213 @@
 
 <script>
 // import VueDaumMap from 'vue-daum-map'
-import axios from 'axios'
-import ModalView from '../common/ModalView.vue'
-import { createNamespacedHelpers ,mapState} from "vuex";
-const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import axios from "axios";
+import ModalView from "../common/ModalView.vue";
+import { createNamespacedHelpers, mapState } from "vuex";
+const { mapState: loadUserState } = createNamespacedHelpers("memberStore");
 export default {
- 
-  components:{
-
+  components: {
     ModalView,
-  } ,
+  },
   created() {
-      const uno=this.$route.params.id
-       this.$store.dispatch("FECH_UPDATED",uno)
-       .then(({data})=>{
-         console.log(data)
-         //초기값 불러올때 data값에 설정
-         this.mtitle=data[0].collabTitle
-         this.sdate= this.getToday(data[0].collabUploaddate)
-         this.fdate=this.getToday(data[0].collabDeadline)
-         this.rdate=this.getToday(data[0].rdate)
-         this.simcontent=data[0].collabSimcontent
-         this.mcontent=data[0].collabContent
-         this.back=data[0].collabBack
-         this.front=data[0].collabFront
-         this.desgin=data[0].collabDesgin
-         this.langs=data[0].collabLang
-         this.vfile=data[1].originalFilename
-        this.rfile=data[1].renamedFilename
-         this.raddress=data[0].address
-         this.mtno=data[1].mattachementNo
-       })
+    const uno = this.$route.params.id;
+    this.$store.dispatch("FECH_UPDATED", uno).then(({ data }) => {
+      console.log(data);
+      //초기값 불러올때 data값에 설정
+      this.mtitle = data[0].collabTitle;
+      this.sdate = this.getToday(data[0].collabUploaddate);
+      this.fdate = this.getToday(data[0].collabDeadline);
+      this.rdate = this.getToday(data[0].rdate);
+      this.simcontent = data[0].collabSimcontent;
+      this.mcontent = data[0].collabContent;
+      this.back = data[0].collabBack;
+      this.front = data[0].collabFront;
+      this.desgin = data[0].collabDesgin;
+      this.langs = data[0].collabLang;
+      this.vfile = data[1].originalFilename;
+      this.rfile = data[1].renamedFilename;
+      this.raddress = data[0].address;
+      this.mtno = data[1].mattachementNo;
+    });
 
- console.log("created")
-
-       
-      
+    console.log("created");
   },
   computed: {
-      ...mapState(  {uminfo:state=>state.uminfo}),
-      ...loadUserState(['userData'])  ,
-      startday(){
-       let startday=new Date(this.fdate)
-        startday.setDate(startday.getDate()+1)
-        return startday;
-      },
-       fday(){
-       let deadline=new Date(this.sdate)
-        deadline.setDate(deadline.getDate()+1)
-        return deadline;
-      },
-        disabled() {
-          if(this.sdate===""){
-             return this.state
-          }else{
-            return !this.state;
-          }
-       
-      },
-      
-     
-    
-    
-      
+    ...mapState({ uminfo: (state) => state.uminfo }),
+    ...loadUserState(["userData"]),
+    startday() {
+      let startday = new Date(this.fdate);
+      startday.setDate(startday.getDate() + 1);
+      return startday;
+    },
+    fday() {
+      let deadline = new Date(this.sdate);
+      deadline.setDate(deadline.getDate() + 1);
+      return deadline;
+    },
+    disabled() {
+      if (this.sdate === "") {
+        return this.state;
+      } else {
+        return !this.state;
+      }
+    },
   },
   methods: {
-    getToday(data){
+    getToday(data) {
       //날자 데이터 포멧 설정하는 로직
-    let date = new Date(data);
-    let year = date.getFullYear();
-    let month = ("0" + (1 + date.getMonth())).slice(-2);
-    let day = ("0" + date.getDate()).slice(-2);
+      let date = new Date(data);
+      let year = date.getFullYear();
+      let month = ("0" + (1 + date.getMonth())).slice(-2);
+      let day = ("0" + date.getDate()).slice(-2);
 
-    return year + "-" + month + "-" + day;
-},
-    
-        // 지도가 로드 완료되면 load 이벤트 발생
-        onLoad (map) {
-            this.map = map
-        },
-        address(){
-          this.showModal=!this.showModal;
-        },
-        test(){
-          console.log('tt');
-        },
-        printaddress(result){
-          this.result=result;
-          
-         
-        },
-       
-        enroller(){
-          
-          let formData=new FormData();
-          if(this.result.address==undefined){
-            //모달로 값을 가져온것이 없으면 초기값가져온것을 넘겨준다.
-            formData.append('address',this.raddress)
-          }else   formData.append('address',this.result.address)
-          formData.append('collabSq',this.$route.params.id)
-          formData.append('mtno',this.mtno)
-          formData.append('mtitle',this.mtitle);
-          formData.append('sdate',this.sdate);
-          formData.append('fdate',this.fdate);
-          formData.append('back',this.back);
-          formData.append('front',this.front);
-          formData.append('desgin',this.desgin);
-          formData.append('simcontent',this.simcontent);
-          formData.append('upfile',this.files);
-          formData.append('mcontent',this.mcontent);
-          formData.append('langs',this.langs);
-          formData.append('address',this.result.address);
-          formData.append('rdate',this.rdate);
-          formData.append('memberSq',this.userData.memberSq)
-          for(let key of formData.entries()){
-          console.log(`${key}`);
-            }
-           axios.post("http://localhost:8082/itjobgo/meeting/updatemeeting.do",formData
-    ,{ headers:{
-       'Content-Type':'multipart/form-data'
-     }})
-    .then(()=>this.$router.push({name:'mkmeeting',params:{memberSq:this.userData.memberSq}}))
-    .catch((error)=>console.log(error))
-        },
-        handleFile(){
-          console.log(this.$refs.upfiles.$refs.input.files[0]);
-        this.files=this.$refs.upfiles.$refs.input.files[0];
-        console.log(this.files);
-        }
-
-        //  sample5_execDaumPostcode(){
-        //         new daum.Postcode({
-        //     oncomplete(data) {
-        //         var addr = data.address; // 최종 주소 변수
-
-        //         // 주소 정보를 해당 필드에 넣는다.
-        //         document.getElementById("sample5_address").value = addr;
-        //         // 주소로 상세 정보를 검색
-        //         geocoder.addressSearch(data.address, function(results, status) {
-        //             // 정상적으로 검색이 완료됐으면
-        //             if (status === daum.maps.services.Status.OK) {
-
-        //                 var result = results[0]; //첫번째 결과의 값을 활용
-
-        //                 // 해당 주소에 대한 좌표를 받아서
-        //                 var coords = new daum.maps.LatLng(result.y, result.x);
-        //                 // 지도를 보여준다.
-        //                 mapContainer.style.display = "block";
-        //                 map.relayout();
-        //                 // 지도 중심을 변경한다.
-        //                 map.setCenter(coords);
-        //                 console.log(coords);
-        //                 // 마커를 결과값으로 받은 위치로 옮긴다.
-        //                 marker.setPosition(coords)
-        //             }
-        //         });
-        //     }
-        // }).open();
-    // }
+      return year + "-" + month + "-" + day;
     },
-    
-  
- data(){
-    const now = new Date()
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    const minDate = new Date(today)
-    console.log("data")
-   return{
-     mdata:{
-      tname:''
-     },
+
+    // 지도가 로드 완료되면 load 이벤트 발생
+    onLoad(map) {
+      this.map = map;
+    },
+    address() {
+      this.showModal = !this.showModal;
+    },
+    test() {
+      console.log("tt");
+    },
+    printaddress(result) {
+      this.result = result;
+    },
+
+    enroller() {
+      let formData = new FormData();
+      if (this.result.address == undefined) {
+        //모달로 값을 가져온것이 없으면 초기값가져온것을 넘겨준다.
+        formData.append("address", this.raddress);
+      } else formData.append("address", this.result.address);
+      formData.append("collabSq", this.$route.params.id);
+      formData.append("mtno", this.mtno);
+      formData.append("mtitle", this.mtitle);
+      formData.append("sdate", this.sdate);
+      formData.append("fdate", this.fdate);
+      formData.append("back", this.back);
+      formData.append("front", this.front);
+      formData.append("desgin", this.desgin);
+      formData.append("simcontent", this.simcontent);
+      formData.append("upfile", this.files);
+      formData.append("mcontent", this.mcontent);
+      formData.append("langs", this.langs);
+      formData.append("address", this.result.address);
+      formData.append("rdate", this.rdate);
+      formData.append("memberSq", this.userData.memberSq);
+      for (let key of formData.entries()) {
+        console.log(`${key}`);
+      }
+      axios
+        .post("http://localhost:8082/meeting/updatemeeting.do", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(() =>
+          this.$router.push({
+            name: "mkmeeting",
+            params: { memberSq: this.userData.memberSq },
+          })
+        )
+        .catch((error) => console.log(error));
+    },
+    handleFile() {
+      console.log(this.$refs.upfiles.$refs.input.files[0]);
+      this.files = this.$refs.upfiles.$refs.input.files[0];
+      console.log(this.files);
+    },
+
+    //  sample5_execDaumPostcode(){
+    //         new daum.Postcode({
+    //     oncomplete(data) {
+    //         var addr = data.address; // 최종 주소 변수
+
+    //         // 주소 정보를 해당 필드에 넣는다.
+    //         document.getElementById("sample5_address").value = addr;
+    //         // 주소로 상세 정보를 검색
+    //         geocoder.addressSearch(data.address, function(results, status) {
+    //             // 정상적으로 검색이 완료됐으면
+    //             if (status === daum.maps.services.Status.OK) {
+
+    //                 var result = results[0]; //첫번째 결과의 값을 활용
+
+    //                 // 해당 주소에 대한 좌표를 받아서
+    //                 var coords = new daum.maps.LatLng(result.y, result.x);
+    //                 // 지도를 보여준다.
+    //                 mapContainer.style.display = "block";
+    //                 map.relayout();
+    //                 // 지도 중심을 변경한다.
+    //                 map.setCenter(coords);
+    //                 console.log(coords);
+    //                 // 마커를 결과값으로 받은 위치로 옮긴다.
+    //                 marker.setPosition(coords)
+    //             }
+    //         });
+    //     }
+    // }).open();
+    // }
+  },
+
+  data() {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const minDate = new Date(today);
+    console.log("data");
+    return {
+      mdata: {
+        tname: "",
+      },
       valid: false,
-      result:'',
-      text: '',
-      tname: '',
-      pname: '',
-      simcontent:'',
-      mtitle:'',
-      mwriter:'',
-      sdate:'',
-      fdate:'',
-      rdate:'',
-      memail:'',
-      mphone:'',
-      files:'',
-      mcontent:'',
-      vfile:'',
-      rfile:'',
-      langs:[],
-      min:minDate,
-      state:"disabled",
-      raddress:'',
-      mtno:'',
-    
-      
-       
-       
-      back:1,
-      front:1,
-      desgin:1,
-      showModal:false,
+      result: "",
+      text: "",
+      tname: "",
+      pname: "",
+      simcontent: "",
+      mtitle: "",
+      mwriter: "",
+      sdate: "",
+      fdate: "",
+      rdate: "",
+      memail: "",
+      mphone: "",
+      files: "",
+      mcontent: "",
+      vfile: "",
+      rfile: "",
+      langs: [],
+      min: minDate,
+      state: "disabled",
+      raddress: "",
+      mtno: "",
+
+      back: 1,
+      front: 1,
+      desgin: 1,
+      showModal: false,
       nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 10 || 'Name must be less than 10 characters',
+        (v) => !!v || "Name is required",
+        (v) => v.length <= 10 || "Name must be less than 10 characters",
       ],
-       tnameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 20 || 'Name must be less than 20 characters',
+      tnameRules: [
+        (v) => !!v || "Name is required",
+        (v) => v.length <= 20 || "Name must be less than 20 characters",
       ],
       // items: ["1","2","3","4","5","6"],
-        lang:[
-          'JAVA',
-          'JAVASCRIPT',
-          'VUE',
-          'C++',
-          'C',
-
-        ],
-    }
-   }
- }
-    // appKey: 'b87477b7ea45a3fb35e3fe159f0d8976', // 테스트용 appkey
-    // center: {lat:33.4555555, lng:126.570667}, // 지도의 중심 좌표
-    // level: 3, // 지도의 레벨(확대, 축소 정도),
-    // mapTypeId: VueDaumMap.MapTypeId.NORMAL, // 맵 타입
-    // libraries: [], // 추가로 불러올 라이브러리
-    // map: null, // 지도 객체. 지도가 로드되면 할당됨.,
-     
-       
-       
-       
-   
-
+      lang: ["JAVA", "JAVASCRIPT", "VUE", "C++", "C"],
+    };
+  },
+};
+// appKey: 'b87477b7ea45a3fb35e3fe159f0d8976', // 테스트용 appkey
+// center: {lat:33.4555555, lng:126.570667}, // 지도의 중심 좌표
+// level: 3, // 지도의 레벨(확대, 축소 정도),
+// mapTypeId: VueDaumMap.MapTypeId.NORMAL, // 맵 타입
+// libraries: [], // 추가로 불러올 라이브러리
+// map: null, // 지도 객체. 지도가 로드되면 할당됨.,
 </script>
 
 <style scoped>

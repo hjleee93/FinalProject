@@ -110,10 +110,10 @@
             ><b>{{ userData.memberAddr }} {{ userData.memberAddrDtl }}</b>
           </div>
           <template v-if="userData.memberAddr != null">
-            <b-btn class="chg-info" href="/chgMemberInfo">개인정보수정</b-btn>
+            <b-btn class="chg-info" to="/chgMemberInfo">개인정보수정</b-btn>
           </template>
           <template v-else>
-            <b-btn class="chg-info" id="profile" href="/chgMemberInfo"
+            <b-btn class="chg-info" id="profile" to="/chgMemberInfo"
               >프로필 작성</b-btn
             >
           </template>
@@ -537,7 +537,7 @@ export default {
     if (this.userData.memberSq != undefined) {
       axios
         .get(
-          "http://localhost:8082/itjobgo/member/loadPhoto?memberSq=" +
+          "http://localhost:8082/member/loadPhoto?memberSq=" +
             this.userData.memberSq,
           { responseType: "arraybuffer" }
         )
@@ -704,7 +704,7 @@ export default {
 
       if (this.files[0] != undefined) {
         axios
-          .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
+          .post("http://localhost:8082/member/updatePhoto", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },

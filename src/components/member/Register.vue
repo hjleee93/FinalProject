@@ -180,7 +180,7 @@ Validator.extend("emailCheck", {
   getMessage: (field) => `중복된 ${field} 입니다. 다시 입력해주세요`,
   validate: (value) => {
     return axios
-      .post("http://localhost:8082/itjobgo/member/checkEmail", {
+      .post("http://localhost:8082/member/checkEmail", {
         memberEmail: value,
       })
       .then((response) => {
@@ -199,7 +199,7 @@ Validator.extend("phoneCheck", {
   getMessage: (field) => `중복된 ${field} 입니다. 다시 입력해주세요`,
   validate: (value) => {
     return axios
-      .post("http://localhost:8082/itjobgo/member/checkPhone", {
+      .post("http://localhost:8082/member/checkPhone", {
         memberPhone: value,
       })
       .then((response) => {
@@ -240,7 +240,7 @@ export default {
       const self = this; //this scope문제
 
       axios
-        .post("http://localhost:8082/itjobgo/member/register", formData) //form server 연결
+        .post("http://localhost:8082/member/register", formData) //form server 연결
         .then(function(res) {
           if (res.data > 0) {
             //가입성공

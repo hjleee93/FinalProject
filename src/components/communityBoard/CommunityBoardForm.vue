@@ -127,7 +127,7 @@ const { mapState } = createNamespacedHelpers("memberStore");
         }
           console.log(this.category);
     
-      axios.post("http://localhost:8082/itjobgo/community/communityBoardForm",
+      axios.post("http://localhost:8082/community/communityBoardForm",
         formData,
         { headers:{
           'Content-Type':'multipart/form-data'

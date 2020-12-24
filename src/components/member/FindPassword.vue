@@ -75,7 +75,7 @@ export default {
       };
       const self = this;
       axios
-        .post("http://localhost:8082/itjobgo/member/checkEmail", formData) //form server 연결
+        .post("http://localhost:8082/member/checkEmail", formData) //form server 연결
         .then((response) => {
           this.test1 = response.data;
           if (this.test1 == "") {

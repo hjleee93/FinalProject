@@ -308,7 +308,7 @@ export default {
     if (this.userData.memberSq != undefined) {
       await axios
         .get(
-          "http://localhost:8082/itjobgo/member/loadPhoto?memberSq=" +
+          "http://localhost:8082/member/loadPhoto?memberSq=" +
             this.userData.memberSq,
           { responseType: "arraybuffer" }
         )
@@ -331,7 +331,7 @@ export default {
       formData.append("upFile", this.files[0]);
 
       await axios
-        .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
+        .post("http://localhost:8082/member/updatePhoto", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

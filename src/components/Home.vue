@@ -25,7 +25,7 @@
               class="carousel-custom"
               :style="{
                 'background-size': '365px 385px',
-                'background-image': `url(${`http://localhost:8082/itjobgo/itnews/imagesrequest${it.newsSq}`})`,
+                'background-image': `url(${`http://localhost:8082/itnews/imagesrequest${it.newsSq}`})`,
               }"
             >
               <div class="it-list py-2" @click="cardclick(it)">
@@ -474,7 +474,7 @@ div[role="region"] {
   height: auto;
 }
 .qst + .text-muted {
-  max-height: 68px;
+  height: 120px;
   overflow: hidden;
 
   word-wrap: break-word;
