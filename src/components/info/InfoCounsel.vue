@@ -61,11 +61,11 @@
   </v-card>
   </div>
 
-   <b-row id="writecontain" align-h="end">
+    <b-row id="writecontain" align-h="end">
     <b-button to="/infoForm" v-if="userData.memberEmail === 'admin@kh.com'" >
-     글쓰기
+      글쓰기
     </b-button>
-  </b-row>
+    </b-row>
   
   </div>  
 </b-container>
@@ -101,7 +101,6 @@ const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
             filterable: false,
             value: 'infoSq', 
           },
-          // { text: '분류', value: 'infoCategory'}, 
           { text: '기업명', value: 'infoTitle' },          
           { text: '날짜', value: 'infoDate' },
           { text: '시간', value: 'infoTime' },
