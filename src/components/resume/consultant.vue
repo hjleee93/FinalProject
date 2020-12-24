@@ -46,8 +46,8 @@
                 <td class="text-xs-right">{{props.item.consultAttachment }}</td>
                 <td class="text-xs-right">{{formatDate(props.item.consultDate)}}</td>
                 <td class="text-xs-right"><b-button pill variant="outline-primary" v-if="props.item.originalFilename!=null" @click="download(props.item.consultNo, props.item.originalFilename, props.item.renamedFilename)">증빙서류</b-button></td>
-                <td class="text-xs-right"><b-button pill variant="outline-success" @click="approval(props.item.memberSq, props.item.consultNo)">승인</b-button></td>
-                <td class="text-xs-right"><b-button pill variant="outline-danger" @click="refuse(props.item.memberSq, props.item.consultNo)">거절</b-button></td>
+                <td class="text-xs-right"><b-button pill variant="outline-success" class="btnname1" @click="approval(props.item.memberSq, props.item.consultNo, $event)">승인</b-button></td>
+                <td class="text-xs-right"><b-button pill variant="outline-danger" @click="refuse(props.item.memberSq, props.item.consultNo, $event)">거절</b-button></td>   
               </tr>
            </template>
           </v-data-table>
@@ -70,6 +70,7 @@ import { createNamespacedHelpers } from "vuex";
   export default {
     data() {
       return {
+      // selected:null,
       search: '',
         headers: [
           {
@@ -104,6 +105,9 @@ import { createNamespacedHelpers } from "vuex";
     },
     
     methods: {
+      // choose: function(index){
+      //   this.selected=index
+      // },
     //   handleClick(value){
     //     this.$router.push({name:'resume',params:{id:value}})
     //     console.log(value)
@@ -117,15 +121,16 @@ import { createNamespacedHelpers } from "vuex";
           location.href="http://localhost:8082/itjobgo/resume/consultFileDownload?oriName="+originalFilename+"&reName="+renamedFilename;
 
       },
-      approval(memberSq, consultNo){
-        alert("이력서 전문가 신청을 승인하겠습니까?");
+      approval(memberSq, consultNo, event){
+        var result=confirm("이력서 전문가 신청을 거절하겠습니까?");
+        if(result){
         let approval="Y";
-
         let formData=new FormData();
         formData.append('memberSq',memberSq);
         formData.append('approval',approval);
         formData.append('consultNo',consultNo);
-
+        
+        //member Level '2'로 바꾸기
         axios.post("http://localhost:8082/itjobgo/member/updateConsultant.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
@@ -137,6 +142,7 @@ import { createNamespacedHelpers } from "vuex";
         .catch((error)=>
         console.log(error));
 
+        //consult에서  '2'로 바꾸기
         axios.post("http://localhost:8082/itjobgo/resume/updateConsultApproval.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'
@@ -147,12 +153,32 @@ import { createNamespacedHelpers } from "vuex";
           })
         .catch((error)=>
         console.log(error));
+        
+        //member Level '2'로 바꾸기
+        axios.post("http://localhost:8082/itjobgo/resume/updateConsultApproval.do",formData
+       ,{ headers:{
+          'Content-Type':'multipart/form-data'
+        }}).then((res)=>{
+          console.log(res.data);
+          //setTimeout( () => this.$router.dispatch({ path: '/resume/consultresume'}), 2000);
+          this.$route.push({name:'consultresume'})
+          })
+        .catch((error)=>
+        console.log(error));
+
+        //event.target.elements['variant'].value='success';
+        //console.log(event.target.elements['variant'].value);
+        //event.target.setAttribute('variant','success');
+        //event.target.className='btnname1 btn-success rounded-pill';
+        //event.target.setAttribute('variant','success');
+        event.target.parentElement.parentElement.className='darkback';
+        }
       },
 
-      refuse(memberSq, consultNo){
-        alert("이력서 전문가 신청을 거절하겠습니까?");
-        let approval="R";
-
+      refuse(memberSq, consultNo, event){
+        var result=confirm("이력서 전문가 신청을 거절하겠습니까?");
+        if(result){
+          let approval="R";
         let formData=new FormData();
         formData.append('memberSq',memberSq);
         formData.append('approval',approval);
@@ -168,6 +194,9 @@ import { createNamespacedHelpers } from "vuex";
           })
         .catch((error)=>
         console.log(error));
+
+        event.target.parentElement.parentElement.className='darkback';
+        }
       },
 
       formatDate(value){
@@ -231,5 +260,15 @@ td{
 
 .overflow{
   width: 1150px;
+}
+
+.active{
+  background-color: #424874;
+}
+.darkback{
+  background-color: #424874;
+}
+.btncolor{
+  background-color: green;
 }
 </style>
