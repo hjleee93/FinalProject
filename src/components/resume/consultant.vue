@@ -122,8 +122,8 @@ import { createNamespacedHelpers } from "vuex";
 
       },
       approval(memberSq, consultNo, event){
-        alert("이력서 전문가 신청을 승인하겠습니까?");
-      
+        var result=confirm("이력서 전문가 신청을 거절하겠습니까?");
+        if(result){
         let approval="Y";
         let formData=new FormData();
         formData.append('memberSq',memberSq);
@@ -172,13 +172,13 @@ import { createNamespacedHelpers } from "vuex";
         //event.target.className='btnname1 btn-success rounded-pill';
         //event.target.setAttribute('variant','success');
         event.target.parentElement.parentElement.className='darkback';
+        }
       },
 
       refuse(memberSq, consultNo, event){
-        alert("이력서 전문가 신청을 거절하겠습니까?");
-        //event.target.parentElement.addclass('darkback');
-
-        let approval="R";
+        var result=confirm("이력서 전문가 신청을 거절하겠습니까?");
+        if(result){
+          let approval="R";
         let formData=new FormData();
         formData.append('memberSq',memberSq);
         formData.append('approval',approval);
@@ -194,8 +194,9 @@ import { createNamespacedHelpers } from "vuex";
           })
         .catch((error)=>
         console.log(error));
-        
+
         event.target.parentElement.parentElement.className='darkback';
+        }
       },
 
       formatDate(value){
