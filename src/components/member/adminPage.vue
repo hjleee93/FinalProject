@@ -66,13 +66,19 @@
           </p>
         </li>
         <li class="topList openState">
-          <p class="title">참고사이트</p>
-          <p class="count"><a href="#projDiv" class="scroll">1</a>개</p>
+          <p class="title">승인 대기중인 참고사이트</p>
+          <p class="count">
+            <a href="refSiteStatus">{{ refCount }}</a
+            >개
+          </p>
         </li>
 
         <li class="topList last onlineCount">
-          <p class="title">등록된 컨설턴트</p>
-          <p class="count"><a href="#qnaDiv" class="scroll"></a>명</p>
+          <p class="title">승인대기중인 컨설턴트</p>
+          <p class="count">
+            <a href="/resume/consultant">{{ consultant }}</a
+            >명
+          </p>
         </li>
         <li class="first resumeCompany">
           <p class="title">IT News</p>
@@ -92,24 +98,12 @@
             >개
           </p>
         </li>
-        <!-- <li class="commu">
-          <p class="title">내가 쓴 글</p>
-          <p class="count">
-            <a href="#communityDiv" class="scroll">{{ commuCount }}</a
-            >건
-          </p>
-        </li> -->
 
         <li class="first bottomList userInfomation">
           <p>
             서버에 문제가 생긴경우에는 02-9999-1111(야) / 02-9999-2222(주)로
             연락 주시길 바랍니다.
           </p>
-
-          <!-- <div class="mail">
-            <span class="item"><span class="bullet"></span>이메일</span
-            ><b>{{ userData.memberEmail }}</b>
-          </div> -->
         </li>
       </ul>
     </div>
@@ -326,6 +320,8 @@ export default {
     this.$store.dispatch("FETCH_NOTICE");
     this.$store.dispatch("FETCH_INFO");
     this.$store.dispatch("FECH_ITNEWS_LIST");
+    this.$store.dispatch("FETCH_CONSULTANT");
+    this.$store.dispatch("FETCH_REF_COUNT");
   },
   methods: {
     async uploadPhoto() {
@@ -388,6 +384,20 @@ export default {
   },
   computed: {
     ...mapState(["userData"]),
+    //참고사이트
+    refCount() {
+      return this.$store.state.refCount;
+    },
+    //컨설턴트
+    consultant() {
+      var count = 0;
+      for (let i = 0; i < this.$store.state.consultant.length; i++) {
+        if (this.$store.state.consultant[i].consultApproval == "N") {
+          count++;
+        }
+      }
+      return count;
+    },
     itnewsList() {
       let obj = new Object(); //반환할 객체
       if (this.$store.state.itnewsList != undefined) {
