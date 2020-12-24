@@ -51,13 +51,13 @@
                   {{ new Date(props.item.mdate).toLocaleDateString() }}
                 </td>
                 <td class="text-xs-right">
-                  <b-button @click="update(props.item)">수정</b-button
-                  ><b-button @click="deltemet(props.item, props.index)"
+                  <b-button class="upbtn " @click="update(props.item)">수정</b-button
+                  ><b-button class="debtn" @click="deltemet(props.item, props.index)"
                     >삭제</b-button
                   >
                 </td>
                 <td class="text-xs-right">
-                  <b-button
+                  <b-button class="list"
                     v-b-toggle.sidebar-backdrop
                     @click="applylist(props.item.collabSq)"
                     >참가자현황</b-button
@@ -209,5 +209,12 @@ export default {
 /* hover */
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
+}
+.upbtn{
+  background-color: #424874;
+   margin-right: 10px;
+}
+.list{
+  background-color: #b0bec5;
 }
 </style>
