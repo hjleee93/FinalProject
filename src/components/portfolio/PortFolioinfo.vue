@@ -356,10 +356,13 @@ export default {
       // console.log(this.comments.pcommentcontent)
 
       axios
-        .post("http://localhost:8082/portfolio/updatecomment.do", {
-          pcommentcontent: this.updatetext,
-          pcommentNo: ccno,
-        })
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/updatecomment.do",
+          {
+            pcommentcontent: this.updatetext,
+            pcommentNo: ccno,
+          }
+        )
         .then(() => {
           this.$store.dispatch("FETCH_COMMNET", this.$route.params.id);
           this.updatetext = "";
@@ -387,7 +390,10 @@ export default {
       //   console.log(`${key}`);
       // }
       axios
-        .post("http://localhost:8082/portfolio/comment.do", formData2)
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/comment.do",
+          formData2
+        )
         .then((data) => {
           console.log(data);
           (this.pcomment = ""),
@@ -403,7 +409,7 @@ export default {
     //첨부파일 다운로드
     attachmentdown(attachment) {
       location.href =
-        "http://localhost:8082/portfolio/filedownload?oriName=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/filedownload?oriName=" +
         attachment.originalFilename +
         "&reName=" +
         attachment.renamedFilename;

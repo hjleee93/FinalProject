@@ -10,7 +10,9 @@
       <v-img
         class="white--text align-end"
         width="200px"
-        :src="`http://localhost:8082/meeting/imagesrequest${n.collabSq}`"
+        :src="
+          `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/imagesrequest${n.collabSq}`
+        "
       >
       </v-img>
       <v-card-subtitle class="pb-0">제목:{{ n.collabTitle }}</v-card-subtitle>

@@ -122,11 +122,15 @@ export default {
         console.log(`${key}`);
       }
       axios
-        .post("http://localhost:8082/portfolio/portfolioenroll.do", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/portfolioenroll.do",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
         .then(() => this.$router.push({ name: "portlist" }))
         .catch((error) => console.log(error));
 

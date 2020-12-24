@@ -135,11 +135,15 @@ export default {
         console.log(this.category);
 
         axios
-          .post("http://localhost:8082/itnews/insertNews", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
+          .post(
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itnews/insertNews",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          )
           .then((data) => console.log(data))
           .catch((error) => console.log(error));
         console.log(formData);

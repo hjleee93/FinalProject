@@ -33,7 +33,7 @@ const memberStore = {
             sessionStorage.clear();
 
             axios
-                .post('http://localhost:8082/member/login', loginData, {
+                .post('http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/login', loginData, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     }
@@ -81,7 +81,7 @@ const memberStore = {
             router.go('/');
         },
         deleteMember({ commit }, loginData) {
-            axios.post("http://localhost:8082/member/deleteMember", loginData, {
+            axios.post("http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/deleteMember", loginData, {
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                 }
@@ -145,7 +145,7 @@ const memberStore = {
             }
             if (token != null || memberEmail != null) {
                 //토큰으로 member return  
-                await axios.get('http://localhost:8082/member/getMember?memberEmail=' + memberEmail, config)
+                await axios.get('http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/getMember?memberEmail=' + memberEmail, config)
                     .then(response => {
 
                         var userData = {

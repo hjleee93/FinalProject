@@ -45,7 +45,9 @@
                 max-height="200px"
                 min-width="250px"
                 min-height="200px"
-                :src="`http://localhost:8082/itnews/imagesrequest${it.newsSq}`"
+                :src="
+                  `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itnews/imagesrequest${it.newsSq}`
+                "
               >
                 <v-card-title></v-card-title>
               </v-img>

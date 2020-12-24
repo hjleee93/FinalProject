@@ -393,11 +393,15 @@ export default {
         console.log(`${key}`);
       }
       axios
-        .post("http://localhost:8082/meeting/updatemeeting.do", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/updatemeeting.do",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
         .then(() =>
           this.$router.push({
             name: "mkmeeting",

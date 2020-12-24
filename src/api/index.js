@@ -2,7 +2,7 @@ import axios from 'axios'
 
 //HTTP Request & Response와 관련된 기본 설정
 const config = {
-    Url: "http://localhost:8082/"
+    Url: "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/"
 }
 
 //2.API 함수들을 정리

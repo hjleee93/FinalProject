@@ -278,7 +278,10 @@ export default {
       formData2.append("memberName", this.userData.memberName);
 
       axios
-        .post("http://localhost:8082/community/comment", formData2)
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/community/comment",
+          formData2
+        )
         .then((data) => {
           console.log(data);
           (this.cbcomment = ""),
@@ -301,7 +304,7 @@ export default {
     //첨부파일 다운로드
     attachmentdown(attachment) {
       location.href =
-        "http://localhost:8082/community/filedownload?oriName=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/community/filedownload?oriName=" +
         attachment.originalfilename +
         "&reName=" +
         attachment.renamedfilename;
@@ -352,10 +355,13 @@ export default {
         this.updatetext =
           e.target.parentElement.parentElement.children[0].children[0].value;
       axios
-        .post("http://localhost:8082/community/updateComment", {
-          cbCommentContent: this.updatetext,
-          cbCommentNo: ccno,
-        })
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/community/updateComment",
+          {
+            cbCommentContent: this.updatetext,
+            cbCommentNo: ccno,
+          }
+        )
         .then((data) => {
           console.log(data);
           // this.commentcheck=true;

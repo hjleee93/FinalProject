@@ -229,7 +229,7 @@ export default {
     //첨부파일 다운로드
     attachmentdown(attachment) {
       location.href =
-        "http://localhost:8082/notice/filedownload?oriName=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/notice/filedownload?oriName=" +
         attachment.originalfilename +
         "&reName=" +
         attachment.renamedfilename;
@@ -281,10 +281,13 @@ export default {
         this.updatetext =
           e.target.parentElement.parentElement.children[0].children[0].value;
       axios
-        .post("http://localhost:8082/notice/updateComment", {
-          ntCommentContent: this.updatetext,
-          ntCommentNo: ccno,
-        })
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/notice/updateComment",
+          {
+            ntCommentContent: this.updatetext,
+            ntCommentNo: ccno,
+          }
+        )
         .then((data) => {
           console.log(data);
           // this.commentcheck=true;

@@ -129,7 +129,7 @@ export default {
 
       axios
         .post(
-          "http://localhost:8082/community/communityBoardUpdateEnd",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/community/communityBoardUpdateEnd",
           formData,
           {
             headers: {

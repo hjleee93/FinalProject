@@ -53,7 +53,7 @@
                     class="white--text align-end"
                     id="images"
                     :src="
-                      `http://localhost:8082/info/imagesrequest${infoDetail.infoSq}`
+                      `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/info/imagesrequest${infoDetail.infoSq}`
                     "
                   ></v-img>
                   <hr />
@@ -147,7 +147,7 @@ export default {
     //첨부파일 다운로드
     attachmentdown(attachment) {
       location.href =
-        "http://localhost:8082/info/filedownload?oriName=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/info/filedownload?oriName=" +
         attachment.originalfilename +
         "&reName=" +
         attachment.renamedfilename;

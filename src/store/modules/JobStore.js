@@ -113,7 +113,7 @@ const jobStore = {
 
             await axios
                 .get(
-                    "http://localhost:8082/member/getScrapStatus?memberSq=" + memberSq.memberSq, {
+                    "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/getScrapStatus?memberSq=" + memberSq.memberSq, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                         'Content-Type': 'application/json; charset = utf-8'

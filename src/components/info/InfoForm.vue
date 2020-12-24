@@ -149,11 +149,15 @@ export default {
       }
 
       axios
-        .post("http://localhost:8082/info/infoForm", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/info/infoForm",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
         .then((data) => console.log(data))
         .catch((error) => console.log(error));
       console.log(formData);

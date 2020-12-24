@@ -731,7 +731,8 @@ export default {
 
     axios
       .get(
-        "http://localhost:8082/resume/selectAttachment?resumeNo=" + resumeNo,
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/selectAttachment?resumeNo=" +
+          resumeNo,
         { responseType: "arraybuffer" }
       )
       .then((res) => {
@@ -1134,11 +1135,15 @@ export default {
       //     }
 
       axios
-        .post("http://localhost:8082/resume/updateResume.do", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateResume.do",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
         .then((res) => {
           console.log(res.data);
           setTimeout(

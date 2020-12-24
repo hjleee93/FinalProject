@@ -160,7 +160,10 @@ export default {
       };
 
       axios
-        .post("http://localhost:8082/member/updatePwdInfo", formData) //form server 연결
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/updatePwdInfo",
+          formData
+        ) //form server 연결
         .then((res) => {
           if (res.data > 0) {
             //업데이트 ok

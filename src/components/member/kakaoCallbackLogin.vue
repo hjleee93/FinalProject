@@ -28,7 +28,10 @@ export default {
         };
 
         axios
-          .post("http://localhost:8082/member/kakaoRegister", formData) //form server 연결
+          .post(
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/kakaoRegister",
+            formData
+          ) //form server 연결
           .then(function(res) {
             if (res.data > 0) {
               //가입성공

@@ -13,7 +13,7 @@
           <b-col>
             <v-img
               :src="
-                `http://localhost:8082/meeting/imagesrequest${minfo.collabSq}`
+                `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/imagesrequest${minfo.collabSq}`
               "
               min-height="200"
               max-height="300"
@@ -229,7 +229,10 @@ export default {
       delform.append("memberSq", this.userData.memberSq);
       delform.append("collabSq", this.minfo.collabSq);
       axios
-        .post("http://localhost:8082/meeting/delapplymeeting.do", delform)
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/delapplymeeting.do",
+          delform
+        )
         .then((data) => {
           if (data.data > 0) {
             alert("신청이 취소되었습니다.");
@@ -245,7 +248,10 @@ export default {
       applyform.append("collabSq", this.minfo.collabSq);
       applyform.append("writerNo", this.minfo.memberSq);
       axios
-        .post("http://localhost:8082/meeting/applymeeting.do", applyform)
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/applymeeting.do",
+          applyform
+        )
         .then((data) => {
           if (data.data == 0) {
             alert("중복된 신청입니다.");

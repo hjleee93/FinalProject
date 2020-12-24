@@ -41,7 +41,7 @@
                     class="white--text align-end"
                     id="images"
                     :src="
-                      `http://localhost:8082/itnews/imagesrequest${itNewsView.newsSq}`
+                      `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itnews/imagesrequest${itNewsView.newsSq}`
                     "
                   >
                   </v-img>
@@ -283,7 +283,10 @@ export default {
       formData2.append("memberName", this.userData.memberName);
 
       axios
-        .post("http://localhost:8082/itnews/insertComment", formData2)
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itnews/insertComment",
+          formData2
+        )
         .then((data) => {
           console.log(data);
           (this.ITcomment = ""),
@@ -355,10 +358,13 @@ export default {
         this.updatetext =
           e.target.parentElement.parentElement.children[0].children[0].value;
       axios
-        .post("http://localhost:8082/itnews/updateComment", {
-          itCommentContent: this.updatetext,
-          itCommentNo: ccno,
-        })
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itnews/updateComment",
+          {
+            itCommentContent: this.updatetext,
+            itCommentNo: ccno,
+          }
+        )
         .then((data) => {
           console.log(data);
           // this.commentcheck=true;
@@ -374,7 +380,7 @@ export default {
     if (this.userData.memberSq != undefined) {
       axios
         .get(
-          "http://localhost:8082/member/loadPhoto?memberSq=" +
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/loadPhoto?memberSq=" +
             this.userData.memberSq,
           { responseType: "arraybuffer" }
         )

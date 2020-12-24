@@ -25,7 +25,7 @@
               class="carousel-custom"
               :style="{
                 'background-size': '365px 385px',
-                'background-image': `url(${`http://localhost:8082/itnews/imagesrequest${it.newsSq}`})`,
+                'background-image': `url(${`http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itnews/imagesrequest${it.newsSq}`})`,
               }"
             >
               <div class="it-list py-2" @click="cardclick(it)">

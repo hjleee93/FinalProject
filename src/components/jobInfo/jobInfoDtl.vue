@@ -359,7 +359,10 @@ export default {
         applyMethod: this.items.wantedDtl.wantedInfo.rcptMthd._text,
       };
       axios
-        .post("http://localhost:8082/member/scrapJob", formData) //form server 연결
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/scrapJob",
+          formData
+        ) //form server 연결
         .then((res) => {
           if (res.data > 0) {
             this.$swal({
@@ -389,7 +392,10 @@ export default {
         jobNo: this.$route.params.wantedNo,
       };
       axios
-        .post("http://localhost:8082/member/unscrapJob", formData) //form server 연결
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/unscrapJob",
+          formData
+        ) //form server 연결
         .then((res) => {
           if (res.data > 0) {
           } else {
@@ -472,7 +478,7 @@ export default {
     });
     await axios
       .get(
-        "http://localhost:8082/member/getScrapStatus?memberSq=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/getScrapStatus?memberSq=" +
           this.userData.memberSq
       )
       .then((response) => {
