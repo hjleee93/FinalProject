@@ -117,9 +117,6 @@ export default {
         formData.append('pboardContent',this.pboardContent.replace(/(<([^>]+)>)/ig,""));
         formData.append('pboardDivision',this.category)
         formData.append('file',this.files);
-        for(let key of formData.entries()){
-          console.log(`${key}`);
-        }
       axios.post("http://localhost:8082/itjobgo/portfolio/portfolioenroll.do",formData
        ,{ headers:{
           'Content-Type':'multipart/form-data'

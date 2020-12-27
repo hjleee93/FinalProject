@@ -10,7 +10,7 @@
     <b-card>
     <b-row>
       <b-col>
-       <v-img :src="`http://localhost:8082/itjobgo/meeting/imagesrequest${minfo.collabSq}`"   min-height="200" max-height="300"  max-width="500" min-width="400" aspect-ratio="1.7"></v-img>
+       <v-img :src="`http://localhost:8082/itjobgo/meeting/imagesrequest${minfo.collabSq}`"   min-height="200" max-height="300"  max-width="500" min-width="400" ></v-img>
      </b-col>
       <b-col >
         <b-card class="cardinfo"> 
@@ -208,6 +208,10 @@ geocoder.addressSearch(this.minfo.address, function(result, status) {
            }else if(data.data==3){
              alert("이미 신청하신 모임입니다.")
             this.selected="";
+           this.showModal=!this.showModal;
+           }else if(data.data==4){
+             alert("이미 마감된 모임입니다");
+              this.selected="";
            this.showModal=!this.showModal;
            }
          

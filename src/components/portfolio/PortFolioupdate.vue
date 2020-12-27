@@ -4,7 +4,7 @@
       
       <!-- 메인 이미지 -->
       <div class="submenuimage ">
-        <p class="subtitle" id="subtitle">portfolioupdate</p>
+        <p class="subtitle" id="subtitle">수정하기</p>
       </div>
   <b-container>
     

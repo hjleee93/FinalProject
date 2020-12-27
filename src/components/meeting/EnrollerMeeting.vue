@@ -342,9 +342,7 @@ export default {
       formData.append("address", this.result.address);
       formData.append("rdate", this.rdate);
       formData.append("memberSq", this.userData.memberSq);
-      for (let key of formData.entries()) {
-        console.log(`${key}`);
-      }
+     
       axios
         .post(
           "http://localhost:8082/itjobgo/meeting/enrollmeeting.do",
@@ -359,11 +357,11 @@ export default {
         .catch((error) => console.log(error));
     },
     handleFile() {
-      console.log(this.$refs.upfiles.$refs.input.files[0]);
+     
       this.files = this.$refs.upfiles.$refs.input.files[0];
       const cfile =this.$refs.upfiles.$refs.input.files[0];
       this.url = URL.createObjectURL(cfile);
-      console.log(this.files);
+     
     },
 
    

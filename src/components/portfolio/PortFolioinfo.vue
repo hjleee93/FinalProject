@@ -31,9 +31,9 @@
           <b-col cols="2"><b-button  align-self="end" to="/portfolioList"><b-icon icon="chevron-left"></b-icon> </b-button></b-col>
         </b-row>
           
-          <b-row v-if="userData.memberSq===pboardone.pboardId"><b-col>
-          <b-button @click="update" v-if="userData.memberSq===pboardone.pboardId">수정</b-button>
-          <b-button @click="pdelete"  v-if="userData.memberSq===pboardone.pboardId||userData.memberEmail === 'admin@kh.com'" >삭제</b-button>
+          <b-row v-if="userData.memberSq===pboardone.pboardId" align-h="around"><b-col>
+          <b-button class="ubtn" @click="update" v-if="userData.memberSq===pboardone.pboardId">수정</b-button></b-col>
+          <b-col><b-button @click="pdelete"  v-if="userData.memberSq===pboardone.pboardId||userData.memberEmail === 'admin@kh.com'" >삭제</b-button>
         </b-col></b-row></b-card></b-col>
 
         </b-row>
@@ -289,6 +289,9 @@ export default {
 .comment{
   text-align: start;
   padding-left: 10%;
+}
+.ubtn{
+  background-color:  #424874;
 }
 
 </style>
