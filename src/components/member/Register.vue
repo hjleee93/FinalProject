@@ -180,9 +180,12 @@ Validator.extend("emailCheck", {
   getMessage: (field) => `중복된 ${field} 입니다. 다시 입력해주세요`,
   validate: (value) => {
     return axios
-      .post("http://localhost:8082/itjobgo/member/checkEmail", {
-        memberEmail: value,
-      })
+      .post(
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/checkEmail",
+        {
+          memberEmail: value,
+        }
+      )
       .then((response) => {
         if (response.data != "") {
           //리턴값이 없는 경우
@@ -199,9 +202,12 @@ Validator.extend("phoneCheck", {
   getMessage: (field) => `중복된 ${field} 입니다. 다시 입력해주세요`,
   validate: (value) => {
     return axios
-      .post("http://localhost:8082/itjobgo/member/checkPhone", {
-        memberPhone: value,
-      })
+      .post(
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/checkPhone",
+        {
+          memberPhone: value,
+        }
+      )
       .then((response) => {
         if (response.data != "") {
           //리턴값이 없는 경우
@@ -240,7 +246,10 @@ export default {
       const self = this; //this scope문제
 
       axios
-        .post("http://localhost:8082/itjobgo/member/register", formData) //form server 연결
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/register",
+          formData
+        ) //form server 연결
         .then(function(res) {
           if (res.data > 0) {
             //가입성공

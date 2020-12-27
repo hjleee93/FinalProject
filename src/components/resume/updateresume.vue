@@ -70,10 +70,16 @@
                 <td><strong>성별</strong></td>
                 <td>
                   <b-form-group class="gender" inline="true">
-                    <b-form-radio name="gender" value="M" v-model="resume.gender"
+                    <b-form-radio
+                      name="gender"
+                      value="M"
+                      v-model="resume.gender"
                       >남</b-form-radio
                     >
-                    <b-form-radio name="gender" value="F" v-model="resume.gender"
+                    <b-form-radio
+                      name="gender"
+                      value="F"
+                      v-model="resume.gender"
                       >여</b-form-radio
                     >
                   </b-form-group>
@@ -89,7 +95,6 @@
                     type="text"
                     id="sample6_postcode"
                     v-model="resume.postcode"
-                    
                   ></b-form-input>
                 </td>
                 <td>
@@ -134,8 +139,14 @@
               </tr>
               <tr>
                 <td><strong>일반전화</strong></td>
-                <td><input type="tel" id="telephone" v-model="telephone" 
-                        :placeholder="resume.telephone"/></td>
+                <td>
+                  <input
+                    type="tel"
+                    id="telephone"
+                    v-model="telephone"
+                    :placeholder="resume.telephone"
+                  />
+                </td>
                 <td><strong>휴대전화</strong></td>
                 <td>
                   <input
@@ -230,7 +241,11 @@
                   />
                 </td>
                 <td>
-                  <input type="text" v-model="major1" :placeholder="resume.major1" />
+                  <input
+                    type="text"
+                    v-model="major1"
+                    :placeholder="resume.major1"
+                  />
                 </td>
                 <td>
                   <b-form-select class="school" v-model="resume.education1">
@@ -301,7 +316,11 @@
                   />
                 </td>
                 <td>
-                  <input type="text" :placeholder="resume.major2" v-model="major2" />
+                  <input
+                    type="text"
+                    :placeholder="resume.major2"
+                    v-model="major2"
+                  />
                 </td>
                 <td>
                   <b-form-select class="school" v-model="resume.education2">
@@ -351,11 +370,21 @@
                     v-model="workFinishDate"
                   />
                 </td>
-                <td><input type="text" id="workName" v-model="workName" 
-                placeholder="resume.workName"/></td>
                 <td>
-                  <input type="text" id="workState" v-model="workLevel" 
-                  :placeholder="resume.workLevel"/>
+                  <input
+                    type="text"
+                    id="workName"
+                    v-model="workName"
+                    placeholder="resume.workName"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    id="workState"
+                    v-model="workLevel"
+                    :placeholder="resume.workLevel"
+                  />
                 </td>
                 <td>
                   <b-form-select class="select" v-model="resume.workState">
@@ -391,8 +420,12 @@
               </tr>
               <tr>
                 <td>
-                  <input type="text" id="licenseName" v-model="licenseName" 
-                  :placeholder="resume.licenseName"/>
+                  <input
+                    type="text"
+                    id="licenseName"
+                    v-model="licenseName"
+                    :placeholder="resume.licenseName"
+                  />
                 </td>
                 <td>
                   <input
@@ -419,8 +452,12 @@
               </tr>
               <tr>
                 <td>
-                  <input type="text" id="languageName" v-model="languageName"
-                  :placeholder="resume.languageName" />
+                  <input
+                    type="text"
+                    id="languageName"
+                    v-model="languageName"
+                    :placeholder="resume.languageName"
+                  />
                 </td>
                 <td>
                   <input
@@ -431,8 +468,12 @@
                   />
                 </td>
                 <td>
-                  <input type="text" id="languageTest" v-model="languageTest"
-                  :placeholder="resume.languageTest"/>
+                  <input
+                    type="text"
+                    id="languageTest"
+                    v-model="languageTest"
+                    :placeholder="resume.languageTest"
+                  />
                 </td>
                 <td>
                   <input
@@ -531,7 +572,10 @@
               </tr>
               <tr>
                 <td>
-                  <b-form-select class="select_project" v-model="resume.projectPart">
+                  <b-form-select
+                    class="select_project"
+                    v-model="resume.projectPart"
+                  >
                     <b-form-select-option value="person"
                       >개인</b-form-select-option
                     >
@@ -556,12 +600,20 @@
                   />
                 </td>
                 <td>
-                  <input type="text" id="projectName" v-model="projectName"
-                  :placeholder="resume.projectName" />
+                  <input
+                    type="text"
+                    id="projectName"
+                    v-model="projectName"
+                    :placeholder="resume.projectName"
+                  />
                 </td>
                 <td>
-                  <input type="text" id="projectWork" v-model="projectWork" 
-                  :placeholder="resume.projectWork"/>
+                  <input
+                    type="text"
+                    id="projectWork"
+                    v-model="projectWork"
+                    :placeholder="resume.projectWork"
+                  />
                 </td>
               </tr>
               <tr>
@@ -623,8 +675,12 @@
                   />
                 </td>
                 <td>
-                  <input type="text" id="abroadAgency" v-model="abroadAgency" 
-                  :placeholder="resume.abroadAgency"/>
+                  <input
+                    type="text"
+                    id="abroadAgency"
+                    v-model="abroadAgency"
+                    :placeholder="resume.abroadAgency"
+                  />
                 </td>
               </tr>
               <tr>
@@ -658,42 +714,42 @@
 </template>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <script>
-import axios from 'axios'
+import axios from "axios";
 // import ModalView from '../common/ModalView.vue'
-import { mapState } from 'vuex';
-const { mapState:loadUserState } = createNamespacedHelpers("memberStore");
+import { mapState } from "vuex";
+const { mapState: loadUserState } = createNamespacedHelpers("memberStore");
 import { createNamespacedHelpers } from "vuex";
-import $ from 'jquery'
+import $ from "jquery";
 export default {
-    
-     components:{
-         //ModalView,
-     },
+  components: {
+    //ModalView,
+  },
 
-    created() {
-        const resumeNo=this.$route.params.id;
-        this.$store.dispatch("FETCH_RESUME", resumeNo);
+  created() {
+    const resumeNo = this.$route.params.id;
+    this.$store.dispatch("FETCH_RESUME", resumeNo);
 
-        axios
-            .get(
-            "http://localhost:8082/itjobgo/resume/selectAttachment?resumeNo="+resumeNo,
-            { responseType: "arraybuffer" }
-            )
-            .then((res) => {
-            const url = window.URL.createObjectURL(new Blob([res.data]));
+    axios
+      .get(
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/selectAttachment?resumeNo=" +
+          resumeNo,
+        { responseType: "arraybuffer" }
+      )
+      .then((res) => {
+        const url = window.URL.createObjectURL(new Blob([res.data]));
 
-            this.previewImage = url;
-            });
-    },
-    
-    computed: {
-        ...mapState({
-            resume:state=>state.resume,
-        }),
-         ...loadUserState(['userData'])  
-     },
+        this.previewImage = url;
+      });
+  },
 
-    methods: {
+  computed: {
+    ...mapState({
+      resume: (state) => state.resume,
+    }),
+    ...loadUserState(["userData"]),
+  },
+
+  methods: {
     daumPostcode: function() {
       daum.postcode.load(function() {
         new daum.Postcode({
@@ -734,19 +790,19 @@ export default {
               }
               // 조합된 참고항목을 해당 필드에 넣는다.
               document.getElementById("sample6_extraAddress").value = extraAddr;
-              $('#sample6_extraAddress').attr('value',extraAddr);
+              $("#sample6_extraAddress").attr("value", extraAddr);
             } else {
               document.getElementById("sample6_extraAddress").value = "";
-              $('#sample6_extraAddress').attr('value',"");
+              $("#sample6_extraAddress").attr("value", "");
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById("sample6_postcode").value = data.zonecode;
-            
-            $('#sample6_postcode').attr('value',data.zonecode);//value 추가해서 업데이트할 때 사용
+
+            $("#sample6_postcode").attr("value", data.zonecode); //value 추가해서 업데이트할 때 사용
 
             document.getElementById("sample6_address").value = addr;
-             $('#sample6_address').attr('value',addr);
+            $("#sample6_address").attr("value", addr);
             // 커서를 상세주소 필드로 이동한다.
             document.getElementById("sample6_detailAddress").focus();
           },
@@ -754,458 +810,464 @@ export default {
       });
     },
 
-    formatDate(value){
+    formatDate(value) {
       return this.$moment(value).format("YYYY-MM-DD");
     },
 
-     updateResume(){
-         //이력서 제목
-        if(!this.rtitle){
-        this.rtitle=this.resume.rtitle;
-       }
-
-        //개인정보
-        if(!this.rname){
-        this.rname=this.resume.rname;
-       }
-        if(!this.remail){
-        this.remail=this.resume.remail;
-       }
-        if(!this.engName){
-        this.engName=this.resume.engName;
-       }
-        if(!this.birth){
-        const birth=this.formatDate(this.resume.birth);
-        //console.log("birth : "+birth);
-        this.birth=birth;
-       }
-        if(!this.gender){
-        this.gender=this.resume.gender;
-       }
-        if(!this.postcode){
-        const postcode=this.resume.postcode;
-        //console.log("postcode : "+postcode);
-        this.postcode=postcode;
-       }
-        if(!this.address){
-        this.address=this.resume.address;
-       }
-        if(!this.addressDetail){
-        this.addressDetail=this.resume.addressDetail;
-       }
-        if(!this.telephone){
-        this.telephone=this.resume.telephone;
-       }
-        if(!this.rphone){
-        this.rphone=this.resume.rphone;
-       }
-
-       //증명사진(첨부파일)
-        if(!this.files){
-        this.files=this.resume.upfile;
-       }
-
-       //학력사항
-        if(!this.school1){
-        this.school1=this.resume.school1;
-       }
-        if(!this.school2){
-        this.school2=this.resume.school2;
-       }
-        if(!this.schoolName1){
-        this.schoolName1=this.resume.schoolName1;
-       }
-        if(!this.schoolName2){
-        this.schoolName2=this.resume.schoolName2;
-       }
-        if(!this.schoolStartDate1){
-        const schoolStartDate1=this.formatDate(this.resume.schoolStartDate1);
-        //console.log("schoolStartDate1 : "+schoolStartDate1);
-        this.schoolStartDate1=schoolStartDate1;
-       }
-        if(!this.schoolStartDate2){
-        const schoolStartDate2=this.formatDate(this.resume.schoolStartDate2);
-        //console.log("schoolStartDate2 : "+schoolStartDate2);
-        this.schoolStartDate2=schoolStartDate2;
-       }
-        if(!this.schoolFinishDate1){
-        const schoolFinishDate1=this.formatDate(this.resume.schoolFinishDate1);
-        //console.log("schoolFinishDate1 : "+schoolFinishDate1);
-        this.schoolFinishDate1=schoolFinishDate1;
-       }
-        if(!this.schoolFinishDate2){
-        const schoolFinishDate2=this.formatDate(this.resume.schoolFinishDate2);
-        //console.log("schoolFinishDate2 : "+schoolFinishDate2);
-        this.schoolFinishDate2=schoolFinishDate2;
-       }
-        if(!this.major1){
-        this.major1=this.resume.major1;
-       }
-        if(!this.major2){
-        this.major2=this.resume.major2;
-       }
-        if(!this.education1){
-        this.education1=this.resume.education1;
-       }
-        if(!this.education2){
-        this.education2=this.resume.education2;
-       }
-
-       // 경력사항
-        if(!this.workStartDate){
-        const workStartDate=this.formatDate(this.resume.workStartDate);
-        //console.log("workStartDate : "+workStartDate);
-        this.workStartDate=workStartDate;
-       }
-        if(!this.workFinishDate){
-        const workFinishDate=this.formatDate(this.resume.workFinishDate);
-        //console.log("workFinishDate : "+workFinishDate);
-        this.workFinishDate=workFinishDate;
-       }
-        if(!this.workName){
-        this.workName=this.resume.workName;
-       }
-        if(!this.workLevel){
-        this.workLevel=this.resume.workLevel;
-       }
-        if(!this.workState){
-        this.workState=this.resume.workState;
-       }
-        if(!this.workDetail){
-        this.workDetail=this.resume.workDetail;
-       }
-
-       // 자격증
-        if(!this.licenseName){
-        this.licenseName=this.resume.licenseName;
-       }
-        if(!this.licenseAgency){
-        this.licenseAgency=this.resume.licenseAgency;
-       }
-        if(!this.licenseDate){
-        const licenseDate=this.formatDate(this.resume.licenseDate);
-        //console.log("licenseDate : "+licenseDate);
-        this.licenseDate=licenseDate;
-       }
-
-       //외국어능력
-        if(!this.languageName){
-        this.languageName=this.resume.languageName;
-       }
-        if(!this.languageLevel){
-        this.languageLevel=this.resume.languageLevel;
-       }
-        if(!this.languageTest){
-        this.languageTest=this.resume.languageTest;
-       }
-        if(!this.languageScore){
-        this.languageScore=this.resume.languageScore;
-       }
-        if(!this.languageDate){
-        const languageDate=this.formatDate(this.resume.languageDate);
-       // console.log("languageDate : "+languageDate);
-        this.languageDate=languageDate;
-       }
-
-         //주요활동 및 수상
-        if(!this.activity){
-        this.activity=this.resume.activity;
-       }
-        if(!this.activityStartDate){
-        const activityStartDate=this.formatDate(this.resume.activityStartDate);
-        //console.log("activityStartDate : "+activityStartDate);
-        this.activityStartDate=activityStartDate;
-       }
-        if(!this.activityFinishDate){
-        const activityFinishDate=this.formatDate(this.resume.activityFinishDate);
-       // console.log("activityFinishDate : "+activityFinishDate);
-        this.activityFinishDate=activityFinishDate;
-       }
-        if(!this.activityAgency){
-        this.activityAgency=this.resume.activityAgency;
-       }
-        if(!this.activityWork){
-        this.activityWork=this.resume.activityWork;
-       }
-        if(!this.activityDetail){
-        this.activityDetail=this.resume.activityDetail;
-       }
-
-       //참여 프로젝트
-        if(!this.projectPart){
-        this.projectPart=this.resume.projectPart;
-       }
-        if(!this.projectStartDate){
-        const projectStartDate=this.formatDate(this.resume.projectStartDate);
-        //("projectStartDate : "+projectStartDate);
-        this.projectStartDate=projectStartDate;
-       }
-        if(!this.projectFinishDate){
-        const projectFinishDate=this.formatDate(this.resume.projectFinishDate);
-       // console.log("abroadFinishDate : "+projectFinishDate);
-        this.projectFinishDate=projectFinishDate;
-       }
-        if(!this.projectName){
-        this.projectName=this.resume.projectName;
-       }
-        if(!this.projectWork){
-        this.projectWork=this.resume.projectWork;
-       }
-        if(!this.projectDetail){
-        this.projectDetail=this.resume.projectDetail;
-       }
-
-       //해외경험
-        if(!this.abroad){
-        this.abroad=this.resume.abroad;
-       }
-        if(!this.abroadStartDate){
-        const abroadStartDate=this.formatDate(this.resume.abroadStartDate);
-        //console.log("abroadFinishDate : "+abroadStartDate);
-        this.abroadStartDate=abroadStartDate;
-       }
-        if(!this.abroadFinishDate){
-        const abroadFinishDate=this.formatDate(this.resume.abroadFinishDate);
-        //console.log("abroadFinishDate : "+abroadFinishDate);
-        this.abroadFinishDate=abroadFinishDate;
-       }
-        if(!this.abroadCountury){
-        this.abroadCountury=this.resume.abroadCountury;
-       }
-        if(!this.abroadAgency){
-        this.abroadAgency=this.resume.abroadAgency;
-       }
-        if(!this.abroadDetail){
-        this.abroadDetail=this.resume.abroadDetail;
-       }
-
-
-
-
-        let formData=new FormData();
-
-          formData.append('memberNo',this.userData.memberSq);
-          formData.append('resumeNo',this.resume.resumeNo);
-
-          //이력서 제목
-          formData.append('rtitle',this.rtitle);
-
-           //개인정보
-          formData.append('rname',this.rname);
-          formData.append('remail',this.remail);
-
-          formData.append('engName',this.engName);
-          formData.append('birth',this.birth);
-          formData.append('gender',this.gender);
-
-        //   formData.append('address',this.result.address);
-        //   formData.append('addressDetail',this.addressDetail);
-        // 다음주소
-          formData.append('postcode',$('#sample6_postcode').val());
-          formData.append('address',$('#sample6_address').val());
-          formData.append('addressDetail',$('#sample6_detailAddress').val());
-
-          formData.append('telephone',this.telephone);
-          formData.append('rphone',this.rphone);
-          formData.append('upfile',this.files);
-
-            //학력사항
-          formData.append('school1',this.school1);
-          formData.append('school2',this.school2);
-          formData.append('schoolName1',this.schoolName1);
-          formData.append('schoolName2',this.schoolName2);
-          formData.append('schoolStartDate1',this.schoolStartDate1);
-          formData.append('schoolStartDate2',this.schoolStartDate2);
-          formData.append('schoolFinishDate1',this.schoolFinishDate1);
-          formData.append('schoolFinishDate2',this.schoolFinishDate2);
-          formData.append('major1',this.major1);
-          formData.append('major2',this.major2);
-          formData.append('education1',this.education1);
-          formData.append('education2',this.education2);
-
-            // 경력사항
-          formData.append('workStartDate',this.workStartDate);
-          formData.append('workFinishDate',this.workFinishDate);
-          formData.append('workName',this.workName);
-          formData.append('workLevel',this.workLevel);
-          formData.append('workState',this.workState);
-          formData.append('workDetail',this.workDetail);
-
-
-            // 자격증
-          formData.append('licenseName',this.licenseName);
-          formData.append('licenseAgency',this.licenseAgency);
-          formData.append('licenseDate',this.licenseDate);
-
-            //외국어능력
-          formData.append('languageName',this.languageName);
-          formData.append('languageLevel',this.languageLevel);
-          formData.append('languageTest',this.languageTest);
-          formData.append('languageScore',this.languageScore);
-          formData.append('languageDate',this.languageDate);
-
-            //주요활동 및 수상
-          formData.append('activity',this.activity);
-          formData.append('activityStartDate',this.activityStartDate);
-          formData.append('activityFinishDate',this.activityFinishDate);
-          formData.append('activityAgency',this.activityAgency);
-          formData.append('activityWork',this.activityWork);
-          formData.append('activityDetail',this.activityDetail);
-
-            //참여 프로젝트
-          formData.append('projectPart',this.projectPart);
-          formData.append('projectStartDate',this.projectStartDate);
-          formData.append('projectFinishDate',this.projectFinishDate);
-          formData.append('projectName',this.projectName);
-          formData.append('projectWork',this.projectWork);
-          formData.append('projectDetail',this.projectDetail);
-
-            //해외경험
-          formData.append('abroad',this.abroad);
-          formData.append('abroadStartDate',this.abroadStartDate);
-          formData.append('abroadFinishDate',this.abroadFinishDate);
-          formData.append('abroadCountury',this.abroadCountury);
-          formData.append('abroadAgency',this.abroadAgency);
-          formData.append('abroadDetail',this.abroadDetail);
-
-
-        //   for(let key of formData.entries()){
-        //   console.log(`${key}`);
-        //     }
-
-           axios.post("http://localhost:8082/itjobgo/resume/updateResume.do",formData
-            ,{ headers:{
-            'Content-Type':'multipart/form-data'
-            }})
-            .then((res)=>{
-                console.log(res.data);
-                setTimeout( () => this.$router.push({ path: '/resume/resumeList'}), 2000);
-                })
-            .catch((error)=>console.log(error));
-               
-        },
-            
-
-            // handleFile(){
-            //         this.files=this.$refs.upfiles.$refs.input.files[0];
-            //         console.log(this.files);
-            //     },
-        handleFile(){
-            this.files=this.$refs.fileInput.$refs.input.files[0];
-            //console.log(this.files);
-        },
-        
-        selectImage() {
-                this.$refs.fileInput.click();
-            },
-
-        pickFile() {
-                let input = this.$refs.fileInput;
-                let file = input.files;
-                // this.files = input.files;
-
-                // if (file[0].name != null) {
-                //     $(".submit-photo").show();
-                // }
-
-                if (file && file[0]) {
-                    let reader = new FileReader();
-                    reader.onload = (e) => {
-                        this.previewImage = e.target.result;
-                    };
-                    reader.readAsDataURL(file[0]);
-                    this.$emit("input", file[0]);
-                }
-        },
-     },
-
-     data: () => ({
-      //증명사진
-      previewImage: null,
-      resumePhoto: null,
-
+    updateResume() {
       //이력서 제목
-      rtitle:'',
+      if (!this.rtitle) {
+        this.rtitle = this.resume.rtitle;
+      }
 
       //개인정보
-      engName:'',
-      birth: '',
-      gender:'',
-      postcode:'',
-      address:'',
-      addressDetail:'',
-      memberAddrExtra:'',
-      telephone:'',
-      remail:'',
-      mphone:'',
-      files:'',
+      if (!this.rname) {
+        this.rname = this.resume.rname;
+      }
+      if (!this.remail) {
+        this.remail = this.resume.remail;
+      }
+      if (!this.engName) {
+        this.engName = this.resume.engName;
+      }
+      if (!this.birth) {
+        const birth = this.formatDate(this.resume.birth);
+        //console.log("birth : "+birth);
+        this.birth = birth;
+      }
+      if (!this.gender) {
+        this.gender = this.resume.gender;
+      }
+      if (!this.postcode) {
+        const postcode = this.resume.postcode;
+        //console.log("postcode : "+postcode);
+        this.postcode = postcode;
+      }
+      if (!this.address) {
+        this.address = this.resume.address;
+      }
+      if (!this.addressDetail) {
+        this.addressDetail = this.resume.addressDetail;
+      }
+      if (!this.telephone) {
+        this.telephone = this.resume.telephone;
+      }
+      if (!this.rphone) {
+        this.rphone = this.resume.rphone;
+      }
 
+      //증명사진(첨부파일)
+      if (!this.files) {
+        this.files = this.resume.upfile;
+      }
 
-        //학력사항1
-      school1:'',
-      schoolName1:'',
-      schoolStartDate1:'',
-      schoolFinishDate1:'',
-      major1:'',
-      education1:'',
-       
-      school2:'',
-      schoolName2:'',
-      schoolStartDate2:'',
-      schoolFinishDate2:'',
-      major2:'',
-      education2:'',
+      //학력사항
+      if (!this.school1) {
+        this.school1 = this.resume.school1;
+      }
+      if (!this.school2) {
+        this.school2 = this.resume.school2;
+      }
+      if (!this.schoolName1) {
+        this.schoolName1 = this.resume.schoolName1;
+      }
+      if (!this.schoolName2) {
+        this.schoolName2 = this.resume.schoolName2;
+      }
+      if (!this.schoolStartDate1) {
+        const schoolStartDate1 = this.formatDate(this.resume.schoolStartDate1);
+        //console.log("schoolStartDate1 : "+schoolStartDate1);
+        this.schoolStartDate1 = schoolStartDate1;
+      }
+      if (!this.schoolStartDate2) {
+        const schoolStartDate2 = this.formatDate(this.resume.schoolStartDate2);
+        //console.log("schoolStartDate2 : "+schoolStartDate2);
+        this.schoolStartDate2 = schoolStartDate2;
+      }
+      if (!this.schoolFinishDate1) {
+        const schoolFinishDate1 = this.formatDate(
+          this.resume.schoolFinishDate1
+        );
+        //console.log("schoolFinishDate1 : "+schoolFinishDate1);
+        this.schoolFinishDate1 = schoolFinishDate1;
+      }
+      if (!this.schoolFinishDate2) {
+        const schoolFinishDate2 = this.formatDate(
+          this.resume.schoolFinishDate2
+        );
+        //console.log("schoolFinishDate2 : "+schoolFinishDate2);
+        this.schoolFinishDate2 = schoolFinishDate2;
+      }
+      if (!this.major1) {
+        this.major1 = this.resume.major1;
+      }
+      if (!this.major2) {
+        this.major2 = this.resume.major2;
+      }
+      if (!this.education1) {
+        this.education1 = this.resume.education1;
+      }
+      if (!this.education2) {
+        this.education2 = this.resume.education2;
+      }
 
-        //경력사항
-      workStartDate:'',
-      workFinishDate:'',
-      workName:'',
-      workLevel:'',
-      workState:'',
-      workDetail:'',
+      // 경력사항
+      if (!this.workStartDate) {
+        const workStartDate = this.formatDate(this.resume.workStartDate);
+        //console.log("workStartDate : "+workStartDate);
+        this.workStartDate = workStartDate;
+      }
+      if (!this.workFinishDate) {
+        const workFinishDate = this.formatDate(this.resume.workFinishDate);
+        //console.log("workFinishDate : "+workFinishDate);
+        this.workFinishDate = workFinishDate;
+      }
+      if (!this.workName) {
+        this.workName = this.resume.workName;
+      }
+      if (!this.workLevel) {
+        this.workLevel = this.resume.workLevel;
+      }
+      if (!this.workState) {
+        this.workState = this.resume.workState;
+      }
+      if (!this.workDetail) {
+        this.workDetail = this.resume.workDetail;
+      }
 
-        //자격증
-      licenseName:'',
-      licenseAgency:'',
-      licenseDate:'',
+      // 자격증
+      if (!this.licenseName) {
+        this.licenseName = this.resume.licenseName;
+      }
+      if (!this.licenseAgency) {
+        this.licenseAgency = this.resume.licenseAgency;
+      }
+      if (!this.licenseDate) {
+        const licenseDate = this.formatDate(this.resume.licenseDate);
+        //console.log("licenseDate : "+licenseDate);
+        this.licenseDate = licenseDate;
+      }
 
-        //외국어
-      languageName:'',
-      languageLevel:'',
-      languageTest:'',
-      languageScore:'',
-      languageDate:'',
+      //외국어능력
+      if (!this.languageName) {
+        this.languageName = this.resume.languageName;
+      }
+      if (!this.languageLevel) {
+        this.languageLevel = this.resume.languageLevel;
+      }
+      if (!this.languageTest) {
+        this.languageTest = this.resume.languageTest;
+      }
+      if (!this.languageScore) {
+        this.languageScore = this.resume.languageScore;
+      }
+      if (!this.languageDate) {
+        const languageDate = this.formatDate(this.resume.languageDate);
+        // console.log("languageDate : "+languageDate);
+        this.languageDate = languageDate;
+      }
 
-        //주요활동 및 수상
-      activity:'',
-      activityStartDate:'',
-      activityFinishDate:'',
-      activityAgency:'',
-      activityWork:'',
-      activityDetail:'',
+      //주요활동 및 수상
+      if (!this.activity) {
+        this.activity = this.resume.activity;
+      }
+      if (!this.activityStartDate) {
+        const activityStartDate = this.formatDate(
+          this.resume.activityStartDate
+        );
+        //console.log("activityStartDate : "+activityStartDate);
+        this.activityStartDate = activityStartDate;
+      }
+      if (!this.activityFinishDate) {
+        const activityFinishDate = this.formatDate(
+          this.resume.activityFinishDate
+        );
+        // console.log("activityFinishDate : "+activityFinishDate);
+        this.activityFinishDate = activityFinishDate;
+      }
+      if (!this.activityAgency) {
+        this.activityAgency = this.resume.activityAgency;
+      }
+      if (!this.activityWork) {
+        this.activityWork = this.resume.activityWork;
+      }
+      if (!this.activityDetail) {
+        this.activityDetail = this.resume.activityDetail;
+      }
 
-        //참여 프로젝트
-      projectPart:'',
-      projectStartDate:'',
-      projectFinishDate:'',
-      projectName:'',
-      projectWork:'',
-      projectDetail:'',
+      //참여 프로젝트
+      if (!this.projectPart) {
+        this.projectPart = this.resume.projectPart;
+      }
+      if (!this.projectStartDate) {
+        const projectStartDate = this.formatDate(this.resume.projectStartDate);
+        //("projectStartDate : "+projectStartDate);
+        this.projectStartDate = projectStartDate;
+      }
+      if (!this.projectFinishDate) {
+        const projectFinishDate = this.formatDate(
+          this.resume.projectFinishDate
+        );
+        // console.log("abroadFinishDate : "+projectFinishDate);
+        this.projectFinishDate = projectFinishDate;
+      }
+      if (!this.projectName) {
+        this.projectName = this.resume.projectName;
+      }
+      if (!this.projectWork) {
+        this.projectWork = this.resume.projectWork;
+      }
+      if (!this.projectDetail) {
+        this.projectDetail = this.resume.projectDetail;
+      }
 
-        //해외경험
-      abroad:'',
-      abroadStartDate:'',
-      abroadFinishDate:'',
-      abroadCountury:'',
-      abroadAgency:'',
-      abroadDetail:'',
+      //해외경험
+      if (!this.abroad) {
+        this.abroad = this.resume.abroad;
+      }
+      if (!this.abroadStartDate) {
+        const abroadStartDate = this.formatDate(this.resume.abroadStartDate);
+        //console.log("abroadFinishDate : "+abroadStartDate);
+        this.abroadStartDate = abroadStartDate;
+      }
+      if (!this.abroadFinishDate) {
+        const abroadFinishDate = this.formatDate(this.resume.abroadFinishDate);
+        //console.log("abroadFinishDate : "+abroadFinishDate);
+        this.abroadFinishDate = abroadFinishDate;
+      }
+      if (!this.abroadCountury) {
+        this.abroadCountury = this.resume.abroadCountury;
+      }
+      if (!this.abroadAgency) {
+        this.abroadAgency = this.resume.abroadAgency;
+      }
+      if (!this.abroadDetail) {
+        this.abroadDetail = this.resume.abroadDetail;
+      }
 
-    }),
+      let formData = new FormData();
 
-    
+      formData.append("memberNo", this.userData.memberSq);
+      formData.append("resumeNo", this.resume.resumeNo);
 
-} 
+      //이력서 제목
+      formData.append("rtitle", this.rtitle);
 
+      //개인정보
+      formData.append("rname", this.rname);
+      formData.append("remail", this.remail);
+
+      formData.append("engName", this.engName);
+      formData.append("birth", this.birth);
+      formData.append("gender", this.gender);
+
+      //   formData.append('address',this.result.address);
+      //   formData.append('addressDetail',this.addressDetail);
+      // 다음주소
+      formData.append("postcode", $("#sample6_postcode").val());
+      formData.append("address", $("#sample6_address").val());
+      formData.append("addressDetail", $("#sample6_detailAddress").val());
+
+      formData.append("telephone", this.telephone);
+      formData.append("rphone", this.rphone);
+      formData.append("upfile", this.files);
+
+      //학력사항
+      formData.append("school1", this.school1);
+      formData.append("school2", this.school2);
+      formData.append("schoolName1", this.schoolName1);
+      formData.append("schoolName2", this.schoolName2);
+      formData.append("schoolStartDate1", this.schoolStartDate1);
+      formData.append("schoolStartDate2", this.schoolStartDate2);
+      formData.append("schoolFinishDate1", this.schoolFinishDate1);
+      formData.append("schoolFinishDate2", this.schoolFinishDate2);
+      formData.append("major1", this.major1);
+      formData.append("major2", this.major2);
+      formData.append("education1", this.education1);
+      formData.append("education2", this.education2);
+
+      // 경력사항
+      formData.append("workStartDate", this.workStartDate);
+      formData.append("workFinishDate", this.workFinishDate);
+      formData.append("workName", this.workName);
+      formData.append("workLevel", this.workLevel);
+      formData.append("workState", this.workState);
+      formData.append("workDetail", this.workDetail);
+
+      // 자격증
+      formData.append("licenseName", this.licenseName);
+      formData.append("licenseAgency", this.licenseAgency);
+      formData.append("licenseDate", this.licenseDate);
+
+      //외국어능력
+      formData.append("languageName", this.languageName);
+      formData.append("languageLevel", this.languageLevel);
+      formData.append("languageTest", this.languageTest);
+      formData.append("languageScore", this.languageScore);
+      formData.append("languageDate", this.languageDate);
+
+      //주요활동 및 수상
+      formData.append("activity", this.activity);
+      formData.append("activityStartDate", this.activityStartDate);
+      formData.append("activityFinishDate", this.activityFinishDate);
+      formData.append("activityAgency", this.activityAgency);
+      formData.append("activityWork", this.activityWork);
+      formData.append("activityDetail", this.activityDetail);
+
+      //참여 프로젝트
+      formData.append("projectPart", this.projectPart);
+      formData.append("projectStartDate", this.projectStartDate);
+      formData.append("projectFinishDate", this.projectFinishDate);
+      formData.append("projectName", this.projectName);
+      formData.append("projectWork", this.projectWork);
+      formData.append("projectDetail", this.projectDetail);
+
+      //해외경험
+      formData.append("abroad", this.abroad);
+      formData.append("abroadStartDate", this.abroadStartDate);
+      formData.append("abroadFinishDate", this.abroadFinishDate);
+      formData.append("abroadCountury", this.abroadCountury);
+      formData.append("abroadAgency", this.abroadAgency);
+      formData.append("abroadDetail", this.abroadDetail);
+
+      //   for(let key of formData.entries()){
+      //   console.log(`${key}`);
+      //     }
+
+      axios
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateResume.do",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          setTimeout(
+            () => this.$router.push({ path: "/resume/resumeList" }),
+            2000
+          );
+        })
+        .catch((error) => console.log(error));
+    },
+
+    // handleFile(){
+    //         this.files=this.$refs.upfiles.$refs.input.files[0];
+    //         console.log(this.files);
+    //     },
+    handleFile() {
+      this.files = this.$refs.fileInput.$refs.input.files[0];
+      //console.log(this.files);
+    },
+
+    selectImage() {
+      this.$refs.fileInput.click();
+    },
+
+    pickFile() {
+      let input = this.$refs.fileInput;
+      let file = input.files;
+      // this.files = input.files;
+
+      // if (file[0].name != null) {
+      //     $(".submit-photo").show();
+      // }
+
+      if (file && file[0]) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          this.previewImage = e.target.result;
+        };
+        reader.readAsDataURL(file[0]);
+        this.$emit("input", file[0]);
+      }
+    },
+  },
+
+  data: () => ({
+    //증명사진
+    previewImage: null,
+    resumePhoto: null,
+
+    //이력서 제목
+    rtitle: "",
+
+    //개인정보
+    engName: "",
+    birth: "",
+    gender: "",
+    postcode: "",
+    address: "",
+    addressDetail: "",
+    memberAddrExtra: "",
+    telephone: "",
+    remail: "",
+    mphone: "",
+    files: "",
+
+    //학력사항1
+    school1: "",
+    schoolName1: "",
+    schoolStartDate1: "",
+    schoolFinishDate1: "",
+    major1: "",
+    education1: "",
+
+    school2: "",
+    schoolName2: "",
+    schoolStartDate2: "",
+    schoolFinishDate2: "",
+    major2: "",
+    education2: "",
+
+    //경력사항
+    workStartDate: "",
+    workFinishDate: "",
+    workName: "",
+    workLevel: "",
+    workState: "",
+    workDetail: "",
+
+    //자격증
+    licenseName: "",
+    licenseAgency: "",
+    licenseDate: "",
+
+    //외국어
+    languageName: "",
+    languageLevel: "",
+    languageTest: "",
+    languageScore: "",
+    languageDate: "",
+
+    //주요활동 및 수상
+    activity: "",
+    activityStartDate: "",
+    activityFinishDate: "",
+    activityAgency: "",
+    activityWork: "",
+    activityDetail: "",
+
+    //참여 프로젝트
+    projectPart: "",
+    projectStartDate: "",
+    projectFinishDate: "",
+    projectName: "",
+    projectWork: "",
+    projectDetail: "",
+
+    //해외경험
+    abroad: "",
+    abroadStartDate: "",
+    abroadFinishDate: "",
+    abroadCountury: "",
+    abroadAgency: "",
+    abroadDetail: "",
+  }),
+};
 </script>
 <style scoped>
 /* .insert_resume{

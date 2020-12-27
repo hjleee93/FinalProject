@@ -208,11 +208,11 @@
                   prepend-icon="mdi-camera"
                   v-on:change="handleFile"
                 ></v-file-input>
-              </b-col> </b-row
-          >
-          <div id="preview">
-    <img v-if="url" :src="url" />
-  </div></b-card>
+              </b-col>
+            </b-row>
+            <div id="preview">
+              <img v-if="url" :src="url" /></div
+          ></b-card>
           <b-card title="상세모집요강">
             <span class="star te">*</span
             ><b-form-textarea
@@ -256,12 +256,8 @@
                     <i class="fas fa-times" @click="showModal = false"></i>
                   </h3>
                 </modal-view>
-
-             
-              </b-col>
-            </b-row></b-card
-          >
-        
+              </b-col> </b-row
+          ></b-card>
 
           <b-row
             ><b-col class="text-center">
@@ -281,9 +277,7 @@ import ModalView from "../common/ModalView.vue";
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("memberStore");
 export default {
-  
   components: {
-   
     ModalView,
   },
   computed: {
@@ -345,7 +339,7 @@ export default {
      
       axios
         .post(
-          "http://localhost:8082/itjobgo/meeting/enrollmeeting.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/enrollmeeting.do",
           formData,
           {
             headers: {
@@ -359,12 +353,10 @@ export default {
     handleFile() {
      
       this.files = this.$refs.upfiles.$refs.input.files[0];
-      const cfile =this.$refs.upfiles.$refs.input.files[0];
+      const cfile = this.$refs.upfiles.$refs.input.files[0];
       this.url = URL.createObjectURL(cfile);
      
     },
-
-   
   },
 
   data() {
@@ -392,7 +384,7 @@ export default {
       langs: [],
       min: minDate,
       state: "disabled",
-      url:null,
+      url: null,
       back: 1,
       front: 1,
       desgin: 1,

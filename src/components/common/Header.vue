@@ -12,7 +12,7 @@
     </div>
 
     <b-navbar id="menu" toggleable="md" type="dark" variant="">
-      <b-navbar-brand href="/">IT-JOB-GO</b-navbar-brand>
+      <b-navbar-brand to="/">IT-JOB-GO</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <div class="header-menu">
@@ -111,33 +111,5 @@ export default {
 </script>
 
 <style scope>
-@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-
-#menu {
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: bold;
-}
-.header_image {
-  background-color: #394867;
-  text-align: center;
-  width: 100%;
-}
-.user {
-  display: inline-block;
-}
-#menu {
-  background-color: #394867;
-}
-.submenuimage {
-  width: 100%;
-}
-.navbar-dark .navbar-nav .nav-link,
-.navbar-dark .navbar-brand {
-  color: white !important;
-  font-weight: 500;
-  font-size: 18px;
-}
-.header-menu {
-  width: 95%;
-}
+@import "../../assets/css/Header.css";
 </style>

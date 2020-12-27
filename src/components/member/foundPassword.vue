@@ -78,7 +78,7 @@ export default {
       const self = this;
       axios
         .post(
-          "http://localhost:8082/itjobgo/member/compareEmailPhone",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/compareEmailPhone",
           formData
         ) //form server 연결
         .then((response) => {

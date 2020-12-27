@@ -308,7 +308,7 @@ export default {
     if (this.userData.memberSq != undefined) {
       await axios
         .get(
-          "http://localhost:8082/itjobgo/member/loadPhoto?memberSq=" +
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/loadPhoto?memberSq=" +
             this.userData.memberSq,
           { responseType: "arraybuffer" }
         )
@@ -331,11 +331,15 @@ export default {
       formData.append("upFile", this.files[0]);
 
       await axios
-        .post("http://localhost:8082/itjobgo/member/updatePhoto", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }) //form server 연결
+        .post(
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/updatePhoto",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        ) //form server 연결
         .then(function(res) {
           if (res.data > 0) {
             alert("사진이 등록되었습니다.");

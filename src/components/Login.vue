@@ -124,7 +124,7 @@ export default {
       kakao_client_id: "e1e8126c8b7e3af4fd185b1774cddd2c",
       redirect_uri: "http://localhost:8081/loginCallback",
       CLIENT_ID: "aYgNgGmIwR3wysmlCfRd",
-      redirectURI: `http://localhost:8082/itjobgo/member/naverLogin`, //서버연결
+      redirectURI: `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/naverLogin`, //서버연결
       naverLoginURL:
         "https://nid.naver.com/oauth2.0/authorize?response_type=code",
       state: Math.floor(Math.random() * 9999) + 1,
@@ -169,7 +169,10 @@ export default {
         };
         const self = this; //this scope문제
         axios
-          .post("http://localhost:8082/itjobgo/member/googleLogin", formData) //form server 연결
+          .post(
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/googleLogin",
+            formData
+          ) //form server 연결
           .then(function(res) {
             if (res.data > 0) {
               //가입성공

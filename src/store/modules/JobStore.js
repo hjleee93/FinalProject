@@ -26,8 +26,12 @@ const jobStore = {
 
             await axios.get(
                 "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&keyword=" +
-                memberPosition.memberPosition
-            ) //추천 채용정보
+                memberPosition.memberPosition, {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json; charset = utf-8'
+                }
+            }) //추천 채용정보
                 .then((response) => {
 
                     var xml = response.data;
@@ -40,7 +44,13 @@ const jobStore = {
         },
         async loadXml({ commit }) {
             //최신 채용 정보 xml
-            await axios.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056")
+            await axios.get("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=20&occupation=214200|214201|214202|214302|022|023|024|025|056",
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json; charset = utf-8'
+                    }
+                })
                 .then((response) => {
 
                     let data = response.data
@@ -60,8 +70,12 @@ const jobStore = {
         async loadJobDetail({ commit }, wantedNo) {
             await axios.get(
                 "http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=D&returnType=XML&infoSvc=VALIDATION&wantedAuthNo=" +
-                wantedNo.wantedNo
-            )
+                wantedNo.wantedNo, {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json; charset = utf-8'
+                }
+            })
                 .then((response) => {
                     var xml = response.data;
 
@@ -99,9 +113,12 @@ const jobStore = {
 
             await axios
                 .get(
-                    "http://localhost:8082/itjobgo/member/getScrapStatus?memberSq=" + memberSq.memberSq
-
-                )
+                    "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/getScrapStatus?memberSq=" + memberSq.memberSq, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json; charset = utf-8'
+                    }
+                })
                 .then((response) => {
 
                     this.scrap = response.data;
@@ -110,7 +127,13 @@ const jobStore = {
                 })
         },
         loadJobTable({ commit }) {
-            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056')
+            axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=214200|214201|214202|214302|022|023|024|025|056',
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json; charset = utf-8'
+                    }
+                })
                 .then((response) => {
 
                     var xml = response.data
@@ -183,7 +206,13 @@ const jobStore = {
 
                 query.occupation = '214200|214201|214202|214302|022|023|024|025|056'
             }
-            await axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation=' + query.occupation + '&keyword=' + query.keyword + '&region=' + query.region)
+            await axios.get('http://openapi.work.go.kr/opi/opi/opia/wantedApi.do?authKey=WNKH0840HVI0HM49CADKA2VR1HJ&callTp=L&returnType=XML&startPage=1&display=100&occupation='
+                + query.occupation + '&keyword=' + query.keyword + '&region=' + query.region, {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json; charset = utf-8'
+                }
+            })
                 .then((response) => {
 
                     var xml = response.data
