@@ -68,8 +68,13 @@
         <li class="topList openState">
           <p class="title">승인 대기중인 참고사이트</p>
           <p class="count">
-            <a href="refSiteStatus">{{ refCount }}</a
-            >개
+            <template v-if="refCount == ''">
+              <a href="refSiteStatus">0</a>개
+            </template>
+            <template v-else>
+              <a href="refSiteStatus">{{ refCount }}</a
+              >개
+            </template>
           </p>
         </li>
 

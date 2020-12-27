@@ -16,6 +16,7 @@ export default {
   created() {
     this.access_token = this.$route.query.token;
     this.memberEmail = this.$route.query.email;
+    console.log(this);
     sessionStorage.setItem("loginStatus", true);
     sessionStorage.setItem("access_token", this.access_token); //로컬에 토큰 저장
     sessionStorage.setItem("memberEmail", this.memberEmail);

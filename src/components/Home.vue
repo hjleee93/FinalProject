@@ -6,6 +6,7 @@
       >
         <!-- serach 바 -->
         <SearchBar />
+
         <!-- 메인 -->
         <div class="col-4 pl-0">
           <!-- it소식 -->
