@@ -69,6 +69,38 @@
           ><b-col><div id="map"></div></b-col></b-row
       ></b-card>
 
+<<<<<<< HEAD
+  <b-container class="cont">
+ 
+    <b-row  class="justify-content-md-center"><h1>{{minfo.collabTitle}}</h1></b-row>
+    <b-card>
+    <b-row>
+      <b-col>
+       <v-img :src="`http://localhost:8082/itjobgo/meeting/imagesrequest${minfo.collabSq}`"   min-height="200" max-height="300"  max-width="500" min-width="400" ></v-img>
+     </b-col>
+      <b-col >
+        <b-card class="cardinfo"> 
+           <b-row>
+            <div class="f-box">모집기간: {{`${new Date(minfo.collabUploaddate).toLocaleDateString()}~${new Date(minfo.collabDeadline).toLocaleDateString()}`}}</div>
+        
+          
+        </b-row>
+        <b-row>  <div class="f-box">시작일시: {{new Date(minfo.rdate).toLocaleDateString()}}</div></b-row>
+           <b-row><div  class="f-box"> 인원: {{`백엔드${acount.backCount}/${acount.collabBack}명 프론트${acount.frontCount}/${acount.collabFront}명 디자이너${acount.desginCount}/${acount.collabDesgin}명`}}</div></b-row>
+           <b-row><div  class="f-box"> 장소: {{minfo.address}}</div></b-row>
+           <b-row><div  class="f-box3"> 개발언어: {{minfo.collabLang}}</div></b-row>
+           </b-card>
+           </b-col>
+           </b-row></b-card>
+           <b-card>
+           <b-row><b-col><h3>찾아오시는 길</h3></b-col></b-row>
+          <b-row ><b-col><div   id="map"></div></b-col></b-row></b-card>
+         
+      <b-card v-if="usercheck===true"> <b-row><b-col><h4>개설자정보</h4></b-col></b-row>
+      <b-row><b-col >개설자성명:{{minfo.collabWriter}}</b-col></b-row>
+      <b-row><b-col>개설자번호:{{minfo.collabPhone}}</b-col></b-row>
+      <b-row><b-col>개설자이메일:{{minfo.collabEmail}}</b-col></b-row>
+=======
       <b-card v-if="usercheck === true">
         <b-row
           ><b-col><h4>개설자정보</h4></b-col></b-row
@@ -82,6 +114,7 @@
         <b-row
           ><b-col>개설자이메일:{{ minfo.collabEmail }}</b-col></b-row
         >
+>>>>>>> 86b3654aacd44ddac0723c484b4caa75a46563a0
       </b-card>
       <b-card v-if="usercheck == false">
         <b-row><b-col>개설자정보</b-col></b-row>
@@ -271,9 +304,52 @@ export default {
             this.showModal = !this.showModal;
           }
         })
+<<<<<<< HEAD
+      },
+      applybtn(value){
+       
+        let applyform=new FormData
+        applyform.append("memberSq",this.userData.memberSq)
+        applyform.append("postion",value)
+        applyform.append("collabSq",this.minfo.collabSq)
+        applyform.append("writerNo",this.minfo.memberSq)
+       axios.post("http://localhost:8082/itjobgo/meeting/applymeeting.do",applyform)
+       .then((data)=>{
+        
+         if(data.data==0){
+                alert("중복된 신청입니다.")
+                 this.selected="";
+                this.showModal=!this.showModal;
+             
+         }else if(data.data==1) {
+            alert("신청완료")
+           this.selected="";
+           this.showModal=!this.showModal;
+           }else if(data.data==2){
+            alert("마감 된 포지션입니다.")
+            this.selected="";
+           this.showModal=!this.showModal;
+           }else if(data.data==3){
+             alert("이미 신청하신 모임입니다.")
+            this.selected="";
+           this.showModal=!this.showModal;
+           }else if(data.data==4){
+             alert("이미 마감된 모임입니다");
+              this.selected="";
+           this.showModal=!this.showModal;
+           }
+         
+       
+       })
+          
+        .catch((error)=>
+        console.log(error))
+      }
+=======
 
         .catch((error) => console.log(error));
     },
+>>>>>>> 86b3654aacd44ddac0723c484b4caa75a46563a0
   },
   created() {
     const no = this.$route.params.id;
