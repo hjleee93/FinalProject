@@ -111,7 +111,7 @@ export default {
     //상세페이지로 이동
     moveDtlPage: function(e) {
       
-      this.$router.push({ name: "jobInfoDtl", params: { wantedNo: e } });
+      this.$router.replace({ name: "jobInfoDtl", params: { wantedNo: e } });
     },
   },
   computed: {

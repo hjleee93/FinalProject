@@ -302,12 +302,15 @@ export default {
   methods: {
     //it소식 이동
     cardclick(value) {
-      this.$router.push({ name: "itNewsView", params: { id: value.newsSq } });
+      this.$router.replace({
+        name: "itNewsView",
+        params: { id: value.newsSq },
+      });
     },
     moveMyPage: function(e) {
       //중복 라우터 방지
       if (this.$route.path != "/myPage/" + e) {
-        this.$router.push({ name: "myPage", params: { memberSq: e } });
+        this.$router.replace({ name: "myPage", params: { memberSq: e } });
       }
     },
   },

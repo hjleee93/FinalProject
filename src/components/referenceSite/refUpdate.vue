@@ -164,7 +164,7 @@ export default {
           .catch((error) => console.log(error));
         console.log(formData);
         //수정 후 게시판 리스트로 이동
-        this.$router.push({ name: "refSite" });
+        this.$router.replace({ name: "refSite" });
       }, 1000);
     },
 

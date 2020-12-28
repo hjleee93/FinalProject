@@ -93,7 +93,7 @@ export default {
       return this.$moment(value).format("YYYY-MM-DD");
     },
     movemeeting(item) {
-      this.$router.push({ name: "meetinginfo", params: { id: item } });
+      this.$router.replace({ name: "meetinginfo", params: { id: item } });
     },
   },
 };

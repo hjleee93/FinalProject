@@ -375,16 +375,19 @@ export default {
       }
     },
     moveItDetail(value) {
-      this.$router.push({ name: "itNewsView", params: { id: value.newsSq } });
+      this.$router.replace({
+        name: "itNewsView",
+        params: { id: value.newsSq },
+      });
     },
     moveInfoDetail(value) {
-      this.$router.push({ name: "InfoDetail", params: { id: value } });
+      this.$router.replace({ name: "InfoDetail", params: { id: value } });
     },
     moveNoticeAll() {
-      this.$router.push({ name: "NoticeList" });
+      this.$router.replace({ name: "NoticeList" });
     },
     moveNotice(id) {
-      this.$router.push({ name: "noticeList", params: { id: id } });
+      this.$router.replace({ name: "noticeList", params: { id: id } });
     },
     //날짜표시
     formatDate(value) {

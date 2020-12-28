@@ -171,7 +171,7 @@ export default {
               text: "비밀번호가 변경되었습니다. 로그아웃 됩니다. ",
               icon: "success",
             });
-            setTimeout(() => this.$router.push({ path: "/" }), 2000); //메인페이지로 이동
+            setTimeout(() => this.$router.replace({ path: "/" }), 2000); //메인페이지로 이동
 
             //스토리지 삭제
             localStorage.clear();

@@ -179,7 +179,7 @@ export default {
         .catch((error) => console.log(error));
       console.log(formData);
       //등록하면 게시판 목록으로
-      this.$router.push({ name: "InfoList" });
+      this.$router.replace({ name: "InfoList" });
     },
     handleFile() {
       console.log(this.$refs.upfiles.$refs.input.files[0]);

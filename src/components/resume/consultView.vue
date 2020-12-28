@@ -252,7 +252,7 @@ export default {
     updateConsult() {
       let no = this.$route.params.id;
       //console.log("수정버튼(params) :"+ no);
-      this.$router.push({ name: "updateConsult", params: { id: no } });
+      this.$router.replace({ name: "updateConsult", params: { id: no } });
     },
 
     // 삭제버튼~
@@ -264,7 +264,7 @@ export default {
       let rboardNo = this.$route.params.id;
       this.$store.dispatch("FETCH_RBOARD_DELETE", rboardNo);
       //삭제 후 페이지 이동
-      this.$router.push({ name: "consultresume" });
+      this.$router.replace({ name: "consultresume" });
     },
     noDeleteConsult() {
       //(삭제NO)

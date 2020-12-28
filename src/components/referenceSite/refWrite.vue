@@ -154,7 +154,7 @@ export default {
           .then((data) => console.log(data))
           .catch((error) => console.log(error));
         console.log(formData);
-        this.$router.push({ name: "refSite" });
+        this.$router.replace({ name: "refSite" });
       }, 1000);
     },
 

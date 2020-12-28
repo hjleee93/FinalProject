@@ -172,7 +172,7 @@ export default {
           .catch((error) => console.log(error));
         console.log(formData);
         //저장완료, 화면전환 이동!
-        this.$router.push({ name: "qnaBoard" });
+        this.$router.replace({ name: "qnaBoard" });
       }, 1000);
     },
 

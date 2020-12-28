@@ -113,12 +113,12 @@ export default {
 
   methods: {
     handleClick(value) {
-      this.$router.push({ name: "resume", params: { id: value } });
+      this.$router.replace({ name: "resume", params: { id: value } });
       //console.log(value);
     },
 
     updateResume(value) {
-      this.$router.push({ name: "updateresume", params: { id: value } });
+      this.$router.replace({ name: "updateresume", params: { id: value } });
       //console.log(value);
     },
 

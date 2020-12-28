@@ -140,7 +140,7 @@ export default {
         .catch((error) => console.log(error));
       console.log(formData);
       //등록후 게시판 리스트로 이동
-      this.$router.push({ name: "NoticeList" });
+      this.$router.replace({ name: "NoticeList" });
     },
 
     handleFile() {

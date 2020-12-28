@@ -22,7 +22,7 @@ export default {
     sessionStorage.setItem("memberEmail", this.memberEmail);
     this.$store.dispatch("memberStore/getMemberInfo", this.memberEmail);
 
-    this.$router.push("/");
+    this.$router.replace("/");
   },
 };
 </script>

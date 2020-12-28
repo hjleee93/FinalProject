@@ -934,7 +934,7 @@ export default {
 
       if (this.$router.currentRoute.name == "home") {
         this.$router
-          .push({
+          .replace({
             name: "jobSearchDtl",
             query: formData, //쿼리문으로 전송
           })
@@ -945,7 +945,7 @@ export default {
           });
       } else {
         this.$router
-          .push({
+          .replace({
             name: "jobSearchDtl",
             query: formData, //쿼리문으로 전송
           })

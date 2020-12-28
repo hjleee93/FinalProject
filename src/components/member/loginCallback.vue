@@ -22,7 +22,7 @@ export default {
       .then((res) => {
         accessToken = res.data.access_token; //카카오 토큰
 
-        this.$router.push({
+        this.$router.replace({
           name: "kakaoCallbackLogin",
           params: {
             accessToken,

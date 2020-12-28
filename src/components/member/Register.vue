@@ -254,7 +254,7 @@ export default {
           if (res.data > 0) {
             //가입성공
             alert("가입에 성공하셨습니다!");
-            self.$router.push("/login"); //회원가입 후 경로 설정
+            self.$router.replace("/login"); //회원가입 후 경로 설정
           } else {
             alert("회원가입에 실패하였습니다. 다시 시도해주세요");
           }

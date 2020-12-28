@@ -1143,7 +1143,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           setTimeout(
-            () => this.$router.push({ path: "/resume/resumeList" }),
+            () => this.$router.replace({ path: "/resume/resumeList" }),
             2000
           );
         })

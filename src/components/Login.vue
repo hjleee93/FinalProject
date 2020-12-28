@@ -182,7 +182,7 @@ export default {
                 "memberStore/getMemberInfo",
                 formData.memberEmail
               );
-              self.$router.push("/"); //회원가입 후 경로 설정
+              self.$router.replace("/"); //회원가입 후 경로 설정
             } else {
               alert("회원등록에 실패했습니다. 관리자에게 문의해주세요.");
             }

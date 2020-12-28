@@ -124,7 +124,7 @@ export default {
           }
         )
         .then(() => {
-          this.$router.push("/portfolioList").catch(() => {});
+          this.$router.replace("/portfolioList").catch(() => {});
         })
         .catch((error) => console.log(error));
     },
@@ -134,7 +134,7 @@ export default {
       console.log(this.files);
     },
     back() {
-      this.$router.push({ name: "portlist" });
+      this.$router.replace({ name: "portlist" });
     },
   },
 };

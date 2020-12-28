@@ -285,7 +285,7 @@ export default {
       let no = this.$route.params.id;
       console.log("수정버튼(params) :" + no);
       // console.log("글번호 :  : " + communityBoardNo)
-      this.$router.push({ name: "qnaModify", params: { id: no } });
+      this.$router.replace({ name: "qnaModify", params: { id: no } });
     },
 
     // 삭제버튼~
@@ -297,7 +297,7 @@ export default {
       let no = this.$route.params.id;
       this.$store.dispatch("FETCH_QNABOARD_DELETE", no);
       //삭제 후 페이지 이동
-      this.$router.push({ name: "qnaBoard" });
+      this.$router.replace({ name: "qnaBoard" });
     },
     noDeleteqna() {
       //(삭제NO)

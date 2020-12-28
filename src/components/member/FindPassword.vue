@@ -89,7 +89,7 @@ export default {
               timer: 5000, //timeOut for auto-close
             });
           } else {
-            self.$router.push({
+            self.$router.replace({
               name: "foundPassword",
               params: { memberEmail: this.email },
             }); //이메일 찾음 -> 페이지 이동

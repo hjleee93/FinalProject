@@ -112,10 +112,10 @@ export default {
         .then((res) => {
           console.log(res.data);
           setTimeout(
-            () => this.$router.push({ path: "/resume/consultresume" }),
+            () => this.$router.replace({ path: "/resume/consultresume" }),
             2000
           );
-          //this.$route.push({name:'consultresume'})
+          //this.$route.replace({name:'consultresume'})
         })
         .catch((error) => console.log(error));
 

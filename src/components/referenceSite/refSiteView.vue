@@ -168,7 +168,7 @@ export default {
           .catch((error) => console.log(error));
         console.log(formData);
         //저장완료, 화면전환 이동!
-        this.$router.push({ name: "refSiteStatus" });
+        this.$router.replace({ name: "refSiteStatus" });
       }, 1000);
     },
 
@@ -176,7 +176,7 @@ export default {
       // 수정버튼 눌렸을때 처리하는 로직
       // 새로운 수정 컴포넌트로 이동
       let no = this.$route.params.id;
-      this.$router.push({ name: "refUpdate", params: { id: no } });
+      this.$router.replace({ name: "refUpdate", params: { id: no } });
     },
 
     //링크 새로 열기
@@ -197,7 +197,7 @@ export default {
     ydele() {
       let no = this.$route.params.id;
       this.$store.dispatch("FETCH_REF_DELETE", no);
-      this.$router.push({ name: "refSite" });
+      this.$router.replace({ name: "refSite" });
     },
   },
 

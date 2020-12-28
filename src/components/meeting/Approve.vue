@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     movepage(item) {
-      this.$router.push({ name: "meetinginfo", params: { id: item } });
+      this.$router.replace({ name: "meetinginfo", params: { id: item } });
     },
   },
 };

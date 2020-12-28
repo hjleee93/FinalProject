@@ -104,7 +104,7 @@ export default {
     reset() {
       let check = confirm("작성된 글은 저장되지 않습니다. 돌아가시겠습니까?");
       if (check == true) {
-        this.$router.push({ name: "portlist" });
+        this.$router.replace({ name: "portlist" });
       } else return;
     },
     test() {
@@ -131,7 +131,7 @@ export default {
             },
           }
         )
-        .then(() => this.$router.push({ name: "portlist" }))
+        .then(() => this.$router.replace({ name: "portlist" }))
         .catch((error) => console.log(error));
 
       console.log(formData);

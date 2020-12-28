@@ -59,7 +59,7 @@ const memberStore = {
                             localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
                         }
                         dispatch("getMemberInfo", loginData)//여기로 넘어가서 commit('loginSuccess')실행함
-                        router.push('/');//메인페이지로 이동
+                        router.replace('/');//메인페이지로 이동
                     }
 
                 })
@@ -94,7 +94,7 @@ const memberStore = {
                         sessionStorage.clear();
                         localStorage.clear();
                         commit('loginFalse');
-                        router.push('/');//탈퇴 후 경로
+                        router.replace('/');//탈퇴 후 경로
                     } else if (res.data == -1) {//비밀번호 틀린경우 
 
                         Vue.swal({

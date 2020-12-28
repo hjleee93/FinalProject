@@ -148,7 +148,7 @@ export default {
     //   this.selected=index
     // },
     //   handleClick(value){
-    //     this.$router.push({name:'resume',params:{id:value}})
+    //     this.$router.replace({name:'resume',params:{id:value}})
     //     console.log(value)
     //   },
     download(consultNo, originalFilename, renamedFilename) {
@@ -185,8 +185,8 @@ export default {
           )
           .then((res) => {
             console.log(res.data);
-            // setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
-            // this.$route.push({name:'consultresume'})
+            // setTimeout( () => this.$router.replace({ path: '/resume/consultresume'}), 2000);
+            // this.$route.replace({name:'consultresume'})
           })
           .catch((error) => console.log(error));
 
@@ -203,8 +203,8 @@ export default {
           )
           .then((res) => {
             console.log(res.data);
-            // setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
-            // this.$route.push({name:'consultresume'})
+            // setTimeout( () => this.$router.replace({ path: '/resume/consultresume'}), 2000);
+            // this.$route.replace({name:'consultresume'})
           })
           .catch((error) => console.log(error));
 
@@ -222,7 +222,7 @@ export default {
           .then((res) => {
             console.log(res.data);
             //setTimeout( () => this.$router.dispatch({ path: '/resume/consultresume'}), 2000);
-            this.$route.push({ name: "consultresume" });
+            this.$route.replace({ name: "consultresume" });
           })
           .catch((error) => console.log(error));
 
@@ -256,8 +256,8 @@ export default {
           )
           .then((res) => {
             console.log(res.data);
-            // setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
-            // this.$route.push({name:'consultresume'})
+            // setTimeout( () => this.$router.replace({ path: '/resume/consultresume'}), 2000);
+            // this.$route.replace({name:'consultresume'})
           })
           .catch((error) => console.log(error));
 

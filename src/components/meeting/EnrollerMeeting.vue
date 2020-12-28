@@ -336,7 +336,7 @@ export default {
       formData.append("address", this.result.address);
       formData.append("rdate", this.rdate);
       formData.append("memberSq", this.userData.memberSq);
-     
+
       axios
         .post(
           "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/enrollmeeting.do",
@@ -347,15 +347,13 @@ export default {
             },
           }
         )
-        .then(() => this.$router.push({ name: "meeting" }))
+        .then(() => this.$router.replace({ name: "meeting" }))
         .catch((error) => console.log(error));
     },
     handleFile() {
-     
       this.files = this.$refs.upfiles.$refs.input.files[0];
       const cfile = this.$refs.upfiles.$refs.input.files[0];
       this.url = URL.createObjectURL(cfile);
-     
     },
   },
 

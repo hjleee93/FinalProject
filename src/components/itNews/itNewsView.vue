@@ -258,7 +258,7 @@ export default {
       // 수정버튼 눌렸을때 처리하는 로직
       // 새로운 수정 컴포넌트로 이동
       let no = this.$route.params.id;
-      this.$router.push({ name: "ItNewsUpdate", params: { id: no } });
+      this.$router.replace({ name: "ItNewsUpdate", params: { id: no } });
     },
 
     updateInput(event) {
@@ -272,7 +272,7 @@ export default {
     ydele() {
       let no = this.$route.params.id;
       this.$store.dispatch("FETCH_ITNEWS_DELETE", no);
-      this.$router.push({ name: "ItNewsList" });
+      this.$router.replace({ name: "ItNewsList" });
     },
     comment() {
       let formData2 = new FormData();

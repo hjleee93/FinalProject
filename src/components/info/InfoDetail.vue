@@ -131,7 +131,7 @@ export default {
     update() {
       //새로운 수정 컴포넌트로 이동
       let no = this.$route.params.id;
-      this.$router.push({ name: "InfoModify", params: { id: no } });
+      this.$router.replace({ name: "InfoModify", params: { id: no } });
     },
     pdelete() {
       this.showModal = !this.showModal;
@@ -139,7 +139,7 @@ export default {
     ydele() {
       let no = this.$route.params.id;
       this.$store.dispatch("FETCH_INFO_DELETE", no);
-      this.$router.push({ name: "InfoList" });
+      this.$router.replace({ name: "InfoList" });
     },
     ndele() {
       this.showModal = !this.showModal;
