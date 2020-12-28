@@ -19,37 +19,11 @@
               ></b-row
             >
 
-<<<<<<< HEAD
-        <b-row>
-          
-         
-          <b-col><h3 style="text-align:left;">{{pboardone.pboardTitle}}</h3> </b-col>
-        </b-row>
-         
-          <b-row>
-          <b-col cols="12" style="text-align:left;"><p class="content">{{pboardone.pboardContent}}</p></b-col>
-         
-        </b-row>
-        <b-row v-if="attachment">
-          
-          <b-col cols="4" class="filedown" @click="attachmentdown(attachment)"><b-icon icon="file-earmark-arrow-down-fill"></b-icon>{{attachment.originalFilename}}</b-col>
-        </b-row>
-         <b-row>
-          <b-col style="text-align: right;" >작성자:<span class="h6 mb-2">{{pboardone.pboardWriter}}</span></b-col>
-          <b-col cols="2"><b-button  align-self="end" to="/portfolioList"><b-icon icon="chevron-left"></b-icon> </b-button></b-col>
-        </b-row>
-          
-          <b-row v-if="userData.memberSq===pboardone.pboardId" align-h="around"><b-col>
-          <b-button class="ubtn" @click="update" v-if="userData.memberSq===pboardone.pboardId">수정</b-button></b-col>
-          <b-col><b-button @click="pdelete"  v-if="userData.memberSq===pboardone.pboardId||userData.memberEmail === 'admin@kh.com'" >삭제</b-button>
-        </b-col></b-row></b-card></b-col>
-=======
             <b-row>
               <b-col
                 ><h3 style="text-align:left;">{{ pboardone.pboardTitle }}</h3>
               </b-col>
             </b-row>
->>>>>>> 86b3654aacd44ddac0723c484b4caa75a46563a0
 
             <b-row>
               <b-col cols="12" style="text-align:left;"
@@ -503,12 +477,4 @@ export default {
   text-align: start;
   padding-left: 10%;
 }
-<<<<<<< HEAD
-.ubtn{
-  background-color:  #424874;
-}
-
 </style>
-=======
-</style>
->>>>>>> 86b3654aacd44ddac0723c484b4caa75a46563a0

@@ -444,7 +444,6 @@ export default {
 }
 .info-card {
   border: 1px solid #ededed;
-  height: 130px;
   border-radius: 0px !important;
 }
 .card-title {

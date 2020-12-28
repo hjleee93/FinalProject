@@ -124,7 +124,7 @@ export default {
       kakao_client_id: "e1e8126c8b7e3af4fd185b1774cddd2c",
       redirect_uri: "http://localhost:8081/loginCallback", //카카오
       CLIENT_ID: "aYgNgGmIwR3wysmlCfRd",
-      redirectURI: `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/naverLogin`, //서버연결
+      redirectURI: `http://localhost:8082/itjobgo/member/naverLogin`, //서버연결
       naverLoginURL:
         "https://nid.naver.com/oauth2.0/authorize?response_type=code",
       state: Math.floor(Math.random() * 9999) + 1,
