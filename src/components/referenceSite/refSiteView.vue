@@ -35,7 +35,7 @@
           max-height="600px"
           max-width="600px"
           :src="
-            `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/ref/selectsiteImg${refListView.refNo}`
+            `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/ref/selectsiteImg${refListView.refNo}`
           "
         >
           <v-card-title></v-card-title>
@@ -160,7 +160,7 @@ export default {
 
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/ref/refStatus",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/ref/refStatus",
             formData
           )
 

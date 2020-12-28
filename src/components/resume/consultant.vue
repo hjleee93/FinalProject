@@ -158,7 +158,7 @@ export default {
       //console.log("originalFilename : "+originalFilename);
       //console.log("renamedFilename : "+renamedFilename);
       location.href =
-        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/consultFileDownload?oriName=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/consultFileDownload?oriName=" +
         originalFilename +
         "&reName=" +
         renamedFilename;
@@ -175,7 +175,7 @@ export default {
         //member Level '2'로 바꾸기
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/member/updateConsultant.do",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/updateConsultant",
             formData,
             {
               headers: {
@@ -193,7 +193,7 @@ export default {
         //consult에서  '2'로 바꾸기
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/updateConsultApproval.do",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateConsultApproval",
             formData,
             {
               headers: {
@@ -211,7 +211,7 @@ export default {
         //member Level '2'로 바꾸기
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/updateConsultApproval.do",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateConsultApproval",
             formData,
             {
               headers: {
@@ -246,7 +246,7 @@ export default {
 
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/updateConsultApproval.do",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateConsultApproval",
             formData,
             {
               headers: {

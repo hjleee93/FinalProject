@@ -152,7 +152,7 @@ export default {
 
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/ref/updateEnd",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/ref/updateEnd",
             formData,
             {
               headers: {

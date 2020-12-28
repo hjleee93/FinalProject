@@ -72,7 +72,7 @@
             <!-- 관리자 레벨인 경우 -->
             <template v-else>
               <div v-if="loginStatus" class="user">
-                <b-nav-item href="/adminPage">ADMIN PAGE</b-nav-item>
+                <b-nav-item to="/adminPage">ADMIN PAGE</b-nav-item>
               </div>
             </template>
             <div v-if="loginStatus" class="user">

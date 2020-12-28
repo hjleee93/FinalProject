@@ -17,7 +17,6 @@
             <div
               class="imagePreviewWrapper"
               :style="{ 'background-image': `url(${previewImage})` }"
-              @click="selectImage"
             ></div>
 
             <div class="filebox text-center">
@@ -68,11 +67,11 @@
         <li class="topList openState">
           <p class="title">승인 대기중인 참고사이트</p>
           <p class="count">
-            <template v-if="refCount == ''">
-              <a href="refSiteStatus">0</a>개
+            <template v-if="refCount == ' '">
+              <router-link to="refSiteStatus">0</router-link>개
             </template>
             <template v-else>
-              <a href="refSiteStatus">{{ refCount }}</a
+              <router-link to="refSiteStatus">{{ refCount }}</router-link
               >개
             </template>
           </p>
@@ -81,7 +80,7 @@
         <li class="topList last onlineCount">
           <p class="title">승인대기중인 컨설턴트</p>
           <p class="count">
-            <a href="/resume/consultant">{{ consultant }}</a
+            <router-link to="/resume/consultant">{{ consultant }}</router-link
             >명
           </p>
         </li>
@@ -375,19 +374,19 @@ export default {
       }
     },
     moveItDetail(value) {
-      this.$router.replace({
+      this.$router.push({
         name: "itNewsView",
         params: { id: value.newsSq },
       });
     },
     moveInfoDetail(value) {
-      this.$router.replace({ name: "InfoDetail", params: { id: value } });
+      this.$router.push({ name: "InfoDetail", params: { id: value } });
     },
     moveNoticeAll() {
-      this.$router.replace({ name: "NoticeList" });
+      this.$router.push({ name: "NoticeList" });
     },
     moveNotice(id) {
-      this.$router.replace({ name: "noticeList", params: { id: id } });
+      this.$router.push({ name: "noticeList", params: { id: id } });
     },
     //날짜표시
     formatDate(value) {

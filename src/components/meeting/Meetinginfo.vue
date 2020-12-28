@@ -230,7 +230,7 @@ export default {
       delform.append("collabSq", this.minfo.collabSq);
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/delapplymeeting.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/delapplymeeting",
           delform
         )
         .then((data) => {
@@ -249,7 +249,7 @@ export default {
       applyform.append("writerNo", this.minfo.memberSq);
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/applymeeting.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/applymeeting",
           applyform
         )
         .then((data) => {

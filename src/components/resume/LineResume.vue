@@ -240,7 +240,7 @@ export default {
 
     axios
       .get(
-        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/selectAttachment?resumeNo=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/selectAttachment?resumeNo=" +
           resumeNo,
         { responseType: "arraybuffer" }
       )

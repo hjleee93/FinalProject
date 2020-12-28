@@ -7,7 +7,7 @@ const config = {
 
 //2.API 함수들을 정리
 function fetchPboardList() {
-    return axios.get(`${config.Url}portfolio/portfolioList.do`, {
+    return axios.get(`${config.Url}portfolio/portfolioList`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -16,21 +16,21 @@ function fetchPboardList() {
     //return 해주는것이 핵심
 }
 function fetchPboardOne(pboardNo) {
-    return axios.get(`${config.Url}portfolio/pboardinfo${pboardNo}.do`, {
+    return axios.get(`${config.Url}portfolio/pboardinfo${pboardNo}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
     })
 }
 function fetchPboardDel(no) {
-    return axios.post(`${config.Url}portfolio/pboarddel${no}.do`, {
+    return axios.post(`${config.Url}portfolio/pboarddel${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
     })
 }
 function fetchPboardUp(no) {
-    return axios.get(`${config.Url}portfolio/pbaordupdate${no}.do`, {
+    return axios.get(`${config.Url}portfolio/pbaordupdate${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -38,21 +38,21 @@ function fetchPboardUp(no) {
 }
 //첨부파일내용가져오기
 function fetchAttachment(no) {
-    return axios.get(`${config.Url}portfolio/attachment${no}.do`, {
+    return axios.get(`${config.Url}portfolio/attachment${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
     })
 }
 function fetchcomment(no) {
-    return axios.get(`${config.Url}portfolio/commentList${no}.do`, {
+    return axios.get(`${config.Url}portfolio/commentList${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
     })
 }
 function fetchcommentdel(no) {
-    return axios.post(`${config.Url}portfolio/commentdel${no}.do`, {
+    return axios.post(`${config.Url}portfolio/commentdel${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -61,21 +61,21 @@ function fetchcommentdel(no) {
 
 //모임
 function fetchMeeting() {
-    return axios.get(`${config.Url}meeting/meetingList.do`, {
+    return axios.get(`${config.Url}meeting/meetingList`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
     });
 }
 function fetchmsublist() {
-    return axios.get(`${config.Url}meeting/meetingsubList.do`, {
+    return axios.get(`${config.Url}meeting/meetingsubList`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
     });
 }
 function fetchMeetinginfo(no) {
-    return axios.get(`${config.Url}meeting/meetinginfo${no}.do`, {
+    return axios.get(`${config.Url}meeting/meetinginfo${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -83,7 +83,7 @@ function fetchMeetinginfo(no) {
 }
 //모임 신청하기 버튼 처리
 function fetchMeetingapply(email) {
-    return axios.get(`${config.Url}meeting/meetingapply${email}.do`, {
+    return axios.get(`${config.Url}meeting/meetingapply${email}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -91,7 +91,7 @@ function fetchMeetingapply(email) {
 }
 //승인 버튼 눌렀을 경우 실행 로직
 function fetchApprove(no) {
-    return axios.get(`${config.Url}meeting/approve${no}.do`, {
+    return axios.get(`${config.Url}meeting/approve${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -99,7 +99,7 @@ function fetchApprove(no) {
 }
 //미승인 버튼 이벤트
 function fetchUnapprove(no) {
-    return axios.get(`${config.Url}meeting/unapprove${no}.do`, {
+    return axios.get(`${config.Url}meeting/unapprove${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -107,14 +107,14 @@ function fetchUnapprove(no) {
 }
 //신청한 모임 목록을 확인
 function fetchApproveList(no) {
-    return axios.get(`${config.Url}meeting/approvelist${no}.do`, {
+    return axios.get(`${config.Url}meeting/approvelist${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
     })
 }
 function fetchmklist(no) {
-    return axios.get(`${config.Url}meeting/mklist${no}.do`, {
+    return axios.get(`${config.Url}meeting/mklist${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -122,7 +122,7 @@ function fetchmklist(no) {
 }
 //해당모임을 삭제하는 로직
 function fetchmeetingdel(no) {
-    return axios.get(`${config.Url}meeting/meetingdel${no}.do`, {
+    return axios.get(`${config.Url}meeting/meetingdel${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -130,21 +130,21 @@ function fetchmeetingdel(no) {
 }
 //모임업데이트할때 사용하는 로직
 function fetchmtUpdate(no) {
-    return axios.get(`${config.Url}meeting/meetingupdate${no}.do`, {
+    return axios.get(`${config.Url}meeting/meetingupdate${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
     })
 }
 function fetchapprovecount(no) {
-    return axios.get(`${config.Url}meeting/meetingcount${no}.do`, {
+    return axios.get(`${config.Url}meeting/meetingcount${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
     })
 }
 function fetchentrant(no) {
-    return axios.get(`${config.Url}meeting/meetingenter${no}.do`, {
+    return axios.get(`${config.Url}meeting/meetingenter${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -152,7 +152,7 @@ function fetchentrant(no) {
 }
 //모임 waitList 가져오기
 function fetchWaitList(no) {
-    return axios.get(`${config.Url}meeting/waitList${no}.do`, {
+    return axios.get(`${config.Url}meeting/waitList${no}`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -160,7 +160,7 @@ function fetchWaitList(no) {
 }
 
 function fetchMeetingend() {
-    return axios.get(`${config.Url}meeting/meetingendList.do`, {
+    return axios.get(`${config.Url}meeting/meetingendList`, {
         headers: {
             'Access-Control-Allow-Origin': '*',
         }
@@ -345,54 +345,54 @@ function fetchInfoAttachment(infoSq) {
 //혜지
 //이력서 게시판 리스트
 function fetchRboardList() {
-    return axios.get(`${config.Url}resume/rboardList.do`)
+    return axios.get(`${config.Url}resume/rboardList`)
 }
 //이력서 불러오기
 function fetchResume(resumeNo) {
-    return axios.get(`${config.Url}resume/selectResume/${resumeNo}.do`)
+    return axios.get(`${config.Url}resume/selectResume/${resumeNo}`)
 }
 //이력서 리스트 불러오기
 function fetchResumeList(memberSq) {
-    return axios.get(`${config.Url}resume/resumeList/${memberSq}.do`)
+    return axios.get(`${config.Url}resume/resumeList/${memberSq}`)
 }
 //이력서 삭제하기
 function fetchResumeDelete(resumeNo) {
-    return axios.get(`${config.Url}resume/deleteResume/${resumeNo}.do`)
+    return axios.get(`${config.Url}resume/deleteResume/${resumeNo}`)
 }
 //이력서 게시판 상세화면
 function fetchRboardView(rboardNo) {
-    return axios.get(`${config.Url}resume/rboardView/${rboardNo}.do`)
+    return axios.get(`${config.Url}resume/rboardView/${rboardNo}`)
 }
 //이력서 게시판 상세화면(첨부파일)
 function fetchRboardAttachment(rboardNo) {
-    return axios.get(`${config.Url}resume/rboardAttachment/${rboardNo}.do`)
+    return axios.get(`${config.Url}resume/rboardAttachment/${rboardNo}`)
 }
 //이력서 게시판 상세화면(첨부파일)
 function fetchRboardDelete(rboardNo) {
-    return axios.get(`${config.Url}resume/deleteRboard/${rboardNo}.do`)
+    return axios.get(`${config.Url}resume/deleteRboard/${rboardNo}`)
 }
 //이력서 전문가 리스트
 function fetchConsultant() {
-    return axios.get(`${config.Url}resume/Consultant.do`)
+    return axios.get(`${config.Url}resume/Consultant`)
 }
 
 //나의 이력서 전문가 리스트
 function fetchConsultantOne(memberSq) {
-    return axios.get(`${config.Url}resume/ConsultantOne/${memberSq}.do`)
+    return axios.get(`${config.Url}resume/ConsultantOne/${memberSq}`)
 }
 //이력서 게시판 상세화면(첨부파일)
 function fetchConsultAttachment(consultNo) {
-    return axios.get(`${config.Url}resume/consultAttachment/${consultNo}.do`)
+    return axios.get(`${config.Url}resume/consultAttachment/${consultNo}`)
 }
 
 //이력서 게시판 댓글
 function fetchRboardComment(rboardNo) {
-    return axios.get(`${config.Url}resume/selectRboardComment/${rboardNo}.do`)
+    return axios.get(`${config.Url}resume/selectRboardComment/${rboardNo}`)
 }
 
 //이력서 게시판 댓글 삭제
 function fetchRboardCommentdel(rboardCommentNo) {
-    return axios.post(`${config.Url}resume/deleteRboardComment/${rboardCommentNo}.do`)
+    return axios.post(`${config.Url}resume/deleteRboardComment/${rboardCommentNo}`)
 }
 
 

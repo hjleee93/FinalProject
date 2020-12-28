@@ -145,12 +145,12 @@ export default {
         for (let key of formData.entries()) {
           console.log(`${key}`);
         }
-
+        console.log("폼 : " + JSON.stringify(formData));
         console.log(this.category);
 
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/qna/qnaBoardWrite",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/qna/qnaBoardWrite",
             formData,
             {
               headers: {

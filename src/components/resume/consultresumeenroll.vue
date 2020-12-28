@@ -101,7 +101,7 @@ export default {
       // }
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/rboardEnroll.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/rboardEnroll",
           formData,
           {
             headers: {

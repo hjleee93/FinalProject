@@ -16,7 +16,11 @@ ITJOBGO
 
 ## About The Project
 
-[Live Demo]() : 배포용 사이트로 연결됩니다.<br>
+\*사이트에 Vue-router가 사용되어 새로고침과 뒤로 가기에 문제가 있습니다.<br>
+한개의 아파치 서버를 공유해서 사용중이라 수정이 어렵기 때문에 그 점 감안해서 감사하겠습니다. <br>
+관리자 아이디가 필요하신 경우 hjleee93@gmail.com로 연락주시면 감사하겠습니다.
+
+[Live Demo](http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL) : 배포용 사이트로 연결됩니다.<br>
 [Database](https://www.erdcloud.com/d/bkmQdWDnMjBorEJts) : ERD클라우드로 연결됩니다.
 
 ## Built With
@@ -86,12 +90,17 @@ ITJOBGO
   - Reference · It뉴스 · 이력서 · 모임 CRUD 개발 중
 
 - 2020/12/17
+
   - 메인페이지 검색창 개발완료
   - It뉴스 · 이력서 · 모임 CRUD 개발 완료
   - 구글 로그인 개발중
   - 모든 페이지 CSS 수정 중
   - Reference · 컨설팅 등록 페이지 개발중
   - 네비게이션 가드 미적용 상태
+
+- 2020/12/28
+  - 로컬에서 프로젝트 개발 완료 후 배포
+  - 배포 오류 수정중
 
 ## Contributors
 
@@ -110,7 +119,7 @@ ITJOBGO
 
   - 이력서(이력서 등록 / 보기 / 수정 / 이력서 전문가 등록 및 보기)
 
-- [이현정](https://github.com/hjleee93)
+- [이현정](https://github.com/hjleee93)(팀장)
 
   - DB설계
   - 메인 페이지

@@ -357,7 +357,7 @@ export default {
 
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/updatecomment.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/updatecomment",
           {
             pcommentcontent: this.updatetext,
             pcommentNo: ccno,
@@ -391,7 +391,7 @@ export default {
       // }
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/comment.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/comment",
           formData2
         )
         .then((data) => {

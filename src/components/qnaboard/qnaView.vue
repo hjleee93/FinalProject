@@ -40,7 +40,7 @@
               max-height="700px"
               max-width="700px"
               :src="
-                `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/qna/selectImg${qnaboard2.qboardNo}`
+                `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/qna/selectImg${qnaboard2.qboardNo}`
               "
             >
               <v-card-title></v-card-title>
@@ -318,7 +318,7 @@ export default {
         // }
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/qna/qnacomment",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/qna/qnacomment",
             formData2
           )
           .then((data) => {
@@ -340,7 +340,7 @@ export default {
     //첨부파일 다운로드
     qbattachmentdown(attachment) {
       location.href =
-        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/qna/qnafiledownload?oriName=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/qna/qnafiledownload?oriName=" +
         attachment.originalfilename +
         "&reName=" +
         attachment.renamedfilename;
@@ -396,7 +396,7 @@ export default {
           e.target.parentElement.parentElement.children[0].children[0].value;
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/qna/updateComment",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/qna/updateComment",
           { qbCommentContent: this.updatetext, qboardCommentNo: qqno }
         )
         .then((data) => {

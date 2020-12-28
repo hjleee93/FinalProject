@@ -731,7 +731,7 @@ export default {
       if (
         !this.rname ||
         !this.rname ||
-        this.remail ||
+        !this.remail ||
         !this.engName ||
         !this.birth ||
         !this.gender ||
@@ -748,7 +748,7 @@ export default {
       if (
         !this.school1 ||
         !this.school2 ||
-        this.schoolName1 ||
+        !this.schoolName1 ||
         !this.schoolName2 ||
         !this.schoolStartDate1 ||
         !this.schoolStartDate2 ||
@@ -765,7 +765,7 @@ export default {
       if (
         !this.workStartDate ||
         !this.workFinishDate ||
-        this.workName ||
+        !this.workName ||
         !this.workLevel ||
         !this.workState ||
         !this.workDetail
@@ -780,7 +780,7 @@ export default {
       if (
         !this.languageName ||
         !this.languageLevel ||
-        this.languageTest ||
+        !this.languageTest ||
         !this.languageScore ||
         !this.languageDate
       ) {
@@ -790,7 +790,7 @@ export default {
       if (
         !this.activity ||
         !this.activityStartDate ||
-        this.activityFinishDate ||
+        !this.activityFinishDate ||
         !this.activityAgency ||
         !this.activityWork ||
         !this.activityDetail
@@ -801,7 +801,7 @@ export default {
       if (
         !this.projectPart ||
         !this.projectStartDate ||
-        this.projectFinishDate ||
+        !this.projectFinishDate ||
         !this.projectName ||
         !this.projectWork ||
         !this.projectDetail
@@ -812,7 +812,7 @@ export default {
       if (
         !this.abroad ||
         !this.abroadStartDate ||
-        this.abroadFinishDate ||
+        !this.abroadFinishDate ||
         !this.abroadCountury ||
         !this.abroadAgency ||
         !this.abroadDetail
@@ -909,7 +909,7 @@ export default {
 
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/insertResume.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/insertResume",
           formData,
           {
             headers: {

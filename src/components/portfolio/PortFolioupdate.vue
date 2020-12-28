@@ -115,7 +115,7 @@ export default {
       }
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/portfolioupdataend.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/portfolioupdataend",
           formData,
           {
             headers: {

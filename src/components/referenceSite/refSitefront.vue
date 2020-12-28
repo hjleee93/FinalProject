@@ -48,7 +48,7 @@
                 height="200px"
                 width="350px"
                 :src="
-                  `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/ref/selectsiteImg${ref.refNo}`
+                  `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/ref/selectsiteImg${ref.refNo}`
                 "
               >
                 <!-- 수정필요(조회수) {{ref.refReadCount}} -->

@@ -915,16 +915,13 @@ export default {
       //지역 value 값 파싱
       let regionStr = String(Object.values(this.selectedArea));
       if (regionStr.includes(",") != false) {
-        regionStr = String(Object.values(this.selectedArea)).replace(
-          /,/gi,
-          "|"
-        );
+        regionStr = String(Object.values(this.selectedArea)).push(/,/gi, "|");
       }
 
       //직종 value 파싱
       let jobStr = String(Object.values(this.selectedJob));
       if (jobStr.includes(",") != false) {
-        jobStr = String(Object.values(this.selectedJob)).replace(/,/gi, "|");
+        jobStr = String(Object.values(this.selectedJob)).push(/,/gi, "|");
       }
       const formData = {
         occupation: jobStr,
