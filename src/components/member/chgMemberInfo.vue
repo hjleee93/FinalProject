@@ -197,7 +197,7 @@ export default {
               text: "회원정보가 변경되었습니다.",
               icon: "success",
             });
-            setTimeout(() => this.$router.push({ path: "/myPage" }), 2000);
+            setTimeout(() => this.$router.replace({ path: "/myPage" }), 2000);
             //마이페이지로 이동
           } else if (res.data == -1) {
             //비밀번호 틀린경우

@@ -2,7 +2,7 @@
   <div>
     <div class="header_image" v-if="this.$route.name == 'home'">
       <div>
-        <a href="/"
+        <a href="/20AM_ITJOBGO_BOOT_FINAL"
           ><img
             class="main-img"
             src="../../assets/images/main.png"
@@ -72,7 +72,7 @@
             <!-- 관리자 레벨인 경우 -->
             <template v-else>
               <div v-if="loginStatus" class="user">
-                <b-nav-item href="/adminPage">ADMIN PAGE</b-nav-item>
+                <b-nav-item to="/adminPage">ADMIN PAGE</b-nav-item>
               </div>
             </template>
             <div v-if="loginStatus" class="user">
@@ -102,7 +102,7 @@ export default {
     moveMyPage: function(e) {
       //중복 라우터 방지
       if (this.$route.path != "/myPage/" + e) {
-        this.$router.push({ name: "myPage", params: { memberSq: e } });
+        this.$router.replace({ name: "myPage", params: { memberSq: e } });
       }
     },
     ...mapActions(["logout"]),

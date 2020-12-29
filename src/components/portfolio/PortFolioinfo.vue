@@ -19,37 +19,11 @@
               ></b-row
             >
 
-<<<<<<< HEAD
-        <b-row>
-          
-         
-          <b-col><h3 style="text-align:left;">{{pboardone.pboardTitle}}</h3> </b-col>
-        </b-row>
-         
-          <b-row>
-          <b-col cols="12" style="text-align:left;"><p class="content">{{pboardone.pboardContent}}</p></b-col>
-         
-        </b-row>
-        <b-row v-if="attachment">
-          
-          <b-col cols="4" class="filedown" @click="attachmentdown(attachment)"><b-icon icon="file-earmark-arrow-down-fill"></b-icon>{{attachment.originalFilename}}</b-col>
-        </b-row>
-         <b-row>
-          <b-col style="text-align: right;" >작성자:<span class="h6 mb-2">{{pboardone.pboardWriter}}</span></b-col>
-          <b-col cols="2"><b-button  align-self="end" to="/portfolioList"><b-icon icon="chevron-left"></b-icon> </b-button></b-col>
-        </b-row>
-          
-          <b-row v-if="userData.memberSq===pboardone.pboardId" align-h="around"><b-col>
-          <b-button class="ubtn" @click="update" v-if="userData.memberSq===pboardone.pboardId">수정</b-button></b-col>
-          <b-col><b-button @click="pdelete"  v-if="userData.memberSq===pboardone.pboardId||userData.memberEmail === 'admin@kh.com'" >삭제</b-button>
-        </b-col></b-row></b-card></b-col>
-=======
             <b-row>
               <b-col
                 ><h3 style="text-align:left;">{{ pboardone.pboardTitle }}</h3>
               </b-col>
             </b-row>
->>>>>>> 86b3654aacd44ddac0723c484b4caa75a46563a0
 
             <b-row>
               <b-col cols="12" style="text-align:left;"
@@ -350,7 +324,7 @@ export default {
       //수정버튼 눌렸을때 처리하는 로직
       //새로운 수정 컴포넌트로 이동
       let no = this.$route.params.id;
-      this.$router.push({ name: "Portup", params: { id: no } });
+      this.$router.replace({ name: "Portup", params: { id: no } });
     },
     pdelete() {
       this.showModal = !this.showModal;
@@ -372,7 +346,7 @@ export default {
     ydele() {
       let no = this.$route.params.id;
       this.$store.dispatch("FETCH_PBOARDDEL", no);
-      this.$router.push({ name: "portlist" });
+      this.$router.replace({ name: "portlist" });
     },
     upendclick(commentno) {
       const ccno = commentno;
@@ -383,7 +357,7 @@ export default {
 
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/updatecomment.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/updatecomment",
           {
             pcommentcontent: this.updatetext,
             pcommentNo: ccno,
@@ -417,7 +391,7 @@ export default {
       // }
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/comment.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/comment",
           formData2
         )
         .then((data) => {
@@ -503,12 +477,4 @@ export default {
   text-align: start;
   padding-left: 10%;
 }
-<<<<<<< HEAD
-.ubtn{
-  background-color:  #424874;
-}
-
 </style>
-=======
-</style>
->>>>>>> 86b3654aacd44ddac0723c484b4caa75a46563a0

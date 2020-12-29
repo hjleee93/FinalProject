@@ -252,7 +252,7 @@ export default {
     updateConsult() {
       let no = this.$route.params.id;
       //console.log("수정버튼(params) :"+ no);
-      this.$router.push({ name: "updateConsult", params: { id: no } });
+      this.$router.replace({ name: "updateConsult", params: { id: no } });
     },
 
     // 삭제버튼~
@@ -264,7 +264,7 @@ export default {
       let rboardNo = this.$route.params.id;
       this.$store.dispatch("FETCH_RBOARD_DELETE", rboardNo);
       //삭제 후 페이지 이동
-      this.$router.push({ name: "consultresume" });
+      this.$router.replace({ name: "consultresume" });
     },
     noDeleteConsult() {
       //(삭제NO)
@@ -283,7 +283,7 @@ export default {
       // }
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/insertRboardComment",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/insertRboardComment",
           formData2
         )
         .then((data) => {
@@ -302,7 +302,7 @@ export default {
     //첨부파일 다운로드
     rboardAttachmentDown(rboardAttachment) {
       location.href =
-        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/rboardFileDownload?oriName=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/rboardFileDownload?oriName=" +
         rboardAttachment.originalFilename +
         "&reName=" +
         rboardAttachment.renamedFilename;
@@ -354,7 +354,7 @@ export default {
           e.target.parentElement.parentElement.children[0].children[0].value;
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/updateRboardComment",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateRboardComment",
           { rboardCommentContent: this.updatetext, rboardCommentno: rbno }
         )
         .then((data) => {

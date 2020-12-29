@@ -99,7 +99,7 @@ export default {
               timer: 5000, //timeOut for auto-close
             });
           } else {
-            self.$router.push({
+            self.$router.replace({
               name: "foundEmail",
               params: { email: this.info.memberEmail },
             }); //전화번호 찾음 -> 페이지 이동

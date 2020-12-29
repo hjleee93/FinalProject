@@ -121,7 +121,7 @@ export default {
           .then((data) => console.log(data))
           .catch((error) => console.log(error));
         console.log(formData);
-        this.$router.push({ name: "NoticeList" });
+        this.$router.replace({ name: "NoticeList" });
       }, 1000);
     },
 

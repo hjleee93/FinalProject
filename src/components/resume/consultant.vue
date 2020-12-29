@@ -148,7 +148,7 @@ export default {
     //   this.selected=index
     // },
     //   handleClick(value){
-    //     this.$router.push({name:'resume',params:{id:value}})
+    //     this.$router.replace({name:'resume',params:{id:value}})
     //     console.log(value)
     //   },
     download(consultNo, originalFilename, renamedFilename) {
@@ -158,7 +158,7 @@ export default {
       //console.log("originalFilename : "+originalFilename);
       //console.log("renamedFilename : "+renamedFilename);
       location.href =
-        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/consultFileDownload?oriName=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/consultFileDownload?oriName=" +
         originalFilename +
         "&reName=" +
         renamedFilename;
@@ -175,7 +175,7 @@ export default {
         //member Level '2'로 바꾸기
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/member/updateConsultant.do",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/updateConsultant",
             formData,
             {
               headers: {
@@ -185,15 +185,15 @@ export default {
           )
           .then((res) => {
             console.log(res.data);
-            // setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
-            // this.$route.push({name:'consultresume'})
+            // setTimeout( () => this.$router.replace({ path: '/resume/consultresume'}), 2000);
+            // this.$route.replace({name:'consultresume'})
           })
           .catch((error) => console.log(error));
 
         //consult에서  '2'로 바꾸기
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/updateConsultApproval.do",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateConsultApproval",
             formData,
             {
               headers: {
@@ -203,15 +203,15 @@ export default {
           )
           .then((res) => {
             console.log(res.data);
-            // setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
-            // this.$route.push({name:'consultresume'})
+            // setTimeout( () => this.$router.replace({ path: '/resume/consultresume'}), 2000);
+            // this.$route.replace({name:'consultresume'})
           })
           .catch((error) => console.log(error));
 
         //member Level '2'로 바꾸기
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/updateConsultApproval.do",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateConsultApproval",
             formData,
             {
               headers: {
@@ -222,7 +222,7 @@ export default {
           .then((res) => {
             console.log(res.data);
             //setTimeout( () => this.$router.dispatch({ path: '/resume/consultresume'}), 2000);
-            this.$route.push({ name: "consultresume" });
+            this.$route.replace({ name: "consultresume" });
           })
           .catch((error) => console.log(error));
 
@@ -246,7 +246,7 @@ export default {
 
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/updateConsultApproval.do",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateConsultApproval",
             formData,
             {
               headers: {
@@ -256,8 +256,8 @@ export default {
           )
           .then((res) => {
             console.log(res.data);
-            // setTimeout( () => this.$router.push({ path: '/resume/consultresume'}), 2000);
-            // this.$route.push({name:'consultresume'})
+            // setTimeout( () => this.$router.replace({ path: '/resume/consultresume'}), 2000);
+            // this.$route.replace({name:'consultresume'})
           })
           .catch((error) => console.log(error));
 

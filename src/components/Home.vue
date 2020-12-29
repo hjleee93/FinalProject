@@ -6,6 +6,7 @@
       >
         <!-- serach 바 -->
         <SearchBar />
+
         <!-- 메인 -->
         <div class="col-4 pl-0">
           <!-- it소식 -->
@@ -301,12 +302,15 @@ export default {
   methods: {
     //it소식 이동
     cardclick(value) {
-      this.$router.push({ name: "itNewsView", params: { id: value.newsSq } });
+      this.$router.replace({
+        name: "itNewsView",
+        params: { id: value.newsSq },
+      });
     },
     moveMyPage: function(e) {
       //중복 라우터 방지
       if (this.$route.path != "/myPage/" + e) {
-        this.$router.push({ name: "myPage", params: { memberSq: e } });
+        this.$router.replace({ name: "myPage", params: { memberSq: e } });
       }
     },
   },
@@ -443,7 +447,6 @@ export default {
 }
 .info-card {
   border: 1px solid #ededed;
-  height: 130px;
   border-radius: 0px !important;
 }
 .card-title {

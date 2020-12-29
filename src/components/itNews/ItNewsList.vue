@@ -109,7 +109,10 @@ export default {
   },
   methods: {
     cardclick(value) {
-      this.$router.push({ name: "itNewsView", params: { id: value.newsSq } });
+      this.$router.replace({
+        name: "itNewsView",
+        params: { id: value.newsSq },
+      });
     },
     //링크 새로 열기
     openWindow: function(link) {

@@ -42,7 +42,7 @@
               id="files"
               ref="upfiles"
               v-on:change="handleFile"
-              :placeholder="rboardAttachment.originalFilename"
+              v-model="rboardAttachment.originalFilename"
             ></b-form-file>
 
             <b-form-group
@@ -121,7 +121,7 @@ export default {
       // }
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/resume/updateRboard.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateRboard",
           formData,
           {
             headers: {
@@ -132,10 +132,10 @@ export default {
         .then((res) => {
           console.log(res.data);
           setTimeout(
-            () => this.$router.push({ path: "/resume/consultresume" }),
+            () => this.$router.replace({ path: "/resume/consultresume" }),
             2000
           );
-          //this.$route.push({name:'consultresume'})
+          //this.$route.replace({name:'consultresume'})
         })
         .catch((error) => console.log(error));
 

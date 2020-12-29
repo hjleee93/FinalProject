@@ -46,7 +46,7 @@
                 height="200px"
                 width="350px"
                 :src="
-                  `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/ref/selectsiteImg${ref.refNo}`
+                  `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/ref/selectsiteImg${ref.refNo}`
                 "
               >
                 <!-- 수정필요(조회수) {{ref.refReadCount}} -->
@@ -127,7 +127,10 @@ export default {
   //메소드
   methods: {
     cardclick(value) {
-      this.$router.push({ name: "refSiteView", params: { id: value.refNo } });
+      this.$router.replace({
+        name: "refSiteView",
+        params: { id: value.refNo },
+      });
     },
 
     pdelete() {
@@ -139,7 +142,7 @@ export default {
       let no = this.$route.params.id;
       console.log(no);
       this.$store.dispatch("FETCH_REF_DELETE", no);
-      //this.$router.push({name:'refSite'})
+      //this.$router.replace({name:'refSite'})
       //this.$router.go(this.$router.currentRoute);
     },
 

@@ -165,7 +165,7 @@
                     ><b-form-file
                       ref="fileInput"
                       id="uploadPhoto"
-                      v-model="resumePhoto"
+                      v-model="files"
                       style="display:none"
                       @input="pickFile"
                       v-on:change="handleFile"
@@ -1136,7 +1136,7 @@ export default {
 
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateResume.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/resume/updateResume",
           formData,
           {
             headers: {
@@ -1147,20 +1147,15 @@ export default {
         .then((res) => {
           console.log(res.data);
           setTimeout(
-            () => this.$router.push({ path: "/resume/resumeList" }),
+            () => this.$router.replace({ path: "/resume/resumeList" }),
             2000
           );
         })
         .catch((error) => console.log(error));
     },
 
-    // handleFile(){
-    //         this.files=this.$refs.upfiles.$refs.input.files[0];
-    //         console.log(this.files);
-    //     },
     handleFile() {
       this.files = this.$refs.fileInput.$refs.input.files[0];
-      //console.log(this.files);
     },
 
     selectImage() {

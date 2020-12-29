@@ -45,7 +45,7 @@ export default {
                 "memberStore/getMemberInfo",
                 response.kakao_account.email
               );
-              self.$router.push("/"); //회원가입 후 경로 설정
+              self.$router.replace("/"); //회원가입 후 경로 설정
             }
           })
           .catch((error) => {});

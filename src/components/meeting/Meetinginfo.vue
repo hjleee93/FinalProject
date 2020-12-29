@@ -81,7 +81,6 @@
         <b-row
           ><b-col>개설자이메일:{{ minfo.collabEmail }}</b-col></b-row
         >
-
       </b-card>
       <b-card v-if="usercheck == false">
         <b-row><b-col>개설자정보</b-col></b-row>
@@ -230,7 +229,7 @@ export default {
       delform.append("collabSq", this.minfo.collabSq);
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/delapplymeeting.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/delapplymeeting",
           delform
         )
         .then((data) => {
@@ -241,6 +240,7 @@ export default {
           }
         });
     },
+
     
 
       
@@ -284,9 +284,9 @@ export default {
         console.log(error))
       }
 
-
      
   
+
 
   },
   created() {

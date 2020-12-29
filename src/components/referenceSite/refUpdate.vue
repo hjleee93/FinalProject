@@ -152,7 +152,7 @@ export default {
 
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/ref/updateEnd",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/ref/updateEnd",
             formData,
             {
               headers: {
@@ -164,7 +164,7 @@ export default {
           .catch((error) => console.log(error));
         console.log(formData);
         //수정 후 게시판 리스트로 이동
-        this.$router.push({ name: "refSite" });
+        this.$router.replace({ name: "refSite" });
       }, 1000);
     },
 

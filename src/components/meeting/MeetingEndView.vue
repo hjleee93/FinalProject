@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     cardclick(value) {
-      this.$router.push({
+      this.$router.replace({
         name: "meetinginfo",
         params: { id: value.collabSq },
       });

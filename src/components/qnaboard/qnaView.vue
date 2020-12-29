@@ -40,7 +40,7 @@
               max-height="700px"
               max-width="700px"
               :src="
-                `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/qna/selectImg${qnaboard2.qboardNo}`
+                `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/qna/selectImg${qnaboard2.qboardNo}`
               "
             >
               <v-card-title></v-card-title>
@@ -285,7 +285,7 @@ export default {
       let no = this.$route.params.id;
       console.log("수정버튼(params) :" + no);
       // console.log("글번호 :  : " + communityBoardNo)
-      this.$router.push({ name: "qnaModify", params: { id: no } });
+      this.$router.replace({ name: "qnaModify", params: { id: no } });
     },
 
     // 삭제버튼~
@@ -297,7 +297,7 @@ export default {
       let no = this.$route.params.id;
       this.$store.dispatch("FETCH_QNABOARD_DELETE", no);
       //삭제 후 페이지 이동
-      this.$router.push({ name: "qnaBoard" });
+      this.$router.replace({ name: "qnaBoard" });
     },
     noDeleteqna() {
       //(삭제NO)
@@ -318,7 +318,7 @@ export default {
         // }
         axios
           .post(
-            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/qna/qnacomment",
+            "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/qna/qnacomment",
             formData2
           )
           .then((data) => {
@@ -340,7 +340,7 @@ export default {
     //첨부파일 다운로드
     qbattachmentdown(attachment) {
       location.href =
-        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/qna/qnafiledownload?oriName=" +
+        "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/qna/qnafiledownload?oriName=" +
         attachment.originalfilename +
         "&reName=" +
         attachment.renamedfilename;
@@ -396,7 +396,7 @@ export default {
           e.target.parentElement.parentElement.children[0].children[0].value;
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/itjobgo/qna/updateComment",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/qna/updateComment",
           { qbCommentContent: this.updatetext, qboardCommentNo: qqno }
         )
         .then((data) => {

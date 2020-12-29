@@ -115,7 +115,7 @@ export default {
       }
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/portfolioupdataend.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/portfolioupdataend",
           formData,
           {
             headers: {
@@ -124,7 +124,7 @@ export default {
           }
         )
         .then(() => {
-          this.$router.push("/portfolioList").catch(() => {});
+          this.$router.replace("/portfolioList").catch(() => {});
         })
         .catch((error) => console.log(error));
     },
@@ -134,7 +134,7 @@ export default {
       console.log(this.files);
     },
     back() {
-      this.$router.push({ name: "portlist" });
+      this.$router.replace({ name: "portlist" });
     },
   },
 };

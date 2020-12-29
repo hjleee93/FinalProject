@@ -137,7 +137,7 @@ export default {
         .then((res) => {
           if (res.data > 0) {
             alert("비밀번호가 변경되었습니다.");
-            self.$router.push("/login");
+            self.$router.replace("/login");
           } else {
             this.$swal({
               text:

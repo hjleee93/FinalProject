@@ -51,13 +51,17 @@
                   {{ new Date(props.item.mdate).toLocaleDateString() }}
                 </td>
                 <td class="text-xs-right">
-                  <b-button class="upbtn " @click="update(props.item)">수정</b-button
-                  ><b-button class="debtn" @click="deltemet(props.item, props.index)"
+                  <b-button class="upbtn " @click="update(props.item)"
+                    >수정</b-button
+                  ><b-button
+                    class="debtn"
+                    @click="deltemet(props.item, props.index)"
                     >삭제</b-button
                   >
                 </td>
                 <td class="text-xs-right">
-                  <b-button class="list"
+                  <b-button
+                    class="list"
                     v-b-toggle.sidebar-backdrop
                     @click="applylist(props.item.collabSq)"
                     >참가자현황</b-button
@@ -135,7 +139,7 @@ export default {
       });
     },
     movemeeting(item) {
-      this.$router.push({ name: "meetinginfo", params: { id: item } });
+      this.$router.replace({ name: "meetinginfo", params: { id: item } });
     },
     deltemet(item, index) {
       let check = confirm("정말삭제하시겠습니까?");
@@ -150,7 +154,7 @@ export default {
       let update = confirm("수정하시겠습니까?");
       if (update == true) {
         const uno = item.collabSq;
-        this.$router.push({ name: "meetingupdate", params: { id: uno } });
+        this.$router.replace({ name: "meetingupdate", params: { id: uno } });
       }
     },
   },
@@ -210,11 +214,11 @@ export default {
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
 }
-.upbtn{
+.upbtn {
   background-color: #424874;
-   margin-right: 10px;
+  margin-right: 10px;
 }
-.list{
+.list {
   background-color: #b0bec5;
 }
 </style>

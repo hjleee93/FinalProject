@@ -161,7 +161,7 @@ export default {
         .then((data) => console.log(data))
         .catch((error) => console.log(error));
       console.log(formData);
-      this.$router.push({ name: "InfoList" });
+      this.$router.replace({ name: "InfoList" });
     },
     handleFile() {
       console.log(this.$refs.upfiles.$refs.input.files[0]);

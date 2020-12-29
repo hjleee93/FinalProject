@@ -104,7 +104,7 @@ export default {
     reset() {
       let check = confirm("작성된 글은 저장되지 않습니다. 돌아가시겠습니까?");
       if (check == true) {
-        this.$router.push({ name: "portlist" });
+        this.$router.replace({ name: "portlist" });
       } else return;
     },
     test() {
@@ -123,7 +123,7 @@ export default {
       }
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/portfolioenroll.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/portfolio/portfolioenroll",
           formData,
           {
             headers: {
@@ -131,7 +131,7 @@ export default {
             },
           }
         )
-        .then(() => this.$router.push({ name: "portlist" }))
+        .then(() => this.$router.replace({ name: "portlist" }))
         .catch((error) => console.log(error));
 
       console.log(formData);
@@ -141,47 +141,8 @@ export default {
       this.files = this.$refs.upfiles.$refs.input.files[0];
       console.log(this.files);
     },
-<<<<<<< HEAD
-    methods: {
-      reset(){
-        let check=confirm("작성된 글은 저장되지 않습니다. 돌아가시겠습니까?")
-        if(check==true){
-          this.$router.push({name:'portlist'})
-        }else return
-      },
-      test(){
-        let formData=new FormData();
-        formData.append('pboardWriter',this.userData.memberName);
-        formData.append('pboardTitle',this.pboardTitle);
-        formData.append('memberSq',this.userData.memberSq)
-        formData.append('pboardContent',this.pboardContent.replace(/(<([^>]+)>)/ig,""));
-        formData.append('pboardDivision',this.category)
-        formData.append('file',this.files);
-      axios.post("http://localhost:8082/itjobgo/portfolio/portfolioenroll.do",formData
-       ,{ headers:{
-          'Content-Type':'multipart/form-data'
-        }}).then(()=>this.$router.push({name:'portlist'})
-          )
-        .catch((error)=>
-        console.log(error))
-
-      
-        console.log(formData);
-
-      },
-      handleFile(){
-        console.log(this.$refs.upfiles.$refs.input.files[0]);
-        this.files=this.$refs.upfiles.$refs.input.files[0];
-        console.log(this.files);
-      },
-      
-     
-    }
-}
-=======
   },
 };
->>>>>>> 86b3654aacd44ddac0723c484b4caa75a46563a0
 </script>
 
 <style scoped>

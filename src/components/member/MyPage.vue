@@ -678,19 +678,19 @@ export default {
   },
   methods: {
     moveResume(id) {
-      this.$router.push({ name: "resume", params: { id: id } });
+      this.$router.replace({ name: "resume", params: { id: id } });
     },
     moveCommu(id) {
-      this.$router.push({ name: "CommunityBoardView", params: { id: id } });
+      this.$router.replace({ name: "CommunityBoardView", params: { id: id } });
     },
     moveJobDtl(jobNo) {
-      this.$router.push({ name: "jobInfoDtl", params: { wantedNo: jobNo } });
+      this.$router.replace({ name: "jobInfoDtl", params: { wantedNo: jobNo } });
     },
     moveQna(id) {
-      this.$router.push({ name: "qnaView", params: { id: id } });
+      this.$router.replace({ name: "qnaView", params: { id: id } });
     },
     movePortf(id) {
-      this.$router.push({ name: "Portinfo", params: { id: id } });
+      this.$router.replace({ name: "Portinfo", params: { id: id } });
     },
     //날짜표시
     formatDate(value) {

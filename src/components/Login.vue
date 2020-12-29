@@ -122,9 +122,9 @@ export default {
   data() {
     return {
       kakao_client_id: "e1e8126c8b7e3af4fd185b1774cddd2c",
-      redirect_uri: "http://localhost:8081/loginCallback",
+      redirect_uri: "http://localhost:8081/loginCallback", //카카오
       CLIENT_ID: "aYgNgGmIwR3wysmlCfRd",
-      redirectURI: `http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/member/naverLogin`, //서버연결
+      redirectURI: `http://localhost:8082/itjobgo/member/naverLogin`, //서버연결
       naverLoginURL:
         "https://nid.naver.com/oauth2.0/authorize?response_type=code",
       state: Math.floor(Math.random() * 9999) + 1,
@@ -182,7 +182,7 @@ export default {
                 "memberStore/getMemberInfo",
                 formData.memberEmail
               );
-              self.$router.push("/"); //회원가입 후 경로 설정
+              self.$router.replace("/"); //회원가입 후 경로 설정
             } else {
               alert("회원등록에 실패했습니다. 관리자에게 문의해주세요.");
             }

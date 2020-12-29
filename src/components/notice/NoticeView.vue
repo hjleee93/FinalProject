@@ -206,7 +206,7 @@ export default {
       //수정버튼 눌렸을때 처리하는 로직
       //새로운 수정 컴포넌트로 이동
       let no = this.$route.params.id;
-      this.$router.push({ name: "NoticeUpdate", params: { id: no } });
+      this.$router.replace({ name: "NoticeUpdate", params: { id: no } });
     },
     pdelete() {
       this.showModal = !this.showModal;
@@ -215,7 +215,7 @@ export default {
     ydele() {
       let no = this.$route.params.id;
       this.$store.dispatch("FETCH_NOTICE_DELETE", no);
-      this.$router.push({ name: "NoticeList" });
+      this.$router.replace({ name: "NoticeList" });
     },
 
     //게시판 삭제 모달 취소

@@ -394,7 +394,7 @@ export default {
       }
       axios
         .post(
-          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/updatemeeting.do",
+          "http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL/meeting/updatemeeting",
           formData,
           {
             headers: {
@@ -403,7 +403,7 @@ export default {
           }
         )
         .then(() =>
-          this.$router.push({
+          this.$router.replace({
             name: "mkmeeting",
             params: { memberSq: this.userData.memberSq },
           })

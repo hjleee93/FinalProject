@@ -41,27 +41,25 @@ const memberStore = {
                 .then(res => {
                     let token = res.data.token;
 
-
                     if (token === undefined) {//로그인 실패 토큰값 없는 경우
                         Vue.swal({ text: "이메일, 비밀번호를 다시 확인해주세요" })
-
                         commit('loginFalse')
 
 
                     } else {//토큰값 있음
 
                         if (loginData.rememberMe == false) {//rememberMe false인경우
-                            //1. 데이터 없어지는 거 확인함
+                            //소셜로그인, 일반로그인 세션스토리지
                             sessionStorage.setItem("memberEmail", loginData.memberEmail)
                             sessionStorage.setItem("access_token", token);
 
                         } else {
-                            //1. 유지되는거 확인함 
+                            //remember me: 로컬 스토리지 
                             localStorage.setItem("memberEmail", loginData.memberEmail)
                             localStorage.setItem("access_token", token)//토큰 로컬스토리지에 저장
                         }
                         dispatch("getMemberInfo", loginData)//여기로 넘어가서 commit('loginSuccess')실행함
-                        router.push('/');//메인페이지로 이동
+                        router.replace('/');//메인페이지로 이동
                     }
 
                 })
@@ -96,7 +94,7 @@ const memberStore = {
                         sessionStorage.clear();
                         localStorage.clear();
                         commit('loginFalse');
-                        router.push('/');//탈퇴 후 경로
+                        router.replace('/');//탈퇴 후 경로
                     } else if (res.data == -1) {//비밀번호 틀린경우 
 
                         Vue.swal({

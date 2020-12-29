@@ -140,7 +140,7 @@ export default {
           .then((data) => console.log(data))
           .catch((error) => console.log(error));
         console.log(formData);
-        this.$router.push({ name: "CommunityBoardList" });
+        this.$router.replace({ name: "CommunityBoardList" });
       }, 1000);
     },
 
