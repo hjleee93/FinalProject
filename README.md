@@ -18,9 +18,9 @@ ITJOBGO
 
 \*사이트에 Vue-router가 사용되어 새로고침과 뒤로 가기에 문제가 있습니다.<br>
 한개의 아파치 서버를 공유해서 사용중이라 수정이 어렵기 때문에 그 점 감안해서 감사하겠습니다. <br>
-관리자 아이디가 필요하신 경우 hjleee93@gmail.com로 연락주시면 감사하겠습니다.
+테스트용 관리자 아이디 : admin@kh.com / qwe123QWE!@#
+일반회원 아이디 : 1234@gmail.com / qwe123QWE!@#
 
-<iframe width="1000" height="750" src="https://www.youtube.com/embed/DtGKJRLKNZc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [Live Demo](http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL) : 배포용 사이트로 연결됩니다.<br>
 [Database](https://www.erdcloud.com/d/bkmQdWDnMjBorEJts) : ERD클라우드로 연결됩니다.
