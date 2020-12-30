@@ -20,8 +20,7 @@ ITJOBGO
 한개의 아파치 서버를 공유해서 사용중이라 수정이 어렵기 때문에 그 점 감안해서 감사하겠습니다. <br>
 관리자 아이디가 필요하신 경우 hjleee93@gmail.com로 연락주시면 감사하겠습니다.
 
-<iframe width="640" height="360" src="https://youtu.be/DtGKJRLKNZc" frameborder="0" gesture="media" allowfullscreen=""></iframe>
-<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/DtGKJRLKNZc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [Live Demo](http://rclass.iptime.org:9999/20AM_ITJOBGO_BOOT_FINAL) : 배포용 사이트로 연결됩니다.<br>
 [Database](https://www.erdcloud.com/d/bkmQdWDnMjBorEJts) : ERD클라우드로 연결됩니다.
